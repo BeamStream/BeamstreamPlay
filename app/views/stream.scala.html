@@ -7,7 +7,12 @@
 <link rel="stylesheet"
 	href="/beamstream-new/css/extracss/embedly-preview.css" type="text/css" />
 
+
 <link rel="stylesheet" 	href="/beamstream-new/css/extracss/embedly-preview.css" type="text/css" />
+
+
+<!-- question feed stylesheet -->
+<link rel="stylesheet" href="/assets/stylesheets/questionStreamStyle.css" type="text/css" />
 
 
 <!--  prettyPhoto -->
@@ -198,6 +203,8 @@ if (window.focus) {newwindow.focus()}
 @header = { @views.html.header.render } 
 @footer = { @views.html.footer.render }
 
+
+
 <style type="text/css">
 #innerSubList {
 	position: absolute;
@@ -216,7 +223,7 @@ ul li#showSubList:hover ul {
 @main("My Stream", "Body", meta, CSS, JS, bodyModule, bodyJS, sideBar,
 header, footer){
 
-
+<div id="questionStreamView"></div>
 
 <div id="MyStream" data-module="view/myStreamView">
 	<div class="right-container">

@@ -84,7 +84,7 @@ define(['baseView',
 		        	var template = '<li> <a href="#">'
 						        	+'<img width="30" height="28" src="'+profileImageUrl+'">'
 						        	+'<span>'+model.firstName+'</span> <span class="offline-chat">'
-						        	+'<img width="12" height="13" src="/beamstream-new/images/offline-icon.png"></span></a> </li>';
+						        	+'<img width="12" height="13" src="/beamstream-new/images/online-icon.png"></span></a> </li>';
 		        	
 		        	$('#user-online ul').append(template);
 

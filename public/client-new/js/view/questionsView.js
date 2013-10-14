@@ -887,6 +887,11 @@ define(['view/formView',
 			 self.pagePushUid = Math.floor(Math.random()*16777215).toString(16);
 			 var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
 			 var trueUrl='';
+
+			 // Trigger the change pagePushUid event
+			 this.trigger('change:pagePushUid', {
+				 pagePushUid: self.pagePushUid
+			 });
 			
 			 /* for question posting */
 			 PUBNUB.subscribe({

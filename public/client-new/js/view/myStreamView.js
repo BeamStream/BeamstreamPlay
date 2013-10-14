@@ -7,8 +7,9 @@ define(['pageView',
         'view/calendarView',
         'view/messageListView',
         'view/questionListView',
+        'view/questionStreamView'
         ], 
-	function(PageView, StreamSliderView, OverView, DiscussionsView, QuestionsView, DeadlinesView, CalendarView ,MessageListView ,QuestionListView ){
+	function(PageView, StreamSliderView, OverView, DiscussionsView, QuestionsView, DeadlinesView, CalendarView ,MessageListView ,QuestionListView ,QuestionStreamView ){
 	var MyStreamView;
 	MyStreamView = PageView.extend({
 		objName: 'MyStreamView',
@@ -20,17 +21,33 @@ define(['pageView',
 		pageNo: 1,
 		init: function(){
 			
-			this.addView(new StreamSliderView({el: '#sidebar'}));
-			// this.addView(new OverView({el: $('#overView')}));
+			var currentStreamView = new StreamSliderView({el: '#sidebar'})
+			this.addView(currentStreamView);
+
 			this.addView(new DiscussionsView({el: $('#discussionsView')}));
-			this.addView(new QuestionsView({el: $('#questionsView')}));
+
+			var currentMainQuestionStream = new QuestionsView({el: $('#questionsView')});
+			this.addView(currentMainQuestionStream);
+
 			this.addView(new DeadlinesView({el: $('#deadlinesView')}));
 			this.addView(new CalendarView({el: $('#calendarView')}));
 			
 			this.addView(new MessageListView({el: $('#messageListView')}));
 			this.addView(new QuestionListView({el: $('#questionListView')}));
 
-			
+			var currentQuestionStream = new QuestionStreamView({el: $('#questionStreamView')});
+      this.addView(currentQuestionStream);
+      
+      // on streamId change, notify the questionStream
+			currentStreamView.on('change:streamId', function(evt){
+				currentQuestionStream.model.setQuestionStreamId(evt.streamId);
+			});
+
+			// // on pagePushUid change, notify the questionStream
+			// currentMainQuestionStream.on('change:pagePushUid', function(evt){
+			// 	currentQuestionStream.model.setPagePushUid(evt.pagePushUid);
+			// 	console.log('pagePushUid changed', evt.pagePushUid);
+			// })
 			
 		},
 		
