@@ -12,6 +12,7 @@ import utils.MongoHQConfig
 import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
 import java.util.Date
+import java.util.regex.Pattern
 import java.net.URL
 import models.mongoContext._
 
@@ -249,7 +250,8 @@ object Question {
    * get all questions within a stream on the basis of keyword
    */
   def getAllQuestionsForAStreambyKeyword(keyword: String, streamId: ObjectId, pageNumber: Int, messagesPerPage: Int): List[Question] = {
-    val keyWordregExp = (""".*""" + keyword + """.*""").r
+//    val keyWordregExp = (""".*""" + keyword + """.*""").r
+    val keyWordregExp = Pattern.compile(keyword, Pattern.CASE_INSENSITIVE)
     QuestionDAO.find(MongoDBObject("questionBody" -> keyWordregExp, "streamId" -> streamId)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
   }
 
