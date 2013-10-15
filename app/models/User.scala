@@ -45,9 +45,22 @@ object User {
   /**
    * removes a User
    */
-  def removeUser(user: User) {
-    UserDAO.remove(user)
+  def removeUser(userId: ObjectId) {
+    UserDAO.removeById(userId)
   }
+
+  /**
+   * Find User By Email
+   */
+  def findUserByEmailId(userEmail: String) = {
+    val userFound = UserDAO.find(MongoDBObject("email" -> userEmail)).toList
+    (userFound.isEmpty) match {
+      case true => None
+      case false =>
+        Option(userFound.head)
+
+    }
+  }: Option[User]
 
   /**
    * Adds a school to User

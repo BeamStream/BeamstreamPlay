@@ -261,6 +261,26 @@ object UserController extends Controller {
   }
 
   /**
+   * Reset Account
+   */
+
+  def accountReset = Action { implicit request =>
+    Ok(views.html.resetaccount())
+  }
+
+  def reset = Action { implicit request =>
+    val data = request.body.asFormUrlEncoded.get
+    val emailToReset = data("email").toList(0)
+    val user = User.findUserByEmailId(emailToReset)
+    (user != None) match {
+      case true =>
+        User.removeUser(user.get.id)
+        Ok("Account Resetted Successfuly")
+      case false => Ok("No User Found With This Email")
+    }
+  }
+
+  /**
    * Chatting Specific
    */
   //  def checkForChat(userId: String) = Action { implicit request =>

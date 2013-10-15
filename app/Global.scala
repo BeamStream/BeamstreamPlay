@@ -17,10 +17,10 @@ object Global extends GlobalSettings {
 
   }
 
-//  override def onError(request: RequestHeader, ex: Throwable) = {
-//    Future.successful(Redirect("/error"))
-//
-//  }
+  override def onError(request: RequestHeader, ex: Throwable) = {
+    Future.successful(Redirect("/error"))
+
+  }
 
   override def onHandlerNotFound(request: RequestHeader) = {
     Future.successful(NotFound(

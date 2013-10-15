@@ -4,7 +4,12 @@
 #Other
 GET    /browserClosed                                                                      controllers.UserController.browserClosed
 GET    /error                                                                              controllers.StreamController.onError
+
+#Account Reset
+GET    /accountReset                                                                         controllers.UserController.accountReset
+POST    /reset                                                                             controllers.UserController.reset
 #GET /javascriptRoutes                                                   controllers.StreamController.javascriptRoutes
+
 #Streams
 GET    /streams                                                                            controllers.StreamController.allClassStreamsForAUser
 GET    /noOfUsers/stream/:streamId                                                         controllers.StreamController.noOfUsersAttendingAClass(streamId:String)
