@@ -2,214 +2,214 @@
 # ~~~~
 
 #Other
-GET      /browserClosed                                                          controllers.UserController.browserClosed
-GET      /error                                                                  controllers.StreamController.onError
+GET    /browserClosed                                                                      controllers.UserController.browserClosed
+GET    /error                                                                              controllers.StreamController.onError
 #GET /javascriptRoutes                                                   controllers.StreamController.javascriptRoutes
 #Streams
-GET      /streams                                                                controllers.StreamController.allClassStreamsForAUser
-GET      /noOfUsers/stream/:streamId                                             controllers.StreamController.noOfUsersAttendingAClass(streamId:String)
-PUT      /remove/stream/:streamId                                                 controllers.StreamController.deleteTheStream(streamId:String)
+GET    /streams                                                                            controllers.StreamController.allClassStreamsForAUser
+GET    /noOfUsers/stream/:streamId                                                         controllers.StreamController.noOfUsersAttendingAClass(streamId:String)
+PUT    /remove/stream/:streamId                                                            controllers.StreamController.deleteTheStream(streamId:String)
 
 #Messages
 
-PUT   /remove/message/:messageId                                              controllers.MessageController.deleteTheMessage(messageId:String)
+PUT    /remove/message/:messageId                                                          controllers.MessageController.deleteTheMessage(messageId:String)
 
 #Comments
-POST     /answer                                                                 controllers.CommentController.newAnswer
-GET      /rockersOf/comment/:commentId                                           controllers.CommentController.commentRockers(commentId:String)
-PUT      /remove/comment/:messageOrQuestionId/:commentId                        controllers.CommentController.deleteTheComment(commentId:String,messageOrQuestionId:String)
-GET      /isARockerOf/comment/:commentId                                         controllers.CommentController.isARocker(commentId:String)
+POST   /answer                                                                             controllers.CommentController.newAnswer
+GET    /rockersOf/comment/:commentId                                                       controllers.CommentController.commentRockers(commentId:String)
+PUT    /remove/comment/:messageOrQuestionId/:commentId                                     controllers.CommentController.deleteTheComment(commentId:String,messageOrQuestionId:String)
+GET    /isARockerOf/comment/:commentId                                                     controllers.CommentController.isARocker(commentId:String)
 
 #Document
-GET      /getAllGoogleDocs                                                       controllers.DocumentController.getAllGoogleDocumentsForAUser
-PUT      /document/:documentId                                                   controllers.DocumentController.changeTitleAndDescriptionForADocument(documentId:String)
-POST     /newDocument                                                            controllers.DocumentController.newDocument
-PUT      /rock/document/:documentId                                              controllers.DocumentController.rockTheDocument(documentId:String)
-GET      /rockersOf/document/:documentId                                         controllers.DocumentController.giveMeRockersOfDocument(documentId:String)
+GET    /getAllGoogleDocs                                                                   controllers.DocumentController.getAllGoogleDocumentsForAUser
+PUT    /document/:documentId                                                               controllers.DocumentController.changeTitleAndDescriptionForADocument(documentId:String)
+POST   /newDocument                                                                        controllers.DocumentController.newDocument
+PUT    /rock/document/:documentId                                                          controllers.DocumentController.rockTheDocument(documentId:String)
+GET    /rockersOf/document/:documentId                                                     controllers.DocumentController.giveMeRockersOfDocument(documentId:String)
 
-PUT      /follow/document/:documentId                                            controllers.DocumentController.followDocument(documentId:String)
-PUT      /viewCountOf/document/:documentId                                       controllers.DocumentController.viewCount(documentId:String)
+PUT    /follow/document/:documentId                                                        controllers.DocumentController.followDocument(documentId:String)
+PUT    /viewCountOf/document/:documentId                                                   controllers.DocumentController.viewCount(documentId:String)
 
 #Schools
-GET      /name/school/:schoolId                                                  controllers.SchoolController.getSchoolName(schoolId:String)
+GET    /name/school/:schoolId                                                              controllers.SchoolController.getSchoolName(schoolId:String)
 
 #Class
-GET      /classesFor/user/:userId                                                controllers.ClassController.getAllClassesForAUser(userId:String)
+GET    /classesFor/user/:userId                                                            controllers.ClassController.getAllClassesForAUser(userId:String)
 
-GET      /loggedInUserJson                                                       controllers.UserController.returnUserJson
+GET    /loggedInUserJson                                                                   controllers.UserController.returnUserJson
 
 
 #Destroy session
-GET      /signOut                                                                controllers.UserController.signOut
+GET    /signOut                                                                            controllers.UserController.signOut
 
 #Media
 
-GET      /profilePicFor/user/:userId                                             controllers.MediaController.getProfilePicForAUser(userId:String)
-PUT      /media/:mediaId                                                     controllers.DocumentController.changeTitleAndDescriptionForADocument(mediaId:String)
-GET      /allPicsForAuser                                                 controllers.MediaController.getAllPicsForAUser
-GET      /allVideosForAuser                                                controllers.MediaController.allVideosForAuser
-PUT      /rock/media/:mediaId                                                   controllers.MediaController.rockTheUsermedia(mediaId:String)
-GET      /rockersOf/media/:mediaId                                               controllers.MediaController.giveMeRockersOfUserMedia(mediaId:String)
+GET    /profilePicFor/user/:userId                                                         controllers.MediaController.getProfilePicForAUser(userId:String)
+PUT    /media/:mediaId                                                                     controllers.DocumentController.changeTitleAndDescriptionForADocument(mediaId:String)
+GET    /allPicsForAuser                                                                    controllers.MediaController.getAllPicsForAUser
+GET    /allVideosForAuser                                                                  controllers.MediaController.allVideosForAuser
+PUT    /rock/media/:mediaId                                                                controllers.MediaController.rockTheUsermedia(mediaId:String)
+GET    /rockersOf/media/:mediaId                                                           controllers.MediaController.giveMeRockersOfUserMedia(mediaId:String)
 
 #Message Rocks & Follows
-GET      /rockersOf/message/:messageId                                           controllers.MessageController.giveMeRockers(messageId:String)
-GET      /isAFollowerOf/message/:messageId                                       controllers.MessageController.isAFollower(messageId:String)
-GET      /isARockerOf/message/:messageId                                         controllers.MessageController.isARocker(messageId:String)
+GET    /rockersOf/message/:messageId                                                       controllers.MessageController.giveMeRockers(messageId:String)
+GET    /isAFollowerOf/message/:messageId                                                   controllers.MessageController.isAFollower(messageId:String)
+GET    /isARockerOf/message/:messageId                                                     controllers.MessageController.isARocker(messageId:String)
 
 
 #Questions
-POST     /question                                                               controllers.QuestionController.newQuestion
-PUT      /rock/question/:questionId                                              controllers.QuestionController.rockTheQuestion(questionId:String)
-GET      /questions                                                              controllers.QuestionController.getAllQuestionsForAUser
-GET      /rockersOf/question/:questionId                                         controllers.QuestionController.giveMeRockers(questionId:String)
-PUT      /follow/question/:questionId                                            controllers.QuestionController.followQuestion(questionId:String)
-PUT      /voteAnOptionOf/question/:optionId                                      controllers.QuestionController.voteAnOptionOfAQuestion(optionId:String)
-PUT      /remove/question/:questionId                                            controllers.QuestionController.deleteQuestion(questionId:String)              
+POST   /question                                                                           controllers.QuestionController.newQuestion
+PUT    /rock/question/:questionId                                                          controllers.QuestionController.rockTheQuestion(questionId:String)
+GET    /questions                                                                          controllers.QuestionController.getAllQuestionsForAUser
+GET    /rockersOf/question/:questionId                                                     controllers.QuestionController.giveMeRockers(questionId:String)
+PUT    /follow/question/:questionId                                                        controllers.QuestionController.followQuestion(questionId:String)
+PUT    /voteAnOptionOf/question/:optionId                                                  controllers.QuestionController.voteAnOptionOfAQuestion(optionId:String)
+PUT    /remove/question/:questionId                                                        controllers.QuestionController.deleteQuestion(questionId:String)              
 
 #bitly
-POST     /bitly                                                                  controllers.MessageController.getShortUrlViabitly 
+POST   /bitly                                                                              controllers.MessageController.getShortUrlViabitly 
 
 #Public Profile
-GET      /publicMessages/user/:userId                                            controllers.PublicProfileController.getAllPublicMessagesForAUser(userId:String)
+GET    /publicMessages/user/:userId                                                        controllers.PublicProfileController.getAllPublicMessagesForAUser(userId:String)
 #POST  	/publicProfileInfo          										     controllers.PublicProfileController.getPublicProfileOfAUser
-GET      /publicDocuments/user/:userId                                           controllers.PublicProfileController.getAllPublicDocumentForAUser(userId:String)
-GET      /renderProfilePage                                                      controllers.PublicProfileController.renderProfilePage
+GET    /publicDocuments/user/:userId                                                       controllers.PublicProfileController.getAllPublicDocumentForAUser(userId:String)
+GET    /renderProfilePage                                                                  controllers.PublicProfileController.renderProfilePage
 
 
 #NEO4J Baby
-GET      /testNeo4j                                                              controllers.UserController.testNeo4j
-GET      /testNeo4jFindNode                                                      controllers.UserController.testNeo4jFindNode
-GET      /testNeo4jAddFriends                                                    controllers.UserController.testNeo4jAddFriends
-GET      /testNeo4jPrintFriends                                                  controllers.UserController.testNeo4jPrintFriends
+GET    /testNeo4j                                                                          controllers.UserController.testNeo4j
+GET    /testNeo4jFindNode                                                                  controllers.UserController.testNeo4jFindNode
+GET    /testNeo4jAddFriends                                                                controllers.UserController.testNeo4jAddFriends
+GET    /testNeo4jPrintFriends                                                              controllers.UserController.testNeo4jPrintFriends
 
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET      /assets/*file                                                           controllers.Assets.at(path="/public", file)
-GET      /beamstream/*file                                                       controllers.Assets.at(path="/public/client", file)
+GET    /assets/*file                                                                       controllers.Assets.at(path="/public", file)
+GET    /beamstream/*file                                                                   controllers.Assets.at(path="/public/client", file)
 
 # For Rendering the new design
-GET      /beamstream-new/*file                                                   controllers.Assets.at(path="/public/client-new", file)
+GET    /beamstream-new/*file                                                               controllers.Assets.at(path="/public/client-new", file)
 
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET      /assets/*file                                                           controllers.Assets.at(path="/public", file)
-GET      /js/*file                                                               controllers.Assets.at(path="/public/js", file)
-GET      /css/*file                                                              controllers.Assets.at(path="/public/js", file)
-GET      /images/*file                                                           controllers.Assets.at(path="/public/images", file)
+GET    /assets/*file                                                                       controllers.Assets.at(path="/public", file)
+GET    /js/*file                                                                           controllers.Assets.at(path="/public/js", file)
+GET    /css/*file                                                                          controllers.Assets.at(path="/public/js", file)
+GET    /images/*file                                                                       controllers.Assets.at(path="/public/images", file)
 
 
 
 ################################### Beamstream  Rearchitecture Routes ################################################
 
 #Beta User Registration  (V)
-POST     /betaUser                                                               controllers.JoinBeamStream.regsisterToBeamStreamBeta 
-GET      /                                                                       controllers.JoinBeamStream.betaUserRegistration
+POST   /betaUser                                                                           controllers.JoinBeamStream.regsisterToBeamStreamBeta 
+GET    /                                                                                   controllers.JoinBeamStream.betaUserRegistration
 
 #Signup (V)
-GET      /signup                                                                 controllers.BasicRegistration.signUpPage
-POST     /signup                                                                 controllers.BasicRegistration.signUpUser
+GET    /signup                                                                             controllers.BasicRegistration.signUpPage
+POST   /signup                                                                             controllers.BasicRegistration.signUpUser
 
 
 #User
-GET      /onlineUsers                                                            controllers.UserController.getAllOnlineUsers
-PUT      /followUser/:userId                                                     controllers.UserController.followUser(userId:String)
+GET    /onlineUsers                                                                        controllers.UserController.getAllOnlineUsers
+PUT    /followUser/:userId                                                                 controllers.UserController.followUser(userId:String)
 
 
 
 #Registration (V)
-GET      /registration                                                           controllers.Registration.registration
-POST     /registration                                                           controllers.Registration.registerUser
-PUT      /registration/:userId                                                   controllers.Registration.editUserInfo(userId:String)    
+GET    /registration                                                                       controllers.Registration.registration
+POST   /registration                                                                       controllers.Registration.registerUser
+PUT    /registration/:userId                                                               controllers.Registration.editUserInfo(userId:String)    
 
 
 #Add a School (V)
-POST     /school                                                                 controllers.SchoolController.addANewSchool
-POST     /getAllSchoolsForAutopopulate                                           controllers.SchoolController.getAllSchoolsForAutopopulate
-GET      /getAllSchoolForAUser                                                   controllers.SchoolController.getAllSchoolForAUser
+POST   /school                                                                             controllers.SchoolController.addANewSchool
+POST   /getAllSchoolsForAutopopulate                                                       controllers.SchoolController.getAllSchoolsForAutopopulate
+GET    /getAllSchoolForAUser                                                               controllers.SchoolController.getAllSchoolForAUser
 
 
 #Class
-GET      /class                                                                  controllers.ClassController.renderClassPage
-POST     /class                                                                  controllers.ClassController.createClass
-POST     /autoPopulateClassesbyCode                                              controllers.ClassController.findClasstoAutoPopulatebyCode
-POST     /autoPopulateClassesbyName                                              controllers.ClassController.findClasstoAutoPopulatebyName
+GET    /class                                                                              controllers.ClassController.renderClassPage
+POST   /class                                                                              controllers.ClassController.createClass
+POST   /autoPopulateClassesbyCode                                                          controllers.ClassController.findClasstoAutoPopulatebyCode
+POST   /autoPopulateClassesbyName                                                          controllers.ClassController.findClasstoAutoPopulatebyName
 
 #Login
-GET      /login                                                                  controllers.Registration.loginPage
-POST     /login                                                                  controllers.UserController.findUser
+GET    /login                                                                              controllers.Registration.loginPage
+POST   /login                                                                              controllers.UserController.findUser
 
 # Media
-POST     /media                                                                  controllers.MediaController.uploadMediaToAmazon
-GET     /recentMedia                                                              controllers.MediaController.getRecentMediaAndDocs
+POST   /media                                                                              controllers.MediaController.uploadMediaToAmazon
+GET    /recentMedia                                                                        controllers.MediaController.getRecentMediaAndDocs
 #Messages + Comments + ProfilePicUrl
-GET      /allMessagesForAStream/:streamId/:sortBy/:messagesPerPage/:pageNo/:period      controllers.MessageController.allMessagesForAStream(streamId:String,sortBy:String,messagesPerPage:Int,pageNo:Int,period:String)
-POST     /newMessage                                                             controllers.MessageController.newMessage
-POST     /newComment                                                             controllers.CommentController.newComment
-PUT      /follow/message/:messageId                                              controllers.MessageController.followTheMessage(messageId:String)
-PUT      /rockingTheComment/:commentId                                           controllers.CommentController.rockingTheComment(commentId:String)
+GET    /allMessagesForAStream/:streamId/:sortBy/:messagesPerPage/:pageNo/:period           controllers.MessageController.allMessagesForAStream(streamId:String,sortBy:String,messagesPerPage:Int,pageNo:Int,period:String)
+POST   /newMessage                                                                         controllers.MessageController.newMessage
+POST   /newComment                                                                         controllers.CommentController.newComment
+PUT    /follow/message/:messageId                                                          controllers.MessageController.followTheMessage(messageId:String)
+PUT    /rockingTheComment/:commentId                                                       controllers.CommentController.rockingTheComment(commentId:String)
 
 #Message Rocks & Follows
-PUT      /rockedIt/:messageId                                                    controllers.MessageController.rockedTheMessage(messageId:String)
+PUT    /rockedIt/:messageId                                                                controllers.MessageController.rockedTheMessage(messageId:String)
 
 # Social
-POST     /social/social_authentication                                           controllers.SocialController.signUpViaSocialSites
+POST   /social/social_authentication                                                       controllers.SocialController.signUpViaSocialSites
 #POST     /social/social_login                                                    controllers.SocialController.logInViaSocialSites
-GET		 /social/contacts														 controllers.SocialController.getContacts
-POST 	 /social/invite/friends												     controllers.SocialController.inviteFriends
+GET    /social/contacts                                                                    controllers.SocialController.getContacts
+POST   /social/invite/friends                                                              controllers.SocialController.inviteFriends
 
 #Stream
-GET      /stream                                                                 controllers.StreamController.renderStreamPage
-GET      /allStreamsForAUser                                                     controllers.StreamController.getAllStreamForAUser
+GET    /stream                                                                             controllers.StreamController.renderStreamPage
+GET    /allStreamsForAUser                                                                 controllers.StreamController.getAllStreamForAUser
 
 #School
-POST     /school                                                                 controllers.SchoolController.addANewSchool
+POST   /school                                                                             controllers.SchoolController.addANewSchool
 
 #Files & Media
-GET      /browsemedia                                                            controllers.MediaController.browseMedia
+GET    /browsemedia                                                                        controllers.MediaController.browseMedia
 
 #Questions
-GET      /getAllQuestionsForAStream/:streamId/:sortBy/:messagesPerPage/:pageNo   controllers.QuestionController.getAllQuestionForAStream(streamId:String,sortBy:String,messagesPerPage:Int,pageNo:Int)
-GET      /getAllAnswerdQuestionForAStream/:streamId/:messagesPerPage/:pageNo/:answerStatus controllers.QuestionController.getAllAnswerdQuestionForAStream(streamId:String,messagesPerPage:Int,pageNo:Int,answerStatus:String)
+GET    /getAllQuestionsForAStream/:streamId/:sortBy/:messagesPerPage/:pageNo               controllers.QuestionController.getAllQuestionForAStream(streamId:String,sortBy:String,messagesPerPage:Int,pageNo:Int)
+GET    /getAllAnswerdQuestionForAStream/:streamId/:messagesPerPage/:pageNo/:answerStatus   controllers.QuestionController.getAllAnswerdQuestionForAStream(streamId:String,messagesPerPage:Int,pageNo:Int,answerStatus:String)
 
 
 #Answer
-GET /answers/:questionId                                            controllers.QuestionController.answers(questionId:String)   
+GET    /answers/:questionId                                                                controllers.QuestionController.answers(questionId:String)   
 
 
 #Documents
-POST     /uploadDocumentFromDisk                                             controllers.DocumentController.uploadDocumentFromDisk
+POST   /uploadDocumentFromDisk                                                             controllers.DocumentController.uploadDocumentFromDisk
 #Password Recovery
-POST     /forgotPassword                                                         controllers.UserController.forgotPassword
-GET      /recover                                                                controllers.UserController.renderForgotPasswordView
+POST   /forgotPassword                                                                     controllers.UserController.forgotPassword
+GET    /recover                                                                            controllers.UserController.renderForgotPasswordView
 
 
 #Files
-GET      /audioFilesOfAUser                                                      controllers.DocumentController.getAllAudioFilesForAUser
-GET      /allPPTFilesForAUser                                                    controllers.DocumentController.getAllPPTFilesForAUser
-GET      /allPDFFilesForAUser                                                    controllers.DocumentController.getAllPDFFilesForAUser
-GET      /allDOCSFilesForAUser                                                   controllers.DocumentController.getAllDOCSFilesForAUser
-GET      /AllFilesForAUser                                                   	 controllers.DocumentController.getAllFilesForAUser
+GET    /audioFilesOfAUser                                                                  controllers.DocumentController.getAllAudioFilesForAUser
+GET    /allPPTFilesForAUser                                                                controllers.DocumentController.getAllPPTFilesForAUser
+GET    /allPDFFilesForAUser                                                                controllers.DocumentController.getAllPDFFilesForAUser
+GET    /allDOCSFilesForAUser                                                               controllers.DocumentController.getAllDOCSFilesForAUser
+GET    /AllFilesForAUser                                                                   controllers.DocumentController.getAllFilesForAUser
 
 #Search Media Or Documents
 
-GET     /search/:keyword                                               controllers.MediaController.searchMediaOrDocumentForAUser(keyword:String)     
+GET    /search/:keyword                                                                    controllers.MediaController.searchMediaOrDocumentForAUser(keyword:String)     
 
 
 #Google Docs
-GET  /uploadNow/:action                                            controllers.GoogleDocsUploadUtilityController.authenticateToGoogle(action:String)
-GET     /driveAuth                                                 controllers.GoogleDocsUploadUtilityController.googleDriveAuthentication
+GET    /uploadNow/:action                                                                  controllers.GoogleDocsUploadUtilityController.authenticateToGoogle(action:String)
+GET    /driveAuth                                                                          controllers.GoogleDocsUploadUtilityController.googleDriveAuthentication
 #GET     /google/callback                                                  controllers.GoogleDocsUploadUtilityController.accessToken
 
-POST     /uploadToGoogleDrive                                      controllers.GoogleDocsUploadUtilityController.uploadToGoogleDrive
-GET  /getGoogleDocs                                                controllers.GoogleDocsUploadUtilityController.getAllGoogleDriveFiles
-GET   /uploadPage                                                   controllers.GoogleDocsUploadUtilityController.uploadPage
+POST   /uploadToGoogleDrive                                                                controllers.GoogleDocsUploadUtilityController.uploadToGoogleDrive
+GET    /getGoogleDocs                                                                      controllers.GoogleDocsUploadUtilityController.getAllGoogleDriveFiles
+GET    /uploadPage                                                                         controllers.GoogleDocsUploadUtilityController.uploadPage
 
 
+GET    /chat                                                                        controllers.CommunicationController.chat
 
 #Chat
-
 #GET  /chatNow                                                     controllers.ChatController.chatRoom
 #GET  /room                                                     controllers.ChatController.chat(username,userId,chatWith)
 #GET /checkForChat                                               controllers.UserController.checkForChat(userId:String)
