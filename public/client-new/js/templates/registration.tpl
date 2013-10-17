@@ -21,7 +21,7 @@
 		</div>
        
           <div id="step2_block" class="profile-white registration-info box-active">
-            <div class="profile-select-block">
+            <div class="profile-select-block second-block-registration">
               <fieldset class="field">  
               <select id="role" data-name="user.role" name="role" class="selectpicker-info " style="display: none;" placeholder="Student">
                 <option value="Student">Student</option>
