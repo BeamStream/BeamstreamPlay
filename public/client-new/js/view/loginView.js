@@ -37,6 +37,7 @@ define(['view/formView'], function(FormView ){
             $('.sign-close').hide(); 
             $('#mailid').prop('disabled',false);
             $('#password').prop('disabled',false);
+            $('div.container-fluid').last().addClass('signup-container');
             
         },
         

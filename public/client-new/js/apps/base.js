@@ -1,7 +1,7 @@
 define([
     'console',
 	'moduleActivator',
-	'jquery',
+//	'jquery',
 	'jqueryUI',
 	'underscore',
 	'handlebars',
@@ -11,4 +11,5 @@ define([
 	'json2',
 	'text',
 	'phoneformat'
+
   ], function() {});	
