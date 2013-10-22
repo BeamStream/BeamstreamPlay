@@ -6,12 +6,13 @@
     {{/if}}
     <div class="username-info">
         <a class="username" href="#">{{question.firstNameofQuestionAsker}} {{question.lastNameofQuestionAsker}}</a>
-        <div class="follow-question">FOLLOW</div>
+       
     </div>
+    	 <div class="follow-question">FOLLOW</div>
     {{#if onlineUserAsked}}
-    <div class="btn-group stream-dropdown">
-        <button class="btn question-dropdown" data-toggle="dropdown"> <span class="caret display-caret"></span></button>
-            <ul class="dropdown-menu pull-right">
+    <div class="btn-group stream-dropdown question-setting">
+        <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown"> <span class="caret display-caret"></span></button>
+            <ul class="dropdown-menu pull-left">
             <li class="mark-answered"><a href="#">Mark As Answered</a></li>
             <li class="delete-question"><a href="#">Delete Question</a></li>
         </ul>
@@ -26,6 +27,7 @@
         <p>{{question.questionBody}}</p>
     </div>
     <div class="post-interact">
+       <div class="post-interact-wrapper">
         {{#if onlineUserRocked}}
         <div class="already-rocked"></div>
         {{else}}
@@ -38,11 +40,13 @@
         <div class="comment-amount">{{question.comments.length '' }}</div>
         <div class="answer-amount">{{question.answers.length ''}}</div>
         </div>
+       </div>
         <form>
         <input class="qs-answer question-stream-hide">
         </input>
         <input class="qs-comment question-stream-hide">
         </input>
         </form>
+       
     </div>
 </div>

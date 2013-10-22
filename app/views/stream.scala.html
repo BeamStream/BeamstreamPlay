@@ -4,22 +4,18 @@
 <!-- embedly preview js -->
 
 
-<link rel="stylesheet"
-        href="/beamstream-new/css/extracss/embedly-preview.css" type="text/css" />
-
-
+<link rel="stylesheet" href="/beamstream-new/css/extracss/embedly-preview.css" type="text/css" />
 <link rel="stylesheet" href="/beamstream-new/css/extracss/embedly-preview.css" type="text/css" />
 
 
 <!-- question feed stylesheet -->
 
-<link rel="stylesheet/less" href="/beamstream-new/less/questionStreamStyle.less" type="text/css">
+	 <link rel="stylesheet/less" href="/beamstream-new/less/questionStreamStyle.less" type="text/css">  
 
 <!--  prettyPhoto -->
-<link rel="stylesheet"         href="/beamstream-new/css/extracss/prettyPhoto.css" type="text/css"
-        media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
+<link rel="stylesheet" href="/beamstream-new/css/extracss/prettyPhoto.css" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
 
-<!-- new google and social links -->
+
 
 } 
  @JS = {
@@ -199,6 +195,15 @@ if (window.focus) {newwindow.focus()}
         var donut = [];
 </script>
 
+<script type="text/javascript">
+$(document).ready(function(){
+
+	$().dropdown();
+	$('.dropdown-toggle').dropdown('toggle')
+	
+});
+</script>
+
 } @sideBar = { @views.html.sidebar.render } 
 @header = { @views.html.header.render } 
 @footer = { @views.html.footer.render }
@@ -223,7 +228,7 @@ ul li#showSubList:hover ul {
 @main("My Stream", "Body", meta, CSS, JS, bodyModule, bodyJS, sideBar,
 header, footer){
 
-<div id="questionStreamView"></div>
+
 
 <div id="MyStream" data-module="view/myStreamView">
         <div class="right-container">
@@ -267,15 +272,15 @@ header, footer){
                                                                 <li><a tabindex="-1" href="" onClick="showGoogleDocs('show')">Show Google Docs</a></li>
                                                         </ul>
                                                 </div>
-                                                <div class="btn-group nav-tabs">
+                                                <div class="btn-group">
                                                         <!--change data-toggle to dropdown to return this to a dropdown menu -->
-                                                        <a id="streamTab" class="dropdown-toggle new-google-btn" 
-                                                                onclick="javascript:document.getElementById('questionsLink').click();">
+                                                        <a id="streamTab" class="dropdown-toggle new-google-btn" data-toggle="dropdown" data-hover="dropdown" href="#">                                                               
                                                                 <div class="question-icn"></div> <span>Question</span> </a>
-                                                        <ul class="dropdown-menu" role="menu"
+                                                         <ul class="dropdown-menu google-doc-dropdown" role="menu"
                                                                 aria-labelledby="dropdownMenu">
-                                                                <li><a tabindex="-1" href="#">Ask a question</a></li>
-                                                                <li><a tabindex="-1" href="#">Add a poll</a></li>
+                                                                                                                                                                                                    </li>
+                                                                <li><a tabindex="-1" href="#" >Ask a Question</a></li>
+                                                                <li><a tabindex="-1" href="" >Add a Poll	</a></li>
                                                         </ul>
                                                 </div>
                                         </div>
@@ -693,7 +698,7 @@ header, footer){
         </div>
 </div>
 
-
+<div id="questionStreamView"></div>
 
 
 }
