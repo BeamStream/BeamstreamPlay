@@ -8,7 +8,6 @@ import models.BetaUserDAO
 import play.api.test.FakeApplication
 import play.api.test.Helpers._
 import org.scalatest.junit.JUnitRunner
-import play.libs.WS
 import play.api.test.FakeRequest
 import play.api.libs.json._
 import models.UserSchoolDAO

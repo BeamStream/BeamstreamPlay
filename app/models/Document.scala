@@ -90,7 +90,7 @@ object Document extends RockConsumer {
    */
 
   def findDocumentById(docId: ObjectId): Option[Document] = {
-    val document = DocumentDAO.findOneByID(docId)
+    val document = DocumentDAO.findOneById(docId)
     document match {
       case Some(doc) => Option(doc)
       case _ => None

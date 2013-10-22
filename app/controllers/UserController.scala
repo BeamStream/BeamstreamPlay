@@ -57,7 +57,7 @@ object UserController extends Controller {
             usersToShow ++= otherUsers.intersect(streamUsers)
         }
 
-        val onlineUsersWithDetails = (usersToShow.removeDuplicates) map {
+        val onlineUsersWithDetails = (usersToShow.distinct) map {
           case eachUserId =>
             val userWithDetailedInfo = User.getUserProfile(eachUserId)
             val profilePicForUser = UserMedia.getProfilePicForAUser(eachUserId)

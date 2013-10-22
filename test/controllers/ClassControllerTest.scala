@@ -8,7 +8,6 @@ import play.api.test.Helpers._
 import play.api.test.FakeApplication
 import models.ClassDAO
 import com.mongodb.casbah.commons.MongoDBObject
-import play.libs.WS
 import models.User
 import java.text.DateFormat
 import org.bson.types.ObjectId
@@ -39,12 +38,12 @@ class ClassControllerTest extends FunSuite with BeforeAndAfter {
     }
   }
 
-  test("Render Class page") {
-    running(FakeApplication()) {
-      val status = WS.url("http://localhost:9000/class")
-      assert(status.get.get.getStatus === 200)
-    }
-  }
+//  test("Render Class page") {
+//    running(FakeApplication()) {
+//      val status = WS.url("http://localhost:9000/class")
+//      assert(status.get.get.getStatus === 200)
+//    }
+//  }
 
   test("Create class test") {
     val userId = User.createUser(userToBeCreated)

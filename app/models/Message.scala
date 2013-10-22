@@ -84,7 +84,7 @@ object Message { //extends CommentConsumer {
    */
 
   def findMessageById(messageId: ObjectId): Option[Message] = {
-    val messageObtained = MessageDAO.findOneByID(messageId)
+    val messageObtained = MessageDAO.findOneById(messageId)
     messageObtained
   }
 
