@@ -5,7 +5,7 @@
 
 
 <link rel="stylesheet" href="/beamstream-new/css/extracss/embedly-preview.css" type="text/css" />
-<link rel="stylesheet" href="/beamstream-new/css/extracss/embedly-preview.css" type="text/css" />
+
 
 
 <!-- question feed stylesheet -->
@@ -20,7 +20,7 @@
 } 
  @JS = {
 
-<script type="text/JavaScript" src="/beamstream-new/lib/bootstrap.js"></script>
+
 <script type="text/JavaScript" src="/beamstream-new/lib/bootstrap-dropdownhover.js"></script>
         
         
@@ -195,14 +195,8 @@ if (window.focus) {newwindow.focus()}
         var donut = [];
 </script>
 
-<script type="text/javascript">
-$(document).ready(function(){
 
-	$().dropdown();
-	$('.dropdown-toggle').dropdown('toggle')
-	
-});
-</script>
+
 
 } @sideBar = { @views.html.sidebar.render } 
 @header = { @views.html.header.render } 
@@ -279,7 +273,7 @@ header, footer){
                                                          <ul class="dropdown-menu google-doc-dropdown" role="menu"
                                                                 aria-labelledby="dropdownMenu">
                                                                                                                                                                                                     </li>
-                                                                <li><a tabindex="-1" href="#" >Ask a Question</a></li>
+                                                                <li><a tabindex="-1" href="#" onclick="javascript:document.getElementById('questionsLink').click();">Ask a Question</a></li>
                                                                 <li><a tabindex="-1" href="" >Add a Poll	</a></li>
                                                         </ul>
                                                 </div>
@@ -328,7 +322,7 @@ header, footer){
 
                                                                 <div id="upload-files1" class="btn-group attach-drop ">
                                                                         <button id="upload-files2"
-                                                                                class="btn attach-drop-button drag-rectangle attach-drop-bg"
+                                                                                class="attach-drop-button drag-rectangle attach-drop-bg"
                                                                                 data-toggle="dropdown" data-original-title="Upload Files">
                                                                         </button>
                                                                         <ul id="discussion-file-upload"
@@ -451,8 +445,8 @@ header, footer){
                         <div class="tab-pane " id="questionsView" data-model="question">
                                 <div class="question-info">
                                         <div class="new-google">
-                                                <a class="btn dropdown-toggle new-google-btn" 
-                                                        href=""javascript:document.getElementById('discussionsLink').click();"> <span>&lt; Back to
+                                                <a class="dropdown-toggle new-google-btn" 
+                                                        href="" javascript:document.getElementById('discussionsLink').click();"> <span>&lt; Back to
                                                                 Discussions</span>
                                                         <div class="back-icn"></div> </a>
                                         </div>
@@ -504,7 +498,7 @@ header, footer){
                                                                 </div>
                                                                 <div id="upload-files1" class="btn-group attach-drop ">
                                                                         <button id="upload-files2"
-                                                                                class="btn attach-drop-button drag-rectangle attach-drop-bg"
+                                                                                class="attach-drop-button drag-rectangle attach-drop-bg"
                                                                                 data-toggle="dropdown" data-original-title="Upload Files">
                                                                         </button>
                                                                         <ul id="discussion-file-upload"
@@ -615,15 +609,22 @@ header, footer){
                                                 href="#" class="unanswerd" style="display:none;">12 Answered</a><!-- DH remove these styles when ready -->
                                 </div>
 
-                                <div id="questionListView" data-model="question"
+                            <div id="questionListView" data-model="question"
                                         data-module="view/questionListView" data-url="/"
                                         data-tpl="templates/questionMessage.tpl"></div>
 
                                 <div id="question-pagination" class="page-loader"
                                         style="display: none;">
                                         <img src="/beamstream-new/images/loading-bars.gif" alt="">
-                                </div>
+                                </div> 
+								
+							    <!-- 	 <div id="messageListView" data-model="discussion"
+                                        data-module="view/messageListView" data-url="/"
+                                        data-tpl="templates/discussionMessage.tpl"></div>
 
+                                <div id="discussion-pagination" class="page-loader">
+                                        <img src="/beamstream-new/images/loading-bars.gif" alt="">
+                                </div>  -->
 
 
                         </div>
