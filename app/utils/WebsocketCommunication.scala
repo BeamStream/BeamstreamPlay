@@ -76,6 +76,7 @@ object WebsocketCommunication {
 
   lazy val default = {
     val roomActor = Akka.system.actorOf(Props[CommunicationRoom])
+
     roomActor
   }
 
