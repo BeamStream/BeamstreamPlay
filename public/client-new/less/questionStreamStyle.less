@@ -1,8 +1,18 @@
 // the line below messes up the main stream view
-@import "/beamstream-new/css/bootstrap.original.2.3.3.css";
-body {
-    padding-right: 300px;
+@import "/beamstream-new/css/bootstrap.css";
+
+#topheader
+
+{
+padding-right:300px;
 }
+
+#MyStream
+{
+padding-right:8px;
+overflow:hidden;
+}
+
 .post-date {
     font-size: 12px;
     color: #94979a;
@@ -103,7 +113,7 @@ body {
     display: inline-block;
     float: left;
     height: 29px;
-    width: 23px;
+    width: 28px;
     background: url(/beamstream-new/images/rock-on.jpg)no-repeat;
 }
 .question-txt {
@@ -113,8 +123,14 @@ body {
 }
 .username-info {
     display: inline-block;
-    width: 190px;
+   
     height: 20px;
+}
+
+.question-setting.stream-dropdown{
+	display:block;
+	width:30px;
+	float:right;
 }
 .slower {
     display: inline-block;
@@ -171,6 +187,17 @@ body {
     cursor: pointer;
 }
 .post-interact {
+
+}
+
+.question-stats{
+float:right;
+width:150px;
+
+}
+
+.post-interact-wrapper{
+ height:60px;
 }
 .questions-scrollbar::-webkit-scrollbar-thumb {
     background-color: #6a7176;
@@ -196,13 +223,16 @@ body {
     width: 319px;
 }
 #questionStreamView {
-    position: fixed;
+    position:fixed;
     display: inline-block;
     top: 0;
     right: 0;
     z-index: 100;
     width: 319px;
     height: 100%;
+    background-color:#ffffff;
+    border-radius:8px 0 0 0;
+    box-shadow:-3px 0 20px #ccc;
 }
 .post-info {
     width: 190px;
@@ -291,7 +321,6 @@ body {
     color: #ffffff;
     padding: 2px 4px;
     border-radius: 3px;
-    margin-left: 8px;
     background-color: #549a1c;
     font-size: 10px;
 }
@@ -423,6 +452,7 @@ body {
 }
 .username:hover {
     text-decoration: underline;
+    color: #5299bd;
 }
 .username {
     text-decoration: none;
@@ -430,7 +460,7 @@ body {
     display: block;
     font-weight: bold;
     float: left;
-    margin-left: 8px;
+    margin:5px 0 0 8px;
     color: #5299bd;
 }
 .confused {
@@ -469,7 +499,7 @@ body {
     margin-top: -1px;
 }
 .question-form {
-    height: 25px;
+    height: 18px;
     font-size: 13px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
@@ -539,31 +569,37 @@ body {
 }
 .qs-comment{
     border: 1px solid;
-    width: 290px;
+    width: 100%;
     height: 30px;
     border-radius: 7px;
     border-color: #A9A9A9;
 }
 .qs-answer{
     border: 1px solid;
-    width: 290px;
+    width: 100%;
     height: 30px;
     border-radius: 7px;
     border-color: #A9A9A9;
 }
 .answer-amount{
-    display: inline-block;
-    padding-right: 10px;
-    padding-left: 42px;
+  
+   text-align:center;
+   width:50%;
+   float:left;
+    color: #5299bd;
+    font-weight: bold;
+	
+}
+.comment-amount{
+    
+   text-align:center;
+   width:49%;
+    float:left;
     color: #5299bd;
     font-weight: bold;
 
-}
-.comment-amount{
-    display: inline-block;
-    float: right;
-    color: #5299bd;
-    font-weight: bold;
+   
+    
 }
 .already-rocked {
     background: url(/beamstream-new/images/spryte.png) repeat scroll -949px -447px transparent;

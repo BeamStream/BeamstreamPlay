@@ -9,6 +9,11 @@
  * Designed and built with all the love in the world @twitter by @mdo and @fat.
  */
 
+
+.tab-content {
+  overflow: auto;
+}
+
 .clearfix {
   *zoom: 1;
 }
