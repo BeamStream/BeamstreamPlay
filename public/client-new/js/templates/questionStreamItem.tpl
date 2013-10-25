@@ -37,8 +37,9 @@
         <div class="qs-comment-link">+ Comment</div>
         <div class="qs-answer-link">+ Answer</div>
         <div class="question-stats">
-        <div class="comment-amount">{{question.comments.length '' }}</div>
         <div class="answer-amount">{{question.answers.length ''}}</div>
+        <div class="comment-amount">{{question.comments.length '' }}</div>
+        
         </div>
        </div>
         <form>

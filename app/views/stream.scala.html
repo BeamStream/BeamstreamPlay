@@ -237,8 +237,8 @@ header, footer){
                 <ul class="nav-tabs stream-tab" id="streamTab" style="display:none">
                         <li id="discussion" id="discussionsLink" class="active"><a href="#discussionsView" data-toggle="tab" >Discussions</a></li>
                         <li id="question"><a id="questionsLink" href="#questionsView"  data-toggle="tab">Questions</a></li>
-                        <li id="deadlines"><a href="#deadlinesView"  data-toggle="tab">Deadlines</a></li>
-                        <li id="calendar"><a href="#calendarView" data-toggle="tab">Calendar</a></li>
+                      <!--   <li id="deadlines"><a href="#deadlinesView"  data-toggle="tab">Deadlines</a></li>
+                        <li id="calendar"><a href="#calendarView" data-toggle="tab">Calendar</a></li> -->
                 </ul>
                 <div class="tab-content">
                         <!--   to get all messages of a stream - How to make call like  data-url="/allMessagesForAStream/streamId/pageLimit/pageNo" dynamically ?  -->
@@ -272,7 +272,7 @@ header, footer){
                                                                 <div class="question-icn"></div> <span>Question</span> </a>
                                                          <ul class="dropdown-menu google-doc-dropdown" role="menu"
                                                                 aria-labelledby="dropdownMenu">
-                                                                                                                                                                                                    </li>
+                                                                                                                                                                                                    
                                                                 <li><a tabindex="-1" href="#" onclick="javascript:document.getElementById('questionsLink').click();">Ask a Question</a></li>
                                                                 <li><a tabindex="-1" href="" >Add a Poll	</a></li>
                                                         </ul>
@@ -432,13 +432,13 @@ header, footer){
                                         </form>
                                 </div>
 
-                                <div id="messageListView" data-model="discussion"
+                                <!-- <div id="messageListView" data-model="discussion"
                                         data-module="view/messageListView" data-url="/"
                                         data-tpl="templates/discussionMessage.tpl"></div>
 
                                 <div id="discussion-pagination" class="page-loader">
                                         <img src="/beamstream-new/images/loading-bars.gif" alt="">
-                                </div>
+                                </div> -->
 
                         </div>
 
@@ -608,7 +608,14 @@ header, footer){
                                         <a href="#" class="unanswerd active-text" style="display:none;">20 Unanswered</a> <a
                                                 href="#" class="unanswerd" style="display:none;">12 Answered</a><!-- DH remove these styles when ready -->
                                 </div>
+										<!-- <div id="questionListView" data-model="question"
+													data-module="view/questionListView" data-url="/"
+														data-tpl="templates/questionMessage.tpl"></div>
 
+								    		<div id="question-pagination" class="page-loader"
+																style="display: none;">
+													<img src="/beamstream-new/images/loading-bars.gif" alt="">
+									</div> -->
                          
 								
 							    	<!--  <div id="messageListView" data-model="discussion"
@@ -652,6 +659,14 @@ header, footer){
                         </div>
 
                 </div>
+                
+                 <div id="messageListView" data-model="discussion"
+                                        data-module="view/messageListView" data-url="/"
+                                        data-tpl="templates/discussionMessage.tpl"></div>
+
+                                <div id="discussion-pagination" class="page-loader">
+                                        <img src="/beamstream-new/images/loading-bars.gif" alt="">
+                                </div> 
         </div>
 </div>
 
