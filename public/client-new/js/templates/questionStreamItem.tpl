@@ -11,7 +11,7 @@
     	 <div class="follow-question">FOLLOW</div>
     {{#if onlineUserAsked}}
     <div class="btn-group stream-dropdown question-setting">
-        <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown"> <span class="caret display-caret"></span></button>
+        <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown"> <span><img src="/beamstream-new/images/SettingsIcon.jpg"</span></button>
             <ul class="dropdown-menu pull-right" >
             <li class="mark-answered"><a href="#">Mark As Answered</a></li>
             <li class="delete-question"><a href="#">Delete Question</a></li>
