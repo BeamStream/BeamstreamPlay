@@ -242,8 +242,7 @@ header, footer){
                 </ul>
                 <div class="tab-content">
                         <!--   to get all messages of a stream - How to make call like  data-url="/allMessagesForAStream/streamId/pageLimit/pageNo" dynamically ?  -->
-                        <div class="tab-pane active" id="discussionsView"
-                                data-model="discussion">
+                        <div class="tab-pane active" id="discussionsView" data-model="discussion">
                                 <div class="question-info">
 
                                         <div class="new-google">
@@ -274,7 +273,7 @@ header, footer){
                                                                 aria-labelledby="dropdownMenu">
                                                                                                                                                                                                     
                                                                 <li><a tabindex="-1" href="#" onclick="javascript:document.getElementById('questionsLink').click();">Ask a Question</a></li>
-                                                                <li><a tabindex="-1" href="" >Add a Poll	</a></li>
+                                                                <li><a tabindex="-1" href="#" onclick="javascript:document.getElementById('questionsLink').click();" >Add a Poll	</a></li>
                                                         </ul>
                                                 </div>
                                         </div>
@@ -445,8 +444,8 @@ header, footer){
                         <div class="tab-pane " id="questionsView" data-model="question">
                                 <div class="question-info">
                                         <div class="new-google">
-                                                <a class="dropdown-toggle new-google-btn" 
-                                                        href="" javascript:document.getElementById('discussionsLink').click();"> <span>&lt; Back to
+                                                <a class="dropdown-toggle new-google-btn" tabindex="-1"
+                                                        href="" onclick="javascript:document.getElementById('discussionsLink').click();"> <span>&lt; Back to
                                                                 Discussions</span>
                                                         <div class="back-icn"></div> </a>
                                         </div>
