@@ -1,4 +1,4 @@
-@()(implicit session: play.api.mvc.Session, flash:play.api.mvc.Flash)
+@()(implicit session: play.api.mvc.Session, flash:play.api.mvc.Flash , request: RequestHeader)
 @meta = {} 
 @CSS = {
 <!-- embedly preview js -->
@@ -712,5 +712,153 @@ header, footer){
 
 <div id="questionStreamView"></div>
 
+<!-- Chat------------- -->
+
+<div id="onError" class="alert-message error">
+        <p>
+            <strong>Oops!</strong> <span></span>
+        </p>
+    </div>
+    
+    <div id="onChat" class="row">
+        <div class="span10" id="main">
+            <div id="messages">
+            </div>
+            <textarea id="talk"></textarea>
+        </div>
+        <div class="span4">
+            <h2>Members</h2>
+            <ul id="members">
+            </ul>
+        </div>
+    </div>
+    
+    <input type="submit" onclick="chatWithNeel()"/>
+    <!-- Chat------------- -->
+    
+  <script type="text/javascript">
+    $(function() {
+    var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket
+     var userIdFound=("@session.get("userId")").toString()
+    var chatSocket = new WS( "@routes.WebsocketCommunicationController.chat("ABCDEF","").webSocketURL()")
+   
+   
+   
+   
+   var receiveEvent = function(event) {
+   alert("Mila to h kuch")
+        var data = JSON.parse(event.data)
+
+var sendMessage = function() {
+	alert('Bheja To h')
+        chatSocket.send(JSON.stringify(
+            {text: $("#talk").val()}
+        ))
+        $("#talk").val('')
+    }
+
+var handleReturnKey = function(e) {
+        if(e.charCode == 13 || e.keyCode == 13) {
+            e.preventDefault()
+            sendMessage()
+        }
+    }
+
+    $("#talk").keypress(handleReturnKey)
+    
+        // Handle errors
+        if(data.error) {
+         alert('yha aata hu')
+            chatSocket.close()
+            $("#onError span").text(data.error)
+            $("#onError").show()
+            return
+        } else {
+            $("#onChat").show()
+        }
+
+        // Create the message element
+        var el = $('<div class="message"><span></span><p></p></div>')
+        $("span", el).text(data.user)
+        $("p", el).text(data.message)
+        $(el).addClass(data.kind)
+        $('#messages').append(el)
+
+        // Update the members list
+        $("#members").html('')
+        $(data.members).each(function() {
+            var li = document.createElement('li');
+            li.textContent = this;
+            $("#members").append(li);
+        })
+    }
+chatSocket.onmessage = receiveEvent
+})
+
+
+</script>
+<script>
+
+function chatWithNeel(){
+alert('called')
+	  var WSS = window['MozWebSocket'] ? MozWebSocket : WebSocket
+			     var userIdFound=("@session.get("userId")").toString()
+			    var socket = new WSS( "@routes.WebsocketCommunicationController.chat("ABCDEF", "527cad8744ae9e1443e33fc9").webSocketURL()")
+	
+	
+	
+	var sendMessage = function() {
+	alert('Bheja To h')
+        socket.send(JSON.stringify(
+            {text: $("#talk").val()}
+        ))
+        $("#talk").val('')
+    }
+
+    var receiveEvent = function(event) {
+        var data = JSON.parse(event.data)
+
+        // Handle errors
+        if(data.error) {
+       
+            socket.close()
+            $("#onError span").text(data.error)
+            $("#onError").show()
+            return
+        } else {
+            $("#onChat").show()
+        }
+
+        // Create the message element
+        var el = $('<div class="message"><span></span><p></p></div>')
+        $("span", el).text(data.user)
+        $("p", el).text(data.message)
+        $(el).addClass(data.kind)
+        $('#messages').append(el)
+
+        // Update the members list
+        $("#members").html('')
+        $(data.members).each(function() {
+            var li = document.createElement('li');
+            li.textContent = this;
+            $("#members").append(li);
+        })
+    }
+
+    var handleReturnKey = function(e) {
+        if(e.charCode == 13 || e.keyCode == 13) {
+            e.preventDefault()
+            sendMessage()
+        }
+    }
+
+    $("#talk").keypress(handleReturnKey)
+
+    socket.onmessage = receiveEvent
+}
+</script> 
+
+    
+ 
 
 }

@@ -5,7 +5,7 @@
     $(function() {
     var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket
 	
-    var chatSocket = new WS("@routes.WebsocketCommunicationController.chat(username).webSocketURL()")
+    var chatSocket = new WS("@routes.WebsocketCommunicationController.chat(username,"").webSocketURL()")
     alert(chatSocket.url)
     var sendMessage = function() {
         chatSocket.send(JSON.stringify(

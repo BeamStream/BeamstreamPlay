@@ -212,13 +212,9 @@ GET    /getGoogleDocs                                                           
 GET    /uploadPage                                                                         controllers.GoogleDocsUploadUtilityController.uploadPage
 
 
-GET    /chatRoom/:name                                                                        controllers.WebsocketCommunicationController.chatRoom(name:String)
-GET    /chat/:name                                                                            controllers.WebsocketCommunicationController.chat(name: String)
+#GET    /chatRoom                                                                        controllers.WebsocketCommunicationController.chatRoom
+GET    /chat                                                                            controllers.WebsocketCommunicationController.chat(name: String, withWhom:String)
 
-#Chat
-#GET  /chatNow                                                     controllers.ChatController.chatRoom
-#GET  /room                                                     controllers.ChatController.chat(username,userId,chatWith)
-#GET /checkForChat                                               controllers.UserController.checkForChat(userId:String)
 
 #Looks like Unused
 

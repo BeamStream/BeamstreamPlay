@@ -1,5 +1,4 @@
 import scala.concurrent.Future
-
 import models.School
 import play.api.Application
 import play.api.GlobalSettings
@@ -7,6 +6,7 @@ import play.api.mvc.RequestHeader
 import play.api.mvc.Results.InternalServerError
 import play.api.mvc.Results.NotFound
 import play.api.mvc.Results.Redirect
+import utils.ChatAvailiblity
 
 object Global extends GlobalSettings {
 
