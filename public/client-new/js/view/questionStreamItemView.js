@@ -18,7 +18,12 @@ function(BaseView, Pluralize, questionStreamItemTPL){
 			'click .mark-answered': 'markAnswered', 
 			'click .delete-question': 'deleteQuestion',
 			'click .question-dropdown': 'toggleDropdown'
+		
 		}, 
+		
+		
+		
+		
 
 		initialize: function(){
 			BaseView.prototype.initialize.apply(this, arguments);

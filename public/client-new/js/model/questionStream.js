@@ -22,7 +22,9 @@ define(['baseModel',
 			// this is unused code from an attempt to use pubnub
 			// this.on('change:pagePushUid', this.getQuestionsFromPubNub);
 		},
-
+		
+		
+		
 		setLoggedInUser: function(){
 			this.set('onlineUser', new OnlineUser());
 			var that = this;

@@ -73,7 +73,7 @@ define(['view/formView',
             var trueurl='';
             var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
           
-          	
+            
             // get the model attributes
         	var model = this.model.attributes;
     		

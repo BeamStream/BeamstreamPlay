@@ -15,7 +15,9 @@ define(['pageView',
 		objName: 'MyStreamView',
 		events:{
 			'click #streamTab a': 'tabHandler',
-			'click #show-info' :'showDetails'
+			'click #show-info' :'showDetails',
+			'click .addpoll' : 'addPollOptionsArea',
+			'click .ques' : 'hide'
 		},
 		messagesPerPage: 10,
 		pageNo: 1,
@@ -59,6 +61,37 @@ define(['pageView',
 	    	$('.show-info').toggle(100);
 	    	
 	    },
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    addPollOptionsArea: function(eventName){
+			eventName.preventDefault();
+			
+			this.options = 2;
+			$('#pollArea').show(); 
+		},
+		
+		
+		
+		hide:function(eventName){
+			eventName.preventDefault();
+			
+			this.options = 2;
+			$('#pollArea').hide(); 
+		},
+		
+		
+		
+	    
+	    
 	    tabHandler: function(e){
 	    	var tabId=$(e.target).attr('href').replace('#',''), view;	    	
 
