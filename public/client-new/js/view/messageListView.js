@@ -32,7 +32,7 @@ define(['view/formView',
         },
         
         onAfterRender: function(){
-        	$('.commentList').hide();
+        	$('.commentList').show();
         	
         },
 		
@@ -45,7 +45,7 @@ define(['view/formView',
              
 			/* render messages */
         	_.each(this.data.models, function(model) {
-				var messageItemView  = new MessageItemView({model : model});
+				var messageItemView  = new MessageItemView({model : model});		
 				$('#messageListView div.content').append(messageItemView.render().el);
 				
         	});

@@ -67,7 +67,7 @@
                     </ul>
                      <ul id="uploded-file" class="answer" style="display:none; font-style: italic;">
                        
-                    </ul>
+                    </ul> 
                   </div>
                   <a  id="post-question"  class="ask-button">ASK</a> 
 <div id="file-upload-loader" style="display :none;">  

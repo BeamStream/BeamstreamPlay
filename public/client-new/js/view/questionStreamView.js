@@ -13,7 +13,9 @@ function(BaseView, questionStreamTPL, QuestionStream, QuestionStreamListView){
 			'click #filter-unanswered': 'filterHandler', 
 			'click #filter-answered': 'filterHandler', 
 			'click #filter-myquestions': 'filterHandler', 
-			'submit .question-form': 'searchQuestions'
+			'submit .question-form': 'searchQuestions',
+			'click .popout': 'popout',
+			'click .minimize': 'minify'
 		},
 
 		initialize: function() {
@@ -23,11 +25,31 @@ function(BaseView, questionStreamTPL, QuestionStream, QuestionStreamListView){
 			this.model = new QuestionStream({
 				streamId: undefined, 
 				currentFilter: 'unanswered'
+					
+			
 			});
 
 			this.render();
 		},
-
+			
+		popout:function(){
+			
+			$("#messageListView").hide();
+			$("#questionListView").css("display","block");
+			$("#questionListView").css("visibility","visible");
+		
+			
+		},
+		
+		minify:function(){
+		
+			$("#messageListView").show();
+			$("#questionListView").css("display","none");
+			$("#questionListView").css("visibility","hidden");
+			
+		},
+		
+		
 		addChildViews: function() {
 			// Create sub view, but don't yet tell it where to render itself
 			this.streamListView = new QuestionStreamListView({
