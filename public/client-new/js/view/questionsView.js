@@ -17,8 +17,8 @@ define(['view/formView',
 			'click #share-discussions li a' : 'actvateShareIcon',
 			'click #Q-privatelist li' :'selectPrivateToList',
 			'click #post-question' : 'postQuestion',
-			'click .poll-ask-search' : 'addPollOptionsArea',
-			'click .add-poll' : 'addPollOptionsArea',
+			'click .showpolloption' : 'addPollOptionsArea',
+			/*'click .add-poll' : 'addPollOptionsArea',*/
 			'click .add-option' : 'addMorePollOptions',
 			'click #Q-private-to' : 'checkPrivateAccess',
 			'click #question-file-upload li' : 'uploadFiles',
@@ -683,7 +683,7 @@ define(['view/formView',
 			eventName.preventDefault();
 			
 			this.options = 2;
-			$('#pollArea').slideToggle(700); 
+			$('#pollArea').slideDown(700); 
 		},
 		
 		/**

@@ -1,5 +1,4 @@
 package utils
-//import play.libs.WS
 import play.api.Play
 import play.api.libs.ws.WS
 import scala.concurrent.ExecutionContext.Implicits.global

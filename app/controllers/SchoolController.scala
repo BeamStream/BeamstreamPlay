@@ -42,7 +42,7 @@ object SchoolController extends Controller {
       val SchoolListJson = write(getAllSchoolsForAUser)
       Ok(SchoolListJson).as("application/json")
     } catch {
-      case exception => InternalServerError(write("There was some errors during fetching the schools")).as("application/json")
+      case exception: Throwable => InternalServerError("There was some errors during fetching the schools").as("application/json")
 
     }
   }

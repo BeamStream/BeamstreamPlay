@@ -65,7 +65,7 @@ object Question {
    */
 
   def findQuestionById(questionId: ObjectId): Option[Question] = {
-    QuestionDAO.findOneByID(questionId)
+    QuestionDAO.findOneById(questionId)
   }
 
   /**

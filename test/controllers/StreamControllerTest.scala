@@ -8,7 +8,6 @@ import models.BetaUserDAO
 import models.StreamDAO
 import play.api.test.FakeApplication
 import play.api.test.Helpers.running
-import play.libs.WS
 import org.scalatest.junit.JUnitRunner
 @RunWith(classOf[JUnitRunner])
 class StreamControllerTest extends FunSuite with BeforeAndAfter {
@@ -18,12 +17,12 @@ class StreamControllerTest extends FunSuite with BeforeAndAfter {
     }
   }
 
-  test("Render stream page") {
-    running(FakeApplication()) {
-      val status = WS.url("http://localhost:9000/stream")
-      assert(status.get.get.getStatus === 200)
-    }
-  }
+  //  test("Render stream page") {
+  //    running(FakeApplication()) {
+  //      val status = WS.url("http://localhost:9000/stream")
+  //      assert(status.get.get.getStatus === 200)
+  //    }
+  //  }
 
   after {
     running(FakeApplication()) {

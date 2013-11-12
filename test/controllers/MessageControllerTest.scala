@@ -6,7 +6,6 @@ import com.mongodb.casbah.commons.MongoDBObject
 import models.UserMediaDAO
 import play.api.test.FakeApplication
 import play.api.test.Helpers._
-import play.libs.WS
 import org.scalatest.junit.JUnitRunner
 import models.MessageDAO
 import models.User

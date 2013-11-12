@@ -33,7 +33,7 @@ class UserTest extends FunSuite with BeforeAndAfter {
   test("RemoveUser User") {
     val userId = User.createUser(user1)
     assert(UserDAO.find(MongoDBObject()).size === 1)
-    User.removeUser(user1)
+    User.removeUser(user1.id)
     assert(UserDAO.find(MongoDBObject()).size === 0)
   }
 
@@ -79,7 +79,7 @@ class UserTest extends FunSuite with BeforeAndAfter {
   test("Count roles of a user") {
     val user1Id = User.createUser(user1)
     val user2Id = User.createUser(user2)
-    assert(User.countRolesOfAUser(List(user1Id.get, user2Id.get)) === Map("Student" -> 0, "Educator" -> 0, "Professional" -> 2,"TeachersAssistant"->0))
+    assert(User.countRolesOfAUser(List(user1Id.get, user2Id.get)) === Map("Student" -> 0, "Educator" -> 0, "Professional" -> 2, "TeachersAssistant" -> 0))
   }
 
   test("Find User By Email Or Name") {

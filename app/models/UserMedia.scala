@@ -61,7 +61,7 @@ object UserMedia extends RockConsumer {
    */
 
   def findMediaById(mediaId: ObjectId): Option[UserMedia] = {
-    UserMediaDAO.findOneByID(mediaId)
+    UserMediaDAO.findOneById(mediaId)
 
   }
   /**

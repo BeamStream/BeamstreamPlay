@@ -60,7 +60,7 @@ object ClassController extends Controller {
       val classListJson = write(classList)
       Ok(classListJson).as("application/json")
     } catch {
-      case exception => InternalServerError("Class Autopopulate Failed")
+      case exception: Throwable => InternalServerError("Class Autopopulate Failed")
     }
   }
 
@@ -75,7 +75,7 @@ object ClassController extends Controller {
       val ClassListJson = write(getAllClassesForAUser)
       Ok(ClassListJson).as("application/json")
     } catch {
-      case exception => Ok(write(new ResulttoSent("Failure", "There Was Some Problem To Get List Of Classes For A User")))
+      case exception : Throwable=> Ok(write(new ResulttoSent("Failure", "There Was Some Problem To Get List Of Classes For A User")))
     }
   }
 
@@ -109,7 +109,7 @@ object ClassController extends Controller {
         Ok(write(ClassResult(stream.get, resultToSend))).as("application/json")
       }
     } catch {
-      case exception => InternalServerError("Class Creation Failed")
+      case exception : Throwable => InternalServerError("Class Creation Failed")
     }
   }
 }

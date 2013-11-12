@@ -45,7 +45,7 @@ object Comment {
    */
 
   def findCommentById(commentId: ObjectId): Option[Comment] = {
-    CommentDAO.findOneByID(commentId)
+    CommentDAO.findOneById(commentId)
   }
 
   /**
@@ -93,7 +93,7 @@ object Comment {
     comments map {
       case commentId =>
         val comment = CommentDAO.find(MongoDBObject("_id" -> commentId)).toList
-        (comment.isEmpty.equals(false)) match {
+        (comment.isEmpty==false) match {
           case true => {
             val userMedia = UserMedia.getProfilePicForAUser(comment.head.userId)
 

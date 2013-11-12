@@ -57,7 +57,7 @@ object UserController extends Controller {
             usersToShow ++= otherUsers.intersect(streamUsers)
         }
 
-        val onlineUsersWithDetails = (usersToShow.removeDuplicates) map {
+        val onlineUsersWithDetails = (usersToShow.distinct) map {
           case eachUserId =>
             val userWithDetailedInfo = User.getUserProfile(eachUserId)
             val profilePicForUser = UserMedia.getProfilePicForAUser(eachUserId)
@@ -258,6 +258,26 @@ object UserController extends Controller {
 
   def renderForgotPasswordView = Action { implicit request =>
     Ok(views.html.recoverPassword("Recover Password Page"))
+  }
+
+  /**
+   * Reset Account
+   */
+
+  def accountReset = Action { implicit request =>
+    Ok(views.html.resetaccount())
+  }
+
+  def reset = Action { implicit request =>
+    val data = request.body.asFormUrlEncoded.get
+    val emailToReset = data("email").toList(0)
+    val user = User.findUserByEmailId(emailToReset)
+    (user != None) match {
+      case true =>
+        User.removeUser(user.get.id)
+        Ok("Account Resetted Successfuly")
+      case false => Ok("No User Found With This Email")
+    }
   }
 
   /**

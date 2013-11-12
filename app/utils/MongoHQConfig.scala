@@ -6,6 +6,7 @@ object MongoHQConfig {
 
   /**
    * This all will come from "application.conf" file
+   *
    */
   val mongoServer = Play.current.configuration.getString("mongoServer").get
   val mongoPort = Play.current.configuration.getString("mongoPort").get.toInt
