@@ -6,6 +6,7 @@ define([
 function(BaseView, questionStreamListTPL, QuestionStreamItemView){
 	var QuestionStreamListView = BaseView.extend({
 		objName: 'questionStreamListView',
+		
 
 		events: {
 

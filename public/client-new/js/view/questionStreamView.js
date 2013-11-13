@@ -45,6 +45,7 @@ function(BaseView, questionStreamTPL, QuestionStream, QuestionStreamListView){
 		
 			$("#messageListView").show();
 			$("#questionListView").css("display","none");
+			
 			$("#questionListView").css("visibility","hidden");
 			
 		},
