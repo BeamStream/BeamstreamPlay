@@ -17,7 +17,7 @@ object WebsocketCommunicationController extends Controller {
   /**
    * Handles the chat websocket.
    */
-  def chat(username: String, withWhom: String) = WebSocket.async[JsValue] { implicit request =>
+  def chat(withWhom: String) = WebSocket.async[JsValue] { implicit request =>
 
     (withWhom == "") match {
       case true =>
@@ -27,14 +27,18 @@ object WebsocketCommunicationController extends Controller {
           roomActor
         }
 
-        WebsocketCommunication.join(username, default, request.session.get("userId").get)
+        WebsocketCommunication.join(default, request.session.get("userId").get)
 
       case false =>
         println("Join case"+"**********")
         var acWithChat = ChatAvailiblity.a(new ObjectId(withWhom))
-        WebsocketCommunication.join(username, acWithChat, request.session.get("userId").get)
+        WebsocketCommunication.join( acWithChat, request.session.get("userId").get)
     }
 
+  }
+  
+  def chatRoom(toWhom : String) = Action { implicit request =>
+    Ok(views.html.chatRoom(toWhom))
   }
 
 }

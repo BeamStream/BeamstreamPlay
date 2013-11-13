@@ -13,6 +13,7 @@ import play.api.mvc.Controller
 import utils.EnumerationSerializer
 import utils.ObjectIdSerializer
 import utils.OnlineUserCache
+import play.api.Routes
 
 object StreamController extends Controller {
 
@@ -104,22 +105,15 @@ object StreamController extends Controller {
   }
 
   /**
-   * Java Script Routes
+   * Ajax Support
    */
+
 //  def javascriptRoutes = Action { implicit request =>
-//
+//    import routes.javascript._
 //    Ok(
 //      Routes.javascriptRouter("jsRoutes")(
-//        routes.javascript.UserController.checkForChat)).as("text/javascript")
+//        WebsocketCommunicationController.chat,
+//        WebsocketCommunicationController.chatRoom)).as("text/javascript")
 //  }
-
-  /**
-   * TODO Just Putting here for future need  , needs to be removed
-   * <script type="text/javascript">
-   * intervalID = setInterval(function() {
-   * checkForChat();
-   * }, 5000)
-   * </script>
-   */
 
 }

@@ -70,20 +70,20 @@ object WebsocketCommunication {
 
   implicit val timeout = Timeout(1 second)
 
-  def join(username: String, actofRef: ActorRef, userId: String): scala.concurrent.Future[(Iteratee[JsValue, _], Enumerator[JsValue])] = {
+  def join(actofRef: ActorRef, userId: String): scala.concurrent.Future[(Iteratee[JsValue, _], Enumerator[JsValue])] = {
 
     println("Before" + ChatAvailiblity.a.size)
     ChatAvailiblity.a += new ObjectId(userId) -> actofRef
     println("After" + ChatAvailiblity.a.size)
 
-    (actofRef ? Join(username)).map {
+    (actofRef ? Join("")).map {
 
       case Connected(enumerator) =>
         println("<<<<<<<<IN")
         val iteratee = Iteratee.foreach[JsValue] { event =>
-          actofRef ! Talk(username, (event \ "text").as[String])
+          actofRef ! Talk("", (event \ "text").as[String])
         }.map { _ =>
-          actofRef ! Quit(username)
+          actofRef ! Quit("")
         }
         (iteratee, enumerator)
 

@@ -714,14 +714,8 @@ header, footer){
 
 <!-- Chat------------- -->
 
- 
-    <div id="onError" class="alert-message error">
-        <p>
-            <strong>Oops!</strong> <span></span>
-        </p>
-    </div>
-    
-    <div id="onChat" class="row">
+<div id="showChat" style="display: none;">
+<div id="onChat" class="row">
         <div class="span10" id="main">
             <div id="messages">
             </div>
@@ -733,132 +727,19 @@ header, footer){
             </ul>
         </div>
     </div>
+</div>
+ 
+    <script language="javascript">
+        var newwindow;
+
+        function popit(username,toWhom){
+            newwindow = window.open("chatRoom/"+toWhom, '', "status=yes, height=500; width=500; resizeable=0");
+        }
+    </script>
     
-    
-    <input type="submit" onclick="chatWithRishi()"/>
     <!-- Chat------------- -->
     
-  <script type="text/javascript">
-    $(function() {
+  
 
-    var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket
-    var chatSocket = new WS("@routes.WebsocketCommunicationController.chat("","").webSocketURL()")
-
-    var sendMessage = function() {
-        alert('main se send h')
-    
-        chatSocket.send(JSON.stringify(
-            {text: $("#talk").val()}
-        ))
-        $("#talk").val('')
-    }
-
-    var receiveEvent = function(event) {
-    alert('main me recieve h')
-        var data = JSON.parse(event.data)
-
-        // Handle errors
-        if(data.error) {
-            chatSocket.close()
-            $("#onError span").text(data.error)
-            $("#onError").show()
-            return
-        } else {
-            $("#onChat").show()
-        }
-
-        // Create the message element
-        var el = $('<div class="message"><span></span><p></p></div>')
-        $("span", el).text(data.user)
-        $("p", el).text(data.message)
-        $(el).addClass(data.kind)
-        $('#messages').append(el)
-
-        // Update the members list
-        $("#members").html('')
-        $(data.members).each(function() {
-            var li = document.createElement('li');
-            li.textContent = this;
-            $("#members").append(li);
-        })
-    }
-
-    var handleReturnKey = function(e) {
-        if(e.charCode == 13 || e.keyCode == 13) {
-            e.preventDefault()
-            sendMessage()
-        }
-    }
-
-//    $("#talk").keypress(handleReturnKey)
-
-    chatSocket.onmessage = receiveEvent
-
-})
-</script>
-
-
-<script>
-
-function chatWithRishi(){
-alert('called')
-	  var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket
-			    var socket = new WS("@routes.WebsocketCommunicationController.chat("","526e45c944ae22edcad934d1").webSocketURL()")
-
-			    var sendMessage = function() {
-			        alert('user se send h')
-			    
-			        socket.send(JSON.stringify(
-			            {text: $("#talk").val()}
-			        ))
-			        $("#talk").val('')
-			    }
-
-			    var receiveEvent = function(event) {
-			    alert('user me recieve h')
-			        var data = JSON.parse(event.data)
-
-			        // Handle errors
-			        if(data.error) {
-			            socket.close()
-			            $("#onError span").text(data.error)
-			            $("#onError").show()
-			            return
-			        } else {
-			            $("#onChat").show()
-			        }
-
-			        // Create the message element
-			        var el = $('<div class="message"><span></span><p></p></div>')
-			        $("span", el).text(data.user)
-			        $("p", el).text(data.message)
-			        $(el).addClass(data.kind)
-			        $('#messages').append(el)
-
-			        // Update the members list
-			        $("#members").html('')
-			        $(data.members).each(function() {
-			            var li = document.createElement('li');
-			            li.textContent = this;
-			            $("#members").append(li);
-			        })
-			    }
-
-			    var handleReturnKey = function(e) {
-			        if(e.charCode == 13 || e.keyCode == 13) {
-			            e.preventDefault()
-			            sendMessage()
-			        }
-			    }
-
-			    $("#talk").keypress(handleReturnKey)
-
-			    socket.onmessage = receiveEvent
-	  
-}
-</script> 
-
-    
- 
 
 }

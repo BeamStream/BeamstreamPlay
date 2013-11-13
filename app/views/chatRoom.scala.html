@@ -1,12 +1,11 @@
-@(username: String)(implicit request: RequestHeader)
+@(actor : String)(implicit request: RequestHeader)
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script type="text/javascript">
     $(function() {
     var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket
 	
-    var chatSocket = new WS("@routes.WebsocketCommunicationController.chat(username,"").webSocketURL()")
-    alert(chatSocket.url)
+    var chatSocket = new WS("@routes.WebsocketCommunicationController.chat(actor).webSocketURL()")
     var sendMessage = function() {
         chatSocket.send(JSON.stringify(
             {text: $("#talk").val()}
@@ -32,7 +31,6 @@
         $("span", el).text(data.user)
         $("p", el).text(data.message)
         $(el).addClass(data.kind)
-        if(data.user == '@username') $(el).addClass('me')
         $('#messages').append(el)
 
         // Update the members list
@@ -60,28 +58,6 @@
  
 
     
-    <div class="page-header">
-        <h1>Welcome to the chat room <small>You are chatting as @username</small></h1>
-    </div>
+   
     
-    <div id="onError" class="alert-message error">
-        <p>
-            <strong>Oops!</strong> <span></span>
-        </p>
-    </div>
-    
-    <div id="onChat" class="row">
-        <div class="span10" id="main">
-            <div id="messages">
-            </div>
-            <textarea id="talk"></textarea>
-        </div>
-        <div class="span4">
-            <h2>Members</h2>
-            <ul id="members">
-            </ul>
-        </div>
-    </div>
-  
-    
-  
+   
