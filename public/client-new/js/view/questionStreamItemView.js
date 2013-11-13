@@ -39,6 +39,7 @@ function(BaseView, Pluralize, questionStreamItemTPL){
 
 		rockQuestion: function(e){
 			this.model.rockQuestion();
+			
 		}, 
 
 		toggleCommentText: function(){

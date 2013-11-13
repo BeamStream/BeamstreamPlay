@@ -334,6 +334,7 @@ define(['view/formView',
 			else
 			{
 				$('#'+questionId+'-msgComment').val('');
+				alert($('#'+questionId+'-msgComment').val());
 				$('#'+questionId+'-addComments').slideToggle(200); 
 				$('#'+questionId+'-addComments > textarea').focus();
 			}
