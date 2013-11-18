@@ -108,12 +108,11 @@ object StreamController extends Controller {
    * Ajax Support
    */
 
-//  def javascriptRoutes = Action { implicit request =>
-//    import routes.javascript._
-//    Ok(
-//      Routes.javascriptRouter("jsRoutes")(
-//        WebsocketCommunicationController.chat,
-//        WebsocketCommunicationController.chatRoom)).as("text/javascript")
-//  }
+  def javascriptRoutes = Action { implicit request =>
+    import routes.javascript._
+    Ok(
+      Routes.javascriptRouter("jsRoutes")(
+        routes.javascript.WebsocketCommunicationController.chat)).as("text/javascript")
+  }
 
 }

@@ -12,13 +12,16 @@ import play.api.Play.current
 import akka.actor.Props
 import utils.ChatAvailiblity
 import org.bson.types.ObjectId
+import play.api.libs.json.Json
 object WebsocketCommunicationController extends Controller {
 
+  def init = Action { implicit request =>
+    Ok(views.html.chatinitiator())
+  }
   /**
    * Handles the chat websocket.
    */
   def chat(withWhom: String) = WebSocket.async[JsValue] { implicit request =>
-
     (withWhom == "") match {
       case true =>
 
@@ -30,14 +33,14 @@ object WebsocketCommunicationController extends Controller {
         WebsocketCommunication.join(default, request.session.get("userId").get)
 
       case false =>
-        println("Join case"+"**********")
+        println("Join case" + "**********")
         var acWithChat = ChatAvailiblity.a(new ObjectId(withWhom))
-        WebsocketCommunication.join( acWithChat, request.session.get("userId").get)
+        WebsocketCommunication.join(acWithChat, request.session.get("userId").get)
     }
 
   }
-  
-  def chatRoom(toWhom : String) = Action { implicit request =>
+
+  def chatRoom(toWhom: String) = Action { implicit request =>
     Ok(views.html.chatRoom(toWhom))
   }
 
