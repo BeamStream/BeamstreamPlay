@@ -14,6 +14,7 @@
     }
 
     var receiveEvent = function(event) {
+   
         var data = JSON.parse(event.data)
 
         // Handle errors
@@ -33,13 +34,7 @@
         $(el).addClass(data.kind)
         $('#messages').append(el)
 
-        // Update the members list
-        $("#members").html('')
-        $(data.members).each(function() {
-            var li = document.createElement('li');
-            li.textContent = this;
-            $("#members").append(li);
-        })
+       
     }
 
     var handleReturnKey = function(e) {
@@ -54,21 +49,18 @@
     chatSocket.onmessage = receiveEvent
 
 })
-</script>
 
+</script>
+<div id=inform>
 <div id="onChat" class="row">
         <div class="span10" id="main">
             <div id="messages">
             </div>
             <textarea id="talk"></textarea>
         </div>
-        <div class="span4">
-            <h2>Members</h2>
-            <ul id="members">
-            </ul>
-        </div>
+        
     </div>
- 
+ </div>
 
     
    

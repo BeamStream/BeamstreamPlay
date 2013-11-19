@@ -216,7 +216,6 @@ GET    /uploadPage                                                              
 GET    /chat                                 controllers.WebsocketCommunicationController.chat(withWhom:String)
 GET    /chatRoom/:toWhom                               controllers.WebsocketCommunicationController.chatRoom(toWhom:String)
 GET /javascriptRoutes                                  controllers.StreamController.javascriptRoutes
-GET  /init                                          controllers.WebsocketCommunicationController.init
 #Looks like Unused
 
 #Basic Registration

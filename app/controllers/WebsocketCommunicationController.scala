@@ -15,9 +15,6 @@ import org.bson.types.ObjectId
 import play.api.libs.json.Json
 object WebsocketCommunicationController extends Controller {
 
-  def init = Action { implicit request =>
-    Ok(views.html.chatinitiator())
-  }
   /**
    * Handles the chat websocket.
    */
