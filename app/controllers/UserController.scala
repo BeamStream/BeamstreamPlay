@@ -197,7 +197,9 @@ object UserController extends Controller {
   def browserClosed = Action { implicit request =>
     val noOfOnLineUsers = OnlineUserCache.setOffline(request.session.get("userId").get)
     println("Online Users" + noOfOnLineUsers)
+    println("Ankit")
     Ok
+    
   }
 
   /**

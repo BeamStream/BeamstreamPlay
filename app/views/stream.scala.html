@@ -8,6 +8,12 @@
 <!--  prettyPhoto -->
 <link rel="stylesheet" href="/beamstream-new/css/extracss/prettyPhoto.css" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
 
+
+
+        <link rel="stylesheet/less" href="/beamstream-new/less/lessgoogledocs/main.less" type="text/css">
+       <!--  <link rel="stylesheet" href="/beamstream-new/css/cssgoogledocs/normalize.css"> -->
+
+
 } 
  @JS = {
 		<script type="text/JavaScript" src="/beamstream-new/lib/bootstrap-dropdownhover.js"></script>  
@@ -49,7 +55,7 @@
 <script type="text/javascript">
 
 function showGoogleDocs(action){
-newwindow=window.open('uploadNow/'+action,'name','height=800,width=800');
+newwindow=window.open('uploadNow/'+action,'name','height=100,width=500');
 if (window.focus) {newwindow.focus()}
 }
 
@@ -178,7 +184,25 @@ if (window.focus) {newwindow.focus()}
         var donut = [];
 </script>
 
+<script type="text/javascript">
+	
+	function executeQuery() {
+  $.ajax({
+    url: '/browserClosed',
+    success: function(data) {
+      // do something with the return value here if you like
+    }
+  });
+  setTimeout(executeQuery, 5000); // you could choose not to continue on failure...
+}
 
+$(document).ready(function() {
+  // run the first time; all subsequent calls will take care of themselves
+  setTimeout(executeQuery, 5000);
+});
+
+
+</script>
 
 
 } @sideBar = { @views.html.sidebar.render } 
@@ -238,7 +262,9 @@ header, footer){
                                                                         </ul>
                                                                 </li>
                                                                 <li><a tabindex="-1" href="#" onClick="showGoogleDocs('upload')">Upload Google Doc</a></li>
-                                                                <li><a tabindex="-1" href="" onClick="showGoogleDocs('show')">Show Google Docs</a></li>
+                                                                <li><a tabindex="-1" id="showgdocsdemo" href="#">Show Google Docs</a></li>
+                                                               <!--  <li><a tabindex="-1" href="" onClick="showGoogleDocs('show')">Show Google Docs</a></li> -->
+                                                                <!-- <li> <a id="add_classmates" href="#" class="invite-orange-btn addmore" data-toggle="modal"><span></span><span class="text">Show Google Docs</span></a></li> -->
                                                         </ul>
                                                 </div>
                 <ul class="nav-tabs stream-tab" id="streamTab" style="float:left;">
@@ -282,43 +308,7 @@ header, footer){
                 <div class="tab-content">
                         <!--   to get all messages of a stream - How to make call like  data-url="/allMessagesForAStream/streamId/pageLimit/pageNo" dynamically ?  -->
                         <div class="tab-pane active" id="discussionsView" data-model="discussion">
-                                <!-- <div class="question-info">
 
-                                        <div class="new-google">
-                                                <span>Create a:</span>
-                                                <div class="btn-group">
-                                                        <a class="dropdown-toggle new-google-btn"
-                                                                data-toggle="dropdown" data-hover="dropdown" href="#">
-                                                                <div class="google-doc-icn"></div> <span>Google Doc</span> </a>
-                                                        <ul class="dropdown-menu google-doc-dropdown" role="menu"
-                                                                aria-labelledby="dropdownMenu">
-                                                                <li id="showSubList"><a tabindex="-1" href="#">Create
-                                                                                Google Doc > </a>
-                                                                        <ul id="innerSubList">
-                                                                                <li><a href="#" onClick=showGoogleDocs('document')>Document</a></li>
-                                                                                <li><a href="#" onClick=showGoogleDocs('spreadsheet')>Spreadsheet</a></li>
-                                                                                <li><a href="#" onClick=showGoogleDocs('presentation')>Presentation</a></li>
-                                                                        </ul>
-                                                                </li>
-                                                                <li><a tabindex="-1" href="#" onClick="showGoogleDocs('upload')">Upload Google Doc</a></li>
-                                                                <li><a tabindex="-1" href="" onClick="showGoogleDocs('show')">Show Google Docs</a></li>
-                                                        </ul>
-                                                </div>
-                                                <div class="btn-group">
-                                                        change data-toggle to dropdown to return this to a dropdown menu
-                                                        <a id="streamTab" class="dropdown-toggle new-google-btn" data-toggle="dropdown" data-hover="dropdown" href="#">                                                               
-                                                                <div class="question-icn"></div> <span>Question</span> </a>
-                                                         <ul class="dropdown-menu google-doc-dropdown" role="menu"
-                                                                aria-labelledby="dropdownMenu">
-                                                                                                                                                                                                    
-                                                                <li><a tabindex="-1" href="#" onclick="javascript:document.getElementById('questionsLink').click();">Ask a Question</a></li>
-                                                                <li><a tabindex="-1" href="#" onclick="javascript:document.getElementById('questionsLink').click();" >Add a Poll	</a></li>
-                                                        </ul>
-                                                </div>
-                                        </div>
-
-                                        <div class="clear"></div>
-                                </div> -->
                                 <div class="ask-outer">
                                         <div class="ask-content">
                                                 <div class="follw-left">
@@ -714,6 +704,59 @@ header, footer){
 
                 </div>
                 
+                
+                
+                <div id="googledoc" class="modal hide fade invite-pop-up-googledoc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> 
+          			
+          
+          			
+          			<div class="main">
+            <div class="heading">
+                <div class="title">Acess Google Drive</div>
+                <div class="close">
+                    <div class="close-txt" class="close" aria-hidden="true" data-dismiss="modal">
+			Close
+	
+			</div>
+                    <div class="close-icon close" aria-hidden="true" data-dismiss="modal"><img width="22" height="22" src="/beamstream-new/images/close-pop.png"></div>
+                </div>
+            </div> <!-- heading end -->
+            <div class="content_docs">
+                <div class="drive-nav">
+                    <div class="folders">
+                        <li class="open-folder">My Drive
+                            <li class="sub-folder">Design</li>
+                            <li class="sub-folder">Develpment</li>
+                            <li class="sub-folder">Portfolio</li>
+                        </li>
+                        <div class="closed-folder-container">
+                            <li class="closed-folder">Shared with me</li>
+                            <li class="closed-folder">Started</li>
+                            <li class="closed-folder">Recent</li>
+                            <li class="closed-folder">More</li>
+                        </div>
+                    </div>
+                </div> <!-- drive-nav end -->
+
+
+                <div class="drive-view" id="docsview">
+
+                    <div class="drive-view-header">
+                        <div class="drive-folder-txt-container">
+                            <div class="drive-folder-txt">My Drive</div>
+                            <div class="folder-arrow">></div>
+                            <div class="drive-selected">Design</div>
+                        </div>
+                        <!-- <div class="upload-doc" onClick="showGoogleDocs('upload')">UPLOAD DOC</div> -->
+                    </div>
+				 </div>
+            </div> <!-- content end -->
+        </div> <!-- main end -->
+          			
+          			
+          		
+        
+         		 </div>
              
         </div>
 </div>

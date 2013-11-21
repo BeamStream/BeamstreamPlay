@@ -76,10 +76,11 @@ define(['view/formView',
             
             // get the model attributes
         	var model = this.model.attributes;
-    		
+        	
 			var contentType ='';
 			var msgBody = model.message.messageBody;
             
+			
 			/* get url from the message text */
             var msgUrl=  msgBody.replace(self.urlRegex1, function(msgUrlw) {
             	trueurl= msgUrlw;    
@@ -126,6 +127,7 @@ define(['view/formView',
             
             // customize the date format
             var datVal =  formatDateVal(model.message.timeCreated);
+           
             
 			var datas = {
 			 	 "data" : model,
@@ -134,7 +136,8 @@ define(['view/formView',
 			 	 "loggedUserId" :localStorage["loggedUserId"],
 			 	 
 		    }
-           
+			
+			
 			/* generate data depends on its type */
 			if(contentType == "docs")
 			{
@@ -148,6 +151,7 @@ define(['view/formView',
                     "loggedUserId" :localStorage["loggedUserId"],
                 	
 				}	
+				
 			}
 			else if(contentType == "messageOnly")
 			{
@@ -158,6 +162,7 @@ define(['view/formView',
 					 	 "contentType" : contentType,
 					 	 "loggedUserId" :localStorage["loggedUserId"],
 			    }
+				
 			}
 			else
 			{
@@ -169,7 +174,8 @@ define(['view/formView',
 					 	 "datVal":datVal,
 					 	 "contentType" : "media",
 					 	 "loggedUserId" :localStorage["loggedUserId"],
-				    }  						
+				    }  			
+					
 				}
 				else /* for other types of docs , pdf , ppt etc.. */ 
 				{
@@ -213,6 +219,8 @@ define(['view/formView',
                             "loggedUserId" :localStorage["loggedUserId"],
                             
 			        }	
+					
+					
 			  }
 					
 			}

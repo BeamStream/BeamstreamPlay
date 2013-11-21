@@ -22,7 +22,7 @@ import java.util.Date
 import models.Question
 import models.Document
 import models.DocType
-
+import net.liftweb.json.Serialization.{ read, write }
 object GoogleDocsUploadUtilityController extends Controller {
 
   implicit val formats = net.liftweb.json.DefaultFormats
@@ -41,7 +41,11 @@ object GoogleDocsUploadUtilityController extends Controller {
         //        Ok(views.html.stream()).withSession(request.session + ("accessToken" -> newAccessToken))
         if (action == "show") {
           val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(newAccessToken)
-          Ok(views.html.showgoogledocs(files))
+          /*Ok(views.html.showgoogledocs(files))*/
+       
+          Ok(write(files)).as("application/json")
+          
+          
         } else if (action == "upload") {
           Ok(views.html.uploadgoogledocs()).withSession(request.session + ("accessToken" -> newAccessToken))
         } else if (action == "document") {

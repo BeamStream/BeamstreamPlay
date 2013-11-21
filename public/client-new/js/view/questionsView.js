@@ -17,7 +17,7 @@ define(['view/formView',
 			'click #share-discussions li a' : 'actvateShareIcon',
 			'click #Q-privatelist li' :'selectPrivateToList',
 			'click #post-question' : 'postQuestion',
-			'click .showpolloption' : 'addPollOptionsArea',
+			'focus .showpolloption' : 'addPollOptionsArea',
 			/*'click .add-poll' : 'addPollOptionsArea',*/
 			'click .add-option' : 'addMorePollOptions',
 			'click #Q-private-to' : 'checkPrivateAccess',
