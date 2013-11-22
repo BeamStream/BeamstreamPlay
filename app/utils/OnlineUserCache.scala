@@ -9,7 +9,7 @@ import com.mongodb.casbah.commons.MongoDBObject
 import com.mongodb.WriteConcern
 import models.mongoContext._
 
-case class OnlineUsers(onlineUsers: List[ObjectId] = Nil)
+case class OnlineUsers(onlineUsers: scala.collection.mutable.Map[ObjectId, BigInt] = scala.collection.mutable.Map())
 object OnlineUserCache {
 
   /*var onlineUsers: List[String] = Nil*/
@@ -27,7 +27,7 @@ object OnlineUserCache {
       case true =>
       case false =>
         if (onlineUsersFound.head.onlineUsers.contains(new ObjectId(userIdkey))) {
-          OnlineUserDAO.update(MongoDBObject(), onlineUsersFound.head.copy(onlineUsers = (onlineUsersFound.head.onlineUsers filterNot (List(new ObjectId(userIdkey))contains))), false, false, new WriteConcern)
+          OnlineUserDAO.update(MongoDBObject(), onlineUsersFound.head.copy(onlineUsers = (onlineUsersFound.head.onlineUsers -- ( new ObjectId -> 222222)), false, false, new WriteConcern)
         }
     }
 

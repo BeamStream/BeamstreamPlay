@@ -48,7 +48,7 @@ object Registration extends Controller {
    * renders the login page
    * @return
    */
-  def loginPage = Action {
+  def loginPage = Action { implicit request =>
     Ok(views.html.login())
   }
 

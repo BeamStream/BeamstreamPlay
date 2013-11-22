@@ -1,87 +1,71 @@
-@(username: String)(implicit request: RequestHeader)
+@(actor : String)(implicit request: RequestHeader)
 
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script type="text/javascript">
-    $(function() {
-    var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket
-	
-    var chatSocket = new WS("@routes.WebsocketCommunicationController.chat(username).webSocketURL()")
-    alert(chatSocket.url)
-    var sendMessage = function() {
-        chatSocket.send(JSON.stringify(
-            {text: $("#talk").val()}
-        ))
-        $("#talk").val('')
-    }
 
-    var receiveEvent = function(event) {
-        var data = JSON.parse(event.data)
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket
 
-        // Handle errors
-        if(data.error) {
-            chatSocket.close()
-            $("#onError span").text(data.error)
-            $("#onError").show()
-            return
-        } else {
-            $("#onChat").show()
-        }
+		var chatSocket = new WS(
+				"@routes.WebsocketCommunicationController.chat(actor).webSocketURL()")
+		var sendMessage = function() {
+			chatSocket.send(JSON.stringify({
+				text : $("#talk").val()
+			}))
+			$("#talk").val('')
+		}
 
-        // Create the message element
-        var el = $('<div class="message"><span></span><p></p></div>')
-        $("span", el).text(data.user)
-        $("p", el).text(data.message)
-        $(el).addClass(data.kind)
-        if(data.user == '@username') $(el).addClass('me')
-        $('#messages').append(el)
+		var receiveEvent = function(event) {
+			var data = JSON.parse(event.data)
 
-        // Update the members list
-        $("#members").html('')
-        $(data.members).each(function() {
-            var li = document.createElement('li');
-            li.textContent = this;
-            $("#members").append(li);
-        })
-    }
+			// Handle errors
+			if (data.error) {
+				chatSocket.close()
+				$("#onError span").text(data.error)
+				$("#onError").show()
+				return
 
-    var handleReturnKey = function(e) {
-        if(e.charCode == 13 || e.keyCode == 13) {
-            e.preventDefault()
-            sendMessage()
-        }
-    }
+			} else {
+				$("#onChat").show()
+			}
 
-    $("#talk").keypress(handleReturnKey)
+			// Create the message element
+			var el = $('<div class="message"><span></span><p></p></div>')
+			$("span", el).text(data.user)
+			$("p", el).text(data.message)
+			$(el).addClass(data.kind)
 
-    chatSocket.onmessage = receiveEvent
+			$('#messages').append(el)
 
-})
+		}
+
+		var handleReturnKey = function(e) {
+			if (e.charCode == 13 || e.keyCode == 13) {
+				e.preventDefault()
+				sendMessage()
+			}
+		}
+
+		$("#talk").keypress(handleReturnKey)
+
+		chatSocket.onmessage = receiveEvent
+
+	})
 </script>
- 
 
-    
-    <div class="page-header">
-        <h1>Welcome to the chat room <small>You are chatting as @username</small></h1>
-    </div>
-    
-    <div id="onError" class="alert-message error">
-        <p>
-            <strong>Oops!</strong> <span></span>
-        </p>
-    </div>
-    
-    <div id="onChat" class="row">
-        <div class="span10" id="main">
-            <div id="messages">
-            </div>
-            <textarea id="talk"></textarea>
-        </div>
-        <div class="span4">
-            <h2>Members</h2>
-            <ul id="members">
-            </ul>
-        </div>
-    </div>
-  
-    
-  
+<div id="onChat" class="row">
+
+	<div class="span10" id="main">
+		<div id="messages"></div>
+		<textarea id="talk"></textarea>
+	</div>
+</div>
+
+
+
+
+
+
+
+

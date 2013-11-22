@@ -1,5 +1,4 @@
 import scala.concurrent.Future
-
 import models.School
 import play.api.Application
 import play.api.GlobalSettings

@@ -210,16 +210,10 @@ GET    /driveAuth                                                               
 POST   /uploadToGoogleDrive                                                                controllers.GoogleDocsUploadUtilityController.uploadToGoogleDrive
 GET    /getGoogleDocs                                                                      controllers.GoogleDocsUploadUtilityController.getAllGoogleDriveFiles
 GET    /uploadPage                                                                         controllers.GoogleDocsUploadUtilityController.uploadPage
-
-
-GET    /chatRoom/:name                                                                        controllers.WebsocketCommunicationController.chatRoom(name:String)
-GET    /chat/:name                                                                            controllers.WebsocketCommunicationController.chat(name: String)
-
-#Chat
-#GET  /chatNow                                                     controllers.ChatController.chatRoom
-#GET  /room                                                     controllers.ChatController.chat(username,userId,chatWith)
-#GET /checkForChat                                               controllers.UserController.checkForChat(userId:String)
-
+                                                                       controllers.WebsocketCommunicationController.chatRoom
+GET    /chat                                 controllers.WebsocketCommunicationController.chat(withWhom:String)
+GET    /chatRoom/:toWhom                               controllers.WebsocketCommunicationController.chatRoom(toWhom:String)
+GET /javascriptRoutes                                  controllers.StreamController.javascriptRoutes
 #Looks like Unused
 
 #Basic Registration
