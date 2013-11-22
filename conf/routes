@@ -2,7 +2,7 @@
 # ~~~~
 
 #Other
-GET    /browserClosed                                                                      controllers.UserController.browserClosed
+GET    /active                                                                      controllers.UserController.active
 GET    /error                                                                              controllers.StreamController.onError
 
 #Account Reset
@@ -210,7 +210,6 @@ GET    /driveAuth                                                               
 POST   /uploadToGoogleDrive                                                                controllers.GoogleDocsUploadUtilityController.uploadToGoogleDrive
 GET    /getGoogleDocs                                                                      controllers.GoogleDocsUploadUtilityController.getAllGoogleDriveFiles
 GET    /uploadPage                                                                         controllers.GoogleDocsUploadUtilityController.uploadPage
-                                                                       controllers.WebsocketCommunicationController.chatRoom
 GET    /chat                                 controllers.WebsocketCommunicationController.chat(withWhom:String)
 GET    /chatRoom/:toWhom                               controllers.WebsocketCommunicationController.chatRoom(toWhom:String)
 GET /javascriptRoutes                                  controllers.StreamController.javascriptRoutes

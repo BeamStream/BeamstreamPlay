@@ -14,7 +14,8 @@ import utils.EnumerationSerializer
 import utils.ObjectIdSerializer
 import utils.OnlineUserCache
 import play.api.Routes
-
+import scala.concurrent.Future
+import play.api.libs.concurrent.Execution.Implicits._
 object StreamController extends Controller {
 
   val EnumList: List[Enumeration] = List(ClassType)
@@ -31,8 +32,11 @@ object StreamController extends Controller {
     (playCookiee == None) match {
       case true => Redirect("/")
       case false =>
-        val noOfOnLineUsers = OnlineUserCache.setOnline(request.session.get("userId").get)
-        println("Online Users" + noOfOnLineUsers)
+
+        Future {
+          val utcMilliseconds = OnlineUserCache.returnUTCTime
+          OnlineUserCache.setOnline(request.session.get("userId").get, utcMilliseconds)
+        }
         Redirect("/stream")
     }
 

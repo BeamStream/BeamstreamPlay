@@ -79,8 +79,6 @@ define(
 
 							var self = this;
 
-						
-
 							// On login success redirect to stream page
 							if (data.result.status == 'Success') {
 								$('.sign-tick').hide();
@@ -104,9 +102,9 @@ define(
 								 * stream
 								 */
 								if (data.hasClasses == true)
-									window.location = "/init";
+									window.location = "/stream";
 								else
-									window.location = "/init";
+									window.location = "/class";
 
 							} else {
 								alert(data.result.message);

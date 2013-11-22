@@ -17,7 +17,26 @@ request: RequestHeader) @meta = {} @CSS = {
 	src="/beamstream-new/lib/bootstrap-dropdownhover.js"></script>
 <script src="/beamstream-new/js/BS_social.js" type="text/javascript"></script>
 
+<script type="text/javascript">
 
+function executeQuery() {
+$.ajax({
+url: '/active',
+success: function(data) {
+// do something with the return value here if you like
+}
+});
+setTimeout(executeQuery, 10000); // you could choose not to continue on failure...
+}
+
+$(document).ready(function() {
+// run the first time; all subsequent calls will take care of themselves
+setTimeout(executeQuery, 15000);
+});
+
+<!-- Online User's call -->
+
+</script>
 
 
 <!-- bootstrap dialog popups -->
