@@ -21,6 +21,9 @@ import utils.OnlineUsers
 import models.School
 import models.Stream
 import models.AvailableUsers
+import scala.concurrent.Future
+import java.util.Calendar
+import play.api.libs.concurrent.Execution.Implicits._
 
 object UserController extends Controller {
 
@@ -32,7 +35,7 @@ object UserController extends Controller {
    */
 
   def signOut = Action { implicit request =>
-    val noOfOnLineUsers = OnlineUserCache.setOffline(request.session.get("userId").get)
+    OnlineUserCache.setOffline(request.session.get("userId").get)
     Ok(write(ResulttoSent("Success", "Signed Out"))).withNewSession
 
   }
@@ -45,7 +48,8 @@ object UserController extends Controller {
     var usersToShow: List[ObjectId] = Nil
     val onlineUsers = (OnlineUserCache.returnOnlineUsers.isEmpty == true) match {
       case false =>
-        val otherUsers = OnlineUserCache.returnOnlineUsers.head.onlineUsers filterNot (List(new ObjectId(request.session.get("userId").get))contains)
+        val otherUsersMap = OnlineUserCache.returnOnlineUsers.head.onlineUsers -= new ObjectId(request.session.get("userId").get)
+        val otherUsers = otherUsersMap.keys.toList
 
         val currentUsersClasses = User.getUserProfile(new ObjectId(request.session.get("userId").get)).get.classes
 
@@ -63,16 +67,16 @@ object UserController extends Controller {
             val profilePicForUser = UserMedia.getProfilePicForAUser(eachUserId)
             val onlineUsersAlongWithDetails = (profilePicForUser.isEmpty) match {
               case true => {
-                if (userWithDetailedInfo != None) {
-                  AvailableUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
-                    userWithDetailedInfo.get.lastName, "")
-                }
+                //                if (userWithDetailedInfo != None) {
+                AvailableUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
+                  userWithDetailedInfo.get.lastName, "")
+                //                }
               }
               case false => {
-                if (userWithDetailedInfo != None) {
-                  AvailableUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
-                    userWithDetailedInfo.get.lastName, profilePicForUser(0).mediaUrl)
-                }
+                //                if (userWithDetailedInfo != None) {
+                AvailableUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
+                  userWithDetailedInfo.get.lastName, profilePicForUser(0).mediaUrl)
+                //                }
               }
             }
             onlineUsersAlongWithDetails
@@ -194,9 +198,12 @@ object UserController extends Controller {
   /**
    * Deactivate User On Browser Closed Event
    */
-  def browserClosed = Action { implicit request =>
-    val noOfOnLineUsers = OnlineUserCache.setOffline(request.session.get("userId").get)
-    println("Online Users" + noOfOnLineUsers)
+  def active = Action { implicit request =>
+//    Future {
+      val utcMilliseconds = OnlineUserCache.returnUTCTime
+      OnlineUserCache.setOnline(request.session.get("userId").get, utcMilliseconds)
+//    }
+
     Ok
   }
 
@@ -225,8 +232,6 @@ object UserController extends Controller {
       case Some(user) =>
         val userSession = request.session + ("userId" -> user.id.toString)
         val authenticatedUserJson = write(user)
-        val noOfOnLineUsers = OnlineUserCache.setOnline(user.id.toString)
-        println("Online Users" + noOfOnLineUsers)
         val loggedInUser = User.getUserProfile(user.id)
         val profilePic = UserMedia.getProfilePicForAUser(user.id)
 
@@ -245,6 +250,12 @@ object UserController extends Controller {
             }
 
         }
+
+        Future {
+          val utcMilliseconds = OnlineUserCache.returnUTCTime
+          OnlineUserCache.setOnline(user.id.toString, utcMilliseconds)
+        }
+
         result
       case None =>
         Ok(write(LoginResult(ResulttoSent("Failure", "Login Unsuccessful"), None, None, None))).as("application/json")
@@ -279,14 +290,5 @@ object UserController extends Controller {
       case false => Ok("No User Found With This Email")
     }
   }
-
-  /**
-   * Chatting Specific
-   */
-  //  def checkForChat(userId: String) = Action { implicit request =>
-  //    val a = ChatActorObject.chatUsers.get(userId)
-  //    if (a != None) Ok(a.get.toString)
-  //    else Ok("")
-  //  }
 
 }

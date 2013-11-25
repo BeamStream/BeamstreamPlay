@@ -6,5 +6,5 @@ import akka.actor.ActorRef
 object ChatAvailiblity {
 
   var a: scala.collection.immutable.Map[ObjectId, ActorRef] = Map()
-
 }
+
