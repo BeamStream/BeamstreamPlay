@@ -8,8 +8,9 @@ import com.novus.salat.global._
 import com.mongodb.casbah.commons.MongoDBObject
 import com.mongodb.WriteConcern
 import models.mongoContext._
+import java.util.Calendar
 
-case class OnlineUsers(onlineUsers: List[ObjectId] = Nil)
+case class OnlineUsers(onlineUsers: scala.collection.mutable.Map[ObjectId, Long] = scala.collection.mutable.Map())
 object OnlineUserCache {
 
   /*var onlineUsers: List[String] = Nil*/
@@ -27,7 +28,7 @@ object OnlineUserCache {
       case true =>
       case false =>
         if (onlineUsersFound.head.onlineUsers.contains(new ObjectId(userIdkey))) {
-          OnlineUserDAO.update(MongoDBObject(), onlineUsersFound.head.copy(onlineUsers = (onlineUsersFound.head.onlineUsers filterNot (List(new ObjectId(userIdkey))contains))), false, false, new WriteConcern)
+          OnlineUserDAO.update(MongoDBObject(), onlineUsersFound.head.copy(onlineUsers = onlineUsersFound.head.onlineUsers -= new ObjectId(userIdkey)), false, false, new WriteConcern)
         }
     }
 
@@ -37,7 +38,8 @@ object OnlineUserCache {
    * Activate The User Session (V)
    */
 
-  def setOnline(userIdkey: String) = {
+  def setOnline(userIdkey: String, timeStamp: Long) = {
+    println(userIdkey, timeStamp)
     /*if (onlineUsers.contains(userIdkey) == false) {
           onlineUsers ++= List(userIdkey)
           Cache.set("Online Users", onlineUsers)
@@ -45,11 +47,12 @@ object OnlineUserCache {
 
     val onlineUsersFound = OnlineUserDAO.find(MongoDBObject()).toList
     (onlineUsersFound.isEmpty) match {
-      case true => OnlineUserDAO.insert(OnlineUsers(List(new ObjectId(userIdkey))))
+      case true => OnlineUserDAO.insert(OnlineUsers(scala.collection.mutable.Map(new ObjectId(userIdkey) -> timeStamp)))
       case false =>
-        if (!onlineUsersFound.head.onlineUsers.contains(new ObjectId(userIdkey))) {
-          OnlineUserDAO.update(MongoDBObject(), onlineUsersFound.head.copy(onlineUsers = (onlineUsersFound.head.onlineUsers ++ List(new ObjectId(userIdkey)))), false, false, new WriteConcern)
-        }
+        //        if (!onlineUsersFound.head.onlineUsers.contains(new ObjectId(userIdkey))) {
+
+        OnlineUserDAO.update(MongoDBObject(), onlineUsersFound.head.copy(onlineUsers = (onlineUsersFound.head.onlineUsers += new ObjectId(userIdkey) -> timeStamp)), false, false, new WriteConcern)
+      //        }
     }
 
   }
@@ -60,6 +63,15 @@ object OnlineUserCache {
   def returnOnlineUsers = {
     /* Cache.get("Online Users")*/
     OnlineUserDAO.find(MongoDBObject()).toList
+  }
+
+  /**
+   * return current time
+   */
+  def returnUTCTime: Long = {
+    val c = Calendar.getInstance
+    val utcOffset: Int = c.get(Calendar.ZONE_OFFSET) + c.get(Calendar.DST_OFFSET);
+    c.getTimeInMillis() + utcOffset;
   }
 
 }

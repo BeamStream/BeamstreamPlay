@@ -12,22 +12,20 @@ import akka.pattern.ask
 import play.api.Play.current
 import play.api.libs.concurrent.Execution.Implicits._
 
-
+import org.bson.types.ObjectId
 
 case class Join(username: String)
 case class Quit(username: String)
 case class Talk(username: String, text: String)
 case class NotifyJoin(username: String)
 
-case class Connected(enumerator :Enumerator[JsValue])
+case class Connected(enumerator: Enumerator[JsValue])
 case class CannotConnect(msg: String)
-
-
 
 class CommunicationRoom extends Actor {
 
-  var members = Set.empty[String]
   val (chatEnumerator, chatChannel) = Concurrent.broadcast[JsValue]
+  var members = Set.empty[String]
 
   def receive = {
 
@@ -39,6 +37,10 @@ class CommunicationRoom extends Actor {
         sender ! Connected(chatEnumerator)
         self ! NotifyJoin(username)
       }
+
+      members = members + username
+      sender ! Connected(chatEnumerator)
+
     }
 
     case NotifyJoin(username) => {
@@ -69,31 +71,29 @@ class CommunicationRoom extends Actor {
 
 }
 
-
 object WebsocketCommunication {
 
   implicit val timeout = Timeout(1 second)
 
-  lazy val default = {
-    val roomActor = Akka.system.actorOf(Props[CommunicationRoom])
+  def join(actofRef: ActorRef, userId: String): scala.concurrent.Future[(Iteratee[JsValue, _], Enumerator[JsValue])] = {
 
-    roomActor
-  }
+    println("Before" + ChatAvailiblity.a.size)
+    ChatAvailiblity.a += new ObjectId(userId) -> actofRef
+    println("After" + ChatAvailiblity.a.size)
 
-  def join(username: String): scala.concurrent.Future[(Iteratee[JsValue, _], Enumerator[JsValue])] = {
-    (default ? Join(username)).map {
+    (actofRef ? Join("")).map {
 
       case Connected(enumerator) =>
-
+        println("<<<<<<<<IN")
         val iteratee = Iteratee.foreach[JsValue] { event =>
-          default ! Talk(username, (event \ "text").as[String])
+          actofRef ! Talk("", (event \ "text").as[String])
         }.map { _ =>
-          default ! Quit(username)
+          actofRef ! Quit("")
         }
-
         (iteratee, enumerator)
 
       case CannotConnect(error) =>
+        println(">>>>>>>>>Out")
 
         // Connection error
 

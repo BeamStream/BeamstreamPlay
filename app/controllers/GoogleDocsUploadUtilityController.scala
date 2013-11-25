@@ -47,7 +47,7 @@ object GoogleDocsUploadUtilityController extends Controller {
           
           
         } else if (action == "upload") {
-          Ok(views.html.uploadgoogledocs()).withSession(request.session + ("accessToken" -> newAccessToken))
+          Ok.withSession(request.session + ("accessToken" -> newAccessToken))
         } else if (action == "document") {
           Ok
           /*Redirect("http://docs.google.com/document/create?hl=en")*/
@@ -151,7 +151,7 @@ object GoogleDocsUploadUtilityController extends Controller {
 
     }
    
-    Ok(views.html.uploadgoogledocs())
+    Ok("Document Uploaded").as("application/json")
   }
 
   def getAllGoogleDriveFiles = Action { implicit request =>

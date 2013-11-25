@@ -13,7 +13,9 @@ import play.api.mvc.Controller
 import utils.EnumerationSerializer
 import utils.ObjectIdSerializer
 import utils.OnlineUserCache
-
+import play.api.Routes
+import scala.concurrent.Future
+import play.api.libs.concurrent.Execution.Implicits._
 object StreamController extends Controller {
 
   val EnumList: List[Enumeration] = List(ClassType)
@@ -30,8 +32,11 @@ object StreamController extends Controller {
     (playCookiee == None) match {
       case true => Redirect("/")
       case false =>
-        val noOfOnLineUsers = OnlineUserCache.setOnline(request.session.get("userId").get)
-        println("Online Users" + noOfOnLineUsers)
+
+        Future {
+          val utcMilliseconds = OnlineUserCache.returnUTCTime
+          OnlineUserCache.setOnline(request.session.get("userId").get, utcMilliseconds)
+        }
         Redirect("/stream")
     }
 
@@ -104,22 +109,14 @@ object StreamController extends Controller {
   }
 
   /**
-   * Java Script Routes
+   * Ajax Support
    */
-//  def javascriptRoutes = Action { implicit request =>
-//
-//    Ok(
-//      Routes.javascriptRouter("jsRoutes")(
-//        routes.javascript.UserController.checkForChat)).as("text/javascript")
-//  }
 
-  /**
-   * TODO Just Putting here for future need  , needs to be removed
-   * <script type="text/javascript">
-   * intervalID = setInterval(function() {
-   * checkForChat();
-   * }, 5000)
-   * </script>
-   */
+  def javascriptRoutes = Action { implicit request =>
+    import routes.javascript._
+    Ok(
+      Routes.javascriptRouter("jsRoutes")(
+        routes.javascript.WebsocketCommunicationController.chat)).as("text/javascript")
+  }
 
 }

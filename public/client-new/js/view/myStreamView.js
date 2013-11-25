@@ -82,35 +82,35 @@ define(
 						// Upload Google Doc
 
 						uploadGoogleDocs : function(upload) {
-
+							
+							
+							$("#uploadgoogledoc").modal('show');
+							
 							$.ajax({
 
 								type : 'GET',
 								url : 'uploadNow/upload',
 
 								success : function(data) {
-									alert(first call success);
+									
 								}
+							
+
 
 							});
+							
+							/*var control = $("#uplaodfilestogoogle");
 
-							$("#uploadgoogledoc").modal('show');
+							$("#uploadToGoogle").on("click", function () {
+							    control.replaceWith( control = control.clone( true ) );
+							});*/
+
+							
 						},
 
 						uploadToGoogle : function(event) {
-							alert("12345")
-
-							$.ajax({
-
-								type : 'POST',
-								url : '/uploadToGoogleDrive',
-								data : data,
-								dataType : 'file',
-								success : function(data) {
-									alert(ankit);
-								}
-
-							});
+							alert("12345");
+							$("#uploadgoogledoc").modal('hide');
 
 						},
 
@@ -163,11 +163,9 @@ define(
 									});
 
 						},
-						
-						
-						// Create Google Presentation				
-						
-						
+
+						// Create Google Presentation
+
 						createGPresentation : function(create) {
 
 							$("#creategoogledoc").modal('show');
