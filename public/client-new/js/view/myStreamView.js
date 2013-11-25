@@ -16,7 +16,12 @@ define(
 							'click #show-info' : 'showDetails',
 							'click #question' : 'addPollOptionsArea',
 							'click .ques' : 'hide',
-							'click #showgdocsdemo' : 'showGoogleDocs'
+							'click #showgdoc' : 'showGoogleDocs',
+							'click #uploadgdoc' : 'uploadGoogleDocs',
+							'click #uploadToGoogle' : 'uploadToGoogle',
+							'click #creategdocument' : 'createGDocument',
+							'click #creategspreadsheet' : 'createGSpreadsheet',
+							'click #creategpresentation' : 'createGPresentation'
 						},
 						messagesPerPage : 10,
 						pageNo : 1,
@@ -74,6 +79,120 @@ define(
 
 						},
 
+						// Upload Google Doc
+
+						uploadGoogleDocs : function(upload) {
+
+							$.ajax({
+
+								type : 'GET',
+								url : 'uploadNow/upload',
+
+								success : function(data) {
+									alert(first call success);
+								}
+
+							});
+
+							$("#uploadgoogledoc").modal('show');
+						},
+
+						uploadToGoogle : function(event) {
+							alert("12345")
+
+							$.ajax({
+
+								type : 'POST',
+								url : '/uploadToGoogleDrive',
+								data : data,
+								dataType : 'file',
+								success : function(data) {
+									alert(ankit);
+								}
+
+							});
+
+						},
+
+						// Create Google document
+
+						createGDocument : function(create) {
+
+							$("#creategoogledoc").modal('show');
+
+							$(".contentcreatedoc").empty();
+
+							$
+									.ajax({
+
+										type : 'GET',
+										url : 'uploadNow/document',
+
+										success : function(data) {
+
+											$(".contentcreatedoc")
+													.append(
+															"<iframe style='width:100%;height:100%;' frameborder='0' src='http://docs.google.com/document/create?hl=en ' />");
+
+										}
+									});
+
+						},
+
+						// Create Google spreadsheet
+
+						createGSpreadsheet : function(create) {
+
+							$("#creategoogledoc").modal('show');
+
+							$(".contentcreatedoc").empty();
+
+							$
+									.ajax({
+
+										type : 'GET',
+										url : 'uploadNow/spreadsheet',
+
+										success : function(data) {
+
+											$(".contentcreatedoc")
+													.append(
+															"<iframe style='width:100%;height:100%;' frameborder='0' src='http://spreadsheets.google.com/ccc?new&hl=en' />");
+
+										}
+									});
+
+						},
+						
+						
+						// Create Google Presentation				
+						
+						
+						createGPresentation : function(create) {
+
+							$("#creategoogledoc").modal('show');
+
+							$(".contentcreatedoc").empty();
+
+							$
+									.ajax({
+
+										type : 'GET',
+										url : 'uploadNow/presentation',
+
+										success : function(data) {
+
+											$(".contentcreatedoc")
+													.append(
+															"<iframe style='width:100%;height:100%;' frameborder='0' src='https://drive.google.com' />");
+
+										}
+									});
+
+						},
+
+						// Show Google Doc
+
 						showGoogleDocs : function(show) {
 
 							$
@@ -94,24 +213,6 @@ define(
 															function(index,
 																	value) {
 
-																/*
-																 * $("#docsview").append("
-																 * <div
-																 * class='drive-view-row'><div
-																 * class='text-img'></div><div
-																 * class='doc-txt-container'><div
-																 * class='doc-name'>"+value._1+"</div><div
-																 * class='doc-info'><div
-																 * class='owner'>OWNDER:
-																 * <span>ME</span></div><div
-																 * class='last-modified'>LAST
-																 * MODIFIED:
-																 * <span>9/14/2013</span></div></div></div><a
-																 * class='preview-btn'
-																 * href="+value._2+">Preview
-																 * To Publish</a></div>");
-																 */
-
 																if (value._1 != null)
 																	var extention = value._1
 																			.split('.')[1];
@@ -123,10 +224,10 @@ define(
 																			.append(
 																					" <div class='drive-view-row'><div class='text-img'></div><div class='doc-txt-container'><div class='doc-name'>"
 																							+ extention
-																							+ "</div><div class='doc-info'><div class='owner'>OWNDER: <span>ME</span></div>" +
-																									"<div class='last-modified'>LAST MODIFIED:" +
-																									" <span>9/14/2013</span></div></div></div>"
-																							+"<a class='preview-btn' target='_blank' href="
+																							+ "</div><div class='doc-info'><div class='owner'>OWNDER: <span>ME</span></div>"
+																							+ "<div class='last-modified'>LAST MODIFIED:"
+																							+ " <span>9/14/2013</span></div></div></div>"
+																							+ "<a class='preview-btn' target='_blank' href="
 																							+ value._2
 																							+ ">Preview</a><a class='preview-btn' target='_blank' href='#'"
 																							+ ">Publish</a></div>");
@@ -139,10 +240,10 @@ define(
 																			.append(
 																					" <div class='drive-view-row'><div class='spreadsheet-img'></div><div class='doc-txt-container'><div class='doc-name'>"
 																							+ extention
-																							+ "</div><div class='doc-info'>" +
-																									"<div class='owner'>OWNDER: <span>ME</span>" +
-																									"</div><div class='last-modified'>LAST MODIFIED: <span>9/14/2013</span></div></div></div>" +
-																									"<a class='preview-btn' target='_blank' href="
+																							+ "</div><div class='doc-info'>"
+																							+ "<div class='owner'>OWNDER: <span>ME</span>"
+																							+ "</div><div class='last-modified'>LAST MODIFIED: <span>9/14/2013</span></div></div></div>"
+																							+ "<a class='preview-btn' target='_blank' href="
 																							+ value._2
 																							+ ">Preview</a><a class='preview-btn' target='_blank' href='#'"
 																							+ ">Publish</a></div>");
@@ -151,6 +252,7 @@ define(
 
 																// add this
 																// block
+
 																/*
 																 * var
 																 * compiledTemplate =
@@ -164,30 +266,20 @@ define(
 
 									})
 
-							$("#googledoc").modal('show');
+							$("#showgoogledoc").modal('show');
 
 							/*
 							 * newwindow=window.open('uploadNow/show','name','height=400,width=300');
 							 * if (window.focus) {newwindow.focus()};
 							 */
 
-						},
+						}, // Show google Doc Ends
 
 						/*
 						 * var authenticateToGoogle = function(data){
 						 * 
 						 * alert(data._1); }
 						 */
-
-						showFriends : function() {
-
-							// Makre an ajax call to uploadNow/show
-
-							// success json data name -url /name-url
-
-							$("#googledoc").modal('show');
-
-						},
 
 						/**
 						 * show stream details on top
