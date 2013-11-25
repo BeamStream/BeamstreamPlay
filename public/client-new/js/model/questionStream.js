@@ -35,6 +35,7 @@ define(['baseModel',
 
 		setQuestionStreamId: function(streamId){
 			this.set('streamId', streamId);
+			
 		},
 
 		setCurrentFilter: function(newFilter){

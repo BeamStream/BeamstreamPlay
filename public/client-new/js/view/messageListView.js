@@ -29,6 +29,8 @@ define(['view/formView',
 	 
 		onAfterInit: function(){	
 			this.data.reset();
+		
+			
         },
         
         onAfterRender: function(){
@@ -47,6 +49,7 @@ define(['view/formView',
         	_.each(this.data.models, function(model) {
 				var messageItemView  = new MessageItemView({model : model});		
 				$('#messageListView div.content').append(messageItemView.render().el);
+				
 				
         	});
 		},

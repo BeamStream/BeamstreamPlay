@@ -1,344 +1,369 @@
-define(['pageView',
-        'view/streamSliderView', 
-        'view/overView', 
-        'view/discussionsView', 
-        'view/questionsView', 
-        'view/deadlinesView', 
-        'view/calendarView',
-        'view/messageListView',
-        'view/questionListView',
-        'view/questionStreamView'
-        ], 
-	function(PageView, StreamSliderView, OverView, DiscussionsView, QuestionsView, DeadlinesView, CalendarView ,MessageListView ,QuestionListView ,QuestionStreamView ){
-	var MyStreamView;
-	MyStreamView = PageView.extend({
-		objName: 'MyStreamView',
-		events:{
-			'click #streamTab a': 'tabHandler',
-			'click #show-info' :'showDetails',
-			'click #question' : 'addPollOptionsArea',
-			'click .ques' : 'hide'
-		},
-		messagesPerPage: 10,
-		pageNo: 1,
-		init: function(){
-			
-			var currentStreamView = new StreamSliderView({el: '#sidebar'})
-			this.addView(currentStreamView);
+define(
+		[ 'pageView', 'view/streamSliderView', 'view/overView',
+				'view/discussionsView', 'view/questionsView',
+				'view/deadlinesView', 'view/calendarView',
+				'view/messageListView', 'view/questionListView',
+				'view/questionStreamView', 'text!templates/googledoc.tpl' ],
+		function(PageView, StreamSliderView, OverView, DiscussionsView,
+				QuestionsView, DeadlinesView, CalendarView, MessageListView,
+				QuestionListView, QuestionStreamView, GoogleDoc) {
+			var MyStreamView;
+			MyStreamView = PageView
+					.extend({
+						objName : 'MyStreamView',
+						events : {
+							'click #streamTab a' : 'tabHandler',
+							'click #show-info' : 'showDetails',
+							'click #question' : 'addPollOptionsArea',
+							'click .ques' : 'hide',
+							'click #showgdoc' : 'showGoogleDocs',
+							'click #uploadgdoc' : 'uploadGoogleDocs',
+							'click #uploadToGoogle' : 'uploadToGoogle',
+							'click #creategdocument' : 'createGDocument',
+							'click #creategspreadsheet' : 'createGSpreadsheet',
+							'click #creategpresentation' : 'createGPresentation'
+						},
+						messagesPerPage : 10,
+						pageNo : 1,
+						init : function() {
 
-			this.addView(new DiscussionsView({el: $('#discussionsView')}));
+							var currentStreamView = new StreamSliderView({
+								el : '#sidebar'
+							})
+							this.addView(currentStreamView);
 
-			var currentMainQuestionStream = new QuestionsView({el: $('#questionsView')});
-			this.addView(currentMainQuestionStream);
+							this.addView(new DiscussionsView({
+								el : $('#discussionsView')
+							}));
 
-			this.addView(new DeadlinesView({el: $('#deadlinesView')}));
-			this.addView(new CalendarView({el: $('#calendarView')}));
-			
-			this.addView(new MessageListView({el: $('#messageListView')}));
-			this.addView(new QuestionListView({el: $('#questionListView')}));
+							var currentMainQuestionStream = new QuestionsView({
+								el : $('#questionsView')
+							});
+							this.addView(currentMainQuestionStream);
 
-			var currentQuestionStream = new QuestionStreamView({el: $('#questionStreamView')});
-      this.addView(currentQuestionStream);
-      
-      // on streamId change, notify the questionStream
-			currentStreamView.on('change:streamId', function(evt){
-				currentQuestionStream.model.setQuestionStreamId(evt.streamId);
-			});
+							this.addView(new DeadlinesView({
+								el : $('#deadlinesView')
+							}));
+							this.addView(new CalendarView({
+								el : $('#calendarView')
+							}));
 
-			// // on pagePushUid change, notify the questionStream
-			// currentMainQuestionStream.on('change:pagePushUid', function(evt){
-			// 	currentQuestionStream.model.setPagePushUid(evt.pagePushUid);
-			// 	console.log('pagePushUid changed', evt.pagePushUid);
-			// })
-			
-		},
-		
-		/**
-	     * show stream details on top 
-	     */
-	    showDetails: function(eventName){
-	    	eventName.preventDefault();
-	    	$('.show-info').toggle(100);
-	    	
-	    },
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    addPollOptionsArea: function(eventName){
-	    	/*eventName.preventDefault();			
-			this.options = 2;
-			$('#pollArea').show(); */
-			
-			$('.question-button').text("ADD");
-			$('.add-poll').hide();
-			
-			
-			$('textarea#Q-area').addClass('showpolloption');
-			$('textarea#Q-area').attr('placeholder','Click here to add a poll ....');
-			
-		},
-		
-		
-		
-		hide:function(eventName){
-			/*eventName.preventDefault();			
-			this.options = 2;*/
-			$('#pollArea').hide(); 			
-			$('.question-button').text("ASK");
-			$('.add-poll').hide();
-			
-			$('textarea#Q-area').removeClass('showpolloption');
-			$('textarea#Q-area').attr('placeholder','Ask your own question here.....');
-		},
-		
-postQuestion: function(eventName){
-			
-			
-			// upload file 
-	        var self = this;
-	        var streamId =  $('.sortable li.active').attr('id');
-	        var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
-	        var question = $('#Q-area').val();
-	        
-	      
-	        //get message access private ? / public ?
-	        var questionAccess,googleDoc = false;
-	        var queAccess =  $('#Q-private-to').attr('checked');
-	        var privateTo = $('#Q-privateTo-select').text();
-		    if(queAccess == "checked")
-		    {
-		    	if(privateTo == "My School")
-		    	{
-		    		questionAccess = "PrivateToSchool";
-		    	}
-		    	else
-		    	{
-		    		questionAccess = "PrivateToClass";
-		    	}
-		    	 
-		    }
-		    else
-		    {
-		    	questionAccess = "Public";
-		    }
-		    
-		    var trueUrl='';
-		    if(streamId){
-		    	/* if there is any files for uploading  */ 
-		        if(this.file ){
-		        	
-		        	$('.progress-container').show();
+							this.addView(new MessageListView({
+								el : $('#messageListView')
+							}));
+							this.addView(new QuestionListView({
+								el : $('#questionListView')
+							}));
 
-		        	/* updating progress bar */ 
-		        	this.progress = setInterval(function() {
-                    	
-		        		this.bar = $('.bar'); 			        		
-                        if (this.bar.width()>= 194) {
-                            clearInterval(this.progress);
-	    		        } 
-                        else 
-                        {
-                        	this.bar.width( this.bar.width()+8);
-                        }
-                        this.bar.text( this.bar.width()/2 + "%"); 
-                        
-                    }, 800);
+							var currentQuestionStream = new QuestionStreamView(
+									{
+										el : $('#questionStreamView')
+									});
+							this.addView(currentQuestionStream);
 
-		        	var data;
-		            data = new FormData();
-		            data.append('docDescription',question);
-		            data.append('docAccess' ,questionAccess);
-		            data.append('docData', self.file);  
-		            data.append('streamId', streamId); 
-		            data.append('uploadedFrom', "question"); 
- 			            
-		           /* post profile page details */
-		            $.ajax({
-		            	type: 'POST',
-		                data: data,
-		                url: "/uploadDocumentFromDisk",
-		                cache: false,
-		                contentType: false,
-		                processData: false,
-		                dataType : "json",
-		                success: function(data){
-			                	
-		    				// set progress bar as 100 %
-		                	self.bar = $('.bar');  
-		                	
-		                	self.bar.width(200);
-		                	self.bar.text("100%");
-	                        clearInterval(self.progress);
-	                            
-	                        $('#Q-area').val("");
-	                        $('#uploded-file').hide();
-	                       
-		              	    self.file = "";
-		              	    
-		              	    $('#file-upload-loader').css("display","none");
-		              	    
-		              	    var datVal = formatDateVal(data.question.timeCreated);
-		  	                
-		              	    var datas = {
-	  	                		"data" : data,
-	  	                		"datVal" :datVal
-		              	    }	
-		              	    
-		  	                $('.progress-container').hide();
-		  	                $('#Q-file-area').hide();
-		  	                
-		  	                
-		  	                // set the response data to model
-		  	                self.data.models[0].set({question : data.question,
-		  	                	                     docName : data.docName, 
-		  	                	                     docDescription: data.docDescription,
-		  	                	                     profilePic: data.profilePic })
+							// on streamId change, notify the questionStream
+							currentStreamView.on('change:streamId', function(
+									evt) {
+								currentQuestionStream.model
+										.setQuestionStreamId(evt.streamId);
+							});
 
-		  	               
-		  	                // /* Pubnub auto push */
-		  	                // PUBNUB.publish({
-		  	                // 	channel : "stream",
-		  	                // 	message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:self.data.models[0]}
-		  	                // }) 
-							
-							var questionItemView  = new QuestionItemView({model : self.data.models[0]});
-							$('#questionListView div.content').prepend(questionItemView.render().el);
-			  	               
-							self.file = "";
-	 						
-	 						self.selected_medias = [];
-		                    $('#share-discussions li.active').removeClass('active');
-	 						
-		                    }
-	                }); 
-	                    
-		        	self.file = "";
-		        	
-		        }
-		        else{
+							// // on pagePushUid change, notify the
+							// questionStream
+							// currentMainQuestionStream.on('change:pagePushUid',
+							// function(evt){
+							// currentQuestionStream.model.setPagePushUid(evt.pagePushUid);
+							// console.log('pagePushUid changed',
+							// evt.pagePushUid);
+							// })
 
+						},
 
-		        	if(question.match(/^[\s]*$/))
- 			        		 return;
-		        	 	
-		        	 	//find link part from the message
-		        	 	question = $.trim(question);
-		  		        var link =  question.match(self.urlReg); 
+						// Upload Google Doc
 
-		  		        if(!link)
-		  		        	link =  question.match(self.website); 
+						uploadGoogleDocs : function(upload) {
 
-		  		        if(link){
-		  		        	if(!self.urlRegex2.test(link[0])) {
-		  		        		urlLink = "http://" + link[0];
-		  		  	  	    }
-		  		    	    else
-		  		    	    {
-		  		    	    	urlLink =link[0];
-		  		    	    }
-		  	                 
-		  	                var questionBody = question ,link =  questionBody.match(self.urlReg); 
+							$.ajax({
 
-		  	                if(!link)                            
-		  	                	link =  questionBody.match(self.website);
+								type : 'GET',
+								url : 'uploadNow/upload',
 
-		  	                var questionUrl=  questionBody.replace(self.urlRegex1, function(questionUrlw) {
-		  	                    trueurl= questionUrl;                                                                  
-		  	                    return questionUrl;
-		  	                });
-		  	                
-		  	                //To check whether it is google docs or not
-		  	                if(!urlLink.match(/^(https:\/\/docs.google.com\/)/))   
-		  	                {
-		  	                	// check the url is already in bitly state or not 
-		  	                	if(!urlLink.match(/^(http:\/\/bstre.am\/)/))
-		  	                    {                                     
-		  	                		/* post url information */                           
-	  	                            $.ajax({
-	  	                            	type : 'POST',
-		  	                            url : 'bitly',
-		  	                            data : {
-		  	                            	link : urlLink
-		  	                            },
-		  	                            dataType : "json",
-		  	                            success : function(data) {                                      
-	                                         question = question.replace(link[0],data.data.url);
-	                                         self.postQuestionToServer(question,streamId,questionAccess,googleDoc);
+								success : function(data) {
+									alert(first call success);
+								}
 
-		  	                            }
-	  	                             });
-	  	                         }
-	  	                         else
-	  	                         {  
-	  	                         	self.postQuestionToServer(question,streamId,questionAccess,googleDoc);
-	  	                         }
-	                 		 }  //doc
-		  	                 else    //case: for doc upload
-		  	                 {     
-		  	                 	googleDoc = true;
-		  	                 	self.postQuestionToServer(question,streamId,questionAccess,googleDoc);
-	  	                	 	
-		  	                 }
-	                     }
-		                 //case: link is not present in message
-		                 else
-		                 {    
-		                 	self.postQuestionToServer(question,streamId,questionAccess,googleDoc);         
-		                 }
+							});
 
+							$("#uploadgoogledoc").modal('show');
+						},
 
+						uploadToGoogle : function(event) {
+							alert("12345")
 
-		        	// self.postQuestionToServer(question,streamId,questionAccess);
-		        }
-		    }
+							$.ajax({
 
-		    
+								type : 'POST',
+								url : '/uploadToGoogleDrive',
+								data : data,
+								dataType : 'file',
+								success : function(data) {
+									alert(ankit);
+								}
 
-	         
-		},
-		
-	    
-	    
-	    tabHandler: function(e){
-	    	var tabId=$(e.target).attr('href').replace('#',''), view;	    	
+							});
 
-	    	if(tabId=='discussionsView'){ 
-    		
-	    		/* fetch all messages of a stream for messageListView */
-	    		view = this.getViewById('messageListView');
-	    		if(view){
-	    			view.myStreams = this.getViewById('sidebar').myStreams;
-	    			
-	    			view.data.url="/allMessagesForAStream/"+this.getViewById('sidebar').streamId+"/date/"+view.messagesPerPage+"/"+view.pageNo+"/week";
-	    			view.fetch();
-	    		
-	    		}
-	    	}
-	    	if(tabId=="questionsView"){ 
-    		
-	    		/* fetch all messages of a stream for messageListView */
-	    		view = this.getViewById('questionListView');
-	    		if(view){
-	    			view.myStreams = this.getViewById('sidebar').myStreams;
-	    			
-	    			view.data.url="/getAllQuestionsForAStream/"+this.getViewById('sidebar').streamId+"/date/"+view.messagesPerPage+"/"+view.pageNo;
-	    			view.fetch();
-	    		
-	    		}
-	    	}
+						},
 
+						// Create Google document
 
-	    }
-		
-		
-	})
-	return MyStreamView;
-});
+						createGDocument : function(create) {
+
+							$("#creategoogledoc").modal('show');
+
+							$(".contentcreatedoc").empty();
+
+							$
+									.ajax({
+
+										type : 'GET',
+										url : 'uploadNow/document',
+
+										success : function(data) {
+
+											$(".contentcreatedoc")
+													.append(
+															"<iframe style='width:100%;height:100%;' frameborder='0' src='http://docs.google.com/document/create?hl=en ' />");
+
+										}
+									});
+
+						},
+
+						// Create Google spreadsheet
+
+						createGSpreadsheet : function(create) {
+
+							$("#creategoogledoc").modal('show');
+
+							$(".contentcreatedoc").empty();
+
+							$
+									.ajax({
+
+										type : 'GET',
+										url : 'uploadNow/spreadsheet',
+
+										success : function(data) {
+
+											$(".contentcreatedoc")
+													.append(
+															"<iframe style='width:100%;height:100%;' frameborder='0' src='http://spreadsheets.google.com/ccc?new&hl=en' />");
+
+										}
+									});
+
+						},
+						
+						
+						// Create Google Presentation				
+						
+						
+						createGPresentation : function(create) {
+
+							$("#creategoogledoc").modal('show');
+
+							$(".contentcreatedoc").empty();
+
+							$
+									.ajax({
+
+										type : 'GET',
+										url : 'uploadNow/presentation',
+
+										success : function(data) {
+
+											$(".contentcreatedoc")
+													.append(
+															"<iframe style='width:100%;height:100%;' frameborder='0' src='https://drive.google.com' />");
+
+										}
+									});
+
+						},
+
+						// Show Google Doc
+
+						showGoogleDocs : function(show) {
+
+							$
+									.ajax({
+
+										type : 'GET',
+										url : 'uploadNow/show',
+										dataType : "json",
+										cache : false,
+										contentType : false,
+										processData : false,
+										success : function(data) {
+											$("#docsview > .drive-view-row")
+													.remove();
+											$
+													.each(
+															data,
+															function(index,
+																	value) {
+
+																if (value._1 != null)
+																	var extention = value._1
+																			.split('.')[1];
+
+																if (extention == "js"
+																		|| extention == "odt") {
+																	$(
+																			"#docsview")
+																			.append(
+																					" <div class='drive-view-row'><div class='text-img'></div><div class='doc-txt-container'><div class='doc-name'>"
+																							+ extention
+																							+ "</div><div class='doc-info'><div class='owner'>OWNDER: <span>ME</span></div>"
+																							+ "<div class='last-modified'>LAST MODIFIED:"
+																							+ " <span>9/14/2013</span></div></div></div>"
+																							+ "<a class='preview-btn' target='_blank' href="
+																							+ value._2
+																							+ ">Preview</a><a class='preview-btn' target='_blank' href='#'"
+																							+ ">Publish</a></div>");
+
+																}
+
+																else {
+																	$(
+																			"#docsview")
+																			.append(
+																					" <div class='drive-view-row'><div class='spreadsheet-img'></div><div class='doc-txt-container'><div class='doc-name'>"
+																							+ extention
+																							+ "</div><div class='doc-info'>"
+																							+ "<div class='owner'>OWNDER: <span>ME</span>"
+																							+ "</div><div class='last-modified'>LAST MODIFIED: <span>9/14/2013</span></div></div></div>"
+																							+ "<a class='preview-btn' target='_blank' href="
+																							+ value._2
+																							+ ">Preview</a><a class='preview-btn' target='_blank' href='#'"
+																							+ ">Publish</a></div>");
+
+																}
+
+																// add this
+																// block
+
+																/*
+																 * var
+																 * compiledTemplate =
+																 * Handlebars.compile(GoogleDoc);
+																 * $('#docsview').append(compiledTemplate(data));
+																 */
+
+															});
+
+										}
+
+									})
+
+							$("#showgoogledoc").modal('show');
+
+							/*
+							 * newwindow=window.open('uploadNow/show','name','height=400,width=300');
+							 * if (window.focus) {newwindow.focus()};
+							 */
+
+						}, // Show google Doc Ends
+
+						/*
+						 * var authenticateToGoogle = function(data){
+						 * 
+						 * alert(data._1); }
+						 */
+
+						/**
+						 * show stream details on top
+						 */
+						showDetails : function(eventName) {
+							eventName.preventDefault();
+							$('.show-info').toggle(100);
+
+						},
+
+						addPollOptionsArea : function(eventName) {
+							/*
+							 * eventName.preventDefault(); this.options = 2;
+							 * $('#pollArea').show();
+							 */
+
+							$('.question-button').text("ADD");
+							$('.add-poll').hide();
+
+							$('textarea#Q-area').addClass('showpolloption');
+							$('textarea#Q-area').attr('placeholder',
+									'Click here to add a poll ....');
+
+						},
+
+						hide : function(eventName) {
+							/*
+							 * eventName.preventDefault(); this.options = 2;
+							 */
+							$('#pollArea').hide();
+							$('.question-button').text("ASK");
+							$('.add-poll').hide();
+
+							$('textarea#Q-area').removeClass('showpolloption');
+							$('textarea#Q-area').attr('placeholder',
+									'Ask your own question here.....');
+						},
+
+						tabHandler : function(e) {
+							var tabId = $(e.target).attr('href').replace('#',
+									''), view;
+
+							if (tabId == 'discussionsView') {
+
+								/*
+								 * fetch all messages of a stream for
+								 * messageListView
+								 */
+								view = this.getViewById('messageListView');
+								if (view) {
+									view.myStreams = this
+											.getViewById('sidebar').myStreams;
+
+									view.data.url = "/allMessagesForAStream/"
+											+ this.getViewById('sidebar').streamId
+											+ "/date/" + view.messagesPerPage
+											+ "/" + view.pageNo + "/week";
+									view.fetch();
+
+								}
+							}
+							if (tabId == "questionsView") {
+
+								/*
+								 * fetch all messages of a stream for
+								 * messageListView
+								 */
+								view = this.getViewById('questionListView');
+								if (view) {
+									view.myStreams = this
+											.getViewById('sidebar').myStreams;
+
+									view.data.url = "/getAllQuestionsForAStream/"
+											+ this.getViewById('sidebar').streamId
+											+ "/date/"
+											+ view.messagesPerPage
+											+ "/" + view.pageNo;
+									view.fetch();
+
+								}
+							}
+
+						}
+
+					})
+			return MyStreamView;
+		});

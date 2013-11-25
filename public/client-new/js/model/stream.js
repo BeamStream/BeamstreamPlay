@@ -21,7 +21,7 @@ define(['baseModel'], function(BaseModel) {
 		objName: 'Stream',
 		// url:'/allStreamsForAUser',
 
-
+		
 
 	});
        

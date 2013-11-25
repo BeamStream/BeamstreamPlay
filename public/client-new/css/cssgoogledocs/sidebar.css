@@ -1,0 +1,139 @@
+.sidebarcreategdocs {
+	width: 218px;
+	height: 550px;
+	background: url(/beamstream-new/img/sidebar-bg.jpg)repeat-y;
+	float: right;
+	margin-right: -240px;
+	margin-top: -640px;
+	border-top: 2px solid #222325;
+	border-right: 2px solid #222325;
+	border-bottom: 2px solid #222325;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+	padding: 9px 9px 5px 11px;  
+}
+
+.publish-btn {
+	width: 214px;
+	height: 53px;
+	background-color: #5199e1;
+	border: 2px solid #3d71a5;
+	border-radius: 7px;
+	margin-top: 25px;
+} 
+
+.publish-btn:hover {
+	background-color: #3a82ca;
+	cursor: pointer;
+}
+
+.publish-icon {
+	display: inline-block;
+	width: 21px;
+	height: 23px;
+	float: left;
+	margin-left: 40px;
+	margin-top: 15px;
+}
+
+.publish-txt {
+	font-weight: bold;
+	color: #ffffff;
+	font-size: 17px;
+	margin-top: 16px;
+	margin-left: 10px;
+	float: left;
+}
+
+.cancel-publish {
+	width: 214px;
+	height: 53px;
+
+	border-radius: 7px;
+	background-color: #ebebeb;
+	border: 2px solid #7a7e82;
+	margin-top: 10px;
+}
+
+.cancel-publish-txt {
+	margin-top: 17px;
+
+	font-weight: bold;
+	color: #8b9094;
+	font-size: 15px;
+	text-align: center;
+}
+
+.cancel-publish:hover {
+	background-color: #e5e4e4;
+	cursor: pointer;
+}
+
+.sidebar-subheading {
+	color: #949494;
+	font-weight: bold;
+	font-size: 14px;
+	margin: 10px 0 10px 0;
+	text-transform: uppercase;
+}
+
+
+.post-files {
+	color: #425e71;
+	font-weight: bold;
+	font-style: italic;
+	font-size: 14px;
+}
+
+.styled-select select {
+   background: transparent;
+   width: 215px;
+   padding: 5px;
+   font-size: 16px;
+   line-height: 1;
+   border: 0;
+   border-radius: 0;
+   height: 34px;
+   -webkit-appearance: none;
+   color: #425e71;
+   }
+
+   .styled-select {
+   width: 215px;
+   height: 34px;
+   overflow: hidden;
+   background: url(/beamstream-new/img/arrow.png) no-repeat right #fff;
+   border: 1px solid #d6dbe0;
+   border-radius: 5px;
+   margin-bottom: 20px;
+   }
+
+   .commentcreatedoc {
+    height: 117px;
+    width: 212px;
+    border-radius: 5px;
+    border: 1px solid #d6dbe0;
+    outline: none;
+    resize: none;
+    margin-bottom: 10px;
+
+    font-size: 13px;
+    font-family: helvetica;
+   	color: #425e71;
+
+}
+
+.social {
+	list-style: none;	
+	padding: 0;
+	display: inline;
+}
+
+.social li {
+	display: inline;
+	margin-left: 5px;
+}
+
+.share-on {
+	display: inline;
+}

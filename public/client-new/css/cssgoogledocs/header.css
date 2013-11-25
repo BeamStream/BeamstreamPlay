@@ -1,0 +1,99 @@
+.header {
+	height: 69px;
+	background-color: #ffffff;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	color: #8b9094;
+	font-weight: bold;
+	border-bottom: 1px solid #e7e7e7;
+}
+
+.labelcreatedoc {
+	float: left;
+	width: 72px;
+	height: 70px;
+	border-top-left-radius: 10px;
+	background-color: #14b6e5; 
+}
+
+.label-icon {
+	width: 31px;
+	height: 28px;
+	padding: 19px 20px;
+}
+
+.file-info {
+	display: inline-block;
+	float: left;
+	margin-left: 20px;
+	font-size: 16px;
+	padding-top: 12px;
+}
+
+.file-name {
+	padding-bottom: 5px;
+}
+
+.date-icon {
+	width: 16px;
+	height: 16px;
+	float: left;
+}
+
+.post-date {
+	display: inline-block;
+	color: #dc9d2b;
+	font-size: 11px;
+	float: left;
+	margin-left: 7px;
+}
+
+.file-status {
+	float: right;
+	height: 70px;
+	padding-top: 26px;
+	padding-right: 25px;
+}
+
+.file-status div {
+	display: inline-block;
+}
+
+.views-icon {
+	width: 25px;
+	height: 15px;
+	float: left;
+	margin-top: 2px;
+	margin-right: 7px;
+}
+
+.views {
+	display: inline;
+	padding-right: 20px;
+}
+
+.rocks-icon {
+	width: 17px;
+	height: 21px;
+	float: left;
+	float: left;
+	margin-top: -2px;
+	margin-right: 7px;
+}
+
+.rocks {
+	display: inline;
+	padding-right: 20px;
+}
+
+.comments-icon {
+	width: 19px;
+	height: 17px;
+	float: left;
+	margin-top: 1px;
+	margin-right: 7px;
+}
+
+.comments {
+	display: inline;
+}

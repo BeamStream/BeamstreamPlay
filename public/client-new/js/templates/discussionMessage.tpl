@@ -204,6 +204,8 @@
 					<a id="{{data.message.id.id}}" href="#" data-original-title="Delete" href="#" class="delete_post drag-rectangle" ></a>
 				 {{/ifequal}}
                 </div>
+                
+                
                 <div class="answer-info">
                   <div class="answer-conatiner">
                     <div class="button-block">

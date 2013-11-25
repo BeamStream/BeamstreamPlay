@@ -1,0 +1,33 @@
+
+
+.maincreatedocs{
+    width: 100%;
+    margin: auto;
+}
+
+.heading {
+    display: block;
+    height: 30px;
+    color: #ffffff
+}
+
+.close {
+    float: right;
+    color: #ffffff;
+}
+
+.close-txt {
+    font-size: 12px;
+    font-weight: bold;
+    float: left;
+    padding: 3px 10px;
+}
+
+.close-icon {
+    width: 22px;
+    height: 22px;
+    background: url(/beamstream-new/img/close-icon.jpg)no-repeat;
+    float: right;
+    cursor: pointer;
+}
+
