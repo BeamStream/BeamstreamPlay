@@ -171,7 +171,7 @@ define(
 
 										success : function(data) {
 											
-											alert(data);
+										
 											String.prototype.startsWith = function(
 													s) {
 												if (this.indexOf(s) == 0)
