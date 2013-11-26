@@ -102,7 +102,7 @@ define(
 											return true;
 										return false;
 									}
-									if (data.startsWith("http")) {
+									if (data.toString().startsWith("http")) {
 										window.location.assign(data)
 									} else {
 										$("#uploadgoogledoc").modal('show');
@@ -145,7 +145,7 @@ define(
 													return true;
 												return false;
 											}
-											if (data.startsWith("http")) {
+											if (data.toString().startsWith("http")) {
 												window.location.assign(data)
 											} else {
 												$("#creategoogledoc").modal('show');
@@ -178,7 +178,7 @@ define(
 													return true;
 												return false;
 											}
-											if (data.startsWith("http")) {
+											if (data.toString().startsWith("http")) {
 												window.location.assign(data)
 											} else {
 												$("#creategoogledoc").modal(
@@ -210,7 +210,7 @@ define(
 													return true;
 												return false;
 											}
-											if (data.startsWith("http")) {
+											if (data.toString().startsWith("http")) {
 												window.location.assign(data)
 											} else {
 												$("#creategoogledoc").modal(
