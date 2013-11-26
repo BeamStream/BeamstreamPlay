@@ -80,8 +80,9 @@ define(
 
 						},
 
-						afterUpload : function() {
+						afterUpload : function(event) {
 							$("#uploadgoogledoc").modal('hide');
+							
 						   
 
 						},
@@ -147,8 +148,7 @@ define(
 											if (data.startsWith("http")) {
 												window.location.assign(data)
 											} else {
-												$("#creategoogledoc").modal(
-														'show');
+												$("#creategoogledoc").modal('show');
 												$(".contentcreatedoc").empty();
 												$(".contentcreatedoc")
 														.append(
@@ -170,6 +170,8 @@ define(
 										url : 'uploadNow/spreadsheet',
 
 										success : function(data) {
+											
+											alert(data);
 											String.prototype.startsWith = function(
 													s) {
 												if (this.indexOf(s) == 0)
@@ -229,45 +231,39 @@ define(
 
 						showGoogleDocs : function(show) {
 
-							$
-									.ajax({
+							$.ajax({
 
 										type : 'GET',
 										url : 'uploadNow/show',
 
 										success : function(data) {
+													
+											
+													
+													String.prototype.startsWith = function(
+															s) {
+														if (this.indexOf(s) == 0)
+															return true;
+														return false;
+													}
+													if (data.toString().startsWith("http")) {
+														window.location.assign(data)
+													} else {
 
-											String.prototype.startsWith = function(
-													s) {
-												if (this.indexOf(s) == 0)
-													return true;
-												return false;
-											}
-											if (data.startsWith("http")) {
-												window.location.assign(data);
-											} else {
+												$("#docsview > .drive-view-row").remove();
+												
+												$("#showgoogledoc").modal('show');
 
-												$("#docsview > .drive-view-row")
-														.remove();
-
-												$
-														.each(
-																data,
-																function(index,
-																		value) {
-																	var nameOfDocument;
-																	nameOfDocument = "Name Not Available";
+												$.each(data,function(index,value) {
+																	var nameOfDocument =  "Name Not Available";;
 																	if (value._1 != null) {
 																		nameOfDocument = value._1;
-																		var extention = value._1
-																				.split('.')[1];
+																		var extention = value._1.split('.')[1];
 																	}
-																	if (extention == "ppt"
-																			|| extention == "odt") {
-																		$(
-																				"#docsview")
+																	if (extention == "ppt" || extention == "pptx" || extention == "odp") {
+																		$("#docsview")
 																				.append(
-																						" <div class='drive-view-row'><div class='text-img'></div><div class='doc-txt-container'><div class='doc-name'>"
+																						" <div class='drive-view-row'><div class='powerpoint-img'></div><div class='doc-txt-container'><div class='doc-name'>"
 																								+ nameOfDocument
 																								+ "</div><div class='doc-info'><div class='owner'>OWNDER: <span>ME</span></div>"
 																								+ "<div class='last-modified'>LAST MODIFIED:"
@@ -279,9 +275,8 @@ define(
 
 																	}
 
-																	else {
-																		$(
-																				"#docsview")
+																	else if(extention == "xls" || extention == "ods") {
+																		$("#docsview")
 																				.append(
 																						" <div class='drive-view-row'><div class='spreadsheet-img'></div><div class='doc-txt-container'><div class='doc-name'>"
 																								+ nameOfDocument
@@ -294,10 +289,24 @@ define(
 																								+ ">Publish</a></div>");
 
 																	}
+																	
+																	else {
+																		$("#docsview")
+																				.append(
+																						" <div class='drive-view-row'><div class='text-img'></div><div class='doc-txt-container'><div class='doc-name'>"
+																								+ nameOfDocument
+																								+ "</div><div class='doc-info'>"
+																								+ "<div class='owner'>OWNDER: <span>ME</span>"
+																								+ "</div><div class='last-modified'>LAST MODIFIED: <span>9/14/2013</span></div></div></div>"
+																								+ "<a class='preview-btn' target='_blank' href="
+																								+ value._2
+																								+ ">Preview</a><a class='preview-btn' target='_blank' href='#'"
+																								+ ">Publish</a></div>");
+
+																	}
 
 																});
-												$("#showgoogledoc").modal(
-														'show');
+											
 											}
 										}
 
