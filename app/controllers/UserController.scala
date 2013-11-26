@@ -48,9 +48,10 @@ object UserController extends Controller {
     var usersToShow: List[ObjectId] = Nil
     val onlineUsers = (OnlineUserCache.returnOnlineUsers.isEmpty == true) match {
       case false =>
-        val otherUsersMap = OnlineUserCache.returnOnlineUsers.head.onlineUsers -= new ObjectId(request.session.get("userId").get)
-        val otherUsers = otherUsersMap.keys.toList
 
+        OnlineUserCache.returnOnlineUsers.head.onlineUsers -= new ObjectId(request.session.get("userId").get)
+        val otherUsers = OnlineUserCache.returnOnlineUsers.head.onlineUsers.keys.toList
+        println(otherUsers)
         val currentUsersClasses = User.getUserProfile(new ObjectId(request.session.get("userId").get)).get.classes
 
         currentUsersClasses map {

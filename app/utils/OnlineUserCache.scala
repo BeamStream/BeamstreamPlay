@@ -28,7 +28,7 @@ object OnlineUserCache {
       case true =>
       case false =>
         if (onlineUsersFound.head.onlineUsers.contains(new ObjectId(userIdkey))) {
-          OnlineUserDAO.update(MongoDBObject(), onlineUsersFound.head.copy(onlineUsers = onlineUsersFound.head.onlineUsers -= new ObjectId(userIdkey)), false, false, new WriteConcern)
+          OnlineUserDAO.update(MongoDBObject(), onlineUsersFound.head.copy(onlineUsers = (onlineUsersFound.head.onlineUsers -= new ObjectId(userIdkey))), false, false, new WriteConcern)
         }
     }
 
@@ -39,7 +39,7 @@ object OnlineUserCache {
    */
 
   def setOnline(userIdkey: String, timeStamp: Long) = {
-    println(userIdkey, timeStamp)
+
     /*if (onlineUsers.contains(userIdkey) == false) {
           onlineUsers ++= List(userIdkey)
           Cache.set("Online Users", onlineUsers)
@@ -47,6 +47,7 @@ object OnlineUserCache {
 
     val onlineUsersFound = OnlineUserDAO.find(MongoDBObject()).toList
     (onlineUsersFound.isEmpty) match {
+
       case true => OnlineUserDAO.insert(OnlineUsers(scala.collection.mutable.Map(new ObjectId(userIdkey) -> timeStamp)))
       case false =>
         //        if (!onlineUsersFound.head.onlineUsers.contains(new ObjectId(userIdkey))) {
