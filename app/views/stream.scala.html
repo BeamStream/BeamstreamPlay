@@ -85,19 +85,6 @@ setTimeout(executeQuery, 15000);
 </script>
 
 
-<!-- <!--Google Docs -->
-<script type="text/javascript">
-
-function showGoogleDocs(action){
-newwindow=window.open('uploadNow/'+action,'name','height=100,width=500');
-if (window.focus) {newwindow.focus()}
-}
-
-</script>
-
-
-Google Docs -->
-
 <!-- for pie charts  -->
 <script type="text/javascript">
         function Donut(paper) {
@@ -716,7 +703,7 @@ header, footer){
 		<!--                                    -->
 
 		<div id="creategoogledoc"
-			class="modal hide fade invite-pop-up-googledoc" tabindex="-1"
+			class="modal hide fade invite-pop-up-googledoc" 
 			aria-labelledby="myModalLabel" aria-hidden="true">
 
 
@@ -828,7 +815,7 @@ header, footer){
 		<!--                                    -->
 
 		<div id="showgoogledoc"
-			class="modal hide fade invite-pop-up-googledoc" tabindex="-1"
+			class="modal hide fade invite-pop-up-googledoc" 
 			aria-labelledby="myModalLabel" aria-hidden="true">
 
 
@@ -894,14 +881,14 @@ header, footer){
 		<!--                                    -->
 
 		<div id="uploadgoogledoc"
-			class="modal hide fade invite-pop-up-googledoc" tabindex="-1"
+			class="modal hide fade invite-pop-up-googledoc" 
 			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
 
 
 
 			<div class="uploadgdocs">
-				<form action="/uploadToGoogleDrive" enctype="multipart/form-data" method="post" >
+				<form action="/uploadToGoogleDrive" enctype="multipart/form-data" method="post" id='uploadForm' >
 					<input type="file" name="picture" id="uplaodfilestogoogle"> <input type="submit"
 						value="UPLOAD" class="upload-doc" id="uploadToGoogle">
 				</form>

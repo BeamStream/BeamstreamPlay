@@ -3,10 +3,10 @@ define(
 				'view/discussionsView', 'view/questionsView',
 				'view/deadlinesView', 'view/calendarView',
 				'view/messageListView', 'view/questionListView',
-				'view/questionStreamView', 'text!templates/googledoc.tpl' ],
+				'view/questionStreamView' ],
 		function(PageView, StreamSliderView, OverView, DiscussionsView,
 				QuestionsView, DeadlinesView, CalendarView, MessageListView,
-				QuestionListView, QuestionStreamView, GoogleDoc) {
+				QuestionListView, QuestionStreamView) {
 			var MyStreamView;
 			MyStreamView = PageView
 					.extend({
@@ -21,7 +21,8 @@ define(
 							'click #uploadToGoogle' : 'uploadToGoogle',
 							'click #creategdocument' : 'createGDocument',
 							'click #creategspreadsheet' : 'createGSpreadsheet',
-							'click #creategpresentation' : 'createGPresentation'
+							'click #creategpresentation' : 'createGPresentation',
+							'submit #uploadForm' : 'afterUpload'
 						},
 						messagesPerPage : 10,
 						pageNo : 1,
@@ -79,37 +80,48 @@ define(
 
 						},
 
+						afterUpload : function() {
+							$("#uploadgoogledoc").modal('hide');
+						   
+
+						},
 						// Upload Google Doc
 
 						uploadGoogleDocs : function(upload) {
-							
-							
-							$("#uploadgoogledoc").modal('show');
-							
+
 							$.ajax({
 
 								type : 'GET',
 								url : 'uploadNow/upload',
 
 								success : function(data) {
-									
-								}
-							
 
+									String.prototype.startsWith = function(s) {
+										if (this.indexOf(s) == 0)
+											return true;
+										return false;
+									}
+									if (data.startsWith("http")) {
+										window.location.assign(data)
+									} else {
+										$("#uploadgoogledoc").modal('show');
+									}
+
+								}
 
 							});
-							
-							/*var control = $("#uplaodfilestogoogle");
 
-							$("#uploadToGoogle").on("click", function () {
-							    control.replaceWith( control = control.clone( true ) );
-							});*/
+							/*
+							 * var control = $("#uplaodfilestogoogle");
+							 * 
+							 * $("#uploadToGoogle").on("click", function () {
+							 * control.replaceWith( control = control.clone(
+							 * true ) ); });
+							 */
 
-							
 						},
 
 						uploadToGoogle : function(event) {
-							alert("12345");
 							$("#uploadgoogledoc").modal('hide');
 
 						},
@@ -117,10 +129,6 @@ define(
 						// Create Google document
 
 						createGDocument : function(create) {
-
-							$("#creategoogledoc").modal('show');
-
-							$(".contentcreatedoc").empty();
 
 							$
 									.ajax({
@@ -130,10 +138,22 @@ define(
 
 										success : function(data) {
 
-											$(".contentcreatedoc")
-													.append(
-															"<iframe style='width:100%;height:100%;' frameborder='0' src='http://docs.google.com/document/create?hl=en ' />");
-
+											String.prototype.startsWith = function(
+													s) {
+												if (this.indexOf(s) == 0)
+													return true;
+												return false;
+											}
+											if (data.startsWith("http")) {
+												window.location.assign(data)
+											} else {
+												$("#creategoogledoc").modal(
+														'show');
+												$(".contentcreatedoc").empty();
+												$(".contentcreatedoc")
+														.append(
+																"<iframe style='width:100%;height:100%;' frameborder='0' src='http://docs.google.com/document/create?hl=en ' />");
+											}
 										}
 									});
 
@@ -143,10 +163,6 @@ define(
 
 						createGSpreadsheet : function(create) {
 
-							$("#creategoogledoc").modal('show');
-
-							$(".contentcreatedoc").empty();
-
 							$
 									.ajax({
 
@@ -154,11 +170,22 @@ define(
 										url : 'uploadNow/spreadsheet',
 
 										success : function(data) {
-
-											$(".contentcreatedoc")
-													.append(
-															"<iframe style='width:100%;height:100%;' frameborder='0' src='http://spreadsheets.google.com/ccc?new&hl=en' />");
-
+											String.prototype.startsWith = function(
+													s) {
+												if (this.indexOf(s) == 0)
+													return true;
+												return false;
+											}
+											if (data.startsWith("http")) {
+												window.location.assign(data)
+											} else {
+												$("#creategoogledoc").modal(
+														'show');
+												$(".contentcreatedoc").empty();
+												$(".contentcreatedoc")
+														.append(
+																"<iframe style='width:100%;height:100%;' frameborder='0' src='http://spreadsheets.google.com/ccc?new&hl=en' />");
+											}
 										}
 									});
 
@@ -168,10 +195,6 @@ define(
 
 						createGPresentation : function(create) {
 
-							$("#creategoogledoc").modal('show');
-
-							$(".contentcreatedoc").empty();
-
 							$
 									.ajax({
 
@@ -179,11 +202,24 @@ define(
 										url : 'uploadNow/presentation',
 
 										success : function(data) {
+											String.prototype.startsWith = function(
+													s) {
+												if (this.indexOf(s) == 0)
+													return true;
+												return false;
+											}
+											if (data.startsWith("http")) {
+												window.location.assign(data)
+											} else {
+												$("#creategoogledoc").modal(
+														'show');
+												$(".contentcreatedoc").empty();
 
-											$(".contentcreatedoc")
-													.append(
-															"<iframe style='width:100%;height:100%;' frameborder='0' src='https://drive.google.com' />");
+												$(".contentcreatedoc")
+														.append(
+																"<iframe style='width:100%;height:100%;' frameborder='0' src='https://drive.google.com' />");
 
+											}
 										}
 									});
 
@@ -198,73 +234,74 @@ define(
 
 										type : 'GET',
 										url : 'uploadNow/show',
-										dataType : "json",
-										cache : false,
-										contentType : false,
-										processData : false,
+
 										success : function(data) {
-											$("#docsview > .drive-view-row")
-													.remove();
-											$
-													.each(
-															data,
-															function(index,
-																	value) {
 
-																if (value._1 != null)
-																	var extention = value._1
-																			.split('.')[1];
+											String.prototype.startsWith = function(
+													s) {
+												if (this.indexOf(s) == 0)
+													return true;
+												return false;
+											}
+											if (data.startsWith("http")) {
+												window.location.assign(data);
+											} else {
 
-																if (extention == "js"
-																		|| extention == "odt") {
-																	$(
-																			"#docsview")
-																			.append(
-																					" <div class='drive-view-row'><div class='text-img'></div><div class='doc-txt-container'><div class='doc-name'>"
-																							+ extention
-																							+ "</div><div class='doc-info'><div class='owner'>OWNDER: <span>ME</span></div>"
-																							+ "<div class='last-modified'>LAST MODIFIED:"
-																							+ " <span>9/14/2013</span></div></div></div>"
-																							+ "<a class='preview-btn' target='_blank' href="
-																							+ value._2
-																							+ ">Preview</a><a class='preview-btn' target='_blank' href='#'"
-																							+ ">Publish</a></div>");
+												$("#docsview > .drive-view-row")
+														.remove();
 
-																}
+												$
+														.each(
+																data,
+																function(index,
+																		value) {
+																	var nameOfDocument;
+																	nameOfDocument = "Name Not Available";
+																	if (value._1 != null) {
+																		nameOfDocument = value._1;
+																		var extention = value._1
+																				.split('.')[1];
+																	}
+																	if (extention == "ppt"
+																			|| extention == "odt") {
+																		$(
+																				"#docsview")
+																				.append(
+																						" <div class='drive-view-row'><div class='text-img'></div><div class='doc-txt-container'><div class='doc-name'>"
+																								+ nameOfDocument
+																								+ "</div><div class='doc-info'><div class='owner'>OWNDER: <span>ME</span></div>"
+																								+ "<div class='last-modified'>LAST MODIFIED:"
+																								+ " <span>9/14/2013</span></div></div></div>"
+																								+ "<a class='preview-btn' target='_blank' href="
+																								+ value._2
+																								+ ">Preview</a><a class='preview-btn' target='_blank' href='#'"
+																								+ ">Publish</a></div>");
 
-																else {
-																	$(
-																			"#docsview")
-																			.append(
-																					" <div class='drive-view-row'><div class='spreadsheet-img'></div><div class='doc-txt-container'><div class='doc-name'>"
-																							+ extention
-																							+ "</div><div class='doc-info'>"
-																							+ "<div class='owner'>OWNDER: <span>ME</span>"
-																							+ "</div><div class='last-modified'>LAST MODIFIED: <span>9/14/2013</span></div></div></div>"
-																							+ "<a class='preview-btn' target='_blank' href="
-																							+ value._2
-																							+ ">Preview</a><a class='preview-btn' target='_blank' href='#'"
-																							+ ">Publish</a></div>");
+																	}
 
-																}
+																	else {
+																		$(
+																				"#docsview")
+																				.append(
+																						" <div class='drive-view-row'><div class='spreadsheet-img'></div><div class='doc-txt-container'><div class='doc-name'>"
+																								+ nameOfDocument
+																								+ "</div><div class='doc-info'>"
+																								+ "<div class='owner'>OWNDER: <span>ME</span>"
+																								+ "</div><div class='last-modified'>LAST MODIFIED: <span>9/14/2013</span></div></div></div>"
+																								+ "<a class='preview-btn' target='_blank' href="
+																								+ value._2
+																								+ ">Preview</a><a class='preview-btn' target='_blank' href='#'"
+																								+ ">Publish</a></div>");
 
-																// add this
-																// block
+																	}
 
-																/*
-																 * var
-																 * compiledTemplate =
-																 * Handlebars.compile(GoogleDoc);
-																 * $('#docsview').append(compiledTemplate(data));
-																 */
-
-															});
-
+																});
+												$("#showgoogledoc").modal(
+														'show');
+											}
 										}
 
-									})
-
-							$("#showgoogledoc").modal('show');
+									});
 
 							/*
 							 * newwindow=window.open('uploadNow/show','name','height=400,width=300');
