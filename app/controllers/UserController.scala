@@ -45,27 +45,27 @@ object UserController extends Controller {
    */
 
   def getAllOnlineUsers = Action { implicit request =>
-    var usersToShow: List[ObjectId] = Nil
+    var usersToShow: List[String] = Nil
     val onlineUsers = (OnlineUserCache.returnOnlineUsers.isEmpty == true) match {
       case false =>
-
-        OnlineUserCache.returnOnlineUsers.head.onlineUsers -= new ObjectId(request.session.get("userId").get)
-        val otherUsers = OnlineUserCache.returnOnlineUsers.head.onlineUsers.keys.toList
-        println(otherUsers)
+        
+        val userToShow=OnlineUserCache.returnOnlineUsers.head.onlineUsers -= request.session.get("userId").get
+        val otherUsers = userToShow.keys.toList
         val currentUsersClasses = User.getUserProfile(new ObjectId(request.session.get("userId").get)).get.classes
-
+       
         currentUsersClasses map {
           case eachClassOfUser =>
 
             val streams = models.Class.findClasssById(eachClassOfUser).get.streams
             val streamUsers = Stream.findStreamById(streams.head).get.usersOfStream
             usersToShow ++= otherUsers.intersect(streamUsers)
+            println(userToShow)
         }
 
         val onlineUsersWithDetails = (usersToShow.distinct) map {
           case eachUserId =>
-            val userWithDetailedInfo = User.getUserProfile(eachUserId)
-            val profilePicForUser = UserMedia.getProfilePicForAUser(eachUserId)
+            val userWithDetailedInfo = User.getUserProfile(new ObjectId(eachUserId))
+            val profilePicForUser = UserMedia.getProfilePicForAUser(new ObjectId(eachUserId))
             val onlineUsersAlongWithDetails = (profilePicForUser.isEmpty) match {
               case true => {
                 //                if (userWithDetailedInfo != None) {
@@ -89,7 +89,6 @@ object UserController extends Controller {
     }
 
     Ok(write(OnlineUsersResult(onlineUsers.get))).as("application/json")
-
   }
 
   /**

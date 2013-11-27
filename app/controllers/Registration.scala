@@ -92,10 +92,10 @@ object Registration extends Controller {
         User.addInfo(List(userSchool), new ObjectId(userId))
         val userCreated = User.getUserProfile(new ObjectId(userId))
         //Set User Online
-        Future {
+//        Future {
           val utcMilliseconds = OnlineUserCache.returnUTCTime
           OnlineUserCache.setOnline(userId, utcMilliseconds)
-        }
+//        }
 
         //retrieve token in session and invalidate
         var token = request.session.get("token").get

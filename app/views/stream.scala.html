@@ -28,7 +28,22 @@
 <script type="text/JavaScript"
 	src="/beamstream-new/lib/bootstrap-dropdownhover.js"></script>
 <script src="/beamstream-new/js/BS_social.js" type="text/javascript"></script>
+<script type="text/javascript">
+var online=false;
+function show_login_status(network, status)
+{
+	if (status)
+	{
+		online=true;
+		
+	}
 
+	else{
+		online=false;
+	}
+	
+}
+</script>
 <script type="text/javascript">
 
 function executeQuery() {
@@ -50,6 +65,10 @@ setTimeout(executeQuery, 15000);
 
 </script>
 
+<img style="display:none;"
+onload="show_login_status('Google', true)"
+onerror="show_login_status('Google', false)"
+src="https://accounts.google.com/CheckCookie?continue=https://www.google.com/intl/en/images/logos/accounts_logo.png" />
 
 <!-- bootstrap dialog popups -->
 <script src="/beamstream-new/lib/extralib/bootbox.min.js"
@@ -228,6 +247,7 @@ ul li#showSubList:hover ul {
 
 @main("My Stream", "Body", meta, CSS, JS, bodyModule, bodyJS, sideBar,
 header, footer){
+
 
 
 

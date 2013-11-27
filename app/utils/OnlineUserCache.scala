@@ -10,7 +10,7 @@ import com.mongodb.WriteConcern
 import models.mongoContext._
 import java.util.Calendar
 
-case class OnlineUsers(onlineUsers: scala.collection.mutable.Map[ObjectId, Long] = scala.collection.mutable.Map())
+case class OnlineUsers(onlineUsers: scala.collection.mutable.Map[String, Long] = scala.collection.mutable.Map())
 object OnlineUserCache {
 
   /*var onlineUsers: List[String] = Nil*/
@@ -27,9 +27,9 @@ object OnlineUserCache {
     (onlineUsersFound.isEmpty) match {
       case true =>
       case false =>
-        if (onlineUsersFound.head.onlineUsers.contains(new ObjectId(userIdkey))) {
-          OnlineUserDAO.update(MongoDBObject(), onlineUsersFound.head.copy(onlineUsers = (onlineUsersFound.head.onlineUsers -= new ObjectId(userIdkey))), false, false, new WriteConcern)
-        }
+        //        if (onlineUsersFound.head.onlineUsers.contains(userIdkey)) {
+        OnlineUserDAO.update(MongoDBObject(), onlineUsersFound.head.copy(onlineUsers = (onlineUsersFound.head.onlineUsers -= userIdkey)), false, false, new WriteConcern)
+      //        }
     }
 
   }
@@ -48,11 +48,10 @@ object OnlineUserCache {
     val onlineUsersFound = OnlineUserDAO.find(MongoDBObject()).toList
     (onlineUsersFound.isEmpty) match {
 
-      case true => OnlineUserDAO.insert(OnlineUsers(scala.collection.mutable.Map(new ObjectId(userIdkey) -> timeStamp)))
+      case true => OnlineUserDAO.insert(OnlineUsers(scala.collection.mutable.Map(userIdkey -> timeStamp)))
       case false =>
         //        if (!onlineUsersFound.head.onlineUsers.contains(new ObjectId(userIdkey))) {
-
-        OnlineUserDAO.update(MongoDBObject(), onlineUsersFound.head.copy(onlineUsers = (onlineUsersFound.head.onlineUsers += new ObjectId(userIdkey) -> timeStamp)), false, false, new WriteConcern)
+        OnlineUserDAO.update(MongoDBObject(), onlineUsersFound.head.copy(onlineUsers = (onlineUsersFound.head.onlineUsers += userIdkey -> timeStamp)), false, false, new WriteConcern)
       //        }
     }
 

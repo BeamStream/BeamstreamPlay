@@ -130,7 +130,7 @@ define(
 						// Create Google document
 
 						createGDocument : function(create) {
-
+                            alert(online)
 							$
 									.ajax({
 
