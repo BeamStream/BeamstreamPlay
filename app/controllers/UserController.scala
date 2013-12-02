@@ -48,22 +48,24 @@ object UserController extends Controller {
     var usersToShow: List[String] = Nil
     val onlineUsers = (OnlineUserCache.returnOnlineUsers.isEmpty == true) match {
       case false =>
-        
-        val userToShow=OnlineUserCache.returnOnlineUsers.head.onlineUsers -= request.session.get("userId").get
+
+        val userToShow = OnlineUserCache.returnOnlineUsers.head.onlineUsers -= request.session.get("userId").get
         val otherUsers = userToShow.keys.toList
         val currentUsersClasses = User.getUserProfile(new ObjectId(request.session.get("userId").get)).get.classes
-       
+
         currentUsersClasses map {
           case eachClassOfUser =>
 
             val streams = models.Class.findClasssById(eachClassOfUser).get.streams
             val streamUsers = Stream.findStreamById(streams.head).get.usersOfStream
-            usersToShow ++= otherUsers.intersect(streamUsers)
-            println(userToShow)
+            val streamUserList = streamUsers map {
+              case user => user.toString
+            }
+            usersToShow ++= otherUsers.intersect(streamUserList)
         }
-
         val onlineUsersWithDetails = (usersToShow.distinct) map {
           case eachUserId =>
+            println(eachUserId)
             val userWithDetailedInfo = User.getUserProfile(new ObjectId(eachUserId))
             val profilePicForUser = UserMedia.getProfilePicForAUser(new ObjectId(eachUserId))
             val onlineUsersAlongWithDetails = (profilePicForUser.isEmpty) match {

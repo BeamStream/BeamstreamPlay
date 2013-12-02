@@ -6,6 +6,7 @@ import play.api.mvc.RequestHeader
 import play.api.mvc.Results.InternalServerError
 import play.api.mvc.Results.NotFound
 import play.api.mvc.Results.Redirect
+import actors.Cleaner
 
 object Global extends GlobalSettings {
 
