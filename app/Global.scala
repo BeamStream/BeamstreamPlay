@@ -14,6 +14,7 @@ object Global extends GlobalSettings {
     //    ReadingSpreadsheetUtil.readCSVOfSchools      //for Reading CSV of schools
     val listOfAllSchools = School.getAllSchools
     School.allSchoolsInDatabase ++= listOfAllSchools
+    Cleaner.makeUsersOfflineIfNotAvailable
 
   }
 
