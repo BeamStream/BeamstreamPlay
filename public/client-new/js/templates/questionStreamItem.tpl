@@ -1,3 +1,6 @@
+
+<div id="sidequestionexpand"></div>
+
 <div class="question-post">
     {{#if profilePic.length}}
     <img src="{{profilePic}}" class="profile-picture"></img>

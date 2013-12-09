@@ -961,7 +961,11 @@ header, footer){
 			</div>
 		</div>
 
-		<div id="questionStreamView"></div>
+		<div id="questionStreamView">
+			
+		
+		</div>
+		
 		
 		
 		<!-- Chat new UI -->
@@ -1045,7 +1049,7 @@ $(function() {
     }
 
     var receiveEvent = function(event) {
-    
+    alert('message aaya')
      $("#inform").css("display", "block");
         var data = JSON.parse(event.data)
 

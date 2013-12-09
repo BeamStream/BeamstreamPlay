@@ -10,12 +10,14 @@ class CleanerActor extends Actor {
   def receive = {
     case "clean" =>
       val utcMilliseconds = OnlineUserCache.returnUTCTime
-      val onlineUsersMap = OnlineUserCache.returnOnlineUsers.head.onlineUsers
-      onlineUsersMap.foreach {
-        a =>
-          if (utcMilliseconds - a._2 > 10000) {
-            OnlineUserCache.setOffline(a._1)
-          }
+      if (OnlineUserCache.returnOnlineUsers.isEmpty == false) {
+        val onlineUsersMap = OnlineUserCache.returnOnlineUsers.head.onlineUsers
+        onlineUsersMap.foreach {
+          a =>
+            if (utcMilliseconds - a._2 > 10000) {
+              OnlineUserCache.setOffline(a._1)
+            }
+        }
       }
   }
 }

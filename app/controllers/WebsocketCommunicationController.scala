@@ -22,7 +22,7 @@ object WebsocketCommunicationController extends Controller {
   def chat(withWhom: String) = WebSocket.async[JsValue] { implicit request =>
     (withWhom == "") match {
       case true =>
-
+       println("Naya bna rha hu")
         lazy val default = {
           val roomActor = Akka.system.actorOf(Props[CommunicationRoom])
           roomActor
@@ -31,7 +31,6 @@ object WebsocketCommunicationController extends Controller {
         WebsocketCommunication.join(default, request.session.get("userId").get)
 
       case false =>
-        println("Join case" + "**********")
         var acWithChat = ChatAvailiblity.a(new ObjectId(withWhom))
         WebsocketCommunication.join(acWithChat, request.session.get("userId").get)
     }

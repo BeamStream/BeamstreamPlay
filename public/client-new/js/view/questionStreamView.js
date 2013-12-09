@@ -47,6 +47,27 @@ function(BaseView, questionStreamTPL, QuestionStream, QuestionStreamListView){
 			$("#questionListView").css("display","none");
 			
 			$("#questionListView").css("visibility","hidden");
+			/*$("#questionStreamView").hide();*/
+			/*$("#questionStreamView").css("visibility","hidden");*/
+			 $( "#questionStreamView" ).animate({
+				    width: "0%",
+				    opacity: 0,
+				    visibility:"hidden",
+				    	display:"none"
+				    
+				  }, 1500 );
+			$(".body").css("padding-right","0");
+			$(".chatbox").css("right","40");
+			$("#topheader").css("padding-right","0");
+			
+			$("#sidequestionexpand").css("opacity","1");
+			
+			
+			
+			
+			
+				 
+			
 			
 		},
 		
