@@ -108,11 +108,11 @@ define(['baseModel',
 								});
 			}}, 
 
-		restartInterval: function(){
+		/*restartInterval: function(){
 			if (!this.get('searchStatus')){
 				this.set({'intervalId': setInterval(this.createQuestionList.bind(this), 10000)}, {silent: true});
 			}
-		}
+		}*/
 
 		// // this is not working -- it's unclear if pubnub is actually functioning for questions
 		// getQuestionsFromPubNub: function(){

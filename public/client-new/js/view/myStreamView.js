@@ -22,7 +22,8 @@ define(
 							'click #creategdocument' : 'createGDocument',
 							'click #creategspreadsheet' : 'createGSpreadsheet',
 							'click #creategpresentation' : 'createGPresentation',
-							'submit #uploadForm' : 'afterUpload'
+							'submit #uploadForm' : 'afterUpload',
+							'click #sidequestionexpand': 'sidequestionexpand'
 						},
 						messagesPerPage : 10,
 						pageNo : 1,
@@ -86,6 +87,43 @@ define(
 						   
 
 						},
+						
+						
+						/*Expand Side Question Stream*/
+						
+						sidequestionexpand:function(){
+						
+							/*$("#messageListView").show();
+							$("#questionListView").css("display","none");*/
+							
+					/*		$("#questionListView").css("visibility","hidden");*/
+							/*$("#questionStreamView").hide();*/
+							/*$("#questionStreamView").css("visibility","hidden");*/
+							/* $( "#questionStreamView" ).animate({
+								    width: "300",
+								    opacity: 1,
+								    visibility:"visible",
+								    	display:"block"
+								    
+								  }, 1500 );*/
+							$( "#questionStreamView" ).show();
+							$(".body").css("padding-right","280");
+							$(".chatbox").css("right","40");
+							$("#topheader").css("padding-right","19");
+							
+							/*$("#sidequestionexpand").css("opacity","1");*/
+							
+							$("#sidequestionexpand").css("right","318");
+							
+							
+							
+								 
+							
+							
+						},
+						
+						
+						
 						// Upload Google Doc
 
 						uploadGoogleDocs : function(upload) {
@@ -130,7 +168,7 @@ define(
 						// Create Google document
 
 						createGDocument : function(create) {
-                            alert(online)
+                          /*  alert(online)*/
 							$
 									.ajax({
 

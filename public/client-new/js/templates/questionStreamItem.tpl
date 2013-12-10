@@ -1,5 +1,5 @@
 
-<div id="sidequestionexpand"></div>
+
 
 <div class="question-post">
     {{#if profilePic.length}}

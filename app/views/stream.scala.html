@@ -961,12 +961,11 @@ header, footer){
 			</div>
 		</div>
 
-		<div id="questionStreamView">
-			
+		<div id="questionStreamView">	
 		
 		</div>
 		
-		
+		<div id="sidequestionexpand"></div>
 		
 		<!-- Chat new UI -->
 		
@@ -982,8 +981,8 @@ header, footer){
 
             <div class="chatbox-body">
                 <div class="chatbox-content">
-
-            <!-- *********** CHAT BOX FEED ***********-->   
+<!-- 
+            *********** CHAT BOX FEED ***********    -->
 
                     <div class="chat-feed">
                         <div class="avatar-feed"></div>
@@ -1016,7 +1015,7 @@ header, footer){
 
                 <div class="left-border"></div>
                 <div class="right-border"></div>
-            </div> <!-- END CHATBOX BODY -->
+            </div> END CHATBOX BODY
             <div class="chatbox-footer">
                 <div class="my-avatar"></div>
                     <textarea name="styled-textarea" class="message" onfocus="this.value=''; setbg( '#e5fff3');" onblur="setbg('white')">Type message here...
@@ -1028,7 +1027,7 @@ header, footer){
 		
 		
 	
-		<!-- Chat new UI -->
+		<!-- Chat new UI ends-->
 	
 	
 
@@ -1049,7 +1048,7 @@ $(function() {
     }
 
     var receiveEvent = function(event) {
-    alert('message aaya')
+   
      $("#inform").css("display", "block");
         var data = JSON.parse(event.data)
 
@@ -1097,7 +1096,39 @@ $(function() {
         var newwindow;
 
         function popit(username,toWhom){
-            newwindow = window.open("chatRoom/"+toWhom, '', "status=yes, height=500; width=500; resizeable=0");
+        
+        $.ajax({			type : 'GET',
+							url : "chatRoom/"+toWhom,
+							success : function(data) {
+											$('div.right-container').append('<div class="chatbox">'+
+			'<div class="chatbox-header">'+
+			'<h1 class="friend">Alina Kay</h1>'+
+			'<div class="exit"></div>'+
+			'<div class="addfriends-btn">'+
+			'<a href="#"></a>'+
+			'</div></div>'+
+			'<div class="chatbox-body">'+
+			'	<div class="chatbox-content">'+
+					'<div class="chat-feed">'+
+					'<div class="chat-feed">'+
+					'	<div class="avatar-feed"></div>'+
+					'	<p>Tomorrow in study hall would be really good.</p>'+
+					'	<h4 class="time">15 seconds ago</h4>'+
+					'</div>'+
+				'</div>'+
+
+				'<div class="left-border"></div>'+
+				'<div class="right-border"></div>'+
+			'</div>'+
+			'<div class="chatbox-footer">'+
+				'<div class="my-avatar"></div>'+
+				'<textarea class="message" id="talk">Type message here...'+
+                    '</textarea>'+
+				'<p>Press enter to submint message</p>'+
+			'</div>'+
+		'</div>')}
+									});
+          // newwindow = window.open("chatRoom/"+toWhom, '', "status=yes, height=500; width=500; resizeable=0");
         }
     </script>
 

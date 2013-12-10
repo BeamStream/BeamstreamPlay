@@ -923,6 +923,7 @@ define(['view/formView',
 							    // show the posted message on feed
 							 	var questionItemView  = new QuestionItemView({model :questionModel});
 		 						$('#questionListView div.content').prepend(questionItemView.render().el);
+		 						
 			       		 	}
 				 	   }
 			 

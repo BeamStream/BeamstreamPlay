@@ -15,7 +15,9 @@ function(BaseView, questionStreamTPL, QuestionStream, QuestionStreamListView){
 			'click #filter-myquestions': 'filterHandler', 
 			'submit .question-form': 'searchQuestions',
 			'click .popout': 'popout',
-			'click .minimize': 'minify'
+			'click .minimize': 'minimize',
+			
+			
 		},
 
 		initialize: function() {
@@ -41,7 +43,9 @@ function(BaseView, questionStreamTPL, QuestionStream, QuestionStreamListView){
 			
 		},
 		
-		minify:function(){
+		
+		/* Miimize left question stream*/
+		minimize:function(){
 		
 			$("#messageListView").show();
 			$("#questionListView").css("display","none");
@@ -49,20 +53,24 @@ function(BaseView, questionStreamTPL, QuestionStream, QuestionStreamListView){
 			$("#questionListView").css("visibility","hidden");
 			/*$("#questionStreamView").hide();*/
 			/*$("#questionStreamView").css("visibility","hidden");*/
-			 $( "#questionStreamView" ).animate({
+		/*	 $( "#questionStreamView" ).animate({
 				    width: "0%",
 				    opacity: 0,
 				    visibility:"hidden",
 				    	display:"none"
 				    
-				  }, 1500 );
+				  }, 1500 );*/
+			$( "#questionStreamView" ).hide();
 			$(".body").css("padding-right","0");
 			$(".chatbox").css("right","40");
 			$("#topheader").css("padding-right","0");
 			
-			$("#sidequestionexpand").css("opacity","1");
+			/*$("#sidequestionexpand").css("opacity","1");*/
 			
-			
+			$("#sidequestionexpand").css("right","0");
+		
+			    
+		
 			
 			
 			
@@ -70,6 +78,10 @@ function(BaseView, questionStreamTPL, QuestionStream, QuestionStreamListView){
 			
 			
 		},
+		
+		
+		
+		
 		
 		
 		addChildViews: function() {
