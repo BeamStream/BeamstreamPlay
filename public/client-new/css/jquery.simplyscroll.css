@@ -35,7 +35,7 @@ Note all DIVs are generated and should not be hard-coded
 
 .simply-scroll-container { /* Container DIV - automatically generated */
 		position: relative;
-		left:-21px;
+		left:-22px;
 	
 }
 
@@ -107,7 +107,9 @@ Note all DIVs are generated and should not be hard-coded
 		overflow:hidden;
 		background-position: -120px -34px;
 		top:-18px !important; left:21px;
-		background:url(../images/scroll-arrow-up.png)  center 5px no-repeat #16191c;		
+		background-color:#F5F6F8;	
+		border-bottom:1px solid #c0c3c6;
+		border-left:1px solid #c0c3c6
 }
 
 .simply-scroll-btn-up.disabled {
@@ -120,8 +122,9 @@ Note all DIVs are generated and should not be hard-coded
 }
 
 .simply-scroll-btn-down {
-
-			background:url(../images/scroll-arrow-down.png)  center 5px no-repeat #16191c;	
+	background-color:#F5F6F8;	
+	border-top:1px solid #c0c3c6;
+	border-left:1px solid #c0c3c6
 }
 
 .simply-scroll-btn-down.disabled {
@@ -228,12 +231,12 @@ Note all DIVs are generated and should not be hard-coded
 }
 
 .vert .simply-scroll-clip {
-		height: 330px;
+		height: 342px;
 		overflow:hidden;
 		margin:0px;
 		position:relative;
-		left:-29px; 
-		padding-left:30px;
+		left:-28px; 
+		padding-left:32px;
 }
 .vert .simply-scroll-list {
 }
@@ -249,16 +252,17 @@ Note all DIVs are generated and should not be hard-coded
 		top: 0;
 		display:block;
 		overflow:hidden;
-		height:18px; 
+		height:17px; 
 }
 .vert .simply-scroll-btn-up.disabled {
 }
 .vert .simply-scroll-btn-down { /* modified btn pos */
-		top: 330px;
+		top: 339px;
 		display:block;
 		overflow:hidden;
-		height:18px;
+		height:17px;
 		left:21px;
+		margin-top:-6px;
 
 }
 

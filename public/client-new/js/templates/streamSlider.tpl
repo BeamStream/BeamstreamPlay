@@ -1,16 +1,5 @@
-<!-- 	* BeamStream
-		*
-		* Author                : Aswathy P.R (aswathy@toobler.com)
-		* Company               : Toobler
-		* Email:                : info@toobler.com
-		* Web site              : http://www.toobler.com
-		* Created               : 28/February/2013
-		* Description           : Templates for left side stream slider
-		* ==============================================================================================
-		* Change History:
-		* ----------------------------------------------------------------------------------------------
-		* Sl.No.  Date   Author   Description
-		* -
+<!-- 
+		Templates for left side stream slider
   -->
 
 

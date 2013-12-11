@@ -327,13 +327,49 @@ header, footer){
                                                         </div>
                                                 </div>
                                                 <div class="ask-info">
-                                                        <div class="ask-comment">
-                                                                <div class="ask-left">
+                                                        <div class="ask-comment" id="type-status-comment">
+                                                                
                                                                         <form class="question-ask ask-disccution" action="">
                                                                                 <textarea id="msg-area" name="" cols="" rows=""
-                                                                                        class="question-ask-search" placeholder="Speak your mind...."
+                                                                                        class="question-ask-search" placeholder="Drop some knowledge..."
                                                                                         onfocus="this.placeholder = ''"
-                                                                                        onblur="this.placeholder = 'Speak your mind....'"></textarea>
+                                                                                        onblur="this.placeholder = 'Drop some knowledge...'"></textarea>
+																																												<a id="post-button" class="ask-button">POST</a>
+												                                                                <div id="upload-files1" class="btn-group attach-drop ">
+												                                                                        <button id="upload-files2"
+												                                                                                class="attach-drop-button drag-rectangle attach-drop-bg"
+												                                                                                data-toggle="dropdown" data-original-title="Upload Files">
+												                                                                        </button>
+												                                                                        <ul id="discussion-file-upload"
+												                                                                                class="dropdown-menu  attach-dropdwon">
+												                                                                                <li><a href="#">Class Document</a></li>
+												                                                                                <li><a href="#">Assignment</a></li>
+												                                                                                <li><a href="#">Homework </a></li>
+												                                                                                <li><a href="#">Notes</a></li>
+												                                                                                <li><a href="#">Project</a></li>
+												                                                                                <li><a href="#">Lecture </a></li>
+												                                                                                <li><a href="#">Reference Material</a></li>
+												                                                                                <li><a href="#">Tutorial</a></li>
+												                                                                                <li><a href="#">EdTech Tool </a></li>
+												                                                                                <li><a href="#">Amusement</a></li>
+												                                                                                <input type="text" placeholder="+Add a new category">
+												                                                                        </ul>
+												                                                                </div>
+
+
+												                                                                <div id="upload-files1" class="btn-group attach-drop "
+												                                                                        style="display: none;">
+												                                                                        <button id="upload-files2"
+												                                                                                class="btn attach-drop-button drag-rectangle attach-drop-bg tag-btn"
+												                                                                                data-toggle="dropdown" data-original-title="Tag"></button>
+												                                                                        <ul id="discussion-file-upload"
+												                                                                                class="dropdown-menu  attach-dropdwon">
+												                                                                                <li><a href="#">#this</a></li>
+												                                                                                <li><a href="#">#that</a></li>
+												                                                                                <input type="text" placeholder="+Add a new Tag">
+												                                                                        </ul>
+
+												                                                                </div>
                                                                         </form>
                                                                         <ul id="uploded-file-area" class="answer">
                                                                                 <li id="file-name"></li>
@@ -353,46 +389,11 @@ header, footer){
                                                                                                 name="upload-files-area">
                                                                                 </div>
                                                                         </div>
-                                                                </div>
-                                                                <a id="post-button" class="ask-button">POST</a>
+                                                         
                                                                 <div id="file-upload-loader"></div>
 
 
-                                                                <div id="upload-files1" class="btn-group attach-drop ">
-                                                                        <button id="upload-files2"
-                                                                                class="attach-drop-button drag-rectangle attach-drop-bg"
-                                                                                data-toggle="dropdown" data-original-title="Upload Files">
-                                                                        </button>
-                                                                        <ul id="discussion-file-upload"
-                                                                                class="dropdown-menu  attach-dropdwon">
-                                                                                <li><a href="#">Class Document</a></li>
-                                                                                <li><a href="#">Assignment</a></li>
-                                                                                <li><a href="#">Homework </a></li>
-                                                                                <li><a href="#">Notes</a></li>
-                                                                                <li><a href="#">Project</a></li>
-                                                                                <li><a href="#">Lecture </a></li>
-                                                                                <li><a href="#">Reference Material</a></li>
-                                                                                <li><a href="#">Tutorial</a></li>
-                                                                                <li><a href="#">EdTech Tool </a></li>
-                                                                                <li><a href="#">Amusement</a></li>
-                                                                                <input type="text" placeholder="+Add a new category">
-                                                                        </ul>
-                                                                </div>
-
-
-                                                                <div id="upload-files1" class="btn-group attach-drop "
-                                                                        style="display: none;">
-                                                                        <button id="upload-files2"
-                                                                                class="btn attach-drop-button drag-rectangle attach-drop-bg tag-btn"
-                                                                                data-toggle="dropdown" data-original-title="Tag"></button>
-                                                                        <ul id="discussion-file-upload"
-                                                                                class="dropdown-menu  attach-dropdwon">
-                                                                                <li><a href="#">#this</a></li>
-                                                                                <li><a href="#">#that</a></li>
-                                                                                <input type="text" placeholder="+Add a new Tag">
-                                                                        </ul>
-
-                                                                </div>
+                                                        
 
                                                         </div>
 
@@ -436,12 +437,12 @@ header, footer){
                                 </div>
 
                                 <div class="question-sort">
-                                        <h5>SORT BY</h5>
+                                        <h5>SORT BY:</h5>
                                         <div class="btn-group dropdown-outer">
-                                                <button class="btn normal-dropdown" id="sortBy-select"
+                                                <button class="btn seetings-toggle sort-toogle  sort-toogle-none" id="sortBy-select"
                                                         value="date">Most Recent</button>
-                                                <button class="btn blue-button " data-toggle="dropdown">
-                                                        <span class="caret sort-caret"></span>
+                                                <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown">
+                                                        <span class="caret settings-caret"></span>
                                                 </button>
                                                 <ul class="dropdown-menu rate-sub" id="sortBy-list">
                                                         <li><a href="#" name="most-recent" value="date">Most
@@ -452,10 +453,10 @@ header, footer){
                                                 </ul>
                                         </div>
                                         <div class="btn-group dropdown-outer">
-                                                <button class="btn normal-dropdown " id="date-sort-select" value="week">This
+                                                <button class="btn seetings-toggle sort-toogle  sort-toogle-none" id="date-sort-select" value="week">This
                                                         Week</button>
-                                                <button class="btn blue-button " data-toggle="dropdown">
-                                                        <span class="caret sort-caret"></span>
+                                                <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown">
+                                                        <span class="caret settings-caret"></span>
                                                 </button>
                                                 <ul class="dropdown-menu rate-sub" id="date-sort-list">
                                                         <li><a href="#" value="day">Today</a></li>
@@ -678,7 +679,7 @@ header, footer){
                                 
                        <div id="questionListView" data-model="question"
 													data-module="view/questionListView" data-url="/"
-														data-tpl="templates/questionMessage.tpl" style="visibility:hidden;"></div>
+														data-tpl="templates/questionMessage.tpl"></div>
 						 <div id="discussion-pagination" class="page-loader">
                                         <img src="/beamstream-new/images/loading-bars.gif" alt="">
                                 </div>
