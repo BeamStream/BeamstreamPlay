@@ -56,18 +56,55 @@ alert("chatroom")
 	})
 </script>
 
-<div id="onChat" class="row">
+
+<link rel="stylesheet/less"	href="/beamstream-new/less/lessgoogledocs/chat.less" type="text/css">
+<script src="/beamstream-new/lib/less-1.4.1.js" type="text/javascript"></script>
+
+
+<!-- <div id="onChat" class="row">
 
 	<div class="span10" id="main">
 		<div id="messages"></div>
 		<textarea id="talk"></textarea>
 	</div>
 </div>
+ -->
 
 
 
+<div class="chatbox" id="onChat">
+            <div class="chatbox-header">
+                <h1 class="friend">Alina Kay</h1>
+
+                <div class="exit"></div>
+
+                <div class="addfriends-btn"><a href="#"></a></div>
+            </div> <!-- END CHATBOX HEADER -->
 
 
+            <div class="chatbox-body">
+                <div class="chatbox-content">
+<!-- 
+            *********** CHAT BOX FEED ***********    -->
+
+                    <div class="chat-feed" >
+                        <div class="avatar-feed"></div>
+                        <p></p>
+                        <h4 class="time">4 hours ago</h4>
+                    </div>
+                    
+                </div>
+
+                <div class="left-border"></div>
+                <div class="right-border"></div>
+            </div> END CHATBOX BODY
+            <div class="chatbox-footer">
+                <div class="my-avatar"></div>
+                    <textarea name="styled-textarea" id="talk" class="message" onfocus="this.value='';" onblur="setbg('white')">Type message here...
+                    </textarea>
+                    <p>Press enter to submint message</p>
+            </div> <!-- END FOOTER -->
+        </div> <!-- END CHATBOX -->
 
 
 

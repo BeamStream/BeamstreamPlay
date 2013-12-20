@@ -53,7 +53,7 @@
             </div>
             <div id="show-stream-types"  class="straem-block"> 
                 <a  id="streams-list-block" href="/class">
-                    <span></span>
+                  
                     <span id="create-stream" class="text">New Stream</span>
                 </a>               
                
