@@ -46,7 +46,7 @@
               <a href="#" class="unanswerd active-text">20 Unanswered</a> <a href="#" class="unanswerd">12 Answered</a> </div>
             <div class="clear"></div>
           </div>
-          <div class="ask-outer">
+          <div class="ask-outer" id="main-text-input-wrapper">
             <div class="ask-content">
               <div class="follw-left">
                   <div class="ask-img"><img id="Q-main-photo" src=""></div>
