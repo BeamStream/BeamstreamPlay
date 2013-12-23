@@ -168,7 +168,9 @@ define(
 						// Create Google document
 
 						createGDocument : function(create) {
-                          /*  alert(online)*/
+                       
+							
+							
 							$
 									.ajax({
 
@@ -190,7 +192,7 @@ define(
 												$(".contentcreatedoc").empty();
 												$(".contentcreatedoc")
 														.append(
-																"<iframe style='width:100%;height:100%;' frameborder='0' src='http://docs.google.com/document/create?hl=en ' />");
+																"<iframe style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src='http://docs.google.com/document/create?hl=en ' />");
 											}
 										}
 									});

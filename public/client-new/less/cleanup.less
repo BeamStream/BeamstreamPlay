@@ -1493,36 +1493,18 @@ filter:alpha(opacity=80)
 .modal {
 position:fixed;
 top:10%;
-left:50%;
 z-index:1050;
-width:560px;
-margin-left:-280px;
-border:1px solid #999;
-border:1px solid rgba(0,0,0,0.3);
-*border:1px solid #999;
--webkit-border-top-right-radius:6px;
--webkit-border-bottom-right-radius:0;
--webkit-border-bottom-left-radius:0;
--webkit-border-top-left-radius:0;
--moz-border-radius-topright:6px;
--moz-border-radius-bottomright:0;
--moz-border-radius-bottomleft:0;
--moz-border-radius-topleft:0;
-border-top-right-radius:6px;
-border-bottom-right-radius:0;
-border-bottom-left-radius:0;
-border-top-left-radius:0;
--webkit-border-radius:6px;
--moz-border-radius:6px;
-border-radius:6px;
--webkit-box-shadow:0 3px 7px rgba(0,0,0,0.3);
--moz-box-shadow:0 3px 7px rgba(0,0,0,0.3);
-box-shadow:0 3px 7px rgba(0,0,0,0.3);
--webkit-background-clip:padding-box;
--moz-background-clip:padding-box;
-background-clip:padding-box;
-outline:0
+
+outline:0;
+background:transparent;
 }
+
+#showgoogledoc.modal{width:984px;top:0%;left:0%;margin:5% 0 0 14%;box-shadow:none;border:none;}
+
+#creategoogledoc.modal{width:65%;left:0%;top:0%;margin:5% 0 0 9%;box-shadow:none;border:none;}
+
+#uploadgoogledoc.modal{width:65%;left:0%;top:0%;margin:5% 0 0 9%;box-shadow:none;border:none;}
+
 
 .modal.fade {
 -webkit-transition:all opacity .3s linear,
@@ -6050,9 +6032,7 @@ float:left;
 margin:20px 0 0 0
 }
 
-.modal {
-margin-left:0
-}
+	
 
 .invite-mail {
 display:block
