@@ -270,8 +270,8 @@ header, footer){
 		<div class="clear flipques">
 
 
-			<span style="float: left;">Create a:</span>
-			<div class="btn-group" style="float: left;">
+			<span id="top-left-gdocs">Create a:</span>
+			<div class="btn-group" id="gdoc-link">
 				<a class="dropdown-toggle new-google-btn" data-toggle="dropdown"
 					data-hover="dropdown" href="#">
 					<div class="google-doc-icn"></div> <span>Google Doc</span>
@@ -297,7 +297,7 @@ header, footer){
 			</div>
 			<ul class="nav-tabs stream-tab" id="streamTab" style="float: left;">
 				<li id="discussion" id="discussionsLink" class="active"><a
-					href="#discussionsView" data-toggle="tab">Discussions</a></li>
+					href="#discussionsView" id="discussions-link" data-toggle="tab">Discussions</a></li>
 				<!-- <li id="question"><a id="questionsLink poll" data-toggle="tab" href="#questionsView" >Ask a Question</a></li>
                          <li id="question"><a id="questionsLink" data-toggle="tab" href="#addpollView" >add a poll</a></li> -->
 
@@ -391,7 +391,7 @@ header, footer){
 				                                                  <button class="btn seetings-toggle sort-toogle  sort-toogle-none" id="sortBy-select"
 				                                                          value="date">Most Recent</button>
 				                                                  <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown">
-				                                                          <span class="caret settings-caret"></span>
+				                                                          <span class="caret settings-caret main-stream-dropdown"></span>
 				                                                  </button>
 				                                                  <ul class="dropdown-menu rate-sub" id="sortBy-list">
 				                                                          <li><a href="#" name="most-recent" value="date">Most
@@ -405,7 +405,7 @@ header, footer){
 				                                                  <button class="btn seetings-toggle sort-toogle  sort-toogle-none" id="date-sort-select" value="week">This
 				                                                          Week</button>
 				                                                  <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown">
-				                                                          <span class="caret settings-caret"></span>
+				                                                          <span class="caret settings-caret main-stream-dropdown"></span>
 				                                                  </button>
 						<ul class="dropdown-menu rate-sub" id="date-sort-list">
 							<li><a href="#" value="day">Today</a></li>

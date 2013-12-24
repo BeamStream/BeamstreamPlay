@@ -2195,7 +2195,6 @@ padding:4px 0 0 0;
 text-shadow:none
 }
 
-
 .browse-drop {
 left:-82px
 }
@@ -2806,8 +2805,10 @@ padding-bottom:100px;
 margin-top: 40px 243px 0px 0px;
 padding: 15px 0px 0px 33px;
 border-radius: 8px 0px 0px;
-position:relative;
-top: 43
+position: relative;
+top: 43;
+left: 209;
+width: 100%;
 }
 
 
@@ -3434,7 +3435,7 @@ display: inline-block;
 	width: 175px;
 	max-width: 98%;
 	min-width: 19%;
-	height: 30px;
+	height: 27px;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
@@ -3467,11 +3468,15 @@ color:#3f5a6c;
 font-size:109%;
 line-height:20px;
 width:100%;
-resize:none;
+resize: none;
 min-height:23px;
 font-family:'Roboto',
 sans-serif;
 padding-right: 88px
+}
+
+#msg-area::-webkit-input-placeholder {
+	padding-left: 20px;
 }
 
 textarea placeholder {
@@ -4744,10 +4749,13 @@ height:13px;
 margin-top:20px;
 padding-top:20px
 }
+
 .left-container {
- width:25%;
- float:left;
- margin: 48px 0 0 -65;
+	width: 216px;
+	float: left;
+	margin: 48px 0 0 -64;
+	padding-right: 54;
+	position: absolute;
 }
 
 .left-menu {
@@ -6219,24 +6227,23 @@ height:150px;
 overflow-x:hidden
 }
 
-#discussionsView {
-	width: 100%;
-}
-
-#main-text-input-wrapper {
-	display: inline-block;
+#discussions-link {
+	display: none;
 }
 
 .ask-outer {
 background:#e3e5e6;
 clear:both;
-display:block;
-padding-right: 2%;
-margin-right: 37%;
-padding: 0% 2% 1.5% 2%;
+display: inline-block;
+margin-right: 47%;
+padding: 0% 1% 1.5% 2%;
 position:relative;
-border-radius:0 0 8px 8px;
+border-bottom: 1.7px solid #c0c3c6;
 top: -22px;
+}
+
+.question-sort .main-stream-dropdown {
+	margin-top: -3px;
 }
 
 .ask-content {
@@ -6251,7 +6258,7 @@ display:inline-block;
 
 .ask-img img {
 width:86%;
-border:solid 1px #000;
+border:solid 1.8px #000;
 -webkit-border-radius:5px;
 -moz-border-radius:5px;
 border-radius:5px;
@@ -6311,7 +6318,6 @@ top:60px
 
 .ask-comment p {
 color:#3f5a6c;
-font-size:15px
 }
 
 .ask-comment:hover.delete_msg {
@@ -6468,7 +6474,7 @@ margin-left:30px
 
 .follow-container {
 background:0;
-padding-top: 25px;
+padding-top: 19px;
 }
 
 .follw-left {
@@ -6744,6 +6750,12 @@ position:absolute
 	margin-bottom: 0;
 	height: 100%;
 	overflow: hidden;
+	color: #3f5a6c;
+	font-size: 109%;
+	line-height: 20px;
+	resize: none;
+	min-height: 23px;
+	font-family: 'Roboto', sans-serif;
 	
 	&:focus {
 		padding: 7.5% 18% 6% 2%;
@@ -10090,9 +10102,10 @@ padding-right:10px
 }
 
 ul.follow-name-left li a {
-color:#d8a21f;
+color: #ff9f00;
 font-weight:bold;
-text-decoration:underline
+text-decoration:underline;
+font-weight: 500;
 }
 
 ul.follow-name-left li a:hover {
@@ -10280,9 +10293,10 @@ color:#827e7e
 	margin: 44px 0px -9px 0px;
 	background: #e6e6e6;
 	height: 43px;
-	padding: 4px 1% 0px 95px;
-	margin-right: 37%;
+	padding: 4px 1% 0px 77px;
+	margin-right: 47%;
 	border-radius: 8px 8px 0 0;
+	font-size: 87%;
 
 	li{margin-left:10px;list-style:none;
 	 a{color:#bf462e;background:none; text-decoration:underline;}
@@ -10298,3 +10312,247 @@ color:#827e7e
 }
 
 /* Question flip style in stream   */
+
+#top-left-gdocs {
+	color: #616161;
+	float: left;
+	padding: 1px 0 0 0;
+}
+
+.new-google-btn .google-doc-icn,.new-google-btn .question-icn,.google-plus,.twitter,.facebook,.linkedin,.plus {
+    background: url(../../beamstream-new/images/socialsprytes.png) no-repeat;
+}
+.google-plus :hover,.twitter :hover,.facebook :hover,.linkedin :hover,.plus :hover {
+    background: url(../../beamstream-new/images/socialsprytestoggle.png) no-repeat;
+}
+
+
+.new-google {
+    float: right;
+    height: 25px;
+    width: 90%;
+    
+    .btn-group {
+        float:left;
+        margin-left: 20px !important;
+    }
+    >span {
+        float: left;
+        margin-top: 2px;
+        font-size: 12px;
+        color: #717171;
+        font-size: 14px;
+        font-weight: 400;
+    }
+}
+.new-google-btn {
+    .question-icn {
+        background-position: -115px 0px;
+    }
+    .google-doc-icn {
+        background-position: -138px 0px;
+    }
+    .back-icn {
+        background-position: 200px 200px;
+    }
+    div {
+        width: 25px;
+        height: 25px;
+        float: left;
+    }
+}
+
+#gdoc-link {
+      float: left;
+      margin-left: 2px;
+      text-decoration: underline;
+      font-size: 94%;
+}
+
+#gdoc-link span{
+	color: #bf462e;
+}
+
+.new-google-btn:hover {
+    filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale"); /* Firefox 10+, Firefox on Android */
+    filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    cursor : pointer;
+}
+
+ul.social-icons {
+    li {
+        width:22px;
+        height: 23px;
+        float: left;
+        margin-left: 2px;
+        list-style: none outside none;
+        a {
+            text-indent: -9999px;
+            display: block;
+            overflow: hidden;
+            float: left;
+            width: inherit;
+            height: inherit;
+        }
+    }
+}
+.facebook {
+    background-position: -49px -1px;
+    :hover {
+        background-position: -50px -1px;
+    }
+}
+.plus {
+    background-position: -95px -1px;
+    :hover {
+        background-position: -98px -1px;
+    }
+}
+.linkedin {
+    background-position: -73px -1px;
+    :hover {
+        background-position: -74px -1px;
+    }
+}
+.google-plus {
+    background-position: 0px -1px;
+    :hover {
+        background-position: -1px -1px;
+    }
+}
+.twitter {
+    background-position: -24px -1px;
+    :hover {
+        background-position: -25px -1px;
+    }
+}
+
+//stuff from inline stream
+ul.answer {
+    display: none;
+    #file-name {
+        font-style: italic;
+        list-style: none;
+    }
+    .bar {
+        width: 0%;
+    }
+}
+
+.tag-btn {
+    background-position: -1px -390px !important;
+}
+
+#Q-file-name {
+    font-style: italic;
+    list-style: none;
+    .progress-container {
+        display: none;
+    }
+}
+
+#discussion-pagination, #Q-files-area, #file-upload-loader, #pollArea, #Q-file-area {
+    display: none;
+}
+
+.menu ul li a {
+    padding: 0px 20px 0px 55px !important;
+}
+
+.menu ul a span {
+    top: 5px !important;
+}
+
+.header-profile {
+    background: #3D4349 !important;
+}
+
+.header-menu {
+    clear: both;
+    display: block;
+    margin-bottom: -12px;
+    overflow: hidden;
+    padding: 0px 0 0 20px !important;
+}
+
+.menu ul li a:hover, .menu ul li a.active {
+    -webkit-border-radius: 5px 5px 0px 0px;
+    -moz-border-radius: 5px 5px 0px 0px;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.menu ul a:hover,
+.menu ul a.active {
+    color:#314653;
+    background:url(../../beamstream-new/images/bg.jpg);
+    border-top:solid 1px #fff;
+}
+
+.menu ul a {
+    font-family: "Open Sans",sans-serif;
+    font-size: 17px;
+    line-height: 35px;
+    color: #e6ebf0;
+    margin: 0 3px 0 0;
+    position: relative;
+    text-decoration: none;
+}
+
+.dropdown-menu {
+    margin-top: 6px;
+}
+
+.google-doc-dropdown {
+    left: -25px !important;
+}
+
+.google-doc-dropdown:after,
+.google-doc-dropdown:before {
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #fff;
+    top: -10px;
+    content: '';
+    left: 50%;
+    margin-left: -10px;
+    position: absolute;
+}
+
+/* Styling for second triangle (border) */
+
+.google-doc-dropdown:before {
+    border-left: 11px solid transparent;
+    border-right: 11px solid transparent;
+    border-bottom: 11px solid #fff;
+    border-bottom-color: inherit; /* Can't be included in the shorthand to work */
+    top: -11px;
+    margin-left: -11px;
+}
+
+.question-sort h5 {
+    margin-left: 25px;
+}
+
+.private-chaeck {
+    color:#717171;
+    font-size:14px;
+    font-weight:400;
+    float: left;
+}
+
+.private-chaeck {
+    padding-top: 8px;
+    >input {
+        vertical-align: 0;
+    }
+    >span {
+    }
+}
+
+.add-message-comment,
+.add-question-comment {
+    line-height: 20px;
+    padding: 5px 10px 0px 10px;
+}

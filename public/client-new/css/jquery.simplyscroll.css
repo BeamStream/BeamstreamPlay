@@ -236,8 +236,8 @@ Note all DIVs are generated and should not be hard-coded
 		overflow:hidden;
 		margin:0px;
 		position:relative;
-		left:-28px; 
-		padding-left:32px;
+		padding-left: 4px;
+		width: 217;
 }
 .vert .simply-scroll-list {
 }
@@ -254,6 +254,7 @@ Note all DIVs are generated and should not be hard-coded
 		display:block;
 		overflow:hidden;
 		height:17px; 
+		width: 100%;
 }
 .vert .simply-scroll-btn-up.disabled {
 }
@@ -264,7 +265,7 @@ Note all DIVs are generated and should not be hard-coded
 		height:17px;
 		left:21px;
 		margin-top:-6px;
-
+		width: 100%;
 }
 
 .vert .simply-scroll-btn-down.disabled {
