@@ -54,13 +54,8 @@ success: function(data) {
 // do something with the return value here if you like
 }
 });
-//setTimeout(executeQuery, 5000); // you could choose not to continue on failure...
 }
-
-$(document).ready(function() {
-// run the first time; all subsequent calls will take care of themselves
-setTimeout(executeQuery, 5000);
-});
+setInterval(executeQuery, 5000); // you could choose not to continue on failure...
 
 <!-- Online User's call -->
 
@@ -1029,6 +1024,7 @@ $(function() {
 
 })
 </script>
+
 <div id=inform style="display: none;">
 	<div id="onChat" class="row">
 		<div class="span10" id="main">
@@ -1041,44 +1037,10 @@ $(function() {
         var newwindow;
 
         function popit(username,toWhom){
-        
-        $.ajax({			type : 'GET',
-							url : "chatRoom/"+toWhom,
-							success : function(data) {
-											$('div.right-container').append('<div class="chatbox">'+
-			'<div class="chatbox-header">'+
-			'<h1 class="friend">Alina Kay</h1>'+
-			'<div class="exit"></div>'+
-			'<div class="addfriends-btn">'+
-			'<a href="#"></a>'+
-			'</div></div>'+
-			'<div class="chatbox-body">'+
-			'	<div class="chatbox-content">'+
-					'<div class="chat-feed">'+
-					'<div class="chat-feed">'+
-					'	<div class="avatar-feed"></div>'+
-					'	<p>Tomorrow in study hall would be really good.</p>'+
-					'	<h4 class="time">15 seconds ago</h4>'+
-					'</div>'+
-				'</div>'+
-
-				'<div class="left-border"></div>'+
-				'<div class="right-border"></div>'+
-			'</div>'+
-			'<div class="chatbox-footer">'+
-				'<div class="my-avatar"></div>'+
-				'<textarea class="message" id="talk">Type message here...'+
-                    '</textarea>'+
-				'<p>Press enter to submint message</p>'+
-			'</div>'+
-		'</div>')}
-									});
-          // newwindow = window.open("chatRoom/"+toWhom, '', "status=yes, height=500; width=500; resizeable=0");
-        }
+         window.open("chatRoom/"+toWhom, '', "status=yes, height=500; width=500; resizeable=0");}
     </script>
 
 <!-- Chat------------- -->
 		
 
-
-		}
+}

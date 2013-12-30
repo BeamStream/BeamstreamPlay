@@ -13,6 +13,7 @@ import akka.actor.Props
 import utils.ChatAvailiblity
 import org.bson.types.ObjectId
 import play.api.libs.json.Json
+import models.User
 
 object WebsocketCommunicationController extends Controller {
 
@@ -20,19 +21,20 @@ object WebsocketCommunicationController extends Controller {
    * Handles the chat websocket.
    */
   def chat(withWhom: String) = WebSocket.async[JsValue] { implicit request =>
+    val user = User.getUserProfile(new ObjectId(request.session.get("userId").get))
     (withWhom == "") match {
       case true =>
-       println("Naya bna rha hu")
+        println("Naya bna rha hu")
         lazy val default = {
           val roomActor = Akka.system.actorOf(Props[CommunicationRoom])
           roomActor
         }
 
-        WebsocketCommunication.join(default, request.session.get("userId").get)
+        WebsocketCommunication.join(user.get.firstName, default, request.session.get("userId").get)
 
       case false =>
         var acWithChat = ChatAvailiblity.a(new ObjectId(withWhom))
-        WebsocketCommunication.join(acWithChat, request.session.get("userId").get)
+        WebsocketCommunication.join(user.get.firstName, acWithChat, request.session.get("userId").get)
     }
 
   }

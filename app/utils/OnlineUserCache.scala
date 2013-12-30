@@ -39,7 +39,6 @@ object OnlineUserCache {
    */
 
   def setOnline(userIdkey: String, timeStamp: Long) = {
-
     /*if (onlineUsers.contains(userIdkey) == false) {
           onlineUsers ++= List(userIdkey)
           Cache.set("Online Users", onlineUsers)

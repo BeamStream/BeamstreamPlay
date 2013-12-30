@@ -30,13 +30,13 @@ class CommunicationRoom extends Actor {
   def receive = {
 
     case Join(username) => {
-//      if (members.contains(username)) {
-//        sender ! CannotConnect("This username is already used")
-//      } else {
-        members = members + username
-        sender ! Connected(chatEnumerator)
-        self ! NotifyJoin(username)
-//      }
+      //      if (members.contains(username)) {
+      //        sender ! CannotConnect("This username is already used")
+      //      } else {
+      //      members = members + username
+      sender ! Connected(chatEnumerator)
+      self ! NotifyJoin(username)
+      //      }
 
       members = members + username
       sender ! Connected(chatEnumerator)
@@ -75,25 +75,25 @@ object WebsocketCommunication {
 
   implicit val timeout = Timeout(1 second)
 
-  def join(actofRef: ActorRef, userId: String): scala.concurrent.Future[(Iteratee[JsValue, _], Enumerator[JsValue])] = {
+  def join(userName: String, actofRef: ActorRef, userId: String): scala.concurrent.Future[(Iteratee[JsValue, _], Enumerator[JsValue])] = {
 
     println("Before" + ChatAvailiblity.a.size)
     ChatAvailiblity.a += new ObjectId(userId) -> actofRef
     println("After" + ChatAvailiblity.a.size)
 
-    (actofRef ? Join("")).map {
+    (actofRef ? Join(userName)).map {
 
       case Connected(enumerator) =>
-        println("<<<<<<<<IN")
+        //        println("<<<<<<<<IN")
         val iteratee = Iteratee.foreach[JsValue] { event =>
-          actofRef ! Talk("", (event \ "text").as[String])
+          actofRef ! Talk(userName, (event \ "text").as[String])
         }.map { _ =>
-          actofRef ! Quit("")
+          actofRef ! Quit(userName)
         }
         (iteratee, enumerator)
 
       case CannotConnect(error) =>
-        println(">>>>>>>>>Out")
+        //        println(">>>>>>>>>Out")
 
         // Connection error
 
