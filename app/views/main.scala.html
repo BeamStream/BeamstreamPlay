@@ -25,6 +25,8 @@
 		<script src="http://code.jquery.com/jquery-migrate-1.1.1.js"></script> 
 
 	 	<script type="text/JavaScript" src="/beamstream-new/lib/bootstrap.min.js"></script>
+	 	
+	 
 
 <!-- Online User's call -->
 
@@ -93,9 +95,21 @@
     <![endif]-->
 
     
+    	<!-- Disable Back Button -->
+	 	<script type="text/javascript">
+				function preventBack() {
+					window.history.forward();
+				}
+				window.onunload = function() {
+					null;
+				};
+				setTimeout("preventBack()", 0);
+			</script>
+    
   </head>
  
   <body class="@bodyClass" @bodyModule>
+  
 
     <div id="container">
         @header

@@ -197,24 +197,24 @@ object User {
   /**
    * Check if the User with this email has already registered (RA)
    */
-  def canUserRegisterWithThisEmail(userEmail: String) = {
+  def canUserRegisterWithThisEmail(userEmail: String): Boolean = {
     val userHavingSameMailId = UserDAO.find(MongoDBObject("email" -> userEmail)).toList
     (userHavingSameMailId.isEmpty) match {
       case true => true
       case false => false
     }
-  }: Boolean
+  }
 
   /**
-   * Check if the User with this email has already registered (RA)
+   * Check if the User with this username has already registered (VA)
    */
-  def canUserRegisterWithThisUsername(username: String) = {
-    val userHavingSameUserName = UserDAO.find(MongoDBObject("userName" -> username)).toList
+  def canUserRegisterWithThisUsername(userName: String): Boolean = {
+    val userHavingSameUserName = UserDAO.find(MongoDBObject("userName" -> userName)).toList
     (userHavingSameUserName.isEmpty) match {
       case true => true
       case false => false
     }
-  }: Boolean
+  }
 
   /**
    * Update User Information (V)

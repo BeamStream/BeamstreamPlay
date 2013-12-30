@@ -29,7 +29,7 @@ object Token {
   }
 
   /**
-   * Update Mail TOken
+   * Update Mail TOken (VA)
    */
 
   def updateToken(tokenString: String) = {

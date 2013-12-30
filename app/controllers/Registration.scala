@@ -28,7 +28,7 @@ object Registration extends Controller {
   } + new ObjectIdSerializer
 
   /**
-   * Registration after Mail (V)
+   * Registration after Mail ((VA))
    */
   def registration = Action { implicit request =>
     val token = request.queryString("token").toList(0)
@@ -91,12 +91,9 @@ object Registration extends Controller {
         UserSchool.createSchool(userSchool)
         User.addInfo(List(userSchool), new ObjectId(userId))
         val userCreated = User.getUserProfile(new ObjectId(userId))
-        //Set User Online
-//        Future {
-          val utcMilliseconds = OnlineUserCache.returnUTCTime
-          OnlineUserCache.setOnline(userId, utcMilliseconds)
-//        }
 
+        val utcMilliseconds = OnlineUserCache.returnUTCTime
+        OnlineUserCache.setOnline(userId, utcMilliseconds)
         //retrieve token in session and invalidate
         var token = request.session.get("token").get
         Token.updateToken(token)
@@ -108,7 +105,7 @@ object Registration extends Controller {
   }
 
   /**
-   * User Registration In Detail (V)
+   * User Registration In Detail (VA)
    */
   def editUserInfo(userId: String) = Action { implicit request =>
 
@@ -150,7 +147,7 @@ object Registration extends Controller {
   }
 
   /**
-   * Update User (V)
+   * Update User (VA)
    */
   private def updateUser(jsonReceived: JsValue): (Boolean, String) = {
     val userId = (jsonReceived \ "userId").as[String]
@@ -163,7 +160,6 @@ object Registration extends Controller {
     val cellNumber = (jsonReceived \ "cellNumber").as[String]
 
     val canUserRegisterWithThisUsername = User.canUserRegisterWithThisUsername(userName)
-    //    val canUserRegisterWithThisEmail = User.canUserRegisterWithThisEmail(email.get)
 
     def canUserRegister = {
       (canUserRegisterWithThisUsername == false) match {
