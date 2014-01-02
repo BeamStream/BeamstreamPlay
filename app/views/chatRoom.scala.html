@@ -1,4 +1,4 @@
-@(actor : String)(implicit request: RequestHeader)
+@(me : String , toWhom : String)(implicit request: RequestHeader)
 
 
 <script
@@ -8,7 +8,7 @@
 		var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket
 
 		var chatSocket = new WS(
-				"@routes.WebsocketCommunicationController.chat(actor).webSocketURL()")
+				"@routes.WebsocketCommunicationController.startChat(me,toWhom).webSocketURL()")
 		var sendMessage = function() {
 			chatSocket.send(JSON.stringify({
 				text : $("#talk").val()
