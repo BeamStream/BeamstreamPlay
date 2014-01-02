@@ -2807,7 +2807,7 @@ padding: 15px 0px 0px 33px;
 border-radius: 8px 0px 0px;
 position: relative;
 top: 43;
-left: 209;
+left: 230;
 width: 100%;
 }
 
@@ -3422,25 +3422,28 @@ padding:6px 12px!important;
 
 .all-search input[type="text"]
 {
-display: inline-block;
-  padding: 4px 6px;
-  margin-bottom: 0px;
-  font-size: 14px;
-  line-height: 20px;
-  color: #3d5869;
-	-webkit-border-radius: 6px 7px 7px 6px/6px 6px 7px 7px;
-	-moz-border-radius: 6px 7px 7px 6px/6px 6px 7px 7px;
-	border-radius: 6px 7px 7px 6px/6px 6px 7px 7px;
+	display: inline-block;
+	padding: 4px 6px;
+	line-height: 20px;
+	color: #3d5869;
+	-webkit-border-radius: 6px 7px 7px 1px 6px 7px 7px;
+	-moz-border-radius: 6px 7px 7px 1px 6px 7px 7px;
+	border-radius: 6px 7px 7px 1px 6px 7px 7px;
 	background-color: #a6aeb5;
-	width: 175px;
+	width: 135px;
 	max-width: 98%;
-	min-width: 19%;
+	min-width: 13.5%;
 	height: 27px;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	background-color: #fff;
 	border: solid 1px #b2b9bc;
+	margin: 0 39% 0 -30px;
+}
+
+#sort_by_key::-webkit-input-placeholder {
+	padding-left: 20px;
 }
 
 .all-search input
@@ -3477,6 +3480,7 @@ padding-right: 88px
 
 #msg-area::-webkit-input-placeholder {
 	padding-left: 20px;
+	font-size: 97%;
 }
 
 textarea placeholder {
@@ -4494,7 +4498,7 @@ background: linear-gradient(0deg, rgb(227, 227, 227) 0%, rgba(192, 192, 192, 0.6
 	-webkit-box-shadow:0 2px rgba(9,9,9,.17);
 	-moz-box-shadow:0 2px rgba(9,9,9,.17);
 	box-shadow:0 2px rgba(9,9,9,.17);
-	width: 98%;
+	width: 91%;
 	min-width: 50px;
 	max-width: 98%;
 	margin-top: 11;
@@ -4520,7 +4524,7 @@ background: linear-gradient(0deg, rgb(227, 227, 227) 0%, rgba(192, 192, 192, 0.6
 }
 
 .straem-block a span {
-	background-position: 27px -1090px;
+	background-position: 17px -1090px;
 	float: left;
 	padding: 17px 0px;
 	padding-left: 62px;
@@ -4641,17 +4645,18 @@ border-bottom:0
 }
 
 .chat-box {
-float:right;
-width:222px;
+float: right;
+width: 132px;
 
 }
 
 .chat-window {
-border:solid 1px #b8bcc0;
-border-right:0;
-border-left:none;
-padding:10px 0;
-float:left
+border: solid 1px #b8bcc0;
+border-right: 0;
+border-left: none;
+padding: 10px 0;
+float: left;
+width: 175px;
 }
 
 .chat-open {
@@ -4681,7 +4686,6 @@ display:block
 }
 
 .chat-view ul {
-width:95%;
 margin:0;
 border-bottom:solid 1px #b8bcc0;
 margin:0 0 20px
@@ -4753,7 +4757,7 @@ padding-top:20px
 .left-container {
 	width: 216px;
 	float: left;
-	margin: 48px 0 0 -64;
+	margin: 48px 0 0 -43;
 	padding-right: 54;
 	position: absolute;
 }
@@ -5027,7 +5031,6 @@ line-height:30px
 }
 
 .sortable li.active:first-child {
-	top: -1px
 }
 
 .sortable li:nth-last-child(1) {
@@ -5092,7 +5095,9 @@ float:left;
 margin:0;
 min-height:100px;
 margin-left: -6;
-width: 94%!important
+width: 94%!important;
+bottom: -2px;
+position: relative;
 }
 
 .sortable li.no-stream#3 {
@@ -6057,7 +6062,7 @@ background:url(../images/invite-drop-arrow.png) center 15px no-repeat #f7f9fa
 
 .dropdown-outer {
 float:left;
-margin:0 0% 0 0!important;
+margin:0 -3% 0 0!important;
 width: 40px;
 max-width: 98%;
 min-width: 19%;
@@ -6229,6 +6234,7 @@ overflow-x:hidden
 
 #main-text-input-wrapper {
 	border-bottom: 1.7px solid #c0c3c6;
+	margin-right: 48.9%;
 }
 
 .ask-outer {
@@ -6236,7 +6242,7 @@ background:#e3e5e6;
 clear:both;
 display: inline-block;
 margin-right: 47%;
-padding: 0 2.6% 3px 2%;
+padding: 0 2.6% 19px 2%;
 position:relative;
 top: -22px;
 }
@@ -6261,7 +6267,7 @@ border:solid 1.8px #000;
 -webkit-border-radius:5px;
 -moz-border-radius:5px;
 border-radius:5px;
-margin: 56px 8px 8px 8px;
+margin: 56px 8px 8px -7px;
 }
 
 .ask-type-area {
@@ -6339,13 +6345,13 @@ top:42px
 #type-status-comment:after {
 	border-color:rgba(255, 255, 255, 0) #fff rgba(255, 255, 255, 0) rgba(255, 255, 255, 0);
 	border-width: 8px;
-	margin: -34px -4px 0px -10px;
+	margin: -34px -2px 0px -10px;
 }
 
 #type-status-comment:before {
 	border-color: rgba(205, 212, 219, 0) #cdd4db rgba(205, 212, 219, 0) rgba(205, 212, 219, 0);
 	border-width: 8px;
-	margin: -34px -3px 0px -10px;
+	margin: -34px -1px 0px -10px;
 }
 
 .ask-comment:before {
@@ -6359,8 +6365,14 @@ border-color:rgba(205,
 212,
 219,
 0);
-border-width:16px;
-margin-top:-26px
+border-width:15px;
+margin: 7px -2px 0 0;
+}
+
+.ask-comment:after {
+	border-color: rgba(205, 212, 219, 0) #fff rgba(205, 212, 219, 0) rgba(205, 212, 219, 0);
+	border-width: 16px;
+	margin: 6px -3px 0 0;
 }
 
 .ask-info {
@@ -6578,7 +6590,8 @@ color:#94979a;
 display:block;
 font-size:13px;
 overflow:hidden;
-padding:0 0 1%
+padding:0 0 1%;
+height: 31px;
 }
 
 .follow-right {
@@ -6588,7 +6601,6 @@ margin-right:10px
 
 .follow-names span {
 color:#5299bd;
-font-weight:bold
 }
 
 .ask-comment .follow-button {
@@ -6709,7 +6721,7 @@ background:none repeat scroll 0 0 #fff;
 border:1px solid #cdd4db;
 border-radius:7px 7px 7px 7px;
 float:left;
-width:96%;
+width: 400px;
 padding: 0% 0% 0% 1%;
 margin-left: 0.3%;
 min-width: 95%;
@@ -6824,7 +6836,9 @@ width:100%
 .ask-comment p {
 float:left;
 width:100%;
-word-wrap:break-word
+word-wrap:break-word;
+padding-left: 2%;
+margin-bottom: 1.5%;
 }
 
 .location-toolip {
@@ -7402,7 +7416,7 @@ position:relative
 }
 
 #main-photo {
-	margin: 8;
+	margin: 8px 0 0 -7px;
 }
 
 .profile-main-photo a {
@@ -8220,7 +8234,10 @@ border:1px solid #cdd4db;
 margin:0 auto;
 overflow:hidden;
 display:block;
-border-top:0
+border-top:0;
+width: 93%;
+padding: 1.5%;
+height: 29px;
 }
 
 .grey-buttons {
@@ -8249,9 +8266,11 @@ border-radius:4px;
 border:1px solid #abaeb1;
 color:#353535;
 font-size:13px;
-font-weight:bold;
+font-weight:500;
 margin-right:1%;
-padding:4px 15px
+padding:4px 15px;
+display: inline-block;
+border: 1px solid #ff9f00;
 }
 
 .grey-buttons span {
@@ -9344,7 +9363,7 @@ line-height:25px
 
 .show-all-block {
 width:100%!important;
-margin-bottom:30px!important
+margin-bottom:23px!important
 }
 
 .doc {
@@ -10296,7 +10315,7 @@ color:#827e7e
 	margin-right: 47%;
 	border-radius: 8px 8px 0 0;
 	font-size: 87%;
-	margin-right: 47%;
+	margin-right: 48.9%;
 
 	li{margin-left:10px;list-style:none;
 	 a{color:#bf462e;background:none; text-decoration:underline;}
@@ -10314,6 +10333,7 @@ color:#827e7e
 /* Question flip style in stream   */
 
 #top-left-gdocs {
+	display: none;
 	color: #616161;
 	float: left;
 	padding: 1px 0 0 0;
@@ -10488,6 +10508,7 @@ ul.answer {
     color:#314653;
     background:url(../../beamstream-new/images/bg.jpg);
     border-top:solid 1px #fff;
+		font-weight: normal;
 }
 
 .menu ul a {
@@ -10498,6 +10519,7 @@ ul.answer {
     margin: 0 3px 0 0;
     position: relative;
     text-decoration: none;
+		font-weight: 100;
 }
 
 .dropdown-menu {

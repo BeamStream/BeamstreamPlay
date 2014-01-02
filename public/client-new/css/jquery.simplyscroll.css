@@ -232,7 +232,7 @@ Note all DIVs are generated and should not be hard-coded
 }
 
 .vert .simply-scroll-clip {
-		height: 342px;
+		height: 346px;
 		overflow:hidden;
 		margin:0px;
 		position:relative;
@@ -253,7 +253,7 @@ Note all DIVs are generated and should not be hard-coded
 		top: 0;
 		display:block;
 		overflow:hidden;
-		height:17px; 
+		height:18px; 
 		width: 100%;
 }
 .vert .simply-scroll-btn-up.disabled {
