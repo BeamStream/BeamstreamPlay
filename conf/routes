@@ -2,12 +2,12 @@
 # ~~~~
 
 #Other
-GET    /active                                                                      controllers.UserController.active
+GET    /active                                                                             controllers.UserController.active
 GET    /error                                                                              controllers.StreamController.onError
 
 #Account Reset
-GET    /accountReset                                                                         controllers.UserController.accountReset
-POST    /reset                                                                             controllers.UserController.reset
+GET    /accountReset                                                                       controllers.UserController.accountReset
+POST   /reset                                                                              controllers.UserController.reset
 #GET /javascriptRoutes                                                   controllers.StreamController.javascriptRoutes
 
 #Streams
@@ -210,9 +210,10 @@ GET    /driveAuth                                                               
 POST   /uploadToGoogleDrive                                                                controllers.GoogleDocsUploadUtilityController.uploadToGoogleDrive
 GET    /getGoogleDocs                                                                      controllers.GoogleDocsUploadUtilityController.getAllGoogleDriveFiles
 GET    /uploadPage                                                                         controllers.GoogleDocsUploadUtilityController.uploadPage
-GET    /chat                                 controllers.WebsocketCommunicationController.chat(withWhom:String)
-GET    /chatRoom/:toWhom                               controllers.WebsocketCommunicationController.chatRoom(toWhom:String)
-GET /javascriptRoutes                                  controllers.StreamController.javascriptRoutes
+GET    /chat                                                                               controllers.WebsocketCommunicationController.chat
+GET    /startChat                                                                               controllers.WebsocketCommunicationController.startChat(me: String, toWhom: String)
+GET    /chatRoom/:me/:toWhom                                                               controllers.WebsocketCommunicationController.chatRoom(me:String,toWhom:String)
+GET    /javascriptRoutes                                                                   controllers.StreamController.javascriptRoutes
 #Looks like Unused
 
 #Basic Registration

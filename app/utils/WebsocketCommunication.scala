@@ -30,16 +30,9 @@ class CommunicationRoom extends Actor {
   def receive = {
 
     case Join(username) => {
-      //      if (members.contains(username)) {
-      //        sender ! CannotConnect("This username is already used")
-      //      } else {
-      //      members = members + username
-      sender ! Connected(chatEnumerator)
-      self ! NotifyJoin(username)
-      //      }
 
-      members = members + username
       sender ! Connected(chatEnumerator)
+      members = members + username
 
     }
 
@@ -84,7 +77,7 @@ object WebsocketCommunication {
     (actofRef ? Join(userName)).map {
 
       case Connected(enumerator) =>
-        //        println("<<<<<<<<IN")
+        println("<<<<<<<<IN")
         val iteratee = Iteratee.foreach[JsValue] { event =>
           actofRef ! Talk(userName, (event \ "text").as[String])
         }.map { _ =>

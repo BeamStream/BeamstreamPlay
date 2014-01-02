@@ -979,7 +979,7 @@ header, footer){
 $(function() {
     var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket
 	
-    var chatSocket = new WS("@routes.WebsocketCommunicationController.chat("").webSocketURL()")
+    var chatSocket = new WS("@routes.WebsocketCommunicationController.chat.webSocketURL()")
     var sendMessage = function() {
         chatSocket.send(JSON.stringify(
             {text: $("#talk").val()}
@@ -1036,8 +1036,8 @@ $(function() {
 <script language="javascript">
         var newwindow;
 
-        function popit(username,toWhom){
-         window.open("chatRoom/"+toWhom, '', "status=yes, height=500; width=500; resizeable=0");}
+        function popit(userId,toWhom){
+         window.open("chatRoom/"+userId +"/"+toWhom, '', "status=yes, height=500; width=500; resizeable=0");}
     </script>
 
 <!-- Chat------------- -->
