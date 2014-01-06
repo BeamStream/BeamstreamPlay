@@ -61,6 +61,27 @@ setInterval(executeQuery, 5000); // you could choose not to continue on failure.
 
 </script>
 
+
+<!-- Random Id Generation -->
+
+<script type='text/javascript'>
+function randomString(length) {
+    var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz'.split('');
+
+    if (! length) {
+        length = Math.floor(Math.random() * chars.length);
+    }
+
+    var str = '';
+    for (var i = 0; i < length; i++) {
+        str += chars[Math.floor(Math.random() * chars.length)];
+    }
+    return str;
+}
+
+var div = randomString(8);
+</script>
+<!-- Random Id Generation -->
 <img style="display:none;"
 onload="show_login_status('Google', true)"
 onerror="show_login_status('Google', false)"
@@ -911,62 +932,40 @@ header, footer){
 		
 		<!-- Chat new UI -->
 		
-		<!-- <div class="chatbox">
+	 <div class="chatbox" style="display: none;">
             <div class="chatbox-header">
-                <h1 class="friend">Alina Kay</h1>
+                <h1 class="friend"></h1>
 
                 <div class="exit"></div>
 
                 <div class="addfriends-btn"><a href="#"></a></div>
-            </div> END CHATBOX HEADER
+            </div> 
 
 
             <div class="chatbox-body">
                 <div class="chatbox-content">
 
-            *********** CHAT BOX FEED ***********   
 
-                    <div class="chat-feed">
-                        <div class="avatar-feed"></div>
-                        <p>Hey How’s it going? Do you think you can help me out with my howework assignment?
-                        Hey How’s it going? Do you think you can help me out with my howework assignment?
-                        Hey How’s it going? Do you think you can help me out with my howework assignment?
-                        Hey How’s it going? Do you think you can help me out with my howework assignment?
-                        Hey How’s it going? Do you think you can help me out with my howework assignment?</p>
-                        <h4 class="time">4 hours ago</h4>
-                    </div>
-                    <div class="chat-feed">
-                        <div class="avatar"></div>
-                        <p>Yeah of course! That wouldn’t be a problem, where you wanna meet?
-                        Hey How’s it going? Do you think you can help me out with my howework assignment?
-                        Hey How’s it going? Do you think you can help me out with my howework assignment?
-                        Hey How’s it going? Do you think you can help me out with my howework assignment?</p>
-                        <h4 class="time">3 minutes ago</h4>
-                    </div>
-                    <div class="chat-feed">
-                        <div class="avatar-feed"></div>
-                        <p>Tomorrow in study hall would be really good.</p>
-                        <h4 class="time">15 seconds ago</h4>
+               <div class="chat-feed" id="main">
+                        <p id="messages"></p>
                     </div> 
-                    <div class="chat-feed">
-                        <div class="avatar-feed"></div>
-                        <p>Tomorrow in study hall would be really good.</p>
-                        <h4 class="time">15 seconds ago</h4>
-                    </div> 
+                  
+                  
+                  
                 </div>
 
                 <div class="left-border"></div>
                 <div class="right-border"></div>
-            </div> END CHATBOX BODY
+            </div> 
             <div class="chatbox-footer">
                 <div class="my-avatar"></div>
-                    <textarea name="styled-textarea" class="message" onfocus="this.value=''; setbg( '#e5fff3');" onblur="setbg('white')">Type message here...
+                    <textarea id="talk" name="styled-textarea" class="message" placeholder="Type message here...">
                     </textarea>
-                    <p>Press enter to submint message</p>
-            </div> END FOOTER
-        </div> END CHATBOX
+                    <p>Press enter to submit message</p>
+            </div> 
+        </div> 
 
- -->		
+ 	
 		
 	
 		<!-- Chat new UI ends-->
@@ -979,10 +978,9 @@ header, footer){
 		<!-- Chat------------- -->
 <script>
 $(function() {
-    var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket
-	
-    var chatSocket = new WS("@routes.WebsocketCommunicationController.chat("").webSocketURL()")
+    var chatSocket = new WebSocket("@routes.WebsocketCommunicationController.chat.webSocketURL()")
     var sendMessage = function() {
+       alert("Me purane se call")
         chatSocket.send(JSON.stringify(
             {text: $("#talk").val()}
         ))
@@ -990,8 +988,7 @@ $(function() {
     }
 
     var receiveEvent = function(event) {
-   
-     $("#inform").css("display", "block");
+     $(".chatbox").css("display", "block");
         var data = JSON.parse(event.data)
 
         // Handle errors
@@ -1010,7 +1007,7 @@ $(function() {
         $("p", el).text(data.message)
         $(el).addClass(data.kind)
         $('#messages').append(el)
-
+        $(".friend").text(data.user)
     }
 
     var handleReturnKey = function(e) {
@@ -1020,28 +1017,66 @@ $(function() {
         }
     }
 
-    $("#talk").keypress(handleReturnKey)
+   // $("#talk").keypress(handleReturnKey)
 
     chatSocket.onmessage = receiveEvent
 
 })
 </script>
 
-<div id=inform style="display: none;">
-	<div id="onChat" class="row">
-		<div class="span10" id="main">
-			<div id="messages"></div>
-			<textarea id="talk"></textarea>
-		</div>
-	</div>
-</div>
+
+
 <script language="javascript">
-        var newwindow;
 
-        function popit(username,toWhom){
-         window.open("chatRoom/"+toWhom, '', "status=yes, height=500; width=500; resizeable=0");}
+ function popit(userId,toWhom , name, profileImageUrl){
+
+    var newChatSocket = new WebSocket('ws://localhost:9000/startChat/'+userId +"/"+toWhom)
+     $(".chatbox").css("display", "block");
+       $(".friend").text(name);
+    var newSendMessage = function() {
+        alert("Me naye se call")
+    	newChatSocket.send(JSON.stringify(
+            {text: $("#talk").val()}
+        ))
+        $("#talk").val('')
+    }
+
+    var newReceiveEvent = function(event) {
+        var data = JSON.parse(event.data)
+        //alert(data.user +","+data.message+","+data.kind)        // Handle errors
+        if(data.error) {
+        	newChatSocket.close()
+            $("#onError span").text(data.error)
+            $("#onError").show()
+            return
+        } else {
+            $("#onChat").show()
+        }
+
+        // Create the message element
+        var el = $('<div class="message"><span></span><p></p></div>')
+        $("span", el).text(data.user)
+        $("p", el).text(data.message)
+        $(el).addClass(data.kind)
+        $('#messages').append(el)
+        
+    }
+
+    var newHandleReturnKey = function(e) {
+        if(e.charCode == 13 || e.keyCode == 13) {
+            e.preventDefault()
+            newSendMessage()
+        }
+    }
+
+    $("#talk").keypress(newHandleReturnKey)
+
+    newChatSocket.onmessage = newReceiveEvent
+
+
+            
+ }
     </script>
-
 <!-- Chat------------- -->
 		
 

@@ -81,7 +81,7 @@ define(['baseView',
 		        else
 		        {
 		        	
-		        	var template = '<li id="'+model.id.id+'" onclick=popit("","'+model.id.id+'")> '
+		        	var template = '<li id="'+model.id.id+'" onclick=popit("'+localStorage["loggedUserId"]+'","'+model.id.id+'","'+ model.firstName+'","'+ profileImageUrl +'")> '
 						        	+'<img width="30" height="28" src="'+profileImageUrl+'">'
 						        	+'<span>'+model.firstName+'</span> <span class="offline-chat">'
 						        	+'<img width="12" height="13" src="/beamstream-new/images/online-icon.png"></span></a> </li>';
