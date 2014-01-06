@@ -23,7 +23,9 @@ define(
 							'click #creategspreadsheet' : 'createGSpreadsheet',
 							'click #creategpresentation' : 'createGPresentation',
 							'submit #uploadForm' : 'afterUpload',
-							'click #sidequestionexpand': 'sidequestionexpand'
+							'click .publishGdocs' : 'showsidebar',
+							
+					
 						},
 						messagesPerPage : 10,
 						pageNo : 1,
@@ -122,6 +124,11 @@ define(
 							
 						},
 						
+						showsidebar: function(){
+							
+							$(".showgoogledocsSidebar").show();
+						},
+						
 						
 						
 						// Upload Google Doc
@@ -196,6 +203,37 @@ define(
 											}
 										}
 									});
+							$
+									.ajax({
+
+										type : 'GET',
+										url : '/allStreamsForAUser',
+
+										success : function(data) {
+
+										
+											$("select#streamSelectOption")
+													.empty();
+											$
+													.each(
+															data,
+															function(index,
+																	value) {
+
+																$(
+																		"select#streamSelectOption")
+																		.append(
+																				"<option value="
+																						+ value.stream.id.id
+																						+ ">"
+																						+ value.stream.streamName
+																						+ "</option>");
+																//alert(value.stream.streamName);
+															});
+
+										}
+
+									});
 
 						},
 
@@ -230,6 +268,37 @@ define(
 											}
 										}
 									});
+							$
+							.ajax({
+
+								type : 'GET',
+								url : '/allStreamsForAUser',
+
+								success : function(data) {
+
+								
+									$("select#streamSelectOption")
+											.empty();
+									$
+											.each(
+													data,
+													function(index,
+															value) {
+
+														$(
+																"select#streamSelectOption")
+																.append(
+																		"<option value="
+																				+ value.stream.id.id
+																				+ ">"
+																				+ value.stream.streamName
+																				+ "</option>");
+														//alert(value.stream.streamName);
+													});
+
+								}
+
+							});
 
 						},
 
@@ -264,12 +333,77 @@ define(
 											}
 										}
 									});
+							$
+							.ajax({
+
+								type : 'GET',
+								url : '/allStreamsForAUser',
+
+								success : function(data) {
+
+								
+									$("select#streamSelectOption")
+											.empty();
+									$
+											.each(
+													data,
+													function(index,
+															value) {
+
+														$(
+																"select#streamSelectOption")
+																.append(
+																		"<option value="
+																				+ value.stream.id.id
+																				+ ">"
+																				+ value.stream.streamName
+																				+ "</option>");
+														//alert(value.stream.streamName);
+													});
+
+								}
+
+							});
 
 						},
 
 						// Show Google Doc
 
 						showGoogleDocs : function(show) {
+							
+							$(".showgoogledocsSidebar").hide();
+							$
+							.ajax({
+
+								type : 'GET',
+								url : '/allStreamsForAUser',
+
+								success : function(data) {
+
+								
+									$("select#streamSelectOption")
+											.empty();
+									$
+											.each(
+													data,
+													function(index,
+															value) {
+
+														$(
+																"select#streamSelectOption")
+																.append(
+																		"<option value="
+																				+ value.stream.id.id
+																				+ ">"
+																				+ value.stream.streamName
+																				+ "</option>");
+														//alert(value.stream.streamName);
+													});
+
+								}
+
+							});
+							
 
 							$.ajax({
 
@@ -310,8 +444,8 @@ define(
 																								+ " <span>9/14/2013</span></div></div></div>"
 																								+ "<a class='preview-btn' target='_blank' href="
 																								+ value._2
-																								+ ">Preview</a><a class='preview-btn' target='_blank' href='#'"
-																								+ ">Publish</a></div>");
+																								+ ">Preview</a><div class='preview-btn publishGdocs'"
+																								+ ">Publish</div></div>");
 
 																	}
 
@@ -325,8 +459,8 @@ define(
 																								+ "</div><div class='last-modified'>LAST MODIFIED: <span>9/14/2013</span></div></div></div>"
 																								+ "<a class='preview-btn' target='_blank' href="
 																								+ value._2
-																								+ ">Preview</a><a class='preview-btn' target='_blank' href='#'"
-																								+ ">Publish</a></div>");
+																								+ ">Preview</a><div class='preview-btn publishGdocs'"
+																								+ ">Publish</div></div>");
 
 																	}
 																	
@@ -340,8 +474,8 @@ define(
 																								+ "</div><div class='last-modified'>LAST MODIFIED: <span>9/14/2013</span></div></div></div>"
 																								+ "<a class='preview-btn' target='_blank' href="
 																								+ value._2
-																								+ ">Preview</a><a class='preview-btn' target='_blank' href='#'"
-																								+ ">Publish</a></div>");
+																								+ ">Preview</a><div class='preview-btn publishGdocs' "
+																								+ ">Publish</div></div>");
 
 																	}
 
