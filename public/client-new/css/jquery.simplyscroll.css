@@ -119,7 +119,7 @@ Note all DIVs are generated and should not be hard-coded
 
 .simply-scroll-btn-up:hover,
 .simply-scroll-btn-up:focus {
-	background-color:#2A333A;	
+	background-color: #49535a;	
 }
 
 .simply-scroll-btn-down {
@@ -134,7 +134,7 @@ Note all DIVs are generated and should not be hard-coded
 
 .simply-scroll-btn-down:hover,
 .simply-scroll-btn-down:focus {
-		background-color:#2A333A;	
+		background-color: #49535a;	
 }
 
 .simply-scroll-btn-pause {
@@ -237,7 +237,7 @@ Note all DIVs are generated and should not be hard-coded
 		margin:0px;
 		position:relative;
 		padding-left: 4px;
-		width: 217;
+		width: 113%;
 }
 .vert .simply-scroll-list {
 }
