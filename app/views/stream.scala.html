@@ -1027,6 +1027,7 @@ $(function() {
 <script language="javascript">
 
  function popit(userId,toWhom , name, profileImageUrl){
+
     var newChatSocket = new WebSocket('ws://localhost:9000/startChat/'+userId +"/"+toWhom)
      $(".chatbox").css("display", "block");
        $(".friend").text(name);
