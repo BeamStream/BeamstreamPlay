@@ -909,62 +909,41 @@ header, footer){
 		
 		<!-- Chat new UI -->
 		
-		<!-- <div class="chatbox">
+	 <div class="chatbox" style="display: none;">
             <div class="chatbox-header">
-                <h1 class="friend">Alina Kay</h1>
+                <h1 class="friend"></h1>
 
                 <div class="exit"></div>
 
                 <div class="addfriends-btn"><a href="#"></a></div>
-            </div> END CHATBOX HEADER
+            </div> 
 
 
             <div class="chatbox-body">
                 <div class="chatbox-content">
 
-            *********** CHAT BOX FEED ***********   
 
-                    <div class="chat-feed">
-                        <div class="avatar-feed"></div>
-                        <p>Hey How’s it going? Do you think you can help me out with my howework assignment?
-                        Hey How’s it going? Do you think you can help me out with my howework assignment?
-                        Hey How’s it going? Do you think you can help me out with my howework assignment?
-                        Hey How’s it going? Do you think you can help me out with my howework assignment?
-                        Hey How’s it going? Do you think you can help me out with my howework assignment?</p>
+               <div class="chat-feed" id="main">
+                        <p id="messages"></p>
                         <h4 class="time">4 hours ago</h4>
-                    </div>
-                    <div class="chat-feed">
-                        <div class="avatar"></div>
-                        <p>Yeah of course! That wouldn’t be a problem, where you wanna meet?
-                        Hey How’s it going? Do you think you can help me out with my howework assignment?
-                        Hey How’s it going? Do you think you can help me out with my howework assignment?
-                        Hey How’s it going? Do you think you can help me out with my howework assignment?</p>
-                        <h4 class="time">3 minutes ago</h4>
-                    </div>
-                    <div class="chat-feed">
-                        <div class="avatar-feed"></div>
-                        <p>Tomorrow in study hall would be really good.</p>
-                        <h4 class="time">15 seconds ago</h4>
                     </div> 
-                    <div class="chat-feed">
-                        <div class="avatar-feed"></div>
-                        <p>Tomorrow in study hall would be really good.</p>
-                        <h4 class="time">15 seconds ago</h4>
-                    </div> 
+                  
+                  
+                  
                 </div>
 
                 <div class="left-border"></div>
                 <div class="right-border"></div>
-            </div> END CHATBOX BODY
+            </div> 
             <div class="chatbox-footer">
                 <div class="my-avatar"></div>
-                    <textarea name="styled-textarea" class="message" onfocus="this.value=''; setbg( '#e5fff3');" onblur="setbg('white')">Type message here...
+                    <textarea id="talk" name="styled-textarea" class="message" onfocus="this.value=''; setbg( '#e5fff3');" onblur="setbg('white')">Type message here...
                     </textarea>
                     <p>Press enter to submint message</p>
-            </div> END FOOTER
-        </div> END CHATBOX
+            </div> 
+        </div> 
 
- -->		
+ 	
 		
 	
 		<!-- Chat new UI ends-->
@@ -989,7 +968,7 @@ $(function() {
 
     var receiveEvent = function(event) {
    
-     $("#inform").css("display", "block");
+     $(".chatbox").css("display", "block");
         var data = JSON.parse(event.data)
 
         // Handle errors
@@ -1008,7 +987,7 @@ $(function() {
         $("p", el).text(data.message)
         $(el).addClass(data.kind)
         $('#messages').append(el)
-
+        $(".friend").text(data.user)
     }
 
     var handleReturnKey = function(e) {
@@ -1025,19 +1004,59 @@ $(function() {
 })
 </script>
 
-<div id=inform style="display: none;">
-	<div id="onChat" class="row">
-		<div class="span10" id="main">
-			<div id="messages"></div>
-			<textarea id="talk"></textarea>
-		</div>
-	</div>
-</div>
+
 <script language="javascript">
         var newwindow;
 
         function popit(userId,toWhom){
-         window.open("chatRoom/"+userId +"/"+toWhom, '', "status=yes, height=500; width=500; resizeable=0");}
+        
+window['MozWebSocket'] ? MozWebSocket : WebSocket
+    var chatSocket = new WS("@routes.WebsocketCommunicationController.startChat("" , "").webSocketURL()")
+    var sendMessage = function() {
+        chatSocket.send(JSON.stringify(
+            {text: $("#talk").val()}
+        ))
+        $("#talk").val('')
+    }
+
+    var receiveEvent = function(event) {
+   
+     $(".chatbox").css("display", "block");
+        var data = JSON.parse(event.data)
+
+        // Handle errors
+        if(data.error) {
+            chatSocket.close()
+            $("#onError span").text(data.error)
+            $("#onError").show()
+            return
+        } else {
+            $("#onChat").show()
+        }
+
+        // Create the message element
+        var el = $('<div class="message"><span></span><p></p></div>')
+        $("span", el).text(data.user)
+        $("p", el).text(data.message)
+        $(el).addClass(data.kind)
+        $('#messages').append(el)
+        $(".friend").text(data.user)
+    }
+
+    var handleReturnKey = function(e) {
+        if(e.charCode == 13 || e.keyCode == 13) {
+            e.preventDefault()
+            sendMessage()
+        }
+    }
+
+    $("#talk").keypress(handleReturnKey)
+
+    chatSocket.onmessage = receiveEvent
+
+
+            
+ }
     </script>
 
 <!-- Chat------------- -->

@@ -86,7 +86,7 @@ object WebsocketCommunication {
         (iteratee, enumerator)
 
       case CannotConnect(error) =>
-        //        println(">>>>>>>>>Out")
+        println(">>>>>>>>>Out")
 
         // Connection error
 

@@ -41,6 +41,7 @@ object WebsocketCommunicationController extends Controller {
    * Handles the chat Websocket.
    */
   def startChat(me: String, toWhom: String) = WebSocket.async[JsValue] { implicit request =>
+    println(me, toWhom)
     val user = User.getUserProfile(new ObjectId(request.session.get("userId").get))
 
     val acWithChat = ChatAvailiblity.a(new ObjectId(toWhom))
