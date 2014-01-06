@@ -665,13 +665,13 @@ define(['view/formView',
          * Show / hide all comments of a message
          */
         showAllCommentList: function(eventName){
-        	alert("Show 1");
+        	;
         	eventName.preventDefault();
         	var element = eventName.target.parentElement;
         	var parentUl = $(eventName.target).parent('ul');
         	
 			var messageId =$(element).parents('div.follow-container').attr('id');
-			alert("Show 2");
+		
 			$(parentUl).find('a.active').removeClass('active');
 			
 			if($('#'+messageId+'-allComments').is(":visible"))
@@ -681,7 +681,7 @@ define(['view/formView',
 				$('#'+messageId+'-newCommentList').html('');
 				$('#'+messageId+'-allComments').slideUp(600); 
 				$('#'+messageId+'-show-hide').text("Show All");
-				alert("Show 3");
+		
 			}
 			else
 			{
@@ -690,7 +690,7 @@ define(['view/formView',
 				$('#'+messageId+'-newCommentList').html('');
 				$('#'+messageId+'-allComments').slideDown(600); 
 				$('#'+messageId+'-show-hide').text("Hide All");
-				alert("Show 4");
+			
 			}
         },
         

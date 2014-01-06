@@ -192,10 +192,11 @@ define(['view/formView',
          * post messages 
          */
         postMessage: function(){
-     
+
         	$('#msg-area').css('padding','4px 6px');
         	$('#msg-area').css('margin','0 0 0px 0px');
         	$('a.ask-button').css('visibility','hidden');
+        	
         	var self = this;
  	        var streamId =  $('.sortable li.active').attr('id');
  	        var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
