@@ -38,10 +38,9 @@ object DocumentController extends Controller {
     override def dateFormatter = new SimpleDateFormat("MM/dd/yyyy")
   } + new ObjectIdSerializer
 
-  /*
- * 
- * Add a document
- */
+  /**
+   * Add a document
+   */
 
   def newDocument = Action { implicit request =>
     val documentJson = request.body.asJson.get
