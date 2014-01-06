@@ -13,6 +13,8 @@ define(['view/formView',
 		
 		events:{
 			 'click #post-button' : 'postMessage',
+			 'click #msg-area' : 'showPostButton',
+			 
 			 'click #share-discussions li a' : 'actvateShareIcon',
 			 'click #private-to' : 'checkPrivateAccess',
 			 'click #sortBy-list' : 'sortMessages',
@@ -153,12 +155,47 @@ define(['view/formView',
 				}
 			});
 		 },
+		 
+		 
+		 /**
+		  * show Post Button
+		  */
+		 
+		 showPostButton: function(){
+		
+			 $('#msg-area').css('padding','7.5% 18% 6% 2%');
+			 $('#msg-area').css('margin','0 0 24px 22px');
+			 $('a.ask-button').css('visibility','visible');
+			 $('a.ask-button').css('font-size','123%');
+			 $('a.ask-button').css('color','#fff');
+			 $('a.ask-button').css('width','63px');
+			 $('a.ask-button').css('min-width','25px');
+			 $('a.ask-button').css('max-width','90%');
+			 $('a.ask-button').css('height','30px');
+			 $('a.ask-button').css('-webkit-border-radius','5px');
+			 $('a.ask-button').css('-moz-border-radius','5px');
+			 $('a.ask-button').css('border-radius','5px');
+			 $('a.ask-button').css('background-color','#5199e1');
+			 $('a.ask-button').css('line-height','30px');
+			 $('a.ask-button').css('text-align','center');
+			 $('a.ask-button').css('cursor','pointer');
+			 $('a.ask-button').css('margin-top','0');
+			 $('a.ask-button').css('position','absolute');
+			 $('a.ask-button').css('right','25');
+			 $('a.ask-button').css('top','40');
+			 $('a.ask-button').css('display','block');
+			 
+		 },
+		 
 
         /**
          * post messages 
          */
         postMessage: function(){
-        	
+     
+        	$('#msg-area').css('padding','4px 6px');
+        	$('#msg-area').css('margin','0 0 0px 0px');
+        	$('a.ask-button').css('visibility','hidden');
         	var self = this;
  	        var streamId =  $('.sortable li.active').attr('id');
  	        var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;

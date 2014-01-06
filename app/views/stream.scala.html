@@ -705,28 +705,30 @@ header, footer){
 				<div class="contentcreatedoc"></div>
 
 				<div class="sidebarcreategdocs">
+				
+				<form action="" method="get">
 					<div class="sidebar-subheading">Publish as</div>
 					<div class="styled-select">
 						<select>
-							<option>A Discussion</option>
-							<option>The second option</option>
-							<option>The third option</option>
+							<option value="aDiscussion">A Discussion</option>
+							<option value="secondOption">The second option</option>
+							<option value="thirdOption">The third option</option>
 						</select>
 					</div>
 
 					<div class="sidebar-subheading">Post Privacy</div>
 					<div class="styled-select">
 						<select>
-							<option>Founders Stream</option>
-							<option>The second option</option>
-							<option>The third option</option>
+							<option value="founderStream">Founders Stream</option>
+							<option value="secondOption">The second option</option>
+							<option value="thirdOption">The third option</option>
 						</select>
 					</div>
 
-					<form class="post-files">
-						<input type="radio" name="" value=""> Post to Files &
+				
+						<input type="radio" name="" value="postFilesToMedia"> Post to Files &
 						Media
-					</form>
+				
 					<div class="sidebar-subheading">comment</div>
 
 					<textarea name="styled-textarea" class="commentcreatedoc"
@@ -744,12 +746,12 @@ header, footer){
 					</ul>
 
 					<div class="publish-btn">
-						<img src="/beamstream-new/img/publish.png" class="publish-icon"> <span
-							class="publish-txt">Publish Doc</span>
+						<img src="/beamstream-new/img/publish.png" class="publish-icon"> <input type="submit" value="Publish Doc" class="publish-txt">.publish-txt
 					</div>
 					<div class="cancel-publish">
 						<div class="cancel-publish-txt">Close & Don't Publsih</div>
 					</div>
+					</form>
 				</div>
 			</div>
 
