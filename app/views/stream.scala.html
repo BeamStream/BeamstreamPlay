@@ -61,6 +61,27 @@ setInterval(executeQuery, 5000); // you could choose not to continue on failure.
 
 </script>
 
+
+<!-- Random Id Generation -->
+
+<script type='text/javascript'>
+function randomString(length) {
+    var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz'.split('');
+
+    if (! length) {
+        length = Math.floor(Math.random() * chars.length);
+    }
+
+    var str = '';
+    for (var i = 0; i < length; i++) {
+        str += chars[Math.floor(Math.random() * chars.length)];
+    }
+    return str;
+}
+
+var div = randomString(8);
+</script>
+<!-- Random Id Generation -->
 <img style="display:none;"
 onload="show_login_status('Google', true)"
 onerror="show_login_status('Google', false)"
@@ -925,7 +946,6 @@ header, footer){
 
                <div class="chat-feed" id="main">
                         <p id="messages"></p>
-                        <h4 class="time">4 hours ago</h4>
                     </div> 
                   
                   
@@ -937,9 +957,9 @@ header, footer){
             </div> 
             <div class="chatbox-footer">
                 <div class="my-avatar"></div>
-                    <textarea id="talk" name="styled-textarea" class="message" onfocus="this.value=''; setbg( '#e5fff3');" onblur="setbg('white')">Type message here...
+                    <textarea id="talk" name="styled-textarea" class="message" placeholder="Type message here...">
                     </textarea>
-                    <p>Press enter to submint message</p>
+                    <p>Press enter to submit message</p>
             </div> 
         </div> 
 
@@ -956,10 +976,9 @@ header, footer){
 		<!-- Chat------------- -->
 <script>
 $(function() {
-    var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket
-	
-    var chatSocket = new WS("@routes.WebsocketCommunicationController.chat.webSocketURL()")
+    var chatSocket = new WebSocket("@routes.WebsocketCommunicationController.chat.webSocketURL()")
     var sendMessage = function() {
+       alert("Me purane se call")
         chatSocket.send(JSON.stringify(
             {text: $("#talk").val()}
         ))
@@ -967,7 +986,6 @@ $(function() {
     }
 
     var receiveEvent = function(event) {
-   
      $(".chatbox").css("display", "block");
         var data = JSON.parse(event.data)
 
@@ -997,7 +1015,7 @@ $(function() {
         }
     }
 
-    $("#talk").keypress(handleReturnKey)
+   // $("#talk").keypress(handleReturnKey)
 
     chatSocket.onmessage = receiveEvent
 
@@ -1005,28 +1023,26 @@ $(function() {
 </script>
 
 
-<script language="javascript">
-        var newwindow;
 
-        function popit(userId,toWhom){
-        
-window['MozWebSocket'] ? MozWebSocket : WebSocket
-    var chatSocket = new WS("@routes.WebsocketCommunicationController.startChat("" , "").webSocketURL()")
-    var sendMessage = function() {
-        chatSocket.send(JSON.stringify(
+<script language="javascript">
+
+ function popit(userId,toWhom , name, profileImageUrl){
+    var newChatSocket = new WebSocket('ws://localhost:9000/startChat/'+userId +"/"+toWhom)
+     $(".chatbox").css("display", "block");
+       $(".friend").text(name);
+    var newSendMessage = function() {
+        alert("Me naye se call")
+    	newChatSocket.send(JSON.stringify(
             {text: $("#talk").val()}
         ))
         $("#talk").val('')
     }
 
-    var receiveEvent = function(event) {
-   
-     $(".chatbox").css("display", "block");
+    var newReceiveEvent = function(event) {
         var data = JSON.parse(event.data)
-
-        // Handle errors
+        //alert(data.user +","+data.message+","+data.kind)        // Handle errors
         if(data.error) {
-            chatSocket.close()
+        	newChatSocket.close()
             $("#onError span").text(data.error)
             $("#onError").show()
             return
@@ -1040,25 +1056,24 @@ window['MozWebSocket'] ? MozWebSocket : WebSocket
         $("p", el).text(data.message)
         $(el).addClass(data.kind)
         $('#messages').append(el)
-        $(".friend").text(data.user)
+        
     }
 
-    var handleReturnKey = function(e) {
+    var newHandleReturnKey = function(e) {
         if(e.charCode == 13 || e.keyCode == 13) {
             e.preventDefault()
-            sendMessage()
+            newSendMessage()
         }
     }
 
-    $("#talk").keypress(handleReturnKey)
+    $("#talk").keypress(newHandleReturnKey)
 
-    chatSocket.onmessage = receiveEvent
+    newChatSocket.onmessage = newReceiveEvent
 
 
             
  }
     </script>
-
 <!-- Chat------------- -->
 		
 

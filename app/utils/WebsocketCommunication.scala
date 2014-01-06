@@ -46,7 +46,7 @@ class CommunicationRoom extends Actor {
 
     case Quit(username) => {
       members = members - username
-      notifyAll("quit", username, "has left the room")
+      notifyAll("quit", username, "has left the chat")
     }
 
   }
