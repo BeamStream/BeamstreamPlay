@@ -127,11 +127,13 @@ define(
 						showsidebar: function(){
 							
 							$(".showgoogledocsSidebar").show();
+							$("#showgoogledoc.modal").css("margin","3% 0 0 4%")
 						},
 						
 						hidePublishSidebar: function(){
 							
 							$(".showgoogledocsSidebar").hide();
+							$("#showgoogledoc.modal").css("margin","3% 0 0 14%")
 							
 						},
 						
