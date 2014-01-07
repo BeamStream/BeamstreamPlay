@@ -978,6 +978,8 @@ header, footer){
 		<!-- Chat------------- -->
 <script>
 $(function() {
+
+  var setNameOfUser="1";
     var chatSocket = new WebSocket("@routes.WebsocketCommunicationController.chat.webSocketURL()")
     var sendMessage = function() {
        alert("Me purane se call")
@@ -989,8 +991,14 @@ $(function() {
 
     var receiveEvent = function(event) {
      $("#chatbox").css("display", "block");
+   
+    
         var data = JSON.parse(event.data)
 
+  if(setNameOfUser=="1") { 
+      $(".friend").text(data.user)
+       setNameOfUser="0"
+       }
         // Handle errors
         if(data.error) {
             chatSocket.close()
@@ -1007,7 +1015,7 @@ $(function() {
         $("p", el).text(data.message)
         $(el).addClass(data.kind)
         $('#messages').append(el)
-        $(".friend").text(data.user)
+       
     }
 
     var handleReturnKey = function(e) {
