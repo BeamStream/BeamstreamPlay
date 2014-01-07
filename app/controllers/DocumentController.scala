@@ -3,9 +3,7 @@ package controllers
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
-
 import org.bson.types.ObjectId
-
 import models.Access
 import models.DocResulttoSent
 import models.DocType
@@ -27,6 +25,7 @@ import utils.ExtractFrameFromVideoUtil
 import utils.ObjectIdSerializer
 import utils.PreviewOfPDFUtil
 import utils.TokenEmailUtil
+import play.Logger
 
 /**
  * This controller class is used to store and retrieve all the information about documents.
@@ -42,7 +41,7 @@ object DocumentController extends Controller {
    * Add a document
    */
 
-  def newDocument = Action { implicit request =>
+  /*def newDocument = Action { implicit request =>
     val documentJson = request.body.asJson.get
     val name = (documentJson \ "docName").as[String]
     val url = (documentJson \ "docURL").as[String]
@@ -63,6 +62,28 @@ object DocumentController extends Controller {
     val docResults = DocResulttoSent(Option(messageObtained.get), None, name, description, false, false, Option(profilePicForUser), None, Option(false), User.giveMeTheRockers(messageObtained.get.rockers))
     Ok(write(docResults)).as("application/json")
 
+  }*/
+
+  def newGoogleDocument = Action { implicit request =>
+
+    val data = request.body.asFormUrlEncoded.get
+    val docName = data("docName").toList.head
+    val docUrl = data("docUrl").toList.head
+    val description = data("description").toList.head
+
+    val post = data.keys.toList.contains("postToFileMedia") match {
+      case true => true
+      case false => false
+    }
+    val streamId = data("streamId").toList.head
+    val userId = request.session.get("userId").get
+    val documentToCreate = new Document(new ObjectId, docName, description, docUrl, DocType.GoogleDocs, new ObjectId(userId), Access.PrivateToClass, new ObjectId(streamId), new Date, new Date, 0, Nil, Nil, Nil, "", 0)
+    val docId = Document.addDocument(documentToCreate)
+    val user = User.getUserProfile(new ObjectId(userId))
+    //Create A Message As Well To Display The Doc Creation In Stream
+    val message = Message(new ObjectId, docUrl, Option(Type.Document), Option(Access.PrivateToClass), new Date, new ObjectId(userId), Option(new ObjectId(streamId)), user.get.firstName, user.get.lastName, 0, Nil, Nil, 0, Nil, None, Option(docId))
+    val messageId = Message.createMessage(message)
+    Ok(views.html.stream())
   }
 
   /**
