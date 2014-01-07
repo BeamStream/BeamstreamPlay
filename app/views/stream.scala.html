@@ -981,8 +981,8 @@ header, footer){
 		
 		
 		<!-- Chat new UI -->
-		
-	 <div class="chatbox" style="display: none;">
+    <div class="chatbox" style="display: none;"></div>		
+	 <div id="chatbox" style="display: none;">
             <div class="chatbox-header">
                 <h1 class="friend"></h1>
 
@@ -1028,6 +1028,8 @@ header, footer){
 		<!-- Chat------------- -->
 <script>
 $(function() {
+
+  var setNameOfUser="1";
     var chatSocket = new WebSocket("@routes.WebsocketCommunicationController.chat.webSocketURL()")
     var sendMessage = function() {
        alert("Me purane se call")
@@ -1038,9 +1040,15 @@ $(function() {
     }
 
     var receiveEvent = function(event) {
-     $(".chatbox").css("display", "block");
+     $("#chatbox").css("display", "block");
+   
+    
         var data = JSON.parse(event.data)
 
+  if(setNameOfUser=="1") { 
+      $(".friend").text(data.user)
+       setNameOfUser="0"
+       }
         // Handle errors
         if(data.error) {
             chatSocket.close()
@@ -1057,7 +1065,7 @@ $(function() {
         $("p", el).text(data.message)
         $(el).addClass(data.kind)
         $('#messages').append(el)
-        $(".friend").text(data.user)
+       
     }
 
     var handleReturnKey = function(e) {
@@ -1067,7 +1075,7 @@ $(function() {
         }
     }
 
-   // $("#talk").keypress(handleReturnKey)
+   $("#talk").keypress(handleReturnKey)
 
     chatSocket.onmessage = receiveEvent
 
@@ -1082,13 +1090,53 @@ $(function() {
 
     var newChatSocket = new WebSocket('ws://localhost:9000/startChat/'+userId +"/"+toWhom)
      $(".chatbox").css("display", "block");
-       $(".friend").text(name);
+   var itsId=randomString(8);
+    $( ".chatbox" ).append("<div id="+itsId + ">"
+    	           + '<div class="chatbox-header">'
+
+   	                + '<h1 class="friend"></h1>'
+
+    	              +  '<div class="exit"></div>'
+
+    	              +  '<div class="addfriends-btn"><a href="#"></a></div>'
+    	           + '</div>' 
+
+
+    	            +'<div class="chatbox-body">'
+    	             +   '<div class="chatbox-content">'
+
+
+    	              + '<div class="chat-feed" id="main">'
+    	               +         '<p id="messages"></p>'
+    	                +    '</div>'
+    	                  
+    	                  
+    	                  
+    	                +'</div>'
+
+    	               + '<div class="left-border"></div>'
+    	                +'<div class="right-border"></div>'
+    	            +'</div>' 
+    	            +'<div class="chatbox-footer">'
+    	             +   '<div class="my-avatar"></div>'
+    	             +      '<textarea id="talk" name="styled-textarea" class="message" placeholder="Type message here...">'
+    	              +      '</textarea>'
+    	               +     '<p>Press enter to submit message</p>'
+    	            +'</div>'
+    	        +'</div>');
+
+
+
+
+    	    
+    
+      $("#"+itsId + " "+"h1.friend").text(name);
     var newSendMessage = function() {
         alert("Me naye se call")
     	newChatSocket.send(JSON.stringify(
-            {text: $("#talk").val()}
+            {text: $("#"+itsId + " "+"textarea#talk").val()}
         ))
-        $("#talk").val('')
+        $("#"+itsId + " "+"textarea#talk").val('')
     }
 
     var newReceiveEvent = function(event) {
@@ -1108,7 +1156,7 @@ $(function() {
         $("span", el).text(data.user)
         $("p", el).text(data.message)
         $(el).addClass(data.kind)
-        $('#messages').append(el)
+        $("#"+itsId + " "+"p#messages").append(el)
         
     }
 
@@ -1119,7 +1167,7 @@ $(function() {
         }
     }
 
-    $("#talk").keypress(newHandleReturnKey)
+    $("#"+itsId + " "+"textarea#talk").keypress(newHandleReturnKey)
 
     newChatSocket.onmessage = newReceiveEvent
 
