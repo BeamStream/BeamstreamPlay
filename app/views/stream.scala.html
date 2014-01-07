@@ -727,7 +727,7 @@ header, footer){
 
 				<div class="sidebarcreategdocs">
 				
-				<form action="/newGoogleDocument" method="post" id="publishForm" url="">
+				<form action="/newGoogleDocument" method="post" id="createAndPublishForm" url="">
 					<div class="sidebar-subheading">Publish as</div>
 					<div class="styled-select">
 						<select>
@@ -768,6 +768,9 @@ header, footer){
 					<div class="cancel-publish">
 						<div class="cancel-publish-txt" data-dismiss="modal" aria-hidden="true">Close & Don't Publsih</div>
 					</div>
+						<input type="hidden" id="docName" name=docName>
+						<input type="hidden" id="docUrl" name=docUrl>
+						
 					</form>
 				</div>
 			</div>
