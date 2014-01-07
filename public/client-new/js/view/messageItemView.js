@@ -665,7 +665,7 @@ define(['view/formView',
          * Show / hide all comments of a message
          */
         showAllCommentList: function(eventName){
-        	;
+        	
         	eventName.preventDefault();
         	var element = eventName.target.parentElement;
         	var parentUl = $(eventName.target).parent('ul');

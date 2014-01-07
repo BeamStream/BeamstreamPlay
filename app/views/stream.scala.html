@@ -727,22 +727,22 @@ header, footer){
 
 				<div class="sidebarcreategdocs">
 				
-				<form action="" method="get">
+				<form action="" method="post" id="publishForm">
 					<div class="sidebar-subheading">Publish as</div>
 					<div class="styled-select">
 						<select>
 							<option value="aDiscussion">A Discussion</option>
-							<option value="secondOption">The second option</option>
-							<option value="thirdOption">The third option</option>
+						<!-- 	<option value="secondOption">The second option</option>
+							<option value="thirdOption">The third option</option> -->
 						</select>
 					</div>
 
 					<div class="sidebar-subheading">Post Privacy</div>
 					<div class="styled-select">
-						<select>
+						<select id="streamSelectOption">
 							<option value="founderStream">Founders Stream</option>
-							<option value="secondOption">The second option</option>
-							<option value="thirdOption">The third option</option>
+							<!--  <option value="secondOption">The second option</option>
+							<option value="thirdOption">The third option</option> -->
 						</select>
 					</div>
 
@@ -767,16 +767,15 @@ header, footer){
 					</ul>
 
 					<div class="publish-btn">
-						<img src="/beamstream-new/img/publish.png" class="publish-icon"> <input type="submit" value="Publish Doc" class="publish-txt">.publish-txt
+						<img src="/beamstream-new/img/publish.png" class="publish-icon"> <input type="submit" value="Publish Doc" 
+						class="publish-txt">
 					</div>
 					<div class="cancel-publish">
-						<div class="cancel-publish-txt">Close & Don't Publsih</div>
+						<div class="cancel-publish-txt" data-dismiss="modal" aria-hidden="true">Close & Don't Publsih</div>
 					</div>
 					</form>
 				</div>
 			</div>
-
-
 
 
 		</div> <!-- Modal for create google doc ends-->
@@ -850,7 +849,58 @@ header, footer){
 				<!-- content end -->
 			</div>
 			<!-- main end -->
+	
+	
+		<div class="sidebarcreategdocs showgoogledocsSidebar">
+				
+				<form action="" method="post" id="publishForm">
+					<div class="sidebar-subheading">Publish as</div>
+					<div class="styled-select">
+						<select>
+							<option value="aDiscussion">A Discussion</option>
+						<!-- 	<option value="secondOption">The second option</option>
+							<option value="thirdOption">The third option</option> -->
+						</select>
+					</div>
 
+					<div class="sidebar-subheading">Post Privacy</div>
+					<div class="styled-select">
+						<select id="streamSelectOption">
+							<option value="founderStream">Founders Stream</option>
+							<!--  <option value="secondOption">The second option</option>
+							<option value="thirdOption">The third option</option> -->
+						</select>
+					</div>
+
+				
+						<input type="radio" name="" value="postFilesToMedia"> Post to Files &
+						Media
+				
+					<div class="sidebar-subheading">comment</div>
+
+					<textarea name="styled-textarea" class="commentcreatedoc"
+						onfocus="this.value=''; setbg( '#e5fff3');"
+						onblur="setbg('white')">
+                </textarea>
+
+					<ul class="social">
+						<div class="sidebar-subheading share-on">share on:</div>
+						<li><a class="gp" href="#"><img src="/beamstream-new/img/gp.png"></a></li>
+						<li><a class="tw" href="#"><img src="/beamstream-new/img/tw.png"></a></li>
+						<li><a class="fb" href="#"><img src="/beamstream-new/img/fb.png"></a></li>
+						<li><a class="li" href="#"><img src="/beamstream-new/img/li.png"></a></li>
+						<li><a class="pin" href="#"><img src="/beamstream-new/img/pin.png"></a></li>
+					</ul>
+
+					<div class="publish-btn">
+						<img src="/beamstream-new/img/publish.png" class="publish-icon"> <input type="submit" value="Publish Doc" 
+						class="publish-txt">
+					</div>
+					<div class="cancel-publish">
+								<div class="cancel-publish-txt" data-dismiss="modal" aria-hidden="true">Close & Don't Publsih</div>
+					</div>
+					</form>
+				</div>
 
 
 
