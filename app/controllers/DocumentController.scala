@@ -3,9 +3,7 @@ package controllers
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
-
 import org.bson.types.ObjectId
-
 import models.Access
 import models.DocResulttoSent
 import models.DocType
@@ -27,6 +25,7 @@ import utils.ExtractFrameFromVideoUtil
 import utils.ObjectIdSerializer
 import utils.PreviewOfPDFUtil
 import utils.TokenEmailUtil
+import play.Logger
 
 /**
  * This controller class is used to store and retrieve all the information about documents.
@@ -42,7 +41,7 @@ object DocumentController extends Controller {
    * Add a document
    */
 
-  def newDocument = Action { implicit request =>
+  /*def newDocument = Action { implicit request =>
     val documentJson = request.body.asJson.get
     val name = (documentJson \ "docName").as[String]
     val url = (documentJson \ "docURL").as[String]
@@ -63,6 +62,12 @@ object DocumentController extends Controller {
     val docResults = DocResulttoSent(Option(messageObtained.get), None, name, description, false, false, Option(profilePicForUser), None, Option(false), User.giveMeTheRockers(messageObtained.get.rockers))
     Ok(write(docResults)).as("application/json")
 
+  }*/
+
+  def newGoogleDocument = Action { implicit request =>
+    val data = request.body.asFormUrlEncoded.get
+    println(data)
+    Ok
   }
 
   /**

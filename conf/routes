@@ -28,7 +28,7 @@ GET    /isARockerOf/comment/:commentId                                          
 #Document
 GET    /getAllGoogleDocs                                                                   controllers.DocumentController.getAllGoogleDocumentsForAUser
 PUT    /document/:documentId                                                               controllers.DocumentController.changeTitleAndDescriptionForADocument(documentId:String)
-POST   /newDocument                                                                        controllers.DocumentController.newDocument
+POST  /newGoogleDocument                                                                        controllers.DocumentController.newGoogleDocument
 PUT    /rock/document/:documentId                                                          controllers.DocumentController.rockTheDocument(documentId:String)
 GET    /rockersOf/document/:documentId                                                     controllers.DocumentController.giveMeRockersOfDocument(documentId:String)
 
