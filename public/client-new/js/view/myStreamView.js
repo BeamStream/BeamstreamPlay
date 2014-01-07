@@ -91,29 +91,29 @@ define(
 						},
 						
 						
-						/*Expand Side Question Stream*/
+						/* Expand Side Question Stream */
 						
 						sidequestionexpand:function(){
 						
-							/*$("#messageListView").show();
-							$("#questionListView").css("display","none");*/
+							/*
+							 * $("#messageListView").show();
+							 * $("#questionListView").css("display","none");
+							 */
 							
-					/*		$("#questionListView").css("visibility","hidden");*/
-							/*$("#questionStreamView").hide();*/
-							/*$("#questionStreamView").css("visibility","hidden");*/
-							/* $( "#questionStreamView" ).animate({
-								    width: "300",
-								    opacity: 1,
-								    visibility:"visible",
-								    	display:"block"
-								    
-								  }, 1500 );*/
+					/* $("#questionListView").css("visibility","hidden"); */
+							/* $("#questionStreamView").hide(); */
+							/* $("#questionStreamView").css("visibility","hidden"); */
+							/*
+							 * $( "#questionStreamView" ).animate({ width:
+							 * "300", opacity: 1, visibility:"visible",
+							 * display:"block" }, 1500 );
+							 */
 							$( "#questionStreamView" ).show();
 							$(".body").css("padding-right","280");
 							$(".chatbox").css("right","40");
 							$("#topheader").css("padding-right","19");
 							
-							/*$("#sidequestionexpand").css("opacity","1");*/
+							/* $("#sidequestionexpand").css("opacity","1"); */
 							
 							$("#sidequestionexpand").css("right","318");
 							
@@ -124,13 +124,14 @@ define(
 							
 						},
 						
-						showsidebar: function(){
+						showsidebar: function(e){
 							
+							$(".showgoogledocsSidebar #publishForm #docName").attr("value", $(e.currentTarget).data("id"));
+							$(".showgoogledocsSidebar #publishForm #docUrl").attr("value", $(e.currentTarget).data("name"));
 							$(".showgoogledocsSidebar").show();
 						},
 						
 						hidePublishSidebar: function(){
-							
 							$(".showgoogledocsSidebar").hide();
 							
 						},
@@ -233,7 +234,7 @@ define(
 																						+ ">"
 																						+ value.stream.streamName
 																						+ "</option>");
-																//alert(value.stream.streamName);
+																// alert(value.stream.streamName);
 															});
 
 										}
@@ -298,7 +299,7 @@ define(
 																				+ ">"
 																				+ value.stream.streamName
 																				+ "</option>");
-														//alert(value.stream.streamName);
+														// alert(value.stream.streamName);
 													});
 
 								}
@@ -363,7 +364,7 @@ define(
 																				+ ">"
 																				+ value.stream.streamName
 																				+ "</option>");
-														//alert(value.stream.streamName);
+														// alert(value.stream.streamName);
 													});
 
 								}
@@ -402,7 +403,7 @@ define(
 																				+ ">"
 																				+ value.stream.streamName
 																				+ "</option>");
-														//alert(value.stream.streamName);
+														// alert(value.stream.streamName);
 													});
 
 								}
@@ -449,7 +450,7 @@ define(
 																								+ " <span>9/14/2013</span></div></div></div>"
 																								+ "<a class='preview-btn' target='_blank' href="
 																								+ value._2
-																								+ ">Preview</a><div class='preview-btn publishGdocs'"
+																								+ ">Preview</a><div class='preview-btn publishGdocs'  data-id='"+nameOfDocument+"' data-name="+value._2+""
 																								+ ">Publish</div></div>");
 
 																	}
@@ -464,7 +465,7 @@ define(
 																								+ "</div><div class='last-modified'>LAST MODIFIED: <span>9/14/2013</span></div></div></div>"
 																								+ "<a class='preview-btn' target='_blank' href="
 																								+ value._2
-																								+ ">Preview</a><div class='preview-btn publishGdocs'"
+																								+ ">Preview</a><div class='preview-btn publishGdocs'  data-id='"+nameOfDocument+"' data-name="+value._2+""
 																								+ ">Publish</div></div>");
 
 																	}
@@ -479,7 +480,7 @@ define(
 																								+ "</div><div class='last-modified'>LAST MODIFIED: <span>9/14/2013</span></div></div></div>"
 																								+ "<a class='preview-btn' target='_blank' href="
 																								+ value._2
-																								+ ">Preview</a><div class='preview-btn publishGdocs' "
+																								+ ">Preview</a><div class='preview-btn publishGdocs' data-id='"+nameOfDocument+"' data-name="+value._2+""
 																								+ ">Publish</div></div>");
 
 																	}

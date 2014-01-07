@@ -786,9 +786,7 @@ header, footer){
 
 
 
-		<!--                                    -->
 		<!-- Modal for show google doc starts -->
-		<!--                                    -->
 
 		<div id="showgoogledoc"
 			class="modal hide fade invite-pop-up-googledoc" 
@@ -837,7 +835,6 @@ header, footer){
 								<div class="folder-arrow">></div>
 								<div class="drive-selected">Design</div>
 							</div>
-							<!-- <div class="upload-doc" onClick="showGoogleDocs('upload')">UPLOAD DOC</div> -->
 						</div>
 					</div>
 				</div>
@@ -848,32 +845,27 @@ header, footer){
 	
 		<div class="sidebarcreategdocs showgoogledocsSidebar">
 				
-				<form action="" method="post" id="publishForm">
+				<form action="/newGoogleDocument" method="post" id="publishForm" url="">
 					<div class="sidebar-subheading">Publish as</div>
 					<div class="styled-select">
 						<select>
 							<option value="aDiscussion">A Discussion</option>
-						<!-- 	<option value="secondOption">The second option</option>
-							<option value="thirdOption">The third option</option> -->
 						</select>
 					</div>
 
 					<div class="sidebar-subheading">Post Privacy</div>
 					<div class="styled-select">
-						<select id="streamSelectOption">
-							<option value="founderStream">Founders Stream</option>
-							<!--  <option value="secondOption">The second option</option>
-							<option value="thirdOption">The third option</option> -->
+						<select id="streamSelectOption" name="streamId">
 						</select>
 					</div>
 
 				
-						<input type="radio" name="" value="postFilesToMedia"> Post to Files &
+						<input type="radio" name="postToFileMedia" value="true"> Post to Files &
 						Media
 				
 					<div class="sidebar-subheading">comment</div>
 
-					<textarea name="styled-textarea" class="commentcreatedoc"
+					<textarea name="description" class="commentcreatedoc"
 						onfocus="this.value=''; setbg( '#e5fff3');"
 						onblur="setbg('white')">
                 </textarea>
@@ -892,8 +884,10 @@ header, footer){
 						class="publish-txt">
 					</div>
 					<div class="cancel-publish">
-								<div class="cancel-publish-txt" id="closepublishsidebar">Close & Don't Publsih</div>
+						<div class="cancel-publish-txt" data-dismiss="modal" aria-hidden="true">Close & Don't Publsih</div>
 					</div>
+					<input type="hidden" id="docName" name=docName>
+						<input type="hidden" id="docUrl" name=docUrl>
 					</form>
 				</div>
 
