@@ -24,7 +24,7 @@ define(
 							'click #creategpresentation' : 'createGPresentation',
 							'submit #uploadForm' : 'afterUpload',
 							'click .publishGdocs' : 'showsidebar',
-							
+							 'click #closepublishsidebar' : 'hidePublishSidebar',
 					
 						},
 						messagesPerPage : 10,
@@ -129,6 +129,11 @@ define(
 							$(".showgoogledocsSidebar").show();
 						},
 						
+						hidePublishSidebar: function(){
+							
+							$(".showgoogledocsSidebar").hide();
+							
+						},
 						
 						
 						// Upload Google Doc

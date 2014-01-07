@@ -14,7 +14,7 @@ define(['view/formView',
 		events:{
 			 'click #post-button' : 'postMessage',
 			 'click #msg-area' : 'showPostButton',
-			 
+			
 			 'click #share-discussions li a' : 'actvateShareIcon',
 			 'click #private-to' : 'checkPrivateAccess',
 			 'click #sortBy-list' : 'sortMessages',
