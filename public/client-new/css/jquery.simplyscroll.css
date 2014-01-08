@@ -264,7 +264,7 @@ Note all DIVs are generated and should not be hard-coded
 		overflow:hidden;
 		height:17px;
 		left:21px;
-		margin-top:-6px;
+		margin-top: 6px;
 		width: 100%;
 }
 
