@@ -24,8 +24,7 @@ define(
 							'click #creategpresentation' : 'createGPresentation',
 							'submit #uploadForm' : 'afterUpload',
 							'click .publishGdocs' : 'showsidebar',
-							 'click #closepublishsidebar' : 'hidePublishSidebar',
-					
+							'click #closepublishsidebar' : 'hidePublishSidebar',
 						},
 						messagesPerPage : 10,
 						pageNo : 1,
@@ -85,22 +84,20 @@ define(
 
 						afterUpload : function(event) {
 							$("#uploadgoogledoc").modal('hide');
-							
-						   
 
 						},
-						
-						
+
+
 						/* Expand Side Question Stream */
-						
-						sidequestionexpand:function(){
-						
+
+						sidequestionexpand : function() {
+
 							/*
 							 * $("#messageListView").show();
 							 * $("#questionListView").css("display","none");
 							 */
-							
-					/* $("#questionListView").css("visibility","hidden"); */
+
+							/* $("#questionListView").css("visibility","hidden"); */
 							/* $("#questionStreamView").hide(); */
 							/* $("#questionStreamView").css("visibility","hidden"); */
 							/*
@@ -108,35 +105,33 @@ define(
 							 * "300", opacity: 1, visibility:"visible",
 							 * display:"block" }, 1500 );
 							 */
-							$( "#questionStreamView" ).show();
-							$(".body").css("padding-right","280");
-							$(".chatbox").css("right","40");
-							$("#topheader").css("padding-right","19");
-							
+							$("#questionStreamView").show();
+							$(".body").css("padding-right", "280");
+							$(".chatbox").css("right", "40");
+							$("#topheader").css("padding-right", "19");
+
 							/* $("#sidequestionexpand").css("opacity","1"); */
-							
-							$("#sidequestionexpand").css("right","318");
-							
-							
-							
-								 
-							
-							
+
+							$("#sidequestionexpand").css("right", "318");
+
 						},
-						
-						showsidebar: function(e){
-							
-							$(".showgoogledocsSidebar #publishForm #docName").attr("value", $(e.currentTarget).data("id"));
-							$(".showgoogledocsSidebar #publishForm #docUrl").attr("value", $(e.currentTarget).data("name"));
+
+						showsidebar : function(e) {
+
+							$(".showgoogledocsSidebar #publishForm #docName")
+									.attr("value",
+											$(e.currentTarget).data("id"));
+							$(".showgoogledocsSidebar #publishForm #docUrl")
+									.attr("value",
+											$(e.currentTarget).data("name"));
 							$(".showgoogledocsSidebar").show();
 						},
-						
-						hidePublishSidebar: function(){
+
+						hidePublishSidebar : function() {
 							$(".showgoogledocsSidebar").hide();
-							
+
 						},
-						
-						
+
 						// Upload Google Doc
 
 						uploadGoogleDocs : function(upload) {
@@ -181,9 +176,7 @@ define(
 						// Create Google document
 
 						createGDocument : function(create) {
-                       
-							
-							
+
 							$
 									.ajax({
 
@@ -198,15 +191,32 @@ define(
 													return true;
 												return false;
 											}
-											if (data.toString().startsWith("http")) {
+											if (data.toString().startsWith(
+													"http")) {
 												window.location.assign(data)
 											} else {
-												$("#creategoogledoc").modal('show');
+												$("#creategoogledoc").modal(
+														'show');
 												$(".contentcreatedoc").empty();
 												$(".contentcreatedoc")
 														.append(
-																"<iframe style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src='http://docs.google.com/document/create?hl=en ' />");
+																"<iframe id='googleStuff' style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src='http://docs.google.com/document/create?hl=en ' />");
 											}
+											// #docs-chrome #docs-header
+											// #docs-titlebar-container
+											// #docs-titlebar .docs-title-outer
+											// #docs-title-widget #docs-title
+											/*var a = $("#docs-title-inner")
+													.text();
+											alert(a)
+											$("#createAndPublishForm #docName")
+													.attr(
+															"value",
+															$(
+																	"#docs-title-inner")
+																	.text());*/
+											setTimeout(function(){alert($('iframe#googleStuff html body meta[itemprop=url]').attr("content"))},12000);
+											
 										}
 									});
 							$
@@ -217,7 +227,6 @@ define(
 
 										success : function(data) {
 
-										
 											$("select#streamSelectOption")
 													.empty();
 											$
@@ -254,15 +263,15 @@ define(
 										url : 'uploadNow/spreadsheet',
 
 										success : function(data) {
-											
-										
+
 											String.prototype.startsWith = function(
 													s) {
 												if (this.indexOf(s) == 0)
 													return true;
 												return false;
 											}
-											if (data.toString().startsWith("http")) {
+											if (data.toString().startsWith(
+													"http")) {
 												window.location.assign(data)
 											} else {
 												$("#creategoogledoc").modal(
@@ -275,36 +284,35 @@ define(
 										}
 									});
 							$
-							.ajax({
+									.ajax({
 
-								type : 'GET',
-								url : '/allStreamsForAUser',
+										type : 'GET',
+										url : '/allStreamsForAUser',
 
-								success : function(data) {
+										success : function(data) {
 
-								
-									$("select#streamSelectOption")
-											.empty();
-									$
-											.each(
-													data,
-													function(index,
-															value) {
+											$("select#streamSelectOption")
+													.empty();
+											$
+													.each(
+															data,
+															function(index,
+																	value) {
 
-														$(
-																"select#streamSelectOption")
-																.append(
-																		"<option value="
-																				+ value.stream.id.id
-																				+ ">"
-																				+ value.stream.streamName
-																				+ "</option>");
-														// alert(value.stream.streamName);
-													});
+																$(
+																		"select#streamSelectOption")
+																		.append(
+																				"<option value="
+																						+ value.stream.id.id
+																						+ ">"
+																						+ value.stream.streamName
+																						+ "</option>");
+																// alert(value.stream.streamName);
+															});
 
-								}
+										}
 
-							});
+									});
 
 						},
 
@@ -325,7 +333,8 @@ define(
 													return true;
 												return false;
 											}
-											if (data.toString().startsWith("http")) {
+											if (data.toString().startsWith(
+													"http")) {
 												window.location.assign(data)
 											} else {
 												$("#creategoogledoc").modal(
@@ -337,111 +346,120 @@ define(
 																"<iframe style='width:100%;height:100%;' frameborder='0' src='https://drive.google.com' />");
 
 											}
+											
 										}
 									});
 							$
-							.ajax({
+									.ajax({
 
-								type : 'GET',
-								url : '/allStreamsForAUser',
+										type : 'GET',
+										url : '/allStreamsForAUser',
 
-								success : function(data) {
+										success : function(data) {
 
-								
-									$("select#streamSelectOption")
-											.empty();
-									$
-											.each(
-													data,
-													function(index,
-															value) {
+											$("select#streamSelectOption")
+													.empty();
+											$
+													.each(
+															data,
+															function(index,
+																	value) {
 
-														$(
-																"select#streamSelectOption")
-																.append(
-																		"<option value="
-																				+ value.stream.id.id
-																				+ ">"
-																				+ value.stream.streamName
-																				+ "</option>");
-														// alert(value.stream.streamName);
-													});
+																$(
+																		"select#streamSelectOption")
+																		.append(
+																				"<option value="
+																						+ value.stream.id.id
+																						+ ">"
+																						+ value.stream.streamName
+																						+ "</option>");
+																// alert(value.stream.streamName);
+															});
 
-								}
+										}
 
-							});
+									});
 
 						},
 
 						// Show Google Doc
 
 						showGoogleDocs : function(show) {
-							
+
 							$(".showgoogledocsSidebar").hide();
 							$
-							.ajax({
+									.ajax({
 
-								type : 'GET',
-								url : '/allStreamsForAUser',
+										type : 'GET',
+										url : '/allStreamsForAUser',
 
-								success : function(data) {
+										success : function(data) {
 
-								
-									$("select#streamSelectOption")
-											.empty();
-									$
-											.each(
-													data,
-													function(index,
-															value) {
+											$("select#streamSelectOption")
+													.empty();
+											$
+													.each(
+															data,
+															function(index,
+																	value) {
 
-														$(
-																"select#streamSelectOption")
-																.append(
-																		"<option value="
-																				+ value.stream.id.id
-																				+ ">"
-																				+ value.stream.streamName
-																				+ "</option>");
-														// alert(value.stream.streamName);
-													});
+																$(
+																		"select#streamSelectOption")
+																		.append(
+																				"<option value="
+																						+ value.stream.id.id
+																						+ ">"
+																						+ value.stream.streamName
+																						+ "</option>");
+																// alert(value.stream.streamName);
+															});
 
-								}
+										}
 
-							});
-							
+									});
 
-							$.ajax({
+							$
+									.ajax({
 
 										type : 'GET',
 										url : 'uploadNow/show',
 
 										success : function(data) {
-													
-											
-													
-													String.prototype.startsWith = function(
-															s) {
-														if (this.indexOf(s) == 0)
-															return true;
-														return false;
-													}
-													if (data.toString().startsWith("http")) {
-														window.location.assign(data)
-													} else {
 
-												$("#docsview > .drive-view-row").remove();
-												
-												$("#showgoogledoc").modal('show');
+											String.prototype.startsWith = function(
+													s) {
+												if (this.indexOf(s) == 0)
+													return true;
+												return false;
+											}
+											if (data.toString().startsWith(
+													"http")) {
+												window.location.assign(data)
+											} else {
 
-												$.each(data,function(index,value) {
-																	var nameOfDocument =  "Name Not Available";;
+												$("#docsview > .drive-view-row")
+														.remove();
+
+												$("#showgoogledoc").modal(
+														'show');
+
+												$
+														.each(
+																data,
+																function(index,
+																		value) {
+																	var nameOfDocument = "Name Not Available";
+																	;
 																	if (value._1 != null) {
 																		nameOfDocument = value._1;
-																		var extention = value._1.split('.')[1];
+																		var extention = value._1
+																				.split('.')[1];
 																	}
-																	if (extention == "ppt" || extention == "pptx" || extention == "odp") {
-																		$("#docsview")
+																	if (extention == "ppt"
+																			|| extention == "pptx"
+																			|| extention == "odp") {
+																		$(
+																				"#docsview")
 																				.append(
 																						" <div class='drive-view-row'><div class='powerpoint-img'></div><div class='doc-txt-container'><div class='doc-name'>"
 																								+ nameOfDocument
@@ -450,13 +468,19 @@ define(
 																								+ " <span>9/14/2013</span></div></div></div>"
 																								+ "<a class='preview-btn' target='_blank' href="
 																								+ value._2
-																								+ ">Preview</a><div class='preview-btn publishGdocs'  data-id='"+nameOfDocument+"' data-name="+value._2+""
+																								+ ">Preview</a><div class='preview-btn publishGdocs'  data-id='"
+																								+ nameOfDocument
+																								+ "' data-name="
+																								+ value._2
+																								+ ""
 																								+ ">Publish</div></div>");
 
 																	}
 
-																	else if(extention == "xls" || extention == "ods") {
-																		$("#docsview")
+																	else if (extention == "xls"
+																			|| extention == "ods") {
+																		$(
+																				"#docsview")
 																				.append(
 																						" <div class='drive-view-row'><div class='spreadsheet-img'></div><div class='doc-txt-container'><div class='doc-name'>"
 																								+ nameOfDocument
@@ -465,13 +489,18 @@ define(
 																								+ "</div><div class='last-modified'>LAST MODIFIED: <span>9/14/2013</span></div></div></div>"
 																								+ "<a class='preview-btn' target='_blank' href="
 																								+ value._2
-																								+ ">Preview</a><div class='preview-btn publishGdocs'  data-id='"+nameOfDocument+"' data-name="+value._2+""
+																								+ ">Preview</a><div class='preview-btn publishGdocs'  data-id='"
+																								+ nameOfDocument
+																								+ "' data-name="
+																								+ value._2
+																								+ ""
 																								+ ">Publish</div></div>");
 
 																	}
-																	
+
 																	else {
-																		$("#docsview")
+																		$(
+																				"#docsview")
 																				.append(
 																						" <div class='drive-view-row'><div class='text-img'></div><div class='doc-txt-container'><div class='doc-name'>"
 																								+ nameOfDocument
@@ -480,13 +509,17 @@ define(
 																								+ "</div><div class='last-modified'>LAST MODIFIED: <span>9/14/2013</span></div></div></div>"
 																								+ "<a class='preview-btn' target='_blank' href="
 																								+ value._2
-																								+ ">Preview</a><div class='preview-btn publishGdocs' data-id='"+nameOfDocument+"' data-name="+value._2+""
+																								+ ">Preview</a><div class='preview-btn publishGdocs' data-id='"
+																								+ nameOfDocument
+																								+ "' data-name="
+																								+ value._2
+																								+ ""
 																								+ ">Publish</div></div>");
 
 																	}
 
 																});
-											
+
 											}
 										}
 
