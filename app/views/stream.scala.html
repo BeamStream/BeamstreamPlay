@@ -306,16 +306,14 @@ header, footer){
 						</ul></li>
 					<li><a id="uploadgdoc" href="#">Upload Google Doc</a></li>
 					<li><a id="showgdoc" href="#">Show Google Docs</a></li>
-					<!-- <li><a tabindex="-1" href="#" onClick="showGoogleDocs('upload')">Upload Google Doc</a></li> -->
-					<!--  <li><a tabindex="-1" href="" onClick="showGoogleDocs('show')">Show Google Docs</a></li> -->
+		
 
 				</ul>
 			</div>
 			<ul class="nav-tabs stream-tab" id="streamTab" style="float: left;">
 				<li id="discussion" id="discussionsLink" class="active"><a
 					href="#discussionsView" id="discussions-link" data-toggle="tab">Discussions</a></li>
-				<!-- <li id="question"><a id="questionsLink poll" data-toggle="tab" href="#questionsView" >Ask a Question</a></li>
-                         <li id="question"><a id="questionsLink" data-toggle="tab" href="#addpollView" >add a poll</a></li> -->
+				
 
 
 
@@ -349,57 +347,90 @@ header, footer){
 							</div>
 						</div>
 						<div class="ask-info">
-				
-						                                                          <div class="ask-comment" id="type-status-comment">
-						                                                                  
-						                                                                          <form class="question-ask ask-disccution" action="">
-						                                                                                  <textarea id="msg-area" name="" cols="" rows=""
-						                                                                                          class="question-ask-search" placeholder="Drop some knowledge..."
-						                                                                                          onfocus="this.placeholder = ''"
-						                                                                                          onblur="this.placeholder = 'Drop some knowledge...'"></textarea>
-						                                                                                          <a id="post-button" class="ask-button">POST</a>
-						                                                                                          <div id="upload-files1" class="btn-group attach-drop ">
-						                                                                                                  <button id="upload-files2"
-						                                                                                                          class="attach-drop-button drag-rectangle attach-drop-bg"
-						                                                                                                          data-toggle="dropdown" data-original-title="Upload Files">
-						                                                                                                  </button>
-						                                                                                                  <ul id="discussion-file-upload"
-						                                                                                                          class="dropdown-menu  attach-dropdwon">
-						                                                                                                          <li><a href="#">Class Document</a></li>
-						                                                                                                          <li><a href="#">Assignment</a></li>
-						                                                                                                          <li><a href="#">Homework </a></li>
-						                                                                                                          <li><a href="#">Notes</a></li>
-						                                                                                                          <li><a href="#">Project</a></li>
-						                                                                                                          <li><a href="#">Lecture </a></li>
-						                                                                                                          <li><a href="#">Reference Material</a></li>
-						                                                                                                          <li><a href="#">Tutorial</a></li>
-						                                                                                                          <li><a href="#">EdTech Tool </a></li>
-						                                                                                                          <li><a href="#">Amusement</a></li>
-						                                                                                                          <input type="text" placeholder="+Add a new category">
-						                                                                                                  </ul>
-						                                                                                          </div>
-						  
-						  
-						                                                                                          <div id="upload-files1" class="btn-group attach-drop "
-						                                                                                                  style="display: none;">
-						                                                                                                  <button id="upload-files2"
-						                                                                                                          class="btn attach-drop-button drag-rectangle attach-drop-bg tag-btn"
-						                                                                                                          data-toggle="dropdown" data-original-title="Tag"></button>
-						                                                                                                  <ul id="discussion-file-upload"
-						                                                                                                          class="dropdown-menu  attach-dropdwon">
-						                                                                                                          <li><a href="#">#this</a></li>                      																																																											<li><a href="#">#that</a></li> 
-						 																																																					<input type="text" placeholder="+Add a new Tag">                                                                                               														</ul>                                                                      																																																 </div>
-						                                                                          </form>
-						                                                                          <ul id="uploded-file-area" class="answer">
-						                                                                                  <li id="file-name"></li>
-						                                                                                                  name="upload-files-area">
-						                                                                                  </div>                                                                    </div>                                   
-						                                                                  <div id="file-upload-loader"></div>                                
-  
-						                                                          </div>
 
-						                                  </div>
-						
+							<div class="ask-comment" id="type-status-comment">
+
+								<form class="question-ask ask-disccution" action="">
+									<textarea id="msg-area" name="" cols="" rows=""
+										class="question-ask-search"
+										placeholder="Drop some knowledge..."
+										onfocus="this.placeholder = ''"
+										onblur="this.placeholder = 'Drop some knowledge...'"></textarea>
+									<a id="post-button" class="ask-button">POST</a>
+									
+									
+									
+									
+									
+									<div id="file-upload-loader" style="display: none;">
+									<!--<img src ="images/loading.gif"> -->
+								</div>
+								
+									<div id="upload-files1" class="btn-group attach-drop ">
+										<button id="upload-files2"
+											class="attach-drop-button drag-rectangle attach-drop-bg "
+											data-toggle="dropdown" data-original-title="Upload Files">
+										</button>
+										<ul id="discussion-file-upload"
+											class="dropdown-menu  attach-dropdwon">
+											<li><a href="#">Class Document</a></li>
+											<li><a href="#">Assignment</a></li>
+											<li><a href="#">Homework </a></li>
+											<li><a href="#">Notes</a></li>
+											<li><a href="#">Project</a></li>
+											<li><a href="#">Lecture </a></li>
+											<li><a href="#">Reference Material</a></li>
+											<li><a href="#">Tutorial</a></li>
+											<li><a href="#">EdTech Tool </a></li>
+											<li><a href="#">Amusement</a></li>
+											<li><input type="text" placeholder="+Add a new category"></li>
+										</ul>
+									</div>
+
+
+									<div id="upload-files1" class="btn-group attach-drop "
+										style="display: none;">
+										<button id="upload-files2"
+											class="btn attach-drop-button drag-rectangle attach-drop-bg tag-btn"
+											data-toggle="dropdown" data-original-title="Tag"></button>
+										<ul id="discussion-file-upload"
+											class="dropdown-menu  attach-dropdwon">
+											<li><a href="#">#this</a></li>
+											<li><a href="#">#that</a></li>
+											<input type="text" placeholder="+Add a new Tag">
+										</ul>
+									</div>
+								</form>
+								<ul id="uploded-file-area" class="answer">
+										<li id="file-name"></li>
+										<li>
+											<div class="progress-container">
+												<div class="progress progress-striped active">
+													<div class="bar"></div>
+												</div>
+											</div>
+										</li>
+									</ul>
+								<div class="embed-info">
+										<div class="upload-conatiner">
+											<h5>Select an image or video file on your computer.</h5>
+											<input type="file" id="upload-files-area"
+												name="upload-files-area">
+										</div>
+									</div>
+								
+								
+								
+								<!-- <ul id="uploded-file-area" class="answer">
+									<li id="file-name"></li> name="upload-files-area"> -->
+							</div>
+						</div>
+						<!-- <div id="file-upload-loader"></div> -->
+
+					</div>
+
+				</div>
+
 
 				<div class="question-sort">
 				<h5>SORT BY</h5>
