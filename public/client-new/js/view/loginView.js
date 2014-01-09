@@ -101,7 +101,7 @@ define(
 								 * redirect to class page if the user has no
 								 * stream
 								 */
-								startChat();
+								
 								if (data.hasClasses == true)
 									window.location = "/stream";
 								else
