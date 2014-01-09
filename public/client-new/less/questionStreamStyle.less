@@ -100,8 +100,7 @@ padding-right:19px;
     margin-right: 20px;
     float: right;
     font-size: 12px;
-    font-weight: bold;
-    color: #d8a21f;
+    color: #ff9f00;
 }
 .rock-icon {
     display: inline-block;
@@ -151,7 +150,7 @@ padding-right:19px;
 }
 .qst-header {
 	height: 41px;
-	width: 256px;
+	width: 253px;
 		-webkit-border-radius: 5px 5px 0 0/4px 4px 0 0;
 			-moz-border-radius: 5px 5px 0 0/4px 4px 0 0;
 			border-radius: 5px 5px 0 0/4px 4px 0 0;
@@ -212,7 +211,7 @@ width:150px;
 .question-stream {
     float: right;
     display: inline-block;
-    width: 270px;
+    width: 262px;
 }
 #questionStreamView {
 	position: fixed;
@@ -221,7 +220,7 @@ width:150px;
 	right: -15;
 	padding-right: 5;
 	z-index: 100;
-	width: 20%;
+	width: 262px;
 	height: 100%;
 	background-color: #ffffff;
 	border-radius: 8px 0 0 0;
@@ -229,7 +228,8 @@ width:150px;
 	-moz-box-shadow: -6px 14px 35px rgba(0, 0, 0, 0.3);
 	box-shadow: -6px 14px 35px rgba(0, 0, 0, 0.3);
 	border: solid 1px rgba(0,0,0,.49);
-	overflow: auto;
+	overflow-x: hidden;
+	overflow-y: auto;
 }
 
 .post-info {
@@ -263,7 +263,6 @@ width:150px;
     height: 32px;
     width: 270px;
     display: inline-block;
-    background-color: #4d94b9;
     border-bottom: 1px solid #2f6a88;
     position: relative;
     z-index: 1;
@@ -283,7 +282,7 @@ width:150px;
         display: inline-block;
         float: left;
         padding-top: 4px;
-        width: 88px;
+        width: 83px;
         height: 28px;
         text-align: center;
         border-top: 1px solid #63a2c3;
@@ -295,8 +294,8 @@ width:150px;
             text-decoration: none;
             color: #ffffff;
             line-height: 20px;
-						font-weight: lighter;
-						font-size: 13px
+						font-weight: 200;
+						font-size: 12px
         }
     }
 }
@@ -352,7 +351,6 @@ width:150px;
 .question-post {
     padding-top: 15px;
     padding-left: 10px;
-    padding-bottom: 10px;
     padding-right: 10px;
     background-color: #ffffff;
     border-bottom: 1px solid #cfd3d7;
@@ -462,11 +460,10 @@ width:150px;
     font-size: 11px;
 }
 .qs-comment-link {
-    margin: 7px 7px 0 0;
+    margin: 7px 7px 0 -6;
     float: right;
     font-size: 12px;
-    font-weight: bold;
-    color: #d8a21f;
+    color: #ff9f00;
 }
 .username:hover {
     text-decoration: underline;
@@ -517,7 +514,7 @@ width:150px;
     margin-top: -1px;
 }
 .question-form {
-    height: 18px;
+    height: 9px;
     font-size: 13px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
@@ -527,8 +524,8 @@ width:150px;
     float: left;
     border-style: none;
     padding: 9px;
-    margin-left: 14px;
-    margin-bottom: 0px;
+		margin: 6px 0 0 24px;
+		width: 134px;
     .question-submit {
         background: url(/beamstream-new/images/question-search.jpg) no-repeat;
         border: 0;
@@ -636,13 +633,13 @@ width:150px;
     background: url(/beamstream-new/images/spryte.png) repeat scroll -1034px -447px;
 }
 .streamList {
-    position: absolute;
-    top: 82px;
-    bottom: 0;
-    height: auto;
-		width: 91%;
-		margin-left: 23px;
-		overflow-y: hidden;
+	position: absolute;
+	top: 74px;
+	bottom: 0;
+	height: auto;
+	width: 92%;
+	margin-left: 7px;
+	overflow-y: hidden;
 }
 
 .streamList {
