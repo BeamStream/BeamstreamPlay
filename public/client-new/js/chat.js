@@ -1,133 +1,142 @@
-function popit(userId, toWhom, name, profileImageUrl) {
-	var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket
-	var newChatSocket = new WS('ws://localhost:9000/startChat/' + userId + "/"
-			+ toWhom)
-	$(".chatbox").css("display", "block");
-	var itsId = randomString(8);
-	$(".chatbox")
-			.append(
-					"<div id="
-							+ itsId
-							+ ">"
-							+ '<div class="chatbox-header">'
+ function popit(userId,toWhom , name, profileImageUrl){
 
-							+ '<h1 class="friend"></h1>'
+    var newChatSocket = new WebSocket('ws://localhost:9000/startChat/'+userId +"/"+toWhom)
+     $(".chatbox").css("display", "block");
+   var itsId=randomString(8);
+    $( ".chatbox" ).append("<div id="+itsId + ">"
+                       + '<div class="chatbox-header">'
 
-							+ '<div class="exit"></div>'
+                           + '<h1 class="friend"></h1>'
 
-							+ '<div class="addfriends-btn"><a href="#"></a></div>'
-							+ '</div>'
+                          +  '<div class="exit"></div>'
 
-							+ '<div class="chatbox-body">'
-							+ '<div class="chatbox-content">'
+                          +  '<div class="addfriends-btn"><a href="#"></a></div>'
+                       + '</div>' 
 
-							+ '<div class="chat-feed" id="main">'
-							+ '<p id="messages"></p>'
-							+ '</div>'
 
-							+ '</div>'
+                        +'<div class="chatbox-body">'
+                         +   '<div class="chatbox-content">'
 
-							+ '<div class="left-border"></div>'
-							+ '<div class="right-border"></div>'
-							+ '</div>'
-							+ '<div class="chatbox-footer">'
-							+ '<div class="my-avatar"></div>'
-							+ '<textarea id="talk" name="styled-textarea" class="message" placeholder="Type message here...">'
-							+ '</textarea>'
-							+ '<p>Press enter to submit message</p>' + '</div>'
-							+ '</div>');
 
-	$("#" + itsId + " " + "h1.friend").text(name);
-	var newSendMessage = function() {
-		newChatSocket.send(JSON.stringify({
-			text : $("#" + itsId + " " + "textarea#talk").val()
-		}))
-		$("#" + itsId + " " + "textarea#talk").val('')
-	}
+                          + '<div class="chat-feed" id="main">'
+                           +         '<div id="messages"></div>'
+                            +    '</div>'
+                              
+                              
+                              
+                            +'</div>'
 
-	var newReceiveEvent = function(event) {
-		var data = JSON.parse(event.data)
-		// alert(data.user +","+data.message+","+data.kind) // Handle errors
-		if (data.error) {
-			newChatSocket.close()
-			$("#onError span").text(data.error)
-			$("#onError").show()
-			return
+                           + '<div class="left-border"></div>'
+                            +'<div class="right-border"></div>'
+                        +'</div>' 
+                        +'<div class="chatbox-footer">'
+                         +   '<div class="my-avatar"></div>'
+                         +      '<textarea id="talk" name="styled-textarea" class="message" placeholder="Type message here...">'
+                          +      '</textarea>'
+                           +     '<p>Press enter to submit message</p>'
+                        +'</div>'
+                    +'</div>');
 
-		} else {
-			$("#onChat").show()
-		}
 
-		// Create the message element
-		var el = $('<div class="message"><span></span><p></p></div>')
-		$("span", el).text(data.user)
-		$("p", el).text(data.message)
-		$(el).addClass(data.kind)
-		$("#" + itsId + " " + "p#messages").append(el)
 
-	}
 
-	var newHandleReturnKey = function(e) {
-		if (e.charCode == 13 || e.keyCode == 13) {
-			e.preventDefault()
-			newSendMessage()
-		}
-	}
+                
+    
+      $("#"+itsId + " "+"h1.friend").text(name);
+    var newSendMessage = function() {
+            newChatSocket.send(JSON.stringify(
+            {text: $("#"+itsId + " "+"textarea#talk").val()}
+        ))
+        $("#"+itsId + " "+"textarea#talk").val('')
+    }
 
-	$("#" + itsId + " " + "textarea#talk").keypress(newHandleReturnKey)
+    var newReceiveEvent = function(event) {
+        var data = JSON.parse(event.data)
+        //alert(data.user +","+data.message+","+data.kind)        // Handle errors
+        if(data.error) {
+                newChatSocket.close()
+            $("#onError span").text(data.error)
+            $("#onError").show()
+            return
+        } else {
+            $("#onChat").show()
+        }
 
-	newChatSocket.onmessage = newReceiveEvent
+        // Create the message element
+        var el = $('<div class="message"><span></span><p></p></div>')
+        $("span", el).text(data.user)
+        $("p", el).text(data.message)
+        $(el).addClass(data.kind)
+        $("#"+itsId + " "+"div#messages").append(el)
+        
+    }
 
-}
+    var newHandleReturnKey = function(e) {
+        if(e.charCode == 13 || e.keyCode == 13) {
+            e.preventDefault()
+            newSendMessage()
+        }
+    }
 
-function startChat() {
-	var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket
-	var setNameOfUser = "1";
-	var chatSocket = new WS('ws://localhost:9000/chat')
-	var sendMessage = function() {
-		chatSocket.send(JSON.stringify({
-			text : $("#talk").val()
-		}))
-		$("#talk").val('')
-	}
+    $("#"+itsId + " "+"textarea#talk").keypress(newHandleReturnKey)
 
-	var receiveEvent = function(event) {
-		$("#chatbox").css("display", "block");
+    newChatSocket.onmessage = newReceiveEvent
 
-		var data = JSON.parse(event.data)
 
-		if (setNameOfUser == "1") {
-			$(".friend").text(data.user)
-			setNameOfUser = "0"
-		}
-		// Handle errors
-		if (data.error) {
-			chatSocket.close()
-			$("#onError span").text(data.error)
-			$("#onError").show()
-			return
+            
+ }
 
-		} else {
-			$("#onChat").show()
-		}
+ 
+ function startChat(){
+         var setNameOfUser="1";
+            var chatSocket = new WebSocket('ws://localhost:9000/chat')
+            var sendMessage = function() {
+                chatSocket.send(JSON.stringify(
+                    {text: $("#talk").val()}
+                ))
+                $("#talk").val('')
+            }
 
-		// Create the message element
-		var el = $('<div class="message"><span></span><p></p></div>')
-		$("span", el).text(data.user)
-		$("p", el).text(data.message)
-		$(el).addClass(data.kind)
-		$('#messages').append(el)
+            var receiveEvent = function(event) {
+             $("#chatbox").css("display", "block");
+             $("#chatbox").css("position", "fixed");
+             $("#chatbox").css("bottom", "0");
+             $("#chatbox").css("right", "322");
+           
+            
+                var data = JSON.parse(event.data)
 
-	}
+          if(setNameOfUser=="1") { 
+              $(".friend").text(data.user)
+               setNameOfUser="0"
+               }
+                // Handle errors
+                if(data.error) {
+                    chatSocket.close()
+                    $("#onError span").text(data.error)
+                    $("#onError").show()
+                    return
+                } else {
+                    $("#onChat").show()
+                }
 
-	var handleReturnKey = function(e) {
-		if (e.charCode == 13 || e.keyCode == 13) {
-			e.preventDefault()
-			sendMessage()
-		}
-	}
+                // Create the message element
+                var el = $('<div class="message"><span></span><p></p></div>')
+                $("span", el).text(data.user)
+                $("p", el).text(data.message)
+                $(el).addClass(data.kind)
+                $('#messages').append(el)
+               
+            }
 
-	$("#talk").keypress(handleReturnKey)
+            var handleReturnKey = function(e) {
+                if(e.charCode == 13 || e.keyCode == 13) {
+                    e.preventDefault()
+                    sendMessage()
+                }
+            }
 
-	chatSocket.onmessage = receiveEvent
-}
+           $("#talk").keypress(handleReturnKey)
+
+            chatSocket.onmessage = receiveEvent
+ }

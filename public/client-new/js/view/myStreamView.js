@@ -25,6 +25,7 @@ define(
 							'submit #uploadForm' : 'afterUpload',
 							'click .publishGdocs' : 'showsidebar',
 							'click #closepublishsidebar' : 'hidePublishSidebar',
+						
 						},
 						messagesPerPage : 10,
 						pageNo : 1,
@@ -87,7 +88,9 @@ define(
 
 						},
 
-
+						
+						
+						
 						/* Expand Side Question Stream */
 
 						sidequestionexpand : function() {
@@ -627,7 +630,9 @@ define(
 								}
 							}
 
-						}
+						},
+						
+						
 
 					})
 			return MyStreamView;
