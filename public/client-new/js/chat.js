@@ -1,5 +1,4 @@
 function popit(userId, toWhom, name, profileImageUrl) {
-	alert("New Socket Initiated")
 	var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket
 	var newChatSocket = new WS('ws://localhost:9000/startChat/' + userId + "/"
 			+ toWhom)
@@ -84,9 +83,7 @@ function popit(userId, toWhom, name, profileImageUrl) {
 function startChat() {
 	var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket
 	var setNameOfUser = "1";
-	alert("Step 1 WS define done")
 	var chatSocket = new WS('ws://localhost:9000/chat')
-	alert("Step 2 WS initialize done")
 	var sendMessage = function() {
 		chatSocket.send(JSON.stringify({
 			text : $("#talk").val()
@@ -95,7 +92,6 @@ function startChat() {
 	}
 
 	var receiveEvent = function(event) {
-		alert("Aaya")
 		$("#chatbox").css("display", "block");
 
 		var data = JSON.parse(event.data)
