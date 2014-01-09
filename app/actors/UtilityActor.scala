@@ -75,7 +75,7 @@ object UtilityActor {
   }
 
   def sendMailAfterSignUp(userId: String, authToken: String, emailId: String) {
-    val server = Play.current.configuration.getString("server").get
+    /*val server = Play.current.configuration.getString("server").get
     val authenticatedMessageAndSession = SendEmailUtility.setEmailCredentials
     val recepientAddress = new InternetAddress(emailId)
     authenticatedMessageAndSession._1.setFrom(new InternetAddress(BEAMTEAM_EMAIL, BEAMTEAM_EMAIL))
@@ -89,7 +89,7 @@ object UtilityActor {
         "Rock on," + "<br>" + "The good folks @ BeamStream" + "<br>", "text/html");
     val transport = authenticatedMessageAndSession._2.getTransport("smtp");
     transport.connect(Play.current.configuration.getString("smtp_server_out").get, 80, Play.current.configuration.getString("email_address").get, Play.current.configuration.getString("email_password").get)
-    transport.sendMessage(authenticatedMessageAndSession._1, authenticatedMessageAndSession._1.getAllRecipients)
+    transport.sendMessage(authenticatedMessageAndSession._1, authenticatedMessageAndSession._1.getAllRecipients)*/
     val token = new Token((new ObjectId), authToken, false)
     Token.addToken(token)
   }

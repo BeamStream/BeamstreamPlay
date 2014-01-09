@@ -125,11 +125,13 @@ define(
 									.attr("value",
 											$(e.currentTarget).data("name"));
 							$(".showgoogledocsSidebar").show();
+							
+							 $("#showgoogledoc.modal").css("margin","3% 0 0 4%");
 						},
 
 						hidePublishSidebar : function() {
 							$(".showgoogledocsSidebar").hide();
-
+							$("#showgoogledoc.modal").css("margin","3% 0 0 14%");
 						},
 
 						// Upload Google Doc
