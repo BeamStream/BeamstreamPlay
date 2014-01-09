@@ -25,6 +25,7 @@ define(
 							'submit #uploadForm' : 'afterUpload',
 							'click .publishGdocs' : 'showsidebar',
 							'click #closepublishsidebar' : 'hidePublishSidebar',
+						
 						},
 						messagesPerPage : 10,
 						pageNo : 1,
@@ -87,7 +88,9 @@ define(
 
 						},
 
-
+						
+						
+						
 						/* Expand Side Question Stream */
 
 						sidequestionexpand : function() {
@@ -125,11 +128,13 @@ define(
 									.attr("value",
 											$(e.currentTarget).data("name"));
 							$(".showgoogledocsSidebar").show();
+							
+							 $("#showgoogledoc.modal").css("margin","3% 0 0 4%");
 						},
 
 						hidePublishSidebar : function() {
 							$(".showgoogledocsSidebar").hide();
-
+							$("#showgoogledoc.modal").css("margin","3% 0 0 14%");
 						},
 
 						// Upload Google Doc
@@ -625,7 +630,9 @@ define(
 								}
 							}
 
-						}
+						},
+						
+						
 
 					})
 			return MyStreamView;
