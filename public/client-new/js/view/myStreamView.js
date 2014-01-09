@@ -217,7 +217,13 @@ define(
 															$(
 																	"#docs-title-inner")
 																	.text());*/
-											setTimeout(function(){alert($('iframe#googleStuff html body meta[itemprop=url]').attr("content"))},12000);
+											/*setTimeout(function(){
+												
+												var iframeDocument = iframe.contentDocument || iframe.contentWindow.document
+
+												var button = iframeDocument.getElementById("mybutton") ;
+
+												alert($('iframe#googleStuff html body meta[itemprop=url]').attr("content"))},12000);*/
 											
 										}
 									});
