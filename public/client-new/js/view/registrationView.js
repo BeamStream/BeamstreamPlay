@@ -393,7 +393,6 @@ define(['view/formView' ,
 
 		       	    		if(!data.frameURL && !data.mediaUrl)
 		                		localStorage["loggedUserProfileUrl"] =  '/beamstream-new/images/profile-upload.png';
-		       	    		startChat();
 		       	    		window.location = "/class";
 		       	    	}
 		       	    	else{
@@ -421,7 +420,6 @@ define(['view/formView' ,
 			e.preventDefault();
 			$("#selectUploadPhoto").modal('hide');
 			localStorage["loggedUserProfileUrl"] =  '/beamstream-new/images/profile-upload.png';
-			startChat();
 			window.location = "/class";		
 		},
 		
