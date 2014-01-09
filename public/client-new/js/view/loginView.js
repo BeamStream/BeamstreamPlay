@@ -101,6 +101,7 @@ define(
 								 * redirect to class page if the user has no
 								 * stream
 								 */
+								
 								if (data.hasClasses == true)
 									window.location = "/stream";
 								else
