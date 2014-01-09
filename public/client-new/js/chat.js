@@ -19,7 +19,7 @@
 
 
     	              + '<div class="chat-feed" id="main">'
-    	               +         '<p id="messages"></p>'
+    	               +         '<div id="messages"></div>'
     	                +    '</div>'
     	                  
     	                  
@@ -67,7 +67,7 @@
         $("span", el).text(data.user)
         $("p", el).text(data.message)
         $(el).addClass(data.kind)
-        $("#"+itsId + " "+"p#messages").append(el)
+        $("#"+itsId + " "+"div#messages").append(el)
         
     }
 
@@ -99,6 +99,9 @@
 
 	    var receiveEvent = function(event) {
 	     $("#chatbox").css("display", "block");
+	     $("#chatbox").css("position", "fixed");
+	     $("#chatbox").css("bottom", "0");
+	     $("#chatbox").css("right", "322");
 	   
 	    
 	        var data = JSON.parse(event.data)
