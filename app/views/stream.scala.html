@@ -1050,10 +1050,14 @@ header, footer){
 		
 		
 		<!-- Chat------------- -->
+@if(request.session.get("execute")==None){
 <script>
+alert("Called")
 startChat();
 </script>
-
+@(request.session + ("execute" -> "false"))
+@println(request.session.get("execute"))
+}
 
 
 
