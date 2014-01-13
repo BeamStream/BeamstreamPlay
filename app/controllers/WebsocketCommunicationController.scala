@@ -29,6 +29,10 @@ object WebsocketCommunicationController extends Controller {
       roomActor
     }
     println("naya banaya"+default)
+    
+    println("Before" + ChatAvailiblity.a.size)
+    ChatAvailiblity.a += user.get.id -> default
+    println("After" + ChatAvailiblity.a.size)
     WebsocketCommunication.join(user.get.firstName, default, request.session.get("userId").get)
 
   }
