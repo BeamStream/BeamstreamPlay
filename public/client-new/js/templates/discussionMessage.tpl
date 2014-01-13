@@ -17,11 +17,7 @@
               </div>
               <div  class="ask-info">
                 <div class="ask-comment">
-                  <div class="follow-names">
-                    <ul class="follow-name-left ">
-                      <li><span id="{{data.message.userId.id}}" >@{{data.message.firstNameofMsgPoster}} {{data.message.lastNameofMsgPoster}} </span> -  {{data.message.timeCreated}}  -  {{data.message.messageAccess.name}}</li>
-                    </ul>
-                    <div class="follow-right" style="visibility:hidden;"> 
+                    <div class="follow-right" style="display: none;"> 
                     	{{#ifequal data.followed false}}
 	                    	<a id="{{data.message.id.id}}-follow" href="#" class="follow-button follow-message" data-value="follow">follow
 	                    	</a>
@@ -30,7 +26,6 @@
 	                    	</a>
                      	{{/ifequal}}
                     </div>
-                  </div>
 
               	{{#ifequal data.message.messageType.name "Text"}}
                   	<p id="{{data.message.id.id}}-id" >{{data.message.messageBody}}</p>
@@ -51,7 +46,7 @@
 						   		
 		                  	
 		                         
-		                 			 <img  src="{{previewImage}}" class="cover-picture" /> <h3 class="common-doctext" >{{extension}}</h3>
+		                 			 <img  src="{{previewImage}}" class="cover-picture" id="document-cover-img"/> <h3 class="common-doctext" >{{extension}}</h3>
 		                 			 </div>
 	                 		 {{else}}
 		                 			<img  src="{{previewImage}}" class="filmedia-picture" /> 
@@ -185,7 +180,7 @@
                   
                   
                   <div class="follow-bottom">
-                    <ul class="follow-name-left show-all-block">
+                     <ul class="follow-name-left show-all-block" id="comment-rock">
                    	  <li>
                         	<a href="#" id="{{data.message.id.id}}-msgRockCount"  {{#ifequal data.rocked false}} class="rocks-message uprocks-message" {{else}} class="rocks-message downrocks-message" {{/ifequal}} >
                         		<span>{{data.message.rocks}}</span>
@@ -194,8 +189,13 @@
                       <li><a class="rock-message clickElement" href="#">Rock</a></li>
                       <li ><a class="add-comment clickElement" href="#"> Comment</a></li>  
 					  <!--li><a class="comment-icon" href="#"></a></li-->                 
-                    </ul>
-                    <a id="" href="#" class="delete_msg drag-rectangle" data-original-title="Flag this" style="visibility:hidden;"></a>
+                     </ul>
+	                   <div class="follow-names" id="username-message-date">
+	                   	<ul class="follow-name-left ">
+	                    	<li><span id="{{data.message.userId.id}}" >@{{data.message.firstNameofMsgPoster}} {{data.message.lastNameofMsgPoster}} </span> -  {{data.message.timeCreated}}  -  {{data.message.messageAccess.name}}</li>
+	                   	</ul>
+										 </div>
+                     <a id="" href="#" class="delete_msg drag-rectangle" data-original-title="Flag this" style="visibility:hidden;"></a>
                   </div>
                   <div id="{{data.message.id.id}}-addComments" class="follow-comment">
 					<textarea id="{{data.message.id.id}}-msgComment" class="add-message-comment" rows="" cols="" placeholder="Add Comments.." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Add Comments..'" ></textarea>
@@ -204,6 +204,7 @@
 					<a id="{{data.message.id.id}}" href="#" data-original-title="Delete" href="#" class="delete_post drag-rectangle" ></a>
 				 {{/ifequal}}
                 </div>
+								
                 
                 
                 <div class="answer-info">

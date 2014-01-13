@@ -32,6 +32,7 @@ padding-right:19px;
     width: 18px;
     height: 18px;
     float: left;
+		margin: 7px 0 0 7px;
     cursor: pointer;
     background: url(/beamstream-new/images/popout.jpg)no-repeat;
 }
@@ -153,9 +154,14 @@ padding-right:19px;
 	width: 253px;
 		-webkit-border-radius: 5px 5px 0 0/4px 4px 0 0;
 			-moz-border-radius: 5px 5px 0 0/4px 4px 0 0;
-			border-radius: 5px 5px 0 0/4px 4px 0 0;
-			background-color: #5199e1;
+				border-radius: 5px 5px 0 0/4px 4px 0 0;
+	background-color: #5199e1;
+	background-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.05), rgba(255, 255, 255, 0.05));
+	background-image: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0.05), rgba(255, 255, 255, 0.05));
+	background-image: -o-linear-gradient(bottom, rgba(0, 0, 0, 0.05), rgba(255, 255, 255, 0.05));
+	background-image: linear-gradient(to top, rgba(0, 0, 0, 0.05), rgba(255, 255, 255, 0.05));
 }
+
 .slower-txt {
     color: #ffffff;
     text-align: center;
@@ -206,6 +212,7 @@ width:150px;
     height: 18px;
     float: right;
     cursor: pointer;
+		margin: 7px 7px 0 0;
     background: url(/beamstream-new/images/minimize.jpg)no-repeat;
 }
 .question-stream {
@@ -222,7 +229,7 @@ width:150px;
 	z-index: 100;
 	width: 262px;
 	height: 100%;
-	background-color: #ffffff;
+	background-color: rgb(236, 241, 245);
 	border-radius: 8px 0 0 0;
 	-webkit-box-shadow: -6px 14px 35px rgba(0, 0, 0, 0.3);
 	-moz-box-shadow: -6px 14px 35px rgba(0, 0, 0, 0.3);
@@ -286,8 +293,8 @@ width:150px;
         height: 28px;
         text-align: center;
         border-top: 1px solid #63a2c3;
-        border-right: 1px solid transparent;
-        border-left: 1px solid transparent;
+        border-right: 1px solid #63a2c3;
+				border-left: 1px solid transparent;
         cursor: pointer;
 				background-color: #5199e1;
         a {
@@ -300,7 +307,6 @@ width:150px;
     }
 }
 .selected-filter {
-    border-top: 1px solid #305f77;
 		background-color: #5199e1;
 			-webkit-box-shadow: 0 1px #0F3256, inset 0 2px 5px rgba(0,0,0,.39);
 			-moz-box-shadow: 0 1px #0F3256, inset 0 2px 5px rgba(0,0,0,.39);
@@ -565,8 +571,7 @@ width:150px;
     float: left;
     margin: 7px;
     display: inline;
-    font-size: 12px;
-    font-weight: bold;
+    font-size: 11px;
     color: #5299bd;
 }
 .perfect-bg {
