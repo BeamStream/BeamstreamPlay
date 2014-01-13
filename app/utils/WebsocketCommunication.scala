@@ -79,7 +79,7 @@ object WebsocketCommunication {
     (actofRef ? Join(userName)).map {
 
       case Connected(enumerator) =>
-        println("<<<<<<<<IN" + enumerator)
+        println("<<<<<<<<IN")
         val iteratee = Iteratee.foreach[JsValue] { event =>
           actofRef ! Talk(userName, (event \ "text").as[String])
         }.map { _ =>
