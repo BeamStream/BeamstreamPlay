@@ -88,6 +88,7 @@
 
  
  function startChat(){
+	 alert("Hui Load")
          var setNameOfUser="1";
             var chatSocket = new WebSocket('ws://localhost:9000/chat')
             var sendMessage = function() {
