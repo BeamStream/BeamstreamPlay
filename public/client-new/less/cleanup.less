@@ -1601,9 +1601,12 @@ border-top-left-radius:0;
 background-clip:padding-box;
 -webkit-border-radius:4px;
 -moz-border-radius:4px;
-border-radius:4px
+border-radius:4px;
 }
 
+#edit-left-tooltip {
+	margin-left: 30px;
+}
 .popover {
 position:absolute;
 top:0;
@@ -2017,14 +2020,14 @@ text-decoration:none
 .header-wrapper {
 	width: 100%;
   background: #323A45; /* Old browsers */
-  background: -moz-linear-gradient(top, #323A45 0%, #3f454c 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#323A45), color-stop(100%,#3f454c)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #323A45 0%,#3f454c 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #323A45 0%,#3f454c 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #323A45 0%,#3f454c 100%); /* IE10+ */
-  background: linear-gradient(to bottom, #323A45 0%,#3f454c 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4b535c', endColorstr='#3f454c',GradientType=0 ); /* IE6-9 */
-	
+  background: url('/beamstream-new/images/header-bkg-img.png') repeat;
+	background: url('/beamstream-new/images/header-bkg-img.png') repeat, -moz-linear-gradient(top, #323A45 0%, #3f454c 100%); /* FF3.6+ */
+  background: url('/beamstream-new/images/header-bkg-img.png') repeat, 	-webkit-gradient(linear, left top, left bottom, color-stop(0%,#323A45), color-stop(100%,#3f454c)); /* Chrome,Safari4+ */
+  background: url('/beamstream-new/images/header-bkg-img.png') repeat, 	-webkit-linear-gradient(top, #323A45 0%,#3f454c 100%); /* Chrome10+,Safari5.1+ */
+  background: url('/beamstream-new/images/header-bkg-img.png') repeat, 		-o-linear-gradient(top, #323A45 0%,#3f454c 100%); /* Opera 11.10+ */
+  background: url('/beamstream-new/images/header-bkg-img.png') repeat, 			-ms-linear-gradient(top, #323A45 0%,#3f454c 100%); /* IE10+ */
+  background: url('/beamstream-new/images/header-bkg-img.png') repeat, 				linear-gradient(to bottom, #323A45 0%,#3f454c 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#33A45', endColorstr='#3f454c',GradientType=0 ); /* IE6-9 */
 }
 
 .header-search {
@@ -2086,14 +2089,20 @@ border-radius:0 0 8px 8px;
 -webkit-box-shadow:0 0 10px #1d2a32 inset;
 -moz-box-shadow:0 0 10px #1d2a32 inset;
 box-shadow:0 0 10px #1d2a32 inset;
-background:#314653;
+background: #3D4349 !important;
 border-bottom:1px solid #6a7d89;
 display:block;
 float:right;
-height:50px;
+height: 43px;
 margin: 21px 248px -17px 0px;
 padding: 0%;
-position:relative
+position:relative;
+width: 162px;
+top: 6;
+}
+
+ .btn-group {
+ margin-bottom: 0px;
 }
 
 .header-icon {
@@ -2102,17 +2111,22 @@ float:left;
 text-align:center;
 width: 53px;
 max-width: 90%;
-padding: 7% 3% 4% 4%
+padding: 7% 3% 4% 4%;
+position: relative;
 }
 
 .header-icon img {
 -webkit-border-radius:3px;
 -moz-border-radius:3px;
 border-radius:3px;
-max-width: 100%;
-height: auto;
-margin-top: 7%;
-border:solid 1px #1e2930
+border:solid 1px #1e2930;
+width: 52%;
+display: block;
+position: absolute;
+left: 0;
+right: 0;
+top: 5;
+margin: auto;
 }
 
 .public-profile {
@@ -2122,6 +2136,7 @@ height:20px;
 width: 83px;
 max-width: 90%;
 padding: 10% 0% 1% 4%;
+position: relative;
 }
 
 .profile-img {
@@ -2173,7 +2188,13 @@ text-decoration:none
 
 .settings-menu {
 text-align:center;
-float:left
+float:left;
+position: absolute;
+display: block;
+left: 13;
+right: 0;
+top: 5;
+margin: auto;
 }
 
 .profile-info {
@@ -4748,7 +4769,7 @@ padding-top:20px
 }
 
 .left-container {
-	width: 25%;
+	width: 24%;
 	float: left;
 	margin: 40px 0 0 -37px;
 	max-width: 350px;
@@ -6604,7 +6625,7 @@ color:#94979a;
 display:block;
 font-size:13px;
 overflow:hidden;
-padding:0 0 1%;
+padding:0 0 1% 6%;
 height: 31px;
 }
 
@@ -6625,7 +6646,9 @@ color:#fff
 
 .follow-bottom {
 display:block;
-padding:1% 0
+float: left;
+width: 100%;
+height: 36px;
 }
 
 ul.follow-bottom-menu {
@@ -6730,6 +6753,13 @@ ul.icons-ask li.tag {
 background-position:-1px -390px
 }
 
+#posted-comment {
+	height: auto;
+	overflow: hidden;
+	padding-top: 4px;
+	font-size: 95%;
+}
+
 .ask-comment {
 background:none repeat scroll 0 0 #fff;
 border:1px solid #cdd4db;
@@ -6753,7 +6783,7 @@ overflow:hidden;
 position:relative;
 }
 #upload-files2.attach-drop-bg{
-background-position: -1px -362px;
+background-position: -132px -1024px;
 display: block;
 width: 25px;
 height: 30px;
@@ -6861,7 +6891,7 @@ width:100%
 float:left;
 width:100%;
 word-wrap:break-word;
-padding-left: 2%;
+padding: 8px 0 0 2%;
 margin-bottom: 1.5%;
 }
 
@@ -7058,7 +7088,13 @@ border-radius:3px 3px 0 0;
 -webkit-opacity:1!important;
 opacity:1!important;
 -ms-filter:alpha(opacity=100)!important;
-filter:alpha(opacity=100)!important
+filter:alpha(opacity=100)!important;
+}
+
+#document-cover-img {
+	width: 100%;
+	padding-top: 3px;
+	padding-top: 0;
 }
 
 div.hover-div:hover .hover-text,
@@ -7098,11 +7134,10 @@ padding-top:35px
 }
 
 div.hover-div {
-display:block;
-height:180px!important;
-position:relative;
-text-align:center;
-overflow:hidden
+	display: block;
+	position: relative;
+	text-align: center;
+	overflow: hidden;
 }
 
 div.hover-div img {
@@ -9385,7 +9420,7 @@ line-height:25px
 }
 
 .show-all-block {
-width:100%!important;
+//width:100%!important;
 //margin-bottom:23px!important
 }
 
@@ -9401,11 +9436,12 @@ background:#fff;
 display:block;
 float:left;
 overflow:hidden;
-width:30%
+width: 60%;
+padding-right: 0%
 }
 
 .doc-image {
-width:50%!important;
+width:56%!important;
 margin:0 auto
 }
 
@@ -9425,7 +9461,7 @@ position:absolute
 }
 
 .show-all-block {
-width:100%!important
+//width:100%!important
 }
 
 .show-info {
@@ -9726,7 +9762,7 @@ float:left;
 margin:5px 20px 5px 0;
 color:#697076;
 text-transform:uppercase;
-font-size:11px;
+font-size: 10px;
 text-align:center;
 line-height:24px;
 padding:0 5px
@@ -9905,11 +9941,15 @@ height:30px;
 line-height:30px;
 background:-moz-linear-gradient(#d4991c,
 #dbaa22) repeat scroll 0 0 transparent;
-border:1px solid #dbaa22;
+border:1px solid #ff9f00;
 color:#fff;
 -webkit-border-radius:5px;
 -moz-border-radius:5px;
-border-radius:5px
+border-radius:5px;
+}
+
+.modal-body {
+	overflow: hidden;
 }
 
 .bootbox a:hover {
@@ -10136,6 +10176,21 @@ padding:0;
 width:82%
 }
 
+#username-message-date {
+	width: 100%;
+	padding: 10px 0 7px 0;
+	font-style: italic;
+	font-size: 81%;
+	float: left;
+	position: relative;
+	top: -28;
+	margin-left: 57%;
+}
+
+#comment-rock {
+	width: 36%
+}
+
 ul.follow-name-left li {
 float:left;
 line-height:30px;
@@ -10144,9 +10199,12 @@ padding-right:10px
 
 ul.follow-name-left li a {
 color: #ff9f00;
-font-weight:bold;
 text-decoration:underline;
 font-weight: 500;
+}
+
+ul.follow-name-left li:nth-child(2) {
+	margin-left: 9%;
 }
 
 ul.follow-name-left li a:hover {
@@ -10227,7 +10285,11 @@ ul.follow-name-left li a.rocks-message-minus span,
 ul.follow-name-left li a.rocks-message-plus span,
 ul.follow-name-left li a.rocks span {
 display:block;
-padding-top:22px
+padding-top:22px;
+display: block;
+padding-top: 0px;
+padding-left: 31px;
+font-weight: 500;
 }
 
 ul.follow-name-left.rocks-small {
@@ -10362,11 +10424,19 @@ color:#827e7e
 	padding: 1px 0 0 0;
 }
 
-.new-google-btn .google-doc-icn,.new-google-btn .question-icn,.google-plus,.twitter,.facebook,.linkedin,.plus {
-    background: url(../../beamstream-new/images/socialsprytes.png) no-repeat;
+#questions-icon, .new-google-btn .google-doc-icn,.new-google-btn .question-icn,.google-plus,.twitter,.facebook,.linkedin,.plus {
+    background: url(../../beamstream-new/images/spryte.png) no-repeat;
 }
 .google-plus :hover,.twitter :hover,.facebook :hover,.linkedin :hover,.plus :hover {
     background: url(../../beamstream-new/images/socialsprytestoggle.png) no-repeat;
+}
+
+#questions-icon {
+	background-position: -171px -971;
+	width: 25px;
+	height: 25px;
+	position: relative;
+	top: -20;
 }
 
 
@@ -10393,7 +10463,7 @@ color:#827e7e
         background-position: -115px 0px;
     }
     .google-doc-icn {
-        background-position: -138px 0px;
+        background-position: -132px -970;
     }
     .back-icn {
         background-position: 200px 200px;
@@ -10506,10 +10576,6 @@ ul.answer {
 
 .menu ul a span {
     top: 5px !important;
-}
-
-.header-profile {
-    background: #3D4349 !important;
 }
 
 .header-menu {

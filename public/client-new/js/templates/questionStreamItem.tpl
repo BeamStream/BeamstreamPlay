@@ -37,8 +37,8 @@
         <div class="rock-icon"></div>
         {{/if}}
         <div class="rock-ammount">{{pluralize question.rockers.length 'Rock'}}</div>
-        <div class="qs-comment-link">+ Comment</div>
-        <div class="qs-answer-link">+ Answer</div>
+        <div class="qs-comment-link">Comment</div>
+        <div class="qs-answer-link">Answer</div>
         <div class="question-stats">
         <div class="answer-amount">{{question.answers.length ''}}</div>
         <div class="comment-amount">{{question.comments.length '' }}</div>
