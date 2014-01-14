@@ -102,7 +102,7 @@
              $("#chatbox").css("display", "block");
              $("#chatbox").css("position", "fixed");
              $("#chatbox").css("bottom", "0");
-             $("#chatbox").css("right", "322");
+             $("#chatbox").css("right", "622");
            
             
                 var data = JSON.parse(event.data)
