@@ -1041,23 +1041,26 @@ header, footer){
         </div> 
 
  	
-		
+		<script>
+         startChat();
+		</script>
 	
 		<!-- Chat new UI ends-->
-	
-	
+	<!-- <script>
+	var head = document.getElementsByTagName('head')[0];
+	var script = document.createElement('script');
+	script.type = 'text/javascript';
+	script.src = "/beamstream-new/js/socketinitialize.js";
+	script.setAttribute('id', 'socketScript');
 
+	// Fire the loading
+	head.appendChild(script);
 
-		
-		
-		<!-- Chat------------- -->
-<script>
-startChat();
 </script>
-
-
-
-
+<script>
+$('#socketScript').remove();
+</script>		
+	 -->	
 <!-- Chat------------- -->
 		
 

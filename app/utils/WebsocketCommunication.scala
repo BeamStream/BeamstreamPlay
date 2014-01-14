@@ -22,9 +22,13 @@ case class NotifyJoin(username: String)
 case class Connected(enumerator: Enumerator[JsValue])
 case class CannotConnect(msg: String)
 
+object a {
+  def b = Concurrent.broadcast[JsValue]
+}
+
 class CommunicationRoom extends Actor {
 
-  val (chatEnumerator, chatChannel) = Concurrent.broadcast[JsValue]
+  val (chatEnumerator, chatChannel) = a.b
   var members = Set.empty[String]
 
   def receive = {
@@ -70,9 +74,7 @@ object WebsocketCommunication {
 
   def join(userName: String, actofRef: ActorRef, userId: String): scala.concurrent.Future[(Iteratee[JsValue, _], Enumerator[JsValue])] = {
 
-    println("Before" + ChatAvailiblity.a.size)
-    ChatAvailiblity.a += new ObjectId(userId) -> actofRef
-    println("After" + ChatAvailiblity.a.size)
+    
 
     (actofRef ? Join(userName)).map {
 
