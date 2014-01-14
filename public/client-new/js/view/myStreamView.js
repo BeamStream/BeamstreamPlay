@@ -396,8 +396,12 @@ define(
 						// Show Google Doc
 
 						showGoogleDocs : function(show) {
+							
+							$("#showgoogledoc").modal(
+							'show');
 
 							$(".showgoogledocsSidebar").hide();
+							
 							$
 									.ajax({
 
@@ -436,7 +440,7 @@ define(
 										url : 'uploadNow/show',
 
 										success : function(data) {
-
+											$('#floatingBarsG').hide();
 											String.prototype.startsWith = function(
 													s) {
 												if (this.indexOf(s) == 0)
@@ -451,8 +455,8 @@ define(
 												$("#docsview > .drive-view-row")
 														.remove();
 
-												$("#showgoogledoc").modal(
-														'show');
+												/*$("#showgoogledoc").modal(
+														'show');*/
 
 												$
 														.each(
