@@ -88,6 +88,7 @@
 
  
  function startChat(){
+	 //alert("Hui Load")
          var setNameOfUser="1";
             var chatSocket = new WebSocket('ws://localhost:9000/chat')
             var sendMessage = function() {
@@ -101,7 +102,7 @@
              $("#chatbox").css("display", "block");
              $("#chatbox").css("position", "fixed");
              $("#chatbox").css("bottom", "0");
-             $("#chatbox").css("right", "622");
+             $("#chatbox").css("right", "650");
            
             
                 var data = JSON.parse(event.data)

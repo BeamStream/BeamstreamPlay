@@ -940,15 +940,32 @@ header, footer){
 		<div id="uploadgoogledoc"
 			class="modal hide fade invite-pop-up-googledoc" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
-
-
-
-			<div class="uploadgdocs">
+	
+				<div class="heading">
+					<div class="title">Upload Files To Google Drive</div>
+					<div class="close">
+						<div class="close-txt" class="close" aria-hidden="true"
+							data-dismiss="modal">Close</div>
+						<div class="close-icon close" aria-hidden="true"
+							data-dismiss="modal">
+							<img width="22" height="22"
+								src="/beamstream-new/images/close-pop.png">
+						</div>
+					</div>
+				</div>
+				<!-- heading end -->
+			
+					<div class="uploadgdocs">
 				<form action="/uploadToGoogleDrive" enctype="multipart/form-data" method="post" id='uploadForm' >
 					<input type="file" name="picture" id="uplaodfilestogoogle"> <input type="submit"
 						value="UPLOAD" class="upload-doc" id="uploadToGoogle">
 				</form>
 			</div>
+				
+
+
+
+			
 
 
 			<!-- Modal for upload google doc ends -->
