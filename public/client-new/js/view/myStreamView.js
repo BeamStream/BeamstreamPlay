@@ -25,6 +25,9 @@ define(
 							'submit #uploadForm' : 'afterUpload',
 							'click .publishGdocs' : 'showsidebar',
 							'click #closepublishsidebar' : 'hidePublishSidebar',
+							'click #questionsLink' : 'fliptoDiscussion',
+							'click #discussions-link' : 'fliptoQuestion',
+							
 						
 						},
 						messagesPerPage : 10,
@@ -88,7 +91,22 @@ define(
 
 						},
 
+						fliptoDiscussion: function(){
+							$('#discussions-link').css('display','block');
+							$('#discussions-link').css('padding','0');
+							$('#discussions-link').css('text-decoration','none');
+							$('#flipQuestion').css('display','none');
+							$('#questions-icon').css('display','none');
+						},	
 						
+						
+						fliptoQuestion: function(){
+							$('#discussions-link').css('display','none');
+							$('#flipQuestion').css('padding','0px 0px 0px 12px');
+							$('#questions-icon').css('margin-top','-2px');
+							$('#flipQuestion').css('display','block');
+							$('#questions-icon').css('display','block');
+						},
 						
 						
 						/* Expand Side Question Stream */
@@ -181,7 +199,8 @@ define(
 						// Create Google document
 
 						createGDocument : function(create) {
-
+							$("#creategoogledoc").modal(
+							'show');
 							$
 									.ajax({
 
@@ -189,7 +208,7 @@ define(
 										url : 'uploadNow/document',
 
 										success : function(data) {
-
+											$('#creategoogledoc #floatingBarsG').hide();
 											String.prototype.startsWith = function(
 													s) {
 												if (this.indexOf(s) == 0)
@@ -200,33 +219,14 @@ define(
 													"http")) {
 												window.location.assign(data)
 											} else {
-												$("#creategoogledoc").modal(
-														'show');
+												/*$("#creategoogledoc").modal(
+														'show');*/
 												$(".contentcreatedoc").empty();
 												$(".contentcreatedoc")
 														.append(
 																"<iframe id='googleStuff' style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src='http://docs.google.com/document/create?hl=en ' />");
 											}
-											// #docs-chrome #docs-header
-											// #docs-titlebar-container
-											// #docs-titlebar .docs-title-outer
-											// #docs-title-widget #docs-title
-											/*var a = $("#docs-title-inner")
-													.text();
-											alert(a)
-											$("#createAndPublishForm #docName")
-													.attr(
-															"value",
-															$(
-																	"#docs-title-inner")
-																	.text());*/
-											/*setTimeout(function(){
-												
-												var iframeDocument = iframe.contentDocument || iframe.contentWindow.document
-
-												var button = iframeDocument.getElementById("mybutton") ;
-
-												alert($('iframe#googleStuff html body meta[itemprop=url]').attr("content"))},12000);*/
+											
 											
 										}
 									});
@@ -254,19 +254,20 @@ define(
 																						+ ">"
 																						+ value.stream.streamName
 																						+ "</option>");
-																// alert(value.stream.streamName);
+																
 															});
 
 										}
 
 									});
 
-						},
+						},// Create Google document Ends
 
 						// Create Google spreadsheet
 
 						createGSpreadsheet : function(create) {
-
+							$("#creategoogledoc").modal(
+							'show');
 							$
 									.ajax({
 
@@ -274,7 +275,7 @@ define(
 										url : 'uploadNow/spreadsheet',
 
 										success : function(data) {
-
+											$('#creategoogledoc #floatingBarsG').hide();
 											String.prototype.startsWith = function(
 													s) {
 												if (this.indexOf(s) == 0)
@@ -285,8 +286,8 @@ define(
 													"http")) {
 												window.location.assign(data)
 											} else {
-												$("#creategoogledoc").modal(
-														'show');
+												/*$("#creategoogledoc").modal(
+														'show');*/
 												$(".contentcreatedoc").empty();
 												$(".contentcreatedoc")
 														.append(
@@ -318,26 +319,28 @@ define(
 																						+ ">"
 																						+ value.stream.streamName
 																						+ "</option>");
-																// alert(value.stream.streamName);
+																
 															});
 
 										}
 
 									});
 
-						},
+						},		// Create Google spreadsheet Ends
 
 						// Create Google Presentation
 
 						createGPresentation : function(create) {
-
+							$("#creategoogledoc").modal(
+							'show');
 							$
 									.ajax({
-
+									
 										type : 'GET',
 										url : 'uploadNow/presentation',
 
 										success : function(data) {
+											$('#creategoogledoc #floatingBarsG').hide();
 											String.prototype.startsWith = function(
 													s) {
 												if (this.indexOf(s) == 0)
@@ -348,8 +351,8 @@ define(
 													"http")) {
 												window.location.assign(data)
 											} else {
-												$("#creategoogledoc").modal(
-														'show');
+												/*$("#creategoogledoc").modal(
+														'show');*/
 												$(".contentcreatedoc").empty();
 
 												$(".contentcreatedoc")
@@ -384,14 +387,14 @@ define(
 																						+ ">"
 																						+ value.stream.streamName
 																						+ "</option>");
-																// alert(value.stream.streamName);
+																
 															});
 
 										}
 
 									});
 
-						},
+						},// Create Google Presentation Ends
 
 						// Show Google Doc
 
@@ -440,7 +443,7 @@ define(
 										url : 'uploadNow/show',
 
 										success : function(data) {
-											$('#floatingBarsG').hide();
+											$('#showgoogledoc #floatingBarsG').hide();
 											String.prototype.startsWith = function(
 													s) {
 												if (this.indexOf(s) == 0)
@@ -540,18 +543,11 @@ define(
 
 									});
 
-							/*
-							 * newwindow=window.open('uploadNow/show','name','height=400,width=300');
-							 * if (window.focus) {newwindow.focus()};
-							 */
+							
 
 						}, // Show google Doc Ends
 
-						/*
-						 * var authenticateToGoogle = function(data){
-						 * 
-						 * alert(data._1); }
-						 */
+						
 
 						/**
 						 * show stream details on top
