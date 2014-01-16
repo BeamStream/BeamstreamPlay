@@ -1,6 +1,6 @@
  function popit(userId,toWhom , name, profileImageUrl){
 
-    var newChatSocket = new WebSocket('ws://test.beamstream.com/startChat/'+userId +"/"+toWhom)
+    var newChatSocket = new WebSocket('ws://localhost:9000/startChat/'+userId +"/"+toWhom)
      $(".chatbox").css("display", "block");
    var itsId=randomString(8);
     $( ".chatbox" ).append("<div id="+itsId + ">"
@@ -91,7 +91,7 @@
  
  function startChat(){
          var setNameOfUser="1";
-            var chatSocket = new WebSocket('ws://test.beamstream.com/chat')
+            var chatSocket = new WebSocket('ws://localhost:9000/chat')
             var sendMessage = function() {
             	alert("Purane se gya")
                 chatSocket.send(JSON.stringify(

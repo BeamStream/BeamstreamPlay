@@ -211,10 +211,10 @@ define(
 											// #docs-titlebar-container
 											// #docs-titlebar .docs-title-outer
 											// #docs-title-widget #docs-title
-											/*var a = $("#docs-title-inner")
-													.text();
-											alert(a)
-											$("#createAndPublishForm #docName")
+											//var a = $("div#docs-title-inner.docs-title-inner").text();
+													
+											//alert(a)
+											/*$("#createAndPublishForm #docName")
 													.attr(
 															"value",
 															$(
