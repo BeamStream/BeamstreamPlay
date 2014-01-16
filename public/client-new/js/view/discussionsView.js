@@ -14,7 +14,7 @@ define(['view/formView',
 		events:{
 			 'click #post-button' : 'postMessage',
 			 'focus #msg-area' : 'showPostButton',
-			
+			/* 'blur #msg-area' : 'hidePostButton',*/
 			 'click #share-discussions li a' : 'actvateShareIcon',
 			 'click #private-to' : 'checkPrivateAccess',
 			 'click #sortBy-list' : 'sortMessages',
@@ -113,6 +113,15 @@ define(['view/formView',
 		 },
 
 	  	
+		/* hidePostButton:function(){
+			setTimeout(function(){
+				 $('#msg-area').css('padding','4px 6px');
+		        	$('#msg-area').css('margin','0 0 0px 0px');
+		        	$('a.ask-button').css('visibility','hidden');
+			},125)
+			 
+		 },*/
+		 
 		 
 		 /**
 		 * append messages to message list on pagination 

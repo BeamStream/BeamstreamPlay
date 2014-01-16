@@ -2019,15 +2019,13 @@ text-decoration:none
 
 .header-wrapper {
 	width: 100%;
-  background: #323A45; /* Old browsers */
-  background: url('/beamstream-new/images/header-bkg-img.png') repeat;
-	background: url('/beamstream-new/images/header-bkg-img.png') repeat, -moz-linear-gradient(top, #323A45 0%, #3f454c 100%); /* FF3.6+ */
-  background: url('/beamstream-new/images/header-bkg-img.png') repeat, 	-webkit-gradient(linear, left top, left bottom, color-stop(0%,#323A45), color-stop(100%,#3f454c)); /* Chrome,Safari4+ */
-  background: url('/beamstream-new/images/header-bkg-img.png') repeat, 	-webkit-linear-gradient(top, #323A45 0%,#3f454c 100%); /* Chrome10+,Safari5.1+ */
-  background: url('/beamstream-new/images/header-bkg-img.png') repeat, 		-o-linear-gradient(top, #323A45 0%,#3f454c 100%); /* Opera 11.10+ */
-  background: url('/beamstream-new/images/header-bkg-img.png') repeat, 			-ms-linear-gradient(top, #323A45 0%,#3f454c 100%); /* IE10+ */
-  background: url('/beamstream-new/images/header-bkg-img.png') repeat, 				linear-gradient(to bottom, #323A45 0%,#3f454c 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#33A45', endColorstr='#3f454c',GradientType=0 ); /* IE6-9 */
+  background: url('/beamstream-new/images/header-bkg-img.png') repeat, rgb(71, 78, 86); /* Old browsers */
+	background: url('/beamstream-new/images/header-bkg-img.png') repeat, -moz-linear-gradient(90deg, rgb(85, 94, 102) 20%, rgb(71, 78, 86) 80%);
+	background: url('/beamstream-new/images/header-bkg-img.png') repeat, -webkit-linear-gradient(90deg, rgb(85, 94, 102) 20%, rgb(71, 78, 86) 80%);
+	background: url('/beamstream-new/images/header-bkg-img.png') repeat, -o-linear-gradient(90deg, rgb(85, 94, 102) 20%, rgb(71, 78, 86) 80%);
+	background: url('/beamstream-new/images/header-bkg-img.png') repeat, -ms-linear-gradient(90deg, rgb(85, 94, 102) 20%, rgb(71, 78, 86) 80%);
+	background: url('/beamstream-new/images/header-bkg-img.png') repeat, linear-gradient(180deg, rgb(85, 94, 102) 20%, rgb(71, 78, 86) 80%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#555E66', endColorstr='#474E56',GradientType=0 ); /* IE6-9 */
 }
 
 .header-search {
@@ -2270,11 +2268,12 @@ background-position:0 0
 
 .menu ul .my-stream:hover span,
 .menu ul .my-stream.active span {
-background-position:0 -33px
+background-position:0 -32px
 }
 
 .menu ul .browse-media span {
-background-position:-33px 0
+	background-position: -33px 4px;
+	padding-bottom: 3px;
 }
 
 .menu ul .browse-media:hover span,
@@ -4369,15 +4368,20 @@ opacity:.5;
 filter:alpha(opacity=50)
 }
 
-.dropdown-menu a {
+.dropdown-menu li a {
 display:block;
-padding:3px 20px;
+
 clear:both;
 font-weight:normal;
 line-height:20px;
 color:#98a0a4;
 font-size:12px
 }
+
+#gdoc-link .dropdown-menu li a {
+padding:3px 6px;
+}
+
 
 .dropdown-menu li>a:hover,
 .dropdown-menu li>a:focus,
@@ -4844,8 +4848,8 @@ margin-bottom:4px;
 	color:#fff;
 	float:right;
 	font-size:11px;
-	margin:2px 7px -4px 0;
-	padding: 0px 9px 3px 8px;
+	margin: 2px 5.7% -4px 0;
+	padding: 0px 10px 3px 8px;
 	border-top: .11em solid #E1EF9E;
 	border-left: .11em solid #E1EF9E;
 	background:rgb(255, 186, 0);
@@ -10402,8 +10406,15 @@ color:#827e7e
 	max-width: 632px;
 	//overflow: hidden;
 
-	li{margin-left:10px;list-style:none;
-	 a{color:#bf462e;background:none; text-decoration:underline;}
+	li {
+		margin-left:10px;
+		list-style:none;
+	 a	{
+		 color:#bf462e;
+		 background:none; 
+		 text-decoration:underline;
+		 margin-left: 10px;
+	 }
 	  }
 		ul .dropdown-menu{border-radius:6px;}
 	 .nav-tabs>.active>a{background:none;color:#555;}
@@ -10478,7 +10489,7 @@ color:#827e7e
 #gdoc-link {
       float: left;
       margin-left: 2px;
-      text-decoration: underline;
+      //text-decoration: underline;
       font-size: 94%;
 }
 
@@ -10587,9 +10598,9 @@ ul.answer {
 }
 
 .menu ul li a:hover, .menu ul li a.active {
-    -webkit-border-radius: 5px 5px 0px 0px;
-    -moz-border-radius: 5px 5px 0px 0px;
-    border-radius: 5px 5px 0px 0px;
+    -webkit-border-radius: 9px 9px 0px 0px;
+    -moz-border-radius: 9px 9px 0px 0px;
+    border-radius: 9px 9px 0px 0px;
 }
 
 .menu ul a:hover,
