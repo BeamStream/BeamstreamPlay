@@ -48,7 +48,7 @@
             newChatSocket.send(JSON.stringify(
             {text: $("#"+itsId + " "+"textarea#talk").val()}
         ))
-        $("#"+itsId + " "+"textarea#talk").val('')
+        $("div#"+itsId + " "+"textarea#talk").val('')
     }
 
     var newReceiveEvent = function(event) {
@@ -96,9 +96,9 @@
             var sendMessage = function() {
             	alert("Purane se gya")
                 chatSocket.send(JSON.stringify(
-                    {text: $("#talk").val()}
+                    {text: $("#talkNow").val()}
                 ))
-                $("#talk").val('')
+                $("#talkNow").val('')
             }
 
             var receiveEvent = function(event) {
@@ -130,7 +130,7 @@
                 $("span", el).text(data.user)
                 $("p", el).text(data.message)
                 $(el).addClass(data.kind)
-                $('#messages').append(el)
+                $('.messages').append(el)
                
             }
 
@@ -141,7 +141,7 @@
                 }
             }
 
-           $("#talk").keypress(handleReturnKey)
+           $("#talkNow").keypress(handleReturnKey)
 
             chatSocket.onmessage = receiveEvent
  }

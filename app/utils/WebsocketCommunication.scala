@@ -11,59 +11,54 @@ import akka.util.Timeout
 import akka.pattern.ask
 import play.api.Play.current
 import play.api.libs.concurrent.Execution.Implicits._
-
 import org.bson.types.ObjectId
+import scala.concurrent.Future
 
 case class Join(username: String)
-case class Quit(username: String)
-case class Talk(username: String, text: String)
-case class NotifyJoin(username: String)
+case class Quit(username: String, channel: play.api.libs.iteratee.Concurrent.Channel[play.api.libs.json.JsValue])
+case class Talk(username: String, channel: play.api.libs.iteratee.Concurrent.Channel[play.api.libs.json.JsValue], text: String)
+case class NotifyJoin(username: String, channel: play.api.libs.iteratee.Concurrent.Channel[play.api.libs.json.JsValue])
 
-case class Connected(enumerator: Enumerator[JsValue])
+case class Connected //(enumerator: Enumerator[JsValue])
 case class CannotConnect(msg: String)
-
-object a {
-  def b = Concurrent.broadcast[JsValue]
-}
 
 class CommunicationRoom extends Actor {
 
-  val (chatEnumerator, chatChannel) = a.b
-  var members = Set.empty[String]
+  //var members = Set.empty[String]
 
   def receive = {
 
     case Join(username) => {
 
-      sender ! Connected(chatEnumerator)
-      members = members + username
+      sender ! Connected //(chatEnumerator)
+      //  members = members + username
 
     }
 
-    case NotifyJoin(username) => {
-      notifyAll("join", username, "has entered the room")
+    case NotifyJoin(username, channel) => {
+      notifyAll("join", username, "has entered the room", channel)
     }
 
-    case Talk(username, text) => {
-      notifyAll("talk", username, text)
+    case Talk(username, channel, text) => {
+      notifyAll("talk", username, text, channel)
     }
 
-    case Quit(username) => {
-      members = members - username
-      notifyAll("quit", username, "has left the chat")
+    case Quit(username, channel) => {
+      //  members = members - username
+      notifyAll("quit", username, "has left the chat", channel)
     }
 
   }
 
-  def notifyAll(kind: String, user: String, text: String) {
+  def notifyAll(kind: String, user: String, text: String, channel: play.api.libs.iteratee.Concurrent.Channel[play.api.libs.json.JsValue]) {
     val msg = JsObject(
       Seq(
         "kind" -> JsString(kind),
         "user" -> JsString(user),
         "message" -> JsString(text),
         "members" -> JsArray(
-          members.toList.map(JsString))))
-    chatChannel.push(msg)
+          Nil.map(JsString))))
+    channel.push(msg)
   }
 
 }
@@ -72,36 +67,54 @@ object WebsocketCommunication {
 
   implicit val timeout = Timeout(1 second)
 
-  def join(userName: String, actofRef: ActorRef, userId: String): scala.concurrent.Future[(Iteratee[JsValue, _], Enumerator[JsValue])] = {
+  def join(userName: String, channel: Option[(play.api.libs.iteratee.Concurrent.Channel[play.api.libs.json.JsValue], play.api.libs.iteratee.Enumerator[play.api.libs.json.JsValue])], userId: String): scala.concurrent.Future[(Iteratee[JsValue, _], Enumerator[JsValue])] = {
 
-    
-
-    (actofRef ? Join(userName)).map {
-
-      case Connected(enumerator) =>
-        println("<<<<<<<<IN")
-        val iteratee = Iteratee.foreach[JsValue] { event =>
-          actofRef ! Talk(userName, (event \ "text").as[String])
-        }.map { _ =>
-          actofRef ! Quit(userName)
-        }
-        (iteratee, enumerator)
-
-      case CannotConnect(error) =>
-        println(">>>>>>>>>Out")
-
-        // Connection error
-
-        // A finished Iteratee sending EOF
-        val iteratee = Done[JsValue, Unit]((), Input.EOF)
-
-        // Send an error and close the socket
-        val enumerator = Enumerator[JsValue](JsObject(Seq("error" -> JsString(error)))).andThen(Enumerator.enumInput(Input.EOF))
-
-        (iteratee, enumerator)
-
+    lazy val default = {
+      val roomActor = Akka.system.actorOf(Props[CommunicationRoom])
+      roomActor
     }
+    (channel == None) match {
+      case true =>
 
+        (default ? Join(userName)).map {
+
+          case Connected =>
+            println("<<<<<<<<IN")
+            val (chatEnumerator, chatChannel) = Concurrent.broadcast[JsValue]
+            val iteratee = Iteratee.foreach[JsValue] { event =>
+              default ! Talk(userName, chatChannel, (event \ "text").as[String])
+            }.map { _ =>
+              default ! Quit(userName, chatChannel)
+            }
+
+            println("Before" + ChatAvailiblity.a.size)
+            ChatAvailiblity.a += new ObjectId(userId) -> (chatChannel, chatEnumerator)
+            println("After" + ChatAvailiblity.a.size)
+            (iteratee, chatEnumerator)
+
+          case CannotConnect(error) =>
+            println(">>>>>>>>>Out")
+
+            // Connection error
+
+            // A finished Iteratee sending EOF
+            val iteratee = Done[JsValue, Unit]((), Input.EOF)
+
+            // Send an error and close the socket
+            val enumerator = Enumerator[JsValue](JsObject(Seq("error" -> JsString(error)))).andThen(Enumerator.enumInput(Input.EOF))
+
+            (iteratee, enumerator)
+
+        }
+
+      case false =>
+        val OtherIteratee = Iteratee.foreach[JsValue] { event =>
+          default ! Talk(userName, channel.get._1, (event \ "text").as[String])
+        }.map { _ =>
+          default ! Quit(userName, channel.get._1)
+        }
+        Future(OtherIteratee, channel.get._2)
+    }
   }
 
 }
