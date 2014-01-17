@@ -14,7 +14,7 @@ define(['view/formView',
 		events:{
 			 'click #post-button' : 'postMessage',
 			 'focus #msg-area' : 'showPostButton',
-			/* 'blur #msg-area' : 'hidePostButton',*/
+			 'blur #msg-area' : 'hidePostButton',
 			 'click #share-discussions li a' : 'actvateShareIcon',
 			 'click #private-to' : 'checkPrivateAccess',
 			 'click #sortBy-list' : 'sortMessages',
@@ -113,14 +113,14 @@ define(['view/formView',
 		 },
 
 	  	
-		/* hidePostButton:function(){
+		 hidePostButton:function(){
 			setTimeout(function(){
 				 $('#msg-area').css('padding','4px 6px');
 		        	$('#msg-area').css('margin','0 0 0px 0px');
 		        	$('a.ask-button').css('visibility','hidden');
 			},125)
 			 
-		 },*/
+		 },
 		 
 		 
 		 /**
@@ -234,16 +234,16 @@ define(['view/formView',
  			        	this.progress = setInterval(function() {
 	                    	
  			        		this.bar = $('.bar'); 			        		
-	                        if (this.bar.width()>= 194) {
+	                        if (this.bar.width()>= 200) {
 	                            clearInterval(this.progress);
 		    		        } 
 	                        else 
 	                        {
-	                        	this.bar.width( this.bar.width()+8);
+	                        	this.bar.width( this.bar.width()+10);
 	                        }
 	                        this.bar.text( this.bar.width()/2 + "%"); 
 	                        
-	                    }, 800);
+	                    }, 500);
  			        	
  			        	var data;
  			            data = new FormData();
@@ -298,8 +298,9 @@ define(['view/formView',
  			  	               
  			  	                /* Pubnub auto push */
  			  	                PUBNUB.publish({
- 			  	                	channel : "stream",
- 			  	                	message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:self.data.models[0]}
+ 			  	                	channel : "question",
+ 			  	                	message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:self.data.models[0],}
+ 			  	                	
  			  	                }) 
  			  	                
 	                            // show the uploaded file on message llist
