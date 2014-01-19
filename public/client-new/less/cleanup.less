@@ -5,14 +5,20 @@
 
 /*Properties change bootstrap*/
 #innerSubList {
-        position: absolute;
-        top: 10px;
-        list-style: none;
-        left: 150px;
-        cursor: pointer;
-        display: none;
-				background-color: #49535a;
-				z-index: -10;
+	top: -1px;
+	list-style: none;
+	left: 70px;
+	height: 88px;
+	cursor: pointer;
+	display: none;
+	background-color: #49535a;
+	z-index: -100;
+	border-top-right-radius: 6px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+	border-top-left-radius: 0;
+	-webkit-border-radius: 6px;
+
 }
 
 ul li#showSubList:hover ul {
@@ -430,6 +436,76 @@ background-clip:padding-box;
 -webkit-border-radius:6px 0 6px 6px;
 -moz-border-radius:6px 0 6px 6px;
 border-radius:6px 0 6px 6px;
+}
+
+#showSubList a, #uploadgdoc, #showgdoc {
+	color: #3f5a6c;
+	text-decoration: none;
+	font-size: 11px;
+	position: relative;
+	left: -28;
+	display: inline-block;
+}
+
+#showSubList a:hover, #uploadgdoc:hover, #showgdoc:hover, #showSubList a:active, #uploadgdoc:active, #showgdoc:active {
+	color: rgb(71, 138, 198);
+	font-weight: 600;
+}
+
+#innerSubList li a {
+	color: fff;
+	font-size: 11px;
+	font-weight: 200;
+	position: relative;
+	top: 5; 
+	left: 1;
+}
+
+#showSubList a span{
+	width: 25px;
+	height: 25px;
+	float: left;
+	left: 69;
+	position: absolute;
+	background: url(../../beamstream-new/images/spryte.png) no-repeat;
+	background-position: -278px -783px;
+}
+
+#innerSubList li span {
+	width: 25px;
+	height: 25px;
+	float: left;
+	top: 2;
+	left: -8;
+	position: absolute;
+	background: url(../../beamstream-new/images/spryte.png) no-repeat;
+}
+
+#showSubList #creategdocument span {
+	background-position: -210px -700px;
+}
+
+#showSubList #creategspreadsheet span {
+	background-position: -209px -725px;
+}
+
+#showSubList #creategpresentation span {
+	background-position: -208px -749px;
+}
+
+li .menu-arrow:active, li .menu-arrow:hover {
+	visibility: visible;
+}
+
+.right-container .clear.flipques #gdoc-link .dropdown-menu.google-doc-dropdown {
+	min-width: 80px;
+	z-index: 5;
+	left: 8 !important;
+	font-size: 11px;
+	font-weight: 500;
+	left: -25px; 
+	width: 40px;
+	border: 1px solid #49535a;
 }
 
 .typeahead {
@@ -2088,7 +2164,7 @@ border-radius:0 0 8px 8px;
 -moz-box-shadow:0 0 10px #1d2a32 inset;
 box-shadow:0 0 10px #1d2a32 inset;
 background: #3D4349 !important;
-border-bottom:1px solid #6a7d89;
+border-bottom:1px solid #6C7277;
 display:block;
 float:right;
 height: 43px;
@@ -2206,6 +2282,10 @@ color:#798e9a;
 font-size:14px;
 padding:4px 0 0 0;
 text-shadow:none
+}
+
+.seetings-toggle span img {
+	margin: 3 0 0 12px;
 }
 
 .browse-drop {
@@ -3431,9 +3511,8 @@ padding:6px 12px!important;
 
 }
 
-.all-search input[type="text"]
-{
- display: inline-block;
+.all-search input[type="text"] {
+ 		display: inline-block;
     padding: 4px 0px 0px 0px ;
     line-height: 20px;
     color: #3d5869;
@@ -3441,8 +3520,7 @@ padding:6px 12px!important;
     -moz-border-radius: 6px 7px 7px 1px 6px 7px 7px;
     border-radius: 6px 7px 7px 1px 6px 7px 7px;
     background-color: #a6aeb5;
-   width: 135px;
- 
+   	width: 170px;
     max-width: 98%;
     min-width: 13.5%;
     height: 27px;
@@ -3451,7 +3529,7 @@ padding:6px 12px!important;
     border-radius: 5px;
     background-color: #fff;
     border: solid 1px #b2b9bc;
-    margin: 0 39% 0 -30px;
+    margin: 0 19% 0 -30px;
 }
 
 #sort_by_key::-webkit-input-placeholder {
@@ -4903,12 +4981,12 @@ color:#fff;
 text-decoration:none
 }
 
-.settings-caret 
-{
+.settings-caret {
 border-left:7px solid transparent;
 border-right:7px solid transparent;
-border-top:7px solid #798e9a;
+border-top:7px solid #1C1E20;
 display:inline-block;
+margin-bottom: 5px;
 
 }
 
@@ -6075,7 +6153,7 @@ background:url(../images/invite-drop-arrow.png) center 15px no-repeat #f7f9fa
 
 .dropdown-outer {
 float:left;
-margin:0 -3% 0 0!important;
+margin:0 .3% 0 0!important;
 width: 40px;
 max-width: 98%;
 min-width: 19%;
@@ -6248,6 +6326,7 @@ overflow-x:hidden
 #main-text-input-wrapper {
 	border-bottom: 1.7px solid #c0c3c6;
 	margin-right: 34.9%;
+	padding-bottom: 20px;
 	max-width: 660px;
 }
 
@@ -6458,27 +6537,14 @@ height:25px
 }
 
 .ask-button:hover {
-background:#539abe;
-font-weight: bold;
-background:-webkit-gradient(linear,
-left bottom,
-left top,
-color-stop(0,
-#539abe),
-color-stop(1,
-#478cb4));
-background:-ms-linear-gradient(bottom,
-#539abe,
-#478cb4);
-background:-moz-linear-gradient(center bottom,
-#539abe 0,
-#478cb4 100%);
-background:-o-linear-gradient(#478cb4,
-#539abe);
-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#478cb4',
-endColorstr='#539abe',
-GradientType=0);
-text-decoration:none
+	text-decoration: none;
+	color: #3f5a6c;
+	border-color: #3f5a6c;
+	border-top: .11em solid #3f5a6c;
+	border-left: .11em solid #3f5a6c;
+	border-right: .11em solid #3f5a6c;
+	border-bottom: .11em solid #3f5a6c;
+	font-weight: 900;
 }
 
 .icon-ask {
@@ -6793,6 +6859,7 @@ margin-top: -20px;
 
 .ask-button {
 	visibility: hidden;
+	color: #fff;
 
 	&:active {
 	    visibility: visible;
@@ -6814,7 +6881,8 @@ margin-top: -20px;
 	height: 100%;
 	overflow: hidden;
 	color: #3f5a6c;
-	font-size: 109%;
+	font-size: 112%;
+	font-style: italic;
 	line-height: 20px;
 	resize: none;
 	min-height: 23px;
@@ -10392,12 +10460,11 @@ color:#827e7e
 
 .flipques
 {
-	margin: 44px 34.9% -9px 0px;
+	margin: 44px 34.9% -6px 0px;
 	background: #e6e6e6;
 	height: 43px;
 	padding: 4px 0 0 77px;
 	border-radius: 8px 8px 0 0;
-	font-size: 87%;
 	max-width: 632px;
 	//overflow: hidden;
 
@@ -10408,7 +10475,7 @@ color:#827e7e
 		 color:#bf462e;
 		 background:none; 
 		 text-decoration:underline;
-		 margin-left: 10px;
+		 margin-left: 15px;
 	 }
 	  }
 		ul .dropdown-menu{border-radius:6px;}
@@ -10430,7 +10497,7 @@ color:#827e7e
 	padding: 1px 0 0 0;
 }
 
-#questions-icon, .new-google-btn .google-doc-icn,.new-google-btn .question-icn,.google-plus,.twitter,.facebook,.linkedin,.plus {
+#questions-icon, .new-google-btn .google-doc-icn,.new-google-btn .question-icn,.google-plus,.twitter,.facebook,.linkedin,.plus, .menu-arrow:active .menu-arrow:hover {
     background: url(../../beamstream-new/images/spryte.png) no-repeat;
 }
 .google-plus :hover,.twitter :hover,.facebook :hover,.linkedin :hover,.plus :hover {
@@ -10438,11 +10505,12 @@ color:#827e7e
 }
 
 #questions-icon {
-	background-position: -171px -971;
+	background-position: -171px -971px;
 	width: 25px;
 	height: 25px;
 	position: relative;
 	top: -20;
+	left: 5;
 }
 
 
@@ -10469,7 +10537,7 @@ color:#827e7e
         background-position: -115px 0px;
     }
     .google-doc-icn {
-        background-position: -132px -970;
+        background-position: -132px -970px;
     }
     .back-icn {
         background-position: 200px 200px;
@@ -10485,11 +10553,12 @@ color:#827e7e
       float: left;
       margin-left: 2px;
       text-decoration: underline;
-      font-size: 94%;
+      font-size: 99%;
 }
 
 #gdoc-link span{
 	color: #bf462e;
+	margin-left: 1px;
 }
 
 .new-google-btn:hover {
@@ -10619,11 +10688,6 @@ ul.answer {
 
 .dropdown-menu {
     margin-top: 6px;
-}
-
-.google-doc-dropdown {
-    left: -25px !important;
-		width: 40px;
 }
 
 .google-doc-dropdown:after,
