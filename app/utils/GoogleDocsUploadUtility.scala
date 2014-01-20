@@ -62,7 +62,7 @@ object GoogleDocsUploadUtility {
     } while (request.getPageToken() != null && request.getPageToken().length() > 0)
 
     result map {
-      case a => (a.getOriginalFilename, a.getAlternateLink)
+      case a => (a.getTitle(), a.getAlternateLink)
     }
   }
 

@@ -44,13 +44,15 @@
     
       $("#"+itsId + " "+"h1.friend").text(name);
     var newSendMessage = function() {
+    	alert("Naye se gya")
             newChatSocket.send(JSON.stringify(
             {text: $("#"+itsId + " "+"textarea#talk").val()}
         ))
-        $("#"+itsId + " "+"textarea#talk").val('')
+        $("div#"+itsId + " "+"textarea#talk").val('')
     }
 
     var newReceiveEvent = function(event) {
+    	alert("Naye me  aaya")
         var data = JSON.parse(event.data)
         //alert(data.user +","+data.message+","+data.kind)        // Handle errors
         if(data.error) {
@@ -88,20 +90,23 @@
 
  
  function startChat(){
+	 //alert("Hui Load")
          var setNameOfUser="1";
             var chatSocket = new WebSocket('ws://localhost:9000/chat')
             var sendMessage = function() {
+            	alert("Purane se gya")
                 chatSocket.send(JSON.stringify(
-                    {text: $("#talk").val()}
+                    {text: $("#talkNow").val()}
                 ))
-                $("#talk").val('')
+                $("#talkNow").val('')
             }
 
             var receiveEvent = function(event) {
+            	alert("Purane me aaya")
              $("#chatbox").css("display", "block");
              $("#chatbox").css("position", "fixed");
              $("#chatbox").css("bottom", "0");
-             $("#chatbox").css("right", "622");
+             $("#chatbox").css("right", "650");
            
             
                 var data = JSON.parse(event.data)
@@ -125,7 +130,7 @@
                 $("span", el).text(data.user)
                 $("p", el).text(data.message)
                 $(el).addClass(data.kind)
-                $('#messages').append(el)
+                $('.messages').append(el)
                
             }
 
@@ -136,7 +141,7 @@
                 }
             }
 
-           $("#talk").keypress(handleReturnKey)
+           $("#talkNow").keypress(handleReturnKey)
 
             chatSocket.onmessage = receiveEvent
  }

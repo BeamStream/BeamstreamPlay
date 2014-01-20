@@ -18,7 +18,7 @@ define(['baseModel',
 			this.get('currentQuestionStream').on('questionAnsweredCol', this.restartInterval, this);
 			this.get('currentQuestionStream').on('questionDeletedCol', this.restartInterval, this);
 			this.setLoggedInUser();
-			this.set({'intervalId': setInterval(this.createQuestionList.bind(this), 10000)}, {silent: true});
+			//this.set({'intervalId': setInterval(this.createQuestionList.bind(this), 100)}, {silent: true});
 			// this is unused code from an attempt to use pubnub
 			// this.on('change:pagePushUid', this.getQuestionsFromPubNub);
 		},
@@ -106,7 +106,10 @@ define(['baseModel',
 										that.updateCurrentStream();
 									}
 								});
-			}}, 
+			}
+			
+		
+		}, 
 
 		/*restartInterval: function(){
 			if (!this.get('searchStatus')){
