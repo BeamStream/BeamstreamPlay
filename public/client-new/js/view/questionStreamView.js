@@ -1,10 +1,12 @@
 define([
 	'baseView', 
 	'text!templates/questionStream.tpl', 
+	'view/questionItemView',
 	'../model/questionStream', 
+	'model/question',
 	'view/questionStreamListView'
 ], 
-function(BaseView, questionStreamTPL, QuestionStream, QuestionStreamListView){
+function(BaseView, questionStreamTPL,QuestionItemView, QuestionStream,QuestionModel, QuestionStreamListView){
 
 	var QuestionStreamView = BaseView.extend({
 		objName: 'questionStreamView',
@@ -146,9 +148,56 @@ function(BaseView, questionStreamTPL, QuestionStream, QuestionStreamListView){
 		 * PUBNUB real time push
 		 */
 		 receiveQuestionThroughPubNub: function() {
+			 var self = this;
+			 self.pagePushUid = Math.floor(Math.random()*16777215).toString(16);
+			 var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
+			 var trueUrl='';
+
+			 // Trigger the change pagePushUid event
+			 this.trigger('change:pagePushUid', {
+				 pagePushUid: self.pagePushUid
+			 });
+			
+			 
 			 PUBNUB.subscribe({
+				 
 				 channel : 'questions',
-				 message: function(m){alert("Aa gya dekh"+m)}
+				// message: function(m){alert("Aa gya dekh"+m)}
+				 
+				 callback : function(question) {
+					 
+					 alert("caal of the function")
+					 var streamId = $('.sortable li.active').attr('id');
+
+					 alert(streamId);
+					 if (question.pagePushUid != self.pagePushUid)
+					 { 
+					 	alert("if block")
+						 if(question.streamId==streamId)
+			       		 	{
+							   /* set the values to Question Model */
+							 questionModel = new QuestionModel();
+							   questionModel.set({
+//								   docDescription :question.data.docDescription,
+//								   docName : question.data.docName,
+								   question : question.data.question,
+								  /* questionAccess : question.data.questionAccess,
+								   profilePic : question.data.profilePic,*/
+								   streamId : question.data.streamId,
+								  /* followerOfQuestionPoster : question.data.followerOfQuestionPoster,
+								   polls: question.data.polls,
+								   pollOptions:question.data.pollOptions*/
+							   })
+							   
+							   alert(question);
+							    // show the posted message on feed
+							 	var questionItemView  = new QuestionItemView({model :questionModel});
+		 						$('#questionStreamView div.baseview').prepend(questionItemView.render().el);
+		 						
+			       		 	}
+				 	   }
+			 
+			 	   }
 				 });
 		 },
 

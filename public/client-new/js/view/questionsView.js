@@ -581,6 +581,7 @@ define(['view/formView',
 							
 							var questionItemView  = new QuestionItemView({model : self.data.models[0]});
 							$('#questionListView div.content').prepend(questionItemView.render().el);
+							//$('#questionStreamView div.baseview').prepend(questionItemView.render().el);
 			  	               
 							self.file = "";
 	 						
@@ -733,7 +734,7 @@ define(['view/formView',
 			    		
 			    		var questionItemView  = new QuestionItemView({model : self.data.models[0]});
 						$('#questionListView div.content').prepend(questionItemView.render().el);
-
+						//$('#questionStreamView div.baseview').prepend(questionItemView.render().el);
 			    		 						
  						/* share widget */ 						
  				    	if(self.selected_medias.length != 0){
@@ -819,7 +820,7 @@ define(['view/formView',
 				    		// show the posted message on feed
 				    		var questionItemView  = new QuestionItemView({model : self.data.models[0]});
 							$('#questionListView div.content').prepend(questionItemView.render().el);
-							
+							//$('#questionStreamView div.baseview').prepend(questionItemView.render().el);
 							/* share widget */ 						
 					    	 if(self.selected_medias.length != 0){
 					    	 	 _.each(self.data.models[0], function(data) {				    	 		 
