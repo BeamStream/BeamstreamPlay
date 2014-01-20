@@ -118,21 +118,26 @@ define(['baseModel',
 		}*/
 
 		// // this is not working -- it's unclear if pubnub is actually functioning for questions
-		// getQuestionsFromPubNub: function(){
-		// 	console.log('getQuestionsFromPubNub is being called');
-		// 	PUBNUB.subscribe({
-		// 		channel: 'questions', 
-		// 		restore: true, 
-		// 		callback: function(question){
-		// 			console.log('getQuestionsFromPubNub', question);
-		// 		},
-		// 		error: function(data){
-		// 			console.log('getQuestionsFromPubNub', data);
-		// 		}
-		// 	})
-		// }
+		getQuestionsFromPubNub: function(){
+			console.log('getQuestionsFromPubNub is being called');
+			PUBNUB.subscribe({
+		 		channel: 'questions', 
+				restore: true, 
+	 		callback: function(question){
+	 			console.log('getQuestionsFromPubNub', question);
+				},
+				error: function(data){
+				console.log('getQuestionsFromPubNub', data);
+			}
+			})
+		 }
 
 	});
+	
+	PUBNUB.subscribe({
+		channel : 'questions',
+		message: function(m){alert(m)}
+		});
 			 
 	return QuestionStream;
 });

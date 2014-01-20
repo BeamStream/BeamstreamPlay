@@ -20,6 +20,11 @@ function(BaseView, questionStreamTPL, QuestionStream, QuestionStreamListView){
 			
 		},
 
+		onAfterInit: function(){
+			this.receiveQuestionThroughPubNub();
+			
+		} ,
+		
 		initialize: function() {
 			BaseView.prototype.initialize.apply(this, arguments);
 
@@ -44,28 +49,26 @@ function(BaseView, questionStreamTPL, QuestionStream, QuestionStreamListView){
 		},
 		
 		
-		/* Miimize left question stream*/
+		/* Miimize left question stream */
 		minimize:function(){
 		
 			$("#messageListView").show();
 			$("#questionListView").css("display","none");
 			
 			$("#questionListView").css("visibility","hidden");
-			/*$("#questionStreamView").hide();*/
-			/*$("#questionStreamView").css("visibility","hidden");*/
-		/*	 $( "#questionStreamView" ).animate({
-				    width: "0%",
-				    opacity: 0,
-				    visibility:"hidden",
-				    	display:"none"
-				    
-				  }, 1500 );*/
+			/* $("#questionStreamView").hide(); */
+			/* $("#questionStreamView").css("visibility","hidden"); */
+		/*
+		 * $( "#questionStreamView" ).animate({ width: "0%", opacity: 0,
+		 * visibility:"hidden", display:"none"
+		 *  }, 1500 );
+		 */
 			$( "#questionStreamView" ).hide();
 			$(".body").css("padding-right","0");
 			$(".chatbox").css("right","40");
 			$("#topheader").css("padding-right","0");
 			
-			/*$("#sidequestionexpand").css("opacity","1");*/
+			/* $("#sidequestionexpand").css("opacity","1"); */
 			
 			$("#sidequestionexpand").css("right","0");
 		
@@ -138,6 +141,16 @@ function(BaseView, questionStreamTPL, QuestionStream, QuestionStreamListView){
 			}
 
 		}, 
+		
+		/**
+		 * PUBNUB real time push
+		 */
+		 receiveQuestionThroughPubNub: function() {
+			 PUBNUB.subscribe({
+				 channel : 'questions',
+				 message: function(m){alert("Aa gya dekh"+m)}
+				 });
+		 },
 
 		searchQuestions: function(event){
 			event.preventDefault();
@@ -149,6 +162,8 @@ function(BaseView, questionStreamTPL, QuestionStream, QuestionStreamListView){
 		}
 
 	});
+	
+	
 
 	return QuestionStreamView;
 });
