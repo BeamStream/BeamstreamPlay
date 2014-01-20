@@ -44,7 +44,6 @@
     
       $("#"+itsId + " "+"h1.friend").text(name);
     var newSendMessage = function() {
-    	alert("Naye se gya")
             newChatSocket.send(JSON.stringify(
             {text: $("#"+itsId + " "+"textarea#talk").val()}
         ))
@@ -52,7 +51,6 @@
     }
 
     var newReceiveEvent = function(event) {
-    	alert("Naye me  aaya")
         var data = JSON.parse(event.data)
         //alert(data.user +","+data.message+","+data.kind)        // Handle errors
         if(data.error) {
@@ -90,11 +88,9 @@
 
  
  function startChat(){
-	 //alert("Hui Load")
          var setNameOfUser="1";
             var chatSocket = new WebSocket('ws://localhost:9000/chat')
             var sendMessage = function() {
-            	alert("Purane se gya")
                 chatSocket.send(JSON.stringify(
                     {text: $("#talkNow").val()}
                 ))
@@ -102,7 +98,6 @@
             }
 
             var receiveEvent = function(event) {
-            	alert("Purane me aaya")
              $("#chatbox").css("display", "block");
              $("#chatbox").css("position", "fixed");
              $("#chatbox").css("bottom", "0");
@@ -112,7 +107,7 @@
                 var data = JSON.parse(event.data)
 
           if(setNameOfUser=="1") { 
-              $(".friend").text(data.user)
+              $("#friend").text(data.user)
                setNameOfUser="0"
                }
                 // Handle errors
