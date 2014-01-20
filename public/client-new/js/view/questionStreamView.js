@@ -148,7 +148,7 @@ function(BaseView, questionStreamTPL, QuestionStream, QuestionStreamListView){
 		 receiveQuestionThroughPubNub: function() {
 			 PUBNUB.subscribe({
 				 channel : 'questions',
-				 message: function(m){alert("Aa gya dekh"+m)}
+				 message: function(m){}
 				 });
 		 },
 
