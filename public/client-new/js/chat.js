@@ -85,7 +85,10 @@ function startChat() {
 	$("#" + oldId + " " + "textarea#talk").keypress(newHandleReturnKey)
 
 	oldChatSocket.onmessage = oldReceiveEvent
-
+	$("#" + oldId + " " +"div.chatbox-header div.exit").click(function(){
+		alert(oldId)
+		$("#" + oldId).hide();
+	});
 }
 
 function popit(userId, toWhom, name, profileImageUrl) {
@@ -167,5 +170,10 @@ function popit(userId, toWhom, name, profileImageUrl) {
 	$("#" + itsId + " " + "textarea#talk").keypress(newHandleReturnKey)
 
 	newChatSocket.onmessage = newReceiveEvent
+	
+	$("#" + itsId + " " +"div.chatbox-header div.exit").click(function(){
+		alert(itsId)
+		$("#" + itsId).hide();
+	});
 
 }
