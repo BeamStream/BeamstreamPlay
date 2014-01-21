@@ -44,8 +44,6 @@ function startChat() {
 
 	var setNameOfUser = true;
 	var oldReceiveEvent = function(event) {
-		alert("puraane me aaya"+oldId)
-		
 		var data = JSON.parse(event.data)
 		$(".chatbox_own").css("display", "block");
 		$(".chatbox_own").css("position", "fixed");
@@ -172,7 +170,6 @@ function popit(userId, toWhom, name, profileImageUrl) {
 	newChatSocket.onmessage = newReceiveEvent
 	
 	$("#" + itsId + " " +"div.chatbox-header div.exit").click(function(){
-		alert(itsId)
 		$("#" + itsId).hide();
 	});
 
