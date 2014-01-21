@@ -36,7 +36,6 @@ function startChat() {
 							+ '</div>');
 
 	var oldSendMessage = function() {
-		alert("puraane se gya"+oldId)
 		oldChatSocket.send(JSON.stringify({
 			text : $("#" + oldId + " " + "textarea#talk").val()
 		}))
