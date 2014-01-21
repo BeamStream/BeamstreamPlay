@@ -36,6 +36,7 @@ function startChat() {
 							+ '</div>');
 
 	var oldSendMessage = function() {
+		alert("puraane se gya"+oldId)
 		oldChatSocket.send(JSON.stringify({
 			text : $("#" + oldId + " " + "textarea#talk").val()
 		}))
@@ -44,11 +45,14 @@ function startChat() {
 
 	var setNameOfUser = true;
 	var oldReceiveEvent = function(event) {
+		alert("puraane me aaya"+oldId)
+		
 		var data = JSON.parse(event.data)
 		$(".chatbox_own").css("display", "block");
 		$(".chatbox_own").css("position", "fixed");
 		$(".chatbox_own").css("bottom", "0");
 		if (setNameOfUser == true) {
+			startChat();
 			$("#" + oldId + " " + "div.chatbox-header h1.friend").text(
 					data.user);
 			setNameOfUser = false;
@@ -61,9 +65,7 @@ function startChat() {
 
 			
 
-		} else {
-			$("#onChat").show()
-		}
+		} 
 
 		// Create the message element
 		var el = $('<div class="message"><span></span><p></p></div>')
@@ -125,9 +127,9 @@ function popit(userId, toWhom, name, profileImageUrl) {
 							+ '</div>');
 	$("div#" + itsId + " " + "h1.friend").text(name);
 	$(".chatbox").css("display", "block");
-	$(".chatbox #" + itsId).css("position", "absolute");
+	/*$(".chatbox #" + itsId).css("position", "absolute");
 	$(".chatbox #" + itsId).css("bottom", "0");
-	$(".chatbox #" + itsId).css("right", "333");
+	$(".chatbox #" + itsId).css("right", "333");*/
 	var newSendMessage = function() {
 		newChatSocket.send(JSON.stringify({
 			text : $("#" + itsId + " " + "textarea#talk").val()
@@ -146,9 +148,7 @@ function popit(userId, toWhom, name, profileImageUrl) {
 
 			
 
-		} else {
-			$("#onChat").show()
-		}
+		} 
 
 		// Create the message element
 		var el = $('<div class="message"><span></span><p></p></div>')

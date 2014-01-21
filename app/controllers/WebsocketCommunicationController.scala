@@ -22,29 +22,15 @@ object WebsocketCommunicationController extends Controller {
    */
   def chat = WebSocket.async[JsValue] { implicit request =>
     val user = User.getUserProfile(new ObjectId(request.session.get("userId").get))
-
-//    lazy val default = {
-//      val roomActor = Akka.system.actorOf(Props[CommunicationRoom])
-//      roomActor
-//    }
-//    
-   
     WebsocketCommunication.join(user.get.firstName, None, request.session.get("userId").get)
 
   }
-
-//  def chatRoom(me: String, toWhom: String) = Action { implicit request =>
-//    Ok(views.html.chatRoom(me, toWhom))
-//
-//  }
 
   /**
    * Handles the chat Websocket.
    */
   def startChat(me: String, toWhom: String) = WebSocket.async[JsValue] { implicit request =>
-    println(me, toWhom)
     val user = User.getUserProfile(new ObjectId(request.session.get("userId").get))
-
     val channelWithChat = ChatAvailiblity.a(new ObjectId(toWhom))
     WebsocketCommunication.join(user.get.firstName,Option(channelWithChat), request.session.get("userId").get)
 

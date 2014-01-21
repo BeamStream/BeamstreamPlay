@@ -90,6 +90,7 @@ object WebsocketCommunication {
             println("Before" + ChatAvailiblity.a.size)
             ChatAvailiblity.a += new ObjectId(userId) -> (chatChannel, chatEnumerator)
             println("After" + ChatAvailiblity.a.size)
+            println("" + ChatAvailiblity.a)
             (iteratee, chatEnumerator)
 
           case CannotConnect(error) =>
