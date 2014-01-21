@@ -87,9 +87,7 @@ object WebsocketCommunication {
               default ! Quit(userName, chatChannel)
             }
 
-            println("Before" + ChatAvailiblity.a.size)
             ChatAvailiblity.a += new ObjectId(userId) -> (chatChannel, chatEnumerator)
-            println("After" + ChatAvailiblity.a.size)
             (iteratee, chatEnumerator)
 
           case CannotConnect(error) =>
