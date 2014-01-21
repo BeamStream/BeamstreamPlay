@@ -34,7 +34,7 @@ function startChat() {
 							+ '</textarea>'
 							+ '<p>Press enter to submit message</p>' + '</div>'
 							+ '</div>');
-
+	$("#"+oldId).css("display", "none");
 	var oldSendMessage = function() {
 		oldChatSocket.send(JSON.stringify({
 			text : $("#" + oldId + " " + "textarea#talk").val()
@@ -46,6 +46,7 @@ function startChat() {
 	var oldReceiveEvent = function(event) {
 		var data = JSON.parse(event.data)
 		$(".chatbox_own").css("display", "block");
+		$("#"+oldId).css("display", "block");
 		$(".chatbox_own").css("position", "fixed");
 		$(".chatbox_own").css("bottom", "0");
 		if (setNameOfUser == true) {
