@@ -22,7 +22,6 @@ object OnlineUserCache {
   def setOffline(userIdkey: String) = {
     /* onlineUsers filterNot (List(userIdkey)contains)
         Cache.set("Online Users", onlineUsers)*/
-    ChatAvailiblity.a -= new ObjectId(userIdkey)
     val onlineUsersFound = OnlineUserDAO.find(MongoDBObject()).toList
     (onlineUsersFound.isEmpty) match {
       case true =>

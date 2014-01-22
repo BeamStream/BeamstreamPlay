@@ -92,15 +92,8 @@ object WebsocketCommunication {
 
           case CannotConnect(error) =>
             println(">>>>>>>>>Out")
-
-            // Connection error
-
-            // A finished Iteratee sending EOF
             val iteratee = Done[JsValue, Unit]((), Input.EOF)
-
-            // Send an error and close the socket
             val enumerator = Enumerator[JsValue](JsObject(Seq("error" -> JsString(error)))).andThen(Enumerator.enumInput(Input.EOF))
-
             (iteratee, enumerator)
 
         }

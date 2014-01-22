@@ -1,11 +1,13 @@
 function startChat(userId) {
-	$.ajax({
+	/*$
+			.ajax({
 				type : "GET",
 				contentType : "application/json; charset=utf-8",
 				url : "/instantiateChat/" + userId,
 				success : function(message) {
-					if (message == "false") {
-						var oldChatSocket = new WebSocket('ws://localhost:9000/chat')
+					if (message == "false") {*/
+						var oldChatSocket = new WebSocket(
+								'ws://localhost:9000/chat')
 						var oldId = randomString(8);
 						$(".chatbox_own")
 								.append(
@@ -71,22 +73,13 @@ function startChat(userId) {
 								$("#onError").show()
 								return
 
-								
-
-														
-
-								
-
-																	
-
-								
-
-														
-
-								
-
 							}
 
+							if (data.kind=="quit") {
+								$("#" + oldId).remove();
+								return
+
+							}
 							// Create the message element
 							var el = $('<div class="message"><span></span><p></p></div>')
 							$("span", el).text(data.user)
@@ -112,10 +105,10 @@ function startChat(userId) {
 									alert(oldId)
 									$("#" + oldId).hide();
 								});
-
+/*
 					}
 				}
-			});
+			});*/
 
 }
 
@@ -157,10 +150,6 @@ function popit(userId, toWhom, name, profileImageUrl) {
 							+ '</div>');
 	$("div#" + itsId + " " + "h1.friend").text(name);
 	$(".chatbox").css("display", "block");
-	/*
-	 * $(".chatbox #" + itsId).css("position", "absolute"); $(".chatbox #" +
-	 * itsId).css("bottom", "0"); $(".chatbox #" + itsId).css("right", "333");
-	 */
 	var newSendMessage = function() {
 		newChatSocket.send(JSON.stringify({
 			text : $("#" + itsId + " " + "textarea#talk").val()
@@ -170,26 +159,11 @@ function popit(userId, toWhom, name, profileImageUrl) {
 
 	var newReceiveEvent = function(event) {
 		var data = JSON.parse(event.data)
-		// alert(data.user +","+data.message+","+data.kind) // Handle errors
 		if (data.error) {
 			newChatSocket.close()
 			$("#onError span").text(data.error)
 			$("#onError").show()
 			return
-
-			
-
-						
-
-			
-
-									
-
-			
-
-						
-
-			
 
 		}
 
