@@ -26,13 +26,21 @@ object WebsocketCommunicationController extends Controller {
 
   }
 
+  def instantiateChat(userId: String) = Action { implicit request =>
+    val start = ChatAvailiblity.a.contains(new ObjectId(userId))
+    Ok(start.toString)
+  }
+  def check = Action { implicit request =>
+    Ok(ChatAvailiblity.a.toString)
+  }
+
   /**
    * Handles the chat Websocket.
    */
   def startChat(me: String, toWhom: String) = WebSocket.async[JsValue] { implicit request =>
     val user = User.getUserProfile(new ObjectId(request.session.get("userId").get))
     val channelWithChat = ChatAvailiblity.a(new ObjectId(toWhom))
-    WebsocketCommunication.join(user.get.firstName,Option(channelWithChat), request.session.get("userId").get)
+    WebsocketCommunication.join(user.get.firstName, Option(channelWithChat), request.session.get("userId").get)
 
   }
 

@@ -214,6 +214,10 @@ GET    /chat                                                                    
 GET    /startChat/:me/:toWhom                                                             controllers.WebsocketCommunicationController.startChat(me: String, toWhom: String)
 #GET    /chatRoom/:me/:toWhom                                                               controllers.WebsocketCommunicationController.chatRoom(me:String,toWhom:String)
 GET    /javascriptRoutes                                                                   controllers.StreamController.javascriptRoutes
+GET    /instantiateChat/:userId                                                                    controllers.WebsocketCommunicationController.instantiateChat(userId)
+
+GET    /checkMap                                                                               controllers.WebsocketCommunicationController.check
+
 #Looks like Unused
 
 #Basic Registration

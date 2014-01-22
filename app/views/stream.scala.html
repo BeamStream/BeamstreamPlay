@@ -1057,8 +1057,9 @@ header, footer){
 		<!-- Chat new UI -->
     <div class="chatbox" style="display: none;"></div>		
 	<div class="chatbox_own" style="display: none;"></div>
+	
 		<script>
-         startChat();
+         startChat('@session.get("userId").get');
 		</script>
 	<!-- 
 	<script>

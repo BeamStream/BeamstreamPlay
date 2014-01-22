@@ -28,7 +28,6 @@ object Cleaner {
 
   import system.dispatcher
   def makeUsersOfflineIfNotAvailable = {
-
     val cancellable =
       system.scheduler.schedule(10000 milliseconds,
         10000 milliseconds,
