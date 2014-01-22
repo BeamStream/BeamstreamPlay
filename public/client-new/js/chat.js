@@ -92,7 +92,7 @@ function startChat(userId) {
 
 	oldChatSocket.onmessage = oldReceiveEvent
 	$("#" + oldId + " " + "div.chatbox-header div.exit").click(function() {
-		$("#" + oldId).hide();
+		$("#" + oldId).remove();
 		oldChatSocket.close();
 	});
 }
@@ -183,7 +183,7 @@ function popit(userId, toWhom, name, profileImageUrl) {
 
 	$("#" + itsId + " " + "div.chatbox-header div.exit").click(function() {
 		$("#" + itsId).remove();
-		//newChatSocket.close();
+		newChatSocket.close();
 	});
 
 }
