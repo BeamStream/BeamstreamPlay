@@ -1,6 +1,5 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
-
 #Other
 GET    /active                                                                             controllers.UserController.active
 GET    /error                                                                              controllers.StreamController.onError
@@ -212,11 +211,9 @@ GET    /getGoogleDocs                                                           
 GET    /uploadPage                                                                         controllers.GoogleDocsUploadUtilityController.uploadPage
 GET    /chat                                                                               controllers.WebsocketCommunicationController.chat
 GET    /startChat/:me/:toWhom                                                             controllers.WebsocketCommunicationController.startChat(me: String, toWhom: String)
-#GET    /chatRoom/:me/:toWhom                                                               controllers.WebsocketCommunicationController.chatRoom(me:String,toWhom:String)
 GET    /javascriptRoutes                                                                   controllers.StreamController.javascriptRoutes
 GET    /instantiateChat/:userId                                                                    controllers.WebsocketCommunicationController.instantiateChat(userId)
 
-GET    /checkMap                                                                               controllers.WebsocketCommunicationController.check
 
 #Looks like Unused
 

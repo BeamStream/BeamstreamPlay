@@ -19,19 +19,17 @@ case class Quit(username: String, channel: play.api.libs.iteratee.Concurrent.Cha
 case class Talk(username: String, channel: play.api.libs.iteratee.Concurrent.Channel[play.api.libs.json.JsValue], text: String)
 case class NotifyJoin(username: String, channel: play.api.libs.iteratee.Concurrent.Channel[play.api.libs.json.JsValue])
 
-case class Connected //(enumerator: Enumerator[JsValue])
+case object Connected
 case class CannotConnect(msg: String)
 
 class CommunicationRoom extends Actor {
 
-  //var members = Set.empty[String]
 
   def receive = {
 
     case Join(username) => {
 
-      sender ! Connected //(chatEnumerator)
-      //  members = members + username
+      sender ! Connected 
 
     }
 
@@ -44,7 +42,6 @@ class CommunicationRoom extends Actor {
     }
 
     case Quit(username, channel) => {
-      //  members = members - username
       notifyAll("quit", username, "has left the chat", channel)
     }
 
@@ -79,7 +76,7 @@ object WebsocketCommunication {
         (default ? Join(userName)).map {
 
           case Connected =>
-            println("<<<<<<<<IN")
+            println(">>>>>>>>>>>>>>>>>IN")
             val (chatEnumerator, chatChannel) = Concurrent.broadcast[JsValue]
             val iteratee = Iteratee.foreach[JsValue] { event =>
               default ! Talk(userName, chatChannel, (event \ "text").as[String])
@@ -91,7 +88,6 @@ object WebsocketCommunication {
             (iteratee, chatEnumerator)
 
           case CannotConnect(error) =>
-            println(">>>>>>>>>Out")
             val iteratee = Done[JsValue, Unit]((), Input.EOF)
             val enumerator = Enumerator[JsValue](JsObject(Seq("error" -> JsString(error)))).andThen(Enumerator.enumInput(Input.EOF))
             (iteratee, enumerator)
