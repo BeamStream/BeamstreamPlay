@@ -76,7 +76,6 @@ object WebsocketCommunication {
         (default ? Join(userName)).map {
 
           case Connected =>
-            println(">>>>>>>>>>>>>>>>>IN")
             val (chatEnumerator, chatChannel) = Concurrent.broadcast[JsValue]
             val iteratee = Iteratee.foreach[JsValue] { event =>
               default ! Talk(userName, chatChannel, (event \ "text").as[String])
