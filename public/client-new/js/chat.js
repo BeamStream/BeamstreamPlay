@@ -77,6 +77,7 @@ function startChat(userId) {
 
 							if (data.kind=="quit") {
 								$("#" + oldId).remove();
+								oldChatSocket.close();
 								return
 
 							}
