@@ -60,6 +60,11 @@ function startChat(userId) {
 			$("#onError").show()
 			return
 
+			
+
+		}
+		if (data.message == "ping") {
+			return;
 		}
 		// Create the message element
 		var el = $('<div class="message"><span></span><p></p></div>')
@@ -87,8 +92,8 @@ function startChat(userId) {
 }
 
 function popit(userId, toWhom, name, profileImageUrl) {
-	var newChatSocket = new WebSocket('ws://test.beamstream.com/startChat/' + userId
-			+ "/" + toWhom)
+	var newChatSocket = new WebSocket('ws://test.beamstream.com/startChat/'
+			+ userId + "/" + toWhom)
 	var itsId = randomString(8);
 	$(".chatbox")
 			.append(
@@ -149,6 +154,7 @@ function popit(userId, toWhom, name, profileImageUrl) {
 				$("#" + itsId).remove();
 				newChatSocket.close();
 				return
+
 			}
 
 			// Create the message element
