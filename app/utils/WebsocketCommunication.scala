@@ -24,12 +24,11 @@ case class CannotConnect(msg: String)
 
 class CommunicationRoom extends Actor {
 
-
   def receive = {
 
     case Join(username) => {
 
-      sender ! Connected 
+      sender ! Connected
 
     }
 
@@ -55,6 +54,7 @@ class CommunicationRoom extends Actor {
         "message" -> JsString(text),
         "members" -> JsArray(
           Nil.map(JsString))))
+    //{"kind":"talk","user":"Neelkanth","message":"Hiii","members":[]}
     channel.push(msg)
   }
 

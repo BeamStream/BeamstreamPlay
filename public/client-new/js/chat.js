@@ -60,17 +60,6 @@ function startChat(userId) {
 			$("#onError").show()
 			return
 
-			
-
-		}
-
-		if (data.kind == "quit") {
-			$("#" + oldId).remove();
-			oldChatSocket.close();
-			return
-
-			
-
 		}
 		// Create the message element
 		var el = $('<div class="message"><span></span><p></p></div>')
@@ -148,31 +137,27 @@ function popit(userId, toWhom, name, profileImageUrl) {
 
 	var newReceiveEvent = function(event) {
 		var data = JSON.parse(event.data)
-		if (data.error) {
-			newChatSocket.close()
-			$("#onError span").text(data.error)
-			$("#onError").show()
-			return
+		if (data.message == "ping") {
+			return;
+		} else {
+			if (data.error) {
+				newChatSocket.close()
+				$("#onError span").text(data.error)
+				$("#onError").show()
+			}
+			if (data.kind == "quit") {
+				$("#" + itsId).remove();
+				newChatSocket.close();
+				return
+			}
 
-			
-
+			// Create the message element
+			var el = $('<div class="message"><span></span><p></p></div>')
+			$("span", el).text(data.user)
+			$("p", el).text(data.message)
+			$(el).addClass(data.kind)
+			$("#" + itsId + " " + "div#messages").append(el)
 		}
-		if (data.kind == "quit") {
-			$("#" + itsId).remove();
-			newChatSocket.close();
-			return
-
-			
-
-		}
-
-		// Create the message element
-		var el = $('<div class="message"><span></span><p></p></div>')
-		$("span", el).text(data.user)
-		$("p", el).text(data.message)
-		$(el).addClass(data.kind)
-		$("#" + itsId + " " + "div#messages").append(el)
-
 	}
 
 	var newHandleReturnKey = function(e) {
@@ -190,4 +175,13 @@ function popit(userId, toWhom, name, profileImageUrl) {
 		newChatSocket.close();
 	});
 
+	newChatSocket.onopen = function() {
+		console.log('websocket opened');
+		setInterval(function() {
+			if (newChatSocket.bufferedAmount == 0)
+				newChatSocket.send(JSON.stringify({
+					text : "ping"
+				}))
+		}, 30000);
+	};
 }
