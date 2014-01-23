@@ -30,7 +30,9 @@ define(['view/formView',
 		objName: 'QuestionItemView',
 		events:{
 			'click .add-comment' : 'showCommentTextArea',
+			'click .add-answer' : 'showAnswerTextArea',
 			'keypress .add-question-comment' : 'addQuestionComments',
+			'keypress .add-question-answer' : 'addQuestionAnswer',	
 			'click .rocks-question': 'rockQuestion',
 			'click .follow-question': 'followQuestion',
 			'click .rock-comments': 'rockComment',
@@ -215,6 +217,7 @@ define(['view/formView',
     		/* set the link style for the lisks in message */
         	if(linkTag)
             	$('p#'+model.question.id.id+'-id').html(linkTag);
+        		
 
 
             // embedly
@@ -341,6 +344,8 @@ define(['view/formView',
 			
         },
 
+               
+        	
          /**
          *   post new comments on enter key press
          */
@@ -388,8 +393,8 @@ define(['view/formView',
    			 	
 	        }
         },
-      
-      	/**
+        
+	/**
          * show posted comment
          */
         showPostedComment: function(response,parent,totalComments){
@@ -411,6 +416,112 @@ define(['view/formView',
     		$('#'+parent+'-show-hide').text("Hide All");
 			$('#'+parent+'-totalComment').text(totalComments);
         },
+        
+        	
+	 	
+	   /**
+         * Show answer text area on click
+         */
+        showAnswerTextArea:function(eventName){
+        	eventName.preventDefault();
+        	var element = eventName.target.parentElement;
+			var questionId =$(element).parents('div.follow-container').attr('id');
+					
+			// show / hide answer text area 
+			if($('#'+questionId+'-addAnswer').is(":visible"))
+			{
+				$('#'+questionId+'-msgComment').val('');
+				$('#'+questionId+'-addAnswer').slideToggle(300);
+				$('#'+questionId+'-addAnswer > textarea').focus();
+			}
+			else
+			{
+				$('#'+questionId+'-msgComment').val('');				
+				$('#'+questionId+'-addAnswer').slideToggle(200); 
+				$('#'+questionId+'-addAnswer > textarea').focus();
+			}
+			
+        },
+        
+	  /**
+		 * post new answers on enter key press
+		 */
+	        	addQuestionAnswer: function(eventName){
+	        	
+	        	var element = eventName.target.parentElement;
+	        	var parent =$(element).parents('div.follow-container').attr('id');
+	        	var totalAnswers =  $('#'+parent+'-totalAnswer').text();
+	        	var answerText = $('#'+parent+'-questionsAnswer').val();
+	        	var self =this;
+	        	// alert (parent);
+	     
+	        	
+	        
+	        	/* post answers on enter key press */
+	        	if(eventName.which == 13) {
+	        		
+		    		eventName.preventDefault(); 
+		   			 	
+	   			 	if(!answerText.match(/^[\s]*$/))
+	   			 	{
+  			 	
+	   			 		   // set the Comment model values and posted to server
+	   			 			var answer = new CommentModel();
+	   			 			answer.urlRoot = "/answer";
+	   			 			answer.save({answerText : answerText, questionId :parent},{
+		   			    	success : function(model, response) {
+			   			    		
+		   			    		$('#'+parent+'-questionAnswer').val('');
+		   							
+	   			    			// shows the posted answer
+	   			    		    self.showPostedAnswer(response,parent,totalAnswers);
+	   			    		// pubnum auto push
+	   							PUBNUB.publish({
+	   			                	channel : "questionanswer",
+			                        message : { pagePushUid: self.pagePushUid ,data:response,parent:parent,ansCount:totalAnswers ,profileImage : localStorage["loggedUserProfileUrl"]}
+	   			                })
+	   			    		    
+		   			    	},
+		   			    	error : function(model, response) {
+		   			    		
+		   			    	}
+		
+		   			    });
+
+	   			 	}
+	   			 	
+		        }
+	        },
+      
+      	
+        
+        	
+	 /**
+         * show posted answer
+         */
+        showPostedAnswer: function(response,parent,totalAnswers){
+        	
+        	//alert('#'+parent+'-addComment');
+	  		$('#'+parent+'-addAnswer').slideUp(200);
+	  		
+		    /* display the posted comment  */
+    		var compiledTemplate = Handlebars.compile(QuestionComment);
+    		$('#'+parent+'-allComments').prepend(compiledTemplate({data:response,profileImage:localStorage["loggedUserProfileUrl"]}));
+    		
+    		if(!$('#'+parent+'-allComments').is(':visible'))
+			{  
+				$('#'+parent+'-msgRockers').slideUp(1);
+				$('#'+parent+'-newAnswerList').slideDown(1);
+				$('#'+parent+'-newAnswertList').prepend(compiledTemplate({data:response,profileImage:localStorage["loggedUserProfileUrl"]}));
+				
+			}
+    		totalAnswers++; 
+    		$('#'+parent+'-show-hide').text("Hide All");
+			$('#'+parent+'-totalAnswer').text(totalAnswers);
+			
+        },
+        
+        	
 
         /**
 	     *  Rocking question
