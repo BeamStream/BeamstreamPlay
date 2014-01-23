@@ -135,6 +135,10 @@ function popit(userId, toWhom, name, profileImageUrl) {
 							+ '</div>');
 	$("div#" + itsId + " " + "h1.friend").text(name);
 	$(".chatbox").css("display", "block");
+	$("#" + itsId).css("display", "block");
+	$(".chatbox").css("position", "fixed");
+	$(".chatbox").css("bottom", "0");
+	$(".chatbox").css("right", "322");
 	var newSendMessage = function() {
 		newChatSocket.send(JSON.stringify({
 			text : $("#" + itsId + " " + "textarea#talk").val()
