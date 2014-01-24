@@ -20,27 +20,22 @@ object JoinBeamStream extends Controller {
    */
 
   def betaUserRegistration = Action { implicit request =>
-    try {
+    request.cookies.get("PLAY_SESSION") match {
+      case Some(cookie) =>
+        val userId = request.session.get("userId").get
+        val loggedInUser = User.getUserProfile(new ObjectId(userId))
 
-      request.cookies.get("PLAY_SESSION") match {
-        case Some(cookie) =>
-          val userId = request.session.get("userId").get
-          val loggedInUser = User.getUserProfile(new ObjectId(userId))
+        loggedInUser.get.schools.isEmpty match {
+          case true => Ok(views.html.betaUser())
+          case false =>
 
-          loggedInUser.get.schools.isEmpty match {
-            case true => Ok(views.html.betaUser())
-            case false =>
+            loggedInUser.get.classes.isEmpty match {
+              case true => Redirect("/class")
+              case false => Redirect("/stream")
+            }
+        }
 
-              loggedInUser.get.classes.isEmpty match {
-                case true => Redirect("/class")
-                case false => Redirect("/stream")
-              }
-          }
-
-        case None => Ok(views.html.betaUser())
-      }
-    } catch {
-      case ex: Exception => Redirect("/")
+      case None => Ok(views.html.betaUser())
     }
 
   }
