@@ -220,27 +220,45 @@
                     </ul>
                    
                     </div>
+                    
                     <div id= "{{data.question.id.id}}-comment-ans-area" class="comment-ans" ></div>
 
                     <div id="{{data.question.id.id}}-addComments" class="follow-comment" style="display:none;">
-                     <textarea id="{{data.question.id.id}}-questionComment" class="add-question-comment add-question-comment" placeholder="Add Comments.."  onblur="this.placeholder = 'Add Comments..'" onfocus="this.placeholder = ''" placeholder="" cols="" rows=""></textarea>
+                    <textarea id="{{data.question.id.id}}-questionComment" class="add-question-comment" placeholder="Add Comments.."  onblur="this.placeholder = 'Add Comments..'" onfocus="this.placeholder = ''" placeholder="" cols="" rows=""></textarea>
                     </div>
+                    
                     <div id="{{data.question.id.id}}-addAnswer" class="follow-comment" style="display:none;">
-                        <textarea id="{{data.question.id.id}}-questionsAnswer" class="add-question-comment add-question-comment" placeholder="Add Answers.."  onblur="this.placeholder = 'Add Answers..'" onfocus="this.placeholder = ''" placeholder="" cols="" rows=""></textarea>
+                    <textarea id="{{data.question.id.id}}-questionsAnswer" class="add-question-answer" placeholder="Add Answers.."  onblur="this.placeholder = 'Add Answers..'" onfocus="this.placeholder = ''" placeholder="" cols="" rows=""></textarea>
                     </div>  
+                    
         			{{#ifequal loggedUserId data.question.userId.id }}
 						<a id="{{data.question.id.id}}" href="#" data-original-title="Delete" class="delete_post drag-rectangle" ></a>
 				 	{{/ifequal}}
         
                 </div>
 
+
+
+
                 <div class="answer-info">
                   <div class="answer-conatiner">
                     <div class="button-block">
                       <ul class="follow-name-left show-all-block">
                         
-                        <a id="rockedIt-{{data.question.id.id}}" class="btn grey-buttons who-rocked-it" href="#">Who Rocked It?</a> <a class="btn grey-buttons show-all-comments"  href="#"><span id="{{data.question.id.id}}-totalComment" >{{data.comments.length}}</span> Comments</a> <a id="{{data.question.id.id}}-Answerbutton" class="btn grey-buttons " href="#"> <span>0</span> Answers</a>
-            <a  class="btn grey-buttons  show-all" id="{{data.question.id.id}}-show-hide" href="#">Show All</a>
+                        <a id="rockedIt-{{data.question.id.id}}" class="btn grey-buttons who-rocked-it" href="#">Who Rocked It?</a> 
+                        
+                        
+                        <a class="btn grey-buttons show-all-comments"  href="#">
+                        <span id="{{data.question.id.id}}-totalComment" >{{data.comments.length}}</span>
+                         Comments</a> 
+                        
+                        
+                        <a class="btn grey-buttons show-all-Answers" href="#">
+                         <span id="{{data.question.id.id}}-totalAnswer">{{data.answers.length}}</span>
+                          Answers</a>
+            
+            			<a  class="btn grey-buttons  show-all" id="{{data.question.id.id}}-show-hide" href="#">
+            			Show All</a>
                       </ul>
                        
                   </div>
@@ -272,6 +290,9 @@
                       
                       {{/each}}
                   </div>
+                  
+                  
+                  
           <div id="{{data.question.id.id}}-newCommentList" class="comment-wrapper" style="display: none;">
                   </div>
           <div id="{{data.question.id.id}}-questionRockers" class="comment-wrapper" style="display: none;">
