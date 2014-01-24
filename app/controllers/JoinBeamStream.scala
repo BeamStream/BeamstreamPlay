@@ -40,7 +40,7 @@ object JoinBeamStream extends Controller {
         case None => Ok(views.html.betaUser())
       }
     } catch {
-      case ex: Exception => Logger.debug(ex)
+      case ex: Exception => Logger.debug(ex.toString)
     }
 
   }
