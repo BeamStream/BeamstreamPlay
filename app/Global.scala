@@ -13,6 +13,7 @@ object Global extends GlobalSettings {
   override def onStart(app: Application) {
     //    ReadingSpreadsheetUtil.readCSVOfSchools      //for Reading CSV of schools
     val listOfAllSchools = School.getAllSchools
+    School.allSchoolsInDatabase = Nil
     School.allSchoolsInDatabase ++= listOfAllSchools
     Cleaner.makeUsersOfflineIfNotAvailable
 
