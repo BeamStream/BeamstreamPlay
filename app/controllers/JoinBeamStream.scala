@@ -11,7 +11,6 @@ import net.liftweb.json.Serialization.write
 import play.api.mvc.Action
 import play.api.mvc.Controller
 
-
 object JoinBeamStream extends Controller {
 
   implicit val formats = DefaultFormats
@@ -21,22 +20,27 @@ object JoinBeamStream extends Controller {
    */
 
   def betaUserRegistration = Action { implicit request =>
-    request.cookies.get("PLAY_SESSION") match {
-      case Some(cookie) =>
-        val userId = request.session.get("userId").get
-        val loggedInUser = User.getUserProfile(new ObjectId(userId))
+    try {
 
-        loggedInUser.get.schools.isEmpty match {
-          case true => Ok(views.html.betaUser())
-          case false =>
+      request.cookies.get("PLAY_SESSION") match {
+        case Some(cookie) =>
+          val userId = request.session.get("userId").get
+          val loggedInUser = User.getUserProfile(new ObjectId(userId))
 
-            loggedInUser.get.classes.isEmpty match {
-              case true => Redirect("/class")
-              case false => Redirect("/stream")
-            }
-        }
+          loggedInUser.get.schools.isEmpty match {
+            case true => Ok(views.html.betaUser())
+            case false =>
 
-      case None => Ok(views.html.betaUser())
+              loggedInUser.get.classes.isEmpty match {
+                case true => Redirect("/class")
+                case false => Redirect("/stream")
+              }
+          }
+
+        case None => Ok(views.html.betaUser())
+      }
+    } catch {
+      case ex: Exception => Redirect("/")
     }
 
   }
