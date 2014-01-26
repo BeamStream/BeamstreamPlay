@@ -319,9 +319,9 @@ header, footer){
 
 				</ul>
 			</div>
-			<ul class="nav-tabs stream-tab" id="streamTab" style="float: left;">
+			<ul class="stream-tab" id="streamTab" style="float: left;">
 				<li id="discussion" id="discussionsLink" class="active"><a
-					href="#discussionsView" id="discussions-link" data-toggle="tab">Discussions</a></li>
+					href="#discussionsView" id="discussions-link" data-toggle="tab">Back to Discussions</a></li>
 				
 
 
@@ -329,10 +329,10 @@ header, footer){
 				<li class="dropdown"><a data-toggle="dropdown"
 					class="dropdown-toggle" href="#" id="flipQuestion" data-hover="dropdown">Questions</a>
 						<div id="questions-icon"></div>
-					<ul class="dropdown-menu">
+					<ul class="dropdown-menu" id="questions-dropdown">
 						<li id="question" class="ques"><a id="questionsLink"
 							data-toggle="tab" href="#questionsView">Ask a Question</a></li>
-						<li id="question" class="quespoll"><a id="questionsLink"
+						<li id="question" class="quespoll"><a id="questions-poll-Link"
 							data-toggle="tab" href="#questionsView">Add a poll</a></li>
 					</ul></li>
 
@@ -473,7 +473,8 @@ header, footer){
 					</div>
 					<form class="all-search" action="">
 						<input type="text" id="sort_by_key" class="quest-search"
-							placeholder="Search Discussions" />
+							placeholder="Search Discussions">
+							<span></span>
 					</form>
 				</div>
 

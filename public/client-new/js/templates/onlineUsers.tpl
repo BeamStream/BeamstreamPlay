@@ -15,7 +15,7 @@
 {{#each .}}
 			<div class="chat-box" >
 			    <div class="chat-window">
-			        <div id="chat-status" class="chat-open"><span class="online-count">Online(0)</span> <span class="chat-show"></span></div>
+			        <div id="chat-status" class="chat-open"><span class="online-count">Online  (0)</span> <span class="chat-show"></span></div>
 			        <div id="user-online" class="scroll-block chat-view">
 			            <ul id="onlinechatbox">
 
