@@ -40,8 +40,11 @@
                           <a href="/renderProfilePage" class="profile-button" style="display:none">Public Profile</a>
                           <div class="settings-menu">
                               <div class="btn-group">
-                                  <button class="btn seetings-toggle">Settings</button>
-                                  <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown"> <span class="caret settings-caret"></span></button>
+                                  <button class="btn seetings-toggle" style="display: none;">Settings</button>
+                                  <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown">
+																		<span id="settings-gear-icon"></span>
+																		<span class="caret settings-caret" id="settings-dropdown"></span>
+																	</button>
                                   <ul class="dropdown-menu settings-edit">
                                       <!-- li id="edit-profile" ><a href="#">Edit Profile</a></li-->
                                       <li id="sign-out" ><a href="#">Sign Out</a></li>
