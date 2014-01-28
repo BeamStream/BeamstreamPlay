@@ -217,10 +217,9 @@ define(
 												return false;
 											}
 											if (data.toString().startsWith(
-													"http")) {
+													"https://accounts.google.com/o/oauth2/")) {
 												window.location.assign(data)
 											} else {
-												alert(data)
 												/*
 												 * $("#creategoogledoc").modal(
 												 * 'show');
@@ -288,18 +287,20 @@ define(
 												return false;
 											}
 											if (data.toString().startsWith(
-													"http")) {
-												window.location.assign(data)
-											} else {
-												/*
-												 * $("#creategoogledoc").modal(
-												 * 'show');
-												 */
-												$(".contentcreatedoc").empty();
-												$(".contentcreatedoc")
-														.append(
-																"<iframe style='width:100%;height:100%;' frameborder='0' src='http://spreadsheets.google.com/ccc?new&hl=en' />");
-											}
+											"https://accounts.google.com/o/oauth2/")) {
+										window.location.assign(data)
+									} else {
+										/*
+										 * $("#creategoogledoc").modal(
+										 * 'show');
+										 */
+										$(".contentcreatedoc").empty();
+										$(".contentcreatedoc")
+												.append(
+														"<iframe id='googleStuff' style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src="
+																+ data
+																+ "/>");
+									}
 										}
 									});
 							$
@@ -355,20 +356,20 @@ define(
 												return false;
 											}
 											if (data.toString().startsWith(
-													"http")) {
-												window.location.assign(data)
-											} else {
-												/*
-												 * $("#creategoogledoc").modal(
-												 * 'show');
-												 */
-												$(".contentcreatedoc").empty();
-
-												$(".contentcreatedoc")
-														.append(
-																"<iframe style='width:100%;height:100%;' frameborder='0' src='https://drive.google.com' />");
-
-											}
+											"https://accounts.google.com/o/oauth2/")) {
+										window.location.assign(data)
+									} else {
+										/*
+										 * $("#creategoogledoc").modal(
+										 * 'show');
+										 */
+										$(".contentcreatedoc").empty();
+										$(".contentcreatedoc")
+												.append(
+														"<iframe id='googleStuff' style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src="
+																+ data
+																+ "/>");
+									}
 
 										}
 									});
