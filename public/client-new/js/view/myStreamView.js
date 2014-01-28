@@ -224,7 +224,7 @@ define(
 												$(".contentcreatedoc").empty();
 												$(".contentcreatedoc")
 														.append(
-																"<iframe id='googleStuff' style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src='http://docs.google.com/document/create?hl=en ' />");
+																"<iframe id='googleStuff' style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src='http://docs.google.com/document/create?hl=en' />");
 											}
 											
 											
