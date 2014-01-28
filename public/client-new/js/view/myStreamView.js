@@ -27,8 +27,7 @@ define(
 							'click #closepublishsidebar' : 'hidePublishSidebar',
 							'click #questionsLink' : 'fliptoDiscussion',
 							'click #discussions-link' : 'fliptoQuestion',
-							
-						
+
 						},
 						messagesPerPage : 10,
 						pageNo : 1,
@@ -91,24 +90,24 @@ define(
 
 						},
 
-						fliptoDiscussion: function(){
-							$('#discussions-link').css('display','block');
-							$('#discussions-link').css('padding','0');
-							$('#discussions-link').css('text-decoration','none');
-							$('#flipQuestion').css('display','none');
-							$('#questions-icon').css('display','none');
-						},	
-						
-						
-						fliptoQuestion: function(){
-							$('#discussions-link').css('display','none');
-							$('#flipQuestion').css('padding','0px 0px 0px 12px');
-							$('#questions-icon').css('margin-top','-2px');
-							$('#flipQuestion').css('display','block');
-							$('#questions-icon').css('display','block');
+						fliptoDiscussion : function() {
+							$('#discussions-link').css('display', 'block');
+							$('#discussions-link').css('padding', '0');
+							$('#discussions-link').css('text-decoration',
+									'none');
+							$('#flipQuestion').css('display', 'none');
+							$('#questions-icon').css('display', 'none');
 						},
-						
-						
+
+						fliptoQuestion : function() {
+							$('#discussions-link').css('display', 'none');
+							$('#flipQuestion').css('padding',
+									'0px 0px 0px 12px');
+							$('#questions-icon').css('margin-top', '-2px');
+							$('#flipQuestion').css('display', 'block');
+							$('#questions-icon').css('display', 'block');
+						},
+
 						/* Expand Side Question Stream */
 
 						sidequestionexpand : function() {
@@ -146,13 +145,15 @@ define(
 									.attr("value",
 											$(e.currentTarget).data("name"));
 							$(".showgoogledocsSidebar").show();
-							
-							 $("#showgoogledoc.modal").css("margin","3% 0 0 4%");
+
+							$("#showgoogledoc.modal")
+									.css("margin", "3% 0 0 4%");
 						},
 
 						hidePublishSidebar : function() {
 							$(".showgoogledocsSidebar").hide();
-							$("#showgoogledoc.modal").css("margin","3% 0 0 14%");
+							$("#showgoogledoc.modal").css("margin",
+									"3% 0 0 14%");
 						},
 
 						// Upload Google Doc
@@ -199,8 +200,7 @@ define(
 						// Create Google document
 
 						createGDocument : function(create) {
-							$("#creategoogledoc").modal(
-							'show');
+							$("#creategoogledoc").modal('show');
 							$
 									.ajax({
 
@@ -208,7 +208,8 @@ define(
 										url : 'uploadNow/document',
 
 										success : function(data) {
-											$('#creategoogledoc #floatingBarsG').hide();
+											$('#creategoogledoc #floatingBarsG')
+													.hide();
 											String.prototype.startsWith = function(
 													s) {
 												if (this.indexOf(s) == 0)
@@ -219,15 +220,19 @@ define(
 													"http")) {
 												window.location.assign(data)
 											} else {
-												/*$("#creategoogledoc").modal(
-														'show');*/
+												alert(data)
+												/*
+												 * $("#creategoogledoc").modal(
+												 * 'show');
+												 */
 												$(".contentcreatedoc").empty();
 												$(".contentcreatedoc")
 														.append(
-																"<iframe id='googleStuff' style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src='http://docs.google.com/document/create?hl=en' />");
+																"<iframe id='googleStuff' style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src="
+																		+ data
+																		+ "/>");
 											}
-											
-											
+
 										}
 									});
 							$
@@ -254,7 +259,7 @@ define(
 																						+ ">"
 																						+ value.stream.streamName
 																						+ "</option>");
-																
+
 															});
 
 										}
@@ -266,8 +271,7 @@ define(
 						// Create Google spreadsheet
 
 						createGSpreadsheet : function(create) {
-							$("#creategoogledoc").modal(
-							'show');
+							$("#creategoogledoc").modal('show');
 							$
 									.ajax({
 
@@ -275,7 +279,8 @@ define(
 										url : 'uploadNow/spreadsheet',
 
 										success : function(data) {
-											$('#creategoogledoc #floatingBarsG').hide();
+											$('#creategoogledoc #floatingBarsG')
+													.hide();
 											String.prototype.startsWith = function(
 													s) {
 												if (this.indexOf(s) == 0)
@@ -286,8 +291,10 @@ define(
 													"http")) {
 												window.location.assign(data)
 											} else {
-												/*$("#creategoogledoc").modal(
-														'show');*/
+												/*
+												 * $("#creategoogledoc").modal(
+												 * 'show');
+												 */
 												$(".contentcreatedoc").empty();
 												$(".contentcreatedoc")
 														.append(
@@ -319,28 +326,28 @@ define(
 																						+ ">"
 																						+ value.stream.streamName
 																						+ "</option>");
-																
+
 															});
 
 										}
 
 									});
 
-						},		// Create Google spreadsheet Ends
+						}, // Create Google spreadsheet Ends
 
 						// Create Google Presentation
 
 						createGPresentation : function(create) {
-							$("#creategoogledoc").modal(
-							'show');
+							$("#creategoogledoc").modal('show');
 							$
 									.ajax({
-									
+
 										type : 'GET',
 										url : 'uploadNow/presentation',
 
 										success : function(data) {
-											$('#creategoogledoc #floatingBarsG').hide();
+											$('#creategoogledoc #floatingBarsG')
+													.hide();
 											String.prototype.startsWith = function(
 													s) {
 												if (this.indexOf(s) == 0)
@@ -351,8 +358,10 @@ define(
 													"http")) {
 												window.location.assign(data)
 											} else {
-												/*$("#creategoogledoc").modal(
-														'show');*/
+												/*
+												 * $("#creategoogledoc").modal(
+												 * 'show');
+												 */
 												$(".contentcreatedoc").empty();
 
 												$(".contentcreatedoc")
@@ -360,7 +369,7 @@ define(
 																"<iframe style='width:100%;height:100%;' frameborder='0' src='https://drive.google.com' />");
 
 											}
-											
+
 										}
 									});
 							$
@@ -387,7 +396,7 @@ define(
 																						+ ">"
 																						+ value.stream.streamName
 																						+ "</option>");
-																
+
 															});
 
 										}
@@ -399,12 +408,11 @@ define(
 						// Show Google Doc
 
 						showGoogleDocs : function(show) {
-							
-							$("#showgoogledoc").modal(
-							'show');
+
+							$("#showgoogledoc").modal('show');
 
 							$(".showgoogledocsSidebar").hide();
-							
+
 							$
 									.ajax({
 
@@ -443,7 +451,8 @@ define(
 										url : 'uploadNow/show',
 
 										success : function(data) {
-											$('#showgoogledoc #floatingBarsG').hide();
+											$('#showgoogledoc #floatingBarsG')
+													.hide();
 											String.prototype.startsWith = function(
 													s) {
 												if (this.indexOf(s) == 0)
@@ -458,8 +467,10 @@ define(
 												$("#docsview > .drive-view-row")
 														.remove();
 
-												/*$("#showgoogledoc").modal(
-														'show');*/
+												/*
+												 * $("#showgoogledoc").modal(
+												 * 'show');
+												 */
 
 												$
 														.each(
@@ -543,11 +554,7 @@ define(
 
 									});
 
-							
-
 						}, // Show google Doc Ends
-
-						
 
 						/**
 						 * show stream details on top
@@ -631,8 +638,6 @@ define(
 							}
 
 						},
-						
-						
 
 					})
 			return MyStreamView;
