@@ -143,7 +143,7 @@ pushConnection: function(){
 		 channel : "offlineuser",
 		 callback : function(message) {
 			// alert(JSON.stringify(message));			 
-			  $('#user-online ul').empty(); 			 
+			  $('div#user-online ul li').empty(); 			 
 		 }
 		 })
 		 },
