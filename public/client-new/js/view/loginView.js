@@ -95,16 +95,16 @@ define(
 								/* PUBNUB -- AUTO AJAX PUSH */
 								 PUBNUB.publish({
 								 channel : "onlineUsers",
-								 message : { pagePushUid: self.pagePushUid
-								 ,userInfo:data}
+								 message : { pagePushUid:self.pagePushUid,userInfo:data}
 								 })
 								/*
 								 * redirect to class page if the user has no
 								 * stream
 								 */
 								
-								if (data.hasClasses == true)
+								if (data.hasClasses == true){
 									window.location = "/stream";
+								}
 								else
 									window.location = "/class";
 

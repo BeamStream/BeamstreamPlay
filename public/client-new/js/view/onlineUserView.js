@@ -108,36 +108,26 @@ define(['baseView',
 /* Pubnub subscription for online user */
 pushConnection: function(){
 	 var self = this;
-	 self.pagePushUid = Math.floor(Math.random()*16777215).toString(16);
+	 self.pagePushUid = Math.floor(Math.random()*16777215).toString(16);	
 	
-		// alert("pushonlineuserview");
-		
-
-	 
 	/* for online users */
 	 PUBNUB.subscribe({
 	 channel : "onlineUsers",
 
-	 callback : function(message) {
-	
+	 callback : function(message) {	
 		// alert(localStorage["loggedUserId"]);
-
 		//alert(JSON.stringify(message));
 		 // alert("ankit");
-	
-		 profileImageUrl = '/beamstream-new/images/profile-upload.png';
+		// alert(self.pagePushUid);
+		 //alert(message.pagePushUid);
+		 profileImageUrl = '';
 	if(message.pagePushUid != self.pagePushUid)
-	{
-		
+	{		
 		//alert("ankit");
 		var template='<li id="'+message.userInfo.user.id.id+'" onclick=popit("'+localStorage["loggedUserId"]+'","'+message.userInfo.user.id.id+'","'+message.userInfo.user.firstName+'","'+ profileImageUrl +'")> '+ message.userInfo.user.firstName +'<span class="online-chat"><img width="12" height="13" src="/beamstream-new/images/online-icon.png"></span></li>';
-
-
-	$('#user-online ul').append(template);
-	
+	$('#user-online ul').append(template);	
 	// $('#user-online ul').append('<li>Ankit</li>');
-	}
-	 
+	}	 
 	 }
 	 })
 	 },
@@ -147,24 +137,13 @@ pushConnection: function(){
 	pushConnectionOffline: function(){
 		 var self = this;
 		 self.pagePushUid = Math.floor(Math.random()*16777215).toString(16);
-		
-			
-
-		 
+						 
 		/* for online users */
 		 PUBNUB.subscribe({
 		 channel : "offlineuser",
-
 		 callback : function(message) {
-		
-			 //alert("ankit");
-
-			 // alert(JSON.stringify(message));
-			 
-			  $('#user-online ul li').remove(); 
-			 
-		
-		 
+			// alert(JSON.stringify(message));			 
+			  $('#user-online ul').empty(); 			 
 		 }
 		 })
 		 },
