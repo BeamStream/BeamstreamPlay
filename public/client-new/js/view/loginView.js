@@ -31,6 +31,7 @@ define(
 
 						onAfterInit : function() {
 							this.data.reset();
+				
 							localStorage["logged"] = '';
 							$('.sign-tick').hide();
 							$('.sign-close').hide();
@@ -69,7 +70,7 @@ define(
 							e.preventDefault();
 							this.data.url = "/login";
 							this.saveForm();
-
+							
 						},
 
 						/**
@@ -92,11 +93,11 @@ define(
 								localStorage["loggedUserId"] = data.user.id.id;
 
 								/* PUBNUB -- AUTO AJAX PUSH */
-								// PUBNUB.publish({
-								// channel : "onlineUsers",
-								// message : { pagePushUid: self.pagePushUid
-								// ,userInfo:data}
-								// })
+								 PUBNUB.publish({
+								 channel : "onlineUsers",
+								 message : { pagePushUid: self.pagePushUid
+								 ,userInfo:data}
+								 })
 								/*
 								 * redirect to class page if the user has no
 								 * stream
@@ -162,21 +163,20 @@ define(
 							$('.sign-close').hide();
 						},
 
-					// pushConnection: function(){
-					// var self = this;
-					// self.pagePushUid =
-					// Math.floor(Math.random()*16777215).toString(16);
-
+					pushConnection: function(){
+					 var self = this;
+					 self.pagePushUid = Math.floor(Math.random()*16777215).toString(16);
+					
 					// /* for online users */
-					// PUBNUB.subscribe({
-
-					// channel : "onlineUsers",
-					// restore : false,
-					// callback : function(message) {
-					// console.log(1212);
-					// if(message.pagePushUid != self.pagePushUid)
-					// {
-					// console.log(45);
+					 PUBNUB.subscribe({
+					 channel : "onlineUsers",
+					 restore : false,
+					 callback : function(message) {
+						 alert("call");
+					 //console.log(1212);
+					 //if(message.pagePushUid != self.pagePushUid)
+					 //{
+					 //console.log(45);
 					// console.log($('#onlinechatbox'));
 					// var template = '<li> <a href="#">'
 					// +'<img width="30" height="28"
@@ -185,11 +185,11 @@ define(
 					// class="offline-chat">'
 					// +'<img width="12" height="13"
 					// src="img/online-icon.png"></span></a> </li>';
-					// $('#onlinechatbox').append(template);
-					// }
-					// }
-					// })
-					// }
+					// $('#onlinechatbox').append('<p>call ho gyi</p>');
+					 }
+					 
+					 })
+					 }
 
 					})
 			return LoginView;

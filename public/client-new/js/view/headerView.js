@@ -38,6 +38,13 @@ define(['view/formView'], function(FormView){
 		 signOut :function(eventName){
 			 
 			 eventName.preventDefault();
+		
+				 
+			 /* PUBNUB -- AUTO AJAX PUSH */
+								 PUBNUB.publish({
+								 channel : "offlineuser",
+								 message : { pagePushUid: self.pagePushUid}
+								 })
 			 
 			 /* expires the user session  */
 			 $.ajax({
@@ -46,6 +53,8 @@ define(['view/formView'], function(FormView){
 					dataType : "json",
 					success : function(data) {
 						if(data.status == "Success"){
+							
+							
 							
 							localStorage["loggedUserProfileUrl"] =  '';
 			            	localStorage["loggedUserId"] =  '';
