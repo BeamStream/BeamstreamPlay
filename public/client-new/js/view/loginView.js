@@ -172,7 +172,7 @@ define(
 					 channel : "onlineUsers",
 					 restore : false,
 					 callback : function(message) {
-						 alert("call");
+						 //alert("call");
 					 //console.log(1212);
 					 //if(message.pagePushUid != self.pagePushUid)
 					 //{
