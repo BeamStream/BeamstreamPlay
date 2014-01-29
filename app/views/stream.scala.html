@@ -823,7 +823,7 @@ header, footer){
 						<div class="cancel-publish-txt" data-dismiss="modal" aria-hidden="true">Close & Don't Publsih</div>
 					</div>
 						<input type="hidden" id="docName" name=docName>
-						<input type="hidden" id="docUrl" name=docUrl>
+						<input type="hidden" id="docUrl" name=docUrl value="">
 						
 					</form>
 				</div>
@@ -947,7 +947,7 @@ header, footer){
 						<li><a class="li" href="#"><img src="/beamstream-new/img/li.png"></a></li>
 						<li><a class="pin" href="#"><img src="/beamstream-new/img/pin.png"></a></li>
 					</ul>
-
+					
 					<div class="publish-btn">
 						<img src="/beamstream-new/img/publish.png" class="publish-icon"> <input type="submit" value="Publish Doc" 
 						class="publish-txt">
@@ -964,7 +964,6 @@ header, footer){
 
 		</div>
 		<!-- Modal for access google doc ends-->
-
 
 		<!--                                    -->
 		<!-- Modal for upload google doc starts -->
@@ -1062,35 +1061,5 @@ header, footer){
 		<script>
          startChat('@session.get("userId").get');
 		</script>
-	
-	<script>
-	$('.commentcreatedoc').bind('input propertychange', function() {
-		var iframe = document.getElementById("googleStuff");
-		var iframeDocument = iframe.contentDocument || iframe.contentWindow.document ;
-        
-		var a = iframeDocument.getElementById("docs-title-inner") ;
-		alert(a)
-	     
-	});
-		</script>
-	 
-		<!-- Chat new UI ends-->
-	<!-- <script>
-	var head = document.getElementsByTagName('head')[0];
-	var script = document.createElement('script');
-	script.type = 'text/javascript';
-	script.src = "/beamstream-new/js/socketinitialize.js";
-	script.setAttribute('id', 'socketScript');
-
-	// Fire the loading
-	head.appendChild(script);
-
-</script>
-<script>
-$('#socketScript').remove();
-</script>		
-	 -->	
-<!-- Chat------------- -->
-		
 
 }

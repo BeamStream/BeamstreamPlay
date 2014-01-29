@@ -216,8 +216,10 @@ define(
 													return true;
 												return false;
 											}
-											if (data.toString().startsWith(
-													"https://accounts.google.com/o/oauth2/")) {
+											if (data
+													.toString()
+													.startsWith(
+															"https://accounts.google.com/o/oauth2/")) {
 												window.location.assign(data)
 											} else {
 												/*
@@ -230,6 +232,8 @@ define(
 																"<iframe id='googleStuff' style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src="
 																		+ data
 																		+ "/>");
+												$("#docUrl")
+														.attr("value", data)
 											}
 
 										}
@@ -286,21 +290,25 @@ define(
 													return true;
 												return false;
 											}
-											if (data.toString().startsWith(
-											"https://accounts.google.com/o/oauth2/")) {
-										window.location.assign(data)
-									} else {
-										/*
-										 * $("#creategoogledoc").modal(
-										 * 'show');
-										 */
-										$(".contentcreatedoc").empty();
-										$(".contentcreatedoc")
-												.append(
-														"<iframe id='googleStuff' style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src="
-																+ data
-																+ "/>");
-									}
+											if (data
+													.toString()
+													.startsWith(
+															"https://accounts.google.com/o/oauth2/")) {
+												window.location.assign(data)
+											} else {
+												/*
+												 * $("#creategoogledoc").modal(
+												 * 'show');
+												 */
+												$(".contentcreatedoc").empty();
+												$(".contentcreatedoc")
+														.append(
+																"<iframe id='googleStuff' style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src="
+																		+ data
+																		+ "/>");
+												$("#docUrl")
+												.attr("value", data)
+											}
 										}
 									});
 							$
@@ -355,21 +363,25 @@ define(
 													return true;
 												return false;
 											}
-											if (data.toString().startsWith(
-											"https://accounts.google.com/o/oauth2/")) {
-										window.location.assign(data)
-									} else {
-										/*
-										 * $("#creategoogledoc").modal(
-										 * 'show');
-										 */
-										$(".contentcreatedoc").empty();
-										$(".contentcreatedoc")
-												.append(
-														"<iframe id='googleStuff' style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src="
-																+ data
-																+ "/>");
-									}
+											if (data
+													.toString()
+													.startsWith(
+															"https://accounts.google.com/o/oauth2/")) {
+												window.location.assign(data)
+											} else {
+												/*
+												 * $("#creategoogledoc").modal(
+												 * 'show');
+												 */
+												$(".contentcreatedoc").empty();
+												$(".contentcreatedoc")
+														.append(
+																"<iframe id='googleStuff' style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src="
+																		+ data
+																		+ "/>");
+												$("#docUrl")
+												.attr("value", data)
+											}
 
 										}
 									});

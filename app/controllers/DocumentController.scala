@@ -70,7 +70,6 @@ object DocumentController extends Controller {
     val docName = data("docName").toList.head
     val docUrl = data("docUrl").toList.head
     val description = data("description").toList.head
-
     val post = data.keys.toList.contains("postToFileMedia") match {
       case true => true
       case false => false
