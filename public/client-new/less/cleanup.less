@@ -3550,6 +3550,7 @@ padding:6px 12px!important;
     background-color: #fff;
     border: solid 1px #b2b9bc;
     margin: 0 19% 0 -30px;
+		text-indent: 16px;
 }
 
 form.all-search span {
@@ -3562,7 +3563,7 @@ form.all-search span {
 }
 
 #sort_by_key::-webkit-input-placeholder {
-	padding-left: 20px;
+
 }
 
 .all-search input
@@ -3601,6 +3602,22 @@ padding-right: 88px
 	padding-left: 20px;
 	font-size: 97%;
 }
+
+#msg-area:-moz-placeholder { /* Firefox 18- */
+	padding-left: 20px;
+	font-size: 97%;
+}
+
+#msg-area::-moz-placeholder {  /* Firefox 19+ */
+	padding-left: 20px;
+	font-size: 97%;
+}
+
+#msg-area:-ms-input-placeholder {  
+	padding-left: 20px;
+	font-size: 97%;
+}
+
 
 textarea placeholder {
 	padding-left: 30px;
@@ -6354,7 +6371,7 @@ overflow-x:hidden
 	border-bottom: 1.7px solid #c0c3c6;
 	margin-right: 34.2%;
 	padding-bottom: 20px;
-	max-width: 656px;
+	max-width: 58%;
 }
 
 .ask-outer {
@@ -10485,7 +10502,7 @@ color:#827e7e
 	background: #e6e6e6;
 	height: 43px;
 	border-radius: 8px 8px 0 0;
-	max-width: 576px;
+	max-width: 52.5%;
 	padding: .5% 2% 1% 7.5%;
 	//overflow: hidden;
 
