@@ -66,6 +66,14 @@ object GoogleDocsUploadUtility {
     }
   }
 
+  def createANewGoogleDocument(code: String, mimeType: String): String = {
+    val service = prepareGoogleDrive(code)
+    val body = new File
+    body.setMimeType(mimeType)
+    val file = service.files.insert(body).execute
+    file.getAlternateLink
+  }
+
   /**
    * Get Access token Using refresh Token
    */

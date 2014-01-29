@@ -49,14 +49,14 @@ object GoogleDocsUploadUtilityController extends Controller {
         } else if (action == "upload") {
           Ok.withSession(request.session + ("accessToken" -> newAccessToken))
         } else if (action == "document") {
-          Ok
-          /*Redirect("http://docs.google.com/document/create?hl=en")*/
+          val result = GoogleDocsUploadUtility.createANewGoogleDocument(newAccessToken, "application/vnd.google-apps.document")
+          Ok(result)
         } else if (action == "spreadsheet") {
-          Ok
-          /*Redirect("http://spreadsheets.google.com/ccc?new&hl=en")*/
+          val result = GoogleDocsUploadUtility.createANewGoogleDocument(newAccessToken, "application/vnd.google-apps.spreadsheet")
+          Ok(result)
         } else if (action == "presentation") {
-          Ok
-          /*Redirect(" https://drive.google.com")*/
+          val result = GoogleDocsUploadUtility.createANewGoogleDocument(newAccessToken, "application/vnd.google-apps.presentation")
+          Ok(result)
         } else {
           Ok
         }
