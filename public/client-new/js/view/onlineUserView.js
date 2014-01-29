@@ -18,12 +18,13 @@
 */
 
 define(['baseView',
+        'view/loginView',
         'text!templates/onlineUsers.tpl',
         '../../lib/jquery.mCustomScrollbar',
         '../../lib/jquery.mousewheel.min',
         '../../lib/jquery.simplyscroll',
         '../../lib/bootstrap',
-        ], function(BaseView,OnlineUsers,mCustomScrollbar,mousewheel,simplyscroll,bootstrap){
+        ], function(BaseView,LoginView,OnlineUsers,mCustomScrollbar,mousewheel,simplyscroll,bootstrap){
 	
     var onlineUserView;
 	onlineUserView = BaseView.extend({
@@ -36,6 +37,9 @@ define(['baseView',
         onAfterInit: function(){
         	this.data.reset();
         	this.scroll();
+        	this.pushConnection();
+        	this.pushConnectionOffline();
+        	
 		},		
 
 		/**
@@ -59,18 +63,22 @@ define(['baseView',
 		displayPage: function(){
 			var self = this;
 			$('#user-online ul').html("");
-			$('.online-count').html("Online  ("+this.data.models[0].attributes.onlineUsers.length+")");
+			$('.online-count').html("Online("+this.data.models[0].attributes.onlineUsers.length+")");
 			_.each(this.data.models[0].attributes.onlineUsers, function(model) {
 				var profileImageUrl = '';
 				if(model.profileImageUrl){
 
 					profileImageUrl = model.profileImageUrl;
+					
 
 				}else{
 
 					profileImageUrl = '/beamstream-new/images/profile-upload.png';
 				}
 				
+			
+				
+
 		        if(model.id.id == localStorage["loggedUserId"])
 		        {
 		        	var template = 	'<li id="me" class="online active"><a href="#" class="active"><img src="'+profileImageUrl+'" width="30" height="28"> '
@@ -97,6 +105,74 @@ define(['baseView',
 
 		onAfterRender: function(){
 		},
+		
+		
+
+/*Pubnub subscription for online user*/
+pushConnection: function(){
+	 var self = this;
+	 self.pagePushUid = Math.floor(Math.random()*16777215).toString(16);
+	
+		// alert("pushonlineuserview");
+		
+
+	 
+	/* for online users */
+	 PUBNUB.subscribe({
+	 channel : "onlineUsers",
+
+	 callback : function(message) {
+	
+		// alert(localStorage["loggedUserId"]);
+
+		alert(JSON.stringify(message));
+		 // alert("ankit");
+	
+		 profileImageUrl = '/beamstream-new/images/profile-upload.png';
+	if(message.pagePushUid != self.pagePushUid)
+	{
+		
+		alert("ankit");
+		var template='<li id="'+message.userInfo.user.id.id+'" onclick=popit("'+localStorage["loggedUserId"]+'","'+message.userInfo.user.id.id+'","'+message.userInfo.user.firstName+'","'+ profileImageUrl +'")> '+ message.userInfo.user.firstName +'<span class="online-chat"><img width="12" height="13" src="/beamstream-new/images/online-icon.png"></span></li>';
+
+
+	$('#user-online ul').append(template);
+	
+	// $('#user-online ul').append('<li>Ankit</li>');
+	}
+	 
+	 }
+	 })
+	 },
+	 
+		 
+	/*Pubnub subscription for offline user*/
+	pushConnectionOffline: function(){
+		 var self = this;
+		 self.pagePushUid = Math.floor(Math.random()*16777215).toString(16);
+		
+			
+
+		 
+		/* for online users */
+		 PUBNUB.subscribe({
+		 channel : "offlineuser",
+
+		 callback : function(message) {
+		
+		
+
+			 //alert(JSON.stringify(message));
+			 
+			  $('#user-online ul li').remove(); 
+			 
+		
+		 
+		 }
+		 })
+		 },
+		
+	
 		
 		/**
         *  method to provide scrolling functionality in onlineusers box
