@@ -42,8 +42,9 @@ Note all DIVs are generated and should not be hard-coded
 .simply-scroll-clip { /* Clip DIV - automatically generated */
 		position: relative;
 	    white-space: nowrap;
-    overflow-x: visible;
-    overflow-y: hidden;
+   /*  overflow-x: visible; */
+   /*  overflow-y: hidden; */
+   overflow:visible !important;
 }
 
 .simply-scroll-list { /* UL/OL/DIV - the element that simplyScroll is inited on */
