@@ -728,10 +728,14 @@ define(['view/formView',
 			    					    		
 			    		/* PUBNUB -- AUTO AJAX PUSH */ 
 			    		PUBNUB.publish({
-			    			channel : "questions",
+			    			channel : "questionsMainStream",
 			    			message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:response}
 			    		}) 
-			    		
+			    			/* PUBNUB -- AUTO AJAX PUSH */ 
+				    		PUBNUB.publish({
+				    			channel : "questionsSideStream",
+				    			message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:response}
+				    		}) 
 			    		var questionItemView  = new QuestionItemView({model : self.data.models[0]});
 						$('#questionListView div.content').prepend(questionItemView.render().el);
 						//$('#questionStreamView div.baseview').prepend(questionItemView.render().el);
@@ -791,7 +795,13 @@ define(['view/formView',
 				    		self.options = 0;
 				    		/* PUBNUB -- AUTO AJAX PUSH */ 
 				    		PUBNUB.publish({
-				    			channel : "questions",
+				    			channel : "questionsMainStream",
+				    			message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:response}
+				    		}) 
+				    		
+				    			/* PUBNUB -- AUTO AJAX PUSH */ 
+				    		PUBNUB.publish({
+				    			channel : "questionsSideStream",
 				    			message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:response}
 				    		}) 
 				    		/* share widget */ 
@@ -814,7 +824,12 @@ define(['view/formView',
 			    		success : function(model, response) {
 				    		/* PUBNUB -- AUTO AJAX PUSH */ 
 				    		PUBNUB.publish({
-				    			channel : "questions",
+				    			channel : "questionsMainStream",
+				    			message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:response}
+				    		}) 
+				    			/* PUBNUB -- AUTO AJAX PUSH */ 
+				    		PUBNUB.publish({
+				    			channel : "questionsSideStream",
 				    			message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:response}
 				    		}) 
 				    		// show the posted message on feed
@@ -897,7 +912,7 @@ define(['view/formView',
 			
 			 /* for question posting */
 			 PUBNUB.subscribe({
-				 channel : "questions",
+				 channel : "questionsMainStream",
 				 restore : false,
 				 callback : function(question) {
 					 var streamId = $('.sortable li.active').attr('id');

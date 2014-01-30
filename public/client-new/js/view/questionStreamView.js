@@ -104,7 +104,7 @@ define([
                  
                  PUBNUB.subscribe({
                          
-                         channel : 'questions',
+                         channel : 'questionsSideStream',
                         // message: function(m){alert("Aa gya dekh"+m)}
                          
                          callback : function(question) {
