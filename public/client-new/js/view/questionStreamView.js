@@ -142,9 +142,22 @@ define([
                                     }
                  
                             }
+
+                    
                          });
-         },
-		
+                 PUBNUB.subscribe({
+             		
+	   channel : "deleteQuestionSideStream",
+	   restore : false,
+	   callback : function(question) {
+		   if(question.pagePushUid != self.pagePushUid)
+		   {   	  
+		   	
+			   $('div#'+question.questionId+":parent").remove();
+		   }
+   }
+});
+		   }, 
 		
 		
 		addChildViews: function() {

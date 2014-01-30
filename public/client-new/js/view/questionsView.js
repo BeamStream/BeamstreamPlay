@@ -1064,7 +1064,7 @@ define(['view/formView',
 	   		    /* for delete question  case*/
  	   		   PUBNUB.subscribe({
 		
- 	   			   channel : "deleteQuestion",
+ 	   			   channel : "deleteQuestionMainStream",
  	   			   restore : false,
  	   			   callback : function(question) {
  	   				   if(question.pagePushUid != self.pagePushUid)

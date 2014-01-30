@@ -1,6 +1,6 @@
 
 
-
+<div id="{{question.id.id}}">
 <div class="question-post">
     {{#if profilePic.length}}
     <img src="{{profilePic}}" class="profile-picture"></img>
@@ -53,4 +53,5 @@
         </form>
        
     </div>
+</div>
 </div>

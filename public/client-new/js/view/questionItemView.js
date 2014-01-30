@@ -839,7 +839,11 @@ define(['view/formView',
 	                		 		
 	                		 		/* pubnum auto push -- delete question*/
    									PUBNUB.publish({
-   			                			channel : "deleteQuestion",
+   			                			channel : "deleteQuestionMainStream",
+		                       			 message : { pagePushUid: self.pagePushUid ,questionId : questionId}
+   			               			 })
+   			               		   PUBNUB.publish({
+   			                			channel : "deleteQuestionSideStream",
 		                       			 message : { pagePushUid: self.pagePushUid ,questionId : questionId}
    			               			 })
 
