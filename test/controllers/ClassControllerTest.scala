@@ -23,7 +23,7 @@ class ClassControllerTest extends FunSuite with BeforeAndAfter {
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
   private def userToBeCreated = {
-    User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", Nil, Nil, Nil, Nil, Nil, None, None)
+    User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", Nil, Nil, Nil, None, None)
   }
 
   private def classToBeCreated = {
@@ -38,12 +38,12 @@ class ClassControllerTest extends FunSuite with BeforeAndAfter {
     }
   }
 
-//  test("Render Class page") {
-//    running(FakeApplication()) {
-//      val status = WS.url("http://localhost:9000/class")
-//      assert(status.get.get.getStatus === 200)
-//    }
-//  }
+  //  test("Render Class page") {
+  //    running(FakeApplication()) {
+  //      val status = WS.url("http://localhost:9000/class")
+  //      assert(status.get.get.getStatus === 200)
+  //    }
+  //  }
 
   test("Create class test") {
     val userId = User.createUser(userToBeCreated)

@@ -86,30 +86,33 @@ object Comment {
   /**
    * get All comments
    *
-   * @Purpose : getting Comments for any Model(have to pass the List[ObjectId])
+   * Purpose : getting Comments for any Model(have to pass the List[ObjectId])
    */
 
   def getAllComments(comments: List[ObjectId]): List[CommentResult] = {
-    comments map {
+    var commentListToReturn: List[CommentResult] = Nil
+    comments foreach {
       case commentId =>
         val comment = CommentDAO.find(MongoDBObject("_id" -> commentId)).toList
-        (comment.isEmpty==false) match {
-          case true => {
+        comment.isEmpty match {
+          case false => {
             val userMedia = UserMedia.getProfilePicForAUser(comment.head.userId)
 
-            val profilePicForUser = (!userMedia.isEmpty) match {
-              case true => (userMedia.head.frameURL != "") match {
+            val profilePicForUser = (userMedia.isEmpty) match {
+              case false => (userMedia.head.frameURL != "") match {
                 case true => userMedia.head.frameURL
                 case false => userMedia.head.mediaUrl
               }
 
-              case false => ""
+              case true => ""
             }
-            CommentResult(comment.head, Option(profilePicForUser))
+            commentListToReturn ++= List(CommentResult(comment.head, Option(profilePicForUser)))
           }
+          case true =>
         }
 
     }
+    commentListToReturn
   }
 
   /**
@@ -133,7 +136,7 @@ object Comment {
 
   /**
    * Is a Rocker
-   * @ Purpose: identify if the user has rocked a comment or not
+   * Purpose: identify if the user has rocked a comment or not
    */
 
   def isARocker(commentId: ObjectId, userId: Object): Boolean = {

@@ -12,8 +12,8 @@ object ProgressStatusUtil {
 
   /**
    * Add Progress 
-   * @param userId is the Id of the User
-   * @param percentage is the percentage of the done progress
+   * param userId is the Id of the User
+   * param percentage is the percentage of the done progress
    */
   def addProgress(userId: String, percentage: Int) = {
     val amazonProgressObj = AmazonProgressDAO.find(MongoDBObject("userId" -> userId)).toList
@@ -25,7 +25,7 @@ object ProgressStatusUtil {
   }
  /**
    * Find Progress 
-   * @param userId is the Id of the User
+   * param userId is the Id of the User
    * 
    */
   def findProgress(userId: String) = {

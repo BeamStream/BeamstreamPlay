@@ -27,8 +27,6 @@ case class User(@Key("_id") id: ObjectId,
   contact: String,
   schools: List[ObjectId],
   classes: List[ObjectId],
-  documents: List[ObjectId],
-  questions: List[ObjectId],
   followers: List[ObjectId],
   socialJson: Option[JsValue],
   friends: Option[List[ObjectId]])
@@ -89,7 +87,7 @@ object User {
   //TODO : FLow has changed. Check whether it is to be used or not
   /**
    * Find user coming from social site with the UserName (RA )
-   *Purpose : Authenticate user via user name only
+   * Purpose : Authenticate user via user name only
    */
 
   def findUserComingViaSocailSite(userName: String, socialNetwork: String): Option[User] = {
@@ -149,10 +147,9 @@ object User {
    */
 
   def giveMeTheRockers(users: List[ObjectId]): List[String] = {
-    var userentities = users map { user => UserDAO.findOne(MongoDBObject("_id" -> user)) }
-    var rockers = userentities.filterNot(user => user == None)
+    val userentities = users map { user => UserDAO.findOne(MongoDBObject("_id" -> user)) }
+    val rockers = userentities.filterNot(user => user == None)
     rockers map { userentity => userentity.get.firstName + " " + userentity.get.lastName }
-
   }
 
   /**
@@ -243,7 +240,7 @@ object User {
 
   /**
    * Is a follower
-   *Purpose: identify if the user is following this User or not
+   * Purpose: identify if the user is following this User or not
    * Param  followedUserId is the id of the user being followed to be searched
    * Param  userId is the id of follower
    */

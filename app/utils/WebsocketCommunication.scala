@@ -13,6 +13,7 @@ import play.api.Play.current
 import play.api.libs.concurrent.Execution.Implicits._
 import org.bson.types.ObjectId
 import scala.concurrent.Future
+import controllers.WebsocketCommunicationController
 
 case class Join(username: String)
 case class Quit(username: String, channel: play.api.libs.iteratee.Concurrent.Channel[play.api.libs.json.JsValue])
@@ -83,7 +84,7 @@ object WebsocketCommunication {
               default ! Quit(userName, chatChannel)
             }
 
-            ChatAvailiblity.a += new ObjectId(userId) -> (chatChannel, chatEnumerator)
+            WebsocketCommunicationController.a += new ObjectId(userId) -> (chatChannel, chatEnumerator)
             (iteratee, chatEnumerator)
 
           case CannotConnect(error) =>

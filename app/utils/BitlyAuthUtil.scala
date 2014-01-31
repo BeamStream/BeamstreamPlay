@@ -8,11 +8,10 @@ object BitlyAuthUtil {
 
   /**
    * bit.ly Authentication and URL return
-   * @param longUrl is the URL that needs to be shortened
+   * param longUrl is the URL that needs to be shortened
    */
 
   def returnShortUrlViabitly(longUrl: String): String = {
-    var result: Option[String] = None
     val apiKey = ConversionUtility.decodeMe(Play.current.configuration.getString("bitly_apiKey").get) // Encrypted Key
     val URL = "https://api-ssl.bitly.com/v3/shorten"
     val promise = WS.url(URL).withQueryString("apiKey" -> apiKey).withQueryString("login" -> "beamstream").withQueryString("longUrl" -> longUrl).get
