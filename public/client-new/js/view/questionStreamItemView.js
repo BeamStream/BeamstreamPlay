@@ -92,9 +92,9 @@ function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionMod
                 	  			callback : function(question) {                 	  		
                 	  			if(question.pagePushUid != self.pagePushUid)
                 	  				{   				
-                	  						alert(question.parent);
+                	  						
                 	  						question.cmtCount++; 
-                	  						alert(question.cmtCount);                	  						
+                	  					              	  						
                 	  						$('#'+question.parent+"-totalcommentsidebar").text(question.cmtCount);
                 	  				}
                   				}
@@ -102,18 +102,13 @@ function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionMod
                   
                   PUBNUB.subscribe({
 		
- 	   			   channel : "delete_ques_Comment",
+ 	   			   channel : "delete_ques_CommentSideBar",
  	   			   restore : false,
- 	   			   callback : function(question) {
-                	  		alert(question);
+ 	   			   callback : function(question) {                	  	
  	   				   if(question.pagePushUid != self.pagePushUid)
- 	   				   {   	  
- 	   				   	   
-   					  		var commentCount = $('#'+question.questionId+'-totalComment').text()
-
-   					  		$('div#'+question.questionId+'-newCommentList').find('div#'+question.commentId).remove();
-   					  		$('div#'+question.questionId+'-allComments').find('div#'+question.commentId).remove();
-	                		$('#'+question.questionId+'-totalComment').text(commentCount-1);
+ 	   				   {    	   				   	   
+   					  		var commentCount = $('#'+question.questionId+"-totalcommentsidebar").text();   					  		
+	                		$('#'+question.questionId+"-totalcommentsidebar").text(commentCount-1);
  	   				   }
 		   		   }
 	   		   })
