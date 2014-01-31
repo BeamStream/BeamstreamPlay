@@ -107,8 +107,8 @@ function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionMod
  	   			   callback : function(question) {                	  	
  	   				   if(question.pagePushUid != self.pagePushUid)
  	   				   {    	   				   	   
-   					  		var commentCount = $('#'+question.questionId+"-totalcommentsidebar").text();   					  		
-	                		$('#'+question.questionId+"-totalcommentsidebar").text(commentCount-1);
+   					  		var commentCountSideBar = $('#'+question.questionId+"-totalcommentsidebar").text();   					  		
+	                		$('#'+question.questionId+"-totalcommentsidebar").text(commentCountSideBar-1);
  	   				   }
 		   		   }
 	   		   })
