@@ -1,9 +1,11 @@
 define([
 	'baseView', 
 	'../handlebar_helpers/pluralize_helper',
-	'text!templates/questionStreamItem.tpl'
+	'text!templates/questionStreamItem.tpl',
+	'view/questionItemView',
+    'model/question',
 ], 
-function(BaseView, Pluralize, questionStreamItemTPL){
+function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionModel){
 	var QuestionStreamItem = BaseView.extend({
 		objName: 'questionStreamItem', 
 
@@ -22,7 +24,9 @@ function(BaseView, Pluralize, questionStreamItemTPL){
 		}, 
 		
 		
-		
+		onAfterInit: function(){
+			this.receiveCommentThroughPubNub();
+		},
 		
 
 		initialize: function(){
@@ -69,6 +73,53 @@ function(BaseView, Pluralize, questionStreamItemTPL){
 				this.model.updateEditStatus();
 			}
 		},
+		
+		
+		receiveCommentThroughPubNub: function() {
+                 var self = this;
+                 self.pagePushUid = Math.floor(Math.random()*16777215).toString(16);
+                 var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
+                 var trueUrl='';
+
+                 // Trigger the change pagePushUid event
+                 this.trigger('change:pagePushUid', {
+                         pagePushUid: self.pagePushUid
+                 });
+                 
+                  PUBNUB.subscribe({                		
+                	  	    channel : "questioncommentSideStream",
+                	  		restore : false,
+                	  			callback : function(question) {                 	  		
+                	  			if(question.pagePushUid != self.pagePushUid)
+                	  				{   				
+                	  						alert(question.parent);
+                	  						question.cmtCount++; 
+                	  						alert(question.cmtCount);                	  						
+                	  						$('#'+question.parent+"-totalcommentsidebar").text(question.cmtCount);
+                	  				}
+                  				}
+                  })
+                  
+                  PUBNUB.subscribe({
+		
+ 	   			   channel : "delete_ques_Comment",
+ 	   			   restore : false,
+ 	   			   callback : function(question) {
+                	  		alert(question);
+ 	   				   if(question.pagePushUid != self.pagePushUid)
+ 	   				   {   	  
+ 	   				   	   
+   					  		var commentCount = $('#'+question.questionId+'-totalComment').text()
+
+   					  		$('div#'+question.questionId+'-newCommentList').find('div#'+question.commentId).remove();
+   					  		$('div#'+question.questionId+'-allComments').find('div#'+question.commentId).remove();
+	                		$('#'+question.questionId+'-totalComment').text(commentCount-1);
+ 	   				   }
+		   		   }
+	   		   })
+                  
+                 
+			},
 
 		followQuestion: function(){
 			this.model.followQuestion();

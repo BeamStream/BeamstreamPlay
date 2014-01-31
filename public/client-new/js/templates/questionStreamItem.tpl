@@ -28,7 +28,7 @@
 
     <div class="question-txt">
         <p>{{question.questionBody}}</p>
-    </div>
+    </div>	
     <div class="post-interact">
        <div class="post-interact-wrapper">
         {{#if onlineUserRocked}}
@@ -41,7 +41,7 @@
         <div class="qs-answer-link">Answer</div>
         <div class="question-stats">
         <div class="answer-amount">{{question.answers.length ''}}</div>
-        <div class="comment-amount">{{question.comments.length '' }}</div>
+        <div id="{{question.id.id}}-totalcommentsidebar" class="comment-amount">{{question.comments.length '' }}</div>
         
         </div>
        </div>

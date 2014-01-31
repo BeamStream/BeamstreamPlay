@@ -987,11 +987,13 @@ define(['view/formView',
 		 	  /* auto push functionality for comments */
 		 	   PUBNUB.subscribe({
 	
-		 		   channel : "questioncomment",
+		 		   channel : "questioncommentMainStream",
 		 		   restore : false,
 	
 		 		   callback : function(question) { 
-	    	  
+	
+		 		 
+		 		  
 		 			   if(question.pagePushUid != self.pagePushUid)
 		 			   {
 		 			   	
@@ -1014,7 +1016,7 @@ define(['view/formView',
 		 		    		question.cmtCount++; 
 		 		    		$('#'+question.parent+'-show-hide').text("Hide All");
 		 					$('#'+question.parent+'-totalComment').text(question.cmtCount);
-
+		 					
 	 				   	   }
  			   		   }
  		   		   }
@@ -1042,8 +1044,10 @@ define(['view/formView',
  	   			   restore : false,
  	   			   callback : function(question) {
  	   				   if(question.pagePushUid != self.pagePushUid)
- 	   				   {   	  
+ 	   				   { 
+ 	   					     alert(JSON.stringify(question));
  	   					   $('#'+question.quesId+'-qstRockCount').find('span').html(question.data);
+ 	   					 
  	   				   }
 		   		   }
 	   		   })
@@ -1081,7 +1085,7 @@ define(['view/formView',
  	   			   channel : "delete_ques_Comment",
  	   			   restore : false,
  	   			   callback : function(question) {
-
+ 	   			   		alert(question);
  	   				   if(question.pagePushUid != self.pagePushUid)
  	   				   {   	  
  	   				   	   

@@ -42,9 +42,9 @@ Note all DIVs are generated and should not be hard-coded
 .simply-scroll-clip { /* Clip DIV - automatically generated */
 		position: relative;
 	    white-space: nowrap;
-   /*  overflow-x: visible; */
-   /*  overflow-y: hidden; */
-   overflow:visible !important;
+    overflow-x: visible;
+    overflow-y: hidden;
+ 
 }
 
 .simply-scroll-list { /* UL/OL/DIV - the element that simplyScroll is inited on */
@@ -239,6 +239,7 @@ Note all DIVs are generated and should not be hard-coded
 		position:relative;
 		padding-left: 4px;
 		width: 113%;
+		min-width:150px;
 }
 .vert .simply-scroll-list {
 }

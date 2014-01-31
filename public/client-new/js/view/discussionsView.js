@@ -857,8 +857,8 @@ define(['view/formView',
 		 		   channel : "comment",
 		 		   restore : false,
 	
-		 		   callback : function(message) { 
-	    	  
+		 		   callback : function(message) {  		   	
+		 		 	    	  
 		 			   if(message.pagePushUid != self.pagePushUid)
 		 			   {
 		 			   	
