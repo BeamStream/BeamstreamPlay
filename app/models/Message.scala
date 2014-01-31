@@ -80,7 +80,7 @@ object Message { //extends CommentConsumer {
 
   /**
    * Find Message by Id
-   * @param  messageId is the id of the message to be searched
+   * param  messageId is the id of the message to be searched
    */
 
   def findMessageById(messageId: ObjectId): Option[Message] = {
@@ -90,7 +90,7 @@ object Message { //extends CommentConsumer {
 
   /**
    * All Public message for a user
-   * @param streamId is the id of the stream for which the messages are required
+   * param streamId is the id of the stream for which the messages are required
    */
   def getAllPublicMessagesForAStream(streamId: ObjectId): List[Message] = {
     MessageDAO.find(MongoDBObject("streamId" -> streamId, "messageAccess" -> "Public")).toList
@@ -98,7 +98,7 @@ object Message { //extends CommentConsumer {
 
   /**
    * All Public message for a user
-   * @param userId is the id of the user for which the messages are required
+   * param userId is the id of the user for which the messages are required
    */
   def getAllMessagesForAUser(userId: ObjectId): List[Message] = {
     MessageDAO.find(MongoDBObject("userId" -> userId)).toList
@@ -106,7 +106,7 @@ object Message { //extends CommentConsumer {
 
   /**
    * Get all public messages for a user
-   *  @param userId is the id of the user for which the messages are required
+   *  param userId is the id of the user for which the messages are required
    */
   def getAllPublicMessagesForAUser(userId: ObjectId) = {
     MessageDAO.find(MongoDBObject("userId" -> userId, "messageAccess" -> "Public")).toList
@@ -114,7 +114,7 @@ object Message { //extends CommentConsumer {
 
   /**
    *  Increase the no. of counts
-   *   @param messageId is the id of the message for which the rockers are required
+   *   param messageId is the id of the message for which the rockers are required
    */
   def rockersNames(messageId: ObjectId): List[String] = {
     val messageRocked = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
@@ -151,9 +151,9 @@ object Message { //extends CommentConsumer {
 
   /**
    * Sort messages within a stream on the basis of total rocks
-   *  @param streamId is the id of the stream
-   *  @param pageNumber is the page number
-   *  @param messagesPerPage is the limit of messages per page
+   *  param streamId is the id of the stream
+   *  param pageNumber is the page number
+   *  param messagesPerPage is the limit of messages per page
    */
 
   def getAllMessagesForAStreamSortedbyRocks(streamId: ObjectId, pageNumber: Int, messagesPerPage: Int): List[Message] = {
@@ -162,9 +162,9 @@ object Message { //extends CommentConsumer {
 
   /**
    * get all messages within a stream on the basis of keyword
-   * @param streamId is the id of the stream
-   *  @param pageNumber is the page number
-   *  @param messagesPerPage is the limit of messages per page
+   * param streamId is the id of the stream
+   *  param pageNumber is the page number
+   *  param messagesPerPage is the limit of messages per page
    */
   def getAllMessagesForAKeyword(keyword: String, streamId: ObjectId, pageNumber: Int, messagesPerPage: Int): List[Message] = {
     val keyWordregExp = (""".*""" + keyword + """.*""").r
@@ -172,9 +172,9 @@ object Message { //extends CommentConsumer {
   }
 
   /**
-   * @param streamId is the id of the stream
-   *  @param pageNumber is the page number
-   *  @param messagesPerPage is the limit of messages per page
+   * param streamId is the id of the stream
+   *  param pageNumber is the page number
+   *  param messagesPerPage is the limit of messages per page
    * Pagination For messages
    */
 
@@ -184,8 +184,8 @@ object Message { //extends CommentConsumer {
 
   /**
    * Follow the message
-   * @param  messageId is the id of the message to be searched
-   * @param  userId is the id of follower
+   * param  messageId is the id of the message to be searched
+   * param  userId is the id of follower
    *
    * @Purpose: Update followers and returns the no. of followers
    */
@@ -217,8 +217,8 @@ object Message { //extends CommentConsumer {
   /**
    * Is a follower
    * @Purpose: identify if the user is following a message or not
-   * @param  messageId is the id of the message to be searched
-   * @param  userId is the id of follower
+   * param  messageId is the id of the message to be searched
+   * param  userId is the id of follower
    */
 
   def isAFollower(messageId: ObjectId, userId: Object): Boolean = {
@@ -234,8 +234,8 @@ object Message { //extends CommentConsumer {
   /**
    * Is a Rocker
    * @Purpose: identify if the user has rocked a message or not
-   * @param  messageId is the id of the message to be searched
-   * @param  userId is the id of follower
+   * param  messageId is the id of the message to be searched
+   * param  userId is the id of follower
    */
 
   def isARocker(messageId: ObjectId, userId: Object): Boolean = {
@@ -260,8 +260,8 @@ object Message { //extends CommentConsumer {
 
   /**
    * Add Comment To Message
-   * @param  commentId is the id of the comment which is created
-   * @param  messageId is the id of message to which this comments belongs
+   * param  commentId is the id of the comment which is created
+   * param  messageId is the id of message to which this comments belongs
    */
   def addCommentToMessage(commentId: ObjectId, messageId: ObjectId) = {
     val message = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
@@ -270,8 +270,8 @@ object Message { //extends CommentConsumer {
 
   /**
    * Remove Comment To Message
-   * @param  commentId is the id of the comment which is created
-   * @param  messageId is the id of message to which this comments belongs
+   * param  commentId is the id of the comment which is created
+   * param  messageId is the id of message to which this comments belongs
    */
   def removeCommentFromMessage(commentId: ObjectId, messageId: ObjectId) = {
     val message = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
@@ -280,8 +280,8 @@ object Message { //extends CommentConsumer {
 
   /**
    * Delete A Message (Either Stream Admin Or The User Who Has Posted The Message)
-   *  @param  messageId is the id of the message to e deleted
-   * @param  userId is the id of owner of message
+   *  param  messageId is the id of the message to e deleted
+   * param  userId is the id of owner of message
    */
 
   def deleteMessagePermanently(messageId: ObjectId, userId: ObjectId) = {

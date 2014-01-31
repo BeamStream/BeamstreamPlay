@@ -41,10 +41,10 @@ define(['view/formView'
         	this.data.models[0].set({'docName':$('#docName').val()});
         	this.data.models[0].set({'docDescription':$('#docDescription').val()});
 
-            if($('#docType').val() == 'Document' || $('#docType').val() == 'Other')
+           /* if($('#docType').val() == 'Document' || $('#docType').val() == 'Other')
                 this.data.url="/document";
-            else
-                this.data.url="/media";
+            else*/
+                this.data.url="/document";
         	
         	this.saveForm({});
 		},

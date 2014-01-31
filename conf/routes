@@ -49,7 +49,6 @@ GET    /signOut                                                                 
 #Media
 
 GET    /profilePicFor/user/:userId                                                         controllers.MediaController.getProfilePicForAUser(userId:String)
-PUT    /media/:mediaId                                                                     controllers.DocumentController.changeTitleAndDescriptionForADocument(mediaId:String)
 GET    /allPicsForAuser                                                                    controllers.MediaController.getAllPicsForAUser
 GET    /allVideosForAuser                                                                  controllers.MediaController.allVideosForAuser
 PUT    /rock/media/:mediaId                                                                controllers.MediaController.rockTheUsermedia(mediaId:String)
@@ -167,8 +166,6 @@ POST   /social/invite/friends                                                   
 GET    /stream                                                                             controllers.StreamController.renderStreamPage
 GET    /allStreamsForAUser                                                                 controllers.StreamController.getAllStreamForAUser
 
-#School
-POST   /school                                                                             controllers.SchoolController.addANewSchool
 
 #Files & Media
 GET    /browsemedia                                                                        controllers.MediaController.browseMedia

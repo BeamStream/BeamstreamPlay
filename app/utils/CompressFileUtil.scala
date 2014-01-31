@@ -18,9 +18,9 @@ object CompressFileUtil extends App {
 
   /**
    * Compress Image Files
-   * @param file is the image file
-   * @param filename is the name of the file
-   * @param qualityOfOutPutImage is the quality of the image that is needed
+   * param file is the image file
+   * param filename is the name of the file
+   * param qualityOfOutPutImage is the quality of the image that is needed
    */
   def compressImage(file: File, filename: String, qualityOfOutPutImage: Float): InputStream = {
     val inputStream = new FileInputStream(file)

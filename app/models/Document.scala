@@ -16,9 +16,9 @@ import java.util.Date
 import java.net.URL
 import java.util.regex.Pattern
 import models.mongoContext._
-/*
- * Enumeration for the document access 
- * 
+/**
+ * Enumeration for the document access
+ *
  * Private - Only available for the owner
  * Public - Available to all
  * Restricted - Available to a restricted list of users

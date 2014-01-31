@@ -18,7 +18,7 @@ object SendEmailUtility {
    * Send Mail Credentials
    */
 
-  def setEmailCredentials = {
+  def setEmailCredentials : (MimeMessage, Session) = {
     val props = new Properties
     props.setProperty("mail.transport.protocol", "smtp");
     props.setProperty("mail.smtp.starttls.enable", "true");
@@ -29,7 +29,7 @@ object SendEmailUtility {
     val session = Session.getDefaultInstance(props, null);
     val mimeMessage = new MimeMessage(session)
     (mimeMessage, session)
-  }: (MimeMessage, Session)
+  }
 
  
 

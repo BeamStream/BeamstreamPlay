@@ -51,7 +51,7 @@ object BasicRegistration extends Controller {
       case true =>
         (encryptedPassword == encryptedConfirmPassword) match {
           case true =>
-            val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, "", "", "", Option(encryptedPassword), "", "", "", "", Nil, Nil, Nil, Nil, Nil, None, None)
+            val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, "", "", "", Option(encryptedPassword), "", "", "", "", Nil, Nil,Nil, None, None)
             val IdOfUserCreted = User.createUser(userToCreate)
             val createdUser = User.getUserProfile(IdOfUserCreted.get)
             UtilityActor.sendMailAfterUserSignsUp(IdOfUserCreted.get.toString, TokenEmailUtil.securityToken, emailId)

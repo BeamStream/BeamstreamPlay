@@ -68,8 +68,8 @@ class AmazonUpload {
 
   /**
    * Upload File To Amazon
-   * @param profilePicName is the name of file
-   * @param profilePic is the file to be uploaded
+   * param profilePicName is the name of file
+   * param profilePic is the file to be uploaded
    */
   def uploadFileToAmazon(profilePicName: String, profilePic: File) {
     val bucketName = "BeamStream"

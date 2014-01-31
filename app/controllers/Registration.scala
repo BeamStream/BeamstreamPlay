@@ -95,7 +95,7 @@ object Registration extends Controller {
         val utcMilliseconds = OnlineUserCache.returnUTCTime
         OnlineUserCache.setOnline(userId, utcMilliseconds)
         //retrieve token in session and invalidate
-        var token = request.session.get("token").get
+        val token = request.session.get("token").get
         Token.updateToken(token)
 
         Ok(write(RegistrationResults(userCreated.get, userSchool))).as("application/json").withSession("userId" -> userId)
@@ -149,28 +149,28 @@ object Registration extends Controller {
   /**
    * Update User (VA)
    */
-  private def updateUser(jsonReceived: JsValue): (Boolean, String) = {
-    val userId = (jsonReceived \ "userId").as[String]
-    val firstName = (jsonReceived \ "firstName").as[String]
-    val email = (jsonReceived \ "mailId").asOpt[String]
-    val lastName = (jsonReceived \ "lastName").as[String]
-    val userName = (jsonReceived \ "username").as[String]
-    val location = (jsonReceived \ "location").as[String]
-    val about = (jsonReceived \ "aboutYourself").as[String]
-    val cellNumber = (jsonReceived \ "cellNumber").as[String]
+  private def updateUser(userJson: JsValue): (Boolean, String) = {
+    val userId = (userJson \ "userId").as[String]
+    val firstName = (userJson \ "firstName").as[String]
+    val email = (userJson \ "mailId").asOpt[String]
+    val lastName = (userJson \ "lastName").as[String]
+    val userName = (userJson \ "username").as[String]
+    val location = (userJson \ "location").as[String]
+    val about = (userJson \ "aboutYourself").as[String]
+    val cellNumber = (userJson \ "cellNumber").as[String]
 
     val canUserRegisterWithThisUsername = User.canUserRegisterWithThisUsername(userName)
 
     def canUserRegister = {
-      (canUserRegisterWithThisUsername == false) match {
-        case true =>
+      canUserRegisterWithThisUsername match {
+        case false =>
           val currentUser = User.getUserProfile(new ObjectId(userId))
           val result = (currentUser.get.userName == userName) match {
             case true => (true, "Register")
             case false => (false, "Username Already Exists")
           }
           result
-        case false => (true, "Register")
+        case true => (true, "Register")
 
       }
     }
@@ -178,9 +178,9 @@ object Registration extends Controller {
     val canRegister = (email != None) match {
       case true =>
         val canUserRegisterWithThisEmail = User.canUserRegisterWithThisEmail(email.get)
-        (canUserRegisterWithThisEmail == false) match {
-          case true => (false, "EmailId Already Exists")
-          case false => canUserRegister
+        canUserRegisterWithThisEmail match {
+          case false => (false, "EmailId Already Exists")
+          case true => canUserRegister
 
         }
 
@@ -197,6 +197,5 @@ object Registration extends Controller {
       User.updateUser(new ObjectId(userId), firstName, lastName, userName, emailId, location, about, cellNumber)
     }
     canRegister
-
   }
 }

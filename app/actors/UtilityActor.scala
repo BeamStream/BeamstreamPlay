@@ -29,8 +29,7 @@ object UtilityActor {
    * Send Email Clubbed through Future(RA)
    */
   def sendMailWhenBetaUserRegisters(emailId: String) = {
-    implicit val system = Akka.system
-    val future = Future { sendMailToBetaUsers(emailId) }
+    Future { sendMailToBetaUsers(emailId) }
   }
 
   /**
@@ -70,8 +69,7 @@ object UtilityActor {
    * Send Email After User signs up (RA)
    */
   def sendMailAfterUserSignsUp(userId: String, authToken: String, emailId: String) = {
-    implicit val system = Akka.system
-    val future = Future { sendMailAfterSignUp(userId, authToken, emailId) }
+    Future { sendMailAfterSignUp(userId, authToken, emailId) }
   }
 
   def sendMailAfterSignUp(userId: String, authToken: String, emailId: String) {
@@ -98,23 +96,20 @@ object UtilityActor {
    * Mail After Stream Creation (V)
    */
   def sendEmailAfterStreamCreation(email: String, streamName: String, newStream: Boolean) {
-    implicit val system = Akka.system
-    val future = Future { SendEmailUtility.mailAfterStreamCreation(email, streamName, newStream) }
+    Future { SendEmailUtility.mailAfterStreamCreation(email, streamName, newStream) }
   }
   /**
    * Mail After Stream Creation (V)
    */
   def sendEmailAfterStreamCreationToNotifyOtherUsers(streamId: ObjectId, userIdWhoHasJoinedTheStream: ObjectId) {
-    implicit val system = Akka.system
-    val future = Future { models.Stream.sendMailToUsersOfStream(streamId, userIdWhoHasJoinedTheStream) }
+    Future { models.Stream.sendMailToUsersOfStream(streamId, userIdWhoHasJoinedTheStream) }
   }
 
   /**
    * Mail For Forgot Password
    */
   def forgotPasswordMail(emailId: String, password: String) {
-    implicit val system = Akka.system
-    val future = Future { SendEmailUtility.sendPassword(emailId, password) }
+    Future { SendEmailUtility.sendPassword(emailId, password) }
   }
 
 }
