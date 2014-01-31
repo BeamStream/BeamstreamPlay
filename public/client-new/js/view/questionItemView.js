@@ -378,10 +378,13 @@ define(['view/formView',
    			    		    self.showPostedComment(response,parent,totalComments);
    			    		 /* pubnum auto push */
    							PUBNUB.publish({
-   			                	channel : "questioncomment",
+   			                	channel : "questioncommentMainStream",
 		                        message : { pagePushUid: self.pagePushUid ,data:response,parent:parent,cmtCount:totalComments ,profileImage : localStorage["loggedUserProfileUrl"]}
    			                })
-   			    		    
+   			                PUBNUB.publish({
+   			                	channel : "questioncommentSideStream",
+		                        message : { pagePushUid: self.pagePushUid ,data:response,parent:parent,cmtCount:totalComments ,profileImage : localStorage["loggedUserProfileUrl"]}
+   			                })
 	   			    	},
 	   			    	error : function(model, response) {
 	   			    		
@@ -918,6 +921,7 @@ define(['view/formView',
    			                			channel : "delete_ques_Comment",
 		                       			 message : { pagePushUid: self.pagePushUid ,questionId : questionId ,commentId : commentId}
    			               			 })
+   			               			 
 			                		
 		                	 	}
 		                	 	else
