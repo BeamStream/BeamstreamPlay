@@ -74,6 +74,7 @@
               
                   
                           {{#if commenImage}}
+													<div id="hover-img-background"></div>
                            <div class="doc-image">
                            <img  src="{{previewImage}}" class="cover-picture" /> <h3 class="common-doctext" >
                            </div>

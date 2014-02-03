@@ -444,7 +444,7 @@ header, footer){
 
 				<div class="question-sort">
 				<h5>SORT BY</h5>
-				                                          <div class="btn-group dropdown-outer">
+				                                          <div class="btn-group dropdown-outer" id="rock-sort">
 				                                                  <button class="btn seetings-toggle sort-toogle  sort-toogle-none" id="sortBy-select"
 				                                                          value="date">Most Recent</button>
 				                                                  <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown">
@@ -458,7 +458,7 @@ header, footer){
 				                                                          <!-- >li><a href="#" name="most-shared" >Most Shared </a></li-->
 				                                                  </ul>
 				                                          </div>
-				                                          <div class="btn-group dropdown-outer">
+				                                          <div class="btn-group dropdown-outer" id="stream-date-sort">
 				                                                  <button class="btn seetings-toggle sort-toogle  sort-toogle-none" id="date-sort-select" value="week">This
 				                                                          Week</button>
 				                                                  <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown">
@@ -472,9 +472,9 @@ header, footer){
 						</ul>
 					</div>
 					<form class="all-search" action="">
+						<span></span>
 						<input type="text" id="sort_by_key" class="quest-search"
 							placeholder="Search Discussions">
-							<span></span>
 					</form>
 				</div>
 
