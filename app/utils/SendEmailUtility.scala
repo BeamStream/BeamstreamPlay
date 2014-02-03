@@ -10,28 +10,29 @@ import models.Token
 import org.bson.types.ObjectId
 import play.api.Play
 
-object SendEmailUtility {
-  
-  val BEAMTEAM_EMAIL = "beamteam@beamstream.com"
+trait EmailUtility {
 
   /**
-   * Send Mail Credentials
+   * Send Mail Credentials (T)
    */
 
-  def setEmailCredentials : (MimeMessage, Session) = {
+  def setEmailCredentials: (MimeMessage, Session) = {
     val props = new Properties
-    props.setProperty("mail.transport.protocol", "smtp");
-    props.setProperty("mail.smtp.starttls.enable", "true");
-    props.setProperty("mail.smtp.port", "80");
-    props.setProperty("mail.smtp.host", Play.current.configuration.getString("smtp_server_out").get);
-    props.setProperty("mail.smtp.user", Play.current.configuration.getString("email_address").get);
+    props.setProperty("mail.transport.protocol", "smtp")
+    props.setProperty("mail.smtp.starttls.enable", "true")
+    props.setProperty("mail.smtp.port", "80")
+    props.setProperty("mail.smtp.host", Play.current.configuration.getString("smtp_server_out").get)
+    props.setProperty("mail.smtp.user", Play.current.configuration.getString("email_address").get)
     props.setProperty("mail.smtp.password", Play.current.configuration.getString("email_password").get)
-    val session = Session.getDefaultInstance(props, null);
+    val session = Session.getDefaultInstance(props, null)
     val mimeMessage = new MimeMessage(session)
     (mimeMessage, session)
   }
+}
 
- 
+object SendEmailUtility extends EmailUtility {
+
+  val BEAMTEAM_EMAIL = "beamteam@beamstream.com"
 
   /**
    * Forgot Password Functionality
@@ -57,7 +58,7 @@ object SendEmailUtility {
    * Send Mail After Stream Creation & Joining
    */
   def mailAfterStreamCreation(emailId: String, streamName: String, newStream: Boolean) {
-    val authenticatedMessageAndSession = SendEmailUtility.setEmailCredentials
+    val authenticatedMessageAndSession = setEmailCredentials
     val recepientAddress = new InternetAddress(emailId)
     authenticatedMessageAndSession._1.setFrom(new InternetAddress("beamteam@beamstream.com", "beamteam@beamstream.com"))
     authenticatedMessageAndSession._1.addRecipient(Message.RecipientType.TO, recepientAddress)
@@ -109,7 +110,6 @@ object SendEmailUtility {
    * Invite User
    */
 
-  
   def inviteUserToBeamstream(emailId: String) {
 
     val content =
@@ -127,7 +127,6 @@ object SendEmailUtility {
    * Invite User with Friend user who referred the user
    */
 
-  
   def inviteUserToBeamstreamWithReferral(emailId: String, friendUserString: String, friendNameString: String) {
     val content =
       "Hello, " + "<br>" + "<br>" +
@@ -144,7 +143,7 @@ object SendEmailUtility {
    * Sends an email given an emailId, Subject, and Message Content
    */
   def sendMessage(emailId: String, subject: String, content: String) {
-    val authenticatedMessageAndSession = SendEmailUtility.setEmailCredentials
+    val authenticatedMessageAndSession = setEmailCredentials
     val recepientAddress = new InternetAddress(emailId)
     authenticatedMessageAndSession._1.setFrom(new InternetAddress(BEAMTEAM_EMAIL, BEAMTEAM_EMAIL))
     authenticatedMessageAndSession._1.addRecipient(Message.RecipientType.TO, recepientAddress)

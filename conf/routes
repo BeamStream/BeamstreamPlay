@@ -1,5 +1,20 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
+
+#Path Being Used
+
+#Beta User Registration  (V)
+POST   /betaUser                                                                           controllers.JoinBeamStream.regsisterToBeamStreamBeta 
+GET   /                                                                                   controllers.JoinBeamStream.betaUserRegistration
+
+
+
+
+
+
+
+
+
 #Other
 GET    /active                                                                             controllers.UserController.active
 GET    /error                                                                              controllers.StreamController.onError
@@ -106,9 +121,6 @@ GET    /images/*file                                                            
 
 ################################### Beamstream  Rearchitecture Routes ################################################
 
-#Beta User Registration  (V)
-POST   /betaUser                                                                           controllers.JoinBeamStream.regsisterToBeamStreamBeta 
-GET    /                                                                                   controllers.JoinBeamStream.betaUserRegistration
 
 #Signup (V)
 GET    /signup                                                                             controllers.BasicRegistration.signUpPage

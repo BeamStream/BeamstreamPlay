@@ -13,6 +13,7 @@ case class School(@Key("_id") id: ObjectId,
   schoolName: String,
   schoolWebsite: String)
 
+
 object School {
 
   var allSchoolsInDatabase: List[School] = Nil
@@ -23,7 +24,6 @@ object School {
 
   def getAllSchools: List[School] = {
     SchoolDAO.find(MongoDBObject()).toList
-
   }
 
   /**
@@ -59,7 +59,7 @@ object School {
 
   /**
    * Update the School
-   * @Purpose : For Edit School Functionality
+   * Purpose : For Edit School Functionality
    */
 
   def updateSchool(schoolId: ObjectId, updatedSchoolname: String) {
@@ -77,12 +77,11 @@ object School {
   }
   /**
    * is School already in database
-   * @param schoolId of the school to be searched
+   * param schoolId of the school to be searched
    */
 
   def isSchoolinDatabaseAlready(schoolId: ObjectId): List[School] = {
-    val schoolsInDatabase = SchoolDAO.find(MongoDBObject("_id" -> schoolId)).toList
-    schoolsInDatabase
+    SchoolDAO.find(MongoDBObject("_id" -> schoolId)).toList
   }
 }
 

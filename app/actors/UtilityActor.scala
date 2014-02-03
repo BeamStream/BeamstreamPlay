@@ -17,16 +17,17 @@ import utils.SendEmailUtility
 import scala.concurrent.ExecutionContext.Implicits._
 import com.novus.salat.global.ctx
 import models.mongoContext._
+import utils.EmailUtility
 /**
  * Send mail when different event occurs
  * @params : emailId is the emailId of the user who registers
  */
-object UtilityActor {
+object UtilityActor extends EmailUtility {
 
   val BEAMTEAM_EMAIL = "beamteam@beamstream.com"
 
   /**
-   * Send Email Clubbed through Future(RA)
+   * Send Email Clubbed through Future(T)
    */
   def sendMailWhenBetaUserRegisters(emailId: String) = {
     Future { sendMailToBetaUsers(emailId) }
@@ -36,7 +37,7 @@ object UtilityActor {
    * Send Mail to beta user who registers on Beamstream(RA)
    */
   def sendMailToBetaUsers(emailId: String) = {
-    val authenticatedMessageAndSession = SendEmailUtility.setEmailCredentials
+    val authenticatedMessageAndSession = setEmailCredentials
     val recipientAddress = new InternetAddress(emailId)
     authenticatedMessageAndSession._1.setFrom(new InternetAddress(BEAMTEAM_EMAIL, BEAMTEAM_EMAIL))
     authenticatedMessageAndSession._1.addRecipient(Message.RecipientType.TO, recipientAddress);
@@ -51,7 +52,7 @@ object UtilityActor {
    * Basic Send Mail Feature on Beamstream(RA)
    */
   def sendMail(emailId: String, subject: String, content: String, fromAddress: String) = {
-    val authenticatedMessageAndSession = SendEmailUtility.setEmailCredentials
+    val authenticatedMessageAndSession = setEmailCredentials
     val recipientAddress = new InternetAddress(emailId)
     if (fromAddress != null)
       authenticatedMessageAndSession._1.setFrom(new InternetAddress(fromAddress, fromAddress))
@@ -74,7 +75,7 @@ object UtilityActor {
 
   def sendMailAfterSignUp(userId: String, authToken: String, emailId: String) {
     val server = Play.current.configuration.getString("server").get
-    val authenticatedMessageAndSession = SendEmailUtility.setEmailCredentials
+    val authenticatedMessageAndSession = setEmailCredentials
     val recepientAddress = new InternetAddress(emailId)
     authenticatedMessageAndSession._1.setFrom(new InternetAddress(BEAMTEAM_EMAIL, BEAMTEAM_EMAIL))
     authenticatedMessageAndSession._1.addRecipient(Message.RecipientType.TO, recepientAddress);
