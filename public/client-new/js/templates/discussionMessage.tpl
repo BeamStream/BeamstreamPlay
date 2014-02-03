@@ -42,6 +42,7 @@
 						 <div class="image-wrapper hovereffect" >
 						  <div class="hover-div">
 						  	{{#if commenImage}}
+								<div id="hover-img-background"></div>
 						   		<div class="doc-image">
 						   		
 		                  	
