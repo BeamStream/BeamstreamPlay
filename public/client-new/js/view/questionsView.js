@@ -1045,7 +1045,6 @@ define(['view/formView',
  	   			   callback : function(question) {
  	   				   if(question.pagePushUid != self.pagePushUid)
  	   				   { 
- 	   					     alert(JSON.stringify(question));
  	   					   $('#'+question.quesId+'-qstRockCount').find('span').html(question.data);
  	   					 
  	   				   }
@@ -1085,15 +1084,16 @@ define(['view/formView',
  	   			   channel : "delete_ques_Comment",
  	   			   restore : false,
  	   			   callback : function(question) {
- 	   			   		alert(question);
+	             
  	   				   if(question.pagePushUid != self.pagePushUid)
  	   				   {   	  
- 	   				   	   
+ 	   				   	  
    					  		var commentCount = $('#'+question.questionId+'-totalComment').text()
 
    					  		$('div#'+question.questionId+'-newCommentList').find('div#'+question.commentId).remove();
    					  		$('div#'+question.questionId+'-allComments').find('div#'+question.commentId).remove();
 	                		$('#'+question.questionId+'-totalComment').text(commentCount-1);
+	                	
  	   				   }
 		   		   }
 	   		   })

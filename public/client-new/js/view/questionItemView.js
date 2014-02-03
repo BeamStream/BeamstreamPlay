@@ -921,6 +921,10 @@ define(['view/formView',
    			                			channel : "delete_ques_Comment",
 		                       			 message : { pagePushUid: self.pagePushUid ,questionId : questionId ,commentId : commentId}
    			               			 })
+   			               			 	PUBNUB.publish({
+   			                			channel : "delete_ques_CommentSideBar",
+		                       			 message : { pagePushUid: self.pagePushUid ,questionId : questionId ,commentId : commentId}
+   			               			 })
    			               			 
 			                		
 		                	 	}
