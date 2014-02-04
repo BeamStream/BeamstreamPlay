@@ -11,6 +11,8 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import org.scalatest.junit.JUnitRunner
 import play.api.Play
+import play.api.libs.ws.WS
+import play.api.libs.concurrent.Execution.Implicits._
 
 @RunWith(classOf[JUnitRunner])
 class JoinBeamstreamBetaTest extends FunSuite with BeforeAndAfter {
@@ -21,16 +23,17 @@ class JoinBeamstreamBetaTest extends FunSuite with BeforeAndAfter {
     }
   }
 
-  /* Note :- Runs Good but due to cookies functionality there , can't be tested from here
   test("Render beta user registration page") {
     running(FakeApplication()) {
-      val status = WS.url("http://localhost:9000/betaUser")
-      assert(status.get.get.getStatus === 200)
+      val result = route(FakeRequest(GET, "/")).get
+      result onComplete {
+        case stat => assert(stat.isSuccess===true)
+      }
+
     }
-  }*/
+  }
 
   test("Add beta user") {
-
     val jsonString = """{"mailId": "neelkanth@knoldus.com"}"""
     val json: JsValue = play.api.libs.json.Json.parse(jsonString)
     running(FakeApplication()) {

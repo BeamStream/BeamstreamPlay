@@ -9,6 +9,9 @@ import play.api.test.FakeApplication
 import models.UserDAO
 import models.BetaUserDAO
 import com.mongodb.casbah.commons.MongoDBObject
+import play.api.test.FakeRequest
+import play.api.test.Helpers._
+import play.api.libs.concurrent.Execution.Implicits._
 
 @RunWith(classOf[JUnitRunner])
 class RegistrationTest extends FunSuite with BeforeAndAfter {
@@ -17,14 +20,16 @@ class RegistrationTest extends FunSuite with BeforeAndAfter {
       UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
     }
   }
-  
-//  test("Render Login page") {
-//    running(FakeApplication()) {
-//      val status = WS.url("http://localhost:9000/login")
-//      assert(status.get.get.getStatus === 200)
-//    }
-//  }
-  
+
+  test("Render Login page") {
+    running(FakeApplication()) {
+      val result = route(FakeRequest(GET, "/login")).get
+      result onComplete {
+        case stat => assert(stat.isSuccess === true)
+      }
+    }
+  }
+
   after {
     running(FakeApplication()) {
       BetaUserDAO.remove(MongoDBObject("firstName" -> ".*".r))

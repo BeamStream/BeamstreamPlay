@@ -24,7 +24,7 @@ import models.StreamType
 class MessageControllerTest extends FunSuite with BeforeAndAfter {
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
   private def userToBeCreated = {
-    User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", Nil, Nil, Nil, None, None)
+    User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", Nil, Nil, Nil,None, None, None)
   }
 
   before {
@@ -39,7 +39,7 @@ class MessageControllerTest extends FunSuite with BeforeAndAfter {
     running(FakeApplication()) {
       val jsonOfMessageToBeCreated = """{"streamId":"51ac27f044ae723fa2ad1c47","messageAccess":"Public","message":"Hello There"}"""
       val json: JsValue = play.api.libs.json.Json.parse(jsonOfMessageToBeCreated)
-      val result = routeAndCall(
+      val result = route(
         FakeRequest(POST, "/newMessage").
           withJsonBody(json).withSession("userId" -> userId.get.toString))
       assert(status(result.get) === 200)
@@ -52,7 +52,7 @@ class MessageControllerTest extends FunSuite with BeforeAndAfter {
     val message = Message(new ObjectId, "some message", Option(Type.Audio), Option(Access.Public), formatter.parse("23-07-12"), userId.get, None, "", "", 0, Nil, Nil, 0, Nil)
     val messageId = Message.createMessage(message)
     running(FakeApplication()) {
-      val result = routeAndCall(
+      val result = route(
         FakeRequest(PUT, "/rockedIt/" + messageId.get.toString).
           withSession("userId" -> userId.get.toString))
       assert(status(result.get) === 200)
@@ -67,7 +67,7 @@ class MessageControllerTest extends FunSuite with BeforeAndAfter {
     val message = Message(new ObjectId, "some message", Option(Type.Audio), Option(Access.Public), formatter.parse("23-07-12"), userId.get, Option(new ObjectId("51ac27f044ae723fa2ad1c47")), "", "", 0, Nil, Nil, 0, Nil)
     val messageId = Message.createMessage(message)
     running(FakeApplication()) {
-      val result = routeAndCall(
+      val result = route(
         FakeRequest(GET, "/rockersOf/message/" + messageId.get.toString).
           withSession("userId" -> userId.get.toString))
       assert(status(result.get) === 200)
@@ -82,7 +82,7 @@ class MessageControllerTest extends FunSuite with BeforeAndAfter {
     val message = Message(new ObjectId, "some message", Option(Type.Audio), Option(Access.Public), formatter.parse("23-07-12"), userId.get, Option(new ObjectId("51ac27f044ae723fa2ad1c47")), "", "", 0, Nil, Nil, 0, Nil)
     val messageId = Message.createMessage(message)
     running(FakeApplication()) {
-      val result = routeAndCall(
+      val result = route(
         FakeRequest(GET, "/allMessagesForAStream/51ac27f044ae723fa2ad1c47/date/10/1/period").
           withSession("userId" -> userId.get.toString))
       assert(status(result.get) === 200)
@@ -97,7 +97,7 @@ class MessageControllerTest extends FunSuite with BeforeAndAfter {
     val message = Message(new ObjectId, "some message", Option(Type.Audio), Option(Access.Public), formatter.parse("23-07-12"), userId.get, None, "", "", 0, Nil, Nil, 0, Nil)
     val messageId = Message.createMessage(message)
     running(FakeApplication()) {
-      val result = routeAndCall(
+      val result = route(
         FakeRequest(PUT, "/follow/message/" + messageId.get.toString).
           withSession("userId" -> userId.get.toString))
       assert(status(result.get) === 200)
@@ -112,7 +112,7 @@ class MessageControllerTest extends FunSuite with BeforeAndAfter {
     val message = Message(new ObjectId, "some message", Option(Type.Audio), Option(Access.Public), formatter.parse("23-07-12"), userId.get, None, "", "", 0, Nil, Nil, 0, Nil)
     val messageId = Message.createMessage(message)
     running(FakeApplication()) {
-      val result = routeAndCall(
+      val result = route(
         FakeRequest(GET, "/isAFollowerOf/message/" + messageId.get.toString).
           withSession("userId" -> userId.get.toString))
       assert(status(result.get) === 200)
@@ -127,7 +127,7 @@ class MessageControllerTest extends FunSuite with BeforeAndAfter {
     val message = Message(new ObjectId, "some message", Option(Type.Audio), Option(Access.Public), formatter.parse("23-07-12"), userId.get, None, "", "", 0, Nil, Nil, 0, Nil)
     val messageId = Message.createMessage(message)
     running(FakeApplication()) {
-      val result = routeAndCall(
+      val result = route(
         FakeRequest(GET, "/isARockerOf/message/" + messageId.get.toString).
           withSession("userId" -> userId.get.toString))
       assert(status(result.get) === 200)
@@ -145,7 +145,7 @@ class MessageControllerTest extends FunSuite with BeforeAndAfter {
     val messageId = Message.createMessage(message)
 
     running(FakeApplication()) {
-      val result = routeAndCall(
+      val result = route(
         FakeRequest(PUT, "/remove/message/" + messageId.get.toString).
           withSession("userId" -> userId.get.toString))
       assert(status(result.get) === 200)

@@ -15,7 +15,6 @@ import utils.ObjectIdSerializer
 import utils.PasswordHashingUtil
 import utils.TokenEmailUtil
 
-
 object BasicRegistration extends Controller {
 
   implicit val formats = new net.liftweb.json.DefaultFormats {
@@ -34,7 +33,7 @@ object BasicRegistration extends Controller {
   }
 
   /**
-   * Registering a new User to Beamstream 
+   * Registering a new User to Beamstream
    */
 
   def signUpUser = Action { implicit request =>
@@ -51,7 +50,7 @@ object BasicRegistration extends Controller {
       case true =>
         (encryptedPassword == encryptedConfirmPassword) match {
           case true =>
-            val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, "", "", "", Option(encryptedPassword), "", "", "", "", Nil, Nil,Nil, None, None)
+            val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, "", "", "", Option(encryptedPassword), "", "", "", "", Nil, Nil, Nil, None,None, None)
             val IdOfUserCreted = User.createUser(userToCreate)
             val createdUser = User.getUserProfile(IdOfUserCreted.get)
             UtilityActor.sendMailAfterUserSignsUp(IdOfUserCreted.get.toString, TokenEmailUtil.securityToken, emailId)

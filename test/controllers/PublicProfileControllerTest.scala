@@ -9,6 +9,9 @@ import play.api.test.FakeApplication
 import play.api.test.Helpers.running
 import org.scalatest.junit.JUnitRunner
 import models.UserDAO
+import play.api.test.FakeRequest
+import play.api.test.Helpers._
+import play.api.libs.concurrent.Execution.Implicits._
 
 @RunWith(classOf[JUnitRunner])
 class PublicProfileControllerTest extends FunSuite with BeforeAndAfter {
@@ -17,15 +20,16 @@ class PublicProfileControllerTest extends FunSuite with BeforeAndAfter {
       UserDAO.remove(MongoDBObject("name" -> ".*".r))
     }
   }
-  
-//  test("Render Public profile page") {
-//    running(FakeApplication()) {
-//      val status = WS.url("http://localhost:9000/renderProfilePage")
-//      assert(status.get.get.getStatus === 200)
-//    }
-//  }
 
-  
+  test("Render Public profile page") {
+    running(FakeApplication()) {
+      val result = route(FakeRequest(GET, "/renderProfilePage")).get
+      result onComplete {
+        case stat => assert(stat.isSuccess === true)
+      }
+    }
+  }
+
   after {
     running(FakeApplication()) {
       UserDAO.remove(MongoDBObject("name" -> ".*".r))
