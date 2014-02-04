@@ -560,7 +560,11 @@ define(['view/formView',
 	                
 	                /* ajax auto push for question rock */
 	                PUBNUB.publish({
-						channel : "questionRock",
+						channel : "questionRockMainStream",
+	                    message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:response,quesId:questionId}
+	                })
+	                 PUBNUB.publish({
+						channel : "questionRockSideStream",
 	                    message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:response,quesId:questionId}
 	                })
 
