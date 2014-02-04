@@ -157,6 +157,20 @@ define([
 		   }
    }
 });
+                 PUBNUB.subscribe({
+             		
+	   channel : "questionRockSideStream",
+	   restore : false,
+	   callback : function(question) {
+	
+		   if(question.pagePushUid != self.pagePushUid)
+		   { 
+			
+			   $('#'+question.quesId+'-totalrocksidebar').find('span').html(question.data);
+			 
+		   }
+   }
+});
                 
 		   }, 
 		
