@@ -42,7 +42,6 @@
 						 <div class="image-wrapper hovereffect" >
 						  <div class="hover-div">
 						  	{{#if commenImage}}
-								<div id="hover-img-background"></div>
 						   		<div class="doc-image">
 						   		
 		                  	
@@ -54,7 +53,8 @@
 
 	                         {{/if}}
 		                  	
-						    <div class="hover-text">               
+						    <div class="hover-text">
+								 <div id="hover-img-background"></div>               
 						     <div class="comment-wrapper" id="{{data.message.docIdIfAny.id}}">                                
 						     <div id="media-{{data.message.docIdIfAny.id}}">
 						      <h4 id="name-{{data.message.docIdIfAny.id}}" >{{#if data.docName}}{{data.docName}}{{else}}No Document Name{{/if}}</h4>                                

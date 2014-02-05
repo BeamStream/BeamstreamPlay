@@ -74,7 +74,6 @@
               
                   
                           {{#if commenImage}}
-													<div id="hover-img-background"></div>
                            <div class="doc-image">
                            <img  src="{{previewImage}}" class="cover-picture" /> <h3 class="common-doctext" >
                            </div>
@@ -83,7 +82,8 @@
                           <img  src="{{previewImage}}" class="filmedia-picture" /> 
                              {{/if}}
                         
-                <div class="hover-text">               
+                <div class="hover-text">     
+								 <div id="hover-img-background"></div>          
                  <div class="comment-wrapper" id="{{data.question.docIdIfAny.id}}">                                
                  <div id="media-{{data.question.docIdIfAny.id}}">
                   <h4 id="name-{{data.question.docIdIfAny.id}}" >{{#if data.docName}}{{data.docName}}{{else}}No Document Name{{/if}}</h4>                                
