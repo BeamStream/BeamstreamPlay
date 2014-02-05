@@ -52,12 +52,35 @@ define(['baseModel',
 			this.trigger('change:questionRock');
 		}, 
 
-		postComment: function(commentText){
+		postComment: function(commentText,parent,commentAmt){
+			var questionId = parent;
+			var cmtCount = commentAmt;
 			var comment = new Comment();
 			this.get('comments').push(comment);
 			this.get('question').comments.push(comment);
 			comment.urlRoot = '/newComment';
-			comment.save({comment: commentText, questionId: this.get('question').id.id});
+			comment.save({comment: commentText, questionId: this.get('question').id.id},{
+				success : function(model, response) {
+				
+	
+				
+					/* pubnum auto push */
+						PUBNUB.publish({
+		                	channel : "sideCommentPushMainStream",
+                        message : { pagePushUid: self.pagePushUid ,data:response,questionId :questionId,cmtCount:cmtCount}
+		                })
+		                
+		             	
+					/* pubnum auto push */
+						PUBNUB.publish({
+		                	channel : "sideCommentPushSideStream",
+                        message : { pagePushUid: self.pagePushUid ,data:response,questionId :questionId,cmtCount:cmtCount}
+		                })
+			}
+				
+			}
+				
+			);
 			this.trigger('commentPost');
 		}, 
 

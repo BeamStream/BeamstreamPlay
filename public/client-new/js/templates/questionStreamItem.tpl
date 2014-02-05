@@ -1,6 +1,6 @@
 
 
-<div id="{{question.id.id}}">
+<div id="{{question.id.id}}" class="side-question">
 <div class="question-post">
     {{#if profilePic.length}}
     <img src="{{profilePic}}" class="profile-picture"></img>
@@ -39,9 +39,9 @@
         <div class="rock-ammount" id="{{question.id.id}}-totalrocksidebar"><span>{{question.rockers.length}}</span></div>
         <div class="qs-comment-link">Comment</div>
         <div class="qs-answer-link">Answer</div>
-        <div class="question-stats">
-        <div class="answer-amount">{{question.answers.length ''}}</div>
-        <div id="{{question.id.id}}-totalcommentsidebar" class="comment-amount">{{question.comments.length '' }}</div>
+        <div class="question-stats" id="{{question.id.id}}">
+        <div class="answer-amount">{{question.answers.length}}</div>
+        <div id="{{question.id.id}}-totalcommentsidebar" class="comment-amount">{{question.comments.length}}</div>
         
         </div>
        </div>

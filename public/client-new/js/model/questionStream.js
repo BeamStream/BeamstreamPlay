@@ -50,9 +50,7 @@ define(['baseModel',
 		updateEditStatus: function(event){
 			if (event.editCounter > 0) {
 				clearInterval(this.get('intervalId'));
-			} else {
-				this.restartInterval();
-			}
+			} 
 		},
 
 		// this is getting the id for the pubnub stream

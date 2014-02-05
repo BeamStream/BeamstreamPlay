@@ -371,7 +371,6 @@ define(['view/formView',
    			 			comment.urlRoot = "/newComment";
    			 			comment.save({comment : commentText, questionId :parent},{
 	   			    	success : function(model, response) {
-		   			    		
 	   			    		$('#'+parent+'-questionComment').val('');
 	   							
    			    			// shows the posted comment
@@ -456,9 +455,6 @@ define(['view/formView',
 	        	var totalAnswers =  $('#'+parent+'-totalAnswer').text();
 	        	var answerText = $('#'+parent+'-questionsAnswer').val();
 	        	var self =this;
-	        	// alert (parent);
-	     
-	        	
 	        
 	        	/* post answers on enter key press */
 	        	if(eventName.which == 13) {
@@ -504,7 +500,6 @@ define(['view/formView',
          */
         showPostedAnswer: function(response,parent,totalAnswers){
         	
-        	//alert('#'+parent+'-addComment');
 	  		$('#'+parent+'-addAnswer').slideUp(200);
 	  		
 		    /* display the posted comment  */
