@@ -66,7 +66,7 @@ object ClassController extends Controller {
 
   /**
    * Edit Class Functionality
-   * @Purpose: Getting all classes for a user
+   * Purpose: Getting all classes for a user
    */
   def getAllClassesForAUser(userId: String) = Action { implicit request =>
     try {
@@ -75,7 +75,7 @@ object ClassController extends Controller {
       val ClassListJson = write(getAllClassesForAUser)
       Ok(ClassListJson).as("application/json")
     } catch {
-      case exception : Throwable=> Ok(write(new ResulttoSent("Failure", "There Was Some Problem To Get List Of Classes For A User")))
+      case exception: Throwable => BadRequest(write(new ResulttoSent("Failure", "There Was Some Problem To Get List Of Classes For A User")))
     }
   }
 
@@ -109,7 +109,7 @@ object ClassController extends Controller {
         Ok(write(ClassResult(stream.get, resultToSend))).as("application/json")
       }
     } catch {
-      case exception : Throwable => InternalServerError("Class Creation Failed")
+      case exception: Throwable => InternalServerError("Class Creation Failed")
     }
   }
 }

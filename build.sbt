@@ -19,7 +19,9 @@ libraryDependencies ++= Seq(
 	  jdbc,
   anorm,
   cache
-)     
+)   
+  
+javaOptions in Test += "-Dconfig.file=conf/test.conf"
 
 resolvers += "xuggle repo" at "http://xuggle.googlecode.com/svn/trunk/repo/share/java/"
 

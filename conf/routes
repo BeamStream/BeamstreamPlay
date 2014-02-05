@@ -1,5 +1,12 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
+
+#Path Being Used
+
+#Beta User Registration  (V)
+POST   /betaUser                                                                           controllers.JoinBeamStream.regsisterToBeamStreamBeta 
+GET   /                                                                                   controllers.JoinBeamStream.betaUserRegistration
+
 #Other
 GET    /active                                                                             controllers.UserController.active
 GET    /error                                                                              controllers.StreamController.onError
@@ -106,9 +113,6 @@ GET    /images/*file                                                            
 
 ################################### Beamstream  Rearchitecture Routes ################################################
 
-#Beta User Registration  (V)
-POST   /betaUser                                                                           controllers.JoinBeamStream.regsisterToBeamStreamBeta 
-GET    /                                                                                   controllers.JoinBeamStream.betaUserRegistration
 
 #Signup (V)
 GET    /signup                                                                             controllers.BasicRegistration.signUpPage
@@ -152,7 +156,7 @@ POST   /newMessage                                                              
 POST   /newComment                                                                         controllers.CommentController.newComment
 PUT    /follow/message/:messageId                                                          controllers.MessageController.followTheMessage(messageId:String)
 PUT    /rockingTheComment/:commentId                                                       controllers.CommentController.rockingTheComment(commentId:String)
-
+POST    /getAllComments                                                                      controllers.CommentController.getAllComments
 #Message Rocks & Follows
 PUT    /rockedIt/:messageId                                                                controllers.MessageController.rockedTheMessage(messageId:String)
 

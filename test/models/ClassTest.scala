@@ -9,17 +9,21 @@ import org.bson.types.ObjectId
 import com.mongodb.casbah.commons.MongoDBObject
 import play.api.test.Helpers.running
 import play.api.test.FakeApplication
+import play.api.test.Helpers.running
+
 @RunWith(classOf[JUnitRunner])
 class ClassTest extends FunSuite with BeforeAndAfter {
 
   before {
-    StreamDAO.remove(MongoDBObject("streamName" -> ".*".r))
-    ClassDAO.remove(MongoDBObject("className" -> ".*".r))
-    UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
+    running(FakeApplication()) {
+      StreamDAO.remove(MongoDBObject("streamName" -> ".*".r))
+      ClassDAO.remove(MongoDBObject("className" -> ".*".r))
+      UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
+    }
   }
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
-  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", Nil, Nil, Nil, Nil, Nil, None, None)
+  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", Nil, Nil, Nil, None, None, None)
 
   test("Create class test") {
     running(FakeApplication()) {
@@ -100,10 +104,33 @@ class ClassTest extends FunSuite with BeforeAndAfter {
     }
   }
 
+  test("Find All Classes Of A User") {
+    running(FakeApplication()) {
+      val classToBeCretaed = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), Nil)
+      val userId = User.createUser(user)
+      assert(Class.getAllClassesIdsForAUser(userId.get).size === 0)
+      Class.createClass(classToBeCretaed, userId.get)
+      assert(Class.findClasssById(classToBeCretaed.id).size === 1)
+      assert(Class.getAllClassesForAUser(userId.get).size === 1)
+    }
+  }
+
+  test("Get All Classes") {
+    running(FakeApplication()) {
+      val classToBeCretaed = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), Nil)
+      val userId = User.createUser(user)
+      Class.createClass(classToBeCretaed, userId.get)
+      val classes = Class.getAllClasses(List(classToBeCretaed.id))
+      assert(classes.head.classCode === "201")
+    }
+  }
+
   after {
-    ClassDAO.remove(MongoDBObject("className" -> ".*".r))
-    UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
-    StreamDAO.remove(MongoDBObject("streamName" -> ".*".r))
+    running(FakeApplication()) {
+      ClassDAO.remove(MongoDBObject("className" -> ".*".r))
+      UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
+      StreamDAO.remove(MongoDBObject("streamName" -> ".*".r))
+    }
   }
 
 }

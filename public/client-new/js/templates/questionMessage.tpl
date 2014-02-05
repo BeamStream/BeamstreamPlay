@@ -206,7 +206,8 @@
                     <ul class="follow-name-left show-all-block">
                       <li>
 
-                          <a href="#" id="{{data.question.id.id}}-qstRockCount" {{#ifequal data.rocked false}} class="rocks-question uprocks-message" {{else}} class="rocks-question downrocks-message" {{/ifequal}}><span>{{rocks}}0</span></a>
+                          <a href="#" id="{{data.question.id.id}}-qstRockCount" {{#ifequal data.rocked false}} class="rocks-question uprocks-message" {{else}} class="rocks-question downrocks-message" {{/ifequal}}>
+                          <span>{{data.question.rockers.length}}</span></a>
 
                         </li>
                       <li>
