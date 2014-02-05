@@ -1,5 +1,5 @@
 function startChat(userId) {
-	var oldChatSocket = new WebSocket('ws://test.beamstream.com/chat')
+	var oldChatSocket = new WebSocket('ws://localhost:9000/chat')
 	var oldId = randomString(8);
 	$(".chatbox_own")
 			.append(
@@ -92,7 +92,7 @@ function startChat(userId) {
 }
 
 function popit(userId, toWhom, name, profileImageUrl) {
-	var newChatSocket = new WebSocket('ws://test.beamstream.com/startChat/'
+	var newChatSocket = new WebSocket('ws://localhost:9000/startChat/'
 			+ userId + "/" + toWhom)
 	var itsId = randomString(8);
 	$(".chatbox")

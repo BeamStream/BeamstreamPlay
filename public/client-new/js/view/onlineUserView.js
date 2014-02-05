@@ -60,69 +60,87 @@ define(
 						 * if other online users
 						 */
 						displayPage : function() {
-							var self = this;
-							$('#user-online ul').html("");
-							$('.online-count')
-									.html(
-											"Online("
-													+ this.data.models[0].attributes.onlineUsers.length
-													+ ")");
-							_
-									.each(
-											this.data.models[0].attributes.onlineUsers,
-											function(model) {
-												var profileImageUrl = '';
-												if (model.profileImageUrl) {
 
-													profileImageUrl = model.profileImageUrl;
+							$
+									.ajax({
+										url : '/onlineUsers',
+										success : function(data) {
 
-												} else {
+											var self = this;
+											$('#user-online ul').html("");
+											$('.online-count')
+													.html(
+															"Online("
+																	+ data.onlineUsers.length // this.data.models[0].attributes.onlineUsers.length
+																	+ ")");
+											_
+													.each(
+															data.onlineUsers,// this.data.models[0].attributes.onlineUsers,
+															function(model) {
+																var profileImageUrl = '';
+																if (model.profileImageUrl) {
 
-													profileImageUrl = '/beamstream-new/images/profile-upload.png';
-												}
+																	profileImageUrl = model.profileImageUrl;
 
-												if (model.id.id == localStorage["loggedUserId"]) {
-													var template = '<li id="me" class="online active"><a href="#" class="active"><img src="'
-															+ profileImageUrl
-															+ '" width="30" height="28"> '
-															+ '<span>Me</span> <span class="online-chat">Online<img width="12" height="13" src="/beamstream-new/images/online-icon.png"></span></a></li>';
+																} else {
 
-													$('#user-online ul')
-															.prepend(template);
-												} else {
+																	profileImageUrl = '/beamstream-new/images/profile-upload.png';
+																}
 
-													var template = '<li id="'
-															+ model.id.id
-															+ '" onclick=popit("'
-															+ localStorage["loggedUserId"]
-															+ '","'
-															+ model.id.id
-															+ '","'
-															+ model.firstName
-															+ '","'
-															+ profileImageUrl
-															+ '")> '
-															+ '<img width="30" height="28" src="'
-															+ profileImageUrl
-															+ '">'
-															+ '<span>'
-															+ model.firstName
-															+ '</span> <span class="offline-chat">'
-															+ '<img width="12" height="13" src="/beamstream-new/images/online-icon.png"></span></a> </li>';
+																if (model.id.id == localStorage["loggedUserId"]) {
+																	var template = '<li id="me" class="online active"><a href="#" class="active"><img src="'
+																			+ profileImageUrl
+																			+ '" width="30" height="28"> '
+																			+ '<span>Me</span> <span class="online-chat">Online<img width="12" height="13" src="/beamstream-new/images/online-icon.png"></span></a></li>';
 
-													$('#user-online ul')
-															.append(template);
+																	$(
+																			'#user-online ul')
+																			.prepend(
+																					template);
+																} else {
 
-												}
+																	var template = '<li id="'
+																			+ model.id.id
+																			+ '" onclick=popit("'
+																			+ localStorage["loggedUserId"]
+																			+ '","'
+																			+ model.id.id
+																			+ '","'
+																			+ model.firstName
+																			+ '","'
+																			+ profileImageUrl
+																			+ '")> '
+																			+ '<img width="30" height="28" src="'
+																			+ profileImageUrl
+																			+ '">'
+																			+ '<span>'
+																			+ model.firstName
+																			+ '</span> <span class="offline-chat">'
+																			+ '<img width="12" height="13" src="/beamstream-new/images/online-icon.png"></span></a> </li>';
 
-												$('#user-online')
-														.mCustomScrollbar(
-																"update");
+																	$(
+																			'#user-online ul')
+																			.append(
+																					template);
 
-											});
+																}
+
+																$(
+																		'#user-online')
+																		.mCustomScrollbar(
+																				"update");
+
+															});
+
+										}
+									});
 						},
 
 						onAfterRender : function() {
+							var self = this;
+							setInterval(function() {
+								self.displayPage();
+							}, 10000);
 						},
 
 						/* Pubnub subscription for online user */

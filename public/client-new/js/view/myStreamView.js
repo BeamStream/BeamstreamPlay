@@ -32,7 +32,7 @@ define(
 						messagesPerPage : 10,
 						pageNo : 1,
 						init : function() {
-
+					    
 							var currentStreamView = new StreamSliderView({
 								el : '#sidebar'
 							})
