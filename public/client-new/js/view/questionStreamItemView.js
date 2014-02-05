@@ -66,9 +66,13 @@ function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionMod
 		}, 
 
 		submitComment: function(e){
-			if (e.keyCode === 13) {
+				var element = e.target.parentElement;
+				var parent =$(element).parents('div.side-question').attr('id');
+				var commentAmt = $('div#'+parent+'-totalcommentsidebar').text();
+			      if (e.keyCode === 13) {
 				var commentSubmission = this.$el.find('.qs-comment').val();
-				this.model.postComment(commentSubmission);
+				var commentCount = $()
+				this.model.postComment(commentSubmission,parent,commentAmt);
 				this.$el.find('.qs-comment').val('');
 				this.model.updateEditStatus();
 			}
@@ -109,6 +113,7 @@ function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionMod
  	   				   {    	   				   	   
    					  		var commentCountSideBar = $('#'+question.questionId+"-totalcommentsidebar").text();   					  		
 	                		$('#'+question.questionId+"-totalcommentsidebar").text(commentCountSideBar-1);
+	                		
  	   				   }
 		   		   }
 	   		   })

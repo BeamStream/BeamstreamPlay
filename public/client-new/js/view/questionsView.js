@@ -992,8 +992,6 @@ define(['view/formView',
 	
 		 		   callback : function(question) { 
 	
-		 		 
-		 		  
 		 			   if(question.pagePushUid != self.pagePushUid)
 		 			   {
 		 			   	
@@ -1019,6 +1017,48 @@ define(['view/formView',
 		 					
 	 				   	   }
  			   		   }
+ 		   		   }
+	
+ 	   		   })
+ 	   		   
+ 	   		   
+		 		   
+	/* auto push functionality for comments */
+		 	   PUBNUB.subscribe({
+	
+		 		   channel : "sideCommentPushMainStream",
+		 		   restore : false,
+	
+		 		   callback : function(question) { 
+	
+		 		   
+		 		   	 if(question.pagePushUid != self.pagePushUid)
+		 			   {
+		 			   	
+		 				   if(!document.getElementById(question.data.id.id))
+		 				   {
+		 					 
+		 					//$('#'+question.parent+'-addComments').slideUp(200);
+		 			  		
+		 				    /* display the posted comment  */
+		 		    		var compiledTemplate = Handlebars.compile(QuestionComment);
+		 		    		$('#'+question.questionId+'-allComments').prepend(compiledTemplate({data:question.data}));
+		 		    		
+		 		    		if(!$('#'+question.questionId+'-allComments').is(':visible'))
+		 					{  
+		 						$('#'+question.questionId+'-msgRockers').slideUp(1);
+		 						$('#'+question.questionId+'-newCommentList').slideDown(1);
+		 						$('#'+question.questionId+'-newCommentList').prepend(compiledTemplate({data:question.data, profileImage:question.profileImage}));
+		 						
+		 					}
+		 		    		question.cmtCount++; 
+		 		    		$('#'+question.questionId+'-show-hide').text("Hide All");
+		 					$('#'+question.questionId+'-totalComment').text(question.cmtCount);
+		 					
+	 				   	   }
+ 			   		   }
+		 		  
+		 			 
  		   		   }
 	
  	   		   })
