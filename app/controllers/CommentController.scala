@@ -119,7 +119,6 @@ object CommentController extends Controller {
 
               val questionId = (jsonWithid \ "questionId").as[String]
               val commentsForAQuestion = Comment.getAllComments(Question.findQuestionById(new ObjectId(questionId)).get.comments)
-              println(commentsForAQuestion)
               Ok(write(commentsForAQuestion)).as("application/json")
 
             case false =>

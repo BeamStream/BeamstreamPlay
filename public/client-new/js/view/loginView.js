@@ -31,7 +31,7 @@ define(
 
 						onAfterInit : function() {
 							this.data.reset();
-				
+
 							localStorage["logged"] = '';
 							$('.sign-tick').hide();
 							$('.sign-close').hide();
@@ -70,16 +70,14 @@ define(
 							e.preventDefault();
 							this.data.url = "/login";
 							this.saveForm();
-							
+
 						},
 
 						/**
 						 * on form save success
 						 */
 						success : function(model, data) {
-
 							var self = this;
-
 							// On login success redirect to stream page
 							if (data.result.status == 'Success') {
 								$('.sign-tick').hide();
@@ -93,19 +91,19 @@ define(
 								localStorage["loggedUserId"] = data.user.id.id;
 
 								/* PUBNUB -- AUTO AJAX PUSH */
-								 PUBNUB.publish({
-								 channel : "onlineUsers",
-								 message : { pagePushUid:self.pagePushUid,userInfo:data}
-								 })
+								/*
+								 * PUBNUB.publish({ channel : "onlineUsers",
+								 * message : {
+								 * pagePushUid:self.pagePushUid,userInfo:data} })
+								 */
 								/*
 								 * redirect to class page if the user has no
 								 * stream
 								 */
-								
-								if (data.hasClasses == true){
+
+								if (data.hasClasses == true) {
 									window.location = "/stream";
-								}
-								else
+								} else
 									window.location = "/class";
 
 							} else {
@@ -163,33 +161,38 @@ define(
 							$('.sign-close').hide();
 						},
 
-					pushConnection: function(){
-					 var self = this;
-					 self.pagePushUid = Math.floor(Math.random()*16777215).toString(16);
-					
-					// /* for online users */
-					 PUBNUB.subscribe({
-					 channel : "onlineUsers",
-					 restore : false,
-					 callback : function(message) {
-						 //alert("call");
-					 //console.log(1212);
-					 //if(message.pagePushUid != self.pagePushUid)
-					 //{
-					 //console.log(45);
-					// console.log($('#onlinechatbox'));
-					// var template = '<li> <a href="#">'
-					// +'<img width="30" height="28"
-					// src="'+message.userInfo.profileImageUrl+'">'
-					// +'<span>'+message.userInfo.user.firstName+'</span> <span
-					// class="offline-chat">'
-					// +'<img width="12" height="13"
-					// src="img/online-icon.png"></span></a> </li>';
-					// $('#onlinechatbox').append('<p>call ho gyi</p>');
-					 }
-					 
-					 })
-					 }
+						pushConnection : function() {
+							var self = this;
+							self.pagePushUid = Math.floor(
+									Math.random() * 16777215).toString(16);
+
+							// /* for online users */
+							PUBNUB.subscribe({
+								channel : "onlineUsers",
+								restore : false,
+								callback : function(message) {
+									// alert("call");
+									// console.log(1212);
+									// if(message.pagePushUid !=
+									// self.pagePushUid)
+									// {
+									// console.log(45);
+									// console.log($('#onlinechatbox'));
+									// var template = '<li> <a href="#">'
+									// +'<img width="30" height="28"
+									// src="'+message.userInfo.profileImageUrl+'">'
+									// +'<span>'+message.userInfo.user.firstName+'</span>
+									// <span
+									// class="offline-chat">'
+									// +'<img width="12" height="13"
+									// src="img/online-icon.png"></span></a>
+									// </li>';
+									// $('#onlinechatbox').append('<p>call ho
+									// gyi</p>');
+								}
+
+							})
+						}
 
 					})
 			return LoginView;

@@ -187,7 +187,7 @@ object Message { //extends CommentConsumer {
    * param  messageId is the id of the message to be searched
    * param  userId is the id of follower
    *
-   * @Purpose: Update followers and returns the no. of followers
+   * Purpose: Update followers and returns the no. of followers
    */
 
   def followMessage(messageId: ObjectId, userId: ObjectId): Int = {
@@ -216,7 +216,7 @@ object Message { //extends CommentConsumer {
 
   /**
    * Is a follower
-   * @Purpose: identify if the user is following a message or not
+   * Purpose: identify if the user is following a message or not
    * param  messageId is the id of the message to be searched
    * param  userId is the id of follower
    */
@@ -233,7 +233,7 @@ object Message { //extends CommentConsumer {
 
   /**
    * Is a Rocker
-   * @Purpose: identify if the user has rocked a message or not
+   * Purpose: identify if the user has rocked a message or not
    * param  messageId is the id of the message to be searched
    * param  userId is the id of follower
    */

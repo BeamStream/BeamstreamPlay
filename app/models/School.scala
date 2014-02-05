@@ -16,7 +16,7 @@ case class School(@Key("_id") id: ObjectId,
 
 object School {
 
-  var allSchoolsInDatabase: List[School] = Nil
+//  var allSchoolsInDatabase: List[School] = Nil
 
   /**
    * Get all Schools
