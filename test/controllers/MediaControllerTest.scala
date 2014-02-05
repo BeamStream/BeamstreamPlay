@@ -8,6 +8,9 @@ import models.UserMediaDAO
 import play.api.test.FakeApplication
 import play.api.test.Helpers.running
 import org.scalatest.junit.JUnitRunner
+import play.api.test.Helpers._
+import play.api.test.FakeRequest
+import play.api.libs.concurrent.Execution.Implicits._
 
 @RunWith(classOf[JUnitRunner])
 class MediaControllerTest extends FunSuite with BeforeAndAfter {
@@ -18,19 +21,14 @@ class MediaControllerTest extends FunSuite with BeforeAndAfter {
     }
   }
 
-//  test("Render Browse Media page") {
-//    running(FakeApplication()) {
-//      val status = WS.url("http://localhost:9000/browsemedia")
-//      assert(status.get.get.getStatus === 200)
-//    }
-//  }
-
-//  test("Render beta user registration page") {
-//    running(FakeApplication()) {
-//      val status = WS.url("http://localhost:9000/betaUser")
-//      assert(status.get.get.getStatus === 200)
-//    }
-//  }
+  test("Render Browse Media page") {
+    running(FakeApplication()) {
+      val result = route(FakeRequest(GET, "/browsemedia")).get
+      result onComplete {
+        case stat => assert(stat.isSuccess === true)
+      }
+    }
+  }
 
   after {
     running(FakeApplication()) {

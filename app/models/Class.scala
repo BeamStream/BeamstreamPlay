@@ -36,7 +36,7 @@ object Class {
 
   /**
    * Delete A Class
-   * @Purpose Delete A Class
+   * Purpose Delete A Class
    */
   def deleteClass(classToBeRemoved: Class): Unit = {
     ClassDAO.remove(classToBeRemoved)
@@ -87,8 +87,7 @@ object Class {
    * Get all classes for a user (RA)
    */
   def getAllClassesIdsForAUser(userId: ObjectId): List[ObjectId] = {
-    val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
-    user.classes
+    UserDAO.find(MongoDBObject("_id" -> userId)).toList.head.classes
   }
 
   /**
@@ -100,7 +99,7 @@ object Class {
   }
 
   /**
-   * @Purpose :   Getting All Classes for a user
+   * Purpose :   Getting All Classes for a user
    *
    */
   def getAllClassesForAUser(userId: ObjectId): List[Class] = {
@@ -111,7 +110,7 @@ object Class {
   /**
    * ********************************************** Re architecture ****************************************
    */
-  
+
   /**
    * Create class (V)
    */

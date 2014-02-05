@@ -47,13 +47,13 @@ object QuestionController extends Controller {
     val user = User.getUserProfile(userId)
 
     val questionToAsk = new Question(new ObjectId, questionBody, userId,
-      Access.withName(questionAccess), Type.Text, new ObjectId(streamId), user.get.firstName, user.get.lastName, new Date, List(), List(), List(), List())
+      Access.withName(questionAccess), Type.Text, new ObjectId(streamId), user.get.firstName, user.get.lastName, new Date, Nil, Nil, Nil, Nil)
     val questionId = Question.addQuestion(questionToAsk)
     (pollOptions == None) match {
       case false =>
         val pollsList = pollOptions.get.split(",").toList
         for (pollsOption <- pollsList) {
-          val optionOfPoll = new OptionOfQuestion(new ObjectId, pollsOption, List())
+          val optionOfPoll = new OptionOfQuestion(new ObjectId, pollsOption, Nil)
           val optionOfAPollId = OptionOfQuestionDAO.insert(optionOfPoll)
           Question.addPollToQuestion(optionOfAPollId.get, questionId.get)
         }
@@ -87,7 +87,6 @@ object QuestionController extends Controller {
    */
 
   def getAllQuestionsForAUser = Action { implicit request =>
-    val questionIdJsonMap = request.body.asFormUrlEncoded.get
     val allQuestionsForAUser = Question.getAllQuestionsForAUser(new ObjectId(request.session.get("userId").get))
     val allQuestionForAStreamJson = write(allQuestionsForAUser)
     Ok(write(allQuestionForAStreamJson)).as("application/json")

@@ -8,18 +8,28 @@ import play.api.test.Helpers.running
 import org.scalatest.junit.JUnitRunner
 import models.UserDAO
 import com.mongodb.casbah.commons.MongoDBObject
+import play.api.Play
+import models.ClassDAO
+import models.UserSchoolDAO
+import utils.OnlineUserDAO
 @RunWith(classOf[JUnitRunner])
 class UserControllerTest extends FunSuite with BeforeAndAfter {
 
   before {
     running(FakeApplication()) {
-      UserDAO.remove(MongoDBObject("name" -> ".*".r))
-
+      println(Play.current.configuration.getString("databaseName").get)
+      ClassDAO.remove(MongoDBObject("className" -> ".*".r))
+      UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
+      UserSchoolDAO.remove(MongoDBObject("schoolName" -> ".*".r))
+      OnlineUserDAO.remove(MongoDBObject("onlineUsers" -> ".*".r))
     }
   }
   after {
     running(FakeApplication()) {
-      UserDAO.remove(MongoDBObject("name" -> ".*".r))
+      ClassDAO.remove(MongoDBObject("className" -> ".*".r))
+      UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
+      UserSchoolDAO.remove(MongoDBObject("schoolName" -> ".*".r))
+      OnlineUserDAO.remove(MongoDBObject("onlineUsers" -> ".*".r))
 
     }
   }

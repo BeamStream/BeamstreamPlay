@@ -28,6 +28,7 @@ case class User(@Key("_id") id: ObjectId,
   schools: List[ObjectId],
   classes: List[ObjectId],
   followers: List[ObjectId],
+  socialNetwork: Option[String],
   socialJson: Option[JsValue],
   friends: Option[List[ObjectId]])
 
@@ -50,7 +51,7 @@ object User {
   /**
    * Find User By Email
    */
-  def findUserByEmailId(userEmail: String) = {
+  def findUserByEmailId(userEmail: String): Option[User] = {
     val userFound = UserDAO.find(MongoDBObject("email" -> userEmail)).toList
     (userFound.isEmpty) match {
       case true => None
@@ -58,7 +59,7 @@ object User {
         Option(userFound.head)
 
     }
-  }: Option[User]
+  }
 
   /**
    * Adds a school to User
@@ -94,7 +95,7 @@ object User {
     val authenticatedUserviaName = UserDAO.find(MongoDBObject("userName" -> userName, "socialNetwork" -> Option(socialNetwork)))
     (authenticatedUserviaName.isEmpty) match {
       case true => None
-      case false => Option(authenticatedUserviaName.toList(0))
+      case false => Option(authenticatedUserviaName.toList.head)
     }
 
   }

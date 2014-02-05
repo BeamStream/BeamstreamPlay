@@ -37,7 +37,6 @@ object UserController extends Controller {
   def signOut = Action { implicit request =>
     OnlineUserCache.setOffline(request.session.get("userId").get)
     Ok(write(ResulttoSent("Success", "Signed Out"))).withNewSession
-
   }
 
   /**
@@ -70,16 +69,12 @@ object UserController extends Controller {
             val profilePicForUser = UserMedia.getProfilePicForAUser(new ObjectId(eachUserId))
             val onlineUsersAlongWithDetails = (profilePicForUser.isEmpty) match {
               case true => {
-                //                if (userWithDetailedInfo != None) {
                 AvailableUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
                   userWithDetailedInfo.get.lastName, "")
-                //                }
               }
               case false => {
-                //                if (userWithDetailedInfo != None) {
                 AvailableUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
                   userWithDetailedInfo.get.lastName, profilePicForUser(0).mediaUrl)
-                //                }
               }
             }
             onlineUsersAlongWithDetails
