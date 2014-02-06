@@ -79,7 +79,7 @@ object QuestionController extends Controller {
       case false => ""
     }
 
-    Ok(write(QuestionWithPoll(questionObtained.get, false, false, false, Option(profilePicForUser), None, pollsOfquestionObtained))).as("application/json")
+    Ok(write(QuestionWithPoll(questionObtained.get, false, false, false, Option(profilePicForUser), None,None, pollsOfquestionObtained))).as("application/json")
   }
 
   /**
