@@ -188,7 +188,7 @@ object CommentController extends Controller {
       commentPoster.get.firstName, commentPoster.get.lastName, 0, List())
     val answerId = Comment.createComment(ansWer)
     Question.addAnswerToQuestion(new ObjectId(questionId), answerId.get)
-    Ok(write(List(ansWer))).as("application/json")
+    Ok(write(ansWer)).as("application/json")
   }
 
 }
