@@ -413,6 +413,11 @@ define(['view/formView',
     		
     		if(!$('#'+parent+'-allComments').is(':visible'))
 			{  
+    			if($('#'+parent+'-allAnswers').is(':visible'))
+				{
+					$('#'+parent+'-allAnswers').hide();
+				}
+				
 				$('#'+parent+'-msgRockers').slideUp(1);
 				$('#'+parent+'-newCommentList').slideDown(1);
 				$('#'+parent+'-newCommentList').prepend(compiledTemplate({data:response,profileImage:localStorage["loggedUserProfileUrl"]}));
@@ -548,6 +553,10 @@ define(['view/formView',
     		
     		if(!$('#'+parent+'-allAnswers').is(':visible'))
 			{  
+    			if($('#'+parent+'-allComments').is(":visible"))
+			{
+			$('#'+parent+'-allComments').hide();
+			}
 				$('#'+parent+'-msgRockers').slideUp(1);
 				$('#'+parent+'-newAnswerList').slideDown(1);
 				$('#'+parent+'-newAnswerList').prepend(compiledTemplate({data:response,profileImage:localStorage["loggedUserProfileUrl"]}));
