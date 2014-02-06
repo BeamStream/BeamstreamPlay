@@ -876,7 +876,9 @@ define(['view/formView',
 			
 			 var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
 			 var trueurl='';
-	
+			 	
+			 	
+
 			 var compiledTemplate = Handlebars.compile(QuestionMessage);
 			 $('#all-questions').prepend(compiledTemplate({data:data}));
 			 

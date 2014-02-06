@@ -56,6 +56,8 @@ define(['baseModel',
 			var questionId = parent;
 			var cmtCount = commentAmt;
 			var comment = new Comment();
+
+			var exmp = this.get('comments');
 			this.get('comments').push(comment);
 			this.get('question').comments.push(comment);
 			comment.urlRoot = '/newComment';

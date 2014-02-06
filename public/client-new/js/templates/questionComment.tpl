@@ -1,19 +1,3 @@
-<!-- 	* BeamStream
-		*
-		* Author                : Aswathy P.R (aswathy@toobler.com)
-		* Company               : Toobler
-		* Email:                : info@toobler.com
-		* Web site              : http://www.toobler.com
-		* Created               : 29/April/2013
-		* Description           : Templates for Question page Comments
-		* ==============================================================================================
-		* Change History:
-		* ----------------------------------------------------------------------------------------------
-		* Sl.No.  Date   Author   Description
-		* -
-  -->
-
-
 <div class="answer-description"  id="{{data.id.id}}">
     <div class="follw-left">          
         <div class="ask-img">
