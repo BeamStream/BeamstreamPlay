@@ -38,6 +38,8 @@ define(['view/formView',
 			'click .rocks-question': 'rockQuestion',
 			'click .follow-question': 'followQuestion',
 			'click .rock-comments': 'rockComment',
+	        'click .rock-answers': 'rockAnswer',
+	        'click .rocks-small-answer a': 'rockAnswer',
 			'click .rocks-small a': 'rockComment',
 		 	'click .follow-user' : 'followUser',
 		 	'click .show-all-comments' : 'showAllCommentList',
@@ -694,6 +696,40 @@ showAllAnswerList: function(eventName){
                 	/* pubnub auto push for rock comment */
                 	PUBNUB.publish({
                         channel : "ques_commentRock",
+                        message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:response,questionId:questionId,commentId:commentId  }
+                	})
+		    	},
+		    	error : function(model, response) {
+		    	}
+
+		    });
+        },
+        
+        	
+		     /**
+         *  Rock answers
+         */
+        rockAnswer: function(eventName){
+        	
+        	eventName.preventDefault();
+        	var commentId = $(eventName.target).parents('div.answer-description').attr('id');
+        	var questionId = $(eventName.target).parents('div.follow-container').attr('id');
+        	var streamId =  $('.sortable li.active').attr('id');
+        	var self = this;
+        	
+        	var comment = new CommentModel();
+        	comment.urlRoot = "/rockingTheComment";
+			// set values to model
+        	comment.save({id : commentId },{
+		    	success : function(model, response) {
+		    		
+		    		// display the count in icon
+                	$('div#'+questionId+'-newAnswerList').find('a#'+commentId+'-mrockCount').html(response);
+                	$('div#'+questionId+'-allAnswers').find('a#'+commentId+'-mrockCount').html(response);
+                	
+                	/* pubnub auto push for rock comment */
+                	PUBNUB.publish({
+                        channel : "ques_answerRock",
                         message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:response,questionId:questionId,commentId:commentId  }
                 	})
 		    	},
