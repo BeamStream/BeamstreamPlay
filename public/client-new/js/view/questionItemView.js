@@ -376,8 +376,6 @@ define(['view/formView',
    			 			comment.save({comment : commentText, questionId :parent},{
 	   			    	success : function(model, response) {
    			 				
-   			 				alert(JSON.stringify(response));
-   			 					
 	   			    		$('#'+parent+'-questionComment').val('');
 	   							
    			    			// shows the posted comment
@@ -504,7 +502,6 @@ define(['view/formView',
 	   			 			answer.save({answerText : answerText, questionId :parent},{
 		   			    	success : function(model, response) {
 	   			 				
-	   			 				alert(JSON.stringify(response));
 			   			    		
 		   			    		$('#'+parent+'-questionsAnswer').val('');
 		   							
