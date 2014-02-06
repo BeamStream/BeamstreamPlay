@@ -119,9 +119,12 @@ object GoogleDocsUploadUtilityController extends Controller {
   /**
    * Google Oauth2 Setup
    */
-  def uploadPage = Action { implicit request =>
-    Ok(views.html.gdocs(Nil))
-  }
+  /*
+   * def uploadPage = Action { implicit request =>
+   * Ok(views.html.gdocs(Nil))
+   * }
+   */
+
   /**
    * @Deprecated
    */
