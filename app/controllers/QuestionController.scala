@@ -199,15 +199,20 @@ object QuestionController extends Controller {
 
         val isRocked = Question.isARocker(questionObtained.id, userId)
         val isFollowed = Question.isAFollower(questionObtained.id, userId)
-//        val isFollowerOfQuestionPoster = User.isAFollower(questionObtained.userId, userId)
+        //        val isFollowerOfQuestionPoster = User.isAFollower(questionObtained.userId, userId)
         val profilePicForUser = UserMedia.getProfilePicUrlString(questionObtained.userId)
         val comments = (questionObtained.comments.isEmpty) match {
           case false =>
             Comment.getAllComments(questionObtained.comments)
           case true => Nil
         }
+        val answers = (questionObtained.answers.isEmpty) match {
+          case false =>
+            Comment.getAllComments(questionObtained.answers)
+          case true => Nil
+        }
 
-        QuestionWithPoll(questionObtained, isRocked, isFollowed, false, Option(profilePicForUser), Option(comments), pollsOfquestionObtained)
+        QuestionWithPoll(questionObtained, isRocked, isFollowed, false, Option(profilePicForUser), Option(comments), Option(answers), pollsOfquestionObtained)
 
     }
 
