@@ -154,10 +154,10 @@ object GoogleDocsUploadUtilityController extends Controller {
     Redirect("/stream")
   }
 
-  def getAllGoogleDriveFiles = Action { implicit request =>
+  /*def getAllGoogleDriveFiles = Action { implicit request =>
     val accessToken = request.session.get("accessToken").get
     val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(accessToken)
     Ok(views.html.gdocs(files))
-  }
+  }*/
 
 }

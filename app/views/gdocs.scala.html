@@ -1,4 +1,4 @@
-@(files : List[(String,String)])
+@(files : List[(String,String,String,String)])
 @helper.form(action = routes.GoogleDocsUploadUtilityController.uploadToGoogleDrive, 'enctype -> "multipart/form-data") {
     
     <input type="file" name="picture">

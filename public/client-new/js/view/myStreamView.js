@@ -505,9 +505,9 @@ define(
 																				.append(
 																						" <div class='drive-view-row'><div class='powerpoint-img'></div><div class='doc-txt-container'><div class='doc-name'>"
 																								+ nameOfDocument
-																								+ "</div><div class='doc-info'><div class='owner'>OWNDER: <span>ME</span></div>"
+																								+ "</div><div class='doc-info'><div class='owner'>OWNER: <span>"+value._4+"</span></div>"
 																								+ "<div class='last-modified'>LAST MODIFIED:"
-																								+ " <span>9/14/2013</span></div></div></div>"
+																								+ " <span>"+value._3+"</span></div></div></div>"
 																								+ "<a class='preview-btn' target='_blank' href="
 																								+ value._2
 																								+ ">Preview</a><div class='preview-btn publishGdocs'  data-id='"
@@ -527,8 +527,9 @@ define(
 																						" <div class='drive-view-row'><div class='spreadsheet-img'></div><div class='doc-txt-container'><div class='doc-name'>"
 																								+ nameOfDocument
 																								+ "</div><div class='doc-info'>"
-																								+ "<div class='owner'>OWNDER: <span>ME</span>"
-																								+ "</div><div class='last-modified'>LAST MODIFIED: <span>9/14/2013</span></div></div></div>"
+																								+ "<div class='owner'>OWNER: <span>"+value._4+"</span></div>"
+																								+ "<div class='last-modified'>LAST MODIFIED:"
+																								+ " <span>"+value._3+"</span></div></div></div>"
 																								+ "<a class='preview-btn' target='_blank' href="
 																								+ value._2
 																								+ ">Preview</a><div class='preview-btn publishGdocs'  data-id='"
@@ -547,8 +548,9 @@ define(
 																						" <div class='drive-view-row'><div class='text-img'></div><div class='doc-txt-container'><div class='doc-name'>"
 																								+ nameOfDocument
 																								+ "</div><div class='doc-info'>"
-																								+ "<div class='owner'>OWNDER: <span>ME</span>"
-																								+ "</div><div class='last-modified'>LAST MODIFIED: <span>9/14/2013</span></div></div></div>"
+																								+ "<div class='owner'>OWNER: <span>"+value._4+"</span></div>"
+																								+ "<div class='last-modified'>LAST MODIFIED:"
+																								+ " <span>"+value._3+"</span></div></div></div>"
 																								+ "<a class='preview-btn' target='_blank' href="
 																								+ value._2
 																								+ ">Preview</a><div class='preview-btn publishGdocs' data-id='"
