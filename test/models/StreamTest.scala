@@ -8,6 +8,7 @@ import com.mongodb.casbah.commons.MongoDBObject
 import org.bson.types.ObjectId
 import play.api.test.Helpers.running
 import play.api.test.FakeApplication
+import java.util.Date
 
 @RunWith(classOf[JUnitRunner])
 class StreamTest extends FunSuite with BeforeAndAfter {
@@ -21,7 +22,7 @@ class StreamTest extends FunSuite with BeforeAndAfter {
 
   val stream1 = Stream(new ObjectId, "al1pha", StreamType.Class, new ObjectId, List(), true, List())
   val stream2 = Stream(new ObjectId, "al1pha", StreamType.Class, new ObjectId, List(), true, List())
-  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", Nil, Nil, Nil, None, None, None)
+  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", new Date,Nil, Nil, Nil, None, None, None)
 
   test("Fetch matching stream names") {
     running(FakeApplication()) {

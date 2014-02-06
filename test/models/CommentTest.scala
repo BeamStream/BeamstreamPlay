@@ -24,7 +24,7 @@ class CommentTest extends FunSuite with BeforeAndAfter {
   }
   test("Create a Comment and find comment by id") {
     running(FakeApplication()) {
-      val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", Option("Neel"), "", "", "", "", Nil, Nil, Nil, None, None, None)
+      val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", Option("Neel"), "", "", "", "", new Date,Nil, Nil, Nil, None, None, None)
       val userId = User.createUser(user)
       val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(userId.get), true, Nil)
       val streamId = Stream.createStream(stream)
@@ -38,7 +38,7 @@ class CommentTest extends FunSuite with BeforeAndAfter {
 
   test("Rocking the comment & Rockers List") {
     running(FakeApplication()) {
-      val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", Option("Neel"), "", "", "", "", Nil, Nil, Nil, None, None, None)
+      val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", Option("Neel"), "", "", "", "", new Date,Nil, Nil, Nil, None, None, None)
       val userId = User.createUser(user)
       val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(userId.get), true, Nil)
       val streamId = Stream.createStream(stream)
@@ -52,7 +52,7 @@ class CommentTest extends FunSuite with BeforeAndAfter {
 
   test("Get All Comments For A Model") {
     running(FakeApplication()) {
-      val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", Option("Neel"), "", "", "", "", Nil, Nil, Nil, None, None, None)
+      val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", Option("Neel"), "", "", "", "", new Date,Nil, Nil, Nil, None, None, None)
       val userId = User.createUser(user)
       val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(userId.get), true, Nil)
       val streamId = Stream.createStream(stream)
@@ -88,7 +88,7 @@ class CommentTest extends FunSuite with BeforeAndAfter {
 
   test("Delete The Comments") {
     running(FakeApplication()) {
-      val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "NeelS", "", Option("Neel"), "", "", "", "", Nil, Nil, Nil, None, None, None)
+      val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "NeelS", "", Option("Neel"), "", "", "", "", new Date,Nil, Nil, Nil, None, None, None)
       val userId = User.createUser(user)
       val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(userId.get), true, Nil)
       val streamId = Stream.createStream(stream)

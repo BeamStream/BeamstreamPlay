@@ -18,7 +18,7 @@ class UserMediaTest extends FunSuite with BeforeAndAfter {
     }
   }
 
-  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", Nil, Nil, Nil, None, None, None)
+  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", new Date,Nil, Nil, Nil, None, None, None)
 
   test("Create User Media") {
     running(FakeApplication()) {

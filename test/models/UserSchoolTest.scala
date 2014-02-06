@@ -8,6 +8,7 @@ import org.bson.types.ObjectId
 import java.text.DateFormat
 import play.api.test.Helpers.running
 import play.api.test.FakeApplication
+import java.util.Date
 @RunWith(classOf[JUnitRunner])
 class UserSchoolTest extends FunSuite with BeforeAndAfter {
 
@@ -58,7 +59,7 @@ class UserSchoolTest extends FunSuite with BeforeAndAfter {
       assert(schoolFound != None)
       val schoolsList = UserSchool.removeSchool(schoolFound.get)
       assert(UserSchoolDAO.find(MongoDBObject()).toList.size == 0)
-      val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", Nil, Nil, Nil, None, None, None)
+      val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", new Date,Nil, Nil, Nil, None, None, None)
       val userId = User.createUser(user)
       assert(User.getUserProfile(userId.get).get.schools.size === 0)
       User.addSchoolToUser(userId.get, userSchoolId.get)
@@ -82,7 +83,7 @@ class UserSchoolTest extends FunSuite with BeforeAndAfter {
       assert(schoolFound != None)
       val schoolsList = UserSchool.removeSchool(schoolFound.get)
       assert(UserSchoolDAO.find(MongoDBObject()).toList.size == 0)
-      val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", Nil, Nil, Nil, None, None, None)
+      val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", new Date,Nil, Nil, Nil, None, None, None)
       val userId = User.createUser(user)
       assert(User.getUserProfile(userId.get).get.schools.size === 0)
       User.addSchoolToUser(userId.get, userSchoolId.get)

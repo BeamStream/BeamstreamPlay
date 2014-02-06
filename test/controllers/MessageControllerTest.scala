@@ -20,11 +20,12 @@ import models.Type
 import models.Access
 import java.text.DateFormat
 import models.StreamType
+import java.util.Date
 @RunWith(classOf[JUnitRunner])
 class MessageControllerTest extends FunSuite with BeforeAndAfter {
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
   private def userToBeCreated = {
-    User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", Nil, Nil, Nil,None, None, None)
+    User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", new Date,Nil, Nil, Nil,None, None, None)
   }
 
   before {

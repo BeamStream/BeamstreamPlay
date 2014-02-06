@@ -1,7 +1,6 @@
 package models
 
 import org.bson.types.ObjectId
-
 import com.mongodb.casbah.Imports.MongoDBObject
 import com.mongodb.casbah.Imports.WriteConcern
 import com.novus.salat.dao.SalatDAO
@@ -13,6 +12,7 @@ import utils.MongoHQConfig
 import utils.PasswordHashingUtil
 import com.novus.salat.global.ctx
 import models.mongoContext._
+import java.util.Date
 
 case class User(@Key("_id") id: ObjectId,
   userType: UserType.Value,
@@ -25,6 +25,7 @@ case class User(@Key("_id") id: ObjectId,
   location: String,
   about: String,
   contact: String,
+  joiningDate: Date,
   schools: List[ObjectId],
   classes: List[ObjectId],
   followers: List[ObjectId],

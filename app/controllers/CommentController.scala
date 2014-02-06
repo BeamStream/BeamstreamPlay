@@ -184,11 +184,11 @@ object CommentController extends Controller {
     val questionId = (answerJson \ "questionId").as[String]
     val answerText = (answerJson \ "answerText").as[String]
     val commentPoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
-    val comment = new Comment(new ObjectId, answerText, new Date, new ObjectId(request.session.get("userId").get),
+    val ansWer = new Comment(new ObjectId, answerText, new Date, new ObjectId(request.session.get("userId").get),
       commentPoster.get.firstName, commentPoster.get.lastName, 0, List())
-    val answerId = Comment.createComment(comment)
+    val answerId = Comment.createComment(ansWer)
     Question.addAnswerToQuestion(new ObjectId(questionId), answerId.get)
-    Ok(write(List(comment))).as("application/json")
+    Ok(write(List(ansWer))).as("application/json")
   }
 
 }
