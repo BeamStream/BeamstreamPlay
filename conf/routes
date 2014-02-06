@@ -208,7 +208,6 @@ GET    /driveAuth                                                               
 #GET     /google/callback                                                  controllers.GoogleDocsUploadUtilityController.accessToken
 
 POST   /uploadToGoogleDrive                                                                controllers.GoogleDocsUploadUtilityController.uploadToGoogleDrive
-#GET    /getGoogleDocs                                                                      controllers.GoogleDocsUploadUtilityController.getAllGoogleDriveFiles
 GET    /uploadPage                                                                         controllers.GoogleDocsUploadUtilityController.uploadPage
 GET    /chat                                                                               controllers.WebsocketCommunicationController.chat
 GET    /startChat/:me/:toWhom                                                             controllers.WebsocketCommunicationController.startChat(me: String, toWhom: String)
