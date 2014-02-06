@@ -79,7 +79,7 @@ function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionMod
 		},
 		
 		
-		receiveCommentThroughPubNub: function() {
+		receiveCommentThroughPubNub: function() { 
                  var self = this;
                  self.pagePushUid = Math.floor(Math.random()*16777215).toString(16);
                  var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;

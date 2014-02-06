@@ -72,6 +72,8 @@ define(
 									evt) {
 								currentQuestionStream.model
 										.setQuestionStreamId(evt.streamId);
+										
+					
 							});
 
 							// // on pagePushUid change, notify the
