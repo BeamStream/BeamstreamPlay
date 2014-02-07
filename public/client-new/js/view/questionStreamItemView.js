@@ -124,7 +124,21 @@ function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionMod
 		   		   }
 	   		   })
 	   		   
-	   		    
+	   		      PUBNUB.subscribe({                		
+                	  	    channel : "questionanswerSideStream",
+                	  		restore : false,
+                	  			callback : function(question) {      
+	   		    	 
+                	  			if(question.pagePushUid != self.pagePushUid)
+                	  				{   				
+                	  						
+                	  						question.cmtCount++; 
+                	  					              	  						
+                	  						$('#'+question.parent+"-totalanswersidebar").text(question.cmtCount);
+                	  				}
+                  				}
+                  })
+                  
                   
                  
 			},
