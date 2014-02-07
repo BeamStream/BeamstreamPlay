@@ -47,6 +47,11 @@ function startChat(userId) {
 		if (data.message == "ping") {
 			return;
 		}
+		if (data.kind == "quit") {
+			$("#" + oldId).remove();
+			oldChatSocket.close();
+			return
+		}
 		$(".chatbox_own").css("display", "block");
 		$("#" + oldId).css("display", "block");
 		$(".chatbox_own").css("position", "fixed");
@@ -162,9 +167,6 @@ function popit(userId, toWhom, name, profileImageUrl) {
 				$("#" + itsId).remove();
 				newChatSocket.close();
 				return
-
-				
-
 			}
 
 			// Create the message element
