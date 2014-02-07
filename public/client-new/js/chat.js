@@ -44,6 +44,9 @@ function startChat(userId) {
 	var setNameOfUser = true;
 	var oldReceiveEvent = function(event) {
 		var data = JSON.parse(event.data)
+		if (data.message == "ping") {
+			return;
+		}
 		$(".chatbox_own").css("display", "block");
 		$("#" + oldId).css("display", "block");
 		$(".chatbox_own").css("position", "fixed");
@@ -59,13 +62,8 @@ function startChat(userId) {
 			$("#onError span").text(data.error)
 			$("#onError").show()
 			return
-
-			
-
 		}
-		if (data.message == "ping") {
-			return;
-		}
+
 		// Create the message element
 		var el = $('<div class="message"><span></span><p></p></div>')
 		$("span", el).text(data.user)
@@ -89,7 +87,7 @@ function startChat(userId) {
 		$("#" + oldId).remove();
 		oldChatSocket.close();
 	});
-	
+
 	oldChatSocket.onopen = function() {
 		console.log('websocket opened');
 		setInterval(function() {
@@ -164,6 +162,8 @@ function popit(userId, toWhom, name, profileImageUrl) {
 				$("#" + itsId).remove();
 				newChatSocket.close();
 				return
+
+				
 
 			}
 
