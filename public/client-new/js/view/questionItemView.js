@@ -519,11 +519,18 @@ define(['view/formView',
 		   							
 	   			    			// shows the posted answer
 	   			    		    self.showPostedAnswer(response,parent,totalAnswers);
-	   			    		// pubnum auto push
-	   							PUBNUB.publish({
-	   			                	channel : "questionanswer",
-			                        message : { pagePushUid: self.pagePushUid ,data:response,parent:parent,ansCount:totalAnswers ,profileImage : localStorage["loggedUserProfileUrl"]}
-	   			                })
+	   			    		
+	   			    		    /* pubnum auto push */
+   							PUBNUB.publish({
+   			                	channel : "questionanswerMainStream",
+		                        message : { pagePushUid: self.pagePushUid ,data:response,parent:parent,cmtCount:totalAnswers ,profileImage : localStorage["loggedUserProfileUrl"]}
+   			                })
+   			                
+   			                PUBNUB.publish({
+   			                	channel : "questionanswerSideStream",
+		                        message : { pagePushUid: self.pagePushUid ,data:response,parent:parent,cmtCount:totalAnswers ,profileImage : localStorage["loggedUserProfileUrl"]}
+   			                })
+   			                
 	   			    		    
 		   			    	},
 		   			    	error : function(model, response) {

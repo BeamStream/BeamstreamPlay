@@ -25,7 +25,7 @@ function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionMod
 		
 		
 		onAfterInit: function(){
-			this.receiveCommentThroughPubNub();
+			this.receiveThroughPubNub();
 		},
 		
 
@@ -79,7 +79,7 @@ function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionMod
 		},
 		
 		
-		receiveCommentThroughPubNub: function() { 
+		receiveThroughPubNub: function() { 
                  var self = this;
                  self.pagePushUid = Math.floor(Math.random()*16777215).toString(16);
                  var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
@@ -117,6 +117,20 @@ function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionMod
  	   				   }
 		   		   }
 	   		   })
+	   		   
+	   		     PUBNUB.subscribe({                		
+                	  	    channel : "questionanswerSideStream",
+                	  		restore : false,
+                	  			callback : function(question) {                 	  		
+                	  			if(question.pagePushUid != self.pagePushUid)
+                	  				{   				
+                	  						
+                	  						question.cmtCount++; 
+                	  					              	  						
+                	  						$('#'+question.parent+"-totalanswersidebar").text(question.cmtCount);
+                	  				}
+                  				}
+                  })
                   
                  
 			},

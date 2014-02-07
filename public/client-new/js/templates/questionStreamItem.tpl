@@ -40,7 +40,7 @@
         <div class="qs-comment-link">Comment</div>
         <div class="qs-answer-link">Answer</div>
         <div class="question-stats" id="{{question.id.id}}">
-        <div class="answer-amount">{{question.answers.length}}</div>
+        <div  id="{{question.id.id}}-totalanswersidebar" class="answer-amount">{{question.answers.length}}</div>
         <div id="{{question.id.id}}-totalcommentsidebar" class="comment-amount">{{question.comments.length}}</div>
         
         </div>

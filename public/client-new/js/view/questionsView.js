@@ -2,9 +2,9 @@ define(['view/formView',
 		'view/questionItemView',
         'model/question',
         'text!templates/questionMessage.tpl',
-        'text!templates/questionComment.tpl'
-        
-        ], function(FormView ,QuestionItemView,QuestionModel, QuestionMessage, QuestionComment){
+        'text!templates/questionComment.tpl',
+        'text!templates/questionAnswer.tpl',
+        ], function(FormView ,QuestionItemView,QuestionModel, QuestionMessage, QuestionComment,QuestionAnswer){
 	var QuestionsView;
 	QuestionsView = FormView.extend({
 		objName: 'QuestionsView',
@@ -1023,7 +1023,43 @@ define(['view/formView',
 	
  	   		   })
  	   		   
- 	   		   
+ 	   		  	 	  /* auto push functionality for comments */
+		 	   PUBNUB.subscribe({
+	
+		 		   channel : "questionanswerMainStream",
+		 		   restore : false,
+	
+		 		   callback : function(answer) {
+		 			   if(question.pagePushUid != self.pagePushUid)
+		 			   {
+		 				   if(!document.getElementById(answer.data.id.id))
+		 				   {
+		 					$('#'+answer.parent+'-addAnswer').slideUp(200);
+		 			  		
+		 				    /* display the posted comment  */
+		 		    		var compiledTemplate = Handlebars.compile(QuestionAnswer);
+		 		    		$('#'+answer.parent+'-allAnswers').prepend(compiledTemplate({data:answer.data, profileImage:question.profileImage}));
+		 		    		
+		 		    		if(!$('#'+answer.parent+'-allAnswers').is(':visible'))
+		 		    			{  
+		 		    				if($('#'+answer.parent+'-allComments').is(":visible"))
+		 		    					{
+			 		    					$('#'+answer.parent+'-allComments').hide();
+		 		    					}
+		 		    				$('#'+answer.parent+'-msgRockers').slideUp(1);
+		 		    				$('#'+answer.parent+'-newAnswerList').slideDown(1);
+		 		    				$('#'+answer.parent+'-newAnswerList').prepend(compiledTemplate({data:answer.data,profileImage:localStorage["loggedUserProfileUrl"]}));
+				
+		 		    			}
+		 		    		answer.cmtCount++; 
+		 		    		$('#'+answer.parent+'-show-hide').text("Hide All");
+		 		    		$('#'+answer.parent+'-totalAnswer').text(answer.cmtCount);
+		 					
+	 				   	   }
+ 			   		   }
+ 		   		   }
+	
+ 	   		   }) 
 		 		   
 	/* auto push functionality for comments */
 		 	   PUBNUB.subscribe({
