@@ -25,7 +25,7 @@ function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionMod
 		
 		
 		onAfterInit: function(){
-			this.receiveCommentThroughPubNub();
+			this.receiveThroughPubNub();
 		},
 		
 
@@ -57,9 +57,13 @@ function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionMod
 		}, 
 
 		submitAnswer: function(e){
+				var element = e.target.parentElement;
+				var parent =$(element).parents('div.side-question').attr('id');
+				var answerAmt = $('div#'+parent+'-totalanswersidebar').text();
+				//alert(answerAmt);
 			if (e.keyCode === 13) {
 				var answerSubmission = this.$el.find('.qs-answer').val();
-				this.model.postAnswer(answerSubmission);
+				this.model.postAnswer(answerSubmission,parent,answerAmt);
 				this.$el.find('.qs-answer').val('');
 				this.model.updateEditStatus();
 			}
@@ -71,7 +75,7 @@ function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionMod
 				var commentAmt = $('div#'+parent+'-totalcommentsidebar').text();
 			      if (e.keyCode === 13) {
 				var commentSubmission = this.$el.find('.qs-comment').val();
-				var commentCount = $()
+				//var commentCount = $()
 				this.model.postComment(commentSubmission,parent,commentAmt);
 				this.$el.find('.qs-comment').val('');
 				this.model.updateEditStatus();
@@ -79,7 +83,7 @@ function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionMod
 		},
 		
 		
-		receiveCommentThroughPubNub: function() { 
+		receiveThroughPubNub: function() { 
                  var self = this;
                  self.pagePushUid = Math.floor(Math.random()*16777215).toString(16);
                  var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
@@ -104,6 +108,8 @@ function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionMod
                   				}
                   })
                   
+                  
+                  
                   PUBNUB.subscribe({
 		
  	   			   channel : "delete_ques_CommentSideBar",
@@ -117,6 +123,22 @@ function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionMod
  	   				   }
 		   		   }
 	   		   })
+	   		   
+	   		      PUBNUB.subscribe({                		
+                	  	    channel : "questionanswerSideStream",
+                	  		restore : false,
+                	  			callback : function(question) {      
+	   		    	 
+                	  			if(question.pagePushUid != self.pagePushUid)
+                	  				{   				
+                	  						
+                	  						question.cmtCount++; 
+                	  					              	  						
+                	  						$('#'+question.parent+"-totalanswersidebar").text(question.cmtCount);
+                	  				}
+                  				}
+                  })
+                  
                   
                  
 			},

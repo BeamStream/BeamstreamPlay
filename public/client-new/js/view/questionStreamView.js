@@ -145,34 +145,61 @@ define([
 
                     
                          });
-                 PUBNUB.subscribe({
-             		
-	   channel : "deleteQuestionSideStream",
-	   restore : false,
-	   callback : function(question) {
-		   if(question.pagePushUid != self.pagePushUid)
-		   {   	  
-		   	
-			   $('div#'+question.questionId+":parent").remove();
-		   }
-   }
-});
-                 PUBNUB.subscribe({
-             		
-	   channel : "questionRockSideStream",
-	   restore : false,
-	   callback : function(question) {
-	
-		   if(question.pagePushUid != self.pagePushUid)
-		   { 
-			
-			   $('#'+question.quesId+'-totalrocksidebar').find('span').html(question.data);
-			 
-		   }
-   }
-});
-                
-		   }, 
+										                 PUBNUB.subscribe({
+										             		
+											   channel : "deleteQuestionSideStream",
+											   restore : false,
+											   callback : function(question) {
+												   if(question.pagePushUid != self.pagePushUid)
+												   {   	  
+												   	
+													   $('div#'+question.questionId+":parent").remove();
+												   }
+										   }
+										})
+										                 PUBNUB.subscribe({
+										             		
+											   channel : "questionRockSideStream",
+											   restore : false,
+											   callback : function(question) {
+											
+												   if(question.pagePushUid != self.pagePushUid)
+												   { 
+													
+													   $('#'+question.quesId+'-totalrocksidebar').find('span').html(question.data);
+													 
+												   }
+										   }
+										})
+										                 
+										   PUBNUB.subscribe({                		
+						                	  	    channel : "sideCommentPushSideStream",
+						                	  		restore : false,
+						                	  			callback : function(question) {
+											
+						                	  			if(question.pagePushUid != self.pagePushUid)
+						                	  				{   				
+						                	  						
+						                	  						question.cmtCount++; 
+						                	  					              	  						
+						                	  						$('#'+question.questionId+"-totalcommentsidebar").text(question.cmtCount);
+						                	  				}
+						                  				}
+										   		})
+										   	 PUBNUB.subscribe({                		
+										   		 	channel : "sideAnswerPushSideStream",
+										   		 		restore : false,
+										   		 			callback : function(question) {                 	  		
+										   		 	if(question.pagePushUid != self.pagePushUid)
+										   		 		{   				
+                	  						
+										   		 		question.ansCount++; 
+                	  					              	  						
+										   		 		$('#'+question.questionId+"-totalanswersidebar").text(question.ansCount);
+										   		 		}
+										   	 		}
+										   	 	})
+								}, 
 		
 		
 		addChildViews: function() {

@@ -86,11 +86,30 @@ define(['baseModel',
 			this.trigger('commentPost');
 		}, 
 
-		postAnswer: function(answerText){
+		postAnswer: function(answerText,parent,answerAmt){
+			var questionId = parent;
+			var ansCount = answerAmt;
 			var answer = new Answer();
 			this.get('question').answers.push(answer);
 			answer.urlRoot = '/answer';
-			answer.save({answerText: answerText, questionId: this.get('question').id.id});
+			answer.save({answerText: answerText, questionId: this.get('question').id.id},{
+				success : function(model, response) {
+					
+					/* pubnum auto push */
+						PUBNUB.publish({
+				        	channel : "sideAnswerPushMainStream",
+				        message : { pagePushUid: self.pagePushUid ,data:response,questionId :questionId,ansCount:ansCount}
+				        })
+				        
+				     	
+					/* pubnum auto push */
+						PUBNUB.publish({
+				        	channel : "sideAnswerPushSideStream",
+				        message : { pagePushUid: self.pagePushUid ,data:response,questionId :questionId,ansCount:ansCount}
+				        })
+				}
+				
+				});
 			this.trigger('answerPost');
 		}, 
 
