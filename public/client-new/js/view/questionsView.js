@@ -1069,7 +1069,6 @@ define(['view/formView',
 	
 		 		   callback : function(question) { 
 	
-		 		   
 		 		   	 if(question.pagePushUid != self.pagePushUid)
 		 			   {
 		 			   	
@@ -1098,6 +1097,45 @@ define(['view/formView',
 		 		  
 		 			 
  		   		   }
+	
+ 	   		   })
+ 	   		   
+ 	   		   /* auto push functionality for comments */
+		 	   PUBNUB.subscribe({
+	
+		 		   channel : "sideAnswerPushMainStream",
+		 		   restore : false,
+	
+						callback : function(answer) {
+	
+							   if(question.pagePushUid != self.pagePushUid)
+							   {
+								   if(!document.getElementById(answer.data.id.id))
+								   {
+								   
+								   
+									//$('#'+answer.parent+'-addAnswer').slideUp(200);
+							  		
+								    /* display the posted comment  */
+						  		var compiledTemplate = Handlebars.compile(QuestionAnswer);
+						  		$('#'+answer.questionId+'-allAnswers').prepend(compiledTemplate({data:answer.data}));
+						  		
+						  		if(!$('#'+answer.questionId+'-allAnswers').is(':visible'))
+						  			{  
+						  				
+						  				$('#'+answer.questionId+'-msgRockers').slideUp(1);
+						  				$('#'+answer.questionId+'-newAnswerList').slideDown(1);
+						  				$('#'+answer.questionId+'-newAnswerList').prepend(compiledTemplate({data:answer.data,profileImage:localStorage["loggedUserProfileUrl"]}));
+						
+						  			}
+						  		answer.ansCount++; 
+						  		$('#'+answer.questionId+'-show-hide').text("Hide All");
+						  		$('#'+answer.questionId+'-totalAnswer').text(answer.ansCount);
+									
+							   	   }
+								   }
+							   }
+
 	
  	   		   })
  	   		   
