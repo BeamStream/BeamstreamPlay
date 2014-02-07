@@ -1,8 +1,6 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-#Path Being Used
-
 #Beta User Registration  (V)
 POST   /betaUser                                                                           controllers.JoinBeamStream.regsisterToBeamStreamBeta 
 GET   /                                                                                   controllers.JoinBeamStream.betaUserRegistration

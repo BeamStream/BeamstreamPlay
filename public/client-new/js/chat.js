@@ -89,6 +89,16 @@ function startChat(userId) {
 		$("#" + oldId).remove();
 		oldChatSocket.close();
 	});
+	
+	oldChatSocket.onopen = function() {
+		console.log('websocket opened');
+		setInterval(function() {
+			if (oldChatSocket.bufferedAmount == 0)
+				oldChatSocket.send(JSON.stringify({
+					text : "ping"
+				}))
+		}, 30000);
+	};
 }
 
 function popit(userId, toWhom, name, profileImageUrl) {
