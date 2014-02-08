@@ -1145,6 +1145,7 @@ define(['view/formView',
 	   			   channel : "ques_commentRock",
 	   			   restore : false,
 	   			   callback : function(question) { 
+	
 	   				   if(question.pagePushUid != self.pagePushUid)
 	   				   {   	  
 	   					   $('div#'+question.questionId+'-newCommentList').find('a#'+question.commentId+'-mrockCount').html(question.data);
@@ -1156,7 +1157,7 @@ define(['view/formView',
 	   		    /* for question Rocks */
  	   		   PUBNUB.subscribe({
 		
- 	   			   channel : "questionRock",
+ 	   			   channel : "questionRockMainStream",
  	   			   restore : false,
  	   			   callback : function(question) {
  	   				   if(question.pagePushUid != self.pagePushUid)
