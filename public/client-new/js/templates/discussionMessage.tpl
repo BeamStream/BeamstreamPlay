@@ -43,28 +43,27 @@
 						  <div class="hover-div">
 						  	{{#if commenImage}}
 						   		<div class="doc-image">
-						   		
-		                  	
-		                         
-		                 			 <img  src="{{previewImage}}" class="cover-picture" id="document-cover-img"/> <h3 class="common-doctext" >{{extension}}</h3>
-		                 			 </div>
+										<img  src="{{previewImage}}" class="cover-picture" id="document-cover-img"/> 
+										<h3 class="common-doctext" >{{extension}}</h3>
+		             	</div>
 	                 		 {{else}}
-		                 			<img  src="{{previewImage}}" class="filmedia-picture" /> 
+		           	  		 <img  src="{{previewImage}}" class="filmedia-picture" /> 
 
 	                         {{/if}}
 		                  	
 						    <div class="hover-text">
-								 <div id="hover-img-background"></div>               
-						     <div class="comment-wrapper" id="{{data.message.docIdIfAny.id}}">                                
-						     <div id="media-{{data.message.docIdIfAny.id}}">
-						      <h4 id="name-{{data.message.docIdIfAny.id}}" >{{#if data.docName}}{{data.docName}}{{else}}No Document Name{{/if}}</h4>                                
-						      <div  class="description-info "><div name={{type}}  class="description-left mediapopup drag-rectangle" id="{{data.message.docIdIfAny.id}}">
-						        <input type="hidden" id="id-{{data.message.docIdIfAny.id}}"  value="{{data.message.messageBody}}">      
-						        <p class="doc-description" id="description-{{data.message.docIdIfAny.id}}" >{{#if data.docDescription}}{{data.docDescription}}{{else}}No Document Description..{{/if}}</p>
-						      </div>
+									<div id="hover-img-background"></div>               
+						     	<div class="comment-wrapper" id="{{data.message.docIdIfAny.id}}">                                
+						   				<div id="media-{{data.message.docIdIfAny.id}}">
+						      			<h4 id="name-{{data.message.docIdIfAny.id}}" >{{#if data.docName}}{{data.docName}}{{else}}No Document Name{{/if}}</h4>                                										<div  class="description-info ">
+													<div class="dateinfo"><span class="state">PrivateToClass</span><span class="date date-btn">7 February, 2014</span></div>
+													<div name={{type}}  class="description-left mediapopup drag-rectangle" id="{{data.message.docIdIfAny.id}}">
+						        				<input type="hidden" id="id-{{data.message.docIdIfAny.id}}"  value="{{data.message.messageBody}}">      
+						        				<p class="doc-description" id="description-{{data.message.docIdIfAny.id}}" >{{#if data.docDescription}}{{data.docDescription}}{{else}}No Document Description..{{/if}</p>
+						      				</div>
 								</div></div>
 								
-							      <div class="edit-title-div">
+							    <div class="edit-title-div">
 								 {{#ifequal loggedUserId data.message.userId.id }}
 						     	 	<h5 class="editMediaTitle"   id="{{data.message.docIdIfAny.id}}"><span><img src="/beamstream-new/images/title-plus.png"></span>Title & Description</h5>
 								  {{/ifequal}}
