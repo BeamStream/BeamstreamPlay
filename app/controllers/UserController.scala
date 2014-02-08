@@ -35,8 +35,9 @@ object UserController extends Controller {
    */
 
   def signOut = Action { implicit request =>
-    OnlineUserCache.setOffline(request.session.get("userId").get)
-    Ok(write(ResulttoSent("Success", "Signed Out"))).withNewSession
+    val userId = request.session.get("userId").get
+    OnlineUserCache.setOffline(userId)
+    Ok(write(ResulttoSent("Success", userId))).withNewSession
   }
 
   /**
@@ -64,7 +65,6 @@ object UserController extends Controller {
         }
         val onlineUsersWithDetails = (usersToShow.distinct) map {
           case eachUserId =>
-            println(eachUserId)
             val userWithDetailedInfo = User.getUserProfile(new ObjectId(eachUserId))
             val profilePicForUser = UserMedia.getProfilePicForAUser(new ObjectId(eachUserId))
             val onlineUsersAlongWithDetails = (profilePicForUser.isEmpty) match {

@@ -10,14 +10,15 @@ import java.text.DateFormat
 import play.api.test.Helpers.running
 import play.api.test.FakeApplication
 import play.api.Play
+import java.util.Date
 
 @RunWith(classOf[JUnitRunner])
 class UserTest extends FunSuite with BeforeAndAfter {
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
 
-  val userA = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", Option("Neel"), "", "", "", "", Nil, Nil, Nil, None, None, None)
-  val userB = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "NeelS", Option("Neel"), "Knoldus", "", "", "", Nil, Nil, Nil, Option("Facebook"), None, None)
+  val userA = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", Option("Neel"), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
+  val userB = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "NeelS", Option("Neel"), "Knoldus", "", "", "", new Date, Nil, Nil, Nil, Option("Facebook"), None, None)
 
   val myUserSchoolA = UserSchool(new ObjectId, new ObjectId, "MPS", Year.Freshman, Degree.Assosiates,
     "CSE", Graduated.No, Option(formatter.parse("12-07-2011")), Option(DegreeExpected.Summer2013), None)
@@ -96,7 +97,7 @@ class UserTest extends FunSuite with BeforeAndAfter {
 
   test("Find User Coming via social sites") {
     running(FakeApplication()) {
-      val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", Option("Neel"), "", "", "", "", Nil, Nil, Nil, Option("Facebook"), None, None)
+      val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", Option("Neel"), "", "", "", "", new Date, Nil, Nil, Nil, Option("Facebook"), None, None)
       val userId = User.createUser(user)
       val userObtained = User.findUserComingViaSocailSite("NeelS", "Facebook")
       assert(userObtained.size === 1)
@@ -105,7 +106,7 @@ class UserTest extends FunSuite with BeforeAndAfter {
 
   test("Is the User Already Registered") {
     running(FakeApplication()) {
-      val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", Option("Neel"), "", "", "", "", Nil, Nil, Nil, None, None, None)
+      val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", Option("Neel"), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
       val userId = User.createUser(userA)
       val userCreated = User.getUserProfile(userId.get)
       User.updateUser(userId.get, "Neelkanth", "Sachdeva", "Rewari", "", "", "", "")

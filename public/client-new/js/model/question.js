@@ -52,20 +52,64 @@ define(['baseModel',
 			this.trigger('change:questionRock');
 		}, 
 
-		postComment: function(commentText){
+		postComment: function(commentText,parent,commentAmt){
+			var questionId = parent;
+			var cmtCount = commentAmt;
 			var comment = new Comment();
+
+			var exmp = this.get('comments');
 			this.get('comments').push(comment);
 			this.get('question').comments.push(comment);
 			comment.urlRoot = '/newComment';
-			comment.save({comment: commentText, questionId: this.get('question').id.id});
+			comment.save({comment: commentText, questionId: this.get('question').id.id},{
+				success : function(model, response) {
+				
+	
+				
+					/* pubnum auto push */
+						PUBNUB.publish({
+		                	channel : "sideCommentPushMainStream",
+                        message : { pagePushUid: self.pagePushUid ,data:response,questionId :questionId,cmtCount:cmtCount}
+		                })
+		                
+		             	
+					/* pubnum auto push */
+						PUBNUB.publish({
+		                	channel : "sideCommentPushSideStream",
+                        message : { pagePushUid: self.pagePushUid ,data:response,questionId :questionId,cmtCount:cmtCount}
+		                })
+			}
+				
+			}
+				
+			);
 			this.trigger('commentPost');
 		}, 
 
-		postAnswer: function(answerText){
+		postAnswer: function(answerText,parent,answerAmt){
+			var questionId = parent;
+			var ansCount = answerAmt;
 			var answer = new Answer();
 			this.get('question').answers.push(answer);
 			answer.urlRoot = '/answer';
-			answer.save({answerText: answerText, questionId: this.get('question').id.id});
+			answer.save({answerText: answerText, questionId: this.get('question').id.id},{
+				success : function(model, response) {
+					
+					/* pubnum auto push */
+						PUBNUB.publish({
+				        	channel : "sideAnswerPushMainStream",
+				        message : { pagePushUid: self.pagePushUid ,data:response,questionId :questionId,ansCount:ansCount}
+				        })
+				        
+				     	
+					/* pubnum auto push */
+						PUBNUB.publish({
+				        	channel : "sideAnswerPushSideStream",
+				        message : { pagePushUid: self.pagePushUid ,data:response,questionId :questionId,ansCount:ansCount}
+				        })
+				}
+				
+				});
 			this.trigger('answerPost');
 		}, 
 

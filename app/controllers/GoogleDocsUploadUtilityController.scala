@@ -119,9 +119,12 @@ object GoogleDocsUploadUtilityController extends Controller {
   /**
    * Google Oauth2 Setup
    */
-  def uploadPage = Action { implicit request =>
-    Ok(views.html.gdocs(Nil))
-  }
+  /*
+   * def uploadPage = Action { implicit request =>
+   * Ok(views.html.gdocs(Nil))
+   * }
+   */
+
   /**
    * @Deprecated
    */
@@ -154,10 +157,10 @@ object GoogleDocsUploadUtilityController extends Controller {
     Redirect("/stream")
   }
 
-  def getAllGoogleDriveFiles = Action { implicit request =>
+  /*def getAllGoogleDriveFiles = Action { implicit request =>
     val accessToken = request.session.get("accessToken").get
     val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(accessToken)
     Ok(views.html.gdocs(files))
-  }
+  }*/
 
 }

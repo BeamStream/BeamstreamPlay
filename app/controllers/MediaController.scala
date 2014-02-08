@@ -261,7 +261,6 @@ object MediaController extends Controller {
     val recentPPTs = Files.getAllPPTFiles(new ObjectId(request.session.get("userId").get))
     val recentPPT = (recentPPTs.isEmpty == false) match {
       case true =>
-        println(recentPPTs)
         Option(recentPPTs.head)
       case false => None
     }

@@ -16,7 +16,6 @@ import java.util.regex.Pattern
 import java.net.URL
 import models.mongoContext._
 
-
 /**
  * Enumeration for the Question access
  *
@@ -250,7 +249,7 @@ object Question {
    * get all questions within a stream on the basis of keyword
    */
   def getAllQuestionsForAStreambyKeyword(keyword: String, streamId: ObjectId, pageNumber: Int, messagesPerPage: Int): List[Question] = {
-//    val keyWordregExp = (""".*""" + keyword + """.*""").r
+    //    val keyWordregExp = (""".*""" + keyword + """.*""").r
     val keyWordregExp = Pattern.compile(keyword, Pattern.CASE_INSENSITIVE)
     QuestionDAO.find(MongoDBObject("questionBody" -> keyWordregExp, "streamId" -> streamId)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
   }
@@ -277,6 +276,7 @@ object Question {
         }
 
         val comments = Comment.getAllComments(question.comments)
+        val answers = Comment.getAllComments(question.answers)
 
         val pollsOfquestionObtained = (question.pollOptions.size.equals(0) == false) match {
           case true =>
@@ -292,7 +292,7 @@ object Question {
         val isFollowed = Question.isAFollower(question.id, userId)
         val isFollowerOfQuestionPoster = User.isAFollower(question.userId, userId)
 
-        QuestionWithPoll(question, isRocked, isFollowed, isFollowerOfQuestionPoster, Option(profilePicForUser), Option(comments), pollsOfquestionObtained)
+        QuestionWithPoll(question, isRocked, isFollowed, isFollowerOfQuestionPoster, Option(profilePicForUser), Option(comments), Option(answers), pollsOfquestionObtained)
     }
 
   }

@@ -1,5 +1,5 @@
 function startChat(userId) {
-	var oldChatSocket = new WebSocket('ws://test.beamstream.com/chat')
+	var oldChatSocket = new WebSocket('ws://localhost:9000/chat')
 	var oldId = randomString(8);
 	$(".chatbox_own")
 			.append(
@@ -44,6 +44,14 @@ function startChat(userId) {
 	var setNameOfUser = true;
 	var oldReceiveEvent = function(event) {
 		var data = JSON.parse(event.data)
+		if (data.message == "ping") {
+			return;
+		}
+		if (data.kind == "quit") {
+			$("#" + oldId).remove();
+			oldChatSocket.close();
+			return
+		}
 		$(".chatbox_own").css("display", "block");
 		$("#" + oldId).css("display", "block");
 		$(".chatbox_own").css("position", "fixed");
@@ -59,13 +67,8 @@ function startChat(userId) {
 			$("#onError span").text(data.error)
 			$("#onError").show()
 			return
-
-			
-
 		}
-		if (data.message == "ping") {
-			return;
-		}
+
 		// Create the message element
 		var el = $('<div class="message"><span></span><p></p></div>')
 		$("span", el).text(data.user)
@@ -89,10 +92,20 @@ function startChat(userId) {
 		$("#" + oldId).remove();
 		oldChatSocket.close();
 	});
+
+	oldChatSocket.onopen = function() {
+		console.log('websocket opened');
+		setInterval(function() {
+			if (oldChatSocket.bufferedAmount == 0)
+				oldChatSocket.send(JSON.stringify({
+					text : "ping"
+				}))
+		}, 30000);
+	};
 }
 
 function popit(userId, toWhom, name, profileImageUrl) {
-	var newChatSocket = new WebSocket('ws://test.beamstream.com/startChat/'
+	var newChatSocket = new WebSocket('ws://localhost:9000/startChat/'
 			+ userId + "/" + toWhom)
 	var itsId = randomString(8);
 	$(".chatbox")
@@ -154,7 +167,6 @@ function popit(userId, toWhom, name, profileImageUrl) {
 				$("#" + itsId).remove();
 				newChatSocket.close();
 				return
-
 			}
 
 			// Create the message element

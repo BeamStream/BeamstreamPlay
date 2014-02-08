@@ -141,7 +141,6 @@ object MessageController extends Controller {
   /**
    * All messages for a stream sorted by date & rock along with the limits
    */
-  //TODO : (Needs somewhat modification , String for sortBy not a good way)
   def allMessagesForAStream(streamId: String, sortBy: String, messagesPerPage: Int, pageNo: Int, period: String) = Action { implicit request =>
     val allMessagesForAStream = (sortBy == "date") match {
       case true => Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)

@@ -20,7 +20,7 @@ import models.mongoContext._
 import utils.EmailUtility
 /**
  * Send mail when different event occurs
- * @params : emailId is the emailId of the user who registers
+ * params : emailId is the emailId of the user who registers
  */
 object UtilityActor extends EmailUtility {
 

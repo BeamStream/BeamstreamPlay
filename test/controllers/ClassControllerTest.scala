@@ -19,13 +19,14 @@ import models.StreamDAO
 import models.UserDAO
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.ws.WS
+import java.util.Date
 
 @RunWith(classOf[JUnitRunner])
 class ClassControllerTest extends FunSuite with BeforeAndAfter {
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
   private def userToBeCreated = {
-    User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", Nil, Nil, Nil, None, None, None)
+    User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", new Date,Nil, Nil, Nil, None, None, None)
   }
 
   private def classToBeCreated = {

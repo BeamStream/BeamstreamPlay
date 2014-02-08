@@ -39,12 +39,11 @@ define(['view/formView'], function(FormView){
 			 
 			 eventName.preventDefault();
 		
-				 
 			 /* PUBNUB -- AUTO AJAX PUSH */
-								 PUBNUB.publish({
-								 channel : "offlineuser",
-								 message : { pagePushUid: self.pagePushUid}
-								 })
+			 /*PUBNUB.publish({
+			 channel : "offlineuser",
+			 message : { pagePushUid: self.pagePushUid}
+			 }) */
 			 
 			 /* expires the user session  */
 			 $.ajax({
@@ -59,6 +58,7 @@ define(['view/formView'], function(FormView){
 							localStorage["loggedUserProfileUrl"] =  '';
 			            	localStorage["loggedUserId"] =  '';
 							window.location = "/login";
+							
 						}
 						else
 						{

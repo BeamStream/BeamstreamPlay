@@ -1,17 +1,14 @@
+
 <div class="answer-description"  id="{{data.id.id}}">
     <div class="follw-left">          
-        <div class="ask-img">
-        <img id="{{data.id.id}}-image" src="{{#if profileImage}}{{profileImage}}{{else}}/beamstream-new/images/profile-upload.png{{/if}}">
-        </div>                      
+        <div class="ask-img"><img id="{{data.id.id}}-image" src="{{#if profileImage}}{{profileImage}}{{else}}/beamstream-new/images/profile-upload.png{{/if}}"></div>                      
     </div>
     <div class="answer-description-info">
       <div class="follow-names">
         <ul class="follow-name-left show-all-block">
           <li><span>@{{data.firstNameofCommentPoster}} {{data.lastNameofCommentPoster}} </span> -  {{data.timeCreated}}  -  Public</li>
-          <li ><a href="#" class="rock-comments" >Rock</a></li>
-          <li class="rocks-small">
-          <a id="{{{data.id.id}}-mrockCount" href="#">{{{data.rocks}}</a>
-          </li>
+          <li ><a href="#" class="rock-answers" >Rock</a></li>
+          <li class="rocks-small-answer"><a id="{{{data.id.id}}-mrockCount" href="#">{{{data.rocks}}</a></li>
           <!--li><a class="comment-icon" href="#"></a></li-->
              
         </ul>

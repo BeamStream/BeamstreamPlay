@@ -10,6 +10,7 @@ import com.mongodb.casbah.commons.MongoDBObject
 import play.api.test.Helpers.running
 import play.api.test.FakeApplication
 import play.api.test.Helpers.running
+import java.util.Date
 
 @RunWith(classOf[JUnitRunner])
 class ClassTest extends FunSuite with BeforeAndAfter {
@@ -23,7 +24,7 @@ class ClassTest extends FunSuite with BeforeAndAfter {
   }
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
-  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", Nil, Nil, Nil, None, None, None)
+  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", new Date,Nil, Nil, Nil, None, None, None)
 
   test("Create class test") {
     running(FakeApplication()) {

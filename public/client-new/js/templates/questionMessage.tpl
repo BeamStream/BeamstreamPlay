@@ -213,10 +213,12 @@
                       <li>
                         <a class="rocks-question" href="#">Rock</a>
                       </li>
-                      <li  id="{{data.question.id.id}}-Answer" >
-                        <a href="#" class="add-answer"> Answer</a>
-                      </li>
+                      
+                      <li><a href="#" class="add-answer"> Answer</a></li>                      
+                      
                       <li><a href="#" class="add-comment" > Comment</a></li>
+                      
+                      
                       <!--li><a class="comment-icon" href="#"></a></li-->
              <a id=" " href="#" class="delete_msg drag-rectangle" data-original-title="Flag this" style="visibility:hidden;"></a> 
                     </ul>
@@ -295,8 +297,51 @@
                   
                   
                   
+                    <div id="{{data.question.id.id}}-allAnswers" class="comment-wrapper commentList">
+							     
+							     {{#each data.answers}}
+                      
+                       <div class="answer-description"  id="{{comment.id.id}}">
+                        <div class="follw-left">          
+                            <div class="ask-img"><img id="{{comment.id.id}}-image" src="{{#if profilePic}}{{profilePic}}{{else}}/beamstream-new/images/profile-upload.png{{/if}}"></div>                      
+                        </div>
+                        <div class="answer-description-info">
+                          <div class="follow-names">
+                            <ul class="follow-name-left show-all-block">
+                              <li><span>@{{comment.firstNameofCommentPoster}} {{comment.lastNameofCommentPoster}} </span> -  {{comment.timeCreated}}  -  Public</li>
+                              <li ><a href="#" class="rock-answers" >Rock</a></li>
+                              <li class="rocks-small-answer"><a id="{{comment.id.id}}-mrockCount" href="#">{{comment.rocks}}</a></li>
+                              <!--li><a class="comment-icon" href="#"></a></li-->
+                                 
+                            </ul>
+                          </div>
+                          <p>{{comment.commentBody}}</p>
+                          <a id="{{comment.id.id}}" href="#" data-username={{comment.userId.id}} data-original-title="Delete" class="delete_comment drag-rectangle" ></a>
+                        </div>
+                        <div class="clear"></div>
+                      </div>
+                      
+                      
+                      {{/each}}
+                    
+                  </div>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
           <div id="{{data.question.id.id}}-newCommentList" class="comment-wrapper" style="display: none;">
                   </div>
+           <div id="{{data.question.id.id}}-newAnswerList" class="comment-wrapper" style="display: none;">
+                  </div>
+           
           <div id="{{data.question.id.id}}-questionRockers" class="comment-wrapper" style="display: none;">
 
            

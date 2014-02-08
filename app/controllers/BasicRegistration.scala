@@ -1,9 +1,7 @@
 package controllers
 
 import java.text.SimpleDateFormat
-
 import org.bson.types.ObjectId
-
 import actors.UtilityActor
 import models.ResulttoSent
 import models.User
@@ -14,6 +12,7 @@ import play.api.mvc.Controller
 import utils.ObjectIdSerializer
 import utils.PasswordHashingUtil
 import utils.TokenEmailUtil
+import java.util.Date
 
 object BasicRegistration extends Controller {
 
@@ -50,7 +49,7 @@ object BasicRegistration extends Controller {
       case true =>
         (encryptedPassword == encryptedConfirmPassword) match {
           case true =>
-            val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, "", "", "", Option(encryptedPassword), "", "", "", "", Nil, Nil, Nil, None,None, None)
+            val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, "", "", "", Option(encryptedPassword), "", "", "", "", new Date,Nil, Nil, Nil, None,None, None)
             val IdOfUserCreted = User.createUser(userToCreate)
             val createdUser = User.getUserProfile(IdOfUserCreted.get)
             UtilityActor.sendMailAfterUserSignsUp(IdOfUserCreted.get.toString, TokenEmailUtil.securityToken, emailId)

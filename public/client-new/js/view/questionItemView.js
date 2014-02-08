@@ -19,11 +19,13 @@
 define(['view/formView',
 		'model/question',
 		'model/comment',
+		'model/answer',
 		'model/user',
 		'text!templates/questionMessage.tpl',
 		 'text!templates/questionComment.tpl',
+		 'text!templates/questionAnswer.tpl',
 		 'text!templates/messageRocker.tpl',
-        ],function(FormView,QuestionModel, CommentModel,UserModel, QuestionMessage, QuestionComment,MessageRocker ){
+        ],function(FormView,QuestionModel, CommentModel,AnswerModel,UserModel, QuestionMessage, QuestionComment,QuestionAnswer,MessageRocker ){
 	
 	var QuestionItemView;
 	QuestionItemView = FormView.extend({
@@ -36,9 +38,12 @@ define(['view/formView',
 			'click .rocks-question': 'rockQuestion',
 			'click .follow-question': 'followQuestion',
 			'click .rock-comments': 'rockComment',
+	        'click .rock-answers': 'rockAnswer',
+	        'click .rocks-small-answer a': 'rockAnswer',
 			'click .rocks-small a': 'rockComment',
 		 	'click .follow-user' : 'followUser',
 		 	'click .show-all-comments' : 'showAllCommentList',
+         	'click .show-all-Answers' : 'showAllAnswerList',
 		 	'click .who-rocked-it' : 'showRockersList',
 		 	'click .show-all' : 'showAllList',
 		 	'click .delete_post': 'deleteQuestion',
@@ -209,7 +214,6 @@ define(['view/formView',
 					
 			}
 
-
 			// render the template
     		compiledTemplate = Handlebars.compile(QuestionMessage);
     		$(this.el).html(compiledTemplate(datas));
@@ -371,7 +375,7 @@ define(['view/formView',
    			 			comment.urlRoot = "/newComment";
    			 			comment.save({comment : commentText, questionId :parent},{
 	   			    	success : function(model, response) {
-		   			    		
+   			 				
 	   			    		$('#'+parent+'-questionComment').val('');
 	   							
    			    			// shows the posted comment
@@ -401,7 +405,6 @@ define(['view/formView',
          * show posted comment
          */
         showPostedComment: function(response,parent,totalComments){
-        	
 	  		$('#'+parent+'-addComments').slideUp(200);
 	  		
 		    /* display the posted comment  */
@@ -410,6 +413,11 @@ define(['view/formView',
     		
     		if(!$('#'+parent+'-allComments').is(':visible'))
 			{  
+    			if($('#'+parent+'-allAnswers').is(':visible'))
+				{
+					$('#'+parent+'-allAnswers').hide();
+				}
+				
 				$('#'+parent+'-msgRockers').slideUp(1);
 				$('#'+parent+'-newCommentList').slideDown(1);
 				$('#'+parent+'-newCommentList').prepend(compiledTemplate({data:response,profileImage:localStorage["loggedUserProfileUrl"]}));
@@ -420,7 +428,42 @@ define(['view/formView',
 			$('#'+parent+'-totalComment').text(totalComments);
         },
         
+    /**
+         * Show / hide all comments of a question
+         */
+        showAllCommentList: function(eventName){
+        	eventName.preventDefault();
+        	var element = eventName.target.parentElement;
+        	var parentUl = $(eventName.target).parent('ul');
         	
+			var questionId =$(element).parents('div.follow-container').attr('id');
+			
+			$(parentUl).find('a.active').removeClass('active');
+			
+			if($('#'+questionId+'-allComments').is(":visible"))
+			{
+				$(eventName.target).removeClass('active');
+				$('#'+questionId+'-msgRockers').slideUp(1);
+				$('#'+questionId+'-newCommentList').html('');
+				$('#'+questionId+'-allComments').slideUp(600); 
+				$('#'+questionId+'-show-hide').text("Show All");
+			}
+			else
+			{
+				if($('#'+questionId+'-allAnswers').is(':visible'))
+				{
+					$('#'+questionId+'-allAnswers').hide();
+				}
+				
+				
+
+				$(eventName.target).addClass('active');
+				$('#'+questionId+'-msgRockers').slideUp(1);
+				$('#'+questionId+'-newCommentList').html('');
+				$('#'+questionId+'-allComments').slideDown(600); 
+				$('#'+questionId+'-show-hide').text("Hide All");
+			}
+        },
 	 	
 	   /**
          * Show answer text area on click
@@ -456,9 +499,6 @@ define(['view/formView',
 	        	var totalAnswers =  $('#'+parent+'-totalAnswer').text();
 	        	var answerText = $('#'+parent+'-questionsAnswer').val();
 	        	var self =this;
-	        	// alert (parent);
-	     
-	        	
 	        
 	        	/* post answers on enter key press */
 	        	if(eventName.which == 13) {
@@ -469,20 +509,28 @@ define(['view/formView',
 	   			 	{
   			 	
 	   			 		   // set the Comment model values and posted to server
-	   			 			var answer = new CommentModel();
+	   			 			var answer = new AnswerModel();
 	   			 			answer.urlRoot = "/answer";
 	   			 			answer.save({answerText : answerText, questionId :parent},{
 		   			    	success : function(model, response) {
+	   			 				
 			   			    		
-		   			    		$('#'+parent+'-questionAnswer').val('');
+		   			    		$('#'+parent+'-questionsAnswer').val('');
 		   							
 	   			    			// shows the posted answer
 	   			    		    self.showPostedAnswer(response,parent,totalAnswers);
-	   			    		// pubnum auto push
-	   							PUBNUB.publish({
-	   			                	channel : "questionanswer",
-			                        message : { pagePushUid: self.pagePushUid ,data:response,parent:parent,ansCount:totalAnswers ,profileImage : localStorage["loggedUserProfileUrl"]}
-	   			                })
+	   			    		
+	   			    		    /* pubnum auto push */
+   							PUBNUB.publish({
+   			                	channel : "questionanswerMainStream",
+		                        message : { pagePushUid: self.pagePushUid ,data:response,parent:parent,cmtCount:totalAnswers ,profileImage : localStorage["loggedUserProfileUrl"]}
+   			                })
+   			                
+   			                PUBNUB.publish({
+   			                	channel : "questionanswerSideStream",
+		                        message : { pagePushUid: self.pagePushUid ,data:response,parent:parent,cmtCount:totalAnswers ,profileImage : localStorage["loggedUserProfileUrl"]}
+   			                })
+   			                
 	   			    		    
 		   			    	},
 		   			    	error : function(model, response) {
@@ -504,18 +552,21 @@ define(['view/formView',
          */
         showPostedAnswer: function(response,parent,totalAnswers){
         	
-        	//alert('#'+parent+'-addComment');
 	  		$('#'+parent+'-addAnswer').slideUp(200);
 	  		
 		    /* display the posted comment  */
-    		var compiledTemplate = Handlebars.compile(QuestionComment);
-    		$('#'+parent+'-allComments').prepend(compiledTemplate({data:response,profileImage:localStorage["loggedUserProfileUrl"]}));
+    		var compiledTemplate = Handlebars.compile(QuestionAnswer);
+    		$('#'+parent+'-allAnswers').prepend(compiledTemplate({data:response,profileImage:localStorage["loggedUserProfileUrl"]}));
     		
-    		if(!$('#'+parent+'-allComments').is(':visible'))
+    		if(!$('#'+parent+'-allAnswers').is(':visible'))
 			{  
+    			if($('#'+parent+'-allComments').is(":visible"))
+			{
+			$('#'+parent+'-allComments').hide();
+			}
 				$('#'+parent+'-msgRockers').slideUp(1);
 				$('#'+parent+'-newAnswerList').slideDown(1);
-				$('#'+parent+'-newAnswertList').prepend(compiledTemplate({data:response,profileImage:localStorage["loggedUserProfileUrl"]}));
+				$('#'+parent+'-newAnswerList').prepend(compiledTemplate({data:response,profileImage:localStorage["loggedUserProfileUrl"]}));
 				
 			}
     		totalAnswers++; 
@@ -524,7 +575,37 @@ define(['view/formView',
 			
         },
         
-        	
+showAllAnswerList: function(eventName){
+	eventName.preventDefault();
+	var element = eventName.target.parentElement;
+	var parentUl = $(eventName.target).parent('ul');
+	
+	var questionId =$(element).parents('div.follow-container').attr('id');
+	
+	$(parentUl).find('a.active').removeClass('active');
+	
+	if($('#'+questionId+'-allAnswers').is(":visible"))
+	{
+		$(eventName.target).removeClass('active');
+		$('#'+questionId+'-msgRockers').slideUp(1);
+		$('#'+questionId+'-newAnswerList').html('');
+		$('#'+questionId+'-allAnswers').slideUp(600); 
+		$('#'+questionId+'-show-hide').text("Show All");
+	}
+	else
+	{
+		if($('#'+questionId+'-allComments').is(":visible"))
+			{
+			$('#'+questionId+'-allComments').hide();
+			}
+			
+		$(eventName.target).addClass('active');
+		$('#'+questionId+'-msgRockers').slideUp(1);
+		$('#'+questionId+'--newAnswerList').html('');
+		$('#'+questionId+'-allAnswers').slideDown(600); 
+		$('#'+questionId+'-show-hide').text("Hide All");
+	}
+},
 
         /**
 	     *  Rocking question
@@ -648,6 +729,40 @@ define(['view/formView',
 
 		    });
         },
+        
+        	
+		     /**
+         *  Rock answers
+         */
+        rockAnswer: function(eventName){
+        	
+        	eventName.preventDefault();
+        	var commentId = $(eventName.target).parents('div.answer-description').attr('id');
+        	var questionId = $(eventName.target).parents('div.follow-container').attr('id');
+        	var streamId =  $('.sortable li.active').attr('id');
+        	var self = this;
+        	
+        	var comment = new CommentModel();
+        	comment.urlRoot = "/rockingTheComment";
+			// set values to model
+        	comment.save({id : commentId },{
+		    	success : function(model, response) {
+		    		
+		    		// display the count in icon
+                	$('div#'+questionId+'-newAnswerList').find('a#'+commentId+'-mrockCount').html(response);
+                	$('div#'+questionId+'-allAnswers').find('a#'+commentId+'-mrockCount').html(response);
+                	
+                	/* pubnub auto push for rock comment */
+                	PUBNUB.publish({
+                        channel : "ques_answerRock",
+                        message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:response,questionId:questionId,commentId:commentId  }
+                	})
+		    	},
+		    	error : function(model, response) {
+		    	}
+
+		    });
+        },
 
         /**
         *  Follow User 
@@ -696,35 +811,7 @@ define(['view/formView',
 			});
         },
 
-        /**
-         * Show / hide all comments of a question
-         */
-        showAllCommentList: function(eventName){
-        	eventName.preventDefault();
-        	var element = eventName.target.parentElement;
-        	var parentUl = $(eventName.target).parent('ul');
-        	
-			var questionId =$(element).parents('div.follow-container').attr('id');
-			
-			$(parentUl).find('a.active').removeClass('active');
-			
-			if($('#'+questionId+'-allComments').is(":visible"))
-			{
-				$(eventName.target).removeClass('active');
-				$('#'+questionId+'-msgRockers').slideUp(1);
-				$('#'+questionId+'-newCommentList').html('');
-				$('#'+questionId+'-allComments').slideUp(600); 
-				$('#'+questionId+'-show-hide').text("Show All");
-			}
-			else
-			{
-				$(eventName.target).addClass('active');
-				$('#'+questionId+'-msgRockers').slideUp(1);
-				$('#'+questionId+'-newCommentList').html('');
-				$('#'+questionId+'-allComments').slideDown(600); 
-				$('#'+questionId+'-show-hide').text("Hide All");
-			}
-        },
+
 
         /**
 	  	*  show Message rockers list 
@@ -801,6 +888,8 @@ define(['view/formView',
 				$('#'+questionId+'-msgRockers').slideUp(1);
 				$('#'+questionId+'-newCommentList').html('');
 				$('#'+questionId+'-allComments').slideUp(600); 
+				$('#'+questionId+'-newAnswerList').html('');
+				$('#'+questionId+'-allAnswers').slideUp(600); 
 				$(eventName.target).removeClass('active');
 				$(eventName.target).text("Show All");
             }
@@ -809,6 +898,8 @@ define(['view/formView',
 				$('#'+questionId+'-msgRockers').slideUp(1);
 				$('#'+questionId+'-newCommentList').html('');
 				$('#'+questionId+'-allComments').slideDown(600);
+				$('#'+questionId+'-newAnswerList').html('');
+				$('#'+questionId+'-allAnswers').slideDown(600);
 				$(eventName.target).addClass('active');
 				$(eventName.target).text("Hide All");
 			}

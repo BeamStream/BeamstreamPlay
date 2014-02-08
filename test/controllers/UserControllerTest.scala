@@ -12,12 +12,13 @@ import play.api.Play
 import models.ClassDAO
 import models.UserSchoolDAO
 import utils.OnlineUserDAO
+import play.api.Logger
 @RunWith(classOf[JUnitRunner])
 class UserControllerTest extends FunSuite with BeforeAndAfter {
 
   before {
     running(FakeApplication()) {
-      println(Play.current.configuration.getString("databaseName").get)
+      Logger.debug(Play.current.configuration.getString("databaseName").get)
       ClassDAO.remove(MongoDBObject("className" -> ".*".r))
       UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
       UserSchoolDAO.remove(MongoDBObject("schoolName" -> ".*".r))
