@@ -62,10 +62,7 @@
 						        <input type="hidden" id="id-{{data.message.docIdIfAny.id}}"  value="{{data.message.messageBody}}">      
 						        <p class="doc-description" id="description-{{data.message.docIdIfAny.id}}" >{{#if data.docDescription}}{{data.docDescription}}{{else}}No Document Description..{{/if}}</p>
 						      </div>
-						      <div id="{{data.message.docIdIfAny.id}}" class="comment-wrapper2">
-						      <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon rock_documents"></a>
-						      <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
-						      </div></div></div>
+								</div></div>
 								
 							      <div class="edit-title-div">
 								 {{#ifequal loggedUserId data.message.userId.id }}
@@ -73,7 +70,6 @@
 								  {{/ifequal}}
 		                    	  </div>
 								
-						     <div class="dateinfo"><span class="state">{{data.message.messageAccess.name}}</span><span class="date date-btn">{{datVal}}</span></div>
 						    </div>
 						   </div>
 						  </div>
