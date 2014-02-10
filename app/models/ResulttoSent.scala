@@ -30,7 +30,7 @@ object OptionOfQuestionDAO extends SalatDAO[OptionOfQuestion, ObjectId](collecti
 /**
  * Question With Polls
  */
-case class QuestionWithPoll(question: Question, rocked: Boolean, followed: Boolean, followerOfQuestionPoster: Boolean, profilePic: Option[String] = None, comments: Option[List[CommentResult]] = None,answers: Option[List[CommentResult]] = None, polls: List[OptionOfQuestion])
+case class QuestionWithPoll(question: Question, rocked: Boolean, followed: Boolean, followerOfQuestionPoster: Boolean, profilePic: Option[String] = None, comments: Option[Int] = None,answers: Option[Int] = None, polls: List[OptionOfQuestion])
 
 /**
  * Comment With Profile Picture
@@ -40,7 +40,7 @@ case class CommentResult(comment: Comment, var profilePic: Option[String] = None
 /**
  * Document Results After Uploading From Main Stream
  */
-case class DocResulttoSent(message: Option[Message], question:Option[Question]=None, docName: String, docDescription: String, rocked: Boolean, followed: Boolean, var profilePic: Option[String] = None, var comments: Option[List[CommentResult]] = None, followerOfMessagePoster: Option[Boolean] = None, rockersNames: List[String])
+case class DocResulttoSent(message: Option[Message], question:Option[Question]=None, docName: String, docDescription: String, rocked: Boolean, followed: Boolean,  profilePic: Option[String] = None, comments: Option[Int] = None, followerOfMessagePoster: Option[Boolean] = None, rockersNames: List[String])
 /**
  * User & User School details after Registration
  */

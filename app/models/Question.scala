@@ -292,14 +292,14 @@ object Question {
         val isFollowed = Question.isAFollower(question.id, userId)
         val isFollowerOfQuestionPoster = User.isAFollower(question.userId, userId)
 
-        QuestionWithPoll(question, isRocked, isFollowed, isFollowerOfQuestionPoster, Option(profilePicForUser), Option(comments), Option(answers), pollsOfquestionObtained)
+        QuestionWithPoll(question, isRocked, isFollowed, isFollowerOfQuestionPoster, Option(profilePicForUser), Option(question.comments.length), Option(question.answers.length), pollsOfquestionObtained)
     }
 
   }
 
   /**
    * Is a follower
-   * @Purpose: identify if the user is following a question or not
+   * Purpose: identify if the user is following a question or not
    * @param  questionId is the id of the question to be searched
    * @param  userId is the id of follower
    */
@@ -316,7 +316,7 @@ object Question {
 
   /**
    * Is a Rocker
-   * @Purpose: identify if the user has rocked a message or not
+   * Purpose: identify if the user has rocked a message or not
    * @param  questionId is the id of the question to be searched
    * @param  userId is the id of follower
    */
