@@ -304,7 +304,7 @@ object Message { //extends CommentConsumer {
     deletedMessageSuccessfully
   }
   /**
-   * ****************************************Rearchitecture*****************************************************
+   * ****************************************Re-architecture*****************************************************
    */
 
   /**
@@ -346,12 +346,12 @@ object Message { //extends CommentConsumer {
           case true =>
             val userMedia = UserMedia.findMediaById(message.docIdIfAny.get)
             (userMedia != None) match {
-              case true => DocResulttoSent(Option(message), None, userMedia.get.name, userMedia.get.description, isRocked, isFollowed, Option(profilePicForUser), None, None, Nil) // H12, User.giveMeTheRockers(message.rockers))
+              case true => DocResulttoSent(Option(message), None, userMedia.get.name, userMedia.get.description, isRocked, isFollowed, Option(profilePicForUser), Option(message.comments.length), None, Nil) // H12, User.giveMeTheRockers(message.rockers))
               case false =>
                 val document = Document.findDocumentById(message.docIdIfAny.get)
-                DocResulttoSent(Option(message), None, document.get.documentName, document.get.documentDescription, isRocked, isFollowed, Option(profilePicForUser), None, None, Nil) //H12, User.giveMeTheRockers(message.rockers))
+                DocResulttoSent(Option(message), None, document.get.documentName, document.get.documentDescription, isRocked, isFollowed, Option(profilePicForUser), Option(message.comments.length), None, Nil) //H12, User.giveMeTheRockers(message.rockers))
             }
-          case false => DocResulttoSent(Option(message), None, "", "", isRocked, isFollowed, Option(profilePicForUser), None, None, Nil) //H12, User.giveMeTheRockers(message.rockers))
+          case false => DocResulttoSent(Option(message), None, "", "", isRocked, isFollowed, Option(profilePicForUser), Option(message.comments.length), None, Nil) //H12, User.giveMeTheRockers(message.rockers))
         }
     }
     docResultToSend
