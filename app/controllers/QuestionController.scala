@@ -261,5 +261,14 @@ object QuestionController extends Controller {
     Ok(write(answersOfThisQuestion)).as("application/json")
   }
 
+  /**
+   * Delete A Comment
+   */
+
+  def deleteTheAnswer(answerId: String, questionId: String) = Action { implicit request =>
+    val deletedTheCommnet = Question.deleteAnswerPermanently(new ObjectId(answerId), new ObjectId(questionId), new ObjectId(request.session.get("userId").get))
+    if (deletedTheCommnet == true) Ok(write(new ResulttoSent("Success", "Answer Has Been Deleted")))
+    else Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Answer")))
+  }
 }
 

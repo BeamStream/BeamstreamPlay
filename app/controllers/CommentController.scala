@@ -148,7 +148,7 @@ object CommentController extends Controller {
 
   }
 
-  /*
+  /**
    * Delete A Comment
    */
 

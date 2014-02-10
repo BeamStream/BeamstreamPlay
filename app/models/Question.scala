@@ -236,6 +236,13 @@ object Question {
     val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
     QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(comments = (question.comments filterNot (List(commentId)contains))), false, false, new WriteConcern)
   }
+  /**
+   * Remove Answer from Question
+   */
+  def removeAnswerFromQuestion(answerId: ObjectId, questionId: ObjectId) = {
+    val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
+    QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(answers = (question.answers filterNot (List(answerId)contains))), false, false, new WriteConcern)
+  }
 
   /**
    *  add Poll to Question
@@ -340,6 +347,20 @@ object Question {
     question.isEmpty match {
       case true => Nil
       case false => question.head.answers
+    }
+  }
+
+  /**
+   * Delete a answer
+   */
+
+  def deleteAnswerPermanently(answerId: ObjectId, questionId: ObjectId, userId: ObjectId) = {
+    val answerToBeRemoved = Comment.findCommentById(answerId)
+    (answerToBeRemoved.get.userId == userId) match {
+      case true =>
+        Comment.removeComment(answerToBeRemoved.get)
+        Question.removeAnswerFromQuestion(answerId, questionId)
+      case false => false
     }
   }
 
