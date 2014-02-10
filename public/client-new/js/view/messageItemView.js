@@ -1,20 +1,17 @@
-/***
-* BeamStream
-*
-* Author                : Aswathy P.R (aswathy@toobler.com)
-* Company               : Toobler
-* Email:                : info@toobler.com
-* Web site              : http://www.toobler.com
-* Created               : 08/April/2013
-* Description           : View for Message item on discussion page
-* ==============================================================================================
-* Change History:
-* ----------------------------------------------------------------------------------------------
-* Sl.No.  Date   Author   Description
-* ----------------------------------------------------------------------------------------------
-*
-* 
-*/
+/*******************************************************************************
+ * BeamStream
+ * 
+ * Author : Aswathy P.R (aswathy@toobler.com) Company : Toobler Email: :
+ * info@toobler.com Web site : http://www.toobler.com Created : 08/April/2013
+ * Description : View for Message item on discussion page
+ * ==============================================================================================
+ * Change History:
+ * ----------------------------------------------------------------------------------------------
+ * Sl.No. Date Author Description
+ * ----------------------------------------------------------------------------------------------
+ * 
+ * 
+ */
 
 define(['view/formView',
         'view/documentView',
@@ -26,10 +23,11 @@ define(['view/formView',
         'text!templates/discussionMessage.tpl',
         'text!templates/discussionComment.tpl',
         'text!templates/messageRocker.tpl',
+        'text!templates/allmessages.tpl',
         '../../lib/extralib/jquery.embedly.min',
         '../../lib/extralib/jquery.prettyPhoto'
         
-        ],function(FormView , DocumentView ,MediaEditView, CommentModel,DiscussionModel, UserMediaModel,UserModel, DiscussionMessage ,DiscussionComment ,MessageRocker ,JqueryEmbedly, PrettyPhoto){
+        ],function(FormView , DocumentView ,MediaEditView, CommentModel,DiscussionModel, UserMediaModel,UserModel, DiscussionMessage ,DiscussionComment ,MessageRocker ,Allmessages,JqueryEmbedly, PrettyPhoto){
 	
 	var MessageItemView;
 	MessageItemView = FormView.extend({
@@ -65,8 +63,8 @@ define(['view/formView',
         },
         
         /**
-         * render the message item
-         */
+		 * render the message item
+		 */
         render: function(){
         	
         	var self = this;
@@ -87,7 +85,7 @@ define(['view/formView',
                 return msgUrlw;
             });
             
-            //to get the extension of the uploaded file 
+            // to get the extension of the uploaded file
             if(trueurl)
             	var extension = (trueurl).match(pattern);  
             
@@ -95,7 +93,7 @@ define(['view/formView',
             if(model.message.messageType.name == "Text")
             {    
                 	 
-                 //to check whether the url is a google doc url or not
+                 // to check whether the url is a google doc url or not
                  if(msgBody.match(/^(https:\/\/docs.google.com\/)/)) 
                  {
                 	 contentType = "googleDoc";
@@ -116,7 +114,7 @@ define(['view/formView',
                 	 contentType = "docs";
 
                  } 	
-                 // set first letter of extension in capital letter  
+                 // set first letter of extension in capital letter
             	  if(extension)
             	  {
             		  extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
@@ -166,7 +164,7 @@ define(['view/formView',
 			}
 			else
 			{
-				/* for images/videos  */
+				/* for images/videos */
 				if(model.message.messageType.name == "Image" || model.message.messageType.name == "Video" )
 				{
 					var datas = {
@@ -264,8 +262,8 @@ define(['view/formView',
         },
         
         /**
-         *  Show the popup for editing title and description of uploaded files
-         */
+		 * Show the popup for editing title and description of uploaded files
+		 */
         editMediaTitle: function(eventName){
         	
         	/* show the doc details in the popupa */
@@ -283,8 +281,8 @@ define(['view/formView',
         
         
         /**
-         *   post new comments on enter key press
-         */
+		 * post new comments on enter key press
+		 */
         addMessageComments: function(eventName){
         	
         	var element = eventName.target.parentElement;
@@ -300,7 +298,7 @@ define(['view/formView',
 	   			 	
    			 	if(!commentText.match(/^[\s]*$/))
    			 	{
-//   			 		this.data.url = "/newComment";
+// this.data.url = "/newComment";
    			 		
    			 		    /* set the Comment model values and posted to server */
    			 			var comment = new CommentModel();
@@ -332,13 +330,13 @@ define(['view/formView',
         },
         
         /**
-         * show posted comment
-         */
+		 * show posted comment
+		 */
         showPostedComment: function(response,parent,totalComments){
         	
 	  		$('#'+parent+'-addComments').slideUp(200);
 	  		
-		    /* display the posted comment  */
+		    /* display the posted comment */
     		var compiledTemplate = Handlebars.compile(DiscussionComment);
     		$('#'+parent+'-allComments').prepend(compiledTemplate({data:response,profileImage:localStorage["loggedUserProfileUrl"]}));
     		
@@ -350,17 +348,17 @@ define(['view/formView',
 				
 			}
     		totalComments++; 
-//    		/* show user profile image */
-//    		$('div#'+parent+'-newCommentList').find('#'+response[0].id.id+'-image').attr('src',localStorage["loggedUserProfileUrl"]);
-//    		$('div#'+parent+'-allComments').find('#'+response[0].id.id+'-image').attr('src',localStorage["loggedUserProfileUrl"]);
+// /* show user profile image */
+// $('div#'+parent+'-newCommentList').find('#'+response[0].id.id+'-image').attr('src',localStorage["loggedUserProfileUrl"]);
+// $('div#'+parent+'-allComments').find('#'+response[0].id.id+'-image').attr('src',localStorage["loggedUserProfileUrl"]);
     		
     		$('#'+parent+'-show-hide').text("Hide All");
 			$('#'+parent+'-totalComment').text(totalComments);
         },
        
         /**
-	     *  Rocking messages
-	     */
+		 * Rocking messages
+		 */
 	    rockMessage: function(eventName){
 	    	eventName.preventDefault();
 	    	var self = this;
@@ -407,8 +405,8 @@ define(['view/formView',
         },
 
         /**
-        * delete message
-        */
+		 * delete message
+		 */
         deleteMessage: function(e){
         	e.preventDefault();
 		 	var messageId = e.target.id;
@@ -436,7 +434,7 @@ define(['view/formView',
 	                		 		$('div#'+messageId).remove();
 
 
-	                		 		/* pubnum auto push -- delete message*/
+	                		 		/* pubnum auto push -- delete message */
    									PUBNUB.publish({
    			                			channel : "deleteMessage",
 		                       			 message : { pagePushUid: self.pagePushUid ,messageId : messageId}
@@ -473,8 +471,8 @@ define(['view/formView',
         },
         
         /**
-        *  Delete comment
-        */
+		 * Delete comment
+		 */
         deleteComment: function(e){
 
    			e.preventDefault();
@@ -491,7 +489,7 @@ define(['view/formView',
 	 				"class" : "btn-primary",
 	 				"callback": function() {
 
-	 					var comment = new CommentModel();
+	 					
 	 					var comment = new CommentModel();
 	 					comment.urlRoot = '/remove/comment/'+messageId;
 
@@ -508,7 +506,7 @@ define(['view/formView',
 			                		$('div#discussion-'+commentId).remove();
 			                		
 
-	                		 		/* pubnum auto push -- delete message*/
+	                		 		/* pubnum auto push -- delete message */
    									PUBNUB.publish({
    			                			channel : "deleteComment",
 		                       			 message : { pagePushUid: self.pagePushUid ,messageId : messageId ,commentId : commentId}
@@ -546,7 +544,7 @@ define(['view/formView',
 		},
         
         
-        //added by cuckoo 
+        // added by cuckoo
         
         followUser : function(e){
         	e.preventDefault();
@@ -558,7 +556,7 @@ define(['view/formView',
 			user.urlRoot = "/followUser/";
 			user.save({id : userId},{
 		    	success : function(model, response) {
-		    		//set display
+		    		// set display
  		        	if(datavalue == "follow")
  		    		{
  		    			$('a.follow-user').each(function() {
@@ -595,8 +593,8 @@ define(['view/formView',
      
         
         /**
-         *@TODO : show the uploaded file in a popup
-         */
+		 * @TODO : show the uploaded file in a popup
+		 */
         showFilesInAPopup: function(e){
 
         	var docId = e.currentTarget.id, docUrl='';
@@ -613,14 +611,16 @@ define(['view/formView',
             	docUrl = "http://docs.google.com/gview?url="+$('input#id-'+docId).val()+"&embedded=true"; 
             	
             	// userMediaModel = new UserMediaModel();
-            	// userMediaModel.set({id:this.model.get('message').docIdIfAny.id ,
-    				     //    		docName : this.model.get('docName'),
-    				     //    		docDescription :this.model.get('docDescription'),
-    				     //    		docUrl: docUrl});
+            	// userMediaModel.set({id:this.model.get('message').docIdIfAny.id
+				// ,
+    				     // docName : this.model.get('docName'),
+    				     // docDescription :this.model.get('docDescription'),
+    				     // docUrl: docUrl});
             	
             	// console.log(userMediaModel.get('docUrl'));
-            	// //render the document 
-            	// var documentView  = new DocumentView({el: '#poupview' , model : userMediaModel});
+            	// //render the document
+            	// var documentView = new DocumentView({el: '#poupview' , model
+				// : userMediaModel});
             	// // documentView.render();
     			// $('#iframe-'+docId).attr('src',docUrl);
     			// $('#document-'+docId).modal("show");
@@ -638,14 +638,14 @@ define(['view/formView',
          },
         
         /**
-         * Show comment text area on click
-         */
+		 * Show comment text area on click
+		 */
         showCommentTextArea: function(eventName){
         	eventName.preventDefault();
         	var element = eventName.target.parentElement;
 			var messageId =$(element).parents('div.follow-container').attr('id');
 			
-			// show / hide commet text area 
+			// show / hide commet text area
 			if($('#'+messageId+'-addComments').is(":visible"))
 			{
 				$('#'+messageId+'-msgComment').val('');
@@ -662,8 +662,8 @@ define(['view/formView',
         },
         
         /**
-         * Show / hide all comments of a message
-         */
+		 * Show / hide all comments of a message
+		 */
         showAllCommentList: function(eventName){
         	eventName.preventDefault();
         	var element = eventName.target.parentElement;
@@ -673,11 +673,28 @@ define(['view/formView',
 			
 			$(parentUl).find('a.active').removeClass('active');
 			
-			if($('#'+messageId+'-allComments').is(":visible"))
+				
+					/* Get all the comments of a message */
+	
+					 $.ajax({
+						 
+						 type : 'POST',
+	   				url : "/getAllComments",
+                   data : JSON.stringify({ "messageId" : messageId}),
+                 contentType: 'application/json; charset=utf-8',
+	
+	   				
+	   					success : function(data) {
+	
+	
+						 	
+	   										
+	   							if($('#'+messageId+'-allComments').is(":visible"))
 			{
 				$(eventName.target).removeClass('active');
 				$('#'+messageId+'-msgRockers').slideUp(1);
 				$('#'+messageId+'-newCommentList').html('');
+				$('#'+messageId+'-allComments').empty(); 
 				$('#'+messageId+'-allComments').slideUp(600); 
 				$('#'+messageId+'-show-hide').text("Show All");
 			}
@@ -686,15 +703,46 @@ define(['view/formView',
 				$(eventName.target).addClass('active');
 				$('#'+messageId+'-msgRockers').slideUp(1);
 				$('#'+messageId+'-newCommentList').html('');
-				$('#'+messageId+'-allComments').slideDown(600); 
-				$('#'+messageId+'-show-hide').text("Hide All");
-			}
+				
+				$.each(data,function(index,value){
+					compiledTemplate = Handlebars.compile(Allmessages);
+					$('#'+messageId+'-allComments').prepend(compiledTemplate({value:value,profileImage:localStorage["loggedUserProfileUrl"]}));
+					$('#'+messageId+'-allComments').slideDown(600); 
+					$('#'+messageId+'-show-hide').text("Hide All");
+		
+						 	
+			
+			
+			})
+	   						
+					}			 		
+						 	
+
+
+	   							
+	   						}
+	   					
+					 })
+
+					 
+					 
+
+
+
+	   			
+	   					
+
+
+
+
+
+			
         },
         
 
      	/**
-	  	*  show Message rockers list 
-	  	*/
+		 * show Message rockers list
+		 */
 		showRockersList: function(eventName){
 			 
 			eventName.preventDefault();
@@ -752,8 +800,8 @@ define(['view/formView',
 		},
 
         /**
-         * show / hide all comments ..
-         */
+		 * show / hide all comments ..
+		 */
         showAllList: function(eventName){
         	eventName.preventDefault();
         	
@@ -781,8 +829,8 @@ define(['view/formView',
         },
         
         /**
-		  * Follow a message
-		  */
+		 * Follow a message
+		 */
 		followMessage: function(eventName){
 			eventName.preventDefault();
 			 
@@ -790,14 +838,14 @@ define(['view/formView',
 			var messageId =$(element).parents('div.follow-container').attr('id');			
 			var datavalue = $('#'+eventName.target.id).attr('data-value');			
 			
-//			this.data.url = "/followMessage";
+// this.data.url = "/followMessage";
 			
 			// set values to model
 			var Discussion = new DiscussionModel();
 			Discussion.urlRoot = "/follow/message";
 			Discussion.save({id : messageId},{
 		    	success : function(model, response) {
-		    		//set display
+		    		// set display
 		        	if(datavalue == "follow")
 		    		{
 		        		$('#'+eventName.target.id).text("Unfollow");
@@ -819,8 +867,8 @@ define(['view/formView',
 
 	    },
 	    /**
-         *  Rock comments
-         */
+		 * Rock comments
+		 */
         rockComment: function(eventName){
         	eventName.preventDefault();
         	var commentId = $(eventName.target).parents('div.answer-description').attr('id');

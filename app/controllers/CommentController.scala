@@ -93,11 +93,11 @@ object CommentController extends Controller {
 
   def getAllComments = Action { implicit request =>
     try {
+    	println(request.body)
       val jsonWithid = request.body.asJson.get
-
+      println((jsonWithid \ "messageId").asOpt[String])
       ((jsonWithid \ "messageId").asOpt[String] != None) match {
         case true =>
-
           val messageId = (jsonWithid \ "messageId").as[String]
           val commentsForAMessage = Comment.getAllComments(Message.findMessageById(new ObjectId(messageId)).get.comments)
           Ok(write(commentsForAMessage)).as("application/json")
