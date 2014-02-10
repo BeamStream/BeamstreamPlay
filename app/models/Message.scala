@@ -13,7 +13,7 @@ import java.util.Calendar
 import java.text.DateFormat
 import com.novus.salat.global._
 import models.mongoContext._
-
+import java.util.regex.Pattern
 object Type extends Enumeration {
 
   val Text = Value(0, "Text")
@@ -167,7 +167,7 @@ object Message { //extends CommentConsumer {
    *  param messagesPerPage is the limit of messages per page
    */
   def getAllMessagesForAKeyword(keyword: String, streamId: ObjectId, pageNumber: Int, messagesPerPage: Int): List[Message] = {
-    val keyWordregExp = (""".*""" + keyword + """.*""").r
+    val keyWordregExp = Pattern.compile("^" + keyword, Pattern.CASE_INSENSITIVE) //(""".*""" + keyword + """.*""").r
     MessageDAO.find(MongoDBObject("messageBody" -> keyWordregExp, "streamId" -> streamId)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
   }
 

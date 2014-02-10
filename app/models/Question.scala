@@ -250,7 +250,7 @@ object Question {
    */
   def getAllQuestionsForAStreambyKeyword(keyword: String, streamId: ObjectId, pageNumber: Int, messagesPerPage: Int): List[Question] = {
     //    val keyWordregExp = (""".*""" + keyword + """.*""").r
-    val keyWordregExp = Pattern.compile(keyword, Pattern.CASE_INSENSITIVE)
+    val keyWordregExp = Pattern.compile("^" + keyword, Pattern.CASE_INSENSITIVE)
     QuestionDAO.find(MongoDBObject("questionBody" -> keyWordregExp, "streamId" -> streamId)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
   }
 

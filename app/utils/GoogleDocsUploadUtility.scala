@@ -92,7 +92,7 @@ object GoogleDocsUploadUtility {
 
     val credential = credentialBuilder.build()
     credential.setRefreshToken(refreshToken)
-    credential.refreshToken()
+    credential.refreshToken
     credential.getAccessToken
   }
 
