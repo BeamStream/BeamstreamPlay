@@ -462,6 +462,10 @@ define(['view/formView',
 	   										{
 	   											$('#'+questionId+'-allAnswers').hide();
 	   										}
+	   									if($('#'+questionId+'-newAnswerList').is(':visible'))
+	   									{
+	   									$('#'+questionId+'-newAnswerList').hide();
+	   									}
 	   												$(eventName.target).addClass('active');
 	   												$('#'+questionId+'-msgRockers').slideUp(1);
 	   												$('#'+questionId+'-newCommentList').html('');
@@ -610,6 +614,10 @@ showAllAnswerList: function(eventName){
 	   								if($('#'+questionId+'-allComments').is(':visible'))
 	   								{
 	   									$('#'+questionId+'-allComments').hide();
+	   								}
+	   								if($('#'+questionId+'-newCommentList').is(':visible'))
+	   								{
+	   									$('#'+questionId+'-newCommentList').hide();
 	   								}
 	   								$(eventName.target).addClass('active');
 	   								$('#'+questionId+'-msgRockers').slideUp(1);
