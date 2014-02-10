@@ -407,6 +407,7 @@ define(['view/formView',
         showPostedComment: function(response,parent,totalComments){
 	  		$('#'+parent+'-addComments').slideUp(200);
 	  		
+	  			
 		    /* display the posted comment  */
     		var compiledTemplate = Handlebars.compile(QuestionComment);
     		$('#'+parent+'-allComments').prepend(compiledTemplate({data:response,profileImage:localStorage["loggedUserProfileUrl"]}));
