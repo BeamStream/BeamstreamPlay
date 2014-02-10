@@ -26,7 +26,7 @@ object SchoolController extends Controller {
     else {
       val schoolToCreate = new School(new ObjectId, schoolName, schoolWebsite)
       val schoolId = School.addNewSchool(schoolToCreate)
-      //      School.allSchoolsInDatabase ++= List(schoolToCreate)
+      School.allSchoolsInDatabase ++= List(schoolToCreate)
       Ok(write(schoolToCreate)).as("application/json")
     }
   }
@@ -63,29 +63,36 @@ object SchoolController extends Controller {
   def getAllSchoolsForAutopopulate = Action { implicit request =>
     val schoolNameStartingStringJsonMap = request.body.asFormUrlEncoded.get
     val schoolNamesStartingCharacter = schoolNameStartingStringJsonMap("data").toList(0)
-    /*val allSchools = School.allSchoolsInDatabase map {
-      case school =>
 
-        val schools = (school.schoolName.toLowerCase().startsWith(schoolNamesStartingCharacter.toLowerCase())) match {
+    School.allSchoolsInDatabase.isEmpty match {
+      case true =>
+        val listOfAllSchools = School.getAllSchools
+        School.allSchoolsInDatabase ++= listOfAllSchools
+
+        Ok(write(returnedMatchedSchoolNames(schoolNamesStartingCharacter)))
+
+      case false =>
+        Ok(write(returnedMatchedSchoolNames(schoolNamesStartingCharacter)))
+
+    }
+
+  }
+
+  private def returnedMatchedSchoolNames(schoolNamesStartingCharacter: String): List[School] = {
+    val allSchools = School.allSchoolsInDatabase map {
+      case school =>
+        (school.schoolName.toLowerCase().startsWith(schoolNamesStartingCharacter.toLowerCase())) match {
           case true => Option(school)
           case _ => None
         }
-        schools
     }
     val schoolsToBereturned = allSchools.filter(a => a != None)
-    if (schoolsToBereturned.isEmpty == false) {
-      val allSchoolsObtained = schoolsToBereturned map {
-
-        case school => school.get
-      }
-
-      Ok(write(allSchoolsObtained)).as("application/json")
-    } else {
-      Ok(write(Nil)).as("application/json")
-    }*/
-
-    val allSchools = School.getAllSchoolsFromDB(schoolNamesStartingCharacter)
-    Ok(write(allSchools)).as("application/json")
-
+    (schoolsToBereturned.isEmpty) match {
+      case true => Nil
+      case false =>
+        schoolsToBereturned map {
+          case school => school.get
+        }
+    }
   }
 }
