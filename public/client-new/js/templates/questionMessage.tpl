@@ -253,12 +253,12 @@
                         
                         
                         <a class="btn grey-buttons show-all-comments"  href="#">
-                        <span id="{{data.question.id.id}}-totalComment" >{{data.comments.length}}</span>
+                        <span id="{{data.question.id.id}}-totalComment" >{{data.comments}}</span>
                          Comments</a> 
                         
                         
                         <a class="btn grey-buttons show-all-Answers" href="#">
-                         <span id="{{data.question.id.id}}-totalAnswer">{{data.answers.length}}</span>
+                         <span id="{{data.question.id.id}}-totalAnswer">{{data.answers}}</span>
                           Answers</a>
             
             			<a  class="btn grey-buttons  show-all" id="{{data.question.id.id}}-show-hide" href="#">
