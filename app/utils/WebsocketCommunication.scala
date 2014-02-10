@@ -84,7 +84,7 @@ object WebsocketCommunication {
               default ! Quit(userName, chatChannel)
             }
 
-            WebsocketCommunicationController.a += new ObjectId(userId) -> (chatChannel, chatEnumerator)
+            WebsocketCommunicationController.usersChatSockets += new ObjectId(userId) -> (chatChannel, chatEnumerator)
             (iteratee, chatEnumerator)
 
           case CannotConnect(error) =>

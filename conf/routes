@@ -211,7 +211,7 @@ GET    /startChat/:me/:toWhom                                                   
 GET    /javascriptRoutes                                                                   controllers.StreamController.javascriptRoutes
 GET    /instantiateChat/:userId                                                                    controllers.WebsocketCommunicationController.instantiateChat(userId)
 
-
+#GET    /canStartChat/:flag/:me/:toWhom                                                       controllers.WebsocketCommunicationController.canStartChat(flag,me, toWhom)
 #Looks like Unused
 
 #Basic Registration
