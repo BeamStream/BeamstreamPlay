@@ -252,8 +252,6 @@ object QuestionController extends Controller {
    */
 
   def answers(questionId: String) = Action { implicit request =>
-    val questionJson = request.body.asJson.get
-    val questionId = (questionJson \ "questionId").as[String]
     val answers = Question.answers(new ObjectId(questionId))
     val answersOfThisQuestion = answers.map {
       case answer =>
