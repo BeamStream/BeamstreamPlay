@@ -24,8 +24,9 @@ define(['view/formView',
 		'text!templates/questionMessage.tpl',
 		 'text!templates/questionComment.tpl',
 		 'text!templates/questionAnswer.tpl',
+	        'text!templates/allmessages.tpl',
 		 'text!templates/messageRocker.tpl',
-        ],function(FormView,QuestionModel, CommentModel,AnswerModel,UserModel, QuestionMessage, QuestionComment,QuestionAnswer,MessageRocker ){
+        ],function(FormView,QuestionModel, CommentModel,AnswerModel,UserModel, QuestionMessage, QuestionComment,QuestionAnswer,Allmessages,MessageRocker ){
 	
 	var QuestionItemView;
 	QuestionItemView = FormView.extend({
@@ -441,11 +442,28 @@ define(['view/formView',
 			
 			$(parentUl).find('a.active').removeClass('active');
 			
-			if($('#'+questionId+'-allComments').is(":visible"))
+			
+					/* Get all the comments of an answer */
+	
+					 $.ajax({
+						 
+						 type : 'POST',
+	   				url : "/getAllComments",
+                   data : JSON.stringify({ "questionId" : questionId}),
+                 contentType: 'application/json; charset=utf-8',
+	
+	   				
+	   					success : function(data) {
+	
+	
+						 	
+	   										
+	   							if($('#'+questionId+'-allComments').is(":visible"))
 			{
 				$(eventName.target).removeClass('active');
 				$('#'+questionId+'-msgRockers').slideUp(1);
 				$('#'+questionId+'-newCommentList').html('');
+				$('#'+questionId+'-allComments').empty(); 
 				$('#'+questionId+'-allComments').slideUp(600); 
 				$('#'+questionId+'-show-hide').text("Show All");
 			}
@@ -456,14 +474,22 @@ define(['view/formView',
 					$('#'+questionId+'-allAnswers').hide();
 				}
 				
-				
-
 				$(eventName.target).addClass('active');
 				$('#'+questionId+'-msgRockers').slideUp(1);
 				$('#'+questionId+'-newCommentList').html('');
-				$('#'+questionId+'-allComments').slideDown(600); 
-				$('#'+questionId+'-show-hide').text("Hide All");
-			}
+				$('#'+questionId+'-allComments').empty(); 
+				$.each(data,function(index,value){
+					compiledTemplate = Handlebars.compile(Allmessages);
+					$('#'+questionId+'-allComments').prepend(compiledTemplate({value:value,profileImage:localStorage["loggedUserProfileUrl"]}));
+					$('#'+questionId+'-allComments').slideDown(600); 
+					$('#'+questionId+'-show-hide').text("Hide All");
+			})
+					}			 		
+	   						}
+					 })
+					 
+					 
+			
         },
 	 	
 	   /**

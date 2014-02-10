@@ -703,7 +703,7 @@ define(['view/formView',
 				$(eventName.target).addClass('active');
 				$('#'+messageId+'-msgRockers').slideUp(1);
 				$('#'+messageId+'-newCommentList').html('');
-				
+				$('#'+messageId+'-allComments').empty();
 				$.each(data,function(index,value){
 					compiledTemplate = Handlebars.compile(Allmessages);
 					$('#'+messageId+'-allComments').prepend(compiledTemplate({value:value,profileImage:localStorage["loggedUserProfileUrl"]}));
