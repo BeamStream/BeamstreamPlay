@@ -347,12 +347,3 @@ object Question {
 
 object QuestionDAO extends SalatDAO[Question, ObjectId](collection = MongoHQConfig.mongoDB("question"))
  
-
-    
-   
- 
-    
-   
-   
-   
-
