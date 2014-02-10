@@ -111,9 +111,7 @@ function popit(userId, toWhom, name, profileImageUrl) {
 				url : '/canStartChat/ask/' + userId + "/" + toWhom,
 				success : function(data) {
 					if (data == "true") {*/
-						var newChatSocket = new WebSocket(
-								'ws://localhost:9000/startChat/' + userId + "/"
-										+ toWhom)
+						var newChatSocket = new WebSocket('ws://localhost:9000/startChat/' + userId + "/"+ toWhom)
 						var itsId = randomString(8);
 						$(".chatbox")
 								.append(
@@ -238,7 +236,6 @@ function popit(userId, toWhom, name, profileImageUrl) {
 						alert("You've already got a connection opened with this user")
 					}*/
 
-				}
-			});
+			
 
 }
