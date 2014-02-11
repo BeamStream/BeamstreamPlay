@@ -36,6 +36,8 @@ define(['baseModel',
 
 		// this rocks or unrocks it
 		rockQuestion: function(){
+			var questionId = this.get('question').id.id;
+			var ownerId = localStorage["loggedUserId"];
 			if (this.get('onlineUserRocked')){
 				this.set({'onlineUserRocked': false}, {silent: true});
 				for (var i = 0; i < this.get('question').rockers.length; i++){
@@ -48,7 +50,20 @@ define(['baseModel',
 				this.get('question').rockers.push({id: this.get('onlineUser')});
 			}
 			this.urlRoot = 'rock/question';
-			this.save({id: this.get('question').id.id}, {silent: true});
+			this.save({id: this.get('question').id.id}, {
+				success : function(model, response){
+				
+				PUBNUB.publish({
+						channel : "questionRockfromSidetoMainStream",
+	                    message : { pagePushUid: self.pagePushUid ,ownerId:ownerId,data:response,quesId:questionId}
+	                })
+	           PUBNUB.publish({
+						channel : "questionRockfromSidetoSideStream",
+	                    message : { pagePushUid: self.pagePushUid ,data:response,quesId:questionId}
+	                })
+
+			}
+			});
 			this.trigger('change:questionRock');
 		}, 
 
@@ -57,14 +72,14 @@ define(['baseModel',
 			var cmtCount = commentAmt;
 			var comment = new Comment();
 
-			var exmp = this.get('comments');
+			//var exmp = this.get('comments');
 			//this.get('comments').push(comment);
-			this.get('question').comments.push(comment);
+			//this.get('question').comments.push(comment);
 			comment.urlRoot = '/newComment';
 			comment.save({comment: commentText, questionId: this.get('question').id.id},{
 				success : function(model, response) {
 				
-	
+					
 				
 					/* pubnum auto push */
 						PUBNUB.publish({
@@ -90,7 +105,7 @@ define(['baseModel',
 			var questionId = parent;
 			var ansCount = answerAmt;
 			var answer = new Answer();
-			this.get('question').answers.push(answer);
+			//this.get('question').answers.push(answer);
 			answer.urlRoot = '/answer';
 			answer.save({answerText: answerText, questionId: this.get('question').id.id},{
 				success : function(model, response) {

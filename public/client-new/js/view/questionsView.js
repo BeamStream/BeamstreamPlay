@@ -1180,6 +1180,36 @@ define(['view/formView',
  	   				   }
 		   		   }
 	   		   })
+	   		   
+	   		   PUBNUB.subscribe({
+		
+ 	   			   channel : "questionRockfromSidetoMainStream",
+ 	   			   restore : false,
+ 	   			   callback : function(question) {
+ 	   				   if(question.pagePushUid != self.pagePushUid)
+ 	   				   { 
+ 	   					  // alert(JSON.stringify(question)); 
+ 	   					  $('#'+question.quesId+'-qstRockCount').find('span').html(question.data);
+ 	   					  
+ 	   					  if(localStorage["loggedUserId"]==question.ownerId)
+ 	   					  {       
+ 	   					if($('#'+question.quesId+'-qstRockCount').hasClass('downrocks-message'))
+ 		            	{
+ 		            		$('#'+question.quesId+'-qstRockCount').removeClass('downrocks-message');
+ 		            		$('#'+question.quesId+'-qstRockCount').addClass('uprocks-message');
+ 		            	}
+ 		            	else
+ 		            	{
+ 		            		$('#'+question.quesId+'-qstRockCount').removeClass('uprocks-message');
+ 		            		$('#'+question.quesId+'-qstRockCount').addClass('downrocks-message');
+ 		            	}
+ 		            	
+ 		            	
+ 		            	}
+ 	   					 
+ 	   				   }
+		   		   }
+	   		   })
 
 	   		    /* for updating user count of stream */
  	   		   PUBNUB.subscribe({

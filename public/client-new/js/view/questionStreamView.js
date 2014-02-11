@@ -105,17 +105,13 @@ define([
                  PUBNUB.subscribe({
                          
                          channel : 'questionsSideStream',
-                        // message: function(m){alert("Aa gya dekh"+m)}
                          
                          callback : function(question) {
                                  
-                               //  alert("caal of the function")
                                  var streamId = $('.sortable li.active').attr('id');
 
-                               //  alert(streamId);
                                  if (question.pagePushUid != self.pagePushUid)
                                  { 
-                                       //  alert("if block")
                                          if(question.streamId==streamId)
                                                 {
                                                    /* set the values to Question Model */
@@ -132,7 +128,6 @@ define([
                                                            pollOptions:question.data.pollOptions
                                                    })
                                                    
-                                                 //  alert(question);
                                                     // show the posted message on feed
                                                          var questionStreamItemView  = new QuestionStreamItemView({model :questionModel});
                                                          //var compiledTemplate = Handlebars.compile(QuestionStreamItem);
@@ -160,6 +155,37 @@ define([
 										                 PUBNUB.subscribe({
 										             		
 											   channel : "questionRockSideStream",
+											   restore : false,
+											   callback : function(question) {
+										                	// 	alert(JSON.stringify(question));
+												   if(question.pagePushUid != self.pagePushUid)
+												   { 
+													
+													  
+													   
+//													     if(localStorage["loggedUserId"]==question.ownerId)
+	//												     {      
+		//											    	 if($('#'+question.quesId+'-rockicon').hasClass('rock-icon'))
+			//										    	 {
+				//									    		 $('#'+question.quesId+'-rockicon').removeClass('rock-icon');
+					//								    		 $('#'+question.quesId+'-rockicon').addClass('already-rocked');
+						//							    	 }
+							//						    	 else
+								//					    	 {
+									//				    		 $('#'+question.quesId+'-rockicon').removeClass('already-rocked');
+										//			    		 $('#'+question.quesId+'-rockicon').addClass('rock-icon');
+											//		    	 }
+ 		            	
+ 		            	
+												//	     }
+													      $('#'+question.quesId+'-totalrocksidebar').find('span').html(question.data);
+												   }
+										   }
+										})
+										
+										  PUBNUB.subscribe({
+										             		
+											   channel : "questionRockfromSidetoSideStream",
 											   restore : false,
 											   callback : function(question) {
 											
