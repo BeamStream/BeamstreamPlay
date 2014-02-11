@@ -79,6 +79,16 @@
 						 </div>
 						
 						   <div id="{{data.message.docIdIfAny.id}}-docRockers-list" class="docRockers_popup"></div>
+							 <div class="comment-wrapper1"> <a class="common-icon camera" href="#"></a>
+							   <ul id="52f6809003642ec13bf48a90-activities" class="comment-list">
+							 	   <li class="eye-icon"></li> 
+									 <li><a href="#" class="view-count">0</a></li>
+							 		 <li class="hand-icon"></li>
+									 <li><a href="#" class="rock-count">0</a></li>
+							 		 <li class="message-icon"></li>
+									 <li><a href="#" class="comment-count">0</a></li>
+							 	 </ul>
+							 </div>
 						   </div>  
 						</div> 
 		

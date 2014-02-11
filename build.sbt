@@ -20,7 +20,9 @@ libraryDependencies ++= Seq(
   anorm,
   cache
 )   
-  
+ 
+
+ 
 javaOptions in Test += "-Dconfig.file=conf/test.conf"
 
 resolvers += "xuggle repo" at "http://xuggle.googlecode.com/svn/trunk/repo/share/java/"
@@ -30,5 +32,7 @@ resolvers += "Google Api client" at "http://mavenrepo.google-api-java-client.goo
 resolvers += "Sonatype Nexus Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
 
 resolvers += "Sonatype Nexus Releases" at "https://oss.sonatype.org/content/repositories/releases"
+
+ScctPlugin.instrumentSettings
 
 play.Project.playScalaSettings
