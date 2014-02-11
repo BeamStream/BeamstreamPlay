@@ -40,9 +40,9 @@ define(['view/formView',
 			'click .rocks-question': 'rockQuestion',
 			'click .follow-question': 'followQuestion',
 			'click .rock-comments': 'rockComment',
+			'click .rocks-small a': 'rockComment',
 	        'click .rock-answers': 'rockAnswer',
 	        'click .rocks-small-answer a': 'rockAnswer',
-			'click .rocks-small a': 'rockComment',
 		 	'click .follow-user' : 'followUser',
 		 	'click .show-all-comments' : 'showAllCommentList',
          	'click .show-all-Answers' : 'showAllAnswerList',
@@ -50,6 +50,7 @@ define(['view/formView',
 		 	'click .show-all' : 'showAllList',
 		 	'click .delete_post': 'deleteQuestion',
 		 	'click .delete_comment' : 'deleteComment',
+		 	'click .delete_answer' : 'deleteAnswer',
 		 	'click .regular-radio': 'polling',
 			 
 		},
@@ -588,6 +589,7 @@ define(['view/formView',
         },
         
         
+/*Show all answer list*/        
         
 showAllAnswerList: function(eventName){
 	eventName.preventDefault();
@@ -1021,22 +1023,21 @@ showAllAnswerList: function(eventName){
 	 				"callback": function() {
 
 	 					var comment = new CommentModel();
-//	 					var comment = new CommentModel();
 	 					comment.urlRoot = '/remove/comment/'+questionId;
 
-	 					/* delete the omment from the model */
+	 					/* delete the comment from the model */
 	 					comment.save({id: commentId},{
 	    					success : function(model, response) {
-		    		
 					 			if(response.status == "Success")
 		                	 	{
 			                		 
 
-									var commentCount = $('#'+questionId+'-totalComment').text()
+									var commentCount = $('#'+questionId+'-totalComment').text();
+									
 	                		 		// $('#'+messageId+'-totalComment').text(commentCount-1);
 
-			                		$('div#question-'+commentId).remove();
-									
+			                		//$('div#question-'+commentId).remove();
+									//alert('div#question-'+commentId);
 
 	                		 		/* pubnum auto push -- delete comment*/
    									PUBNUB.publish({
@@ -1077,7 +1078,74 @@ showAllAnswerList: function(eventName){
  			 }
 		},
        
+			
+	/**
+        *  Delete comment
+        */
+        deleteAnswer: function(e){
 
+   			e.preventDefault();
+   			var self = this;
+ 			var answerId = e.target.id;
+ 			var ownerId = $(e.target).attr('data-username');
+ 			var questionId = $(e.target).parents('div.ask-outer').attr('id');
+ 			if(localStorage["loggedUserId"] == ownerId)
+ 			{
+	 			bootbox.dialog("Are you sure you want to delete this comment?", [{
+	
+	 				"label" : "DELETE",
+	 				"class" : "btn-primary",
+	 				"callback": function() {
+
+	 					var answer = new AnswerModel();
+	 					answer.urlRoot = '/remove/answer/'+questionId;
+
+	 					/* delete the comment from the model */
+	 					answer.save({id: answerId},{
+	    					success : function(model, response) {
+					 			if(response.status == "Success")
+		                	 	{
+	                		 		/* pubnum auto push -- delete comment*/
+   									PUBNUB.publish({
+   			                			channel : "delete_ques_Answer",
+		                       			 message : { pagePushUid: self.pagePushUid ,questionId : questionId ,answerId : answerId}
+   			               			 })
+   			               			 
+   			               			 PUBNUB.publish({
+   			                			channel : "delete_ques_AnswerSide",
+		                       			 message : { pagePushUid: self.pagePushUid ,questionId : questionId ,answerId : answerId}
+   			               			 })
+		                	 	}
+		                	 	else
+		                	 	{
+		                		 	bootbox.alert("You're Not Authorised To Delete This Answer");
+		                	 	}
+		    				},
+		    				error : function(model, response) {
+		    				}
+
+		    			});
+	 					
+	 				}
+	
+	 			 }, 
+	 			 {
+				 	"label" : "CANCEL",
+				 	"class" : "btn-primary",
+	 				"callback": function() {
+	 				}
+	 			 }]);
+ 			 }
+ 			 else
+ 			 {
+ 				bootbox.alert("You're Not Authorised To Delete This Comment");
+ 			 }
+		},
+
+
+       
+
+	
  		/**
 	 	* polling 
 	 	*/

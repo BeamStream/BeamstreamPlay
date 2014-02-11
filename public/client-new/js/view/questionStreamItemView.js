@@ -139,6 +139,21 @@ function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionMod
                   				}
                   })
                   
+                    PUBNUB.subscribe({
+		
+ 	   			   channel : "delete_ques_AnswerSide",
+ 	   			   restore : false,
+ 	   			   callback : function(question) {    
+                    	
+ 	   				   if(question.pagePushUid != self.pagePushUid)
+ 	   				   {    
+   					  		var answerCountSideBar = $('#'+question.questionId+"-totalanswersidebar").text();   					  		
+	                		$('#'+question.questionId+"-totalanswersidebar").text(answerCountSideBar-1);
+	                		
+ 	   				   }
+		   		   }
+	   		   })
+                  
                   
                  
 			},

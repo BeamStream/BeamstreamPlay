@@ -58,7 +58,7 @@ define(['baseModel',
 			var comment = new Comment();
 
 			var exmp = this.get('comments');
-			this.get('comments').push(comment);
+			//this.get('comments').push(comment);
 			this.get('question').comments.push(comment);
 			comment.urlRoot = '/newComment';
 			comment.save({comment: commentText, questionId: this.get('question').id.id},{

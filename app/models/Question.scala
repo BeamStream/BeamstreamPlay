@@ -360,6 +360,7 @@ object Question {
       case true =>
         Comment.removeComment(answerToBeRemoved.get)
         Question.removeAnswerFromQuestion(answerId, questionId)
+        true	
       case false => false
     }
   }
