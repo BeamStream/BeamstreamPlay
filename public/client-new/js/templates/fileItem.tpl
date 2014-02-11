@@ -40,9 +40,12 @@
 			</div>
 			<div class="comment-wrapper1"> <a class="common-icon camera" href="#"></a>
 				<ul id="{{data.id.id}}-activities" class="comment-list">
-					<li><a class="eye-icon" href="#">0</a></li>
-					<li><a class="hand-icon" href="#">{{data.rocks}}</a></li>
-					<li><a class="message-icon" href="#">0</a></li>
+		 	    <li class="eye-icon"></li> 
+				  <li><a href="#" class="view-count">0</a></li>
+		 		  <li class="hand-icon"></li>
+				  <li><a href="#" class="rock-count">{{images.rocks}}</a></li>
+		 		  <li class="message-icon"></li>
+				  <li><a href="#" class="comment-count">0</a></li>
 				</ul>
 			</div>
 		</li>
@@ -90,9 +93,12 @@
 			</div>
 			<div class="comment-wrapper1"> <a class="common-icon video" href="#"></a>
 				<ul id="{{data.id.id}}-activities" class="comment-list">
-					<li><a class="eye-icon" href="#">0</a></li>
-					<li><a class="hand-icon" href="#">{{data.rocks}}</a></li>
-					<li><a class="message-icon" href="#">0</a></li>
+		 	    <li class="eye-icon"></li> 
+				  <li><a href="#" class="view-count">0</a></li>
+		 		  <li class="hand-icon"></li>
+				  <li><a href="#" class="rock-count">{{images.rocks}}</a></li>
+		 		  <li class="message-icon"></li>
+				  <li><a href="#" class="comment-count">0</a></li>
 				</ul>
 			</div>
 		</li>
@@ -136,9 +142,12 @@
 		</div>
 		<div class="comment-wrapper1"> <a class="common-icon data" href="#"></a>
 			<ul id="{{data.id.id}}-activities" class="comment-list">
-			<li><a class="eye-icon" href="#">0</a></li>
-			<li><a class="hand-icon" href="#">{{data.documentRocks}}</a></li>
-			<li><a class="message-icon" href="#">0</a></li>
+	 	   <li class="eye-icon"></li> 
+			 <li><a href="#" class="view-count">0</a></li>
+ 		   <li class="hand-icon"></li>
+		   <li><a href="#" class="rock-count">{{data.documentRocks}}</a></li>
+ 		 	 <li class="message-icon"></li>
+		   <li><a href="#" class="comment-count">0</a></li>
 			</ul>
 		</div>
 		</li>
@@ -186,9 +195,12 @@
 		</div>
 		<div class="comment-wrapper1"> <a class="common-icon data" href="#"></a>
 			<ul id="{{data.id.id}}-activities" class="comment-list">
-			<li><a class="eye-icon" href="#">0</a></li>
-			<li><a class="hand-icon" href="#">{{data.documentRocks}}</a></li>
-			<li><a class="message-icon" href="#">0</a></li>
+	 	   <li class="eye-icon"></li> 
+			 <li><a href="#" class="view-count">0</a></li>
+ 		   <li class="hand-icon"></li>
+		   <li><a href="#" class="rock-count">{{data.documentRocks}}</a></li>
+ 		   <li class="message-icon"></li>
+		   <li><a href="#" class="comment-count">0</a></li>
 			</ul>
 		</div>
 		</li>
@@ -237,9 +249,12 @@
 		</div>
 		<div class="comment-wrapper1"> <a class="common-icon data" href="#"></a>
 			<ul id="{{data.id.id}}-activities" class="comment-list">
-			<li><a class="eye-icon" href="#">0</a></li>
-			<li><a class="hand-icon" href="#">{{data.documentRocks}}</a></li>
-			<li><a class="message-icon" href="#">0</a></li>
+	 	   <li class="eye-icon"></li> 
+			 <li><a href="#" class="view-count">0</a></li>
+ 		   <li class="hand-icon"></li>
+		   <li><a href="#" class="rock-count">{{data.documentRocks}}</a></li>
+ 		   <li class="message-icon"></li>
+		   <li><a href="#" class="comment-count">0</a></li>
 			</ul>
 		</div>
 		</li>
@@ -282,9 +297,13 @@
 		</div>
 		<div class="comment-wrapper1"> <a class="common-icon data" href="#"></a>
 			<ul id="{{data.id.id}}-activities" class="comment-list">
-			<li><a class="eye-icon" href="#">0</a></li>
-			<li><a class="hand-icon" href="#">{{pdfFiles.documentRocks}}</a></li>
-			<li><a class="message-icon" href="#">0</a></li>
+	 	   <li class="eye-icon"></li> 
+	 	   <li class="eye-icon"></li> 
+			 <li><a href="#" class="view-count">0</a></li>
+ 		   <li class="hand-icon"></li>
+		   <li><a href="#" class="rock-count">{{pdfFiles.documentRocks}}</a></li>
+ 		   <li class="message-icon"></li>
+		   <li><a href="#" class="comment-count">0</a></li>
 			</ul>
 		</div>
 		</li>
