@@ -236,6 +236,13 @@ object Question {
     val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
     QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(comments = (question.comments filterNot (List(commentId)contains))), false, false, new WriteConcern)
   }
+  /**
+   * Remove Answer from Question
+   */
+  def removeAnswerFromQuestion(answerId: ObjectId, questionId: ObjectId) = {
+    val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
+    QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(answers = (question.answers filterNot (List(answerId)contains))), false, false, new WriteConcern)
+  }
 
   /**
    *  add Poll to Question
@@ -250,7 +257,7 @@ object Question {
    */
   def getAllQuestionsForAStreambyKeyword(keyword: String, streamId: ObjectId, pageNumber: Int, messagesPerPage: Int): List[Question] = {
     //    val keyWordregExp = (""".*""" + keyword + """.*""").r
-    val keyWordregExp = Pattern.compile(keyword, Pattern.CASE_INSENSITIVE)
+    val keyWordregExp = Pattern.compile("^" + keyword, Pattern.CASE_INSENSITIVE)
     QuestionDAO.find(MongoDBObject("questionBody" -> keyWordregExp, "streamId" -> streamId)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
   }
 
@@ -292,14 +299,14 @@ object Question {
         val isFollowed = Question.isAFollower(question.id, userId)
         val isFollowerOfQuestionPoster = User.isAFollower(question.userId, userId)
 
-        QuestionWithPoll(question, isRocked, isFollowed, isFollowerOfQuestionPoster, Option(profilePicForUser), Option(comments), Option(answers), pollsOfquestionObtained)
+        QuestionWithPoll(question, isRocked, isFollowed, isFollowerOfQuestionPoster, Option(profilePicForUser), Option(question.comments.length), Option(question.answers.length), pollsOfquestionObtained)
     }
 
   }
 
   /**
    * Is a follower
-   * @Purpose: identify if the user is following a question or not
+   * Purpose: identify if the user is following a question or not
    * @param  questionId is the id of the question to be searched
    * @param  userId is the id of follower
    */
@@ -316,7 +323,7 @@ object Question {
 
   /**
    * Is a Rocker
-   * @Purpose: identify if the user has rocked a message or not
+   * Purpose: identify if the user has rocked a message or not
    * @param  questionId is the id of the question to be searched
    * @param  userId is the id of follower
    */
@@ -343,16 +350,22 @@ object Question {
     }
   }
 
+  /**
+   * Delete a answer
+   */
+
+  def deleteAnswerPermanently(answerId: ObjectId, questionId: ObjectId, userId: ObjectId) = {
+    val answerToBeRemoved = Comment.findCommentById(answerId)
+    (answerToBeRemoved.get.userId == userId) match {
+      case true =>
+        Comment.removeComment(answerToBeRemoved.get)
+        Question.removeAnswerFromQuestion(answerId, questionId)
+        true	
+      case false => false
+    }
+  }
+
 }
 
 object QuestionDAO extends SalatDAO[Question, ObjectId](collection = MongoHQConfig.mongoDB("question"))
  
-
-    
-   
- 
-    
-   
-   
-   
-

@@ -3,7 +3,7 @@
 
 #Beta User Registration  (V)
 POST   /betaUser                                                                           controllers.JoinBeamStream.regsisterToBeamStreamBeta 
-GET   /                                                                                   controllers.JoinBeamStream.betaUserRegistration
+GET    /                                                                                   controllers.JoinBeamStream.betaUserRegistration
 
 #Other
 GET    /active                                                                             controllers.UserController.active
@@ -27,12 +27,13 @@ PUT    /remove/message/:messageId                                               
 POST   /answer                                                                             controllers.CommentController.newAnswer
 GET    /rockersOf/comment/:commentId                                                       controllers.CommentController.commentRockers(commentId:String)
 PUT    /remove/comment/:messageOrQuestionId/:commentId                                     controllers.CommentController.deleteTheComment(commentId:String,messageOrQuestionId:String)
+PUT    /remove/answer/:questionId/:answerId                                                controllers.QuestionController.deleteTheAnswer(answerId, questionId)
 GET    /isARockerOf/comment/:commentId                                                     controllers.CommentController.isARocker(commentId:String)
 
 #Document
 GET    /getAllGoogleDocs                                                                   controllers.DocumentController.getAllGoogleDocumentsForAUser
 PUT    /document/:documentId                                                               controllers.DocumentController.changeTitleAndDescriptionForADocument(documentId:String)
-POST  /newGoogleDocument                                                                        controllers.DocumentController.newGoogleDocument
+POST   /newGoogleDocument                                                                  controllers.DocumentController.newGoogleDocument
 PUT    /rock/document/:documentId                                                          controllers.DocumentController.rockTheDocument(documentId:String)
 GET    /rockersOf/document/:documentId                                                     controllers.DocumentController.giveMeRockersOfDocument(documentId:String)
 
@@ -154,7 +155,7 @@ POST   /newMessage                                                              
 POST   /newComment                                                                         controllers.CommentController.newComment
 PUT    /follow/message/:messageId                                                          controllers.MessageController.followTheMessage(messageId:String)
 PUT    /rockingTheComment/:commentId                                                       controllers.CommentController.rockingTheComment(commentId:String)
-POST    /getAllComments                                                                      controllers.CommentController.getAllComments
+POST   /getAllComments                                                                     controllers.CommentController.getAllComments
 #Message Rocks & Follows
 PUT    /rockedIt/:messageId                                                                controllers.MessageController.rockedTheMessage(messageId:String)
 
@@ -207,11 +208,11 @@ GET    /driveAuth                                                               
 
 POST   /uploadToGoogleDrive                                                                controllers.GoogleDocsUploadUtilityController.uploadToGoogleDrive
 GET    /chat                                                                               controllers.WebsocketCommunicationController.chat
-GET    /startChat/:me/:toWhom                                                             controllers.WebsocketCommunicationController.startChat(me: String, toWhom: String)
+GET    /startChat/:me/:toWhom                                                              controllers.WebsocketCommunicationController.startChat(me: String, toWhom: String)
 GET    /javascriptRoutes                                                                   controllers.StreamController.javascriptRoutes
-GET    /instantiateChat/:userId                                                                    controllers.WebsocketCommunicationController.instantiateChat(userId)
+GET    /instantiateChat/:userId                                                            controllers.WebsocketCommunicationController.instantiateChat(userId)
 
-
+#GET    /canStartChat/:flag/:me/:toWhom                                                       controllers.WebsocketCommunicationController.canStartChat(flag,me, toWhom)
 #Looks like Unused
 
 #Basic Registration

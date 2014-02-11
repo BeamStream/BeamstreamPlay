@@ -28,11 +28,6 @@ object CommentController extends Controller {
   def newComment = Action { implicit request =>
 
     val commentJson = request.body.asJson.get
-
-    /**
-     * Direct Approach
-     */
-
     ((commentJson \ "messageId").asOpt[String] != None) match {
 
       case true =>
@@ -43,8 +38,8 @@ object CommentController extends Controller {
           commentPoster.get.firstName, commentPoster.get.lastName, 0, List())
         val commentId = Comment.createComment(comment)
         Message.addCommentToMessage(commentId.get, new ObjectId(messageId))
-//        val message = Message.findMessageById(new ObjectId(messageId)).get
-//        if (!(message.docIdIfAny == None)) RockDocOrMedia.commentDocOrMedia(message.docIdIfAny.get, commentId)
+        //        val message = Message.findMessageById(new ObjectId(messageId)).get
+        //        if (!(message.docIdIfAny == None)) RockDocOrMedia.commentDocOrMedia(message.docIdIfAny.get, commentId)
         Ok(write(comment)).as("application/json")
 
       case false => ((commentJson \ "docId").asOpt[String] != None) match {
@@ -99,10 +94,8 @@ object CommentController extends Controller {
   def getAllComments = Action { implicit request =>
     try {
       val jsonWithid = request.body.asJson.get
-
       ((jsonWithid \ "messageId").asOpt[String] != None) match {
         case true =>
-
           val messageId = (jsonWithid \ "messageId").as[String]
           val commentsForAMessage = Comment.getAllComments(Message.findMessageById(new ObjectId(messageId)).get.comments)
           Ok(write(commentsForAMessage)).as("application/json")
@@ -155,7 +148,7 @@ object CommentController extends Controller {
 
   }
 
-  /*
+  /**
    * Delete A Comment
    */
 

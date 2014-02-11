@@ -24,8 +24,10 @@ define(['view/formView',
 		'text!templates/questionMessage.tpl',
 		 'text!templates/questionComment.tpl',
 		 'text!templates/questionAnswer.tpl',
+	        'text!templates/allmessages.tpl',
+	        'text!templates/allAnswers.tpl',
 		 'text!templates/messageRocker.tpl',
-        ],function(FormView,QuestionModel, CommentModel,AnswerModel,UserModel, QuestionMessage, QuestionComment,QuestionAnswer,MessageRocker ){
+        ],function(FormView,QuestionModel, CommentModel,AnswerModel,UserModel, QuestionMessage, QuestionComment,QuestionAnswer,Allmessages,AllAnswers,MessageRocker ){
 	
 	var QuestionItemView;
 	QuestionItemView = FormView.extend({
@@ -38,9 +40,9 @@ define(['view/formView',
 			'click .rocks-question': 'rockQuestion',
 			'click .follow-question': 'followQuestion',
 			'click .rock-comments': 'rockComment',
+			'click .rocks-small a': 'rockComment',
 	        'click .rock-answers': 'rockAnswer',
 	        'click .rocks-small-answer a': 'rockAnswer',
-			'click .rocks-small a': 'rockComment',
 		 	'click .follow-user' : 'followUser',
 		 	'click .show-all-comments' : 'showAllCommentList',
          	'click .show-all-Answers' : 'showAllAnswerList',
@@ -48,6 +50,7 @@ define(['view/formView',
 		 	'click .show-all' : 'showAllList',
 		 	'click .delete_post': 'deleteQuestion',
 		 	'click .delete_comment' : 'deleteComment',
+		 	'click .delete_answer' : 'deleteAnswer',
 		 	'click .regular-radio': 'polling',
 			 
 		},
@@ -407,6 +410,7 @@ define(['view/formView',
         showPostedComment: function(response,parent,totalComments){
 	  		$('#'+parent+'-addComments').slideUp(200);
 	  		
+	  			
 		    /* display the posted comment  */
     		var compiledTemplate = Handlebars.compile(QuestionComment);
     		$('#'+parent+'-allComments').prepend(compiledTemplate({data:response,profileImage:localStorage["loggedUserProfileUrl"]}));
@@ -435,35 +439,48 @@ define(['view/formView',
         	eventName.preventDefault();
         	var element = eventName.target.parentElement;
         	var parentUl = $(eventName.target).parent('ul');
-        	
 			var questionId =$(element).parents('div.follow-container').attr('id');
-			
 			$(parentUl).find('a.active').removeClass('active');
-			
-			if($('#'+questionId+'-allComments').is(":visible"))
-			{
-				$(eventName.target).removeClass('active');
-				$('#'+questionId+'-msgRockers').slideUp(1);
-				$('#'+questionId+'-newCommentList').html('');
-				$('#'+questionId+'-allComments').slideUp(600); 
-				$('#'+questionId+'-show-hide').text("Show All");
-			}
-			else
-			{
-				if($('#'+questionId+'-allAnswers').is(':visible'))
-				{
-					$('#'+questionId+'-allAnswers').hide();
-				}
-				
-				
-
-				$(eventName.target).addClass('active');
-				$('#'+questionId+'-msgRockers').slideUp(1);
-				$('#'+questionId+'-newCommentList').html('');
-				$('#'+questionId+'-allComments').slideDown(600); 
-				$('#'+questionId+'-show-hide').text("Hide All");
-			}
-        },
+					/* Get all the comments of an answer */
+					 $.ajax({
+						 type : 'POST',
+						 url : "/getAllComments",
+						 data : JSON.stringify({ "questionId" : questionId}),
+						 contentType: 'application/json; charset=utf-8',
+						 	success : function(data) {
+	   							if($('#'+questionId+'-allComments').is(":visible"))
+	   								{
+	   									$(eventName.target).removeClass('active');
+	   									$('#'+questionId+'-msgRockers').slideUp(1);
+										$('#'+questionId+'-newCommentList').html('');
+										$('#'+questionId+'-allComments').empty(); 
+										$('#'+questionId+'-allComments').slideUp(600); 
+										$('#'+questionId+'-show-hide').text("Show All");
+	   								}
+	   							else
+	   								{
+	   									if($('#'+questionId+'-allAnswers').is(':visible'))
+	   										{
+	   											$('#'+questionId+'-allAnswers').hide();
+	   										}
+	   									if($('#'+questionId+'-newAnswerList').is(':visible'))
+	   									{
+	   									$('#'+questionId+'-newAnswerList').hide();
+	   									}
+	   												$(eventName.target).addClass('active');
+	   												$('#'+questionId+'-msgRockers').slideUp(1);
+	   												$('#'+questionId+'-newCommentList').html('');
+	   												$('#'+questionId+'-allComments').empty(); 
+	   												$.each(data,function(index,value){
+	   													compiledTemplate = Handlebars.compile(Allmessages);
+	   													$('#'+questionId+'-allComments').prepend(compiledTemplate({value:value,profileImage:localStorage["loggedUserProfileUrl"]}));
+	   													$('#'+questionId+'-allComments').slideDown(600); 
+	   													$('#'+questionId+'-show-hide').text("Hide All");
+	   												})
+	   								}			 		
+	   							}
+					 	})
+        	},
 	 	
 	   /**
          * Show answer text area on click
@@ -551,13 +568,10 @@ define(['view/formView',
          * show posted answer
          */
         showPostedAnswer: function(response,parent,totalAnswers){
-        	
 	  		$('#'+parent+'-addAnswer').slideUp(200);
-	  		
 		    /* display the posted comment  */
     		var compiledTemplate = Handlebars.compile(QuestionAnswer);
     		$('#'+parent+'-allAnswers').prepend(compiledTemplate({data:response,profileImage:localStorage["loggedUserProfileUrl"]}));
-    		
     		if(!$('#'+parent+'-allAnswers').is(':visible'))
 			{  
     			if($('#'+parent+'-allComments').is(":visible"))
@@ -567,7 +581,6 @@ define(['view/formView',
 				$('#'+parent+'-msgRockers').slideUp(1);
 				$('#'+parent+'-newAnswerList').slideDown(1);
 				$('#'+parent+'-newAnswerList').prepend(compiledTemplate({data:response,profileImage:localStorage["loggedUserProfileUrl"]}));
-				
 			}
     		totalAnswers++; 
     		$('#'+parent+'-show-hide').text("Hide All");
@@ -575,37 +588,53 @@ define(['view/formView',
 			
         },
         
+        
+/*Show all answer list*/        
+        
 showAllAnswerList: function(eventName){
 	eventName.preventDefault();
 	var element = eventName.target.parentElement;
 	var parentUl = $(eventName.target).parent('ul');
-	
 	var questionId =$(element).parents('div.follow-container').attr('id');
-	
 	$(parentUl).find('a.active').removeClass('active');
-	
-	if($('#'+questionId+'-allAnswers').is(":visible"))
-	{
-		$(eventName.target).removeClass('active');
-		$('#'+questionId+'-msgRockers').slideUp(1);
-		$('#'+questionId+'-newAnswerList').html('');
-		$('#'+questionId+'-allAnswers').slideUp(600); 
-		$('#'+questionId+'-show-hide').text("Show All");
-	}
-	else
-	{
-		if($('#'+questionId+'-allComments').is(":visible"))
-			{
-			$('#'+questionId+'-allComments').hide();
-			}
-			
-		$(eventName.target).addClass('active');
-		$('#'+questionId+'-msgRockers').slideUp(1);
-		$('#'+questionId+'--newAnswerList').html('');
-		$('#'+questionId+'-allAnswers').slideDown(600); 
-		$('#'+questionId+'-show-hide').text("Hide All");
-	}
-},
+					/* Get all the comments of an answer */
+					 $.ajax({
+						 type : 'GET',
+						 url : "/answers/"+questionId,
+	   					success : function(data) {
+	   							if($('#'+questionId+'-allAnswers').is(":visible"))
+	   							{
+	   									$(eventName.target).removeClass('active');
+	   									$('#'+questionId+'-msgRockers').slideUp(1);
+	   									$('#'+questionId+'-newAnswerList').html('');
+	   									$('#'+questionId+'-allAnswers').empty(); 
+	   									$('#'+questionId+'-allAnswers').slideUp(600); 
+	   									$('#'+questionId+'-show-hide').text("Show All");
+	   							}
+	   							else
+	   							{
+	   								if($('#'+questionId+'-allComments').is(':visible'))
+	   								{
+	   									$('#'+questionId+'-allComments').hide();
+	   								}
+	   								if($('#'+questionId+'-newCommentList').is(':visible'))
+	   								{
+	   									$('#'+questionId+'-newCommentList').hide();
+	   								}
+	   								$(eventName.target).addClass('active');
+	   								$('#'+questionId+'-msgRockers').slideUp(1);
+	   								$('#'+questionId+'-newAnswerList').html('');
+	   								$('#'+questionId+'-allAnswers').empty(); 
+	   								$.each(data,function(index,value){
+	   									compiledTemplate = Handlebars.compile(AllAnswers);
+	   									$('#'+questionId+'-allAnswers').prepend(compiledTemplate({value:value,profileImage:localStorage["loggedUserProfileUrl"]}));
+	   									$('#'+questionId+'-allAnswers').slideDown(600); 
+	   									$('#'+questionId+'-show-hide').text("Hide All");
+	   								})
+	   							}			 		
+					 }
+					 })
+        },
 
         /**
 	     *  Rocking question
@@ -994,22 +1023,21 @@ showAllAnswerList: function(eventName){
 	 				"callback": function() {
 
 	 					var comment = new CommentModel();
-//	 					var comment = new CommentModel();
 	 					comment.urlRoot = '/remove/comment/'+questionId;
 
-	 					/* delete the omment from the model */
+	 					/* delete the comment from the model */
 	 					comment.save({id: commentId},{
 	    					success : function(model, response) {
-		    		
 					 			if(response.status == "Success")
 		                	 	{
 			                		 
 
-									var commentCount = $('#'+questionId+'-totalComment').text()
+									var commentCount = $('#'+questionId+'-totalComment').text();
+									
 	                		 		// $('#'+messageId+'-totalComment').text(commentCount-1);
 
-			                		$('div#question-'+commentId).remove();
-									
+			                		//$('div#question-'+commentId).remove();
+									//alert('div#question-'+commentId);
 
 	                		 		/* pubnum auto push -- delete comment*/
    									PUBNUB.publish({
@@ -1050,7 +1078,74 @@ showAllAnswerList: function(eventName){
  			 }
 		},
        
+			
+	/**
+        *  Delete comment
+        */
+        deleteAnswer: function(e){
 
+   			e.preventDefault();
+   			var self = this;
+ 			var answerId = e.target.id;
+ 			var ownerId = $(e.target).attr('data-username');
+ 			var questionId = $(e.target).parents('div.ask-outer').attr('id');
+ 			if(localStorage["loggedUserId"] == ownerId)
+ 			{
+	 			bootbox.dialog("Are you sure you want to delete this comment?", [{
+	
+	 				"label" : "DELETE",
+	 				"class" : "btn-primary",
+	 				"callback": function() {
+
+	 					var answer = new AnswerModel();
+	 					answer.urlRoot = '/remove/answer/'+questionId;
+
+	 					/* delete the comment from the model */
+	 					answer.save({id: answerId},{
+	    					success : function(model, response) {
+					 			if(response.status == "Success")
+		                	 	{
+	                		 		/* pubnum auto push -- delete comment*/
+   									PUBNUB.publish({
+   			                			channel : "delete_ques_Answer",
+		                       			 message : { pagePushUid: self.pagePushUid ,questionId : questionId ,answerId : answerId}
+   			               			 })
+   			               			 
+   			               			 PUBNUB.publish({
+   			                			channel : "delete_ques_AnswerSide",
+		                       			 message : { pagePushUid: self.pagePushUid ,questionId : questionId ,answerId : answerId}
+   			               			 })
+		                	 	}
+		                	 	else
+		                	 	{
+		                		 	bootbox.alert("You're Not Authorised To Delete This Answer");
+		                	 	}
+		    				},
+		    				error : function(model, response) {
+		    				}
+
+		    			});
+	 					
+	 				}
+	
+	 			 }, 
+	 			 {
+				 	"label" : "CANCEL",
+				 	"class" : "btn-primary",
+	 				"callback": function() {
+	 				}
+	 			 }]);
+ 			 }
+ 			 else
+ 			 {
+ 				bootbox.alert("You're Not Authorised To Delete This Comment");
+ 			 }
+		},
+
+
+       
+
+	
  		/**
 	 	* polling 
 	 	*/

@@ -1,5 +1,5 @@
 function startChat(userId) {
-	var oldChatSocket = new WebSocket('ws://localhost:9000/chat')
+	var oldChatSocket = new WebSocket('ws://localhost:9000/chat') 
 	var oldId = randomString(8);
 	$(".chatbox_own")
 			.append(
@@ -67,6 +67,7 @@ function startChat(userId) {
 			$("#onError span").text(data.error)
 			$("#onError").show()
 			return
+
 		}
 
 		// Create the message element
@@ -105,101 +106,136 @@ function startChat(userId) {
 }
 
 function popit(userId, toWhom, name, profileImageUrl) {
-	var newChatSocket = new WebSocket('ws://localhost:9000/startChat/'
-			+ userId + "/" + toWhom)
-	var itsId = randomString(8);
-	$(".chatbox")
-			.append(
-					"<div id="
-							+ itsId
-							+ ">"
-							+ '<div class="chatbox-header">'
+	/*$
+			.ajax({
+				url : '/canStartChat/ask/' + userId + "/" + toWhom,
+				success : function(data) {
+					if (data == "true") {*/
+						var newChatSocket = new WebSocket('ws://localhost:9000/startChat/' + userId + "/"+ toWhom)
+						var itsId = randomString(8);
+						$(".chatbox")
+								.append(
+										"<div id="
+												+ itsId
+												+ ">"
+												+ '<div class="chatbox-header">'
 
-							+ '<h1 class="friend"></h1>'
+												+ '<h1 class="friend"></h1>'
 
-							+ '<div class="exit"></div>'
+												+ '<div class="exit"></div>'
 
-							+ '<div class="addfriends-btn"><a href="#"></a></div>'
-							+ '</div>'
+												+ '<div class="addfriends-btn"><a href="#"></a></div>'
+												+ '</div>'
 
-							+ '<div class="chatbox-body">'
-							+ '<div class="chatbox-content">'
+												+ '<div class="chatbox-body">'
+												+ '<div class="chatbox-content">'
 
-							+ '<div class="chat-feed" id="main">'
-							+ '<div id="messages"></div>'
-							+ '</div>'
+												+ '<div class="chat-feed" id="main">'
+												+ '<div id="messages"></div>'
+												+ '</div>'
 
-							+ '</div>'
+												+ '</div>'
 
-							+ '<div class="left-border"></div>'
-							+ '<div class="right-border"></div>'
-							+ '</div>'
-							+ '<div class="chatbox-footer">'
-							+ '<div class="my-avatar"></div>'
-							+ '<textarea id="talk" name="styled-textarea" class="message" placeholder="Type message here...">'
-							+ '</textarea>'
-							+ '<p>Press enter to submit message</p>' + '</div>'
-							+ '</div>');
-	$("div#" + itsId + " " + "h1.friend").text(name);
-	$(".chatbox").css("display", "block");
-	$("#" + itsId).css("display", "block");
-	$(".chatbox").css("position", "fixed");
-	$(".chatbox").css("bottom", "0");
-	$(".chatbox").css("right", "322");
-	var newSendMessage = function() {
-		newChatSocket.send(JSON.stringify({
-			text : $("#" + itsId + " " + "textarea#talk").val()
-		}))
-		$("div#" + itsId + " " + "textarea#talk").val('')
-	}
+												+ '<div class="left-border"></div>'
+												+ '<div class="right-border"></div>'
+												+ '</div>'
+												+ '<div class="chatbox-footer">'
+												+ '<div class="my-avatar"></div>'
+												+ '<textarea id="talk" name="styled-textarea" class="message" placeholder="Type message here...">'
+												+ '</textarea>'
+												+ '<p>Press enter to submit message</p>'
+												+ '</div>' + '</div>');
+						$("div#" + itsId + " " + "h1.friend").text(name);
+						$(".chatbox").css("display", "block");
+						$("#" + itsId).css("display", "block");
+						$(".chatbox").css("position", "fixed");
+						$(".chatbox").css("bottom", "0");
+						$(".chatbox").css("right", "322");
+						var newSendMessage = function() {
+							newChatSocket.send(JSON.stringify({
+								text : $("#" + itsId + " " + "textarea#talk")
+										.val()
+							}))
+							$("div#" + itsId + " " + "textarea#talk").val('')
+						}
 
-	var newReceiveEvent = function(event) {
-		var data = JSON.parse(event.data)
-		if (data.message == "ping") {
-			return;
-		} else {
-			if (data.error) {
-				newChatSocket.close()
-				$("#onError span").text(data.error)
-				$("#onError").show()
-			}
-			if (data.kind == "quit") {
-				$("#" + itsId).remove();
-				newChatSocket.close();
-				return
-			}
+						var newReceiveEvent = function(event) {
+							var data = JSON.parse(event.data)
+							if (data.message == "ping") {
+								return;
+							} else {
+								if (data.error) {
+									newChatSocket.close()
+									$("#onError span").text(data.error)
+									$("#onError").show()
+								}
+								if (data.kind == "quit") {
+									$("#" + itsId).remove();
 
-			// Create the message element
-			var el = $('<div class="message"><span></span><p></p></div>')
-			$("span", el).text(data.user)
-			$("p", el).text(data.message)
-			$(el).addClass(data.kind)
-			$("#" + itsId + " " + "div#messages").append(el)
-		}
-	}
+									/*$.ajax({
+										url : '/canStartChat/""/' + userId
+												+ "/" + toWhom,
+										success : function(data) {
+											console.log(data)
+										}
+									});*/
+									newChatSocket.close();
+									return;
+								}
 
-	var newHandleReturnKey = function(e) {
-		if (e.charCode == 13 || e.keyCode == 13) {
-			e.preventDefault()
-			newSendMessage()
-		}
-	}
-	$("#" + itsId + " " + "textarea#talk").keypress(newHandleReturnKey)
+								// Create the message element
+								var el = $('<div class="message"><span></span><p></p></div>')
+								$("span", el).text(data.user)
+								$("p", el).text(data.message)
+								$(el).addClass(data.kind)
+								$("#" + itsId + " " + "div#messages")
+										.append(el)
+							}
+						}
 
-	newChatSocket.onmessage = newReceiveEvent
+						var newHandleReturnKey = function(e) {
+							if (e.charCode == 13 || e.keyCode == 13) {
+								e.preventDefault()
+								newSendMessage()
+							}
+						}
+						$("#" + itsId + " " + "textarea#talk").keypress(
+								newHandleReturnKey)
 
-	$("#" + itsId + " " + "div.chatbox-header div.exit").click(function() {
-		$("#" + itsId).remove();
-		newChatSocket.close();
-	});
+						newChatSocket.onmessage = newReceiveEvent
 
-	newChatSocket.onopen = function() {
-		console.log('websocket opened');
-		setInterval(function() {
-			if (newChatSocket.bufferedAmount == 0)
-				newChatSocket.send(JSON.stringify({
-					text : "ping"
-				}))
-		}, 30000);
-	};
+						$("#" + itsId + " " + "div.chatbox-header div.exit")
+								.click(
+										function() {
+											$("#" + itsId).remove();
+											newChatSocket.close();
+											/*$
+													.ajax({
+														url : '/canStartChat/""/'
+																+ userId
+																+ "/"
+																+ toWhom,
+														success : function(data) {
+															console.log(data)
+														}
+													});*/
+										});
+
+						newChatSocket.onopen = function() {
+							console.log('websocket opened');
+							setInterval(function() {
+								if (newChatSocket.bufferedAmount == 0)
+									newChatSocket.send(JSON.stringify({
+										text : "ping"
+									}))
+							}, 30000);
+						};
+					/*}
+
+					else {
+						alert("You've already got a connection opened with this user")
+					}*/
+
+			
+
 }

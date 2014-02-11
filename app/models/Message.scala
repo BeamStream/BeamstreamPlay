@@ -13,7 +13,7 @@ import java.util.Calendar
 import java.text.DateFormat
 import com.novus.salat.global._
 import models.mongoContext._
-
+import java.util.regex.Pattern
 object Type extends Enumeration {
 
   val Text = Value(0, "Text")
@@ -167,7 +167,7 @@ object Message { //extends CommentConsumer {
    *  param messagesPerPage is the limit of messages per page
    */
   def getAllMessagesForAKeyword(keyword: String, streamId: ObjectId, pageNumber: Int, messagesPerPage: Int): List[Message] = {
-    val keyWordregExp = (""".*""" + keyword + """.*""").r
+    val keyWordregExp = Pattern.compile("^" + keyword, Pattern.CASE_INSENSITIVE) //(""".*""" + keyword + """.*""").r
     MessageDAO.find(MongoDBObject("messageBody" -> keyWordregExp, "streamId" -> streamId)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
   }
 
@@ -304,7 +304,7 @@ object Message { //extends CommentConsumer {
     deletedMessageSuccessfully
   }
   /**
-   * ****************************************Rearchitecture*****************************************************
+   * ****************************************Re-architecture*****************************************************
    */
 
   /**
@@ -325,33 +325,33 @@ object Message { //extends CommentConsumer {
 
         val isRocked = Message.isARocker(message.id, userId)
         val isFollowed = Message.isAFollower(message.id, userId)
-        val comments = Comment.getAllComments(message.comments)
+        //        val comments = Comment.getAllComments(message.comments)   // H12 Heroku 
 
-        //TODO  : Very Important : Trouble due to deleting the user from the PROD DB
-        //        val followerOfMessagePoster = User.getUserProfile(message.userId).head.followers.contains(userId)
-        //       
-        //        (message.docIdIfAny != None) match {
-        //          case true =>
-        //            val userMedia = UserMedia.findMediaById(message.docIdIfAny.get)
-        //            (userMedia != None) match {
-        //              case true => DocResulttoSent(Option(message), None, userMedia.get.name, userMedia.get.description, isRocked, isFollowed, Option(profilePicForUser), Option(comments), Option(followerOfMessagePoster), User.giveMeTheRockers(message.rockers))
-        //              case false =>
-        //                val document = Document.findDocumentById(message.docIdIfAny.get)
-        //                DocResulttoSent(Option(message), None, document.get.documentName, document.get.documentDescription, isRocked, isFollowed, Option(profilePicForUser), Option(comments), Option(followerOfMessagePoster), User.giveMeTheRockers(message.rockers))
-        //            }
-        //          case false => DocResulttoSent(Option(message), None, "", "", isRocked, isFollowed, Option(profilePicForUser), Option(comments), Option(followerOfMessagePoster), User.giveMeTheRockers(message.rockers))
-        //        }
+        /*TODO  : Very Important : Trouble due to deleting the user from the PROD DB
+                val followerOfMessagePoster = User.getUserProfile(message.userId).head.followers.contains(userId)
+               
+                (message.docIdIfAny != None) match {
+                  case true =>
+                    val userMedia = UserMedia.findMediaById(message.docIdIfAny.get)
+                    (userMedia != None) match {
+                      case true => DocResulttoSent(Option(message), None, userMedia.get.name, userMedia.get.description, isRocked, isFollowed, Option(profilePicForUser), Option(comments), Option(followerOfMessagePoster), User.giveMeTheRockers(message.rockers))
+                      case false =>
+                        val document = Document.findDocumentById(message.docIdIfAny.get)
+                        DocResulttoSent(Option(message), None, document.get.documentName, document.get.documentDescription, isRocked, isFollowed, Option(profilePicForUser), Option(comments), Option(followerOfMessagePoster), User.giveMeTheRockers(message.rockers))
+                    }
+                  case false => DocResulttoSent(Option(message), None, "", "", isRocked, isFollowed, Option(profilePicForUser), Option(comments), Option(followerOfMessagePoster), User.giveMeTheRockers(message.rockers))
+                }*/
 
         (message.docIdIfAny != None) match {
           case true =>
             val userMedia = UserMedia.findMediaById(message.docIdIfAny.get)
             (userMedia != None) match {
-              case true => DocResulttoSent(Option(message), None, userMedia.get.name, userMedia.get.description, isRocked, isFollowed, Option(profilePicForUser), Option(comments), None, User.giveMeTheRockers(message.rockers))
+              case true => DocResulttoSent(Option(message), None, userMedia.get.name, userMedia.get.description, isRocked, isFollowed, Option(profilePicForUser), Option(message.comments.length), None, Nil) // H12, User.giveMeTheRockers(message.rockers))
               case false =>
                 val document = Document.findDocumentById(message.docIdIfAny.get)
-                DocResulttoSent(Option(message), None, document.get.documentName, document.get.documentDescription, isRocked, isFollowed, Option(profilePicForUser), Option(comments), None, User.giveMeTheRockers(message.rockers))
+                DocResulttoSent(Option(message), None, document.get.documentName, document.get.documentDescription, isRocked, isFollowed, Option(profilePicForUser), Option(message.comments.length), None, Nil) //H12, User.giveMeTheRockers(message.rockers))
             }
-          case false => DocResulttoSent(Option(message), None, "", "", isRocked, isFollowed, Option(profilePicForUser), Option(comments), None, User.giveMeTheRockers(message.rockers))
+          case false => DocResulttoSent(Option(message), None, "", "", isRocked, isFollowed, Option(profilePicForUser), Option(message.comments.length), None, Nil) //H12, User.giveMeTheRockers(message.rockers))
         }
     }
     docResultToSend

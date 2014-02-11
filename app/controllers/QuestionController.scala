@@ -79,7 +79,7 @@ object QuestionController extends Controller {
       case false => ""
     }
 
-    Ok(write(QuestionWithPoll(questionObtained.get, false, false, false, Option(profilePicForUser), None,None, pollsOfquestionObtained))).as("application/json")
+    Ok(write(QuestionWithPoll(questionObtained.get, false, false, false, Option(profilePicForUser), None, None, pollsOfquestionObtained))).as("application/json")
   }
 
   /**
@@ -199,9 +199,10 @@ object QuestionController extends Controller {
 
         val isRocked = Question.isARocker(questionObtained.id, userId)
         val isFollowed = Question.isAFollower(questionObtained.id, userId)
-        //        val isFollowerOfQuestionPoster = User.isAFollower(questionObtained.userId, userId)
         val profilePicForUser = UserMedia.getProfilePicUrlString(questionObtained.userId)
-        val comments = (questionObtained.comments.isEmpty) match {
+
+        //val isFollowerOfQuestionPoster = User.isAFollower(questionObtained.userId, userId)
+        /*val comments = (questionObtained.comments.isEmpty) match {   //H12 Heroku
           case false =>
             Comment.getAllComments(questionObtained.comments)
           case true => Nil
@@ -211,8 +212,8 @@ object QuestionController extends Controller {
             Comment.getAllComments(questionObtained.answers)
           case true => Nil
         }
-
-        QuestionWithPoll(questionObtained, isRocked, isFollowed, false, Option(profilePicForUser), Option(comments), Option(answers), pollsOfquestionObtained)
+*/
+        QuestionWithPoll(questionObtained, isRocked, isFollowed, false, Option(profilePicForUser), Option(questionObtained.comments.length), Option(questionObtained.answers.length), pollsOfquestionObtained)
 
     }
 
@@ -251,8 +252,6 @@ object QuestionController extends Controller {
    */
 
   def answers(questionId: String) = Action { implicit request =>
-    val questionJson = request.body.asJson.get
-    val questionId = (questionJson \ "questionId").as[String]
     val answers = Question.answers(new ObjectId(questionId))
     val answersOfThisQuestion = answers.map {
       case answer =>
@@ -262,5 +261,14 @@ object QuestionController extends Controller {
     Ok(write(answersOfThisQuestion)).as("application/json")
   }
 
+  /**
+   * Delete A Comment
+   */
+
+  def deleteTheAnswer(answerId: String, questionId: String) = Action { implicit request =>
+    val deletedTheCommnet = Question.deleteAnswerPermanently(new ObjectId(answerId), new ObjectId(questionId), new ObjectId(request.session.get("userId").get))
+    if (deletedTheCommnet == true) Ok(write(new ResulttoSent("Success", "Answer Has Been Deleted")))
+    else Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Answer")))
+  }
 }
 

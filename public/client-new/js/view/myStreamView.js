@@ -203,6 +203,9 @@ define(
 
 						createGDocument : function(create) {
 							$("#creategoogledoc").modal('show');
+							$(".contentcreatedoc").empty();
+							$('#creategoogledoc #floatingBarsG')
+							.show();
 							$
 									.ajax({
 
@@ -277,6 +280,9 @@ define(
 
 						createGSpreadsheet : function(create) {
 							$("#creategoogledoc").modal('show');
+							$(".contentcreatedoc").empty();
+							$('#creategoogledoc #floatingBarsG')
+							.show();
 							$
 									.ajax({
 
@@ -350,6 +356,9 @@ define(
 
 						createGPresentation : function(create) {
 							$("#creategoogledoc").modal('show');
+							$(".contentcreatedoc").empty();
+							$('#creategoogledoc #floatingBarsG')
+							.show();
 							$
 									.ajax({
 
@@ -443,6 +452,8 @@ define(
 															data,
 															function(index,
 																	value) {
+																
+															
 
 																$(
 																		"select#streamSelectOption")
