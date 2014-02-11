@@ -1154,6 +1154,19 @@ define(['view/formView',
 	   			   }
 	   		   })
 	   		   
+	   		    PUBNUB.subscribe({
+	
+	   			   channel : "ques_answerRock",
+	   			   restore : false,
+	   			   callback : function(question) { 
+	   				   if(question.pagePushUid != self.pagePushUid)
+	   				   {   	  
+	   					   $('div#'+question.questionId+'-newAnswerList').find('a#'+question.commentId+'-mrockCount').html(question.data);
+	   					   $('div#'+question.questionId+'-allAnswers').find('a#'+question.commentId+'-mrockCount').html(question.data);
+	   				   }
+	   			   }
+	   		   })
+	   		   
 	   		    /* for question Rocks */
  	   		   PUBNUB.subscribe({
 		
