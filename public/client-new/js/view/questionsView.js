@@ -1207,16 +1207,38 @@ define(['view/formView',
  	   				   	  
    					  		var commentCount = $('#'+question.questionId+'-totalComment').text()
 
-   					  		$('div#'+question.questionId+'-newCommentList').find('div#'+question.commentId).remove();
-   					  		$('div#'+question.questionId+'-allComments').find('div#'+question.commentId).remove();
-	                		$('#'+question.questionId+'-totalComment').text(commentCount-1);
-	                	
- 	   				   }
-		   		   }
+	   					  		$('div#'+question.questionId+'-newCommentList').find('div#'+question.commentId).remove();
+	   					  		$('div#'+question.questionId+'-allComments').find('div#'+question.commentId).remove();
+		                		$('#'+question.questionId+'-totalComment').text(commentCount-1);
+		                	
+	 	   				   }
+			   		   }
 	   		   })
 	    		 
 		 	   
- 		},
+ 	
+ 		
+ 		PUBNUB.subscribe({
+	
+	   channel : "delete_ques_Answer",
+	   restore : false,
+	   callback : function(question) {
+
+		   if(question.pagePushUid != self.pagePushUid)
+		   {   	  
+		   	  
+	  		var answerCount = $('#'+question.questionId+'-totalAnswer').text()
+
+		  		$('div#'+question.questionId+'-newAnswerList').find('div#'+question.answerId).remove();
+		  		$('div#'+question.questionId+'-allAnswers').find('div#'+question.answerId).remove();
+     		$('#'+question.questionId+'-totalAnswer').text(answerCount-1);
+     	
+			   }
+ 			}
+ 		})
+
+
+},
 
 
   		

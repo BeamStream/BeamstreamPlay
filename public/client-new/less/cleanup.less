@@ -304,7 +304,7 @@ ul.icons-ask li,
 #dropdownnew a,
 .attach-drop-bg,
 .delete_post,
-.delete_comment,
+.delete_comment,.delete_answer,
 .red-active-icon1 {
 background:url(../images/spryte.png) no-repeat;
 }
@@ -10042,15 +10042,29 @@ top:0;
 width:15px
 }
 
+.delete_answer {
+background-position:-222px -363px;
+display:none;
+height:25px;
+position:absolute!important;
+right:40px;
+top:0;
+width:15px
+}
+
 .delete_comment:hover {
 background-position:-222px -363px
 }
 
-.delete_comment:hover {
+.delete_answer:hover {
 background-position:-222px -363px
 }
 
 div.answer-description:hover .delete_comment {
+display:block
+}
+
+div.answer-description:hover .delete_answer {
 display:block
 }
 

@@ -16,7 +16,7 @@
                             </ul>
                           </div>
                           <p>{{value.commentBody}}</p>
-                          <a id="{{value.id.id}}" href="#" data-username={{value.userId.id}} data-original-title="Delete" class="delete_comment drag-rectangle" ></a>
+                          <a id="{{value.id.id}}" href="#" data-username={{value.userId.id}} data-original-title="Delete" class="delete_answer  drag-rectangle" ></a>
                         </div>
                         <div class="clear"></div>
                       </div>
