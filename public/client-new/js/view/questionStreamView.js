@@ -72,7 +72,7 @@ define([
 			$(".chatbox").css("right","40");
 			$("#topheader").css("padding-right","0");
 			
-			/*$("#sidequestionexpand").css("opacity","1");*/
+			$("#sidequestionexpand").css("opacity","1");
 			
 			$("#sidequestionexpand").css("right","0");
 		
