@@ -646,14 +646,15 @@ showAllAnswerList: function(eventName){
 			var element = eventName.target.parentElement;
 			var questionId =$(element).parents('div.follow-container').attr('id');
 			var streamId =  $('.sortable li.active').attr('id');
-			
+			var ownerId = localStorage["loggedUserId"];
 			// set values to model for rocking the message
 			var Question = new QuestionModel();
 			Question.urlRoot = "/rock/question";
 			Question.save({id : questionId},{
 		    	success : function(model, response) {
 		    		
-		    		/* show/hide the rock and unrock symbols */
+					
+					/* show/hide the rock and unrock symbols */
 		    		if($('#'+questionId+'-qstRockCount').hasClass('downrocks-message'))
 	            	{
 	            		$('#'+questionId+'-qstRockCount').removeClass('downrocks-message');
@@ -665,6 +666,7 @@ showAllAnswerList: function(eventName){
 	            		$('#'+questionId+'-qstRockCount').addClass('downrocks-message');
 	            	}
 	            	
+	            	
 	            	// display the count in icon
 	                $('#'+questionId+'-qstRockCount').find('span').html(response);
 	                
@@ -675,7 +677,7 @@ showAllAnswerList: function(eventName){
 	                })
 	                 PUBNUB.publish({
 						channel : "questionRockSideStream",
-	                    message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:response,quesId:questionId}
+	                    message : { pagePushUid: self.pagePushUid ,ownerId:ownerId,streamId:streamId,data:response,quesId:questionId}
 	                })
 
 	                if($('#rockedIt-'+questionId).hasClass('active')){
@@ -1197,3 +1199,4 @@ showAllAnswerList: function(eventName){
 	})
 	return QuestionItemView;
 });
+
