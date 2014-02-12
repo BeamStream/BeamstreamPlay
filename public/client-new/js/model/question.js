@@ -89,7 +89,7 @@ define(['baseModel',
 			var questionId = parent;
 			var ansCount = answerAmt;
 			var answer = new Answer();
-			alert(this.get('question').answers.push(answer));
+			this.get('question').answers.push(answer);
 			answer.urlRoot = '/answer';
 			answer.save({answerText: answerText, questionId: this.get('question').id.id},{
 				success : function(model, response) {
