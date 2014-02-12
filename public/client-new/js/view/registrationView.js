@@ -239,9 +239,8 @@ define(['view/formView' ,
 		 * step 2 registration success
 		 */
 		success: function(model, data){
-			
             /* enable step 3*/
-			if(data != "Oops there were errors during registration"){
+			if(data != "Username Already Exists" && data != "Please select an existing school or create your own one"){
 				// set the logged users Id
             	localStorage["loggedUserId"] =  data.user.id.id;
             	this.data.models[0].set({'id':data.user.id.id});
@@ -249,7 +248,8 @@ define(['view/formView' ,
             	this.data.models[0].removeAttr('user');
             	this.data.models[0].removeAttr('userSchool');
 				this.enableStepThree();
-
+			}else{
+				alert(data)
 			}
 		},
 		

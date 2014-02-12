@@ -21,6 +21,7 @@ import models.RegistrationResults
 import java.util.Calendar
 import scala.concurrent.Future
 import play.api.libs.concurrent.Execution.Implicits._
+import models.School
 
 object Registration extends Controller {
   implicit val formats = new net.liftweb.json.DefaultFormats {
@@ -60,47 +61,55 @@ object Registration extends Controller {
    */
   def registerUser = Action { implicit request =>
     val jsonReceived = request.body.asJson.get
-    val userUpdate = updateUser(jsonReceived)
-    (userUpdate._1 == true) match {
+
+    val associatedSchoolId = (jsonReceived \ "associatedSchoolId").as[String]
+    val schoolName = (jsonReceived \ "schoolName").as[String]
+
+    School.findSchoolsById(new ObjectId(associatedSchoolId)).get.schoolName == schoolName match {
       case true =>
 
-        val userId = (jsonReceived \ "userId").as[String]
-        val associatedSchoolId = (jsonReceived \ "associatedSchoolId").as[String]
-        val schoolName = (jsonReceived \ "schoolName").as[String]
-        val major = (jsonReceived \ "major").as[String]
-        val gradeLevel = (jsonReceived \ "gradeLevel").as[String]
-        val degreeProgram = (jsonReceived \ "degreeProgram").as[String]
-        val otherDegree = (jsonReceived \ "otherDegree").asOpt[String]
-        val graduate = (jsonReceived \ "graduate").as[String]
-        val degreeExpected = (jsonReceived \ "degreeExpected").asOpt[String]
+        val userUpdate = updateUser(jsonReceived)
+        (userUpdate._1 == true) match {
+          case true =>
 
-        val degreeExpectedSeason = (degreeExpected != None) match {
-          case true => Option(DegreeExpected.withName(degreeExpected.get))
-          case false => None
+            val userId = (jsonReceived \ "userId").as[String]
+            val major = (jsonReceived \ "major").as[String]
+            val gradeLevel = (jsonReceived \ "gradeLevel").as[String]
+            val degreeProgram = (jsonReceived \ "degreeProgram").as[String]
+            val otherDegree = (jsonReceived \ "otherDegree").asOpt[String]
+            val graduate = (jsonReceived \ "graduate").as[String]
+            val degreeExpected = (jsonReceived \ "degreeExpected").asOpt[String]
+
+            val degreeExpectedSeason = (degreeExpected != None) match {
+              case true => Option(DegreeExpected.withName(degreeExpected.get))
+              case false => None
+            }
+
+            val graduationDate = (jsonReceived \ "graduationDate").asOpt[String]
+            val graduationDateFound = (graduationDate != None) match {
+
+              case true => Option(new Date(graduationDate.get))
+              case false => None
+            }
+
+            val userSchool = new UserSchool(new ObjectId, new ObjectId(associatedSchoolId), schoolName, Year.withName(gradeLevel), Degree.withName(degreeProgram), major, Graduated.withName(graduate),
+              graduationDateFound, degreeExpectedSeason, None)
+            UserSchool.createSchool(userSchool)
+            User.addInfo(List(userSchool), new ObjectId(userId))
+            val userCreated = User.getUserProfile(new ObjectId(userId))
+
+            val utcMilliseconds = OnlineUserCache.returnUTCTime
+            OnlineUserCache.setOnline(userId, utcMilliseconds)
+            //retrieve token in session and invalidate
+            val token = request.session.get("token").get
+            Token.updateToken(token)
+
+            Ok(write(RegistrationResults(userCreated.get, userSchool))).as("application/json").withSession("userId" -> userId)
+
+          case false => Ok(write(userUpdate._2)).as("application/json")
         }
 
-        val graduationDate = (jsonReceived \ "graduationDate").asOpt[String]
-        val graduationDateFound = (graduationDate != None) match {
-
-          case true => Option(new Date(graduationDate.get))
-          case false => None
-        }
-
-        val userSchool = new UserSchool(new ObjectId, new ObjectId(associatedSchoolId), schoolName, Year.withName(gradeLevel), Degree.withName(degreeProgram), major, Graduated.withName(graduate),
-          graduationDateFound, degreeExpectedSeason, None)
-        UserSchool.createSchool(userSchool)
-        User.addInfo(List(userSchool), new ObjectId(userId))
-        val userCreated = User.getUserProfile(new ObjectId(userId))
-
-        val utcMilliseconds = OnlineUserCache.returnUTCTime
-        OnlineUserCache.setOnline(userId, utcMilliseconds)
-        //retrieve token in session and invalidate
-        val token = request.session.get("token").get
-        Token.updateToken(token)
-
-        Ok(write(RegistrationResults(userCreated.get, userSchool))).as("application/json").withSession("userId" -> userId)
-
-      case false => Ok(write(userUpdate._2)).as("application/json")
+      case false => Ok(write("Please select an existing school or create your own one")).as("application/json")
     }
   }
 
@@ -111,38 +120,46 @@ object Registration extends Controller {
 
     val jsonReceived = request.body.asJson.get
 
-    val userUpdate = updateUser(jsonReceived)
-    (userUpdate._1 == true) match {
+    val associatedSchoolId = (jsonReceived \ "associatedSchoolId").as[String]
+    val schoolName = (jsonReceived \ "schoolName").as[String]
+
+    School.findSchoolsById(new ObjectId(associatedSchoolId)).get.schoolName == schoolName match {
       case true =>
-        val associatedSchoolId = (jsonReceived \ "associatedSchoolId").as[String]
-        val schoolName = (jsonReceived \ "schoolName").as[String]
-        val major = (jsonReceived \ "major").as[String]
-        val gradeLevel = (jsonReceived \ "gradeLevel").as[String]
-        val degreeProgram = (jsonReceived \ "degreeProgram").as[String]
-        val otherDegree = (jsonReceived \ "otherDegree").asOpt[String]
-        val graduate = (jsonReceived \ "graduate").as[String]
-        val degreeExpected = (jsonReceived \ "degreeExpected").asOpt[String]
 
-        val degreeExpectedSeason = (degreeExpected != None) match {
-          case true => Option(DegreeExpected.withName(degreeExpected.get))
-          case false => None
+        val userUpdate = updateUser(jsonReceived)
+        (userUpdate._1 == true) match {
+          case true =>
+
+            val major = (jsonReceived \ "major").as[String]
+            val gradeLevel = (jsonReceived \ "gradeLevel").as[String]
+            val degreeProgram = (jsonReceived \ "degreeProgram").as[String]
+            val otherDegree = (jsonReceived \ "otherDegree").asOpt[String]
+            val graduate = (jsonReceived \ "graduate").as[String]
+            val degreeExpected = (jsonReceived \ "degreeExpected").asOpt[String]
+
+            val degreeExpectedSeason = (degreeExpected != None) match {
+              case true => Option(DegreeExpected.withName(degreeExpected.get))
+              case false => None
+            }
+
+            val graduationDate = (jsonReceived \ "graduationDate").asOpt[String]
+            val graduationDateFound = (graduationDate != None) match {
+
+              case true => Option(new Date(graduationDate.get))
+              case false => None
+            }
+
+            val userSchoolId = (jsonReceived \ "userSchoolId").as[String]
+
+            val userSchool = new UserSchool(new ObjectId(userSchoolId), new ObjectId(associatedSchoolId), schoolName, Year.withName(gradeLevel), Degree.withName(degreeProgram), major, Graduated.withName(graduate),
+              graduationDateFound, degreeExpectedSeason, None)
+            UserSchool.updateUserSchool(userSchool)
+            val userCreated = User.getUserProfile(new ObjectId(userId))
+            Ok(write(RegistrationResults(userCreated.get, userSchool))).as("application/json").withSession("userId" -> userId)
+          case false => Ok(write(userUpdate._2)).as("application/json")
         }
 
-        val graduationDate = (jsonReceived \ "graduationDate").asOpt[String]
-        val graduationDateFound = (graduationDate != None) match {
-
-          case true => Option(new Date(graduationDate.get))
-          case false => None
-        }
-
-        val userSchoolId = (jsonReceived \ "userSchoolId").as[String]
-
-        val userSchool = new UserSchool(new ObjectId(userSchoolId), new ObjectId(associatedSchoolId), schoolName, Year.withName(gradeLevel), Degree.withName(degreeProgram), major, Graduated.withName(graduate),
-          graduationDateFound, degreeExpectedSeason, None)
-        UserSchool.updateUserSchool(userSchool)
-        val userCreated = User.getUserProfile(new ObjectId(userId))
-        Ok(write(RegistrationResults(userCreated.get, userSchool))).as("application/json").withSession("userId" -> userId)
-      case false => Ok(write(userUpdate._2)).as("application/json")
+      case false => Ok(write("Please select an existing school or create your own one")).as("application/json")
     }
   }
 
@@ -165,11 +182,11 @@ object Registration extends Controller {
       canUserRegisterWithThisUsername match {
         case false =>
           val currentUser = User.getUserProfile(new ObjectId(userId))
-          val result = (currentUser.get.userName == userName) match {
+          (currentUser.get.userName == userName) match {
             case true => (true, "Register")
             case false => (false, "Username Already Exists")
           }
-          result
+
         case true => (true, "Register")
 
       }
