@@ -64,6 +64,8 @@ function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionMod
 			if (e.keyCode === 13) {
 				var answerSubmission = this.$el.find('.qs-answer').val();
 				this.model.postAnswer(answerSubmission,parent,answerAmt);
+				
+				
 				this.$el.find('.qs-answer').val('');
 				this.model.updateEditStatus();
 			}

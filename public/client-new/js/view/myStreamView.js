@@ -34,7 +34,7 @@ define(
 						init : function() {
 					    
 							var currentStreamView = new StreamSliderView({
-								el : '#sidebar'
+								el : $('#sidebar')
 							})
 							this.addView(currentStreamView);
 

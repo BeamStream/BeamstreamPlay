@@ -1,20 +1,4 @@
-/***
-* BeamStream
-*
-* Author                : Aswathy P.R (aswathy@toobler.com)
-* Company               : Toobler
-* Email:                : info@toobler.com
-* Web site              : http://www.toobler.com
-* Created               : 18/March/2013
-* Description           : Backbone model for question
-* ==============================================================================================
-* Change History:
-* ----------------------------------------------------------------------------------------------
-* Sl.No.  Date   Author   Description
-* ----------------------------------------------------------------------------------------------
-*
-* 
-*/
+
 
 define(['baseModel',
 				'model/comment',
@@ -74,7 +58,7 @@ define(['baseModel',
 
 			//var exmp = this.get('comments');
 			//this.get('comments').push(comment);
-			//this.get('question').comments.push(comment);
+			this.get('question').comments.push(comment);
 			comment.urlRoot = '/newComment';
 			comment.save({comment: commentText, questionId: this.get('question').id.id},{
 				success : function(model, response) {
@@ -105,7 +89,7 @@ define(['baseModel',
 			var questionId = parent;
 			var ansCount = answerAmt;
 			var answer = new Answer();
-			//this.get('question').answers.push(answer);
+			alert(this.get('question').answers.push(answer));
 			answer.urlRoot = '/answer';
 			answer.save({answerText: answerText, questionId: this.get('question').id.id},{
 				success : function(model, response) {
