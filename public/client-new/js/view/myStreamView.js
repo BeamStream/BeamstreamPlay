@@ -139,27 +139,21 @@ define(
 						},
 
 						showsidebar : function(e) {
-
-							$(".showgoogledocsSidebar #publishForm #docName")
-									.attr("value",
-											$(e.currentTarget).data("id"));
-							$(".showgoogledocsSidebar #publishForm #docUrl")
-									.attr("value",
-											$(e.currentTarget).data("name"));
+							$(".showgoogledocsSidebar #publishForm #docName").attr("value",$(e.currentTarget).data("id"));
+							$(".showgoogledocsSidebar #publishForm #docUrl").attr("value",$(e.currentTarget).data("name"));
 							$(".showgoogledocsSidebar").show();
-
-							$("#showgoogledoc.modal")
-									.css("margin", "3% 0 0 4%");
+							$("#showgoogledoc.modal").css("margin", "3% 0 0 4%");
 						},
 
 						hidePublishSidebar : function() {
 							$(".showgoogledocsSidebar").hide();
-							$("#showgoogledoc.modal").css("margin",
-									"3% 0 0 14%");
+							$("#showgoogledoc.modal").css("margin","3% 0 0 14%");
 						},
 
-						// Upload Google Doc
-
+							
+						/* ------------------------------- */
+						/*        Upload Google Doc        */
+						/* ------------------------------- */
 						uploadGoogleDocs : function(upload) {
 
 							$.ajax({
@@ -193,58 +187,55 @@ define(
 							 */
 
 						},
+						
+					
 
 						uploadToGoogle : function(event) {
 							$("#uploadgoogledoc").modal('hide');
 
 						},
-
-						// Create Google document
-
+						
+						
+						/* ------------------------------- */
+						/*	  Create Google document       */        
+						/* ------------------------------- */
+							
 						createGDocument : function(create) {
 							$("#creategoogledoc").modal('show');
 							$(".contentcreatedoc").empty();
-							$('#creategoogledoc #floatingBarsG')
-							.show();
-							$
-									.ajax({
-
-										type : 'GET',
-										url : 'uploadNow/document',
-
-										success : function(data) {
-											$('#creategoogledoc #floatingBarsG')
-													.hide();
-											String.prototype.startsWith = function(
-													s) {
+							$('#creategoogledoc #floatingBarsG').show();
+							$.ajax({
+								type : 'GET',
+								url : 'uploadNow/document',
+									success : function(data) {
+									$('#creategoogledoc #floatingBarsG').hide();
+									String.prototype.startsWith = function(s)
+											{
 												if (this.indexOf(s) == 0)
 													return true;
 												return false;
 											}
-											if (data
-													.toString()
-													.startsWith(
-															"https://accounts.google.com/o/oauth2/")) {
+											if (data.toString().startsWith("https://accounts.google.com/o/oauth2/"))
+											{
 												window.location.assign(data)
-											} else {
+											} 
+											else 
+											{
 												/*
 												 * $("#creategoogledoc").modal(
 												 * 'show');
 												 */
 												$(".contentcreatedoc").empty();
-												$(".contentcreatedoc")
-														.append(
-																"<iframe id='googleStuff' style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src="
-																		+ data
-																		+ "/>");
-												$("#docUrl")
-														.attr("value", data)
+												$(".contentcreatedoc").append("<iframe id='googleStuff' style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src="
+												+ data
+												+ "/>");
+												$("#docUrl").attr("value", data);
 											}
-
 										}
 									});
-							$
-									.ajax({
+							
+								$.ajax({
+									
 
 										type : 'GET',
 										url : '/allStreamsForAUser',

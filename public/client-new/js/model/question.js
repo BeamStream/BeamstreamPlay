@@ -33,6 +33,7 @@ define(['baseModel',
 				this.set({'onlineUserRocked': true}, {silent: true})
 				this.get('question').rockers.push({id: this.get('onlineUser')});
 			}
+			
 			this.urlRoot = 'rock/question';
 			this.save({id: this.get('question').id.id}, {
 				success : function(model, response){
