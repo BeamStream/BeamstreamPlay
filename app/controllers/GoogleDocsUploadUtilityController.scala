@@ -50,13 +50,13 @@ object GoogleDocsUploadUtilityController extends Controller {
           Ok.withSession(request.session + ("accessToken" -> newAccessToken))
         } else if (action == "document") {
           val result = GoogleDocsUploadUtility.createANewGoogleDocument(newAccessToken, "application/vnd.google-apps.document")
-          Ok(result)
+          Ok(write(result)).as("application/json")
         } else if (action == "spreadsheet") {
           val result = GoogleDocsUploadUtility.createANewGoogleDocument(newAccessToken, "application/vnd.google-apps.spreadsheet")
-          Ok(result)
+          Ok(write(result)).as("application/json")
         } else if (action == "presentation") {
           val result = GoogleDocsUploadUtility.createANewGoogleDocument(newAccessToken, "application/vnd.google-apps.presentation")
-          Ok(result)
+          Ok(write(result)).as("application/json")
         } else {
           Ok
         }

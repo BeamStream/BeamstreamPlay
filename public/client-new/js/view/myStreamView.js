@@ -255,10 +255,13 @@ define(
 												 * 'show');
 												 */
 												$(".contentcreatedoc").empty();
+												
 												$(".contentcreatedoc").append("<iframe id='googleStuff' style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src="
-												+ data
+												+ data[0]
 												+ "/>");
-												$("#docUrl").attr("value", data);
+												$("#docUrl").attr("value", data[0]);
+												$("#docName").attr("value", data[1]);
+												$("div.file-name").text(data[1]);
 											}
 										}
 									});
@@ -332,10 +335,12 @@ define(
 												$(".contentcreatedoc")
 														.append(
 																"<iframe id='googleStuff' style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src="
-																		+ data
+																		+ data[0]
 																		+ "/>");
 												$("#docUrl")
-												.attr("value", data)
+												.attr("value", data[0])
+												$("#docName").attr("value", data[1]);
+												$("div.file-name").text(data[1]);
 											}
 										}
 									});
@@ -408,10 +413,12 @@ define(
 												$(".contentcreatedoc")
 														.append(
 																"<iframe id='googleStuff' style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src="
-																		+ data
+																		+ data[0]
 																		+ "/>");
 												$("#docUrl")
-												.attr("value", data)
+												.attr("value", data[0])
+												$("#docName").attr("value", data[1]);
+												$("div.file-name").text(data[1]);
 											}
 
 										}
@@ -536,7 +543,7 @@ define(
 																		$(
 																				"#docsview")
 																				.append(
-																						" <div class='drive-view-row'><div class='powerpoint-img'></div><div class='doc-txt-container'><div class='doc-name'>"
+																						" <div class='drive-view-row'><div class='powerpoint-img'><img src='"+value._5 +"'></div><div class='doc-txt-container'><div class='doc-name'>"
 																								+ nameOfDocument
 																								+ "</div><div class='doc-info'><div class='owner'>OWNER: <span>"+value._4+"</span></div>"
 																								+ "<div class='last-modified'>LAST MODIFIED:"
@@ -557,7 +564,7 @@ define(
 																		$(
 																				"#docsview")
 																				.append(
-																						" <div class='drive-view-row'><div class='spreadsheet-img'></div><div class='doc-txt-container'><div class='doc-name'>"
+																						" <div class='drive-view-row'><div class='spreadsheet-img'><img src='"+value._5 +"'></div><div class='doc-txt-container'><div class='doc-name'>"
 																								+ nameOfDocument
 																								+ "</div><div class='doc-info'>"
 																								+ "<div class='owner'>OWNER: <span>"+value._4+"</span></div>"
@@ -578,7 +585,7 @@ define(
 																		$(
 																				"#docsview")
 																				.append(
-																						" <div class='drive-view-row'><div class='text-img'></div><div class='doc-txt-container'><div class='doc-name'>"
+																						" <div class='drive-view-row'><div class='text-img'><img src='"+value._5 +"'></div><div class='doc-txt-container'><div class='doc-name'>"
 																								+ nameOfDocument
 																								+ "</div><div class='doc-info'>"
 																								+ "<div class='owner'>OWNER: <span>"+value._4+"</span></div>"

@@ -54,7 +54,7 @@ object GoogleDocsUploadUtility {
    * Get All Files From Google Drive
    */
 
-  def getAllDocumentsFromGoogleDocs(code: String): List[(String, String, String, String)] = {
+  def getAllDocumentsFromGoogleDocs(code: String): List[(String, String, String, String, String)] = {
     val service = prepareGoogleDrive(code)
     var result: List[File] = Nil
     val request = service.files.list
@@ -69,16 +69,17 @@ object GoogleDocsUploadUtility {
       case document =>
         val date = formatter.parse(document.getModifiedDate().toString())
         formatter.format(date)
-        (document.getTitle(), document.getAlternateLink, formatter.format(date).toString, document.getOwnerNames().head)
+        (document.getTitle(), document.getAlternateLink, formatter.format(date).toString, document.getOwnerNames().head, document.getThumbnailLink())
     }
   }
 
-  def createANewGoogleDocument(code: String, mimeType: String): String = {
+  def createANewGoogleDocument(code: String, mimeType: String): List[String] = {
     val service = prepareGoogleDrive(code)
     val body = new File
     body.setMimeType(mimeType)
+    body.setTitle("Beamstream")
     val file = service.files.insert(body).execute
-    file.getAlternateLink
+    List(file.getAlternateLink, file.getTitle(), file.getThumbnailLink())
   }
 
   /**

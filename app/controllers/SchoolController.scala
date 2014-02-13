@@ -58,7 +58,7 @@ object SchoolController extends Controller {
 
   /**
    * All Schools From database(V)
-   * @Purpose: For auto populate schools on school screen'
+   * Purpose: For auto populate schools on school screen'
    */
   def getAllSchoolsForAutopopulate = Action { implicit request =>
     val schoolNameStartingStringJsonMap = request.body.asFormUrlEncoded.get
