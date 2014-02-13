@@ -20,7 +20,7 @@ define([
 			'submit .question-form': 'searchQuestions',
 			'click .popout': 'popout',
 			'click .minimize': 'minimize',
-			
+	
 			
 		},
 
@@ -46,8 +46,8 @@ define([
 			$("#messageListView").hide();
 			$("#questionListView").css("display","block");
 			$("#questionListView").css("visibility","visible");
-		
-			
+			$( "#questionStreamView" ).animate({"margin-right": '-=254'}, 1000);
+			$("#sidequestionexpand").animate({"margin-right": '-=254'}, 1000);
 		},
 		
 		
@@ -56,7 +56,13 @@ define([
 		
 			$("#messageListView").show();
 			$("#questionListView").css("display","none");
-			
+
+							$('#discussions-link').css('display', 'block');
+							$('#discussions-link').css('padding', '0');
+							$('#discussions-link').css('text-decoration','none');
+							$('#flipQuestion').css('display', 'none');
+							$('#questions-icon').css('display', 'none');
+
 			$("#questionListView").css("visibility","hidden");
 			/*$("#questionStreamView").hide();*/
 			/*$("#questionStreamView").css("visibility","hidden");*/
@@ -67,26 +73,22 @@ define([
 				    	display:"none"
 				    
 				  }, 1500 );*/
-			$( "#questionStreamView" ).hide();
-			$(".body").css("padding-right","0");
+			
+			//$( "#questionStreamView" ).toggle("slide", { direction: "right" }, 2000);
+			//$(".body").css("padding-right","0");
 			$(".chatbox").css("right","40");
-			$("#topheader").css("padding-right","0");
+			//$("#topheader").css("padding-right","0");
 			
 			$("#sidequestionexpand").css("opacity","1");
-			
-			$("#sidequestionexpand").css("right","0");
-		
-			    
-		
-			
-			
-			
-				 
-			
+			$( "#questionStreamView" ).animate({"margin-right": '-=300'}, 1000);
+			$("#sidequestionexpand").animate({"margin-right": '-=300'}, 1000);
 			
 		},
 		
 		
+		
+
+	
 		/**
          * PUBNUB real time push
          */

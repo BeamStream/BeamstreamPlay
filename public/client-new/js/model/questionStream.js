@@ -10,7 +10,7 @@ define(['baseModel',
 			this.on('change:streamId', this.createQuestionList);
 			this.set('questionStreams', new QuestionStreams());
 			this.set('currentQuestionStream', new QuestionStreams());
-			this.set('editStatus', false);
+			this.set('editStatus', true);
 			this.set('searchStatus', false);
 			this.get('currentQuestionStream').on('statusChange', this.updateEditStatus, this);
 			this.get('currentQuestionStream').on('questionAnsweredCol', this.updateCurrentStream, this);
@@ -48,6 +48,7 @@ define(['baseModel',
 
 		// controls pausing of server updates while text boxes are open
 		updateEditStatus: function(event){
+			
 			if (event.editCounter > 0) {
 				clearInterval(this.get('intervalId'));
 			} 
