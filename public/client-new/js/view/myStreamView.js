@@ -514,7 +514,7 @@ define(
 																		$(
 																				"#docsview")
 																				.append(
-																						" <div class='drive-view-row'><div class='powerpoint-img'></div><div class='doc-txt-container'><div class='doc-name'>"
+																						" <div class='drive-view-row'><div class='powerpoint-img'><img src='"+value._5 +"'></div><div class='doc-txt-container'><div class='doc-name'>"
 																								+ nameOfDocument
 																								+ "</div><div class='doc-info'><div class='owner'>OWNER: <span>"+value._4+"</span></div>"
 																								+ "<div class='last-modified'>LAST MODIFIED:"
@@ -535,7 +535,7 @@ define(
 																		$(
 																				"#docsview")
 																				.append(
-																						" <div class='drive-view-row'><div class='spreadsheet-img'></div><div class='doc-txt-container'><div class='doc-name'>"
+																						" <div class='drive-view-row'><div class='spreadsheet-img'><img src='"+value._5 +"'></div><div class='doc-txt-container'><div class='doc-name'>"
 																								+ nameOfDocument
 																								+ "</div><div class='doc-info'>"
 																								+ "<div class='owner'>OWNER: <span>"+value._4+"</span></div>"
@@ -556,7 +556,7 @@ define(
 																		$(
 																				"#docsview")
 																				.append(
-																						" <div class='drive-view-row'><div class='text-img'></div><div class='doc-txt-container'><div class='doc-name'>"
+																						" <div class='drive-view-row'><div class='text-img'><img src='"+value._5 +"'></div><div class='doc-txt-container'><div class='doc-name'>"
 																								+ nameOfDocument
 																								+ "</div><div class='doc-info'>"
 																								+ "<div class='owner'>OWNER: <span>"+value._4+"</span></div>"
