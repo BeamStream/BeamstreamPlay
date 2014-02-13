@@ -73,12 +73,13 @@ object GoogleDocsUploadUtility {
     }
   }
 
-  def createANewGoogleDocument(code: String, mimeType: String): String = {
+  def createANewGoogleDocument(code: String, mimeType: String): List[String] = {
     val service = prepareGoogleDrive(code)
     val body = new File
     body.setMimeType(mimeType)
+    body.setTitle("Beamstream")
     val file = service.files.insert(body).execute
-    file.getAlternateLink
+    List(file.getAlternateLink, file.getTitle(), file.getThumbnailLink())
   }
 
   /**

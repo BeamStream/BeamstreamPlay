@@ -31,7 +31,7 @@ object ClassController extends Controller {
 
   /**
    *  Return the class JSON for auto populate the classes on class stream
-   *  @Purpose : Class code and class name autopoulate on class stream page
+   *  Purpose : Class code and class name autopoulate on class stream page
    *
    */
 
@@ -47,7 +47,7 @@ object ClassController extends Controller {
 
   /**
    *  Return the class JSON for auto populate the classes on class stream  (RA)
-   *  @Purpose : Class code and class name autopopulate on class stream page
+   *  Purpose : Class code and class name autopopulate on class stream page
    *
    */
 

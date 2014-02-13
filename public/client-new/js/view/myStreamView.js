@@ -226,10 +226,13 @@ define(
 												 * 'show');
 												 */
 												$(".contentcreatedoc").empty();
+												
 												$(".contentcreatedoc").append("<iframe id='googleStuff' style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src="
-												+ data
+												+ data[0]
 												+ "/>");
-												$("#docUrl").attr("value", data);
+												$("#docUrl").attr("value", data[0]);
+												$("#docName").attr("value", data[1]);
+												$("div.file-name").text(data[1]);
 											}
 										}
 									});
@@ -303,10 +306,12 @@ define(
 												$(".contentcreatedoc")
 														.append(
 																"<iframe id='googleStuff' style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src="
-																		+ data
+																		+ data[0]
 																		+ "/>");
 												$("#docUrl")
-												.attr("value", data)
+												.attr("value", data[0])
+												$("#docName").attr("value", data[1]);
+												$("div.file-name").text(data[1]);
 											}
 										}
 									});
@@ -379,10 +384,12 @@ define(
 												$(".contentcreatedoc")
 														.append(
 																"<iframe id='googleStuff' style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src="
-																		+ data
+																		+ data[0]
 																		+ "/>");
 												$("#docUrl")
-												.attr("value", data)
+												.attr("value", data[0])
+												$("#docName").attr("value", data[1]);
+												$("div.file-name").text(data[1]);
 											}
 
 										}

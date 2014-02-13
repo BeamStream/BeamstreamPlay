@@ -52,8 +52,8 @@ object UserMedia extends RockConsumer {
       case true => makePresentOnePrimary(media.userId)
       case false =>
     }
-    val mediaId = UserMediaDAO.insert(media)
-    mediaId
+    UserMediaDAO.insert(media)
+
   }
 
   /*
@@ -152,9 +152,9 @@ object UserMedia extends RockConsumer {
     }
   }
 
-  /*
-  * Names of a rockers for a UserMedia
-  */
+  /**
+   * Names of a rockers for a UserMedia
+   */
   def rockersNamesOfUserMedia(userMediaId: ObjectId): List[String] = {
     val userMedia = UserMediaDAO.find(MongoDBObject("_id" -> userMediaId)).toList(0)
     User.giveMeTheRockers(userMedia.rockers)
@@ -212,13 +212,13 @@ object UserMedia extends RockConsumer {
 
   }
 
-  //TODO : Add Rock to Media If Message Contains docIdIfAny
+  //Add Rock to Media If Message Contains docIdIfAny
   def rockTheMediaOrDoc(idToBeRocked: ObjectId, userId: ObjectId) {
     val userMedia = UserMedia.findMediaById(idToBeRocked)
     if (!(userMedia == None)) UserMedia.rockUserMedia(idToBeRocked, userId)
 
   }
-  //TODO : Add Comment to Media If Message Contains docIdIfAny
+  // Add Comment to Media If Message Contains docIdIfAny
   def commentTheMediaOrDoc(id: ObjectId, commentId: ObjectId) {
     val userMedia = UserMedia.findMediaById(id)
     (userMedia == None) match {
