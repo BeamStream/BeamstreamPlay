@@ -104,7 +104,7 @@ function startChat(userId) {
 		}, 30000);
 	};
 }
-
+ 
 function popit(userId, toWhom, name, profileImageUrl) {
 	/*$
 			.ajax({
