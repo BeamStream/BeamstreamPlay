@@ -117,7 +117,7 @@ define([
                                          if(question.streamId==streamId)
                                                 {
                                                    /* set the values to Question Model */
-                                                 questionModel = new QuestionStream();
+                                                 questionModel = new QuestionModel();
                                                    questionModel.set({
 //                                                           docDescription :question.data.docDescription,
 //                                                           docName : question.data.docName,
