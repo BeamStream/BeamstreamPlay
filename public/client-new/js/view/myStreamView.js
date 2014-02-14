@@ -93,11 +93,11 @@ define(
 						},
 
 						fliptoDiscussion : function() {
-							$('#discussions-link').css('display', 'block');
-							$('#discussions-link').css('padding', '0');
-							$('#discussions-link').css('text-decoration','none');
-							$('#flipQuestion').css('display', 'none');
-							$('#questions-icon').css('display', 'none');
+							//$('#discussions-link').css('display', 'block');
+							//$('#discussions-link').css('padding', '0');
+							//$('#discussions-link').css('text-decoration','none');
+							//$('#flipQuestion').css('display', 'none');
+							//$('#questions-icon').css('display', 'none');
 						},
 
 						fliptoQuestion : function() {
@@ -160,8 +160,8 @@ define(
 								 	$("#sidequestionexpand").animate({"margin-right": '+=254'}, 1000);
 							// $("#sidequestionexpand").animate({"margin-right": '+=254'});
 							// $("#sidequestionexpand").css("margin-right","0px");
-							// $("#messageListView").show();
-							// $("#questionListView").css("display","none");
+							 $("#messageListView").show();
+							$("#questionListView").css("display","none");
 							 }
 							
 							 
