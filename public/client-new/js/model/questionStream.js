@@ -10,7 +10,7 @@ define(['baseModel',
 			this.on('change:streamId', this.createQuestionList);
 			this.set('questionStreams', new QuestionStreams());
 			this.set('currentQuestionStream', new QuestionStreams());
-			this.set('editStatus', true);
+			this.set('editStatus', false);
 			this.set('searchStatus', false);
 			this.get('currentQuestionStream').on('statusChange', this.updateEditStatus, this);
 			this.get('currentQuestionStream').on('questionAnsweredCol', this.updateCurrentStream, this);
