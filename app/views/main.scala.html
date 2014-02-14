@@ -105,6 +105,21 @@
          setTimeout("preventBack()", 0);
        </script>
     
+    <!-- Online User's call -->
+
+<script type="text/javascript">
+
+function notifyOnline() {
+$.ajax({
+url: '/active',
+success: function(data) {
+// do something with the return value here if you like
+}
+});
+}
+setInterval(notifyOnline, 5000); // you could choose not to continue on failure...
+</script>
+<!-- Online User's call -->
     
   </head>
  
@@ -141,7 +156,7 @@
     @bodyJS
     
     
-   
+    
 
   </body>
   

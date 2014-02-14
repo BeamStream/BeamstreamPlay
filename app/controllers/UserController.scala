@@ -24,6 +24,7 @@ import models.AvailableUsers
 import scala.concurrent.Future
 import java.util.Calendar
 import play.api.libs.concurrent.Execution.Implicits._
+import play.api.Logger
 
 object UserController extends Controller {
 
@@ -128,7 +129,7 @@ object UserController extends Controller {
 
   }
 
-  // Code by Dan Starts here
+  // Code by Daniel Hew Starts here
 
   def testNeo4j = Action { implicit request =>
     var node: Node = SocialGraphEmbeddedNeo4j.findOrCreateBSNode(24, "Joe", "Shmoe")
@@ -191,7 +192,8 @@ object UserController extends Controller {
     return true
   }
 
-  // Code by Dan Ends here
+  // Code by Daniel Hew Ends here
+  
   /**
    * Deactivate User On Browser Closed Event
    */
@@ -199,7 +201,12 @@ object UserController extends Controller {
   def active = Action { implicit request =>
     Future {
       val utcMilliseconds = OnlineUserCache.returnUTCTime
-      OnlineUserCache.setOnline(request.session.get("userId").get, utcMilliseconds)
+      request.session.get("userId") match {
+        case Some(user) =>
+          OnlineUserCache.setOnline(user, utcMilliseconds)
+        case None =>
+      }
+
     }
     Ok
   }
