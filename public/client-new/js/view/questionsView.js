@@ -540,7 +540,9 @@ define(['view/formView',
 		                processData: false,
 		                dataType : "json",
 		                success: function(data){
-			                	
+		            		
+		            		
+		            	
 		    				// set progress bar as 100 %
 		                	self.bar = $('.bar');  
 		                	
@@ -708,8 +710,8 @@ define(['view/formView',
 	   	  * POST question details to server 	
 	   	  */
 		 postQuestionToServer: function(question,streamId,questionAccess,googleDoc){
-
 		 	var self = this;
+		 	this.data.models[0] = new QuestionModel();
 		 	if(googleDoc == true){
 		 		console.log(44);
 		 		this.data.models[0].removeAttr('question');
@@ -720,8 +722,8 @@ define(['view/formView',
 
         		this.data.models[0].removeAttr('questionAccess');
 
-        		this.data.url = "/newDocument";
-
+        		this.data.models.url = "/newDocument";
+        		
         		// set values to model
 			    this.data.models[0].save({streamId : streamId, docName :question, docAccess:questionAccess ,docURL:question , docType: 'GoogleDocs', docDescription: ''},{
 			    	success : function(model, response) {
@@ -772,9 +774,10 @@ define(['view/formView',
 				 	$('#option'+i).val('');
 			 	}
 			 	pollOptions = pollOptions.substring(0, pollOptions.length - 1);
-
-	        	this.data.url = "/question";
+			 
+	        	this.data.models[0].url = "/question";
 	        	if(pollOptions == ''){
+	        		var Question = new QuestionModel()
 	        		this.data.models[0].removeAttr('pollOptions');
 	        		this.data.models[0].save({streamId : streamId, questionBody :question, questionAccess:questionAccess},{
 				    	success : function(model, response) {
