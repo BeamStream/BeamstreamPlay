@@ -1121,16 +1121,25 @@ define(['view/formView',
 							  		
 								    /* display the posted comment  */
 						  		var compiledTemplate = Handlebars.compile(QuestionAnswer);
-						  		$('#'+answer.questionId+'-allAnswers').prepend(compiledTemplate({data:answer.data}));
 						  		
-						  		if(!$('#'+answer.questionId+'-allAnswers').is(':visible'))
+						  		if($('#'+answer.questionId+'-allComments').is(":visible"))
+								{
+				    			$('#'+answer.questionId+'-allComments').hide();
+								}
+						  		if($('#'+answer.questionId+'-newCommentList').is(":visible"))
+								{
+				    			$('#'+answer.questionId+'-newCommentList').hide();
+								}
+						  		if($('#'+answer.questionId+'-allAnswers').is(':visible'))
 						  			{  
-						  				
-						  				$('#'+answer.questionId+'-msgRockers').slideUp(1);
-						  				$('#'+answer.questionId+'-newAnswerList').slideDown(1);
 						  				$('#'+answer.questionId+'-newAnswerList').prepend(compiledTemplate({data:answer.data,profileImage:localStorage["loggedUserProfileUrl"]}));
-						
 						  			}
+						  			else
+						  				{
+						  					$('#'+answer.questionId+'-newAnswerList').slideDown(1);
+							  				$('#'+answer.questionId+'-newAnswerList').prepend(compiledTemplate({data:answer.data,profileImage:localStorage["loggedUserProfileUrl"]}));
+						  				}
+						  				
 						  		answer.ansCount++; 
 						  		$('#'+answer.questionId+'-show-hide').text("Hide All");
 						  		$('#'+answer.questionId+'-totalAnswer').text(answer.ansCount);
