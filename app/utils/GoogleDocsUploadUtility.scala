@@ -13,6 +13,7 @@ import java.util.Date
 object GoogleDocsUploadUtility {
   val formatter: SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
+  //TODO : Take these to configuration files
   val CLIENT_ID = "213363569061.apps.googleusercontent.com"
   val CLIENT_SECRET = "d3s0YP7_xtCaAtgCiSy_RNdU"
   val httpTransport = new NetHttpTransport

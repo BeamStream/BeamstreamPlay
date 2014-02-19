@@ -12,6 +12,9 @@ import org.neo4j.graphdb.RelationshipType
 import org.neo4j.graphdb.Transaction
 import org.neo4j.kernel.impl.util.FileUtils
 
+//Code By Daniel Hew
+
+
 object SocialGraphEmbeddedNeo4j {
   //val DB_PATH:String = "/Users/danielhew/Documents/bin/neo4j-community-1.8.M07/data/graph.db"
   val DB_PATH: String = "data/BeamStreamGraph.db"

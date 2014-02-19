@@ -10,6 +10,7 @@ import play.api.mvc.WebSocket
 import utils.WebsocketCommunication
 object WebsocketCommunicationController extends Controller {
 
+  //TODO : Move Map From Here
   var usersChatSockets: scala.collection.immutable.Map[ObjectId, (play.api.libs.iteratee.Concurrent.Channel[play.api.libs.json.JsValue], play.api.libs.iteratee.Enumerator[play.api.libs.json.JsValue])] = Map()
   //var alreadyOpened: List[(String, String)] = Nil
   /**

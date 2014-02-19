@@ -25,8 +25,6 @@ class JoinBeamstreamBetaTest extends FunSuite with BeforeAndAfter {
 
   test("Render beta user registration page") {
     running(FakeApplication()) {
-
-      println(">>>>>>>>>>>>>"+Play.current.configuration.getString("databaseName").get)
       val result = route(FakeRequest(GET, "/")).get
       result onComplete {
         case stat => assert(stat.isSuccess === true)
