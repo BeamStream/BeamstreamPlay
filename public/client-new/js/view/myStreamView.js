@@ -90,7 +90,6 @@ define(
 
 						afterUpload : function(event) {
 							$("#uploadgoogledoc").modal('hide');
-
 						},
 
 						fliptoQuestion : function() {
@@ -639,7 +638,6 @@ define(
 							$('#pollArea').hide();
 							$('.question-button').text("ASK");
 							$('.add-poll').hide();
-
 							$('textarea#Q-area').removeClass('showpolloption');
 							$('textarea#Q-area').attr('placeholder',
 									'Ask your own question here.....');
