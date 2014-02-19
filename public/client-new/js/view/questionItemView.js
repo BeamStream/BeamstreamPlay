@@ -415,12 +415,19 @@ define(['view/formView',
     		var compiledTemplate = Handlebars.compile(QuestionComment);
     		$('#'+parent+'-allComments').prepend(compiledTemplate({data:response,profileImage:localStorage["loggedUserProfileUrl"]}));
     		
-    		if(!$('#'+parent+'-allComments').is(':visible'))
-			{  
-    			if($('#'+parent+'-allAnswers').is(':visible'))
+    		
+    		if($('#'+parent+'-allAnswers').is(':visible'))
 				{
 					$('#'+parent+'-allAnswers').hide();
 				}
+    			if($('#'+parent+'-newAnswerList').is(':visible'))
+				{
+					$('#'+parent+'-newAnswerList').hide();
+				}
+    			
+    		if(!$('#'+parent+'-allComments').is(':visible'))
+			{  
+    			
 				
 				$('#'+parent+'-msgRockers').slideUp(1);
 				$('#'+parent+'-newCommentList').slideDown(1);
@@ -572,12 +579,16 @@ define(['view/formView',
 		    /* display the posted comment  */
     		var compiledTemplate = Handlebars.compile(QuestionAnswer);
     		$('#'+parent+'-allAnswers').prepend(compiledTemplate({data:response,profileImage:localStorage["loggedUserProfileUrl"]}));
+    		if($('#'+parent+'-allComments').is(":visible"))
+				{
+    			$('#'+parent+'-allComments').hide();
+				}
+    		if($('#'+parent+'-newCommentList').is(":visible"))
+				{
+    			$('#'+parent+'-newCommentList').hide();
+				}
     		if(!$('#'+parent+'-allAnswers').is(':visible'))
 			{  
-    			if($('#'+parent+'-allComments').is(":visible"))
-			{
-			$('#'+parent+'-allComments').hide();
-			}
 				$('#'+parent+'-msgRockers').slideUp(1);
 				$('#'+parent+'-newAnswerList').slideDown(1);
 				$('#'+parent+'-newAnswerList').prepend(compiledTemplate({data:response,profileImage:localStorage["loggedUserProfileUrl"]}));
@@ -585,7 +596,6 @@ define(['view/formView',
     		totalAnswers++; 
     		$('#'+parent+'-show-hide').text("Hide All");
 			$('#'+parent+'-totalAnswer').text(totalAnswers);
-			
         },
         
         

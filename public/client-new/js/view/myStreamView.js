@@ -25,8 +25,9 @@ define(
 							'submit #uploadForm' : 'afterUpload',
 							'click .publishGdocs' : 'showsidebar',
 							'click #closepublishsidebar' : 'hidePublishSidebar',
-							'click #questionsLink' : 'fliptoDiscussion',
-							'click #discussions-link' : 'fliptoQuestion',
+							'click #questionsLink' : 'fliptoQuestion',
+							'click #discussions-link' : 'fliptoDiscussion',
+							'keypress #Q-area' : 'fliptoDiscussionfromquestion' ,
 							'click #sidequestionexpand': 'restoretonormal',
 						},
 						messagesPerPage : 10,
@@ -92,7 +93,7 @@ define(
 
 						},
 
-						fliptoDiscussion : function() {
+						fliptoQuestion : function() {
 							//$('#discussions-link').css('display', 'block');
 							//$('#discussions-link').css('padding', '0');
 							//$('#discussions-link').css('text-decoration','none');
@@ -100,38 +101,34 @@ define(
 							//$('#questions-icon').css('display', 'none');
 						},
 
-						fliptoQuestion : function() {
+						fliptoDiscussion : function() {
 							$('#discussions-link').css('display', 'none');
 							$('#flipQuestion').css('padding','0px 0px 0px 12px');
 							$('#questions-icon').css('margin-top', '-2px');
 							$('#flipQuestion').css('display', 'block');
 							$('#questions-icon').css('display', 'block');
-							$("#messageListView").show();
-							$("#questionListView").css("display","none");
-							 var position = $("#sidequestionexpand").css("margin-right");
-								
+							//$("#messageListView").show();
+							//$("#questionListView").css("display","none");
+							var position = $("#sidequestionexpand").css("margin-right");
+								if (position == "-300px"){
+									$( "#questionStreamView" ).animate({"margin-right": '+=300'}, 1000);
+									$("#sidequestionexpand").animate({"margin-right": '+=300'}, 1000);
+									
+								}
+								//$( "#questionStreamView" ).animate({"margin-right": '+=300'}, 1000);
+								//$("#sidequestionexpand").animate({"margin-right": '+=300'}, 1000);
+							},
 
-							 if (position == "-300px"){
-	 
-								 $( "#questionStreamView" ).animate({"margin-right": '+=300'}, 1000);
-								 $("#sidequestionexpand").animate({"margin-right": '+=300'}, 1000);
-								 // $("#sidequestionexpand").animate({"margin-right": '+=254'});
-								 // $("#sidequestionexpand").css("margin-right","0px");
-								 $("#messageListView").show();
-								 $("#questionListView").css("display","none");
-							 }
-							//$( "#questionStreamView" ).animate({"margin-right": '+=300'}, 1000);
-							//$("#sidequestionexpand").animate({"margin-right": '+=300'}, 1000);
-						},
-
-						/* Expand Side Question Stream */
+						
+	
+							/* Expand Side Question Stream */
 
 						restoretonormal : function() {
 
-							/*
-							 * $("#messageListView").show();
-							 * $("#questionListView").css("display","none");
-							 */
+							
+							  $("#messageListView").show();
+							  $("#questionListView").css("display","none");
+							 
 
 							/* $("#questionListView").css("visibility","hidden"); */
 							/* $("#questionStreamView").hide(); */
@@ -145,27 +142,27 @@ define(
 							$(".body").css("padding-right", "280");
 							$(".chatbox").css("right", "40");
 							$("#topheader").css("padding-right", "19");
-
-							 $("#sidequestionexpand").css("opacity","1"); 
-
+						 	$("#sidequestionexpand").css("opacity","1"); 
 							$("#sidequestionexpand").css("right", "318"); */
-						
 							// $( "#questionStreamView").show();
 							 var position = $("#sidequestionexpand").css("margin-right");
-						
-							 
 							 if (position == "-254px"){
-								 
 								 	$( "#questionStreamView" ).animate({"margin-right": '+=254'}, 1000);
 								 	$("#sidequestionexpand").animate({"margin-right": '+=254'}, 1000);
-							// $("#sidequestionexpand").animate({"margin-right": '+=254'});
-							// $("#sidequestionexpand").css("margin-right","0px");
-							 $("#messageListView").show();
-							$("#questionListView").css("display","none");
+								 	// $("#sidequestionexpand").animate({"margin-right": '+=254'});
+								 	// $("#sidequestionexpand").css("margin-right","0px");
 							 }
-							
-							 
 						},
+						
+						fliptoDiscussionfromquestion : function(eventName){
+									if(eventName.which == 13) {
+										
+										
+
+										}
+									
+							},
+
 
 						showsidebar : function(e) {
 							$(".showgoogledocsSidebar #publishForm #docName").attr("value",$(e.currentTarget).data("id"));
