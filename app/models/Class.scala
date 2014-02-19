@@ -144,12 +144,10 @@ object Class {
     val classesFound = ClassDAO.find(MongoDBObject("schoolId" -> schoolId, "classCode" -> codePattern)).toList
     classesFound.isEmpty match {
       case true =>
-        println("Yha Aana Pda")
         val mixCodePattern = Pattern.compile(code, Pattern.CASE_INSENSITIVE)
         val classesFoundThen = ClassDAO.find(MongoDBObject("schoolId" -> schoolId, "className" -> mixCodePattern)).toList
         classWithNoOfUsers(classesFoundThen)
       case false =>
-        println("Yha Hu filhal")
         classWithNoOfUsers(classesFound)
     }
   }
