@@ -110,17 +110,7 @@ object StreamController extends Controller {
    * Renders the stream page
    */
   def renderStreamPage = Action { implicit request =>
-    (request.session.get("userId") == None) match {
-      case true =>
-        Redirect("/login")
-      case false =>
-        val userFound = User.getUserProfile(new ObjectId(request.session.get("userId").get))
-        userFound.get.classes.isEmpty match {
-          case true => Redirect("/class")
-          case false => Redirect("/stream")
-
-        }
-    }
+    Ok(views.html.stream())
   }
 
   /**
