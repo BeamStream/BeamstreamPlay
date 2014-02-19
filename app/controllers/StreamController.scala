@@ -28,7 +28,7 @@ object StreamController extends Controller {
    */
 
   def index = Action { implicit request =>
-   // val playCookiee = request.cookies.get("PLAY_SESSION")
+    // val playCookiee = request.cookies.get("PLAY_SESSION")
     (request.session.get("userId") == None) match {
       case true => Redirect("/")
       case false =>
@@ -37,7 +37,12 @@ object StreamController extends Controller {
           val utcMilliseconds = OnlineUserCache.returnUTCTime
           OnlineUserCache.setOnline(request.session.get("userId").get, utcMilliseconds)
         }
-        Redirect("/stream")
+        val userFound = User.getUserProfile(new ObjectId(request.session.get("userId").get))
+        userFound.get.classes.isEmpty match {
+          case true => Redirect("/class")
+          case false => Redirect("/stream")
+
+        }
     }
 
   }
