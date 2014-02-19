@@ -28,7 +28,17 @@ object BasicRegistration extends Controller {
    * SignUp Page Rendering (V)
    */
   def signUpPage = Action { implicit request =>
-    Ok(views.html.signup())
+    request.session.get("userId") == None match {
+      case true =>
+        Ok(views.html.signup())
+      case _ =>
+        val userFound = User.getUserProfile(new ObjectId(request.session.get("userId").get))
+        userFound.get.classes.isEmpty match {
+          case true => Redirect("/class")
+          case false => Redirect("/stream")
+
+        }
+    }
   }
 
   /**
@@ -49,7 +59,7 @@ object BasicRegistration extends Controller {
       case true =>
         (encryptedPassword == encryptedConfirmPassword) match {
           case true =>
-            val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, "", "", "", Option(encryptedPassword), "", "", "", "", new Date,Nil, Nil, Nil, None,None, None)
+            val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, "", "", "", Option(encryptedPassword), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
             val IdOfUserCreted = User.createUser(userToCreate)
             val createdUser = User.getUserProfile(IdOfUserCreted.get)
             UtilityActor.sendMailAfterUserSignsUp(IdOfUserCreted.get.toString, TokenEmailUtil.securityToken, emailId)

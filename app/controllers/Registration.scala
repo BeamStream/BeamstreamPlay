@@ -32,19 +32,32 @@ object Registration extends Controller {
    * Registration after Mail ((VA))
    */
   def registration = Action { implicit request =>
-    val token = request.queryString("token").toList(0)
-    val userId = request.queryString("userId").toList(0)
-    val tokenReceived = Token.findToken(token)
-    (tokenReceived.isEmpty) match {
-      case false =>
-        (tokenReceived.head.used == false) match {
-          case true =>
-            Ok(views.html.registration(userId, None)).withSession("token" -> token)
-          case false => Ok("This user has already been registered. Please login with your username and password or register using a new email address.")
-        }
+
+    (request.session.get("userId") == None) match {
 
       case true =>
-        Ok("Token not found")
+
+        val token = request.queryString("token").toList(0)
+        val userId = request.queryString("userId").toList(0)
+        val tokenReceived = Token.findToken(token)
+        (tokenReceived.isEmpty) match {
+          case false =>
+            (tokenReceived.head.used == false) match {
+              case true =>
+                Ok(views.html.registration(userId, None)).withSession("token" -> token)
+              case false => Ok("This user has already been registered. Please login with your username and password or register using a new email address.")
+            }
+
+          case true =>
+            Ok("Token not found")
+        }
+      case false =>
+        val userFound = User.getUserProfile(new ObjectId(request.session.get("userId").get))
+        userFound.get.classes.isEmpty match {
+          case true => Redirect("/class")
+          case false => Redirect("/stream")
+
+        }
     }
   }
 
@@ -53,7 +66,18 @@ object Registration extends Controller {
    * @return
    */
   def loginPage = Action { implicit request =>
-    Ok(views.html.login())
+    (request.session.get("userId") == None) match {
+
+      case true =>
+        Ok(views.html.login())
+      case false =>
+        val userFound = User.getUserProfile(new ObjectId(request.session.get("userId").get))
+        userFound.get.classes.isEmpty match {
+          case true => Redirect("/class")
+          case false => Redirect("/stream")
+
+        }
+    }
   }
 
   /**

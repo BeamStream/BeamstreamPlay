@@ -1,22 +1,17 @@
 package controllers
 
-import play.api.mvc.Controller
-import play.api.mvc.Action
-import play.api.mvc.WebSocket
-import play.api.libs.json.JsValue
-import utils.CommunicationRoom
-import utils.WebsocketCommunication
-import play.api.libs.concurrent.Akka
-import play.api.libs.concurrent.Execution.Implicits._
-import play.api.Play.current
-import akka.actor.Props
 import org.bson.types.ObjectId
-import play.api.libs.json.Json
+
 import models.User
+import play.api.libs.json.JsValue
+import play.api.mvc.Action
+import play.api.mvc.Controller
+import play.api.mvc.WebSocket
+import utils.WebsocketCommunication
 object WebsocketCommunicationController extends Controller {
 
   var usersChatSockets: scala.collection.immutable.Map[ObjectId, (play.api.libs.iteratee.Concurrent.Channel[play.api.libs.json.JsValue], play.api.libs.iteratee.Enumerator[play.api.libs.json.JsValue])] = Map()
-  var alreadyOpened: List[(String, String)] = Nil
+  //var alreadyOpened: List[(String, String)] = Nil
   /**
    * Handles the chat websocket.
    */
@@ -35,13 +30,13 @@ object WebsocketCommunicationController extends Controller {
    * Handles the chat Websocket.
    */
   def startChat(me: String, toWhom: String) = WebSocket.async[JsValue] { implicit request =>
-    alreadyOpened ++= List((me, toWhom))
+    //alreadyOpened ++= List((me, toWhom))
     val user = User.getUserProfile(new ObjectId(request.session.get("userId").get))
     val channelWithChat = usersChatSockets(new ObjectId(toWhom))
     WebsocketCommunication.join(user.get.firstName, Option(channelWithChat), request.session.get("userId").get)
   }
 
- /* def canStartChat(flag: String, me: String, toWhom: String) = Action { implicit request =>
+  /* def canStartChat(flag: String, me: String, toWhom: String) = Action { implicit request =>
     (flag == "ask") match {
       case true =>
 

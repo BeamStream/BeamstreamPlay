@@ -97,7 +97,7 @@ function startChat(userId) {
 	oldChatSocket.onopen = function() {
 		console.log('websocket opened');
 		setInterval(function() {
-			//if (oldChatSocket.bufferedAmount == 0)
+			if (oldChatSocket.bufferedAmount == 0)
 				oldChatSocket.send(JSON.stringify({
 					text : "ping"
 				}))
