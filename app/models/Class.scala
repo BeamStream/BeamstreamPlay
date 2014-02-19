@@ -19,6 +19,7 @@ import utils.ObjectIdSerializer
 import utils.SendEmailUtility
 import actors.UtilityActor
 import models.mongoContext._
+import play.Logger
 
 case class Class(@Key("_id") id: ObjectId,
   classCode: String,
@@ -40,26 +41,6 @@ object Class {
    */
   def deleteClass(classToBeRemoved: Class): Unit = {
     ClassDAO.remove(classToBeRemoved)
-  }
-
-  /**
-   * Finding the class by Code (RA)
-   */
-
-  def findClassByCode(code: String, schoolId: ObjectId): List[ClassWithNoOfUsers] = {
-    val codePattern = Pattern.compile("^" + code, Pattern.CASE_INSENSITIVE)
-    var classesWithNoofUsers: List[ClassWithNoOfUsers] = List()
-    val classFound = ClassDAO.find(MongoDBObject("schoolId" -> schoolId, "classCode" -> codePattern)).toList
-    (classFound.isEmpty) match {
-      case true =>
-      case false =>
-        for (eachClass <- classFound) {
-          val stream = Stream.findStreamById(eachClass.streams(0))
-          val mapOfUsersAttendingTheClassSeparatedbyCatagory = User.countRolesOfAUser(stream.get.usersOfStream)
-          classesWithNoofUsers ++= List(ClassWithNoOfUsers(mapOfUsersAttendingTheClassSeparatedbyCatagory, eachClass))
-        }
-    }
-    classesWithNoofUsers
   }
 
   /**
@@ -126,26 +107,52 @@ object Class {
     streamId.get
   }
 
+  private def classWithNoOfUsers(classes: List[Class]): List[ClassWithNoOfUsers] = {
+    classes map {
+      eachClass =>
+        val stream = Stream.findStreamById(eachClass.streams(0))
+        val mapOfUsersAttendingTheClassSeparatedbyCatagory = User.countRolesOfAUser(stream.get.usersOfStream)
+        ClassWithNoOfUsers(mapOfUsersAttendingTheClassSeparatedbyCatagory, eachClass)
+    }
+  }
+
   /**
    * Find the class by name with no of users return (RA)
    */
 
   def findClassByName(name: String, schoolId: ObjectId): List[ClassWithNoOfUsers] = {
     val namePattern = Pattern.compile("^" + name, Pattern.CASE_INSENSITIVE)
-    var classesWithNoofUsers: List[ClassWithNoOfUsers] = List()
-    val classFound = ClassDAO.find(MongoDBObject("schoolId" -> schoolId, "className" -> namePattern)).toList
-    (classFound.isEmpty) match {
+    val classesFound = ClassDAO.find(MongoDBObject("schoolId" -> schoolId, "className" -> namePattern)).toList
+
+    classesFound.isEmpty match {
       case true =>
+        val mixNamePattern = Pattern.compile(name, Pattern.CASE_INSENSITIVE)
+        val classesFoundThen = ClassDAO.find(MongoDBObject("schoolId" -> schoolId, "className" -> namePattern)).toList
+        classWithNoOfUsers(classesFoundThen)
       case false =>
-        for (eachClass <- classFound) {
-          val stream = Stream.findStreamById(eachClass.streams(0))
-          val mapOfUsersAttendingTheClassSeparatedbyCatagory = User.countRolesOfAUser(stream.get.usersOfStream)
-          classesWithNoofUsers ++= List(ClassWithNoOfUsers(mapOfUsersAttendingTheClassSeparatedbyCatagory, eachClass))
-        }
+        classWithNoOfUsers(classesFound)
     }
-    classesWithNoofUsers
+
   }
 
+  /**
+   * Finding the class by Code (RA)
+   */
+
+  def findClassByCode(code: String, schoolId: ObjectId): List[ClassWithNoOfUsers] = {
+    val codePattern = Pattern.compile("^" + code, Pattern.CASE_INSENSITIVE)
+    val classesFound = ClassDAO.find(MongoDBObject("schoolId" -> schoolId, "classCode" -> codePattern)).toList
+    classesFound.isEmpty match {
+      case true =>
+        println("Yha Aana Pda")
+        val mixCodePattern = Pattern.compile(code, Pattern.CASE_INSENSITIVE)
+        val classesFoundThen = ClassDAO.find(MongoDBObject("schoolId" -> schoolId, "className" -> mixCodePattern)).toList
+        classWithNoOfUsers(classesFoundThen)
+      case false =>
+        println("Yha Hu filhal")
+        classWithNoOfUsers(classesFound)
+    }
+  }
 }
 
 object ClassType extends Enumeration {

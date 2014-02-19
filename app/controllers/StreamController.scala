@@ -28,8 +28,8 @@ object StreamController extends Controller {
    */
 
   def index = Action { implicit request =>
-    val playCookiee = request.cookies.get("PLAY_SESSION")
-    (playCookiee == None) match {
+   // val playCookiee = request.cookies.get("PLAY_SESSION")
+    (request.session.get("userId") == None) match {
       case true => Redirect("/")
       case false =>
 
