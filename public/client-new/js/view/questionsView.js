@@ -1082,15 +1082,29 @@ define(['view/formView',
 		 			  		
 		 				    /* display the posted comment  */
 		 		    		var compiledTemplate = Handlebars.compile(QuestionComment);
-		 		    		$('#'+question.questionId+'-allComments').prepend(compiledTemplate({data:question.data}));
+		 		    		//$('#'+question.questionId+'-allComments').prepend(compiledTemplate({data:question.data}));
+		 		    		if($('#'+question.questionId+'-allAnswers').is(':visible'))
+		 					{
+		 						$('#'+question.questionId+'-allAnswers').hide();
+		 					}
+		 	    			if($('#'+question.questionId+'-newAnswerList').is(':visible'))
+		 					{
+		 						$('#'+question.questionId+'-newAnswerList').hide();
+		 					}
 		 		    		
-		 		    		if(!$('#'+question.questionId+'-allComments').is(':visible'))
+		 		    		if($('#'+question.questionId+'-allComments').is(':visible'))
 		 					{  
-		 						$('#'+question.questionId+'-msgRockers').slideUp(1);
+		 						//$('#'+question.questionId+'-msgRockers').slideUp(1);
 		 						$('#'+question.questionId+'-newCommentList').slideDown(1);
 		 						$('#'+question.questionId+'-newCommentList').prepend(compiledTemplate({data:question.data, profileImage:question.profileImage}));
 		 						
 		 					}
+		 		    		else
+						  				{
+						  					$('#'+question.questionId+'-newCommentList').slideDown(1);
+							  				$('#'+question.questionId+'-newCommentList').prepend(compiledTemplate({data:question.data,profileImage:localStorage["loggedUserProfileUrl"]}));
+						  				}
+						  				
 		 		    		question.cmtCount++; 
 		 		    		$('#'+question.questionId+'-show-hide').text("Hide All");
 		 					$('#'+question.questionId+'-totalComment').text(question.cmtCount);
