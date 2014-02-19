@@ -68,11 +68,6 @@ define(['baseView',
 	    			view.fetch();
 	    		}
 	    		
-	    		var view1 = this.getViewById('questionsView');
-	    		if(view1){
-	    			view1.data.url="/getAllQuestionsForAStream/"+this.streamId+"/date/"+10+"/"+1;
-	    			view1.fetch();
-	    		}
 
 			}
 			
