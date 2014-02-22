@@ -415,12 +415,19 @@ define(['view/formView',
     		var compiledTemplate = Handlebars.compile(QuestionComment);
     		$('#'+parent+'-allComments').prepend(compiledTemplate({data:response,profileImage:localStorage["loggedUserProfileUrl"]}));
     		
-    		if(!$('#'+parent+'-allComments').is(':visible'))
-			{  
-    			if($('#'+parent+'-allAnswers').is(':visible'))
+    		
+    		if($('#'+parent+'-allAnswers').is(':visible'))
 				{
 					$('#'+parent+'-allAnswers').hide();
 				}
+    			if($('#'+parent+'-newAnswerList').is(':visible'))
+				{
+					$('#'+parent+'-newAnswerList').hide();
+				}
+    			
+    		if(!$('#'+parent+'-allComments').is(':visible'))
+			{  
+    			
 				
 				$('#'+parent+'-msgRockers').slideUp(1);
 				$('#'+parent+'-newCommentList').slideDown(1);
@@ -572,12 +579,16 @@ define(['view/formView',
 		    /* display the posted comment  */
     		var compiledTemplate = Handlebars.compile(QuestionAnswer);
     		$('#'+parent+'-allAnswers').prepend(compiledTemplate({data:response,profileImage:localStorage["loggedUserProfileUrl"]}));
+    		if($('#'+parent+'-allComments').is(":visible"))
+				{
+    			$('#'+parent+'-allComments').hide();
+				}
+    		if($('#'+parent+'-newCommentList').is(":visible"))
+				{
+    			$('#'+parent+'-newCommentList').hide();
+				}
     		if(!$('#'+parent+'-allAnswers').is(':visible'))
 			{  
-    			if($('#'+parent+'-allComments').is(":visible"))
-			{
-			$('#'+parent+'-allComments').hide();
-			}
 				$('#'+parent+'-msgRockers').slideUp(1);
 				$('#'+parent+'-newAnswerList').slideDown(1);
 				$('#'+parent+'-newAnswerList').prepend(compiledTemplate({data:response,profileImage:localStorage["loggedUserProfileUrl"]}));
@@ -585,7 +596,6 @@ define(['view/formView',
     		totalAnswers++; 
     		$('#'+parent+'-show-hide').text("Hide All");
 			$('#'+parent+'-totalAnswer').text(totalAnswers);
-			
         },
         
         
@@ -646,14 +656,15 @@ showAllAnswerList: function(eventName){
 			var element = eventName.target.parentElement;
 			var questionId =$(element).parents('div.follow-container').attr('id');
 			var streamId =  $('.sortable li.active').attr('id');
-			
+			var ownerId = localStorage["loggedUserId"];
 			// set values to model for rocking the message
 			var Question = new QuestionModel();
 			Question.urlRoot = "/rock/question";
 			Question.save({id : questionId},{
 		    	success : function(model, response) {
 		    		
-		    		/* show/hide the rock and unrock symbols */
+					
+					/* show/hide the rock and unrock symbols */
 		    		if($('#'+questionId+'-qstRockCount').hasClass('downrocks-message'))
 	            	{
 	            		$('#'+questionId+'-qstRockCount').removeClass('downrocks-message');
@@ -665,6 +676,7 @@ showAllAnswerList: function(eventName){
 	            		$('#'+questionId+'-qstRockCount').addClass('downrocks-message');
 	            	}
 	            	
+	            	
 	            	// display the count in icon
 	                $('#'+questionId+'-qstRockCount').find('span').html(response);
 	                
@@ -675,7 +687,7 @@ showAllAnswerList: function(eventName){
 	                })
 	                 PUBNUB.publish({
 						channel : "questionRockSideStream",
-	                    message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:response,quesId:questionId}
+	                    message : { pagePushUid: self.pagePushUid ,ownerId:ownerId,streamId:streamId,data:response,quesId:questionId}
 	                })
 
 	                if($('#rockedIt-'+questionId).hasClass('active')){
@@ -1197,3 +1209,4 @@ showAllAnswerList: function(eventName){
 	})
 	return QuestionItemView;
 });
+

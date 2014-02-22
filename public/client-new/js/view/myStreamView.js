@@ -25,16 +25,17 @@ define(
 							'submit #uploadForm' : 'afterUpload',
 							'click .publishGdocs' : 'showsidebar',
 							'click #closepublishsidebar' : 'hidePublishSidebar',
-							'click #questionsLink' : 'fliptoDiscussion',
-							'click #discussions-link' : 'fliptoQuestion',
-
+							'click #questionsLink' : 'fliptoQuestion',
+							'click #discussions-link' : 'fliptoDiscussion',
+							'keypress #Q-area' : 'fliptoDiscussionfromquestion' ,
+							'click #sidequestionexpand': 'restoretonormal',
 						},
 						messagesPerPage : 10,
 						pageNo : 1,
 						init : function() {
 					    
 							var currentStreamView = new StreamSliderView({
-								el : '#sidebar'
+								el : $('#sidebar')
 							})
 							this.addView(currentStreamView);
 
@@ -89,35 +90,44 @@ define(
 
 						afterUpload : function(event) {
 							$("#uploadgoogledoc").modal('hide');
-
-						},
-
-						fliptoDiscussion : function() {
-							$('#discussions-link').css('display', 'block');
-							$('#discussions-link').css('padding', '0');
-							$('#discussions-link').css('text-decoration',
-									'none');
-							$('#flipQuestion').css('display', 'none');
-							$('#questions-icon').css('display', 'none');
 						},
 
 						fliptoQuestion : function() {
+							//$('#discussions-link').css('display', 'block');
+							//$('#discussions-link').css('padding', '0');
+							//$('#discussions-link').css('text-decoration','none');
+							//$('#flipQuestion').css('display', 'none');
+							//$('#questions-icon').css('display', 'none');
+						},
+
+						fliptoDiscussion : function() {
 							$('#discussions-link').css('display', 'none');
-							$('#flipQuestion').css('padding',
-									'0px 0px 0px 12px');
+							$('#flipQuestion').css('padding','0px 0px 0px 12px');
 							$('#questions-icon').css('margin-top', '-2px');
 							$('#flipQuestion').css('display', 'block');
 							$('#questions-icon').css('display', 'block');
-						},
+							//$("#messageListView").show();
+							//$("#questionListView").css("display","none");
+							var position = $("#sidequestionexpand").css("margin-right");
+								if (position == "-300px"){
+									$( "#questionStreamView" ).animate({"margin-right": '+=300'}, 1000);
+									$("#sidequestionexpand").animate({"margin-right": '+=300'}, 1000);
+									
+								}
+								//$( "#questionStreamView" ).animate({"margin-right": '+=300'}, 1000);
+								//$("#sidequestionexpand").animate({"margin-right": '+=300'}, 1000);
+							},
 
-						/* Expand Side Question Stream */
+						
+	
+							/* Expand Side Question Stream */
 
-						sidequestionexpand : function() {
+						restoretonormal : function() {
 
-							/*
-							 * $("#messageListView").show();
-							 * $("#questionListView").css("display","none");
-							 */
+							
+							  $("#messageListView").show();
+							  $("#questionListView").css("display","none");
+							 
 
 							/* $("#questionListView").css("visibility","hidden"); */
 							/* $("#questionStreamView").hide(); */
@@ -127,39 +137,48 @@ define(
 							 * "300", opacity: 1, visibility:"visible",
 							 * display:"block" }, 1500 );
 							 */
-							$("#questionStreamView").show();
+							/* $("#questionStreamView").show();
 							$(".body").css("padding-right", "280");
 							$(".chatbox").css("right", "40");
 							$("#topheader").css("padding-right", "19");
-
-							/* $("#sidequestionexpand").css("opacity","1"); */
-
-							$("#sidequestionexpand").css("right", "318");
-
+						 	$("#sidequestionexpand").css("opacity","1"); 
+							$("#sidequestionexpand").css("right", "318"); */
+							// $( "#questionStreamView").show();
+							 var position = $("#sidequestionexpand").css("margin-right");
+							 if (position == "-254px"){
+								 	$( "#questionStreamView" ).animate({"margin-right": '+=254'}, 1000);
+								 	$("#sidequestionexpand").animate({"margin-right": '+=254'}, 1000);
+								 	// $("#sidequestionexpand").animate({"margin-right": '+=254'});
+								 	// $("#sidequestionexpand").css("margin-right","0px");
+							 }
 						},
+						
+						fliptoDiscussionfromquestion : function(eventName){
+									if(eventName.which == 13) {
+										
+										
+
+										}
+									
+							},
+
 
 						showsidebar : function(e) {
-
-							$(".showgoogledocsSidebar #publishForm #docName")
-									.attr("value",
-											$(e.currentTarget).data("id"));
-							$(".showgoogledocsSidebar #publishForm #docUrl")
-									.attr("value",
-											$(e.currentTarget).data("name"));
+							$(".showgoogledocsSidebar #publishForm #docName").attr("value",$(e.currentTarget).data("id"));
+							$(".showgoogledocsSidebar #publishForm #docUrl").attr("value",$(e.currentTarget).data("name"));
 							$(".showgoogledocsSidebar").show();
-
-							$("#showgoogledoc.modal")
-									.css("margin", "3% 0 0 4%");
+							$("#showgoogledoc.modal").css("margin", "3% 0 0 4%");
 						},
 
 						hidePublishSidebar : function() {
 							$(".showgoogledocsSidebar").hide();
-							$("#showgoogledoc.modal").css("margin",
-									"3% 0 0 14%");
+							$("#showgoogledoc.modal").css("margin","3% 0 0 14%");
 						},
 
-						// Upload Google Doc
-
+							
+						/* ------------------------------- */
+						/*        Upload Google Doc        */
+						/* ------------------------------- */
 						uploadGoogleDocs : function(upload) {
 
 							$.ajax({
@@ -193,58 +212,58 @@ define(
 							 */
 
 						},
+						
+					
 
 						uploadToGoogle : function(event) {
 							$("#uploadgoogledoc").modal('hide');
 
 						},
-
-						// Create Google document
-
+						
+						
+						/* ------------------------------- */
+						/*	  Create Google document       */        
+						/* ------------------------------- */
+							
 						createGDocument : function(create) {
 							$("#creategoogledoc").modal('show');
 							$(".contentcreatedoc").empty();
-							$('#creategoogledoc #floatingBarsG')
-							.show();
-							$
-									.ajax({
-
-										type : 'GET',
-										url : 'uploadNow/document',
-
-										success : function(data) {
-											$('#creategoogledoc #floatingBarsG')
-													.hide();
-											String.prototype.startsWith = function(
-													s) {
+							$('#creategoogledoc #floatingBarsG').show();
+							$.ajax({
+								type : 'GET',
+								url : 'uploadNow/document',
+									success : function(data) {
+									$('#creategoogledoc #floatingBarsG').hide();
+									String.prototype.startsWith = function(s)
+											{
 												if (this.indexOf(s) == 0)
 													return true;
 												return false;
 											}
-											if (data
-													.toString()
-													.startsWith(
-															"https://accounts.google.com/o/oauth2/")) {
+											if (data.toString().startsWith("https://accounts.google.com/o/oauth2/"))
+											{
 												window.location.assign(data)
-											} else {
+											} 
+											else 
+											{
 												/*
 												 * $("#creategoogledoc").modal(
 												 * 'show');
 												 */
 												$(".contentcreatedoc").empty();
-												$(".contentcreatedoc")
-														.append(
-																"<iframe id='googleStuff' style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src="
-																		+ data
-																		+ "/>");
-												$("#docUrl")
-														.attr("value", data)
+												
+												$(".contentcreatedoc").append("<iframe id='googleStuff' style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src="
+												+ data[0]
+												+ "/>");
+												$("#docUrl").attr("value", data[0]);
+												$("#docName").attr("value", data[1]);
+												$("div.file-name").text(data[1]);
 											}
-
 										}
 									});
-							$
-									.ajax({
+							
+								$.ajax({
+									
 
 										type : 'GET',
 										url : '/allStreamsForAUser',
@@ -312,10 +331,12 @@ define(
 												$(".contentcreatedoc")
 														.append(
 																"<iframe id='googleStuff' style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src="
-																		+ data
+																		+ data[0]
 																		+ "/>");
 												$("#docUrl")
-												.attr("value", data)
+												.attr("value", data[0])
+												$("#docName").attr("value", data[1]);
+												$("div.file-name").text(data[1]);
 											}
 										}
 									});
@@ -388,10 +409,12 @@ define(
 												$(".contentcreatedoc")
 														.append(
 																"<iframe id='googleStuff' style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src="
-																		+ data
+																		+ data[0]
 																		+ "/>");
 												$("#docUrl")
-												.attr("value", data)
+												.attr("value", data[0])
+												$("#docName").attr("value", data[1]);
+												$("div.file-name").text(data[1]);
 											}
 
 										}
@@ -516,7 +539,7 @@ define(
 																		$(
 																				"#docsview")
 																				.append(
-																						" <div class='drive-view-row'><div class='powerpoint-img'></div><div class='doc-txt-container'><div class='doc-name'>"
+																						" <div class='drive-view-row'><div class='powerpoint-img'><img src='"+value._5 +"'></div><div class='doc-txt-container'><div class='doc-name'>"
 																								+ nameOfDocument
 																								+ "</div><div class='doc-info'><div class='owner'>OWNER: <span>"+value._4+"</span></div>"
 																								+ "<div class='last-modified'>LAST MODIFIED:"
@@ -537,7 +560,7 @@ define(
 																		$(
 																				"#docsview")
 																				.append(
-																						" <div class='drive-view-row'><div class='spreadsheet-img'></div><div class='doc-txt-container'><div class='doc-name'>"
+																						" <div class='drive-view-row'><div class='spreadsheet-img'><img src='"+value._5 +"'></div><div class='doc-txt-container'><div class='doc-name'>"
 																								+ nameOfDocument
 																								+ "</div><div class='doc-info'>"
 																								+ "<div class='owner'>OWNER: <span>"+value._4+"</span></div>"
@@ -558,7 +581,7 @@ define(
 																		$(
 																				"#docsview")
 																				.append(
-																						" <div class='drive-view-row'><div class='text-img'></div><div class='doc-txt-container'><div class='doc-name'>"
+																						" <div class='drive-view-row'><div class='text-img'><img src='"+value._5 +"'></div><div class='doc-txt-container'><div class='doc-name'>"
 																								+ nameOfDocument
 																								+ "</div><div class='doc-info'>"
 																								+ "<div class='owner'>OWNER: <span>"+value._4+"</span></div>"
@@ -615,7 +638,6 @@ define(
 							$('#pollArea').hide();
 							$('.question-button').text("ASK");
 							$('.add-poll').hide();
-
 							$('textarea#Q-area').removeClass('showpolloption');
 							$('textarea#Q-area').attr('placeholder',
 									'Ask your own question here.....');

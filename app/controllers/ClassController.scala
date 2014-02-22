@@ -31,8 +31,7 @@ object ClassController extends Controller {
 
   /**
    *  Return the class JSON for auto populate the classes on class stream
-   *  @Purpose : Class code and class name autopoulate on class stream page
-   *
+   *  Purpose : Class code and class name auto-populate on class stream page
    */
 
   def findClasstoAutoPopulatebyCode = Action { implicit request =>
@@ -47,7 +46,7 @@ object ClassController extends Controller {
 
   /**
    *  Return the class JSON for auto populate the classes on class stream  (RA)
-   *  @Purpose : Class code and class name autopopulate on class stream page
+   *  Purpose : Class code and class name autopopulate on class stream page
    *
    */
 
@@ -57,8 +56,7 @@ object ClassController extends Controller {
       val className = classNameMap("data").toList(0)
       val assosiatedSchoolId = classNameMap("schoolId").toList(0)
       val classList = Class.findClassByName(className, new ObjectId(assosiatedSchoolId))
-      val classListJson = write(classList)
-      Ok(classListJson).as("application/json")
+      Ok(write(classList)).as("application/json")
     } catch {
       case exception: Throwable => InternalServerError("Class Autopopulate Failed")
     }

@@ -1,20 +1,4 @@
-/***
-* BeamStream
-*
-* Author                : Aswathy P.R (aswathy@toobler.com)
-* Company               : Toobler
-* Email:                : info@toobler.com
-* Web site              : http://www.toobler.com
-* Created               : 18/March/2013
-* Description           : Backbone model for question
-* ==============================================================================================
-* Change History:
-* ----------------------------------------------------------------------------------------------
-* Sl.No.  Date   Author   Description
-* ----------------------------------------------------------------------------------------------
-*
-* 
-*/
+
 
 define(['baseModel',
 				'model/comment',
@@ -36,6 +20,8 @@ define(['baseModel',
 
 		// this rocks or unrocks it
 		rockQuestion: function(){
+			var questionId = this.get('question').id.id;
+			var ownerId = localStorage["loggedUserId"];
 			if (this.get('onlineUserRocked')){
 				this.set({'onlineUserRocked': false}, {silent: true});
 				for (var i = 0; i < this.get('question').rockers.length; i++){
@@ -47,8 +33,22 @@ define(['baseModel',
 				this.set({'onlineUserRocked': true}, {silent: true})
 				this.get('question').rockers.push({id: this.get('onlineUser')});
 			}
+			
 			this.urlRoot = 'rock/question';
-			this.save({id: this.get('question').id.id}, {silent: true});
+			this.save({id: this.get('question').id.id}, {
+				success : function(model, response){
+				
+				PUBNUB.publish({
+						channel : "questionRockfromSidetoMainStream",
+	                    message : { pagePushUid: self.pagePushUid ,ownerId:ownerId,data:response,quesId:questionId}
+	                })
+	           PUBNUB.publish({
+						channel : "questionRockfromSidetoSideStream",
+	                    message : { pagePushUid: self.pagePushUid ,data:response,quesId:questionId}
+	                })
+
+			}
+			});
 			this.trigger('change:questionRock');
 		}, 
 
@@ -57,14 +57,14 @@ define(['baseModel',
 			var cmtCount = commentAmt;
 			var comment = new Comment();
 
-			var exmp = this.get('comments');
+			//var exmp = this.get('comments');
 			//this.get('comments').push(comment);
 			this.get('question').comments.push(comment);
 			comment.urlRoot = '/newComment';
 			comment.save({comment: commentText, questionId: this.get('question').id.id},{
 				success : function(model, response) {
 				
-	
+					
 				
 					/* pubnum auto push */
 						PUBNUB.publish({

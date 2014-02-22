@@ -48,6 +48,7 @@ define(['baseModel',
 
 		// controls pausing of server updates while text boxes are open
 		updateEditStatus: function(event){
+			
 			if (event.editCounter > 0) {
 				clearInterval(this.get('intervalId'));
 			} 

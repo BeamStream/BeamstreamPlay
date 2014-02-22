@@ -20,7 +20,7 @@ define([
 			'submit .question-form': 'searchQuestions',
 			'click .popout': 'popout',
 			'click .minimize': 'minimize',
-			
+	
 			
 		},
 
@@ -46,8 +46,8 @@ define([
 			$("#messageListView").hide();
 			$("#questionListView").css("display","block");
 			$("#questionListView").css("visibility","visible");
-		
-			
+			$( "#questionStreamView" ).animate({"margin-right": '-=254'}, 1000);
+			$("#sidequestionexpand").animate({"margin-right": '-=254'}, 1000);
 		},
 		
 		
@@ -56,7 +56,13 @@ define([
 		
 			$("#messageListView").show();
 			$("#questionListView").css("display","none");
-			
+
+							$('#discussions-link').css('display', 'block');
+							$('#discussions-link').css('padding', '0');
+							$('#discussions-link').css('text-decoration','none');
+							$('#flipQuestion').css('display', 'none');
+							$('#questions-icon').css('display', 'none');
+
 			$("#questionListView").css("visibility","hidden");
 			/*$("#questionStreamView").hide();*/
 			/*$("#questionStreamView").css("visibility","hidden");*/
@@ -67,26 +73,22 @@ define([
 				    	display:"none"
 				    
 				  }, 1500 );*/
-			$( "#questionStreamView" ).hide();
-			$(".body").css("padding-right","0");
+			
+			//$( "#questionStreamView" ).toggle("slide", { direction: "right" }, 2000);
+			//$(".body").css("padding-right","0");
 			$(".chatbox").css("right","40");
-			$("#topheader").css("padding-right","0");
+			//$("#topheader").css("padding-right","0");
 			
-			/*$("#sidequestionexpand").css("opacity","1");*/
-			
-			$("#sidequestionexpand").css("right","0");
-		
-			    
-		
-			
-			
-			
-				 
-			
+			$("#sidequestionexpand").css("opacity","1");
+			$( "#questionStreamView" ).animate({"margin-right": '-=300'}, 1000);
+			$("#sidequestionexpand").animate({"margin-right": '-=300'}, 1000);
 			
 		},
 		
 		
+		
+
+	
 		/**
          * PUBNUB real time push
          */
@@ -105,21 +107,17 @@ define([
                  PUBNUB.subscribe({
                          
                          channel : 'questionsSideStream',
-                        // message: function(m){alert("Aa gya dekh"+m)}
                          
                          callback : function(question) {
                                  
-                               //  alert("caal of the function")
                                  var streamId = $('.sortable li.active').attr('id');
 
-                               //  alert(streamId);
                                  if (question.pagePushUid != self.pagePushUid)
                                  { 
-                                       //  alert("if block")
                                          if(question.streamId==streamId)
                                                 {
                                                    /* set the values to Question Model */
-                                                 questionModel = new QuestionStream();
+                                                 questionModel = new QuestionModel();
                                                    questionModel.set({
 //                                                           docDescription :question.data.docDescription,
 //                                                           docName : question.data.docName,
@@ -132,7 +130,6 @@ define([
                                                            pollOptions:question.data.pollOptions
                                                    })
                                                    
-                                                 //  alert(question);
                                                     // show the posted message on feed
                                                          var questionStreamItemView  = new QuestionStreamItemView({model :questionModel});
                                                          //var compiledTemplate = Handlebars.compile(QuestionStreamItem);
@@ -160,6 +157,37 @@ define([
 										                 PUBNUB.subscribe({
 										             		
 											   channel : "questionRockSideStream",
+											   restore : false,
+											   callback : function(question) {
+										                	// 	alert(JSON.stringify(question));
+												   if(question.pagePushUid != self.pagePushUid)
+												   { 
+													
+													  
+													   
+//													     if(localStorage["loggedUserId"]==question.ownerId)
+	//												     {      
+		//											    	 if($('#'+question.quesId+'-rockicon').hasClass('rock-icon'))
+			//										    	 {
+				//									    		 $('#'+question.quesId+'-rockicon').removeClass('rock-icon');
+					//								    		 $('#'+question.quesId+'-rockicon').addClass('already-rocked');
+						//							    	 }
+							//						    	 else
+								//					    	 {
+									//				    		 $('#'+question.quesId+'-rockicon').removeClass('already-rocked');
+										//			    		 $('#'+question.quesId+'-rockicon').addClass('rock-icon');
+											//		    	 }
+ 		            	
+ 		            	
+												//	     }
+													      $('#'+question.quesId+'-totalrocksidebar').find('span').html(question.data);
+												   }
+										   }
+										})
+										
+										  PUBNUB.subscribe({
+										             		
+											   channel : "questionRockfromSidetoSideStream",
 											   restore : false,
 											   callback : function(question) {
 											

@@ -50,13 +50,13 @@ object GoogleDocsUploadUtilityController extends Controller {
           Ok.withSession(request.session + ("accessToken" -> newAccessToken))
         } else if (action == "document") {
           val result = GoogleDocsUploadUtility.createANewGoogleDocument(newAccessToken, "application/vnd.google-apps.document")
-          Ok(result)
+          Ok(write(result)).as("application/json")
         } else if (action == "spreadsheet") {
           val result = GoogleDocsUploadUtility.createANewGoogleDocument(newAccessToken, "application/vnd.google-apps.spreadsheet")
-          Ok(result)
+          Ok(write(result)).as("application/json")
         } else if (action == "presentation") {
           val result = GoogleDocsUploadUtility.createANewGoogleDocument(newAccessToken, "application/vnd.google-apps.presentation")
-          Ok(result)
+          Ok(write(result)).as("application/json")
         } else {
           Ok
         }
@@ -125,14 +125,6 @@ object GoogleDocsUploadUtilityController extends Controller {
       val FileReceived: java.io.File = file.ref.file.asInstanceOf[java.io.File]
       val accessToken = request.session.get("accessToken").get
       val googleFileUrl = GoogleDocsUploadUtility.uploadToGoogleDrive(accessToken, FileReceived, fileName, contentType.get)
-      /*val userId = new ObjectId(request.session.get("userId").get)
-      val user = User.getUserProfile(userId)
-      //TODO : Stream Id Required 
-
-      val documentToCreate = new Document(new ObjectId, fileName, "", googleFileUrl, DocType.GoogleDocs, userId, Access.Public, new ObjectId, new Date, new Date, 0, Nil, Nil, Nil, "", 0)
-      val docId = Document.addDocument(documentToCreate)
-      val message = Message(new ObjectId, googleFileUrl, Option(Type.Document), Option(Access.Public), new Date, userId, None, user.get.firstName, user.get.lastName, 0, Nil, Nil, 0, Nil, None, None)
-      val messageId = Message.createMessage(message)*/
     }
     Redirect("/stream")
   }

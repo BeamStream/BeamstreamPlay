@@ -32,7 +32,7 @@ object Files {
    * Get All Presentation Files
    */
   def getAllPPTFiles(userId: ObjectId): List[Document] = {
-    var pptFiles: List[Document] = List()
+    var pptFiles: List[Document] = Nil
     val pptExtensionsList: List[String] = List(".odg", ".odp", ".pps", ".ppsx", ".ppt", ".pptm", ".pptx", ".sda", ".sdd", ".sxd", ".sxi", ".uof", ".uop",
       ".ODG", ".ODP", ".PPS", ".PPSX", ".PPT", ".PPTM", ".PPTX", ".SDA", ".SDD", ".SXD", ".SXI", ".UOF", ".UOP")
     val filesFound = DocumentDAO.find(MongoDBObject("userId" -> userId, "documentType" -> "Other")).sort(orderBy = MongoDBObject("creationDate" -> -1)).toList
@@ -53,7 +53,7 @@ object Files {
    * Get All PDF Files
    */
   def getAllPDFFiles(userId: ObjectId): List[Document] = {
-    var pdfFiles: List[Document] = List()
+    var pdfFiles: List[Document] = Nil
     val pdfExtensionsList: List[String] = List(".pdf", ".PDF")
     val filesFound = DocumentDAO.find(MongoDBObject("userId" -> userId, "documentType" -> "Other")).sort(orderBy = MongoDBObject("creationDate" -> -1)).toList
     filesFound map {
@@ -73,7 +73,7 @@ object Files {
    * Get All DOCS Files
    */
   def getAllDOCSFiles(userId: ObjectId): List[Document] = {
-    var documentsFiles: List[Document] = List()
+    var documentsFiles: List[Document] = Nil
     val documentFilesExtensionsList: List[String] = List(".doc", ".docx", ".txt", ".rtf", ".xls", ".xlsx", ",DOC", ".DOCX", ".TXT", ".RTF", ".XLS", ".XLSX", ".html", ".HTML")
     val filesFound = DocumentDAO.find(MongoDBObject("userId" -> userId, "documentType" -> "Other")).sort(orderBy = MongoDBObject("creationDate" -> -1)).toList
     filesFound map {

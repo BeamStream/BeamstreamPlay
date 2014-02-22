@@ -90,11 +90,7 @@ object Document extends RockConsumer {
    */
 
   def findDocumentById(docId: ObjectId): Option[Document] = {
-    val document = DocumentDAO.findOneById(docId)
-    document match {
-      case Some(doc) => Option(doc)
-      case _ => None
-    }
+    DocumentDAO.findOneById(docId)
   }
 
   /*
@@ -116,8 +112,7 @@ object Document extends RockConsumer {
    * Get all documents for a user (Modified)
    */
   def getAllPublicDocumentForAUser(userId: ObjectId) = {
-    val docsObtained = DocumentDAO.find(MongoDBObject("userId" -> userId, "documentAccess" -> "Public")).toList
-    docsObtained
+    DocumentDAO.find(MongoDBObject("userId" -> userId, "documentAccess" -> "Public")).toList
   }
   /**
    *  Update the Rockers List and increase the count by one

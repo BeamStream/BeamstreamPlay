@@ -59,16 +59,15 @@ define(['baseView',
 
 			/** rendered by default : discussion page */
 			var sidebarView = this.getViewById('sidebar');
-
 			if(sidebarView.streamId){
 				
 				var view = this.getViewById('messageListView');
 	    		if(view){
 	    			
-	    			view.data.url="/allMessagesForAStream/"+this.getViewById('sidebar').streamId+"/date/"+view.messagesPerPage+"/"+view.pageNo +"/week";
+	    			view.data.url="/allMessagesForAStream/"+sidebarView.streamId+"/date/"+view.messagesPerPage+"/"+view.pageNo +"/week";
 	    			view.fetch();
-	    		
 	    		}
+	    		
 
 			}
 			

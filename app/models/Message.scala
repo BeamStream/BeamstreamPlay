@@ -167,7 +167,7 @@ object Message { //extends CommentConsumer {
    *  param messagesPerPage is the limit of messages per page
    */
   def getAllMessagesForAKeyword(keyword: String, streamId: ObjectId, pageNumber: Int, messagesPerPage: Int): List[Message] = {
-    val keyWordregExp = Pattern.compile("^" + keyword, Pattern.CASE_INSENSITIVE) //(""".*""" + keyword + """.*""").r
+    val keyWordregExp = Pattern.compile(keyword, Pattern.CASE_INSENSITIVE) //(""".*""" + keyword + """.*""").r
     MessageDAO.find(MongoDBObject("messageBody" -> keyWordregExp, "streamId" -> streamId)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
   }
 

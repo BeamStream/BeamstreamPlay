@@ -14,6 +14,7 @@ import play.api.libs.ws.WS
 import scala.concurrent._
 import scala.concurrent.duration._
 import play.api.libs.concurrent.Execution.Implicits._
+import play.api.Play
 @RunWith(classOf[JUnitRunner])
 class BasicRegistrationTest extends FunSuite with BeforeAndAfter {
 

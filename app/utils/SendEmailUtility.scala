@@ -32,6 +32,7 @@ trait EmailUtility {
 
 object SendEmailUtility extends EmailUtility {
 
+  //TODO : Move Email Contents From here 
   val BEAMTEAM_EMAIL = "beamteam@beamstream.com"
 
   /**

@@ -1,5 +1,3 @@
-
-
 <div id="{{question.id.id}}" class="side-question">
 <div class="question-post">
     {{#if profilePic.length}}
@@ -32,9 +30,9 @@
     <div class="post-interact">
        <div class="post-interact-wrapper">
         {{#if onlineUserRocked}}
-        <div class="already-rocked"></div>
+        <div id="{{question.id.id}}-rockicon" class="already-rocked"></div>
         {{else}}
-        <div class="rock-icon"></div>
+        <div id="{{question.id.id}}-rockicon" class="rock-icon"></div>
         {{/if}}
         <div class="rock-ammount" id="{{question.id.id}}-totalrocksidebar"><span>{{question.rockers.length}}</span></div>
         <div class="qs-comment-link">Comment</div>

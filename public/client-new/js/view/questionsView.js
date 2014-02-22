@@ -540,7 +540,9 @@ define(['view/formView',
 		                processData: false,
 		                dataType : "json",
 		                success: function(data){
-			                	
+		            		
+		            		
+		            	
 		    				// set progress bar as 100 %
 		                	self.bar = $('.bar');  
 		                	
@@ -708,8 +710,8 @@ define(['view/formView',
 	   	  * POST question details to server 	
 	   	  */
 		 postQuestionToServer: function(question,streamId,questionAccess,googleDoc){
-
 		 	var self = this;
+		 	this.data.models[0] = new QuestionModel();
 		 	if(googleDoc == true){
 		 		console.log(44);
 		 		this.data.models[0].removeAttr('question');
@@ -720,8 +722,8 @@ define(['view/formView',
 
         		this.data.models[0].removeAttr('questionAccess');
 
-        		this.data.url = "/newDocument";
-
+        		this.data.models.url = "/newDocument";
+        		
         		// set values to model
 			    this.data.models[0].save({streamId : streamId, docName :question, docAccess:questionAccess ,docURL:question , docType: 'GoogleDocs', docDescription: ''},{
 			    	success : function(model, response) {
@@ -772,9 +774,10 @@ define(['view/formView',
 				 	$('#option'+i).val('');
 			 	}
 			 	pollOptions = pollOptions.substring(0, pollOptions.length - 1);
-
-	        	this.data.url = "/question";
+			 
+	        	this.data.models[0].url = "/question";
 	        	if(pollOptions == ''){
+	        		var Question = new QuestionModel()
 	        		this.data.models[0].removeAttr('pollOptions');
 	        		this.data.models[0].save({streamId : streamId, questionBody :question, questionAccess:questionAccess},{
 				    	success : function(model, response) {
@@ -1079,15 +1082,29 @@ define(['view/formView',
 		 			  		
 		 				    /* display the posted comment  */
 		 		    		var compiledTemplate = Handlebars.compile(QuestionComment);
-		 		    		$('#'+question.questionId+'-allComments').prepend(compiledTemplate({data:question.data}));
+		 		    		//$('#'+question.questionId+'-allComments').prepend(compiledTemplate({data:question.data}));
+		 		    		if($('#'+question.questionId+'-allAnswers').is(':visible'))
+		 					{
+		 						$('#'+question.questionId+'-allAnswers').hide();
+		 					}
+		 	    			if($('#'+question.questionId+'-newAnswerList').is(':visible'))
+		 					{
+		 						$('#'+question.questionId+'-newAnswerList').hide();
+		 					}
 		 		    		
-		 		    		if(!$('#'+question.questionId+'-allComments').is(':visible'))
+		 		    		if($('#'+question.questionId+'-allComments').is(':visible'))
 		 					{  
-		 						$('#'+question.questionId+'-msgRockers').slideUp(1);
+		 						//$('#'+question.questionId+'-msgRockers').slideUp(1);
 		 						$('#'+question.questionId+'-newCommentList').slideDown(1);
 		 						$('#'+question.questionId+'-newCommentList').prepend(compiledTemplate({data:question.data, profileImage:question.profileImage}));
 		 						
 		 					}
+		 		    		else
+						  				{
+						  					$('#'+question.questionId+'-newCommentList').slideDown(1);
+							  				$('#'+question.questionId+'-newCommentList').prepend(compiledTemplate({data:question.data,profileImage:localStorage["loggedUserProfileUrl"]}));
+						  				}
+						  				
 		 		    		question.cmtCount++; 
 		 		    		$('#'+question.questionId+'-show-hide').text("Hide All");
 		 					$('#'+question.questionId+'-totalComment').text(question.cmtCount);
@@ -1118,16 +1135,25 @@ define(['view/formView',
 							  		
 								    /* display the posted comment  */
 						  		var compiledTemplate = Handlebars.compile(QuestionAnswer);
-						  		$('#'+answer.questionId+'-allAnswers').prepend(compiledTemplate({data:answer.data}));
 						  		
-						  		if(!$('#'+answer.questionId+'-allAnswers').is(':visible'))
+						  		if($('#'+answer.questionId+'-allComments').is(":visible"))
+								{
+				    			$('#'+answer.questionId+'-allComments').hide();
+								}
+						  		if($('#'+answer.questionId+'-newCommentList').is(":visible"))
+								{
+				    			$('#'+answer.questionId+'-newCommentList').hide();
+								}
+						  		if($('#'+answer.questionId+'-allAnswers').is(':visible'))
 						  			{  
-						  				
-						  				$('#'+answer.questionId+'-msgRockers').slideUp(1);
-						  				$('#'+answer.questionId+'-newAnswerList').slideDown(1);
 						  				$('#'+answer.questionId+'-newAnswerList').prepend(compiledTemplate({data:answer.data,profileImage:localStorage["loggedUserProfileUrl"]}));
-						
 						  			}
+						  			else
+						  				{
+						  					$('#'+answer.questionId+'-newAnswerList').slideDown(1);
+							  				$('#'+answer.questionId+'-newAnswerList').prepend(compiledTemplate({data:answer.data,profileImage:localStorage["loggedUserProfileUrl"]}));
+						  				}
+						  				
 						  		answer.ansCount++; 
 						  		$('#'+answer.questionId+'-show-hide').text("Hide All");
 						  		$('#'+answer.questionId+'-totalAnswer').text(answer.ansCount);
@@ -1176,6 +1202,36 @@ define(['view/formView',
  	   				   if(question.pagePushUid != self.pagePushUid)
  	   				   { 
  	   					   $('#'+question.quesId+'-qstRockCount').find('span').html(question.data);
+ 	   					 
+ 	   				   }
+		   		   }
+	   		   })
+	   		   
+	   		   PUBNUB.subscribe({
+		
+ 	   			   channel : "questionRockfromSidetoMainStream",
+ 	   			   restore : false,
+ 	   			   callback : function(question) {
+ 	   				   if(question.pagePushUid != self.pagePushUid)
+ 	   				   { 
+ 	   					  // alert(JSON.stringify(question)); 
+ 	   					  $('#'+question.quesId+'-qstRockCount').find('span').html(question.data);
+ 	   					  
+ 	   					  if(localStorage["loggedUserId"]==question.ownerId)
+ 	   					  {       
+ 	   					if($('#'+question.quesId+'-qstRockCount').hasClass('downrocks-message'))
+ 		            	{
+ 		            		$('#'+question.quesId+'-qstRockCount').removeClass('downrocks-message');
+ 		            		$('#'+question.quesId+'-qstRockCount').addClass('uprocks-message');
+ 		            	}
+ 		            	else
+ 		            	{
+ 		            		$('#'+question.quesId+'-qstRockCount').removeClass('uprocks-message');
+ 		            		$('#'+question.quesId+'-qstRockCount').addClass('downrocks-message');
+ 		            	}
+ 		            	
+ 		            	
+ 		            	}
  	   					 
  	   				   }
 		   		   }
