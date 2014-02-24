@@ -18,8 +18,8 @@ define([
 			'click #filter-answered': 'filterHandler', 
 			'click #filter-myquestions': 'filterHandler', 
 			'submit .question-form': 'searchQuestions',
-			'click .popout': 'popout',
-			'click .minimize': 'minimize',
+			
+			
 	
 			
 		},
@@ -41,49 +41,9 @@ define([
 			this.render();
 		},
 			
-		popout:function(){
-			
-			$("#messageListView").hide();
-			$("#questionListView").css("display","block");
-			$("#questionListView").css("visibility","visible");
-			$( "#questionStreamView" ).animate({"margin-right": '-=254'}, 1000);
-			$("#sidequestionexpand").animate({"margin-right": '-=254'}, 1000);
-		},
 		
 		
-		/* Miimize left question stream*/
-		minimize:function(){
 		
-			$("#messageListView").show();
-			$("#questionListView").css("display","none");
-
-							$('#discussions-link').css('display', 'block');
-							$('#discussions-link').css('padding', '0');
-							$('#discussions-link').css('text-decoration','none');
-							$('#flipQuestion').css('display', 'none');
-							$('#questions-icon').css('display', 'none');
-
-			$("#questionListView").css("visibility","hidden");
-			/*$("#questionStreamView").hide();*/
-			/*$("#questionStreamView").css("visibility","hidden");*/
-		/*	 $( "#questionStreamView" ).animate({
-				    width: "0%",
-				    opacity: 0,
-				    visibility:"hidden",
-				    	display:"none"
-				    
-				  }, 1500 );*/
-			
-			//$( "#questionStreamView" ).toggle("slide", { direction: "right" }, 2000);
-			//$(".body").css("padding-right","0");
-			$(".chatbox").css("right","40");
-			//$("#topheader").css("padding-right","0");
-			
-			$("#sidequestionexpand").css("opacity","1");
-			$( "#questionStreamView" ).animate({"margin-right": '-=300'}, 1000);
-			$("#sidequestionexpand").animate({"margin-right": '-=300'}, 1000);
-			
-		},
 		
 		
 		
