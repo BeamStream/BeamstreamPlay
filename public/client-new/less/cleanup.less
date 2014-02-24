@@ -2282,7 +2282,7 @@ text-decoration:none
 .settings-menu {
 text-align:center;
 float:left;
-position: absolute;
+position: relative;
 display: block;
 left: 13;
 right: 0;
@@ -10594,7 +10594,7 @@ color:#827e7e
 	padding: 1px 0 0 0;
 }
 
-#questions-icon, .new-google-btn .google-doc-icn, .new-google-btn .question-icn, .google-plus, .twitter, .facebook, .linkedin, .plus, .menu-arrow:active .menu-arrow:hover, #sort_by_key > span {
+#questions-icon, #rate-lecturer-question-icon, .new-google-btn .google-doc-icn, .new-google-btn .question-icn, .google-plus, .twitter, .facebook, .linkedin, .plus, .menu-arrow:active .menu-arrow:hover, #sort_by_key > span {
     background: url(../../beamstream-new/images/spryte.png) no-repeat;
 }
 .google-plus :hover,.twitter :hover,.facebook :hover,.linkedin :hover,.plus :hover {
@@ -10856,13 +10856,47 @@ margin: 30px 8px 8px 0px;}
 
 
 #sidequestionexpand{
-background: #ecf1f5;
-position: fixed;
-height: 200px;
-width: 40px;
-top: 200;
-right: 254px;
-border-radius:10px 0px 0px 10px;
-box-shadow:-4px 0px 27px #909699;
-z-index:150;
+	background: #ecf1f5;
+	position: fixed;
+	height: 53px;
+	width: 55px;
+	top: 114;
+	right: 253px;
+	border-radius: 10px 0px 0px 10px;
+	-webkit-box-shadow: -7px 10px 8px rgba(0, 0, 0, 0.1);
+	-moz-box-shadow: -7px 10px 8px rgba(0, 0, 0, 0.1);
+	box-shadow: -7px 10px 8px rgba(0, 0, 0, 0.1);
+	border-color: rgba(0, 0, 0, 0.49);
+	border: 1px 0px 1px 1px;
+	z-index: 150;
+	border-left: solid 1px rgba(0, 0, 0, 0.49);
+	border-top: solid 1px rgba(0, 0, 0, 0.49);
+	border-bottom: solid 1px rgba(0, 0, 0, 0.49);
+}
+
+#number-new-questions-container {
+	background-color: #5199e1;
+	width: 49px;
+	height: 42px;
+	position: relative;
+	top: 5;
+	left: 6;
+	border-radius: 5px;
+}
+
+#rate-lecturer-question-icon {
+	height: 21px;
+	width: 20px;
+	background-position: -250px -970px;
+	text-align: center;
+	position: relative;
+	left: 15;
+	top: 1;
+}
+
+#number-new-questions {
+	color: white;
+	text-align: center;
+	font-weight: 300;
+	font-size: 84%;
 }
