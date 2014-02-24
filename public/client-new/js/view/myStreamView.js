@@ -26,6 +26,7 @@ define(
 							'click .publishGdocs' : 'showsidebar',
 							'click #closepublishsidebar' : 'hidePublishSidebar',
 							'click #questionsLink' : 'fliptoQuestion',
+							'click #questions-poll-Link' : 'fliptoQuestion',
 							'click #discussions-link' : 'fliptoDiscussion',
 							'keypress #Q-area' : 'fliptoDiscussionfromquestion' ,
 							'click .popout': 'popout',
@@ -90,35 +91,35 @@ define(
 
 						},
 						
-						popout:function(){
-							
+						popout:function(){	
 	
-							
-						$("#messageListView").hide();
-						$("#questionListView").css("display","block");
-						$("#questionListView").css("visibility","visible");
-						$( "#questionStreamView" ).animate({"margin-right": '-=254'}, 1000);
-						$("#sidequestionexpand").animate({"margin-right": '-=254'}, 1000);
+										$("#messageListView").hide();
+										$("#questionListView").css("display","block");
+										$("#questionListView").css("visibility","visible");
 						
-						
-							
-							
+										$('#discussions-link').css('display', 'block');
+										$('#discussions-link').css('padding', '0');
+										$('#discussions-link').css('text-decoration','none');
+										$('#flipQuestion').css('display', 'none');
+										$('#questions-icon').css('display', 'none');
 
+						
+										$( "#questionStreamView" ).animate({"margin-right": '-=320'}, 1000);
+										$("#sidequestionexpand").animate({"margin-right": '-=320'}, 1000);
+						
 						},
 						
 
 	/* Miimize left question stream*/
 	minimize:function(){
-	
+		
+		$( "#questionStreamView" ).animate({"margin-right": '-=254'}, 1000);
+		$("#sidequestionexpand").animate({"margin-right": '-=254'}, 1000);
+		
 		$("#messageListView").show();
 		$("#questionListView").css("display","none");
 
-						$('#discussions-link').css('display', 'block');
-						$('#discussions-link').css('padding', '0');
-						$('#discussions-link').css('text-decoration','none');
-						$('#flipQuestion').css('display', 'none');
-						$('#questions-icon').css('display', 'none');
-
+			
 		$("#questionListView").css("visibility","hidden");
 		/*$("#questionStreamView").hide();*/
 		/*$("#questionStreamView").css("visibility","hidden");*/
@@ -136,8 +137,7 @@ define(
 		//$("#topheader").css("padding-right","0");
 		
 		$("#sidequestionexpand").css("opacity","1");
-		$( "#questionStreamView" ).animate({"margin-right": '-=300'}, 1000);
-		$("#sidequestionexpand").animate({"margin-right": '-=300'}, 1000);
+		
 		
 	},
 
@@ -147,11 +147,11 @@ define(
 						},
 
 						fliptoQuestion : function() {
-							//$('#discussions-link').css('display', 'block');
-							//$('#discussions-link').css('padding', '0');
-							//$('#discussions-link').css('text-decoration','none');
-							//$('#flipQuestion').css('display', 'none');
-							//$('#questions-icon').css('display', 'none');
+							$('#discussions-link').css('display', 'block');
+							$('#discussions-link').css('padding', '0');
+							$('#discussions-link').css('text-decoration','none');
+							$('#flipQuestion').css('display', 'none');
+							$('#questions-icon').css('display', 'none');
 						},
 
 						fliptoDiscussion : function() {
@@ -160,12 +160,12 @@ define(
 							$('#questions-icon').css('margin-top', '-2px');
 							$('#flipQuestion').css('display', 'block');
 							$('#questions-icon').css('display', 'block');
-							//$("#messageListView").show();
-							//$("#questionListView").css("display","none");
+							$("#messageListView").show();
+							$("#questionListView").css("display","none");
 							var position = $("#sidequestionexpand").css("margin-right");
-								if (position == "-300px"){
-									$( "#questionStreamView" ).animate({"margin-right": '+=300'}, 1000);
-									$("#sidequestionexpand").animate({"margin-right": '+=300'}, 1000);
+								if (position == "-320px"){
+									$( "#questionStreamView" ).animate({"margin-right": '+=320'}, 1000);
+									$("#sidequestionexpand").animate({"margin-right": '+=320'}, 1000);
 									
 								}
 								//$( "#questionStreamView" ).animate({"margin-right": '+=300'}, 1000);
@@ -742,6 +742,10 @@ define(
 							}
 
 						},
+						
+						
+						
+						
 
 					})
 			return MyStreamView;

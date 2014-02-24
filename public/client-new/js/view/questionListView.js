@@ -40,7 +40,6 @@ define(['view/formView',
          * display messages
          */
         displayPage: function(callback){
-             
 			/* render messages */
         	_.each(this.data.models, function(model) {
 				var questionItemView  = new QuestionItemView({model : model});
