@@ -106,7 +106,8 @@ define(
 						
 										$( "#questionStreamView" ).animate({"margin-right": '-=320'}, 1000);
 										$("#sidequestionexpand").animate({"margin-right": '-=320'}, 1000);
-						
+										$('#topheader').css('padding-right','0');
+										$('.header-profile').css('margin','-5px 267px -17px 0px');
 						},
 						
 
@@ -138,7 +139,8 @@ define(
 		
 		$("#sidequestionexpand").css("opacity","1");
 		
-		
+		$('#topheader').css('padding-right','0');
+		$('.header-profile').css('margin','-5px 267px -17px 0px');
 	},
 
 
@@ -204,6 +206,8 @@ define(
 								 	$("#sidequestionexpand").animate({"margin-right": '+=254'}, 1000);
 								 	// $("#sidequestionexpand").animate({"margin-right": '+=254'});
 								 	// $("#sidequestionexpand").css("margin-right","0px");
+								 	$('#topheader').css('padding-right','19px');
+								 	$('.header-profile').css('margin','-5px 248px -17px 0px');
 							 }
 						},
 						
