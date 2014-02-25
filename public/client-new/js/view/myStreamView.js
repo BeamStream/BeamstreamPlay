@@ -108,6 +108,23 @@ define(
 										$("#sidequestionexpand").animate({"margin-right": '-=320'}, 1000);
 										$('#topheader').css('padding-right','0');
 										$('.header-profile').css('margin','-5px 267px -17px 0px');
+										
+										
+
+										view = this.getViewById('questionListView');
+								view.myStreams = this.getViewById('sidebar').myStreams;
+							view.myStreams = this
+											.getViewById('sidebar').myStreams;
+									view.data.url = "/getAllQuestionsForAStream/"
+											+ this.getViewById('sidebar').streamId
+											+ "/date/"
+											+ view.messagesPerPage
+											+ "/" + view.pageNo;
+											
+									view.fetch();
+						
+							
+
 						},
 						
 
@@ -185,7 +202,8 @@ define(
 							  $("#questionListView").css("display","none");
 							 
 
-							/* $("#questionListView").css("visibility","hidden"); */
+						/* $("#questionListView").css("visibility","hidden"); */
+					
 							/* $("#questionStreamView").hide(); */
 							/* $("#questionStreamView").css("visibility","hidden"); */
 							/*
@@ -704,6 +722,7 @@ define(
 						tabHandler : function(e) {
 							var tabId = $(e.target).attr('href').replace('#',
 									''), view;
+						
 
 							if (tabId == 'discussionsView') {
 
@@ -734,12 +753,12 @@ define(
 								if (view) {
 									view.myStreams = this
 											.getViewById('sidebar').myStreams;
-
 									view.data.url = "/getAllQuestionsForAStream/"
 											+ this.getViewById('sidebar').streamId
 											+ "/date/"
 											+ view.messagesPerPage
 											+ "/" + view.pageNo;
+											
 									view.fetch();
 
 								}
