@@ -12,6 +12,9 @@ define(['view/formView',
 		
 		events:{
 			'click #sortQuestionBy-list' : 'sortQuestions',
+			
+'focus #Q-area' : 'showAskButton',
+'blur #Q-area' : 'hideAskButton',
 			'keypress #sortQ_by_key' : 'sortQuestionsByKey',
 			'click #sortQueByDate-list' : 'sortQuestionsWithinAPeriod',
 			'click #share-discussions li a' : 'actvateShareIcon',
@@ -110,7 +113,21 @@ define(['view/formView',
 				}
 			 });
         },
+        
+        showAskButton: function(){
+	
+        			$('#Q-area').css('padding','7.5% 18% 6% 2%');
+        			$('#Q-area').css('margin','0 0 24px 22px');
+        				$('a#post-question').css('visibility','visible');
+        		},
 
+hideAskButton:function(){
+	setTimeout(function(){
+		 $('#Q-area').css('padding','4px 6px');
+        	$('#Q-area').css('margin','-1px 0 -5px 14px');
+        	$('a#post-question').css('visibility','hidden');
+			},125)
+ 	},
         /**
 		 * append messages to message list on pagination 
 		 */

@@ -437,14 +437,36 @@ header, footer){
 							</div>
 						</div>
 						<div class="ask-info">
-							<div class="ask-comment ask-type-area ">
+							<div class="ask-comment" id="type-status-comment">
 								<div class="ask-left">
-									<form class="question-ask" action="">
+									<form class="question-ask ask-disccution" action="">
 										<textarea id="Q-area" name="" cols="" rows=""
 											class="question-ask-search"
 											placeholder="Ask your own question here....."
 											onfocus="this.placeholder = ''"
 											onblur="this.placeholder = 'Ask your question here??'"></textarea>
+											
+											
+											<div id="upload-files1" class="btn-group attach-drop ">
+									<button id="upload-files2"
+										class="attach-drop-button drag-rectangle attach-drop-bg"
+										data-toggle="dropdown" data-original-title="Upload Files">
+									</button>
+									<ul id="discussion-file-upload"
+										class="dropdown-menu  attach-dropdwon">
+										<li><a href="#">Class Document</a></li>
+										<li><a href="#">Assignment</a></li>
+										<li><a href="#">Homework </a></li>
+										<li><a href="#">Notes</a></li>
+										<li><a href="#">Project</a></li>
+										<li><a href="#">Lecture </a></li>
+										<li><a href="#">Reference Material</a></li>
+										<li><a href="#">Tutorial</a></li>
+										<li><a href="#">EdTech Tool </a></li>
+										<li><a href="#">Amusement</a></li>
+										<input type="text" placeholder="+Add a new category">
+									</ul>
+								</div>
 									</form>
 
 
@@ -472,26 +494,7 @@ header, footer){
 								<div id="file-upload-loader" style="display: none;">
 									<!--<img src ="images/loading.gif"> -->
 								</div>
-								<div id="upload-files1" class="btn-group attach-drop ">
-									<button id="upload-files2"
-										class="attach-drop-button drag-rectangle attach-drop-bg"
-										data-toggle="dropdown" data-original-title="Upload Files">
-									</button>
-									<ul id="discussion-file-upload"
-										class="dropdown-menu  attach-dropdwon">
-										<li><a href="#">Class Document</a></li>
-										<li><a href="#">Assignment</a></li>
-										<li><a href="#">Homework </a></li>
-										<li><a href="#">Notes</a></li>
-										<li><a href="#">Project</a></li>
-										<li><a href="#">Lecture </a></li>
-										<li><a href="#">Reference Material</a></li>
-										<li><a href="#">Tutorial</a></li>
-										<li><a href="#">EdTech Tool </a></li>
-										<li><a href="#">Amusement</a></li>
-										<input type="text" placeholder="+Add a new category">
-									</ul>
-								</div>
+								
 
 
 								<div id="upload-files1" class="btn-group attach-drop "
