@@ -12,16 +12,15 @@ define(['view/formView',
 		
 		events:{
 			'click #sortQuestionBy-list' : 'sortQuestions',
-			
-'focus #Q-area' : 'showAskButton',
-'blur #Q-area' : 'hideAskButton',
+			'focus #Q-area' : 'showAskButton',
+			'blur #Q-area' : 'hideAskButton',
 			'keypress #sortQ_by_key' : 'sortQuestionsByKey',
 			'click #sortQueByDate-list' : 'sortQuestionsWithinAPeriod',
 			'click #share-discussions li a' : 'actvateShareIcon',
 			'click #Q-privatelist li' :'selectPrivateToList',
 			'click #post-question' : 'postQuestion',
 			'focus .showpolloption' : 'addPollOptionsArea',
-			/*'click .add-poll' : 'addPollOptionsArea',*/
+			/* 'click .add-poll' : 'addPollOptionsArea', */
 			'click .add-option' : 'addMorePollOptions',
 			'click #Q-private-to' : 'checkPrivateAccess',
 			'click #question-file-upload li' : 'uploadFiles',
@@ -67,7 +66,8 @@ define(['view/formView',
 					   if(t.length != 0)
 					   {
 					   		
-					   		// var questionSortedType = $('#sortQuestionBy-select').attr('value');
+					   		// var questionSortedType =
+							// $('#sortQuestionBy-select').attr('value');
 							$('#question-pagination').show();
 							var streamId = $('.sortable li.active').attr('id');
 
@@ -124,12 +124,18 @@ define(['view/formView',
 hideAskButton:function(){
 	setTimeout(function(){
 		 $('#Q-area').css('padding','4px 6px');
-        	$('#Q-area').css('margin','-1px 0 -5px 14px');
+        	$('#Q-area').css('margin','1px 0 -5px 14px');
         	$('a#post-question').css('visibility','hidden');
-			},125)
+			},125);
+		if ($(".showpolloption").is(":visible")){
+			$('#pollArea').slideUp(700); 
+			$('textarea#Q-area').attr('placeholder','Click here to add a poll ...');
+		}else{
+			$('textarea#Q-area').attr('placeholder','Ask your own question here...');
+		}
  	},
         /**
-		 * append messages to message list on pagination 
+		 * append messages to message list on pagination
 		 */
 		 appendMessages : function(){
 		 	this.data.models[0].fetch({
@@ -166,7 +172,8 @@ hideAskButton:function(){
 					            	self.color += .1;
 
 
-					            	 //check whether the user is already voted or not
+					            	 // check whether the user is already
+										// voted or not
 			            			 _.each(poll.voters, function(voter) {
 			            				  
 			            				 if(voter.id == localStorage["loggedUserId"])
@@ -186,7 +193,7 @@ hideAskButton:function(){
 				
 							 	}
 
-							 	//disable the polling option if already polled
+							 	// disable the polling option if already polled
 			            		 if(isAlreadyVoted == true)
 			            		 {
 			            			 $("input[id="+myAnswer+"]").attr('checked',true);
@@ -203,8 +210,8 @@ hideAskButton:function(){
 		 },
 
         /**
-        * post question on enter key press
-        */
+		 * post question on enter key press
+		 */
         postQuestionOnEnterKey: function(eventName){
 			var self = this;
 	    	
@@ -260,8 +267,8 @@ hideAskButton:function(){
         },
 
         /**
-    	 * generate bitly and preview for url
-    	 */
+		 * generate bitly and preview for url
+		 */
     	generateBitly: function(links){
     		var self = this;
     		var questionText = $('#Q-area').val();
@@ -283,13 +290,13 @@ hideAskButton:function(){
 		    		urlLink =links[0];
 		     	}
 					 
-				//To check whether it is google docs or not
+				// To check whether it is google docs or not
 				if(!urlLink.match(/^(https:\/\/docs.google.com\/)/))  
 	            { 
-					/* don't create bitly for shortened  url */
+					/* don't create bitly for shortened url */
 					if(!urlLink.match(/^(http:\/\/bstre.am\/)/))
 					{
-						/* create bitly  */
+						/* create bitly */
 						$.ajax({
 			    			type : 'POST',
 			    			url : "bitly",
@@ -307,7 +314,8 @@ hideAskButton:function(){
 			    		});
                                                 
                         var preview = {
-                            // Instead of posting to the server, send the object to display for
+                            // Instead of posting to the server, send the object
+							// to display for
                             // rendering to the feed.
                             submit : function(e, data){
                               e.preventDefault();
@@ -323,8 +331,8 @@ hideAskButton:function(){
 
         
         /**
-         *   Sort questions
-         */
+		 * Sort questions
+		 */
 		sortQuestions: function(eventName){
         	
         	eventName.preventDefault();
@@ -348,7 +356,7 @@ hideAskButton:function(){
         },
 
         /**
-		 *  sort questions by keyword
+		 * sort questions by keyword
 		 */
 	 	sortQuestionsByKey :function(eventName){
 			
@@ -376,22 +384,22 @@ hideAskButton:function(){
 		 },
         
         /**
-         *  sort questions within a period 
-         */
+		 * sort questions within a period
+		 */
         sortQuestionsWithinAPeriod: function(eventName){
         	eventName.preventDefault();
         	$('#sortQueByDate-select').text($(eventName.target).text());
         },
  
         /**
-         *select private to class options
-         */
+		 * select private to class options
+		 */
         selectPrivateToList: function(eventName){
         	
         	eventName.preventDefault();
         	$('#Q-privateTo-select').text($(eventName.target).text());
         	
-        	//uncheck private check box when select Public
+        	// uncheck private check box when select Public
         	if($(eventName.target).text() == "Public")
         	{
         		$('#Q-private-to').attr('checked',false);
@@ -405,8 +413,8 @@ hideAskButton:function(){
         },
         
         /**
-         * activate share icon on selection
-         */
+		 * activate share icon on selection
+		 */
         actvateShareIcon: function(eventName){
         	
         	eventName.preventDefault();
@@ -429,8 +437,8 @@ hideAskButton:function(){
         },
         
         /**
-         *select Private / Public ( social share ) options 
-         */
+		 * select Private / Public ( social share ) options
+		 */
         checkPrivateAccess: function (eventName) {
         	var streamName = $('.sortable li.active').attr('name');
         	
@@ -448,8 +456,8 @@ hideAskButton:function(){
         },
 
         /**
-   	  	* show  Upload files option when we select category
-   	  	*/
+		 * show Upload files option when we select category
+		 */
    	 	uploadFiles: function(eventName){
    	 		
    	 		eventName.preventDefault();
@@ -458,8 +466,8 @@ hideAskButton:function(){
    	 	},
 
    	 	/**
-         * get files data to be upload
-         */
+		 * get files data to be upload
+		 */
         getUploadedData: function(e){
         	
         	var self = this;;
@@ -469,7 +477,7 @@ hideAskButton:function(){
         	/* capture the file informations */
             reader.onload = (function(f){
             	self.file = file;
-            	self.bar = $('.bar');        //progress bar
+            	self.bar = $('.bar');        // progress bar
                 self.bar.width('');
                 self.bar.text("");
                 clearInterval(self.progress);
@@ -478,25 +486,25 @@ hideAskButton:function(){
             	
             })(file);
  
-            // read the  file as data URL
+            // read the file as data URL
             reader.readAsDataURL(file);
 
         },
 
         /**
-		 * function for post questions 
+		 * function for post questions
 		 */
 		postQuestion: function(eventName){
 			
 			
-			// upload file 
+			// upload file
 	        var self = this;
 	        var streamId =  $('.sortable li.active').attr('id');
 	        var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
 	        var question = $('#Q-area').val();
 	        
 	      
-	        //get message access private ? / public ?
+	        // get message access private ? / public ?
 	        var questionAccess,googleDoc = false;
 	        var queAccess =  $('#Q-private-to').attr('checked');
 	        var privateTo = $('#Q-privateTo-select').text();
@@ -519,7 +527,7 @@ hideAskButton:function(){
 		    
 		    var trueUrl='';
 		    if(streamId){
-		    	/* if there is any files for uploading  */ 
+		    	/* if there is any files for uploading */ 
 		        if(this.file ){
 		        	
 		        	$('.progress-container').show();
@@ -594,13 +602,15 @@ hideAskButton:function(){
 		  	               
 		  	                // /* Pubnub auto push */
 		  	                // PUBNUB.publish({
-		  	                // 	channel : "stream",
-		  	                // 	message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:self.data.models[0]}
-		  	                // }) 
+		  	                // channel : "stream",
+		  	                // message : { pagePushUid: self.pagePushUid
+							// ,streamId:streamId,data:self.data.models[0]}
+		  	                // })
 							
 							var questionItemView  = new QuestionItemView({model : self.data.models[0]});
 							$('#questionListView div.content').prepend(questionItemView.render().el);
-							//$('#questionStreamView div.baseview').prepend(questionItemView.render().el);
+							// $('#questionStreamView
+							// div.baseview').prepend(questionItemView.render().el);
 			  	               
 							self.file = "";
 	 						
@@ -619,7 +629,7 @@ hideAskButton:function(){
 		        	if(question.match(/^[\s]*$/))
  			        		 return;
 		        	 	
-		        	 	//find link part from the message
+		        	 	// find link part from the message
 		        	 	question = $.trim(question);
 		  		        var link =  question.match(self.urlReg); 
 
@@ -645,10 +655,11 @@ hideAskButton:function(){
 		  	                    return questionUrl;
 		  	                });
 		  	                
-		  	                //To check whether it is google docs or not
+		  	                // To check whether it is google docs or not
 		  	                if(!urlLink.match(/^(https:\/\/docs.google.com\/)/))   
 		  	                {
-		  	                	// check the url is already in bitly state or not 
+		  	                	// check the url is already in bitly state or
+								// not
 		  	                	if(!urlLink.match(/^(http:\/\/bstre.am\/)/))
 		  	                    {                                     
 		  	                		/* post url information */                           
@@ -670,15 +681,15 @@ hideAskButton:function(){
 	  	                         {  
 	  	                         	self.postQuestionToServer(question,streamId,questionAccess,googleDoc);
 	  	                         }
-	                 		 }  //doc
-		  	                 else    //case: for doc upload
+	                 		 }  // doc
+		  	                 else    // case: for doc upload
 		  	                 {     
 		  	                 	googleDoc = true;
 		  	                 	self.postQuestionToServer(question,streamId,questionAccess,googleDoc);
 	  	                	 	
 		  	                 }
 	                     }
-		                 //case: link is not present in message
+		                 // case: link is not present in message
 		                 else
 		                 {    
 		                 	self.postQuestionToServer(question,streamId,questionAccess,googleDoc);         
@@ -707,7 +718,7 @@ hideAskButton:function(){
 		},
 		
 		/**
-		 * function  to add more poll options
+		 * function to add more poll options
 		 */
 		addMorePollOptions : function(eventName){
 			
@@ -724,8 +735,8 @@ hideAskButton:function(){
 		 
 		 
 		 /**
-	   	  * POST question details to server 	
-	   	  */
+			 * POST question details to server
+			 */
 		 postQuestionToServer: function(question,streamId,questionAccess,googleDoc){
 		 	var self = this;
 		 	this.data.models[0] = new QuestionModel();
@@ -757,7 +768,8 @@ hideAskButton:function(){
 				    		}) 
 			    		var questionItemView  = new QuestionItemView({model : self.data.models[0]});
 						$('#questionListView div.content').prepend(questionItemView.render().el);
-						//$('#questionStreamView div.baseview').prepend(questionItemView.render().el);
+						// $('#questionStreamView
+						// div.baseview').prepend(questionItemView.render().el);
 			    		 						
  						/* share widget */ 						
  				    	if(self.selected_medias.length != 0){
@@ -855,7 +867,8 @@ hideAskButton:function(){
 				    		// show the posted message on feed
 				    		var questionItemView  = new QuestionItemView({model : self.data.models[0]});
 							$('#questionListView div.content').prepend(questionItemView.render().el);
-							//$('#questionStreamView div.baseview').prepend(questionItemView.render().el);
+							// $('#questionStreamView
+							// div.baseview').prepend(questionItemView.render().el);
 							/* share widget */ 						
 					    	 if(self.selected_medias.length != 0){
 					    	 	 _.each(self.data.models[0], function(data) {				    	 		 
@@ -890,8 +903,9 @@ hideAskButton:function(){
 			 
 			 
 		 /**
-		 * common function for dispaying question after post  (for / auto push ) 
-		 */
+			 * common function for dispaying question after post (for / auto
+			 * push )
+			 */
 		 showQuestion : function(streamId,data){
 			
 			 var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
@@ -908,7 +922,7 @@ hideAskButton:function(){
         	 $('.drag-rectangle').tooltip();	
         	 var pollCount = data.polls.length;
         	 this.color = 0;
-        	 //render each poll options and its polling percentage
+        	 // render each poll options and its polling percentage
         	 if(pollCount > 0)
         	 {
         		 $('#'+data.question.id.id+'-Answer').hide();
@@ -919,8 +933,8 @@ hideAskButton:function(){
   		
   		
   		/**
-	     * PUBNUB real time push
-	     */
+		 * PUBNUB real time push
+		 */
 		 setupPushConnection: function() {
 			 var self = this;
 			 self.pagePushUid = Math.floor(Math.random()*16777215).toString(16);
@@ -948,8 +962,8 @@ hideAskButton:function(){
 							   /* set the values to Question Model */
 							   questionModel = new QuestionModel();
 							   questionModel.set({
-//								   docDescription :question.data.docDescription,
-//								   docName : question.data.docName,
+// docDescription :question.data.docDescription,
+// docName : question.data.docName,
 								   question : question.data.question,
 								   questionAccess : question.data.questionAccess,
 								   profilePic : question.data.profilePic,
@@ -984,7 +998,7 @@ hideAskButton:function(){
  								 var values = [];
  								 $('input#'+question.data.id.id+'-voteCount').val(question.data.voters.length);
  			                     
- 			                     //get all poll options vote count
+ 			                     // get all poll options vote count
  			                     $('input.'+question.questionId+'-polls').each(function() {
  			                     	values.push(parseInt($(this).val()));
  			                 	 });
@@ -1022,7 +1036,7 @@ hideAskButton:function(){
 		 					 
 		 					$('#'+question.parent+'-addComments').slideUp(200);
 		 			  		
-		 				    /* display the posted comment  */
+		 				    /* display the posted comment */
 		 		    		var compiledTemplate = Handlebars.compile(QuestionComment);
 		 		    		$('#'+question.parent+'-allComments').prepend(compiledTemplate({data:question.data, profileImage:question.profileImage}));
 		 		    		
@@ -1056,7 +1070,7 @@ hideAskButton:function(){
 		 				   {
 		 					$('#'+answer.parent+'-addAnswer').slideUp(200);
 		 			  		
-		 				    /* display the posted comment  */
+		 				    /* display the posted comment */
 		 		    		var compiledTemplate = Handlebars.compile(QuestionAnswer);
 		 		    		$('#'+answer.parent+'-allAnswers').prepend(compiledTemplate({data:answer.data, profileImage:question.profileImage}));
 		 		    		
@@ -1095,11 +1109,11 @@ hideAskButton:function(){
 		 				   if(!document.getElementById(question.data.id.id))
 		 				   {
 		 					 
-		 					//$('#'+question.parent+'-addComments').slideUp(200);
+		 					// $('#'+question.parent+'-addComments').slideUp(200);
 		 			  		
-		 				    /* display the posted comment  */
+		 				    /* display the posted comment */
 		 		    		var compiledTemplate = Handlebars.compile(QuestionComment);
-		 		    		//$('#'+question.questionId+'-allComments').prepend(compiledTemplate({data:question.data}));
+		 		    		// $('#'+question.questionId+'-allComments').prepend(compiledTemplate({data:question.data}));
 		 		    		if($('#'+question.questionId+'-allAnswers').is(':visible'))
 		 					{
 		 						$('#'+question.questionId+'-allAnswers').hide();
@@ -1111,7 +1125,7 @@ hideAskButton:function(){
 		 		    		
 		 		    		if($('#'+question.questionId+'-allComments').is(':visible'))
 		 					{  
-		 						//$('#'+question.questionId+'-msgRockers').slideUp(1);
+		 						// $('#'+question.questionId+'-msgRockers').slideUp(1);
 		 						$('#'+question.questionId+'-newCommentList').slideDown(1);
 		 						$('#'+question.questionId+'-newCommentList').prepend(compiledTemplate({data:question.data, profileImage:question.profileImage}));
 		 						
@@ -1148,9 +1162,9 @@ hideAskButton:function(){
 								   {
 								   
 								   
-									//$('#'+answer.parent+'-addAnswer').slideUp(200);
+									// $('#'+answer.parent+'-addAnswer').slideUp(200);
 							  		
-								    /* display the posted comment  */
+								    /* display the posted comment */
 						  		var compiledTemplate = Handlebars.compile(QuestionAnswer);
 						  		
 						  		if($('#'+answer.questionId+'-allComments').is(":visible"))
@@ -1231,7 +1245,7 @@ hideAskButton:function(){
  	   			   callback : function(question) {
  	   				   if(question.pagePushUid != self.pagePushUid)
  	   				   { 
- 	   					  // alert(JSON.stringify(question)); 
+ 	   					  // alert(JSON.stringify(question));
  	   					  $('#'+question.quesId+'-qstRockCount').find('span').html(question.data);
  	   					  
  	   					  if(localStorage["loggedUserId"]==question.ownerId)
@@ -1267,7 +1281,7 @@ hideAskButton:function(){
 		   		   }
 	   		   })
 
-	   		    /* for delete question  case*/
+	   		    /* for delete question case */
  	   		   PUBNUB.subscribe({
 		
  	   			   channel : "deleteQuestionMainStream",
@@ -1281,7 +1295,7 @@ hideAskButton:function(){
 		   		   }
 	   		   })
 
-	   		    /* for delete comment  case*/
+	   		    /* for delete comment case */
  	   		   PUBNUB.subscribe({
 		
  	   			   channel : "delete_ques_Comment",
