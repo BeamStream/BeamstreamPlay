@@ -123,12 +123,12 @@ define(['view/formView',
 
 hideAskButton:function(){
 	setTimeout(function(){
-		 $('#Q-area').css('padding','4px 6px');
+			$('#Q-area').css('padding','4px 6px');
         	$('#Q-area').css('margin','1px 0 -5px 14px');
         	$('a#post-question').css('visibility','hidden');
 			},125);
 		if ($(".showpolloption").is(":visible")){
-			$('#pollArea').slideUp(700); 
+		//	$('#pollArea').slideUp(700); 
 			$('textarea#Q-area').attr('placeholder','Click here to add a poll ...');
 		}else{
 			$('textarea#Q-area').attr('placeholder','Ask your own question here...');
