@@ -5,7 +5,7 @@
 	<div class="display-stream">
 		<div class="btn-group stream-dropdown">
 			<button class="btn display-dropdown">Class Streams</button>
-            <button class="btn display-toggle" data-toggle="dropdown"> <span class="caret display-caret"></span></button>
+            <button class="btn display-toggle" data-toggle="dropdown" id="stream-nav-dropdown"> <span class="caret display-caret"></span></button>
             <ul class="dropdown-menu display-sub">
                 <li><a href="#">Class Streams</a></li>
                 <!--
@@ -17,7 +17,17 @@
                 <li><a href="#">Major Streams</a></li>   
                 -->                  
             </ul>
-						<a href="#" data-value = "active" class="done">EDIT </a> </div>
+            <div id="show-stream-types"  class="straem-block"> 
+                <a  id="streams-list-block" href="/class">
+                  
+                    <span id="create-stream" class="text">New Stream</span>
+                </a>               
+               
+            </div>
+						<a href="#" data-value = "active" class="done">
+							<span id="edit-stream-nav"></span>
+						</a> 
+						</div>
         </div>
         
         
@@ -39,12 +49,6 @@
                 </div>
                 <div class="arrow-block arrow-block-down"></div>
             </div>
-            <div id="show-stream-types"  class="straem-block"> 
-                <a  id="streams-list-block" href="/class">
-                  
-                    <span id="create-stream" class="text">New Stream</span>
-                </a>               
-               
-            </div>
+
         </div>
 </div> 
