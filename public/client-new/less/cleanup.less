@@ -4893,9 +4893,10 @@ border-bottom:0
 }
 
 .chat-box {
-float: right;
-width: 75%;
-margin-top: -91;
+	float: right;
+	width: 75%;
+	margin-top: -110px; 
+	margin-left: 4px;
 
 }
 
@@ -5234,7 +5235,7 @@ width:100%
 	position: relative;
 	top: 4;
 	z-index: 1;
-	top: -0.5;
+	top: 0.5;
 
 }
 
@@ -5247,19 +5248,30 @@ width:18px
 }
 
 .remove-btn {
--webkit-border-radius:3px;
--moz-border-radius:3px;
-border-radius:3px;
-background:#952525;
-border-bottom:solid 1px #612020;
-color:#fff;
-padding:0 5px;
-position:absolute;
-width:50px!important;
-text-align:center!important;
-right:15px;
-top:5px;
-text-transform:uppercase
+	-webkit-border-radius:3px;
+	-moz-border-radius:3px;
+	border-radius:3px;
+	background:#952525;
+	border-bottom:solid 1px #612020;
+	color:#fff;
+	padding:0 5px;
+	position:absolute;
+	width:50px!important;
+	text-align:center!important;
+	right:15px;
+	top:5px;
+	text-transform:uppercase;
+	border: 1px solid white;
+	top: 3px;
+	left: 160;
+}
+
+#remove-button {
+	color: white;
+	text-overflow: inherit;
+	width: 58px;
+	text-align: center;
+	font-weight: 500;
 }
 
 .remove-btn a {
@@ -5284,7 +5296,6 @@ right:15px;
 top:25px;
 background:0;
 border:0;
-text-decoration:underline
 }
 
 .cancel-btn a {
@@ -5294,8 +5305,16 @@ line-height:20px!important
 }
 
 .cancel-btn:hover {
-background:0;
-text-decoration:none
+	background: 0;
+	text-decoration: underline;
+}
+
+#cancel-link {
+	text-overflow: inherit;
+	color: #fff;
+	width: 57;
+	position: relative;
+	top: -3;
 }
 
 .read-more {
@@ -5389,7 +5408,10 @@ background:#b93737!important
 }
 
 ul.sortable li a.red-active-icon1 {
-background:url(../images/spryte.png) -2px -149px
+	background:url(../images/spryte.png) -2px -149px;
+	color: white;
+	width: 119px;
+	height: 30;
 }
 
 .active-curve {
@@ -10178,7 +10200,7 @@ width:15px
 }
 
 .delete_post:hover {
-background-position:-222px -363px
+background-position:-211px -363px
 }
 
 .delete_post:hover .delete_post {
@@ -10221,12 +10243,6 @@ div.answer-description:hover .delete_answer {
 display:block
 }
 
-.bootbox {
-margin-left:-170px!important;
-width:auto!important;
-top:30%!important
-}
-
 .bootbox a {
 display:inline-block;
 padding:0 10px;
@@ -10246,7 +10262,8 @@ border-radius:5px;
 }
 
 .bootbox a:hover {
-text-decoration:none
+	text-decoration: none;
+	width: 52px;
 }
 
 .comment-ans {
@@ -10622,7 +10639,10 @@ text-align:center
 
 .white-modal-block,
 .bootbox {
-background:#fff!important
+background:#fff!important;
+margin-left: -170px!important;
+width: auto!important;
+top: 30%!important;
 }
 
 .doc-modal {
