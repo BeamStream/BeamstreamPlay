@@ -167,6 +167,7 @@ define(['view/formView',
 				 $('#msg-area').css('padding','4px 6px');
 		        	$('#msg-area').css('margin','-1px 0 -5px 14px');
 		        	$('a.ask-button').css('visibility','hidden');
+		        	$('textarea#msg-area').val('');
 					},125)
 		 	},
 		 

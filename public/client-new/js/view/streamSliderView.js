@@ -110,7 +110,7 @@ define(['baseView',
 		},
         /**
         * slider/scrolling effect for stream list 
-        */
+        	*/
         slider: function(){
         	var self = this;
             var activeDiv = '<div class="active-curve"><img src="" width="20" height="58"></div>';
@@ -286,6 +286,7 @@ define(['baseView',
 	     * render tab contents of selected stream
 	     */
 	    renderTabContents: function(streamId){
+	    	 
 	    	
 	    	// disable the content rendering when the stream list is on edit stage
 	    	if($('a.done').attr('data-value') == "inActive")
@@ -313,6 +314,7 @@ define(['baseView',
 		    
 		    //render active tab contents
 		    var activeTab = $('.stream-tab li.active').attr('id');
+		    
 
 
 	    	if(activeTab=='discussion'){ 
