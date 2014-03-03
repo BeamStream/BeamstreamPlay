@@ -268,6 +268,7 @@ background-clip:padding-box;
 .close-btn,
 .straem-block a span,
 #edit-stream-nav, 
+#question-settings-gear-icon,
 .invite-bottom-btn a.invite-orange-btn span,
 .stream-header h2,
 .mebers,
@@ -326,6 +327,16 @@ border-top-left-radius:0;
 -webkit-border-radius: 6px;
      -moz-border-radius: 6px;
           border-radius: 6px;
+}
+
+#question-settings-gear-icon {
+	background-position: -137px -1310px;
+	float: left;
+	height: 24px;
+	width: 26px;
+	display: inline;
+	position: relative;
+	top: -4;
 }
 
 .dropdown-menu.bottom-up {
@@ -1702,7 +1713,7 @@ border-radius:4px;
 .popover {
 position:absolute;
 top:0;
-left:0;
+left:10;
 z-index:1010;
 display:none;
 max-width:276px;
@@ -2926,7 +2937,7 @@ min-height: 1000px;
 display: block;
 overflow: hidden;
 border-radius: 8px 0px 0px;
-width: 76.4%;
+width: 77.4%;
 float: left;
 margin: 27px 0 0 0;
 padding: 15px 0 0 2.4%;
@@ -5109,10 +5120,12 @@ background:linear-gradient(180deg, rgb(255, 186, 0) 30%, rgb(255, 159, 0) 92%);
 }
 
 .display-sub {
-background:none #323e46;
-border:1px solid #475259;
-margin-top:7px;
-width:83%
+	left: 13 !important;
+	font-size: 11px;
+	font-weight: 500;
+	/* left: 10; */
+	width: 85px;
+	border: 1px solid #49535a;
 }
 
 .display-sub a {
@@ -5136,6 +5149,29 @@ color:#fff;
 text-decoration:none
 }
 
+
+
+.display-sub:after {
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #fff;
+    top: -10px;
+    content: '';
+    left: 50%;
+    margin-left: 19px;
+    position: absolute;
+}
+
+.display-sub:before {
+  border-left: 11px solid transparent;
+  border-right: 11px solid transparent;
+  border-bottom: 11px solid #fff;
+   border-bottom: 10px solid #fff;
+  top: -11px;
+  margin-left: -11px;
+	position: absolute;
+}
+
 .settings-caret {
 border-left:7px solid transparent;
 border-right:7px solid transparent;
@@ -5154,6 +5190,7 @@ border-bottom: 1px solid rgb(195, 198, 202);
 border-left: 1px solid rgb(195, 198, 202);
 border-top-left-radius: 12px;
 border-bottom-left-radius: 12px;
+height: 361px;
 /**background: -moz-linear-gradient(0deg, rgb(234, 237, 240) 50%, rgb(216, 218, 221) 92%);
 background: -webkit-linear-gradient(0deg, rgb(234, 237, 240) 50%, rgb(216, 218, 221) 92%);
 background: -o-linear-gradient(0deg, rgb(234, 237, 240) 50%, rgb(216, 218, 221) 92%);
@@ -5171,8 +5208,34 @@ height:15px;
 width:100%
 }
 
-.arrow-block-down {
-height:0!important
+#nav-arrow-up {
+	border-left: 13px solid transparent;
+	border-right: 13px solid transparent;
+	border-top: 0 dotted;
+	border-bottom: 10px solid #8b979f;
+	display: inline-block;
+	margin-bottom: 7px;
+	margin-right: 0px;
+	position: relative;
+	top: 4;
+	z-index: 1;
+	top: 1.5;
+}
+
+#nav-arrow-down {
+	height:0!important;
+	border-left: 13px solid transparent;
+	border-right: 13px solid transparent;
+	border-bottom: 0 dotted;
+	border-top: 10px solid #8b979f;
+	display: inline-block;
+	margin-bottom: 7px;
+	margin-right: 0px;
+	position: relative;
+	top: 4;
+	z-index: 1;
+	top: -0.5;
+
 }
 
 .close-btn {
@@ -8647,7 +8710,7 @@ width:40%
 .drag-icon {
 	float: left;
 	height: 30px;
-	left: -29px;
+	left: -58px;
 	position: absolute;
 	top: 8px;
 	width: 35px;

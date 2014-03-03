@@ -36,6 +36,7 @@ Note all DIVs are generated and should not be hard-coded
 .simply-scroll-container { /* Container DIV - automatically generated */
 		position: relative;
 		left:-22px;
+		height: 332px;
 	
 }
 
@@ -260,8 +261,10 @@ Note all DIVs are generated and should not be hard-coded
 		border-top: 1px solid #b1b3b6;
 		border-top-left-radius: 12px;
 }
+
 .vert .simply-scroll-btn-up.disabled {
 }
+
 .vert .simply-scroll-btn-down { /* modified btn pos */
 		top: 339px;
 		display:block;
@@ -272,6 +275,7 @@ Note all DIVs are generated and should not be hard-coded
 		width: 100%;
 		border-bottom-left-radius: 12px;
 		border-bottom: 1px solid rgb(195, 198, 207);
+		z-index: 1;
 }
 
 .vert .simply-scroll-btn-down.disabled {
