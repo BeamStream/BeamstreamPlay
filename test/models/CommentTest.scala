@@ -68,23 +68,6 @@ class CommentTest extends FunSuite with BeforeAndAfter {
     }
   }
 
-  //  test("Testing the Visitors Pattern") {
-  //    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, Nil, Nil, Nil, Nil, Nil, None)
-  //    val userId = User.createUser(user)
-  //    val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(userId.get), true, Nil)
-  //    val streamId = Stream.createStream(stream)
-  //    val message = Message(new ObjectId, "some message", Option(Type.Audio), Option(Access.Public), formatter.parse("23-07-12"), user.id, Option(streamId.get), "", "", 0, Nil, Nil, 0, Nil)
-  //    val messageId = Message.createMessage(message)
-  //    val comment = Comment(new ObjectId, "Comment1", new Date, userId.get, user.firstName, user.lastName, 0, Nil)
-  //    val commentId = Comment.createComment(comment)
-  //    Message.addCommentToMessage(commentId, messageId.get)
-  //    assert(Message.findMessageById(messageId.get).get.comments.size === 1)
-  //    val otherComment = Comment(new ObjectId, "Comment2", new Date, userId.get, user.firstName, user.lastName, 0, Nil)
-  //    val otherCommentId = Comment.createComment(otherComment)
-  //    Message.addCommentToMessage(commentId, messageId.get)
-  //    assert(Message.findMessageById(messageId.get).get.comments.size === 2)
-  //
-  //  }
 
   test("Delete The Comments") {
     running(FakeApplication()) {
