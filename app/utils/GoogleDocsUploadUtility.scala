@@ -39,7 +39,8 @@ object GoogleDocsUploadUtility {
    */
   def uploadToGoogleDrive(accessToken: String, fileToUpload: java.io.File, fileName: String, contentType: String): String = {
     val service = prepareGoogleDrive(accessToken)
-    //Insert a file  
+
+    //Insert a file
     val body = new File
     body.setTitle(fileName)
     body.setDescription(fileName)

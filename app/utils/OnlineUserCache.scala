@@ -19,7 +19,7 @@ object OnlineUserCache {
    * Deactivate The User Session
    */
 
-  def setOffline(userIdkey: String) = {
+  def setOffline(userIdkey: String): Any = {
     /* onlineUsers filterNot (List(userIdkey)contains)
         Cache.set("Online Users", onlineUsers)*/
     val onlineUsersFound = OnlineUserDAO.find(MongoDBObject()).toList
@@ -37,7 +37,7 @@ object OnlineUserCache {
    * Activate The User Session (V)
    */
 
-  def setOnline(userIdkey: String, timeStamp: Long) = {
+  def setOnline(userIdkey: String, timeStamp: Long): Object = {
     /*if (onlineUsers.contains(userIdkey) == false) {
           onlineUsers ++= List(userIdkey)
           Cache.set("Online Users", onlineUsers)
@@ -57,7 +57,7 @@ object OnlineUserCache {
   /**
    * List Of All Online Users (V)
    */
-  def returnOnlineUsers = {
+  def returnOnlineUsers: List[utils.OnlineUsers] = {
     /* Cache.get("Online Users")*/
     OnlineUserDAO.find(MongoDBObject()).toList
   }

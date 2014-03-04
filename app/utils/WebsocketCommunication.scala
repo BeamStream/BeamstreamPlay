@@ -25,7 +25,7 @@ case class CannotConnect(msg: String)
 
 class CommunicationRoom extends Actor {
 
-  def receive = {
+  def receive: PartialFunction[Any, Unit] = {
 
     case Join(username) => {
 
