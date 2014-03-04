@@ -93,7 +93,7 @@ class QuestionControllerTest extends FunSuite with BeforeAndAfter {
   test("Follow The Question") {
     running(FakeApplication()) {
       val userId = User.createUser(user)
-      val question = Question(new ObjectId, "How Was the Class ?", new ObjectId, Access.PrivateToClass, Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil, Nil, false, None, None)
+      val question = Question(new ObjectId, "How Was the Class ?", user.id, Access.PrivateToClass, Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil, Nil, false, None, None)
       val questionId = Question.addQuestion(question)
       val result = route(FakeRequest(PUT, "/follow/question/" + questionId.get.toString).withSession("userId" -> userId.get.toString))
       assert(status(result.get) === 200)
