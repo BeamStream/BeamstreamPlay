@@ -79,7 +79,8 @@ object GoogleDocsUploadUtility {
     val service = prepareGoogleDrive(code)
     val body = new File
     body.setMimeType(mimeType)
-    body.setTitle("Beamstream")
+    val docType = mimeType.substring(mimeType.lastIndexOf(".") + 1)
+    body.setTitle("Untitled " + docType)
     val file = service.files.insert(body).execute
     List(file.getAlternateLink, file.getTitle(), file.getThumbnailLink())
   }
