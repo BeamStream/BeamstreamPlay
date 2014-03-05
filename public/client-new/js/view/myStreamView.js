@@ -32,6 +32,7 @@ define(
 							'click .popout': 'popout',
 							'click .minimize': 'minimize',
 							'click #sidequestionexpand': 'restoretonormal',
+							'click #create-google-docs-close': 'askToPublishDocs',
 						},
 						messagesPerPage : 10,
 						pageNo : 1,
@@ -766,6 +767,30 @@ define(
 
 						},
 						
+						askToPublishDocs: function (){
+							
+
+				 			bootbox.dialog("Are you sure you want to publish?", [{
+				
+				 				"label" : "YES",
+				 				"class" : "btn googledocclose",
+				 				
+				 				"callback": function() {	 					
+				 					
+				 					
+				 				}
+				
+				 			 }, 
+				 			 {
+							 	"label" : "NO",
+							 	"class" : "btn googledocclose",
+				 				"callback": function() {
+				 					
+				 					$("#creategoogledoc").modal("hide");
+				 				}
+				 			 }]);
+			 			 
+						},
 						
 						
 						
