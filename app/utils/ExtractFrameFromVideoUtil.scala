@@ -10,17 +10,17 @@ import com.xuggle.mediatool.ToolFactory
 import com.xuggle.mediatool.event.IVideoPictureEvent
 import com.xuggle.xuggler.Global
 import java.io.ByteArrayOutputStream
-import java.awt.image.DataBufferByte
+//import java.awt.image.DataBufferByte
 import java.io.ByteArrayInputStream
 import java.io.InputStream
 
-object ExtractFrameFromVideoUtil  {
-  
+object ExtractFrameFromVideoUtil {
+
   /**
    * Extracting a Frame From Video
    * @param filePath is the path of the Video from which the frame has to be extracted
    */
-  
+
   def extractFrameFromVideo(filePath: String): InputStream = {
     var ip: InputStream = null
     var count = 0
@@ -37,7 +37,7 @@ object ExtractFrameFromVideoUtil  {
 
     class ImageSnapListener extends MediaListenerAdapter {
 
-      override def onVideoPicture(event: IVideoPictureEvent) = {
+      override def onVideoPicture(event: IVideoPictureEvent): Unit = {
         val obtainedinputStream = dumpImageToFile(event.getImage)
         ip = obtainedinputStream
         count = count + 1
@@ -45,9 +45,7 @@ object ExtractFrameFromVideoUtil  {
 
       def dumpImageToFile(image: BufferedImage): InputStream = {
         val baos: ByteArrayOutputStream = new ByteArrayOutputStream
-        println(baos.size + "Before")
         ImageIO.write(image, "png", baos)
-        println(baos.size + "After")
         val imageInByte = baos.toByteArray
         val decodedInput: InputStream = new ByteArrayInputStream(imageInByte)
         decodedInput

@@ -33,6 +33,12 @@ resolvers += "Sonatype Nexus Snapshots" at "https://oss.sonatype.org/content/rep
 
 resolvers += "Sonatype Nexus Releases" at "https://oss.sonatype.org/content/repositories/releases"
 
+org.scalastyle.sbt.ScalastylePlugin.Settings
+
 ScctPlugin.instrumentSettings
 
 play.Project.playScalaSettings
+
+parallelExecution in Test := false
+
+parallelExecution in ScctTest := false

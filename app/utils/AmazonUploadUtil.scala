@@ -26,35 +26,33 @@ object AmazonUploadUtil {
 }
 class AmazonUpload {
 
-   /* var totalByteRead: Double = 0
+  /* var totalByteRead: Double = 0
     var percentage: Int = 0
-    
+
       def uploadCompressedFileToAmazon(profilePicName: String, profilePic: InputStream, totalFileSize: Double, flag: Boolean, userId: String) {
         val bucketName = "BeamStream"
         val s3Client = fetchS3Client
         val putObjectRequest = new PutObjectRequest(bucketName, profilePicName, profilePic, new ObjectMetadata)
         if (flag) updateProgressStatus(putObjectRequest, totalFileSize, userId)
-    
+
         s3Client.putObject(putObjectRequest)
       }
-  
+
     private def updateProgressStatus(putObjectRequest: PutObjectRequest, totalFileSize: Double, userId: String) = {
-  
+
       putObjectRequest.setProgressListener(new ProgressListener {
         @Override
         def progressChanged(progressEvent: ProgressEvent) {
           totalByteRead += progressEvent.getBytesTransfered
           percentage = ((totalByteRead / totalFileSize) * 100).toInt
-          println(percentage + "   " + totalByteRead + " " + "  " + totalFileSize)
           //Setting the progress status
           ProgressBar.setProgressBar(userId, percentage)
           if (progressEvent.getEventCode == ProgressEvent.COMPLETED_EVENT_CODE) {
-            println("Uploading Completed")
           }
         }
-  
+
       });
-  
+
     }*/
 
   private def fetchS3Client = {

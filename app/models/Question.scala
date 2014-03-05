@@ -126,7 +126,7 @@ object Question {
    */
   def addAnswerToQuestion(questionId: ObjectId, answerId: ObjectId) {
     val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
-    QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(answers = (question.answers ++ List(answerId))), false, false, new WriteConcern)
+    QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(answers = (question.answers ++ List(answerId)), answered = true), false, false, new WriteConcern)
   }
 
   /**
@@ -360,7 +360,7 @@ object Question {
       case true =>
         Comment.removeComment(answerToBeRemoved.get)
         Question.removeAnswerFromQuestion(answerId, questionId)
-        true	
+        true
       case false => false
     }
   }

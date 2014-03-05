@@ -24,7 +24,7 @@
                 </a>               
                
             </div>
-						<a href="#" data-value = "active" class="done">
+						<a href="#" data-value="active" class="done">
 							<span id="edit-stream-nav"></span>
 						</a> 
 						</div>
@@ -53,4 +53,3 @@
             </div>
 
         </div>
-</div> 

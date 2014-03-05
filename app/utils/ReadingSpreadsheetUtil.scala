@@ -37,11 +37,9 @@ object ReadingSpreadsheetUtil extends App {
   def readCSVOfSchools {
     val reader = new CSVReader(new FileReader("/home/neelkanth/Desktop/school.csv"))
     for (row <- reader.readAll) {
-      val schoolNameToSave = row(1) + ", " + row(3)	
-      println("Saving " +  row(1) + ", " + row(3))
+      val schoolNameToSave = row(1) + ", " + row(3)
       val schoolToCreate = new School(new ObjectId, schoolNameToSave, "")
-    
-      val schoolId=School.addNewSchool(schoolToCreate)
+      val schoolId = School.addNewSchool(schoolToCreate)
     }
   }
 

@@ -19,6 +19,7 @@ define(['view/formView',
 			'click #share-discussions li a' : 'actvateShareIcon',
 			'click #Q-privatelist li' :'selectPrivateToList',
 			'click #post-question' : 'postQuestion',
+           // 'click #questions-poll-Link' : 'addpoll',
 			'focus .showpolloption' : 'addPollOptionsArea',
 			/* 'click .add-poll' : 'addPollOptionsArea', */
 			'click .add-option' : 'addMorePollOptions',
@@ -122,18 +123,40 @@ define(['view/formView',
         		},
 
 hideAskButton:function(){
+	$('textarea#Q-area').attr('placeholder','Ask your own question here...');
+	var flag=true;
 	setTimeout(function(){
-			$('#Q-area').css('padding','4px 6px');
-        	$('#Q-area').css('margin','1px 0 -5px 14px');
-        	$('a#post-question').css('visibility','hidden');
-			},125);
+		if(flag == true){
+		$('#Q-area').css('padding','4px 6px');
+    	$('#Q-area').css('margin','1px 0 -5px 14px');
+    	$('a#post-question').css('visibility','hidden');
+    	$('textarea#Q-area').val('');
+    	$('#pollArea').slideUp(700); }
+		},125);
+
+$( "ul#pollArea" ).on( "click", "li", function(event) {
+		if( event.currentTarget === this ){
+			flag=false;
+			$('a#post-question').css('visibility','visible');
+			$('#pollArea').slideDown(700); 
+	}
+});
+
+
+	
 		if ($(".showpolloption").is(":visible")){
-		//	$('#pollArea').slideUp(700); 
+		
 			$('textarea#Q-area').attr('placeholder','Click here to add a poll ...');
-		}else{
-			$('textarea#Q-area').attr('placeholder','Ask your own question here...');
+			
+			
+			
+			
 		}
  	},
+ 	
+ 		
+	
+
         /**
 		 * append messages to message list on pagination
 		 */

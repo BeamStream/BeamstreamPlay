@@ -167,6 +167,7 @@ define(['view/formView',
 				 $('#msg-area').css('padding','4px 6px');
 		        	$('#msg-area').css('margin','-1px 0 -5px 14px');
 		        	$('a.ask-button').css('visibility','hidden');
+		        	$('textarea#msg-area').val('');
 					},125)
 		 	},
 		 
@@ -187,9 +188,7 @@ define(['view/formView',
          */
         postMessage: function(){
 
-        	$('#msg-area').css('padding','4px 6px');
-        	$('#msg-area').css('margin','0 0 0px 0px');
-        	$('a.ask-button').css('visibility','hidden');
+        	
         	
         	var self = this;
  	        var streamId =  $('.sortable li.active').attr('id');
