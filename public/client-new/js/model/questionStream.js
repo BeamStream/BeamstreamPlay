@@ -7,6 +7,7 @@ define(['baseModel',
 
 		init: function() {
 			var that = this;
+		
 			this.on('change:streamId', this.createQuestionList);
 			this.set('questionStreams', new QuestionStreams());
 			this.set('currentQuestionStream', new QuestionStreams());
@@ -42,7 +43,7 @@ define(['baseModel',
 			this.set('currentFilter', newFilter);
 			if (this.get('searchStatus')){
 				this.set({searchStatus: false}, {silent: true});
-				this.restartInterval();
+				//this.restartInterval();
 			}
 		},
 
@@ -94,7 +95,6 @@ define(['baseModel',
 
 		// handles the server request for all question data
 		createQuestionList: function(){
-			
 			if((this.get('streamId')) != null  || (this.get('streamId')) != undefined){
 			var requestURL = '/getAllQuestionsForAStream/' + this.get('streamId') + '/date/10/1';
 			var that = this;

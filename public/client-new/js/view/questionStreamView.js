@@ -50,8 +50,8 @@ define([
 
 	
 		/**
-         * PUBNUB real time push
-         */
+		 * PUBNUB real time push
+		 */
          receiveQuestionThroughPubNub: function() {
                  var self = this;
                  self.pagePushUid = Math.floor(Math.random()*16777215).toString(16);
@@ -76,11 +76,14 @@ define([
                                  { 
                                          if(question.streamId==streamId)
                                                 {
-                                                   /* set the values to Question Model */
+                                                   /*
+													 * set the values to
+													 * Question Model
+													 */
                                                  questionModel = new QuestionModel();
                                                    questionModel.set({
-//                                                           docDescription :question.data.docDescription,
-//                                                           docName : question.data.docName,
+// docDescription :question.data.docDescription,
+// docName : question.data.docName,
                                                            question : question.data.question,
                                                            questionAccess : question.data.questionAccess,
                                                            profilePic : question.data.profilePic,
@@ -90,11 +93,16 @@ define([
                                                            pollOptions:question.data.pollOptions
                                                    })
                                                    
-                                                    // show the posted message on feed
+                                                    // show the posted message
+													// on feed
                                                          var questionStreamItemView  = new QuestionStreamItemView({model :questionModel});
-                                                         //var compiledTemplate = Handlebars.compile(QuestionStreamItem);
+                                                         // var
+															// compiledTemplate
+															// =
+															// Handlebars.compile(QuestionStreamItem);
                                                          $('#questionStreamView div.questionStreamItems').prepend(questionStreamItemView.render().el);
-                                                         //$('#questionStreamView div.questionStreamItems').prepend(compiledTemplate);
+                                                         // $('#questionStreamView
+															// div.questionStreamItems').prepend(compiledTemplate);
                                                 }
                                     }
                  
@@ -119,27 +127,27 @@ define([
 											   channel : "questionRockSideStream",
 											   restore : false,
 											   callback : function(question) {
-										                	// 	alert(JSON.stringify(question));
+										                	// alert(JSON.stringify(question));
 												   if(question.pagePushUid != self.pagePushUid)
 												   { 
 													
 													  
 													   
-//													     if(localStorage["loggedUserId"]==question.ownerId)
-	//												     {      
-		//											    	 if($('#'+question.quesId+'-rockicon').hasClass('rock-icon'))
-			//										    	 {
-				//									    		 $('#'+question.quesId+'-rockicon').removeClass('rock-icon');
-					//								    		 $('#'+question.quesId+'-rockicon').addClass('already-rocked');
-						//							    	 }
-							//						    	 else
-								//					    	 {
-									//				    		 $('#'+question.quesId+'-rockicon').removeClass('already-rocked');
-										//			    		 $('#'+question.quesId+'-rockicon').addClass('rock-icon');
-											//		    	 }
+// if(localStorage["loggedUserId"]==question.ownerId)
+	// {
+		// if($('#'+question.quesId+'-rockicon').hasClass('rock-icon'))
+			// {
+				// $('#'+question.quesId+'-rockicon').removeClass('rock-icon');
+					// $('#'+question.quesId+'-rockicon').addClass('already-rocked');
+						// }
+							// else
+								// {
+									// $('#'+question.quesId+'-rockicon').removeClass('already-rocked');
+										// $('#'+question.quesId+'-rockicon').addClass('rock-icon');
+											// }
  		            	
  		            	
-												//	     }
+												// }
 													      $('#'+question.quesId+'-totalrocksidebar').find('span').html(question.data);
 												   }
 										   }

@@ -304,12 +304,12 @@ define(
 						createGDocument : function(create) {
 							$("#creategoogledoc").modal('show');
 							$(".contentcreatedoc").empty();
-							$('#creategoogledoc #floatingBarsG').show();
+							$('#creategoogledoc #floatingCirclesG').show();
 							$.ajax({
 								type : 'GET',
 								url : 'uploadNow/document',
 									success : function(data) {
-									$('#creategoogledoc #floatingBarsG').hide();
+									$('#creategoogledoc #floatingCirclesG').hide();
 									String.prototype.startsWith = function(s)
 											{
 												if (this.indexOf(s) == 0)
@@ -376,7 +376,7 @@ define(
 						createGSpreadsheet : function(create) {
 							$("#creategoogledoc").modal('show');
 							$(".contentcreatedoc").empty();
-							$('#creategoogledoc #floatingBarsG')
+							$('#creategoogledoc #floatingCirclesG')
 							.show();
 							$
 									.ajax({
@@ -385,7 +385,7 @@ define(
 										url : 'uploadNow/spreadsheet',
 
 										success : function(data) {
-											$('#creategoogledoc #floatingBarsG')
+											$('#creategoogledoc #floatingCirclesG')
 													.hide();
 											String.prototype.startsWith = function(
 													s) {
@@ -454,7 +454,7 @@ define(
 						createGPresentation : function(create) {
 							$("#creategoogledoc").modal('show');
 							$(".contentcreatedoc").empty();
-							$('#creategoogledoc #floatingBarsG')
+							$('#creategoogledoc #floatingCirclesG')
 							.show();
 							$
 									.ajax({
@@ -463,7 +463,7 @@ define(
 										url : 'uploadNow/presentation',
 
 										success : function(data) {
-											$('#creategoogledoc #floatingBarsG')
+											$('#creategoogledoc #floatingCirclesG')
 													.hide();
 											String.prototype.startsWith = function(
 													s) {
@@ -576,7 +576,7 @@ define(
 										url : 'uploadNow/show',
 
 										success : function(data) {
-											$('#showgoogledoc #floatingBarsG')
+											$('#showgoogledoc #floatingCirclesG')
 													.hide();
 											String.prototype.startsWith = function(
 													s) {
