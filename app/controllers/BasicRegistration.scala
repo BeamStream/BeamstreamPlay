@@ -28,15 +28,19 @@ object BasicRegistration extends Controller {
    * SignUp Page Rendering (V)
    */
   def signUpPage = Action { implicit request =>
-    request.session.get("userId") == None match {
-      case true =>
+    (request.session.get("userId")) match {
+      case None =>
         Ok(views.html.signup())
-      case _ =>
-        val userFound = User.getUserProfile(new ObjectId(request.session.get("userId").get))
-        userFound.get.classes.isEmpty match {
-          case true => Redirect("/class")
-          case false => Redirect("/stream")
-
+      case Some(user) =>
+        val userFound = User.getUserProfile(new ObjectId(request.session.get("userId").getOrElse("")))
+        userFound match {
+          case Some(user) => {
+            user.classes.isEmpty match {
+              case true => Redirect("/class")
+              case false => Redirect("/stream")
+            }
+          }
+          case None => Redirect("/signout")
         }
     }
   }
