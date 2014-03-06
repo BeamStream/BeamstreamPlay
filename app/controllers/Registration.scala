@@ -22,6 +22,7 @@ import java.util.Calendar
 import scala.concurrent.Future
 import play.api.libs.concurrent.Execution.Implicits._
 import models.School
+import models.ResulttoSent
 
 object Registration extends Controller {
   implicit val formats = new net.liftweb.json.DefaultFormats {
@@ -53,10 +54,13 @@ object Registration extends Controller {
         }
       case false =>
         val userFound = User.getUserProfile(new ObjectId(request.session.get("userId").get))
-        userFound.get.classes.isEmpty match {
-          case true => Redirect("/class")
-          case false => Redirect("/stream")
-
+        userFound match {
+          case Some(user) => user.classes.isEmpty match {
+            case true => Redirect("/class")
+            case false => Redirect("/stream")
+          }
+          case None =>
+            Redirect("/signout")
         }
     }
   }
@@ -66,16 +70,19 @@ object Registration extends Controller {
    * @return
    */
   def loginPage = Action { implicit request =>
-    (request.session.get("userId") == None) match {
-
-      case true =>
+    (request.session.get("userId")) match {
+      case None =>
         Ok(views.html.login())
-      case false =>
-        val userFound = User.getUserProfile(new ObjectId(request.session.get("userId").get))
-        userFound.get.classes.isEmpty match {
-          case true => Redirect("/class")
-          case false => Redirect("/stream")
-
+      case Some(user) =>
+        val userFound = User.getUserProfile(new ObjectId(request.session.get("userId").getOrElse("")))
+        userFound match {
+          case Some(user) => {
+            user.classes.isEmpty match {
+              case true => Redirect("/class")
+              case false => Redirect("/stream")
+            }
+          }
+          case None =>  Redirect("/signout")
         }
     }
   }
