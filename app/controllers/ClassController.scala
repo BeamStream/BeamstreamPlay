@@ -20,6 +20,7 @@ import models.Class
 import models.ResulttoSent
 import models.Stream
 import models.ClassResult
+import utils.OnlineUserCache
 
 object ClassController extends Controller {
 
@@ -85,7 +86,16 @@ object ClassController extends Controller {
    * Display Class Page (V)
    */
   def renderClassPage = Action { implicit request =>
-    Ok(views.html.classpage())
+    OnlineUserCache.returnOnlineUsers.isEmpty match {
+      case false => OnlineUserCache.returnOnlineUsers(0).onlineUsers.isEmpty match {
+        case true =>
+          Ok(views.html.login())
+        case false =>
+          Ok(views.html.classpage())
+      }
+      case true =>
+        Ok(views.html.classpage())
+    }
   }
   /**
    * Create Class (V)

@@ -30,6 +30,7 @@ object GoogleDocsUploadUtilityController extends Controller {
   val redirectURI = Play.current.configuration.getString("GoogleRedirectUI").get
   val GoogleClientId = Play.current.configuration.getString("GoogleClientId").get
   val GoogleClientSecret = Play.current.configuration.getString("GoogleClientSecret").get
+
   def authenticateToGoogle(action: String) = Action { implicit request =>
 
     val refreshTokenFound = SocialToken.findSocialToken(new ObjectId(request.session.get("userId").get))
@@ -95,13 +96,16 @@ object GoogleDocsUploadUtilityController extends Controller {
       val nullExpr = "null".r
       val dataString = nullExpr.replaceAllIn(response.toString, "")
       val dataList = dataString.split(",").toList
+      println(dataList)
       val tokenValues = dataList map {
         case info => net.liftweb.json.parse("{" + info + "}")
       }
       val accessToken = (tokenValues(0) \ "access_token").extract[String]
       val refreshToken = (tokenValues(2) \ "refresh_token").extract[String]
       SocialToken.addToken(SocialToken(new ObjectId(request.session.get("userId").get), refreshToken))
-      Redirect("/stream")
+      println(">>>>>>>>>>>>>>>>>>>>>>>>" + request.session.get("action").get)
+      val action = request.session.get("action").get
+      Ok(views.html.stream(request.session.get("action").get))
     } catch {
       case ex: Exception => BadRequest("Authentication Failed")
     }

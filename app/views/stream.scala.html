@@ -1,4 +1,4 @@
-@()(implicit session: play.api.mvc.Session, flash:play.api.mvc.Flash, request: RequestHeader)
+@(flag: String)(implicit session: play.api.mvc.Session, flash:play.api.mvc.Flash, request: RequestHeader)
 @meta = {} @CSS = {
 <!-- embedly preview js -->
 <link rel="stylesheet"
@@ -33,21 +33,22 @@
 <!-- Random Id Generation -->
 
 <script type='text/javascript'>
-function randomString(length) {
-    var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz'.split('');
+	function randomString(length) {
+		var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz'
+				.split('');
 
-    if (! length) {
-        length = Math.floor(Math.random() * chars.length);
-    }
+		if (!length) {
+			length = Math.floor(Math.random() * chars.length);
+		}
 
-    var str = '';
-    for (var i = 0; i < length; i++) {
-        str += chars[Math.floor(Math.random() * chars.length)];
-    }
-    return str;
-}
+		var str = '';
+		for (var i = 0; i < length; i++) {
+			str += chars[Math.floor(Math.random() * chars.length)];
+		}
+		return str;
+	}
 
-var div = randomString(8);
+	var div = randomString(8);
 </script>
 <!-- Random Id Generation -->
 
@@ -69,140 +70,143 @@ var div = randomString(8);
 <script type="text/JavaScript"
 	src="/beamstream-new/lib/jquery.preview.full.min.js"></script>
 <script type="text/javascript">
-        $('#msg-area').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
-        $('#Q-area').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
+	$('#msg-area').preview({
+		key : '4d205b6a796b11e1871a4040d3dc5c07'
+	});
+	$('#Q-area').preview({
+		key : '4d205b6a796b11e1871a4040d3dc5c07'
+	});
 
-        Array.prototype.remove = function() {
-                var what, a = arguments, L = a.length, ax;
-                while (L && this.length) {
-                        what = a[--L];
-                        while ((ax = this.indexOf(what)) !== -1) {
-                                this.splice(ax, 1);
-                        }
-                }
-                return this;
-        };
+	Array.prototype.remove = function() {
+		var what, a = arguments, L = a.length, ax;
+		while (L && this.length) {
+			what = a[--L];
+			while ((ax = this.indexOf(what)) !== -1) {
+				this.splice(ax, 1);
+			}
+		}
+		return this;
+	};
 </script>
 
 
 <!-- for pie charts  -->
 <script type="text/javascript">
-        function Donut(paper) {
-                this.paper = paper, this.rad = Math.PI / 180, this.chart = paper.set();
+	function Donut(paper) {
+		this.paper = paper, this.rad = Math.PI / 180, this.chart = paper.set();
 
-                this.sector = function(cx, cy, r, r2, startAngle, endAngle, params) {
-                        //console.log(params.fill);
-                        var x1 = cx + r * Math.cos(-startAngle * this.rad), x2 = cx + r
-                                        * Math.cos(-endAngle * this.rad), y1 = cy + r
-                                        * Math.sin(-startAngle * this.rad), y2 = cy + r
-                                        * Math.sin(-endAngle * this.rad), xx1 = cx + r2
-                                        * Math.cos(-startAngle * this.rad), xx2 = cx + r2
-                                        * Math.cos(-endAngle * this.rad), yy1 = cy + r2
-                                        * Math.sin(-startAngle * this.rad), yy2 = cy + r2
-                                        * Math.sin(-endAngle * this.rad);
+		this.sector = function(cx, cy, r, r2, startAngle, endAngle, params) {
+			//console.log(params.fill);
+			var x1 = cx + r * Math.cos(-startAngle * this.rad), x2 = cx + r
+					* Math.cos(-endAngle * this.rad), y1 = cy + r
+					* Math.sin(-startAngle * this.rad), y2 = cy + r
+					* Math.sin(-endAngle * this.rad), xx1 = cx + r2
+					* Math.cos(-startAngle * this.rad), xx2 = cx + r2
+					* Math.cos(-endAngle * this.rad), yy1 = cy + r2
+					* Math.sin(-startAngle * this.rad), yy2 = cy + r2
+					* Math.sin(-endAngle * this.rad);
 
-                        return paper.path(
-                                        [ "M", xx1, yy1, "L", x1, y1, "A", r, r, 0,
-                                                        +(endAngle - startAngle > 180), 0, x2, y2, "L",
-                                                        xx2, yy2, "A", this.rin, this.rin, 0,
-                                                        +(endAngle - startAngle > 180), 1, xx1, yy1, "z" ])
-                                        .attr(params);
+			return paper.path(
+					[ "M", xx1, yy1, "L", x1, y1, "A", r, r, 0,
+							+(endAngle - startAngle > 180), 0, x2, y2, "L",
+							xx2, yy2, "A", this.rin, this.rin, 0,
+							+(endAngle - startAngle > 180), 1, xx1, yy1, "z" ])
+					.attr(params);
 
-                }
-        }
+		}
+	}
 
-        Donut.prototype = {
+	Donut.prototype = {
 
-                create : function(cx, cy, r, rin, rout, values, labels, stroke) {
+		create : function(cx, cy, r, rin, rout, values, labels, stroke) {
 
-                        this.cx = cx;
-                        this.cy = cy;
-                        this.r = r;
-                        this.rin = rin;
-                        this.rout = rout;
+			this.cx = cx;
+			this.cy = cy;
+			this.r = r;
+			this.rin = rin;
+			this.rout = rout;
 
-                        this.angle = 0;
-                        this.start = 0
+			this.angle = 0;
+			this.start = 0
 
-                        this.values = values;
-                        this.labels = labels;
-                        this.stroke = stroke;
+			this.values = values;
+			this.labels = labels;
+			this.stroke = stroke;
 
-                        var len = values.length;
-                        var i = 0;
-                        this.total = 0;
+			var len = values.length;
+			var i = 0;
+			this.total = 0;
 
-                        for ( var i = 0; i < len; i++) {
-                                this.total += this.values[i];
-                        }
+			for (var i = 0; i < len; i++) {
+				this.total += this.values[i];
+			}
 
-                        i = 0;
-                        while (i < len) {
-                                this._createSlice(i++);
-                        }
+			i = 0;
+			while (i < len) {
+				this._createSlice(i++);
+			}
 
-                },
+		},
 
-                _createSlice : function(j) {
+		_createSlice : function(j) {
 
+			var value = this.values[j];
+			var angleplus = 360 * value / this.total, countPer = (100 * value / this.total)
+					.toFixed(0);
+			var popangle = this.angle + (angleplus / 2), color = Raphael.hsb(
+					this.start, .75, 1), ms = 500, delta = 30;
+			var totalangle = this.angle + angleplus;
 
-                        var value = this.values[j];
-                        var angleplus = 360 * value / this.total, countPer = (100 * value / this.total)
-                                        .toFixed(0);
-                        var popangle = this.angle + (angleplus / 2), color = Raphael.hsb(
-                                        this.start, .75, 1), ms = 500, delta = 30;
-                        var totalangle = this.angle + angleplus;
+			var bcolor = Raphael.hsb(this.start, 1, 1);
 
-                        var bcolor = Raphael.hsb(this.start, 1, 1);
-                        
-                        if (totalangle == 360) {
-                                var p = this.sector(this.cx, this.cy, this.r, this.rin,
-                                                this.angle, totalangle - 0.00017453292, {
-                                                        fill : "90-" + bcolor + "-" + color,
-                                                        stroke : this.stroke,
-                                                        "stroke-width" : 1
-                                                });
-                                bigp = this.sector(this.cx, this.cy, this.rout, this.rin,
-                                                this.angle, totalangle - 0.00017453292, {
-                                                        fill : "90-" + bcolor + "-" + color,
-                                                        stroke : this.stroke,
-                                                        "stroke-width" : 1
-                                                }).hide();
+			if (totalangle == 360) {
+				var p = this.sector(this.cx, this.cy, this.r, this.rin,
+						this.angle, totalangle - 0.00017453292, {
+							fill : "90-" + bcolor + "-" + color,
+							stroke : this.stroke,
+							"stroke-width" : 1
+						});
+				bigp = this.sector(this.cx, this.cy, this.rout, this.rin,
+						this.angle, totalangle - 0.00017453292, {
+							fill : "90-" + bcolor + "-" + color,
+							stroke : this.stroke,
+							"stroke-width" : 1
+						}).hide();
 
-                        } else {
-                                var p = this.sector(this.cx, this.cy, this.r, this.rin,
-                                                this.angle, this.angle + angleplus, {
-                                                        fill : "90-" + bcolor + "-" + color,
-                                                        stroke : this.stroke,
-                                                        "stroke-width" : 1
-                                                });
-                                bigp = this.sector(this.cx, this.cy, this.rout, this.rin,
-                                                this.angle, this.angle + angleplus, {
-                                                        fill : "90-" + bcolor + "-" + color,
-                                                        stroke : this.stroke,
-                                                        "stroke-width" : 1
-                                                }).hide();
+			} else {
+				var p = this.sector(this.cx, this.cy, this.r, this.rin,
+						this.angle, this.angle + angleplus, {
+							fill : "90-" + bcolor + "-" + color,
+							stroke : this.stroke,
+							"stroke-width" : 1
+						});
+				bigp = this.sector(this.cx, this.cy, this.rout, this.rin,
+						this.angle, this.angle + angleplus, {
+							fill : "90-" + bcolor + "-" + color,
+							stroke : this.stroke,
+							"stroke-width" : 1
+						}).hide();
 
-                        }
-                        var txt = this.paper.text(
-                                        this.cx + (this.r + delta + 15)
-                                                        * Math.cos(-popangle * this.rad),
-                                        this.cy + (this.r + delta + 1)
-                                                        * Math.sin(-popangle * this.rad), countPer + '%')
-                                        .attr({
-                                                fill : "#3F5A6C",
-                                                stroke : "none",
-                                                opacity : 1,
-                                                "font-size" : 14,
-                                                "font-weight" : "bold"
-                                        });
-                        this.angle += angleplus;
-                        this.chart.push(p);
-                        this.chart.push(txt);
-                        this.start += .1;
-                },
-        }
-        var donut = [];
+			}
+			var txt = this.paper.text(
+					this.cx + (this.r + delta + 15)
+							* Math.cos(-popangle * this.rad),
+					this.cy + (this.r + delta + 1)
+							* Math.sin(-popangle * this.rad), countPer + '%')
+					.attr({
+						fill : "#3F5A6C",
+						stroke : "none",
+						opacity : 1,
+						"font-size" : 14,
+						"font-weight" : "bold"
+					});
+			this.angle += angleplus;
+			this.chart.push(p);
+			this.chart.push(txt);
+			this.start += .1;
+		},
+	}
+	var donut = [];
 </script>
 
 
@@ -793,7 +797,7 @@ header, footer){
 
 			<div class="main">
 				<div class="heading">
-					<div class="title">Acess Google Drive</div>
+					<div class="title">Access Google Drive</div>
 					<div class="close">
 					<div class="close-icon close" aria-hidden="true"
 							data-dismiss="modal">
@@ -1016,6 +1020,431 @@ header, footer){
 	
 		<script>
          startChat('@session.get("userId").get');
+		</script>
+		
+		<script type="text/javascript">
+		alert("1st call");
+		alert('@flag');
+		if('@flag' == 'presentation')
+				{
+				$("#creategoogledoc").modal('show');
+							$(".contentcreatedoc").empty();
+							$('#creategoogledoc #floatingCirclesG')
+							.show();
+							$
+									.ajax({
+
+										type : 'GET',
+										url : 'uploadNow/presentation',
+
+										success : function(data) {
+											$('#creategoogledoc #floatingCirclesG')
+													.hide();
+											String.prototype.startsWith = function(
+													s) {
+												if (this.indexOf(s) == 0)
+													return true;
+												return false;
+											}
+											if (data
+													.toString()
+													.startsWith(
+															"https://accounts.google.com/o/oauth2/")) {
+												window.location.assign(data)
+											} else {
+												/*
+												 * $("#creategoogledoc").modal(
+												 * 'show');
+												 */
+												$(".contentcreatedoc").empty();
+												$(".contentcreatedoc")
+														.append(
+																"<iframe id='googleStuff' style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src="
+																		+ data[0]
+																		+ "/>");
+												$("#docUrl")
+												.attr("value", data[0])
+												$("#docName").attr("value", data[1]);
+												$("div.file-name").text(data[1]);
+											}
+
+										}
+									});
+							$
+									.ajax({
+
+										type : 'GET',
+										url : '/allStreamsForAUser',
+
+										success : function(data) {
+
+											$("select#streamSelectOption")
+													.empty();
+											$
+													.each(
+															data,
+															function(index,
+																	value) {
+
+																$(
+																		"select#streamSelectOption")
+																		.append(
+																				"<option value="
+																						+ value.stream.id.id
+																						+ ">"
+																						+ value.stream.streamName
+																						+ "</option>");
+
+															});
+
+										}
+
+									});
+				}
+
+
+
+
+
+
+
+
+
+
+
+
+
+else if('@flag' == 'spreadsheet')
+				{
+				$("#creategoogledoc").modal('show');
+							$(".contentcreatedoc").empty();
+							$('#creategoogledoc #floatingCirclesG')
+							.show();
+							$
+									.ajax({
+
+										type : 'GET',
+										url : 'uploadNow/spreadsheet',
+
+										success : function(data) {
+											$('#creategoogledoc #floatingCirclesG')
+													.hide();
+											String.prototype.startsWith = function(
+													s) {
+												if (this.indexOf(s) == 0)
+													return true;
+												return false;
+											}
+											if (data
+													.toString()
+													.startsWith(
+															"https://accounts.google.com/o/oauth2/")) {
+												window.location.assign(data)
+											} else {
+												/*
+												 * $("#creategoogledoc").modal(
+												 * 'show');
+												 */
+												$(".contentcreatedoc").empty();
+												$(".contentcreatedoc")
+														.append(
+																"<iframe id='googleStuff' style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src="
+																		+ data[0]
+																		+ "/>");
+												$("#docUrl")
+												.attr("value", data[0])
+												$("#docName").attr("value", data[1]);
+												$("div.file-name").text(data[1]);
+											}
+										}
+									});
+							$
+									.ajax({
+
+										type : 'GET',
+										url : '/allStreamsForAUser',
+
+										success : function(data) {
+
+											$("select#streamSelectOption")
+													.empty();
+											$
+													.each(
+															data,
+															function(index,
+																	value) {
+
+																$(
+																		"select#streamSelectOption")
+																		.append(
+																				"<option value="
+																						+ value.stream.id.id
+																						+ ">"
+																						+ value.stream.streamName
+																						+ "</option>");
+
+															});
+
+										}
+
+									});
+
+				}
+
+
+
+
+else if ('@flag' == 'document') {
+					$("#creategoogledoc").modal('show');
+					$(".contentcreatedoc").empty();
+					$('#creategoogledoc #floatingCirclesG').show();
+					$.ajax({
+						type : 'GET',
+						url : 'uploadNow/document',
+							success : function(data) {
+							$('#creategoogledoc #floatingCirclesG').hide();
+							String.prototype.startsWith = function(s)
+									{
+										if (this.indexOf(s) == 0)
+											return true;
+										return false;
+									}
+									if (data.toString().startsWith("https://accounts.google.com/o/oauth2/"))
+									{
+										window.location.assign(data)
+									} 
+									else 
+									{
+										/*
+										 * $("#creategoogledoc").modal(
+										 * 'show');
+										 */
+										$(".contentcreatedoc").empty();
+										
+										$(".contentcreatedoc").append("<iframe id='googleStuff' style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src="
+										+ data[0]
+										+ "/>");
+										$("#docUrl").attr("value", data[0]);
+										$("#docName").attr("value", data[1]);
+										$("div.file-name").text(data[1]);
+									}
+								}
+							});
+					
+						$.ajax({
+							
+
+								type : 'GET',
+								url : '/allStreamsForAUser',
+
+								success : function(data) {
+
+									$("select#streamSelectOption")
+											.empty();
+									$
+											.each(
+													data,
+													function(index,
+															value) {
+
+														$(
+																"select#streamSelectOption")
+																.append(
+																		"<option value="
+																				+ value.stream.id.id
+																				+ ">"
+																				+ value.stream.streamName
+																				+ "</option>");
+
+													});
+
+								}
+
+							});
+				}
+				
+
+
+
+
+ else if('@flag' == 'show')
+		        {$("#showgoogledoc").modal('show');
+
+							$(".showgoogledocsSidebar").hide();
+
+							$
+									.ajax({
+
+										type : 'GET',
+										url : '/allStreamsForAUser',
+
+										success : function(data) {
+
+											$("select#streamSelectOption")
+													.empty();
+											$
+													.each(
+															data,
+															function(index,
+																	value) {
+																
+															
+
+																$(
+																		"select#streamSelectOption")
+																		.append(
+																				"<option value="
+																						+ value.stream.id.id
+																						+ ">"
+																						+ value.stream.streamName
+																						+ "</option>");
+																// alert(value.stream.streamName);
+															});
+
+										}
+
+									});
+
+							$
+									.ajax({
+
+										type : 'GET',
+										url : 'uploadNow/show',
+
+										success : function(data) {
+											$('#showgoogledoc #floatingCirclesG')
+													.hide();
+											String.prototype.startsWith = function(
+													s) {
+												if (this.indexOf(s) == 0)
+													return true;
+												return false;
+											}
+											if (data.toString().startsWith(
+													"http")) {
+												window.location.assign(data)
+											} else {
+
+												$("#docsview > .drive-view-row")
+														.remove();
+
+												/*
+												 * $("#showgoogledoc").modal(
+												 * 'show');
+												 */
+
+												$
+														.each(
+																data,
+																function(index,
+																		value) {
+																	var nameOfDocument = "Name Not Available";
+																	;
+																	if (value._1 != null) {
+																		nameOfDocument = value._1;
+																		var extention = value._1
+																				.split('.')[1];
+																	}
+																	if (extention == "ppt"
+																			|| extention == "pptx"
+																			|| extention == "odp") {
+																		$(
+																				"#docsview")
+																				.append(
+																						" <div class='drive-view-row'><div class='powerpoint-img'><img src='"+value._5 +"'></div><div class='doc-txt-container'><div class='doc-name'>"
+																								+ nameOfDocument
+																								+ "</div><div class='doc-info'><div class='owner'>OWNER: <span>"+value._4+"</span></div>"
+																								+ "<div class='last-modified'>LAST MODIFIED:"
+																								+ " <span>"+value._3+"</span></div></div></div>"
+																								+ "<a class='preview-btn' target='_blank' href="
+																								+ value._2
+																								+ ">Preview</a><div class='preview-btn publishGdocs'  data-id='"
+																								+ nameOfDocument
+																								+ "' data-name="
+																								+ value._2
+																								+ ""
+																								+ ">Publish</div></div>");
+
+																	}
+
+																	else if (extention == "xls"
+																			|| extention == "ods") {
+																		$(
+																				"#docsview")
+																				.append(
+																						" <div class='drive-view-row'><div class='spreadsheet-img'><img src='"+value._5 +"'></div><div class='doc-txt-container'><div class='doc-name'>"
+																								+ nameOfDocument
+																								+ "</div><div class='doc-info'>"
+																								+ "<div class='owner'>OWNER: <span>"+value._4+"</span></div>"
+																								+ "<div class='last-modified'>LAST MODIFIED:"
+																								+ " <span>"+value._3+"</span></div></div></div>"
+																								+ "<a class='preview-btn' target='_blank' href="
+																								+ value._2
+																								+ ">Preview</a><div class='preview-btn publishGdocs'  data-id='"
+																								+ nameOfDocument
+																								+ "' data-name="
+																								+ value._2
+																								+ ""
+																								+ ">Publish</div></div>");
+
+																	}
+
+																	else {
+																		$(
+																				"#docsview")
+																				.append(
+																						" <div class='drive-view-row'><div class='text-img'><img src='"+value._5 +"'></div><div class='doc-txt-container'><div class='doc-name'>"
+																								+ nameOfDocument
+																								+ "</div><div class='doc-info'>"
+																								+ "<div class='owner'>OWNER: <span>"+value._4+"</span></div>"
+																								+ "<div class='last-modified'>LAST MODIFIED:"
+																								+ " <span>"+value._3+"</span></div></div></div>"
+																								+ "<a class='preview-btn' target='_blank' href="
+																								+ value._2
+																								+ ">Preview</a><div class='preview-btn publishGdocs' data-id='"
+																								+ nameOfDocument
+																								+ "' data-name="
+																								+ value._2
+																								+ ""
+																								+ ">Publish</div></div>");
+
+																	}
+
+																});
+
+											}
+										}
+
+									});
+		        
+		        }
+				else if('@flag' == 'upload')
+				{$.ajax({
+
+								type : 'GET',
+								url : 'uploadNow/upload',
+
+								success : function(data) {
+
+									String.prototype.startsWith = function(s) {
+										if (this.indexOf(s) == 0)
+											return true;
+										return false;
+									}
+									if (data.toString().startsWith("http")) {
+										window.location.assign(data)
+									} else {
+										$("#uploadgoogledoc").modal('show');
+									}
+
+								}
+
+							});
+
+							
+				}
+		        
+			
 		</script>
 
 }

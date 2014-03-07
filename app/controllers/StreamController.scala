@@ -111,13 +111,14 @@ object StreamController extends Controller {
    */
   def renderStreamPage = Action { implicit request =>
     OnlineUserCache.returnOnlineUsers.isEmpty match {
-      case false => OnlineUserCache.returnOnlineUsers(0).onlineUsers.isEmpty match {
-        case true =>
-          Redirect("/login")
-        case false =>
-          Ok(views.html.stream())
-      }
-      case true => Redirect("/login")
+      case false =>
+        OnlineUserCache.returnOnlineUsers(0).onlineUsers.isEmpty match {
+          case true =>
+            Ok(views.html.login())
+          case false =>
+            Ok(views.html.stream("ok"))
+        }
+      case true => Ok(views.html.login())
     }
   }
   /**

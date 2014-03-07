@@ -40,7 +40,7 @@ object BasicRegistration extends Controller {
               case false => Redirect("/stream")
             }
           }
-          case None => Redirect("/signout")
+          case None => Redirect("/signOut")
         }
     }
   }

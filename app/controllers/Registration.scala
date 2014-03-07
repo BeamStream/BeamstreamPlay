@@ -60,7 +60,7 @@ object Registration extends Controller {
             case false => Redirect("/stream")
           }
           case None =>
-            Redirect("/signout")
+            Redirect("/signOut")
         }
     }
   }
@@ -82,7 +82,7 @@ object Registration extends Controller {
               case false => Redirect("/stream")
             }
           }
-          case None =>  Redirect("/signout")
+          case None =>  Redirect("/signOut")
         }
     }
   }

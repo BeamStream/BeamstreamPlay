@@ -21,6 +21,7 @@ import utils.ExtractFrameFromVideoUtil
 import utils.ObjectIdSerializer
 import utils.TokenEmailUtil
 import com.beamstream.exifRotate.ExifRotate
+import utils.OnlineUserCache
 
 object MediaController extends Controller {
 
@@ -240,7 +241,16 @@ object MediaController extends Controller {
    * Render Browse Media Page
    */
   def browseMedia = Action { implicit request =>
-    Ok(views.html.browsemedia())
+    OnlineUserCache.returnOnlineUsers.isEmpty match {
+      case false => OnlineUserCache.returnOnlineUsers(0).onlineUsers.isEmpty match {
+        case true =>
+          Ok(views.html.login())
+        case false =>
+          Ok(views.html.browsemedia())
+      }
+      case true =>
+        Ok(views.html.browsemedia())
+    }
   }
 
   /**

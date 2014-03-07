@@ -82,7 +82,7 @@ object DocumentController extends Controller {
     //Create A Message As Well To Display The Doc Creation In Stream
     val message = Message(new ObjectId, docUrl, Option(Type.Document), Option(Access.PrivateToClass), new Date, new ObjectId(userId), Option(new ObjectId(streamId)), user.get.firstName, user.get.lastName, 0, Nil, Nil, 0, Nil, None, Option(docId))
     val messageId = Message.createMessage(message)
-    Ok(views.html.stream())
+    Ok(views.html.stream(""))
   }
 
   /**
