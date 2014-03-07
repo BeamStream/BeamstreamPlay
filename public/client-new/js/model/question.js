@@ -2,7 +2,8 @@
 
 define(['baseModel',
 				'model/comment',
-				'model/answer'
+				'model/answer',
+				
 				], function(BaseModel, Comment, Answer) {
 	var Question = BaseModel.extend({ 
 		objName: 'Question',

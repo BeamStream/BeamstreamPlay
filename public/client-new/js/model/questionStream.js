@@ -16,8 +16,8 @@ define(['baseModel',
 			this.get('currentQuestionStream').on('statusChange', this.updateEditStatus, this);
 			this.get('currentQuestionStream').on('questionAnsweredCol', this.updateCurrentStream, this);
 			this.get('currentQuestionStream').on('questionDeletedCol', this.updateCurrentStream, this);
-			this.get('currentQuestionStream').on('questionAnsweredCol', this.restartInterval, this);
-			this.get('currentQuestionStream').on('questionDeletedCol', this.restartInterval, this);
+			//this.get('currentQuestionStream').on('questionAnsweredCol', this.restartInterval, this);
+			//this.get('currentQuestionStream').on('questionDeletedCol', this.restartInterval, this);
 			this.setLoggedInUser();
 			//this.set({'intervalId': setInterval(this.createQuestionList.bind(this), 100)}, {silent: true});
 			// this is unused code from an attempt to use pubnub
@@ -50,6 +50,8 @@ define(['baseModel',
 		// controls pausing of server updates while text boxes are open
 		updateEditStatus: function(event){
 			
+			
+			
 			if (event.editCounter > 0) {
 				clearInterval(this.get('intervalId'));
 			} 
@@ -61,6 +63,9 @@ define(['baseModel',
 		// },
 
 		updateCurrentStream: function(searchQuery){
+			
+			
+		
 			var that = this;
 
 			var updatedStream = that.get('questionStreams').filter(function(model){

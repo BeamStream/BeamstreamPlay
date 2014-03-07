@@ -4,8 +4,9 @@ define([
 	'text!templates/questionStreamItem.tpl',
 	'view/questionItemView',
     'model/question',
+    'model/questionStream',
 ], 
-function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionModel){
+function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionModel,QuestionStreamModel){
 	var QuestionStreamItem = BaseView.extend({
 		objName: 'questionStreamItem', 
 
@@ -66,6 +67,7 @@ function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionMod
 				this.model.postAnswer(answerSubmission,parent,answerAmt);
 				this.$el.find('.qs-answer').val('');
 				this.model.updateEditStatus();
+				
 			}
 		}, 
 

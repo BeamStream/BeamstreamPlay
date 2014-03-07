@@ -45,6 +45,7 @@ define([
 		updateEditStatus: function(event){
 			if (event.editStatus === true) {
 				this.counter++;
+				
 			}
 			if (event.editStatus === false) {
 				this.counter--;

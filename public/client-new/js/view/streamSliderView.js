@@ -58,13 +58,14 @@ define(['baseView',
 
 
 			/** rendered by default : discussion page */
-			var sidebarView = this.getViewById('sidebar');
-			if(sidebarView.streamId){
+			//var sidebarView = this.getViewById('sidebar');
+
+			if(this.streamId){
 				
 				var view = this.getViewById('messageListView');
 	    		if(view){
 	    			
-	    			view.data.url="/allMessagesForAStream/"+sidebarView.streamId+"/date/"+view.messagesPerPage+"/"+view.pageNo +"/week";
+	    			view.data.url="/allMessagesForAStream/"+this.streamId+"/date/"+view.messagesPerPage+"/"+view.pageNo +"/week";
 	    			view.fetch();
 	    		}
 	    		
@@ -199,7 +200,8 @@ define(['baseView',
  				/* 	if the deleted stream was active stream then set first stream as an active stream */
 				if($('li[id='+activeStream+']').length == 0){
 					
-					self.fetch();
+
+																		self.fetch();
         			self.streamId = $('#sortable4 li:first').attr('id')
         			self.renderTabContents(self.streamId);
         			
