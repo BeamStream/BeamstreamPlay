@@ -103,9 +103,8 @@ object GoogleDocsUploadUtilityController extends Controller {
       val accessToken = (tokenValues(0) \ "access_token").extract[String]
       val refreshToken = (tokenValues(2) \ "refresh_token").extract[String]
       SocialToken.addToken(SocialToken(new ObjectId(request.session.get("userId").get), refreshToken))
-      println(">>>>>>>>>>>>>>>>>>>>>>>>" + request.session.get("action").get)
       val action = request.session.get("action").get
-      Ok(views.html.stream(request.session.get("action").get))
+      Ok(views.html.stream(request.session.get(action).get))
     } catch {
       case ex: Exception => BadRequest("Authentication Failed")
     }

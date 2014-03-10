@@ -66,7 +66,6 @@ object DocumentController extends Controller {
   def newGoogleDocument = Action { implicit request =>
 
     val data = request.body.asFormUrlEncoded.get
-    println(">>>>>>>>>>>>>>>>>>>>>>>>>" + data)
     val docName = data("docName").toList.head
     val docUrl = data("docUrl").toList.head
     val description = data("description").toList.head
