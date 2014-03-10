@@ -2,6 +2,10 @@
 
 
 <div class="left-menu">
+	<div id="add-edit-class">
+		<div id="add-class-stream">ADD</div>
+		<div id="edit-class-stream">EDIT</div>
+	</div>
 	<div class="display-stream">
 		<div class="btn-group stream-dropdown">
 			<button class="btn display-dropdown">Class Streams</button>
@@ -24,7 +28,7 @@
                 </a>               
                
             </div>
-						<a href="#" data-value="active" class="done">
+						<a href="#" data-value = "active" class="done">
 							<span id="edit-stream-nav"></span>
 						</a> 
 						</div>
@@ -53,3 +57,4 @@
             </div>
 
         </div>
+</div> 

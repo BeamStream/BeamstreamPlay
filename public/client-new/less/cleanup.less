@@ -510,12 +510,24 @@ border-radius:6px 0 6px 6px;
 	background-position: -210px -700px;
 }
 
+#showSubList #creategdocument span:hover, #creategdocument:hover {
+	background-position: -260px -700px;
+}
+
 #showSubList #creategspreadsheet span {
 	background-position: -209px -725px;
 }
 
+#showSubList #creategspreadsheet span:hover, #creategspreadsheet:hover {
+	background-position: -259px -725px;
+}
+
 #showSubList #creategpresentation span {
 	background-position: -208px -749px;
+}
+
+#showSubList #creategpresentation span:hover, #creategpresentation:hover {
+	background-position: -259px -749px;
 }
 
 li .menu-arrow:active, li .menu-arrow:hover {
@@ -4928,7 +4940,8 @@ float:right;
 background:0;
 background:url(../images/spryte.png) -184px -363px;
 width:6px;
-height:20px
+height:20px;
+margin-right: 11px;
 }
 
 .chat-view {
@@ -5230,33 +5243,31 @@ width:100%
 }
 
 #nav-arrow-up {
-	border-left: 13px solid transparent;
-	border-right: 13px solid transparent;
+	border-left: 14px solid transparent;
+	border-right: 14px solid transparent;
 	border-top: 0 dotted;
-	border-bottom: 10px solid #8b979f;
+	border-bottom: 9px solid rgb(151, 156, 160);
 	display: inline-block;
 	margin-bottom: 7px;
 	margin-right: 0px;
 	position: relative;
 	top: 4;
 	z-index: 1;
-	top: 1.5;
+	top: 2.5;
 }
 
 #nav-arrow-down {
-	height:0!important;
-	border-left: 13px solid transparent;
-	border-right: 13px solid transparent;
+	border-left: 14px solid transparent;
+	border-right: 14px solid transparent;
 	border-bottom: 0 dotted;
-	border-top: 10px solid #8b979f;
+	border-top: 9px solid rgb(151, 156, 160);
 	display: inline-block;
 	margin-bottom: 7px;
 	margin-right: 0px;
 	position: relative;
 	top: 4;
 	z-index: 1;
-	top: 0.5;
-
+	top: 2.5;
 }
 
 .close-btn {
@@ -6628,12 +6639,13 @@ display: inline-block;
 }
 
 .ask-img img {
-width:86%;
-border:solid 1.8px #000;
--webkit-border-radius:5px;
--moz-border-radius:5px;
-border-radius:5px;
-margin: 56px 8px 8px -7px;
+  width: 61%;
+	height: auto;
+	border:solid 1.8px #000;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	border-radius:5px;
+	margin: 56px 8px 8px -7px;
 }
 
 .ask-type-area {
@@ -10150,6 +10162,22 @@ display:none;
 z-index:999
 }
 
+#add-class-stream {
+	display: inline;
+}
+
+#edit-class-stream {
+	display: inline;
+	margin-left: 11px;
+}
+
+#add-edit-class {
+	margin-left: 68%;
+	font-size: 81%;
+	font-weight: 500;
+	color: rgb(147, 152, 156);
+}
+
 .streams-list-block {
 color:#fff;
 width:65%;
@@ -10763,7 +10791,7 @@ color:#827e7e
 	padding: 1px 0 0 0;
 }
 
-#questions-icon, #rate-lecturer-question-icon, .new-google-btn .google-doc-icn, .new-google-btn .question-icn, .google-plus, .twitter, .facebook, .linkedin, .plus, .menu-arrow:active .menu-arrow:hover, #sort_by_key > span {
+#questions-icon, #create-google-doc-popup, #rate-lecturer-question-icon, .new-google-btn .google-doc-icn, .new-google-btn .question-icn, .google-plus, .twitter, .facebook, .linkedin, .plus, .menu-arrow:active .menu-arrow:hover, #sort_by_key > span {
     background: url(../../beamstream-new/images/spryte.png) no-repeat;
 }
 .google-plus :hover,.twitter :hover,.facebook :hover,.linkedin :hover,.plus :hover {
