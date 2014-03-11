@@ -142,18 +142,7 @@ define(
 								var datas = {
 									"data" : model,
 									"datVal" : datVal,
-									"previewImage" : function() {
-										var src = "/beamstream-new/images/google_docs_image.png"
-											$
-											.ajax({ 
-												type : 'GET',
-												url : 'uploadNow/show',
-												success : function(data) {
-													src = data[12]._5;
-												}
-											});
-										return src;	
-									},
+									"previewImage" : "beamstream-new/images/google_docs_image.png",
 									"commenImage" : "true",
 									"type" : "googleDoc",
 									"contentType" : contentType,
