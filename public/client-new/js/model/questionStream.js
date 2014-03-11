@@ -122,7 +122,7 @@ define(['baseModel',
 		}*/
 
 		// // this is not working -- it's unclear if pubnub is actually functioning for questions
-		getQuestionsFromPubNub: function(){
+		/*getQuestionsFromPubNub: function(){
 			console.log('getQuestionsFromPubNub is being called');
 			PUBNUB.subscribe({
 		 		channel: 'questions', 
@@ -134,14 +134,14 @@ define(['baseModel',
 				console.log('getQuestionsFromPubNub', data);
 			}
 			})
-		 }
+		 }*/
 
 	});
 	
-	PUBNUB.subscribe({
+	/*PUBNUB.subscribe({
 		channel : 'questions',
 		message: function(m){alert(m)}
-		});
+		});*/
 			 
 	return QuestionStream;
 });

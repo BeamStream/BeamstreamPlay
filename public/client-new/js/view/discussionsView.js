@@ -14,7 +14,8 @@ define(['view/formView',
 		events:{
 			 'click #post-button' : 'postMessage',
 			 'focus #msg-area' : 'showPostButton',
-			 'blur #msg-area' : 'hidePostButton',
+			// 'click ul#discussion-file-upload li' : 'showDocumentPostButton',
+			 'blur .ask-disccution' : 'hidePostButton',
 			 'click #share-discussions li a' : 'actvateShareIcon',
 			 'click #private-to' : 'checkPrivateAccess',
 			 'click #sortBy-list' : 'sortMessages',
@@ -166,7 +167,18 @@ define(['view/formView',
 			setTimeout(function(){
 				 $('#msg-area').css('padding','4px 6px');
 		        	$('#msg-area').css('margin','-1px 0 -5px 14px');
-		        	$('a.ask-button').css('visibility','hidden');
+		        	 $('.ask-outer').css('height','0px');
+		        	if($('#uploded-file-area').is(':visible'))
+		        		{
+		        		 $('.ask-outer').height(function (index, height) {
+		        			    return (height + 70);
+		        		 });
+		        	 	$('a.ask-button').css('visibility','visible');
+		        		}
+		        	else{
+		        	 	$('a.ask-button').css('visibility','hidden');
+		        	}
+		       
 		        	$('textarea#msg-area').val('');
 					},125)
 		 	},
@@ -176,12 +188,16 @@ define(['view/formView',
 		  */
 		 
 		 showPostButton: function(){
-		
+			 $('.ask-outer').height(function (index, height) {
+ 			    return (height + 70);
+    		 });
 			 $('#msg-area').css('padding','7.5% 18% 6% 2%');
 			 $('#msg-area').css('margin','0 0 24px 22px');
 			 $('a.ask-button').css('visibility','visible');
 			 },
-		 
+			 
+			 
+		
 
         /**
          * post messages 
@@ -189,7 +205,8 @@ define(['view/formView',
         postMessage: function(){
 
         	
-        	
+        	$('a.ask-button').css('visibility','hidden');
+        	 $('.ask-outer').css('height','0px');
         	var self = this;
  	        var streamId =  $('.sortable li.active').attr('id');
  	        var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
@@ -784,6 +801,15 @@ define(['view/formView',
             	
             	$('#file-name').html(f.name);
             	$('#uploded-file-area').show();
+            	 $('.ask-outer').css('height','0px');
+				 $('.ask-outer').height(function (index, height) {
+					
+		 			    return (height + 70);
+		 	
+		 		 });
+
+				 $('a.ask-button').css('visibility','visible');
+				 $('a.ask-button').css('top','40');
             	
             })(file);
  

@@ -2,7 +2,7 @@ define([
     'baseView', 
     'text!templates/questionStream.tpl', 
     'view/questionItemView',
-    '../model/questionStream', 
+    'model/questionStream', 
     'model/question',
     'view/questionStreamItemView',
     'view/questionStreamListView',
