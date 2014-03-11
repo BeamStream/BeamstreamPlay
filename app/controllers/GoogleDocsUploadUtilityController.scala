@@ -44,7 +44,6 @@ object GoogleDocsUploadUtilityController extends Controller {
         if (action == "show") {
           val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(newAccessToken)
           /*Ok(views.html.showgoogledocs(files))*/
-
           Ok(write(files)).as("application/json")
 
         } else if (action == "upload") {
