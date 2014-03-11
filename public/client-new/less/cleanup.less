@@ -4938,7 +4938,7 @@ padding:0 0 0 20px
 .chat-open span.chat-show {
 float:right;
 background:0;
-background:url(../images/spryte.png) -184px -363px;
+background:url(../images/spryte.png) -184px 6px;
 width:6px;
 height:20px;
 margin-right: 11px;
@@ -5136,21 +5136,13 @@ button.btn.display-dropdown {
 	border: 1px solid rgb(75, 84, 92);
 }
 
-.done:hover {
-text-decoration:none;
-color: #3f5a6c;
+.done:hover, .straem-block a:hover {
 border-color: #3f5a6c;
 border-top: .11em solid #3f5a6c;
 border-left: .11em solid #3f5a6c;
 border-right: .11em solid #3f5a6c;
 border-bottom: .11em solid #3f5a6c;
-font-weight: 900;
 background:rgb(255, 186, 0);
-background:-moz-linear-gradient(90deg, rgb(255, 186, 0) 30%, rgb(255, 159, 0) 92%);
-background:-webkit-linear-gradient(90deg, rgb(255, 186, 0) 30%, rgb(255, 159, 0) 92%);
-background:-o-linear-gradient(90deg, rgb(255, 186, 0) 30%, rgb(255, 159, 0) 92%);
-background:-ms-linear-gradient(90deg, rgb(255, 186, 0) 30%, rgb(255, 159, 0) 92%);
-background:linear-gradient(180deg, rgb(255, 186, 0) 30%, rgb(255, 159, 0) 92%);
 }
 
 .display-sub {
@@ -10793,9 +10785,19 @@ color:#827e7e
 	padding: 1px 0 0 0;
 }
 
-#questions-icon, #create-google-doc-popup, #rate-lecturer-question-icon, .new-google-btn .google-doc-icn, .new-google-btn .question-icn, .google-plus, .twitter, .facebook, .linkedin, .plus, .menu-arrow:active .menu-arrow:hover, #sort_by_key > span {
+#questions-icon, #questions-edit-icon, #create-google-doc-popup, #rate-lecturer-question-icon, .new-google-btn .google-doc-icn, .new-google-btn .question-icn, .google-plus, .twitter, .facebook, .linkedin, .plus, .menu-arrow:active .menu-arrow:hover, #sort_by_key > span {
     background: url(../../beamstream-new/images/spryte.png) no-repeat;
 }
+
+
+#questions-edit-icon {
+	width: 25px;
+	height: 25px;
+	background-position: -138px -1309px;
+	position: absolute;
+	top: -2;
+}
+
 .google-plus :hover,.twitter :hover,.facebook :hover,.linkedin :hover,.plus :hover {
     background: url(../../beamstream-new/images/socialsprytestoggle.png) no-repeat;
 }

@@ -4174,7 +4174,7 @@ margin-top: 18px;
 .chat-open span.chat-show {
   float: right;
   background: 0;
-  background: url(../images/spryte.png) -184px -363px;
+  background: url(../images/spryte.png) -184px 6px;
   width: 6px;
   height: 20px;
   margin-right: 11px;
@@ -4345,21 +4345,14 @@ button.btn.display-dropdown {
   background-color: #737b83;
   border: 1px solid #4b545c;
 }
-.done:hover {
-  text-decoration: none;
-  color: #3f5a6c;
+.done:hover,
+.straem-block a:hover {
   border-color: #3f5a6c;
   border-top: .11em solid #3f5a6c;
   border-left: .11em solid #3f5a6c;
   border-right: .11em solid #3f5a6c;
   border-bottom: .11em solid #3f5a6c;
-  font-weight: 900;
   background: #ffba00;
-  background: -moz-linear-gradient(90deg, #ffba00 30%, #ff9f00 92%);
-  background: -webkit-linear-gradient(90deg, #ffba00 30%, #ff9f00 92%);
-  background: -o-linear-gradient(90deg, #ffba00 30%, #ff9f00 92%);
-  background: -ms-linear-gradient(90deg, #ffba00 30%, #ff9f00 92%);
-  background: linear-gradient(180deg, #ffba00 30%, #ff9f00 92%);
 }
 .display-sub {
   left: 13 !important;
@@ -8773,6 +8766,7 @@ ul.follow-name-left li a.downrocks-message:hover {
   padding: 1px 0 0 0;
 }
 #questions-icon,
+#questions-edit-icon,
 #create-google-doc-popup,
 #rate-lecturer-question-icon,
 .new-google-btn .google-doc-icn,
@@ -8785,6 +8779,13 @@ ul.follow-name-left li a.downrocks-message:hover {
 .menu-arrow:active .menu-arrow:hover,
 #sort_by_key > span {
   background: url(../../beamstream-new/images/spryte.png) no-repeat;
+}
+#questions-edit-icon {
+  width: 25px;
+  height: 25px;
+  background-position: -138px -1309px;
+  position: absolute;
+  top: -2;
 }
 .google-plus :hover,
 .twitter :hover,
