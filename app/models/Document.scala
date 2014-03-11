@@ -233,6 +233,18 @@ object Document extends RockConsumer {
     }
 
   }
+  
+  /**
+   * Update Preview image of Document
+   */
+  def updatePreviewImageUrl(newPreviewImageUrl: String = "") = {
+    println("11111111111111111111111111")
+     val document1 = DocumentDAO.find(MongoDBObject("previewImageUrl" -> ""))
+    println(document1.documentType.toString() + "------------------------------------------------------------")
+    val document = DocumentDAO.find(MongoDBObject("documentType" -> "GoogleDocs"))
+    println(document)
+   // DocumentDAO.update(MongoDBObject("documentType" -> "GoogleDocs"), document.copy(previewImageUrl = newPreviewImageUrl), false, false, new WriteConcern)
+  }
 
 }
 

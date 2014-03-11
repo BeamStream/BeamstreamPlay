@@ -20,7 +20,7 @@ import models.Access
 import models.User
 import java.util.Date
 import models.Question
-import models.Document
+import models.Document._
 import models.DocType
 import net.liftweb.json.Serialization.{ read, write }
 object GoogleDocsUploadUtilityController extends Controller {
@@ -44,6 +44,7 @@ object GoogleDocsUploadUtilityController extends Controller {
         if (action == "show") {
           val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(newAccessToken)
           /*Ok(views.html.showgoogledocs(files))*/
+          files.foreach(f => updatePreviewImageUrl(f._5))
           Ok(write(files)).as("application/json")
 
         } else if (action == "upload") {
