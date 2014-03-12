@@ -44,7 +44,7 @@ object GoogleDocsUploadUtilityController extends Controller {
         if (action == "show") {
           val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(newAccessToken)
           /*Ok(views.html.showgoogledocs(files))*/
-//          files.foreach(f => updateMessageImageUrl(updatePreviewImageUrl(f._1,f._5),f._5))
+          files.foreach(f => updateMessageImageUrl(updatePreviewImageUrl(f._1, f._5),f._5))
           Ok(write(files)).as("application/json")
 
         } else if (action == "upload") {

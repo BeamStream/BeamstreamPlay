@@ -817,7 +817,7 @@ define(
 												"class" : "btn googledocclose",
 
 												"callback" : function() {
-													
+
 												}
 											},
 											{

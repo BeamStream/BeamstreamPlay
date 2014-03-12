@@ -65,7 +65,7 @@ case class Document(@Key("_id") id: ObjectId,
   documentRockers: List[ObjectId],
   commentsOnDocument: List[ObjectId],
   documentFollwers: List[ObjectId],
-  previewImageUrl: String,
+  previewImageUrl: String = "",
   views: Int = 0)
 
 object Document extends RockConsumer {
@@ -237,14 +237,14 @@ object Document extends RockConsumer {
   /**
    * Update Preview image of Document
    */
-//  def updatePreviewImageUrl(documentName: String, newPreviewImageUrl: String = "") = {
-//    val document = DocumentDAO.find(MongoDBObject("documentName" -> documentName)).toList
-//    document.isEmpty match {
-//      case false => DocumentDAO.update(MongoDBObject("documentType" -> "GoogleDocs"), document(0).copy(previewImageUrl = newPreviewImageUrl), false, false, new WriteConcern)
-//                    document(0).id
-//      case true =>  new ObjectId
-//    }
-//  }
+  def updatePreviewImageUrl(documentName: String, newPreviewImageUrl: String = "") = {
+    val document = DocumentDAO.find(MongoDBObject("documentName" -> documentName)).toList
+    document.isEmpty match {
+      case false => {DocumentDAO.update(MongoDBObject("documentName" -> documentName), document(0).copy(previewImageUrl = newPreviewImageUrl), false, false, new WriteConcern)
+                    document(0).id}
+      case true =>  new ObjectId
+    }
+  }
 
 }
 

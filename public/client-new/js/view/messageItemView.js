@@ -74,6 +74,8 @@ define(
 							var model = this.model.attributes;
 							var contentType = '';
 							var msgBody = model.message.messageBody;
+							var previewImageUrl = model.message.anyPreviewImageUrl
+							var docId = model.message.docIdIfAny
 
 							/* get url from the message text */
 							var msgUrl = msgBody.replace(self.urlRegex1,
@@ -142,7 +144,12 @@ define(
 								var datas = {
 									"data" : model,
 									"datVal" : datVal,
-									"previewImage" : "/beamstream-new/images/google_docs_image.png",
+									"previewImage" : function() {
+										var src = "/beamstream-new/images/google_docs_image.png"
+										if (previewImageUrl != "")
+											src = previewImageUrl
+								        return src;
+									},
 									"commenImage" : "true",
 									"type" : "googleDoc",
 									"contentType" : contentType,
