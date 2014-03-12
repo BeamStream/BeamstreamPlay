@@ -142,7 +142,7 @@ define(
 								var datas = {
 									"data" : model,
 									"datVal" : datVal,
-									"previewImage" : "beamstream-new/images/google_docs_image.png",
+									"previewImage" : "/beamstream-new/images/google_docs_image.png",
 									"commenImage" : "true",
 									"type" : "googleDoc",
 									"contentType" : contentType,

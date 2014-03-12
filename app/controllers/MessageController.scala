@@ -33,8 +33,7 @@ object MessageController extends Controller {
     //    val messageAccess = (messageListJsonMap \ "messageAccess").as[String] 
     val messageBody = (messageListJsonMap \ "message").as[String]
     val messagePoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
-    val messageToCreate = new Message(new ObjectId, messageBody, Option(Type.Text), Option(Access.Public), new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)),
-      messagePoster.get.firstName, messagePoster.get.lastName, 0, Nil, Nil, 0, Nil)
+    val messageToCreate = new Message(new ObjectId, messageBody, Option(Type.Text), Option(Access.Public), new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)), messagePoster.get.firstName, messagePoster.get.lastName, 0, Nil, Nil, 0, Nil, "")
     val messageId = Message.createMessage(messageToCreate)
     val messageObtained = Message.findMessageById(messageId.get)
     val userMedia = UserMedia.getProfilePicForAUser(messageObtained.get.userId)

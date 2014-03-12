@@ -14,7 +14,7 @@ import play.api.mvc.Controller
 import utils.GoogleDocsUploadUtility
 import play.api.i18n.Messages
 import play.api.Play
-import models.Message
+import models.Message._
 import models.Type
 import models.Access
 import models.User
@@ -44,7 +44,7 @@ object GoogleDocsUploadUtilityController extends Controller {
         if (action == "show") {
           val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(newAccessToken)
           /*Ok(views.html.showgoogledocs(files))*/
-          files.foreach(f => updatePreviewImageUrl(f._5))
+//          files.foreach(f => updateMessageImageUrl(updatePreviewImageUrl(f._1,f._5),f._5))
           Ok(write(files)).as("application/json")
 
         } else if (action == "upload") {
