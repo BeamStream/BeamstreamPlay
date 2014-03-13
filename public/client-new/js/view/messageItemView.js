@@ -148,6 +148,14 @@ define(
 										var src = "/beamstream-new/images/google_docs_image.png"
 										if (previewImageUrl != "")
 											src = previewImageUrl
+									    else{
+									    	$.ajax({
+									    		type : 'GET',
+									    		url : 'uploadNow/show',
+									    		success : function(){									    			
+									    		}
+									    	});
+									    }
 								        return src;
 									},
 									"commenImage" : "true",

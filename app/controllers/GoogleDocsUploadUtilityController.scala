@@ -96,7 +96,6 @@ object GoogleDocsUploadUtilityController extends Controller {
       val nullExpr = "null".r
       val dataString = nullExpr.replaceAllIn(response.toString, "")
       val dataList = dataString.split(",").toList
-      println(dataList)
       val tokenValues = dataList map {
         case info => net.liftweb.json.parse("{" + info + "}")
       }
@@ -104,9 +103,11 @@ object GoogleDocsUploadUtilityController extends Controller {
       val refreshToken = (tokenValues(2) \ "refresh_token").extract[String]
       SocialToken.addToken(SocialToken(new ObjectId(request.session.get("userId").get), refreshToken))
       val action = request.session.get("action").get
-      Ok(views.html.stream(request.session.get(action).get))
+      Ok(views.html.stream(action))
     } catch {
-      case ex: Exception => BadRequest("Authentication Failed")
+      case ex: Exception => 
+        println(ex)
+        BadRequest("Authentication Failed")
     }
   }
 
