@@ -1,8 +1,3 @@
-
-
-
-
-
 /*Properties change bootstrap*/
 #innerSubList {
 	top: -1px;
@@ -459,7 +454,7 @@ border-radius:6px 0 6px 6px;
 	padding: 0;
 }
 
-#showSubList a, #uploadgdoc, #showgdoc, #questionsLink, #questions-poll-link {
+#showSubList a, #uploadgdoc, #showgdoc, #questionsLink, #questions-poll-link, #discussion-file-upload li a {
 	color: #3f5a6c;
 	text-decoration: none;
 	font-size: 11px;
@@ -468,9 +463,21 @@ border-radius:6px 0 6px 6px;
 	display: inline-block;
 }
 
-#showSubList a:hover, #uploadgdoc:hover, #showgdoc:hover, #questionsLink:hover, #questions-poll-link:hover, #showSubList a:active, #uploadgdoc:active, #showgdoc:active, #questionsLink:active, #questions-poll-link:active, {
+#showSubList a:hover, #uploadgdoc:hover, #discussion-file-upload li a:hover, #showgdoc:hover, #questionsLink:hover, #questions-poll-link:hover, #showSubList a:active, #uploadgdoc:active, #showgdoc:active, #questionsLink:active, #questions-poll-link:active, {
 	color: rgb(71, 138, 198);
 	font-weight: 600;
+}
+
+ul#discussion-file-upload {
+	left: -67 !important;
+	font-size: 11px;
+	font-weight: 600;
+	width: 85px;
+	border: 1px solid #49535a;
+}
+
+#discussion-file-upload li a {
+	margin-left: 28;	
 }
 
 #innerSubList li a {
@@ -5177,22 +5184,13 @@ text-decoration:none
 
 
 
-.display-sub:after {
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-bottom: 10px solid #fff;
-    top: -10px;
-    content: '';
-    left: 50%;
-    margin-left: 19px;
-    position: absolute;
-}
+
 
 .display-sub:before {
   border-left: 11px solid transparent;
   border-right: 11px solid transparent;
-  border-bottom: 11px solid #fff;
-   border-bottom: 10px solid #fff;
+  border-bottom: 11px solid black;
+   border-bottom: 10px solid black;
   top: -11px;
   margin-left: -11px;
 	position: absolute;
@@ -10785,12 +10783,12 @@ color:#827e7e
 	padding: 1px 0 0 0;
 }
 
-#questions-icon, #questions-edit-icon, #create-google-doc-popup, #rate-lecturer-question-icon, .new-google-btn .google-doc-icn, .new-google-btn .question-icn, .google-plus, .twitter, .facebook, .linkedin, .plus, .menu-arrow:active .menu-arrow:hover, #sort_by_key > span {
+#questions-icon, #questions-edit-gear-icon, #create-google-doc-popup, #rate-lecturer-question-icon, .new-google-btn .google-doc-icn, .new-google-btn .question-icn, .google-plus, .twitter, .facebook, .linkedin, .plus, .menu-arrow:active .menu-arrow:hover, #sort_by_key > span {
     background: url(../../beamstream-new/images/spryte.png) no-repeat;
 }
 
 
-#questions-edit-icon {
+#questions-edit-gear-icon {
 	width: 25px;
 	height: 25px;
 	background-position: -138px -1309px;
@@ -10995,8 +10993,8 @@ ul.answer {
     margin-top: 6px;
 }
 
-.google-doc-dropdown:after,
-.google-doc-dropdown:before, #questions-dropdown:before, #questions-dropdown:after {
+.google-doc-dropdown:after, #discussion-file-upload:after, #discussion-file-upload:before,
+.google-doc-dropdown:before, #questions-dropdown:before, #questions-dropdown:after, .display-sub:after, .display-sub:before {
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
     border-bottom: 10px solid #fff;
@@ -11009,13 +11007,17 @@ ul.answer {
 
 /* Styling for second triangle (border) */
 
-.google-doc-dropdown:before, #questions-dropdown:before {
+.google-doc-dropdown:before, #questions-dropdown:before, #discussion-file-upload:before {
     border-left: 11px solid transparent;
     border-right: 11px solid transparent;
     border-bottom: 11px solid #fff;
     border-bottom-color: inherit; /* Can't be included in the shorthand to work */
     top: -11px;
     margin-left: -11px;
+}
+
+#discussion-file-upload:before {
+margin-left: -10.5px;
 }
 
 #gdoc-link span.menu-arrow {

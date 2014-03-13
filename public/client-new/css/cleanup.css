@@ -414,7 +414,8 @@ ul.icons-ask li,
 #uploadgdoc,
 #showgdoc,
 #questionsLink,
-#questions-poll-link {
+#questions-poll-link,
+#discussion-file-upload li a {
   color: #3f5a6c;
   text-decoration: none;
   font-size: 11px;
@@ -424,6 +425,7 @@ ul.icons-ask li,
 }
 #showSubList a:hover,
 #uploadgdoc:hover,
+#discussion-file-upload li a:hover,
 #showgdoc:hover,
 #questionsLink:hover,
 #questions-poll-link:hover,
@@ -434,6 +436,16 @@ ul.icons-ask li,
 #questions-poll-link:active {
   color: #478ac6;
   font-weight: 600;
+}
+ul#discussion-file-upload {
+  left: -67 !important;
+  font-size: 11px;
+  font-weight: 600;
+  width: 85px;
+  border: 1px solid #49535a;
+}
+#discussion-file-upload li a {
+  margin-left: 28;
 }
 #innerSubList li a {
   color: fff;
@@ -4381,21 +4393,11 @@ button.btn.display-dropdown {
   color: #fff;
   text-decoration: none;
 }
-.display-sub:after {
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 10px solid #fff;
-  top: -10px;
-  content: '';
-  left: 50%;
-  margin-left: 19px;
-  position: absolute;
-}
 .display-sub:before {
   border-left: 11px solid transparent;
   border-right: 11px solid transparent;
-  border-bottom: 11px solid #fff;
-  border-bottom: 10px solid #fff;
+  border-bottom: 11px solid black;
+  border-bottom: 10px solid black;
   top: -11px;
   margin-left: -11px;
   position: absolute;
@@ -5525,8 +5527,9 @@ ul.email-social-icons li.other2 {
 #main-text-input-wrapper {
   border-bottom: 1.7px solid #c0c3c6;
   margin-right: 34.2%;
-  padding-bottom: 20px;
+  padding-bottom: 40px;
   max-width: 58%;
+  background: #e3e5e6;
 }
 .ask-outer {
   background: #e3e5e6;
@@ -5536,7 +5539,6 @@ ul.email-social-icons li.other2 {
   position: relative;
   top: -22px;
   padding: 0% 2% 1.5% 2%;
-  overflow: hidden;
 }
 .question-sort .main-stream-dropdown {
   margin-top: -1px;
@@ -8766,7 +8768,7 @@ ul.follow-name-left li a.downrocks-message:hover {
   padding: 1px 0 0 0;
 }
 #questions-icon,
-#questions-edit-icon,
+#questions-edit-gear-icon,
 #create-google-doc-popup,
 #rate-lecturer-question-icon,
 .new-google-btn .google-doc-icn,
@@ -8780,7 +8782,7 @@ ul.follow-name-left li a.downrocks-message:hover {
 #sort_by_key > span {
   background: url(../../beamstream-new/images/spryte.png) no-repeat;
 }
-#questions-edit-icon {
+#questions-edit-gear-icon {
   width: 25px;
   height: 25px;
   background-position: -138px -1309px;
@@ -8971,9 +8973,13 @@ ul.answer .bar {
   margin-top: 6px;
 }
 .google-doc-dropdown:after,
+#discussion-file-upload:after,
+#discussion-file-upload:before,
 .google-doc-dropdown:before,
 #questions-dropdown:before,
-#questions-dropdown:after {
+#questions-dropdown:after,
+.display-sub:after,
+.display-sub:before {
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
   border-bottom: 10px solid #fff;
@@ -8985,7 +8991,8 @@ ul.answer .bar {
 }
 /* Styling for second triangle (border) */
 .google-doc-dropdown:before,
-#questions-dropdown:before {
+#questions-dropdown:before,
+#discussion-file-upload:before {
   border-left: 11px solid transparent;
   border-right: 11px solid transparent;
   border-bottom: 11px solid #fff;
@@ -8994,6 +9001,9 @@ ul.answer .bar {
 
   top: -11px;
   margin-left: -11px;
+}
+#discussion-file-upload:before {
+  margin-left: -10.5px;
 }
 #gdoc-link span.menu-arrow {
   margin-left: -15px;
