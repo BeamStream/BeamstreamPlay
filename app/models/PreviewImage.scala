@@ -39,24 +39,14 @@ object PreviewImage extends Controller {
         val url = new URL(docPreviewImageUrl)
         val connection = url.openConnection().asInstanceOf[HttpsURLConnection]
         connection.setRequestMethod("GET")
-        //        connection.setDoOutput(true)
-        //        val wr = new DataOutputStream(connection.getOutputStream())
-        println("111111111111111111111111111" + connection.getContentLength())
         if (connection.getContentLength() != -1) {
           val in = connection.getInputStream()
-          println("222222222222222222222222222222222222222")
           val mongoDBConnection = MongoConnection()("myTestDB")
-          println("33333333333333333333333333333333333333")
           val gridFS = GridFS(mongoDBConnection, "image")
-          println("444444444444444444444444444444444444")
           val gfsFile = gridFS.createFile(in)
-          println("5555555555555555555555555555555555555")
           gfsFile.contentType_=("image/png")
-          println("66666666666666666666666666666666666666666666")
-          gfsFile.filename = (new PasswordHashingUtil).encryptThePassword(docPreviewImageUrl)
-          println("----------------------------------------")
+          gfsFile.filename = docPreviewImageUrl
           gfsFile.save
-          println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.")
           in.close
         }
       } catch {
@@ -69,12 +59,13 @@ object PreviewImage extends Controller {
 
   }
 
-  def getPhoto(fileName: String) = Action { implicit request =>
+  /*def getPhoto(previewImageUrl: String) = Action { implicit request =>
 
     val mongoDBConnection = MongoConnection()("myTestDB")
     println("33333333333333333333333333333333333333")
     val gridFs = GridFS(mongoDBConnection, "image")
     println("44444444444444444444444444444444444444")
+    val fileName = (new PasswordHashingUtil).encryptThePassword(previewImageUrl)
     gridFs.findOne(fileName) match {
       case None => NotFound
       case Some(img) => SimpleResult(
@@ -82,7 +73,6 @@ object PreviewImage extends Controller {
           CONTENT_LENGTH -> img.length.toString,
           CONTENT_TYPE -> img.contentType.getOrElse("image/png"))),
         Enumerator.fromStream(img.inputStream))
-
     }
-  }
+  }*/
 }

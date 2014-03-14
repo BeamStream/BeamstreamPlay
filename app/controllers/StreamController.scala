@@ -16,6 +16,13 @@ import utils.OnlineUserCache
 import play.api.Routes
 import scala.concurrent.Future
 import play.api.libs.concurrent.Execution.Implicits._
+import com.mongodb.casbah.MongoConnection
+import com.mongodb.casbah.gridfs.GridFS
+import utils.PasswordHashingUtil
+import play.api.mvc.SimpleResult
+import play.api.mvc.ResponseHeader
+import play.api.libs.iteratee.Enumerator
+
 object StreamController extends Controller {
 
   val EnumList: List[Enumeration] = List(ClassType)
@@ -118,10 +125,11 @@ object StreamController extends Controller {
           case false =>
             Ok(views.html.stream("ok"))
         }
-      case true => 
+      case true =>
         Ok(views.html.login())
     }
   }
+
   /**
    * Ajax Support
    */

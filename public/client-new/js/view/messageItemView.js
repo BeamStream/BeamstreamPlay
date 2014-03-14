@@ -146,17 +146,18 @@ define(
 									"datVal" : datVal,
 									"previewImage" : function() {
 										var src = "/beamstream-new/images/google_docs_image.png"
-										if (previewImageUrl != "")
-											src = previewImageUrl
-									    else{
-									    	$.ajax({
-									    		type : 'GET',
-									    		url : 'uploadNow/show',
-									    		success : function(){									    			
-									    		}
-									    	});
-									    }
-								        return src;
+										if (previewImageUrl == "") {
+											$
+													.ajax({
+														type : 'GET',
+														url : 'uploadNow/addPreviewImageUrl',
+														success : function() {
+														}
+													});
+										} else {
+											src = previewImageUrl;
+										}
+										return src;
 									},
 									"commenImage" : "true",
 									"type" : "googleDoc",

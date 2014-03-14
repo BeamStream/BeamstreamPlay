@@ -212,6 +212,10 @@ GET    /startChat/:me/:toWhom                                                   
 GET    /javascriptRoutes                                                                   controllers.StreamController.javascriptRoutes
 GET    /instantiateChat/:userId                                                            controllers.WebsocketCommunicationController.instantiateChat(userId)
 
+#Preview Image
+#GET   /image/:previewImageUrl                                                              controllers.StreamController.encryptTheUrl(previewImageUrl: String)
+#GET   /image/gridfs/:fileName                                                              controllers.StreamController.getPhoto(fileName: String)
+
 #GET    /canStartChat/:flag/:me/:toWhom                                                       controllers.WebsocketCommunicationController.canStartChat(flag,me, toWhom)
 #Looks like Unused
 
