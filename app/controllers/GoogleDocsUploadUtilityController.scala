@@ -23,6 +23,8 @@ import models.Question
 import models.Document._
 import models.DocType
 import net.liftweb.json.Serialization.{ read, write }
+import models.PreviewImage
+import utils.PasswordHashingUtil
 object GoogleDocsUploadUtilityController extends Controller {
 
   implicit val formats = net.liftweb.json.DefaultFormats
@@ -44,7 +46,10 @@ object GoogleDocsUploadUtilityController extends Controller {
         if (action == "show") {
           val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(newAccessToken)
           /*Ok(views.html.showgoogledocs(files))*/
+          files.foreach(f => PreviewImage.addPreviewImage(f._5))
           files.foreach(f => updateMessageImageUrl(updatePreviewImageUrl(f._1, f._5),f._5))
+          val result = PreviewImage.getPhoto((new PasswordHashingUtil)encryptThePassword(files(0)._5))
+          println(result)
           Ok(write(files)).as("application/json")
 
         } else if (action == "upload") {
