@@ -6423,6 +6423,7 @@ ul.comment-list {
   padding: 9px 0 0 15%;
   margin: 0 0 0 -10%;
   width: 73%;
+	height: 30px;
 }
 ul.comment-list li {
   width: 13%!important;

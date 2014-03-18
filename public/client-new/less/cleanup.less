@@ -293,7 +293,7 @@ ul.icons-ask li,
 .green-btn span.visual-dot,
 .green-btn span.visual-line,
 .green-btn span.texter-new span,
-.eye-icon,
+li.eye-icon,
 .hand-icon,
 .message-icon,
 .tag-icon,
@@ -7383,10 +7383,10 @@ border-radius:5px;
 -webkit-box-shadow:0 0 0 1px #cdd4db;
 -moz-box-shadow:0 0 0 1px #cdd4db;
 box-shadow:0 0 0 1px #cdd4db;
-background:#fff;
 display:block;
 overflow:hidden;
-float:left
+float:left;
+height: 220px;
 }
 
 ul.profil-pic-outer li .lessborder {
@@ -7727,13 +7727,13 @@ background:url(../images/arrow.png) no-repeat
 ul.comment-list {
 	list-style: none;
 	display: inline-block;
-	padding: 9px 0 0 15%;
-	margin: 0 0 0 -10%;
-	width: 73%;
+	padding: 7px 0 0 15.8%;
+	margin: 0 0 0 -10.9%;
+	width: 73.5%;
 }
 
 ul.comment-list li {
-width: 13%!important;
+width: 14.6%!important;
 height: 23px!important;
 border: none!important;
 border-bottom-right-radius: 0!important;
@@ -7741,8 +7741,10 @@ border-bottom-left-radius: 0!important;
 box-shadow: none!important;
 display: inline-block;
 margin: 0;
-line-height: 16px;
-background: 0;
+}
+
+.content .item {
+	background-color: #fff;
 }
 
 ul.comment-list li a {
@@ -7750,6 +7752,10 @@ font-size:12px;
 font-weight:400;
 color:#787878;
 padding:0 5px 2px 1px
+}
+
+.view-count {
+	padding-left: 5px;
 }
 
 ul.comment-list li a:hover {
@@ -7769,16 +7775,15 @@ text-decoration:none
 }
 
 ul li.eye-icon {
-background-position:-87px -110px;
-
+	background-position: -92px -107px;
 }
 
 ul li.hand-icon {
-background-position:-87px -110px
+background-position: -157px -106px;
 }
 
-ul .message-icon {
-background-position:-87px -110px
+ul li .message-icon {
+background-position: -238px -109px;
 }
 
 .tag-icon {
