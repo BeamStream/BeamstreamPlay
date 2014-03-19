@@ -959,7 +959,8 @@
                 <div class="settings-menu">
                   <div class="btn-group">
                     <button id="view-by-select" value="all" class="btn seetings-toggle sort-toogle sort-toogle-none">All Files </button>
-                    <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle"> <span class="caret settings-caret"></span></button>
+                    <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle"> 
+											<span id="all-files-dropdown" class="settings-caret"></span></button>
                     <ul id="view-by-list" class="dropdown-menu browse-dropdown">
                       <li><a  value="all"  href="#">All Files</a></li>
                       <li><a  value="profileMedia"  href="#">My Profile Media</a></li>
@@ -975,7 +976,8 @@
                 <div class="settings-menu">
                   <div class="btn-group">
                     <button  id="view-files-byrock-select" class="btn seetings-toggle sort-toogle  sort-toogle-none">By Highest Rocks</button>
-                    <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown"> <span class=" settings-caret"></span></button>
+                    <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown"> 
+											<span id="highest-rock-dropdown" class="settings-caret"></span></button>
 						<ul id="view-files-byrock-list" class="dropdown-menu browse-dropdown">
  					  	<li data-sort="rocks"><a href="#">By Highest Rocks</a></li>
                       	<li><a href="#">By Tags</a></li>
@@ -989,7 +991,8 @@
                 <div class="settings-menu">
                   <div class="btn-group">
                     <button class="btn seetings-toggle sort-toogle sort-toogle-none" id="category-list-select" >Category </button>
-                    <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle"> <span class="caret settings-caret"></span></button>
+                    <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle"> 
+											<span id="catagory-dropdown" class="settings-caret"></span></button>
 						 <ul class="dropdown-menu browse-dropdown" id="category-list" >
                        <li><a href="#">Class Document</a></li>
                       <li><a href="#">Assignment</a></li>
@@ -1011,7 +1014,8 @@
 				<div class="settings-menu">
                   <div class="btn-group">
                     <button class="btn seetings-toggle sort-toogle sort-toogle-none"  id="by-class-select" >by All Classes & Schools </button>
-                    <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle"> <span class="caret settings-caret"></span></button>
+                    <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle"> 
+											<span id="classes-file-dropdown" class="settings-caret"></span></button>
 						<ul class="dropdown-menu browse-dropdown"  id="by-class-list" >
                     </ul>
                   </div>
@@ -1026,7 +1030,8 @@
 				 <div class="settings-menu">
                   <div class="btn-group">
                     <button class="btn seetings-toggle sort-toogle sort-toogle-none"  id="view-by-date-select" >All Date </button>
-                    <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle"> <span class="caret settings-caret"></span></button>
+                    <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle"> 
+											<span id="then-sort-by-file-dropdown" class="settings-caret"></span></button>
                     <ul class="dropdown-menu browse-drop browse-dropdown" id="view-by-date-list" >
                      <li data-sort="date-oldest"><a href="#">Most Recent</a></li>
 					<li data-sort="date-recent"><a  href="#">Oldest</a></li>
