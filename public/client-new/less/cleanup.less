@@ -7404,7 +7404,11 @@ display:block;
 height:180px!important;
 position:relative;
 text-align:center;
-overflow:hidden
+overflow:hidden;
+-moz-box-shadow: 0 0 0 1px #cdd4db;
+-webkit-box-shadow: 0 0 0 1px #cdd4db;
+-ms-box-shadow: 0 0 0 1px #cdd4db;
+box-shadow: 0 0 0 1px #cdd4db;
 }
 
 div.hover-div img {
@@ -7674,7 +7678,6 @@ line-height:150px
 	bottom:0;
 	left:-1px;
 	overflow:hidden;
-	border-top: solid 1px #CDD4DB;
 }
 
 .common-icon {
@@ -7735,14 +7738,13 @@ ul.comment-list {
 }
 
 ul.comment-list li {
-width: 14.6%!important;
+width: 14.6%;
 height: 23px!important;
 border: none!important;
 border-bottom-right-radius: 0!important;
 border-bottom-left-radius: 0!important;
 box-shadow: none!important;
 display: inline-block;
-margin: 0;
 }
 
 .content .item {
@@ -7761,28 +7763,43 @@ padding:0 5px 2px 1px
 }
 
 ul.comment-list li a:hover {
--moz-opacity:50;
--khtml-opacity:50;
--webkit-opacity:50;
-opacity:50;
--ms-filter:alpha(opacity=5000);
-filter:alpha(opacity=5000);
-opacity:.5;
-filter:alpha(opacity=50);
-text-decoration:none
+-moz-opacity: 50;
+-khtml-opacity: 50;
+-webkit-opacity: 50;
+opacity:5 0;
+-ms-filter: alpha(opacity=5000);
+filter: alpha(opacity=5000);
+opacity: .5;
+filter: alpha(opacity=50);
+text-decoration: none;
+font-weight: bolder;
 }
 
 .common-icon ul .view-count, .common-icon ul .rock-count, .common-icon ul .comment-count {
 	width: 10px
 }
 
+.comment-list li:nth-child(2) {
+	margin: 2.1px 0 0 3px!important;
+}
+
+.comment-list li:nth-child(4) {
+	margin: 2.1px 0 0 -9px!important;
+}
+
 ul li.eye-icon {
 	background-position: -92px -107px;
+	width: 16%!important;
+	position: relative;
 }
 
 ul li.hand-icon {
 background-position: -157px -106px;
-margin-left: 3px!important;
+margin-left: -1px!important;
+}
+
+.comment-list li:nth-child(6) {
+margin: -24px 0 0 138px !important;
 }
 
 ul li .message-icon {
