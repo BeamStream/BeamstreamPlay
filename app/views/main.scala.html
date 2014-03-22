@@ -40,6 +40,11 @@
 					//            $.mobile.touchOverflowEnabled = true;
 					// });
 
+					try {
+						localStorage.test = 2;// try to use localStorage      
+					} catch (e) {//there was an error so...
+						alert('You are in Private Mode\nPlease deactivate Private Mode and reload the page.');
+					}
 					/* for beta user share popups */
 					localStorage["shareWidget"] = '';
 
@@ -96,28 +101,27 @@
 
     <!-- Disable Back Button -->
       <script type="text/javascript">
-         function preventBack() {
-           window.history.forward();
-         }
-         window.onunload = function() {
-           null;
-        };
-         setTimeout("preventBack()", 0);
-       </script>
+							function preventBack() {
+								window.history.forward();
+							}
+							window.onunload = function() {
+								null;
+							};
+							setTimeout("preventBack()", 0);
+						</script>
     
     <!-- Online User's call -->
 
 <script type="text/javascript">
-
-function notifyOnline() {
-$.ajax({
-url: '/active',
-success: function(data) {
-// do something with the return value here if you like
-}
-});
-}
-setInterval(notifyOnline, 5000); // you could choose not to continue on failure...
+	function notifyOnline() {
+		$.ajax({
+			url : '/active',
+			success : function(data) {
+				// do something with the return value here if you like
+			}
+		});
+	}
+	setInterval(notifyOnline, 5000); // you could choose not to continue on failure...
 </script>
 <!-- Online User's call -->
     
