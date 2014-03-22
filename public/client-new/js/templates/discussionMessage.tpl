@@ -54,27 +54,36 @@
 	                         {{/if}}
 		                  	
 						    <div class="hover-text">               
-						     <div class="comment-wrapper" id="{{data.message.docIdIfAny.id}}">                                
-						     <div id="media-{{data.message.docIdIfAny.id}}">
-						      <h4 id="name-{{data.message.docIdIfAny.id}}" >{{#if data.docName}}{{data.docName}}{{else}}No Document Name{{/if}}</h4>                                
-						      <div  class="description-info "><div name={{type}}  class="description-left mediapopup drag-rectangle" id="{{data.message.docIdIfAny.id}}">
-						        <input type="hidden" id="id-{{data.message.docIdIfAny.id}}"  value="{{data.message.messageBody}}">      
-						        <p class="doc-description" id="description-{{data.message.docIdIfAny.id}}" >{{#if data.docDescription}}{{data.docDescription}}{{else}}No Document Description..{{/if}}</p>
-						      </div>
-						      <div id="{{data.message.docIdIfAny.id}}" class="comment-wrapper2">
-						      <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon rock_documents"></a>
-						      <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
-						      </div></div></div>
+						    	<div class="comment-wrapper" id="{{data.message.docIdIfAny.id}}">                                
+						     		<div id="media-{{data.message.docIdIfAny.id}}">
+						      		<h4 id="name-{{data.message.docIdIfAny.id}}" >{{#if data.docName}}{{data.docName}}{{else}}No Document Name{{/if}}</h4> 
+						     		 	<div  class="description-info ">
+												<div name={{type}}  class="description-left mediapopup drag-rectangle" id="{{data.message.docIdIfAny.id}}">
+						        			<input type="hidden" id="id-{{data.message.docIdIfAny.id}}"  value="{{data.message.messageBody}}">      
+						        			<p class="doc-description" id="description-{{data.message.docIdIfAny.id}}" >{{#if data.docDescription}}{{data.docDescription}}{{else}}No 														Document Description..{{/if}}
+													</p>
+									    		<div class="dateinfo">
+														<span class="state">{{data.message.messageAccess.name}}</span>
+														<span class="date date-btn">{{datVal}}</span>
+													</div>
+						      			</div>
+						      			<div id="{{data.message.docIdIfAny.id}}" class="comment-wrapper2">
+						      				<a href="#" class="tag-icon" data-original-title="Search by Users"></a>
+													<a href="#" class="hand-icon rock_documents"></a>
+						     	 				<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
+						      			</div>
+											</div>
+										</div>
 								
 							      <div class="edit-title-div">
-								 {{#ifequal loggedUserId data.message.userId.id }}
-						     	 	<h5 class="editMediaTitle"   id="{{data.message.docIdIfAny.id}}"><span><img src="/beamstream-new/images/title-plus.png"></span>Title & Description</h5>
-								  {{/ifequal}}
-		                    	  </div>
-								
-						     <div class="dateinfo"><span class="state">{{data.message.messageAccess.name}}</span><span class="date date-btn">{{datVal}}</span></div>
-						    </div>
-						   </div>
+								 		 	{{#ifequal loggedUserId data.message.userId.id }}
+						     	 		<h5 class="editMediaTitle"   id="{{data.message.docIdIfAny.id}}">
+												<span><img src="/beamstream-new/images/title-plus.png"></span>Title & Description
+											</h5>{{/ifequal}}
+		                </div>
+						    		
+						  		</div>
+						 	 </div>
 						  </div>
 						 </div>
 						

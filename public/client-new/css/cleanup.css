@@ -266,10 +266,6 @@ ul.icons-ask li,
 .green-btn span.visual-line,
 .green-btn span.texter-new span,
 .eye-icon,
-.hand-icon,
-.message-icon,
-.tag-icon,
-.share-icon,
 #dropdownnew a,
 .attach-drop-bg,
 .delete_post,
@@ -6289,7 +6285,7 @@ div.hover-div:hover .hover-image {
   color: #545454;
   font-size: 13px;
   font-weight: 500;
-  margin: 0 0 5px 0;
+  margin: -5 0 5px 0;
   cursor: pointer;
   line-height: 20px;
   width: 100%;
