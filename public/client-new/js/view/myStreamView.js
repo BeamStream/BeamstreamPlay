@@ -33,6 +33,7 @@ define(
 							'click .minimize' : 'minimize',
 							'click #sidequestionexpand' : 'restoretonormal',
 							'click #create-google-docs-close' : 'askToPublishDocs',
+							'click .cancel-publish' : 'askToPublishDocs',
 						},
 						messagesPerPage : 10,
 						pageNo : 1,
@@ -227,7 +228,7 @@ define(
 							// $( "#questionStreamView").show();
 							var position = $("#sidequestionexpand").css(
 									"margin-right");
-							if (position == "-254px") {
+							if (position <= "-254px") {
 								$("#questionStreamView").animate({
 									"margin-right" : '+=254'
 								}, 1000);
@@ -317,6 +318,8 @@ define(
 						createGDocument : function(create) {
 							$("#creategoogledoc").modal('show');
 							$(".contentcreatedoc").empty();
+							$(".publish-btn").css("border","2px solid #3d71a5");
+							$(".publish-txt").css("color","#fff");	
 							$('#creategoogledoc #floatingCirclesG').show();
 							$
 									.ajax({
@@ -397,6 +400,8 @@ define(
 						createGSpreadsheet : function(create) {
 							$("#creategoogledoc").modal('show');
 							$(".contentcreatedoc").empty();
+							$(".publish-btn").css("border","2px solid #3d71a5");
+							$(".publish-txt").css("color","#fff");
 							$('#creategoogledoc #floatingCirclesG').show();
 							$
 									.ajax({
@@ -477,6 +482,8 @@ define(
 						createGPresentation : function(create) {
 							$("#creategoogledoc").modal('show');
 							$(".contentcreatedoc").empty();
+							$(".publish-btn").css("border","2px solid #3d71a5");
+							$(".publish-txt").css("color","#fff");
 							$('#creategoogledoc #floatingCirclesG').show();
 							$
 									.ajax({
@@ -808,25 +815,33 @@ define(
 						},
 
 						askToPublishDocs : function() {
-
-							bootbox.dialog("Are you sure you want to publish?",
+							
+							$(".publish-btn").css("border","2px solid #3d71a5");
+							$(".publish-txt").css("color","#fff");
+							$(".publish-btn").css("background-color","#5199e1");
+							bootbox.dialog("Are you sure you want to delete?",
 									[
 											{
 
-												"label" : "YES",
+												"label" : "Delete",
 												"class" : "btn googledocclose",
 
 												"callback" : function() {
+													$("#creategoogledoc")
+													.modal("hide");
+													
 
 												}
 											},
 											{
-												"label" : "NO",
+												"label" : "Continue",
 												"class" : "btn googledocclose",
 												"callback" : function() {
-
-													$("#creategoogledoc")
-															.modal("hide");
+													
+													$(".publish-btn").css("border","2px solid #bf462e");
+													$(".publish-btn").css("background-color","#e36a49");
+													//$(".publish-txt").css("color","#bf462e");
+													//	$(".publish-txt").css("text-shadow","1px 1px 2px #000");
 												}
 											} ]);
 
