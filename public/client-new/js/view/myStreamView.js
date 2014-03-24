@@ -818,7 +818,7 @@ define(
 							
 							$(".publish-btn").css("border","2px solid #3d71a5");
 							$(".publish-txt").css("color","#fff");
-
+							$(".publish-btn").css("background-color","#5199e1");
 							bootbox.dialog("Are you sure you want to delete?",
 									[
 											{
@@ -839,7 +839,9 @@ define(
 												"callback" : function() {
 													
 													$(".publish-btn").css("border","2px solid #bf462e");
-													$(".publish-txt").css("color","#bf462e");
+													$(".publish-btn").css("background-color","#e36a49");
+													//$(".publish-txt").css("color","#bf462e");
+													//	$(".publish-txt").css("text-shadow","1px 1px 2px #000");
 												}
 											} ]);
 
