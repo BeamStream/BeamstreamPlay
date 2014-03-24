@@ -134,9 +134,7 @@
 						  <div class="hover-div"><img class="filmedia-picture" src="{{data.message.anyPreviewImageUrl}}">
 						    <div class="hover-text">               
 						     <div class="comment-wrapper" id="{{data.message.docIdIfAny.id}}">                                
-						     <div id="media-{{data.message.docIdIfAny.id}}">
-						      <h4 id="name-{{data.message.docIdIfAny.id}}" >{{#if data.docName}}{{data.docName}}
-						      {{else}}No Media Name{{/if}}</h4>                                
+						     <div id="media-{{data.message.docIdIfAny.id}}">                               
 						      <div class="description-info">      
 						         <div class="gallery"></div>
 						         

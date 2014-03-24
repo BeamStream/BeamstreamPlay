@@ -6833,7 +6833,6 @@ text-decoration:none
 .comment-wrapper {
 clear:both;
 display:block;
-overflow:hidden
 }
 
 .comment-wrapper a {
@@ -7399,7 +7398,6 @@ div.hover-div {
 display:block;
 height:180px!important;
 position:relative;
-text-align:center;
 overflow:hidden;
 -moz-box-shadow: 0 0 0 1px #cdd4db;
 -webkit-box-shadow: 0 0 0 1px #cdd4db;
@@ -7421,8 +7419,7 @@ filter:alpha(opacity=100)!important;
 
 #document-cover-img {
 	width: 100%;
-	padding-top: 3px;
-	padding-top: 0;
+	padding-top: 20px;
 }
 
 .browse-file {
@@ -7460,13 +7457,6 @@ width:100%
 
 .cover-picture {
 padding-top:35px
-}
-
-div.hover-div {
-	display: block;
-	position: relative;
-	text-align: center;
-	overflow: hidden;
 }
 
 div.hover-div img {
@@ -7541,11 +7531,6 @@ padding:2px 10px 0 0
 }
 
 .image-wrapper h4 {
-
-
-}
-
-.image-wrapper h4 {
 	color: #00b7e1;
 	font-size: 10.6px;
 	text-transform: uppercase;
@@ -7559,13 +7544,15 @@ padding:2px 10px 0 0
 	height: 22px;
 	line-height: 30px;
 	text-align: left;
+	position: absolute;
+	z-index: 3;
 }
 
 .image-wrapper p {
 color:#545454;
 font-size:13px;
 font-weight:500;
-margin:0 0 5px 0;
+margin: 20px 0 5px 0;
 cursor:pointer;
 line-height:20px;
 width:100%;
@@ -7584,7 +7571,7 @@ font-weight:bold
 	width: 222px;
 	float: left;
 	padding: 12px 0px 0px 0px;
-	margin: 0px 0px 0px 2px;
+	margin: -6px 0px 0px 2px;
 	color: #00b7e1;
 	font-size: 10.6px;
 	text-transform: uppercase;
@@ -7600,14 +7587,44 @@ text-align:left;
 
 .date-btn {
 float:right!important;
-padding:0 8px 0 0
+padding:0 18px 0 0
+}
+
+.file-title {
+color: blue;
+font-size: 13px;
+position: absolute;
+
+}
+
+.hover-text {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+#single-doc {
+	position: relative;
+}
+
+.comment-wrapper2 {
+	width: 221px;
+	height: 25px;
+	margin: 11px 0px 0px 1px;
 }
 
 #document-rock-button, #document-comment-button, #document-share-button {
-	width: 50px;
-	height: 20px;
-	margin: 6px;
-	border: 1px solid blue;
+	width: 61px;
+	margin: 21px 1px 0px 3px;
+	height: 24px;
+	border: 1px solid #00b7e1;
+	display: inline-block;
+	border-radius: 3px;
+}
+
+#document-rock-button:hover, #document-comment-button:hover, #document-share-button:hover {
+	background-color: #00b7e1;
+	color: #fff;
 }
 													
 .startBeam-btn {
@@ -7650,7 +7667,8 @@ z-index:2;
 text-align:left!important;
 background:white;
 text-align:center!important;
-line-height:150px
+line-height:150px;
+overflow: hidden;
 }
 
 .hover-div .hover-text:before {
@@ -9720,9 +9738,10 @@ box-shadow:0 1px 2px rgba(0,
 }
 
 .common-doctext {
-font-size:16px;
+font-size:18px;
 color:#77808b!important;
-line-height:10px!important
+line-height:10px!important;
+margin-left: 39%;
 }
 
 .description-left {
@@ -9769,7 +9788,7 @@ padding-right: 0%
 }
 
 .doc-image {
-	width: 56%!important;
+	width: 62%!important;
 	max-width: 172px;
 	margin:0 auto
 }
