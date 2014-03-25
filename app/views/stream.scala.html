@@ -1028,7 +1028,7 @@ header, footer){
 									.ajax({
 
 										type : 'GET',
-										url : 'uploadNow/presentation',
+										url : 'googleDoc/presentation',
 
 										success : function(data) {
 											$('#creategoogledoc #floatingCirclesG')
@@ -1117,7 +1117,7 @@ else if('@flag' == 'spreadsheet')
 									.ajax({
 
 										type : 'GET',
-										url : 'uploadNow/spreadsheet',
+										url : 'googleDoc/spreadsheet',
 
 										success : function(data) {
 											$('#creategoogledoc #floatingCirclesG')
@@ -1193,7 +1193,7 @@ else if ('@flag' == 'document') {
 					$('#creategoogledoc #floatingCirclesG').show();
 					$.ajax({
 						type : 'GET',
-						url : 'uploadNow/document',
+						url : 'googleDoc/document',
 							success : function(data) {
 							$('#creategoogledoc #floatingCirclesG').hide();
 							String.prototype.startsWith = function(s)
@@ -1302,7 +1302,7 @@ else if ('@flag' == 'document') {
 									.ajax({
 
 										type : 'GET',
-										url : 'uploadNow/show',
+										url : 'googleDoc/show',
 
 										success : function(data) {
 											$('#showgoogledoc #floatingCirclesG')
@@ -1415,7 +1415,7 @@ else if ('@flag' == 'document') {
 				{$.ajax({
 
 								type : 'GET',
-								url : 'uploadNow/upload',
+								url : 'googleDoc/upload',
 
 								success : function(data) {
 

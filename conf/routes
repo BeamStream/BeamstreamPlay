@@ -202,7 +202,7 @@ GET    /search/:keyword                                                         
 
 
 #Google Docs
-GET    /uploadNow/:action                                                                  controllers.GoogleDocsUploadUtilityController.authenticateToGoogle(action:String)
+GET    /googleDoc/:action                                                                  controllers.GoogleDocsUploadUtilityController.authenticateToGoogle(action:String)
 GET    /driveAuth                                                                          controllers.GoogleDocsUploadUtilityController.googleDriveAuthentication
 #GET     /google/callback                                                  controllers.GoogleDocsUploadUtilityController.accessToken
 
