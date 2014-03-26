@@ -35,39 +35,42 @@ object GoogleDocsUploadUtilityController extends Controller {
 
   def authenticateToGoogle(action: String) = Action { implicit request =>
 
-    val refreshTokenFound = SocialToken.findSocialToken(new ObjectId(request.session.get("userId").get))
-    refreshTokenFound match {
+    val tokenInfo = SocialToken.findSocialTokenObject(new ObjectId(request.session.get("userId").get))
+    tokenInfo match {
       case None =>
         val urlToRedirect = new GoogleBrowserClientRequestUrl(GoogleClientId, redirectURI, Arrays.asList("https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()
         Ok(urlToRedirect).withSession(request.session + ("action" -> action))
-      case Some(refreshToken) =>
-        val newAccessToken = GoogleDocsUploadUtility.getNewAccessToken(refreshToken)
-        //        Ok(views.html.stream()).withSession(request.session + ("accessToken" -> newAccessToken))
-        if (action == "show") {
-          val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(newAccessToken)
-          /*Ok(views.html.showgoogledocs(files))*/
-          Ok(write(files)).as("application/json")
-        } else if (action == "upload") {
-          Ok.withSession(request.session + ("accessToken" -> newAccessToken))
-        } else if (action == "document") {
-          val result = GoogleDocsUploadUtility.createANewGoogleDocument(newAccessToken, "application/vnd.google-apps.document")
-          Ok(write(result)).as("application/json")
-        } else if (action == "spreadsheet") {
-          val result = GoogleDocsUploadUtility.createANewGoogleDocument(newAccessToken, "application/vnd.google-apps.spreadsheet")
-          Ok(write(result)).as("application/json")
-        } else if (action == "presentation") {
-          val result = GoogleDocsUploadUtility.createANewGoogleDocument(newAccessToken, "application/vnd.google-apps.presentation")
-          Ok(write(result)).as("application/json")
-        } else if (action == "addPreviewImageUrl") {
-          val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(newAccessToken)
-          /*Ok(views.html.showgoogledocs(files))*/
-          files.foreach(f => updateMessageImageUrl(updatePreviewImageUrl(f._1, f._5), f._5))
-          Ok
-        } else if (action.length == 44) {
-          val result = GoogleDocsUploadUtility.deleteAGoogleDocument(newAccessToken, action)
-          Ok
+      case Some(tokenInfo) =>
+        if (tokenInfo.tokenFlag) {
+          SocialToken.updateTokenFlag(new ObjectId(request.session.get("userId").get), false)
+          val newAccessToken = GoogleDocsUploadUtility.getNewAccessToken(tokenInfo.refreshToken)
+          if (action == "show") {
+            val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(newAccessToken)
+            Ok(write(files)).as("application/json")
+          } else if (action == "upload") {
+            Ok.withSession(request.session + ("accessToken" -> newAccessToken))
+          } else if (action == "document") {
+            val result = GoogleDocsUploadUtility.createANewGoogleDocument(newAccessToken, "application/vnd.google-apps.document")
+            Ok(write(result)).as("application/json")
+          } else if (action == "spreadsheet") {
+            val result = GoogleDocsUploadUtility.createANewGoogleDocument(newAccessToken, "application/vnd.google-apps.spreadsheet")
+            Ok(write(result)).as("application/json")
+          } else if (action == "presentation") {
+            val result = GoogleDocsUploadUtility.createANewGoogleDocument(newAccessToken, "application/vnd.google-apps.presentation")
+            Ok(write(result)).as("application/json")
+          } else if (action == "addPreviewImageUrl") {
+            val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(newAccessToken)
+            files.foreach(f => updateMessageImageUrl(updatePreviewImageUrl(f._1, f._5), f._5))
+            Ok
+          } else if (action.length == 44) {
+            val result = GoogleDocsUploadUtility.deleteAGoogleDocument(newAccessToken, action)
+            Ok
+          } else {
+            Ok
+          }
         } else {
-          Ok
+          val urlToRedirect = new GoogleBrowserClientRequestUrl(GoogleClientId, redirectURI, Arrays.asList("https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()
+          Ok(urlToRedirect).withSession(request.session + ("action" -> action))
         }
     }
 
@@ -93,29 +96,36 @@ object GoogleDocsUploadUtilityController extends Controller {
       wr.writeBytes(urlParameters)
       wr.flush
       wr.close
-      val in = new BufferedReader(
-        new InputStreamReader(con.getInputStream))
-      val response = new StringBuffer
+      val refreshTokenFound = SocialToken.findSocialTokenObject(new ObjectId(request.session.get("userId").get))
+      refreshTokenFound match {
+        case None =>
+          val in = new BufferedReader(
+            new InputStreamReader(con.getInputStream))
+          val response = new StringBuffer
 
-      while (in.readLine != null) {
-        response.append(in.readLine)
+          while (in.readLine != null) {
+            response.append(in.readLine)
+          }
+          in.close
+          val nullExpr = "null".r
+          val dataString = nullExpr.replaceAllIn(response.toString, "")
+          val dataList = dataString.split(",").toList
+          val tokenValues = dataList map {
+            case info => net.liftweb.json.parse("{" + info + "}")
+          }
+          val accessToken = (tokenValues(0) \ "access_token").extract[String]
+          val refreshToken = (tokenValues(2) \ "refresh_token").extract[String]
+          SocialToken.addToken(SocialToken(new ObjectId(request.session.get("userId").get), refreshToken, true))
+          val action = request.session.get("action").get
+          Ok(views.html.stream(action))
+
+        case Some(refreshToken) =>
+          SocialToken.updateTokenFlag(new ObjectId(request.session.get("userId").get), true)
+          val action = request.session.get("action").get
+          Ok(views.html.stream(action))
       }
-      in.close
-      val nullExpr = "null".r
-      val dataString = nullExpr.replaceAllIn(response.toString, "")
-      val dataList = dataString.split(",").toList
-      val tokenValues = dataList map {
-        case info => net.liftweb.json.parse("{" + info + "}")
-      }
-      val accessToken = (tokenValues(0) \ "access_token").extract[String]
-      val refreshToken = (tokenValues(2) \ "refresh_token").extract[String]
-      SocialToken.addToken(SocialToken(new ObjectId(request.session.get("userId").get), refreshToken))
-      val action = request.session.get("action").get
-      Ok(views.html.stream(action))
     } catch {
-      case ex: Exception =>
-        println(ex)
-        BadRequest("Authentication Failed")
+      case ex: Exception => BadRequest("Authentication Failed")
     }
   }
 

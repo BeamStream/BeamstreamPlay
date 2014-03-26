@@ -120,13 +120,11 @@ object StreamController extends Controller {
     OnlineUserCache.returnOnlineUsers.isEmpty match {
       case false =>
         OnlineUserCache.returnOnlineUsers(0).onlineUsers.isEmpty match {
-          case true =>
-            Ok(views.html.login())
-          case false =>
-            Ok(views.html.stream("ok"))
+          case true => Ok(views.html.login())
+          case false => Ok(views.html.stream("ok"))
         }
       case true =>
-        Ok(views.html.login())
+        Redirect("/signOut")
     }
   }
 
