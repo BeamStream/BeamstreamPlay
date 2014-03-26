@@ -36,9 +36,13 @@ object UserController extends Controller {
    */
 
   def signOut = Action { implicit request =>
-    val userId = request.session.get("userId").get
-    OnlineUserCache.setOffline(userId)
-    Ok(write(ResulttoSent("Success", userId))).withNewSession
+    val userId = request.session.get("userId")
+    if (userId.isDefined) {
+      OnlineUserCache.setOffline(userId.get)
+      Ok(write(ResulttoSent("Success", userId.get))).withNewSession
+    } else {
+      Redirect("/login")
+    }
   }
 
   /**
@@ -193,7 +197,7 @@ object UserController extends Controller {
   }
 
   // Code by Daniel Hew Ends here
-  
+
   /**
    * Deactivate User On Browser Closed Event
    */

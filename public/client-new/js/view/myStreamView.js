@@ -316,6 +316,14 @@ define(
 						/* ------------------------------- */
 
 						createGDocument : function(create) {
+							/*$
+							.ajax({
+
+								type : 'GET',
+								url : 'uploadNow/show',
+								success : function(data){
+									}
+								}*/
 							$("#creategoogledoc").modal('show');
 							$(".contentcreatedoc").empty();
 							$(".publish-btn")

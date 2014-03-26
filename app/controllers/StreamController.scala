@@ -126,7 +126,8 @@ object StreamController extends Controller {
             Ok(views.html.stream("ok"))
         }
       case true =>
-        Ok(views.html.login())
+        Redirect("/signOut")
+        
     }
   }
 
