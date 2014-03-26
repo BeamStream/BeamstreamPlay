@@ -1022,7 +1022,10 @@ header, footer){
 
 	<script type="text/javascript">
 		if ('@flag' == 'presentation') {
-			$("#creategoogledoc").modal('show');
+			$('#creategoogledoc').modal({
+								  backdrop: 'static',
+								  keyboard: false
+								})
 			$(".contentcreatedoc").empty();
 			$('#creategoogledoc #floatingCirclesG').show();
 			$
@@ -1088,7 +1091,10 @@ header, footer){
 		}
 
 		else if ('@flag' == 'spreadsheet') {
-			$("#creategoogledoc").modal('show');
+				$('#creategoogledoc').modal({
+								  backdrop: 'static',
+								  keyboard: false
+								})
 			$(".contentcreatedoc").empty();
 			$('#creategoogledoc #floatingCirclesG').show();
 			$
@@ -1154,7 +1160,10 @@ header, footer){
 		}
 
 		else if ('@flag' == 'document') {
-			$("#creategoogledoc").modal('show');
+			$('#creategoogledoc').modal({
+								  backdrop: 'static',
+								  keyboard: false
+								});
 			$(".contentcreatedoc").empty();
 			$('#creategoogledoc #floatingCirclesG').show();
 			$
