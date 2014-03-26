@@ -277,7 +277,7 @@ define(
 							$.ajax({
 
 								type : 'GET',
-								url : 'gogoleDoc/upload',
+								url : 'googleDoc/upload',
 
 								success : function(data) {
 
