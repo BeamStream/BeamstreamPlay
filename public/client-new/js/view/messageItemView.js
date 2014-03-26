@@ -150,7 +150,7 @@ define(
 											$
 													.ajax({
 														type : 'GET',
-														url : 'uploadNow/addPreviewImageUrl',
+														url : 'googleDoc/addPreviewImageUrl',
 														success : function() {
 														}
 													});

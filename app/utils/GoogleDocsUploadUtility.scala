@@ -85,6 +85,15 @@ object GoogleDocsUploadUtility {
     List(file.getAlternateLink, file.getTitle(), file.getThumbnailLink())
   }
 
+  def deleteAGoogleDocument(code: String, docId: String) = {
+    val service = prepareGoogleDrive(code)
+    try {
+      service.files().delete(docId).execute();
+    } catch {
+      case ex: Exception => println(ex)
+    } 
+  }
+
   /**
    * Get Access token Using refresh Token
    */

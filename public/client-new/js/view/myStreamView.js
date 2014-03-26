@@ -277,7 +277,7 @@ define(
 							$.ajax({
 
 								type : 'GET',
-								url : 'uploadNow/upload',
+								url : 'gogoleDoc/upload',
 
 								success : function(data) {
 
@@ -318,13 +318,14 @@ define(
 						createGDocument : function(create) {
 							$("#creategoogledoc").modal('show');
 							$(".contentcreatedoc").empty();
-							$(".publish-btn").css("border","2px solid #3d71a5");
-							$(".publish-txt").css("color","#fff");	
+							$(".publish-btn")
+									.css("border", "2px solid #3d71a5");
+							$(".publish-txt").css("color", "#fff");
 							$('#creategoogledoc #floatingCirclesG').show();
 							$
 									.ajax({
 										type : 'GET',
-										url : 'uploadNow/document',
+										url : 'googleDoc/document',
 										success : function(data) {
 											$(
 													'#creategoogledoc #floatingCirclesG')
@@ -400,14 +401,15 @@ define(
 						createGSpreadsheet : function(create) {
 							$("#creategoogledoc").modal('show');
 							$(".contentcreatedoc").empty();
-							$(".publish-btn").css("border","2px solid #3d71a5");
-							$(".publish-txt").css("color","#fff");
+							$(".publish-btn")
+									.css("border", "2px solid #3d71a5");
+							$(".publish-txt").css("color", "#fff");
 							$('#creategoogledoc #floatingCirclesG').show();
 							$
 									.ajax({
 
 										type : 'GET',
-										url : 'uploadNow/spreadsheet',
+										url : 'googleDoc/spreadsheet',
 
 										success : function(data) {
 											$(
@@ -482,14 +484,15 @@ define(
 						createGPresentation : function(create) {
 							$("#creategoogledoc").modal('show');
 							$(".contentcreatedoc").empty();
-							$(".publish-btn").css("border","2px solid #3d71a5");
-							$(".publish-txt").css("color","#fff");
+							$(".publish-btn")
+									.css("border", "2px solid #3d71a5");
+							$(".publish-txt").css("color", "#fff");
 							$('#creategoogledoc #floatingCirclesG').show();
 							$
 									.ajax({
 
 										type : 'GET',
-										url : 'uploadNow/presentation',
+										url : 'googleDoc/presentation',
 
 										success : function(data) {
 											$(
@@ -603,7 +606,7 @@ define(
 									.ajax({
 
 										type : 'GET',
-										url : 'uploadNow/show',
+										url : 'googleDoc/show',
 
 										success : function(data) {
 											$(
@@ -815,35 +818,77 @@ define(
 						},
 
 						askToPublishDocs : function() {
-							
-							$(".publish-btn").css("border","2px solid #3d71a5");
-							$(".publish-txt").css("color","#fff");
-							$(".publish-btn").css("background-color","#5199e1");
-							bootbox.dialog("Are you sure you want to delete?",
-									[
-											{
 
-												"label" : "Delete",
-												"class" : "btn googledocclose",
+							var docURL = $('input#docUrl').val();
+							var docAttrs = docURL.split("/");
+							$(".publish-btn")
+									.css("border", "2px solid #3d71a5");
+							$(".publish-txt").css("color", "#fff");
+							$(".publish-btn")
+									.css("background-color", "#5199e1");
+							bootbox
+									.dialog(
+											"Are you sure you want to delete?",
+											[
+													{
 
-												"callback" : function() {
-													$("#creategoogledoc")
-													.modal("hide");
-													
+														"label" : "Delete",
+														"class" : "btn googledocclose",
 
-												}
-											},
-											{
-												"label" : "Continue",
-												"class" : "btn googledocclose",
-												"callback" : function() {
-													
-													$(".publish-btn").css("border","2px solid #bf462e");
-													$(".publish-btn").css("background-color","#e36a49");
-													//$(".publish-txt").css("color","#bf462e");
-													//	$(".publish-txt").css("text-shadow","1px 1px 2px #000");
-												}
-											} ]);
+														"callback" : function() {
+															if (docAttrs[6]
+																	.indexOf("key=") != -1) {
+																var key = docAttrs[6]
+																		.split("key=");
+																var spreadsheetid = key[1]
+																		.split("&usp=drivesdk")
+																$
+																		.ajax({
+																			type : 'GET',
+																			url : 'googleDoc/'
+																					+ spreadsheetid[0],
+																			success : function() {
+																				$(
+																						"#creategoogledoc")
+																						.modal(
+																								'hide');
+																			}
+																		});
+															} else {
+																$
+																		.ajax({
+
+																			type : 'GET',
+																			url : 'googleDoc/'
+																					+ docAttrs[7],
+																			success : function() {
+																				$(
+																						"#creategoogledoc")
+																						.modal(
+																								'hide');
+																			}
+																		});
+															}
+														}
+													},
+													{
+														"label" : "Continue",
+														"class" : "btn googledocclose",
+														"callback" : function() {
+
+															$(".publish-btn")
+																	.css(
+																			"border",
+																			"2px solid #bf462e");
+															$(".publish-btn")
+																	.css(
+																			"background-color",
+																			"#e36a49");
+															// $(".publish-txt").css("color","#bf462e");
+															// $(".publish-txt").css("text-shadow","1px
+															// 1px 2px #000");
+														}
+													} ]);
 
 						},
 

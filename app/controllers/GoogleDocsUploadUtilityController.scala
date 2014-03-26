@@ -47,29 +47,26 @@ object GoogleDocsUploadUtilityController extends Controller {
           val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(newAccessToken)
           /*Ok(views.html.showgoogledocs(files))*/
           Ok(write(files)).as("application/json")
-        } 
-        else if (action == "upload") {
+        } else if (action == "upload") {
           Ok.withSession(request.session + ("accessToken" -> newAccessToken))
-        } 
-        else if (action == "document") {
+        } else if (action == "document") {
           val result = GoogleDocsUploadUtility.createANewGoogleDocument(newAccessToken, "application/vnd.google-apps.document")
           Ok(write(result)).as("application/json")
-        } 
-        else if (action == "spreadsheet") {
+        } else if (action == "spreadsheet") {
           val result = GoogleDocsUploadUtility.createANewGoogleDocument(newAccessToken, "application/vnd.google-apps.spreadsheet")
           Ok(write(result)).as("application/json")
-        } 
-        else if (action == "presentation") {
+        } else if (action == "presentation") {
           val result = GoogleDocsUploadUtility.createANewGoogleDocument(newAccessToken, "application/vnd.google-apps.presentation")
           Ok(write(result)).as("application/json")
-        }
-        else if(action == "addPreviewImageUrl"){
+        } else if (action == "addPreviewImageUrl") {
           val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(newAccessToken)
           /*Ok(views.html.showgoogledocs(files))*/
-          files.foreach(f => updateMessageImageUrl(updatePreviewImageUrl(f._1, f._5),f._5))
+          files.foreach(f => updateMessageImageUrl(updatePreviewImageUrl(f._1, f._5), f._5))
           Ok
-        }
-        else {
+        } else if (action.length == 44) {
+          val result = GoogleDocsUploadUtility.deleteAGoogleDocument(newAccessToken, action)
+          Ok
+        } else {
           Ok
         }
     }
@@ -116,7 +113,7 @@ object GoogleDocsUploadUtilityController extends Controller {
       val action = request.session.get("action").get
       Ok(views.html.stream(action))
     } catch {
-      case ex: Exception => 
+      case ex: Exception =>
         println(ex)
         BadRequest("Authentication Failed")
     }
