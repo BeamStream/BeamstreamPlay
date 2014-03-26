@@ -482,9 +482,9 @@ $( "ul#pollArea" ).on( "click", "li", function(event) {
 		 * show Upload files option when we select category
 		 */
    	 	uploadFiles: function(eventName){
-   	 		
+   	 	
    	 		eventName.preventDefault();
-   	 		$('#Q-files-area').click();
+   	 		$('#upload-files-area').click();
 	   		  
    	 	},
 
