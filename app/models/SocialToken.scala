@@ -8,9 +8,9 @@ import org.bson.types.ObjectId
 import utils.MongoHQConfig
 import com.mongodb.casbah.commons.MongoDBObject
 import models.mongoContext._
+import com.mongodb.WriteConcern
 
-
-case class SocialToken(@Key("_id") id: ObjectId, refreshToken: String)
+case class SocialToken(@Key("_id") id: ObjectId, refreshToken: String, tokenFlag: Boolean)
 object SocialToken {
   /**
    * Store RefreshToken
@@ -28,6 +28,19 @@ object SocialToken {
       case true => None
       case false => Option(tokenFound.head.refreshToken)
     }
+  }
+
+  def findSocialTokenObject(userId: ObjectId) = {
+    val tokenFound = SocialTokenDAO.find(MongoDBObject("_id" -> userId)).toList
+    tokenFound.isEmpty match {
+      case true => None
+      case false => Option(tokenFound.head)
+    }
+  }
+
+  def updateTokenFlag(userId: ObjectId, flag: Boolean) = {
+    val tokenRequired = SocialTokenDAO.find(MongoDBObject("_id" -> userId)).toList
+    SocialTokenDAO.update(MongoDBObject("_id" -> userId), tokenRequired.head.copy(tokenFlag = flag), false, false, new WriteConcern)
   }
 
 }
