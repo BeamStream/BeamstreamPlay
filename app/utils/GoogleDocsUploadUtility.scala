@@ -110,8 +110,6 @@ object GoogleDocsUploadUtility {
       credential.getAccessToken
     } catch {
       case ex: Exception => "Not Found"
-    } finally {
-      val response = "Not Found"
     }
   }
 
