@@ -41,36 +41,44 @@ object GoogleDocsUploadUtilityController extends Controller {
         val urlToRedirect = new GoogleBrowserClientRequestUrl(GoogleClientId, redirectURI, Arrays.asList("https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()
         Ok(urlToRedirect).withSession(request.session + ("action" -> action))
       case Some(tokenInfo) =>
-        if (tokenInfo.tokenFlag) {
-          SocialToken.updateTokenFlag(new ObjectId(request.session.get("userId").get), false)
-          val newAccessToken = GoogleDocsUploadUtility.getNewAccessToken(tokenInfo.refreshToken)
-          if (action == "show") {
-            val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(newAccessToken)
-            Ok(write(files)).as("application/json")
-          } else if (action == "upload") {
-            Ok.withSession(request.session + ("accessToken" -> newAccessToken))
-          } else if (action == "document") {
-            val result = GoogleDocsUploadUtility.createANewGoogleDocument(newAccessToken, "application/vnd.google-apps.document")
-            Ok(write(result)).as("application/json")
-          } else if (action == "spreadsheet") {
-            val result = GoogleDocsUploadUtility.createANewGoogleDocument(newAccessToken, "application/vnd.google-apps.spreadsheet")
-            Ok(write(result)).as("application/json")
-          } else if (action == "presentation") {
-            val result = GoogleDocsUploadUtility.createANewGoogleDocument(newAccessToken, "application/vnd.google-apps.presentation")
-            Ok(write(result)).as("application/json")
-          } else if (action == "addPreviewImageUrl") {
-            val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(newAccessToken)
-            files.foreach(f => updateMessageImageUrl(updatePreviewImageUrl(f._1, f._5), f._5))
-            Ok
-          } else if (action.length == 44) {
-            val result = GoogleDocsUploadUtility.deleteAGoogleDocument(newAccessToken, action)
-            Ok
-          } else {
-            Ok
-          }
-        } else {
+        val newAccessToken = GoogleDocsUploadUtility.getNewAccessToken(tokenInfo.refreshToken)
+        if (newAccessToken == "Not Found") {
+          SocialToken.deleteSocialToken(tokenInfo.refreshToken)
           val urlToRedirect = new GoogleBrowserClientRequestUrl(GoogleClientId, redirectURI, Arrays.asList("https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()
           Ok(urlToRedirect).withSession(request.session + ("action" -> action))
+        } else {
+          if (tokenInfo.tokenFlag) {
+            SocialToken.updateTokenFlag(new ObjectId(request.session.get("userId").get), false)
+            if (action == "show") {
+              val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(newAccessToken)
+              Ok(write(files)).as("application/json")
+            } else if (action == "upload") {
+              Ok.withSession(request.session + ("accessToken" -> newAccessToken))
+            } else if (action == "document") {
+              val result = GoogleDocsUploadUtility.createANewGoogleDocument(newAccessToken, "application/vnd.google-apps.document")
+              Ok(write(result)).as("application/json")
+            } else if (action == "spreadsheet") {
+              val result = GoogleDocsUploadUtility.createANewGoogleDocument(newAccessToken, "application/vnd.google-apps.spreadsheet")
+              Ok(write(result)).as("application/json")
+            } else if (action == "presentation") {
+              val result = GoogleDocsUploadUtility.createANewGoogleDocument(newAccessToken, "application/vnd.google-apps.presentation")
+              Ok(write(result)).as("application/json")
+            } else if (action == "addPreviewImageUrl") {
+              val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(newAccessToken)
+              files.foreach(f => updateMessageImageUrl(updatePreviewImageUrl(f._1, f._5), f._5))
+              Ok
+            } else {
+              Ok
+            }
+          } else {
+            if (action.length() == 44) {
+              val result = GoogleDocsUploadUtility.deleteAGoogleDocument(newAccessToken, action)
+              Ok
+            } else {
+              val urlToRedirect = new GoogleBrowserClientRequestUrl(GoogleClientId, redirectURI, Arrays.asList("https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()
+              Ok(urlToRedirect).withSession(request.session + ("action" -> action))
+            }
+          }
         }
     }
 
