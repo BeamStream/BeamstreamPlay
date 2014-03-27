@@ -105,7 +105,6 @@ object GoogleDocsUploadUtilityController extends Controller {
       wr.flush
       wr.close
       val refreshTokenFound = SocialToken.findSocialTokenObject(new ObjectId(request.session.get("userId").get))
-      println("1----------------------------------------------------")
       refreshTokenFound match {
         case None =>
           val in = new BufferedReader(
@@ -116,15 +115,12 @@ object GoogleDocsUploadUtilityController extends Controller {
             response.append(in.readLine)
           }
           in.close
-             println("2----------------------------------------------------")
           val nullExpr = "null".r
           val dataString = nullExpr.replaceAllIn(response.toString, "")
           val dataList = dataString.split(",").toList
-             println("3----------------------------------------------------")
           val tokenValues = dataList map {
             case info => net.liftweb.json.parse("{" + info + "}")
           }
-             println("4---------------------------------------------------")
           val accessToken = (tokenValues(0) \ "access_token").extract[String]
           val refreshToken = (tokenValues(2) \ "refresh_token").extract[String]
           SocialToken.addToken(SocialToken(new ObjectId(request.session.get("userId").get), refreshToken, true))
@@ -132,14 +128,12 @@ object GoogleDocsUploadUtilityController extends Controller {
           Ok(views.html.stream(action))
 
         case Some(refreshToken) =>
-             println("5----------------------------------------------------")
           SocialToken.updateTokenFlag(new ObjectId(request.session.get("userId").get), true)
           val action = request.session.get("action").get
           Ok(views.html.stream(action))
       }
     } catch {
-      case ex: Exception => ex.printStackTrace()
-        BadRequest("Authentication Failed")
+      case ex: Exception => BadRequest("Authentication Failed")
     }
   }
 
