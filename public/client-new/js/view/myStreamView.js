@@ -111,10 +111,10 @@ define(
 							$('#questions-icon').css('display', 'none');
 
 							$("#questionStreamView").animate({
-								"margin-right" : '-=320'
+								"margin-right" : '-=254'
 							}, 1000);
 							$("#sidequestionexpand").animate({
-								"margin-right" : '-=320'
+								"margin-right" : '-=254'
 							}, 1000);
 							$('#topheader').css('padding-right', '0');
 							$('.header-profile').css('margin',
@@ -191,12 +191,12 @@ define(
 							$("#questionListView").css("display", "none");
 							var position = $("#sidequestionexpand").css(
 									"margin-right");
-							if (position == "-320px") {
+							if (position <= "-254px") {
 								$("#questionStreamView").animate({
-									"margin-right" : '+=320'
+									"margin-right" : '+=254'
 								}, 1000);
 								$("#sidequestionexpand").animate({
-									"margin-right" : '+=320'
+									"margin-right" : '+=254'
 								}, 1000);
 
 							}
