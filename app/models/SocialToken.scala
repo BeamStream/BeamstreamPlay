@@ -43,5 +43,10 @@ object SocialToken {
     SocialTokenDAO.update(MongoDBObject("_id" -> userId), tokenRequired.head.copy(tokenFlag = flag), false, false, new WriteConcern)
   }
 
+  def deleteSocialToken(refreshToken: String) = {
+    val socialTokenToRemove = SocialTokenDAO.find(MongoDBObject("refreshToken" -> refreshToken)).toList
+    SocialTokenDAO.remove(socialTokenToRemove(0))
+  }
+
 }
 object SocialTokenDAO extends SalatDAO[SocialToken, Int](collection = MongoHQConfig.mongoDB("socialtoken"))

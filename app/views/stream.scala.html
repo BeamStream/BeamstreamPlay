@@ -1,5 +1,5 @@
-@(flag: String)(implicit session: play.api.mvc.Session, flash:play.api.mvc.Flash, request: RequestHeader)
-@meta = {} @CSS = {
+@(flag: String)(implicit session: play.api.mvc.Session,
+flash:play.api.mvc.Flash, request: RequestHeader) @meta = {} @CSS = {
 <!-- embedly preview js -->
 <link rel="stylesheet"
 	href="/beamstream-new/css/extracss/embedly-preview.css" type="text/css" />
@@ -13,9 +13,13 @@
 
 
 
-<link rel="stylesheet/less"	href="/beamstream-new/less/lessgoogledocs/main.less" type="text/css">
-<link rel="stylesheet/less"	href="/beamstream-new/less/lessgoogledocs/main-creatgdocs.less" type="text/css">	
-<link rel="stylesheet/less"	href="/beamstream-new/less/lessgoogledocs/chat.less" type="text/css">
+<link rel="stylesheet/less"
+	href="/beamstream-new/less/lessgoogledocs/main.less" type="text/css">
+<link rel="stylesheet/less"
+	href="/beamstream-new/less/lessgoogledocs/main-creatgdocs.less"
+	type="text/css">
+<link rel="stylesheet/less"
+	href="/beamstream-new/less/lessgoogledocs/chat.less" type="text/css">
 <!--  <link rel="stylesheet" href="/beamstream-new/css/cssgoogledocs/normalize.css"> -->
 
 
@@ -264,31 +268,33 @@ header, footer){
 					aria-labelledby="dropdownMenu">
 					<li id="showSubList"><a>Create<span class="menu-arrow"></span></a>
 						<ul id="innerSubList">
-							<li><a id="creategdocument" href="#"><span class="menu-arrow"></span>Document</a></li>
-							<li><a id="creategspreadsheet" href="#"><span class="menu-arrow"></span>Spreadsheet</a></li>
-							 <li><a id="creategpresentation" href="#"><span class="menu-arrow"></span>Presentation</a></li>
+							<li><a id="creategdocument" href="#" ><span
+									class="menu-arrow"></span>Document</a></li>
+							<li><a id="creategspreadsheet" href="#"><span
+									class="menu-arrow"></span>Spreadsheet</a></li>
+							<li><a id="creategpresentation" href="#"><span
+									class="menu-arrow"></span>Presentation</a></li>
 						</ul></li>
-					<li>
-						<a id="uploadgdoc" href="#">Upload</a>
-						<span class="menu-arrow"></span>
-					</li>
-					<li>
-						<a id="showgdoc" href="#">Access</a>
-						<span class="menu-arrow"></span>
-					</li>
+					<li><a id="uploadgdoc" href="#">Upload</a> <span
+						class="menu-arrow"></span></li>
+					<li><a id="showgdoc" href="#">Access</a> <span
+						class="menu-arrow"></span></li>
 				</ul>
 			</div>
 			<ul class="stream-tab" id="streamTab" style="float: left;">
 				<li id="discussion" id="discussionsLink" class="active"><a
-					href="#discussionsView" id="discussions-link" data-toggle="tab">Back to Discussions</a></li>
+					href="#discussionsView" id="discussions-link" data-toggle="tab">Back
+						to Discussions</a></li>
 				<li class="dropdown"><a data-toggle="dropdown"
-					class="dropdown-toggle" href="#" id="flipQuestion" data-hover="dropdown">Questions</a>
-						<div id="questions-icon"></div>
+					class="dropdown-toggle" href="#" id="flipQuestion"
+					data-hover="dropdown">Questions</a>
+					<div id="questions-icon"></div>
 					<ul class="dropdown-menu" id="questions-dropdown">
 						<li id="question" class="ques"><a id="questionsLink"
 							data-toggle="tab" href="#questionsView">Ask a Question</a></li>
-						<li id="question" class="quespoll"><a id="questions-poll-Link"
-							data-toggle="tab" href="#questionsView">Add a poll</a></li>
+						<li id="question" class="quespoll"><a
+							id="questions-poll-Link" data-toggle="tab" href="#questionsView">Add
+								a poll</a></li>
 					</ul></li>
 			</ul>
 		</div>
@@ -308,7 +314,7 @@ header, footer){
 						</div>
 						<div class="ask-info">
 							<div class="ask-comment" id="type-status-comment">
-							
+
 								<form class="question-ask ask-disccution" action="">
 									<textarea id="msg-area" name="" cols="" rows=""
 										class="question-ask-search"
@@ -387,27 +393,29 @@ header, footer){
 
 
 				<div class="question-sort">
-				<h5>SORT BY</h5>
-				                                          <div class="btn-group dropdown-outer" id="rock-sort">
-				                                                  <button class="btn seetings-toggle sort-toogle  sort-toogle-none" id="sortBy-select"
-				                                                          value="date">Most Recent</button>
-				                                                  <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown">
-				                                                          <span class="caret settings-caret main-stream-dropdown"></span>
-				                                                  </button>
-				                                                  <ul class="dropdown-menu rate-sub" id="sortBy-list">
-				                                                          <li><a href="#" name="most-recent" value="date">Most
-				                                                                          Recent</a></li>
-				                                                          <li><a href="#" name="highest-rated" value="rock">Highest
-				                                                                          Rated</a></li>
-				                                                          <!-- >li><a href="#" name="most-shared" >Most Shared </a></li-->
-				                                                  </ul>
-				                                          </div>
-				                                          <div class="btn-group dropdown-outer" id="stream-date-sort">
-				                                                  <button class="btn seetings-toggle sort-toogle  sort-toogle-none" id="date-sort-select" value="week">This
-				                                                          Week</button>
-				                                                  <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown">
-				                                                          <span class="caret settings-caret main-stream-dropdown"></span>
-				                                                  </button>
+					<h5>SORT BY</h5>
+					<div class="btn-group dropdown-outer" id="rock-sort">
+						<button class="btn seetings-toggle sort-toogle  sort-toogle-none"
+							id="sortBy-select" value="date">Most Recent</button>
+						<button class="btn dropdown-toggle seetings-toggle"
+							data-toggle="dropdown">
+							<span class="caret settings-caret main-stream-dropdown"></span>
+						</button>
+						<ul class="dropdown-menu rate-sub" id="sortBy-list">
+							<li><a href="#" name="most-recent" value="date">Most
+									Recent</a></li>
+							<li><a href="#" name="highest-rated" value="rock">Highest
+									Rated</a></li>
+							<!-- >li><a href="#" name="most-shared" >Most Shared </a></li-->
+						</ul>
+					</div>
+					<div class="btn-group dropdown-outer" id="stream-date-sort">
+						<button class="btn seetings-toggle sort-toogle  sort-toogle-none"
+							id="date-sort-select" value="week">This Week</button>
+						<button class="btn dropdown-toggle seetings-toggle"
+							data-toggle="dropdown">
+							<span class="caret settings-caret main-stream-dropdown"></span>
+						</button>
 						<ul class="dropdown-menu rate-sub" id="date-sort-list">
 							<li><a href="#" value="day">Today</a></li>
 							<li><a href="#" value="week">This Week</a></li>
@@ -416,9 +424,8 @@ header, footer){
 						</ul>
 					</div>
 					<form class="all-search" action="">
-						<span></span>
-						<input type="text" id="sort_by_key" class="quest-search"
-							placeholder="Search Discussions">
+						<span></span> <input type="text" id="sort_by_key"
+							class="quest-search" placeholder="Search Discussions">
 					</form>
 				</div>
 
@@ -443,62 +450,61 @@ header, footer){
 						</div>
 						<div class="ask-info">
 							<div class="ask-comment" id="type-status-comment">
-									<form class="question-ask ask-disccution" action="">
-										<textarea id="Q-area" name="" cols="" rows=""
-											class="question-ask-search"
-											placeholder="Ask your own question here....."
-											onfocus="this.placeholder = ''"
-										></textarea>
-											
-											
-											<div id="upload-files1" class="btn-group attach-drop ">
-									<button id="upload-files2"
-										class="attach-drop-button drag-rectangle attach-drop-bg"
-										data-toggle="dropdown" data-original-title="Upload Files">
-									</button>
-									<ul id="question-file-upload"
-										class="dropdown-menu  attach-dropdwon">
-										<li><a href="#">Class Document</a></li>
-										<li><a href="#">Assignment</a></li>
-										<li><a href="#">Homework </a></li>
-										<li><a href="#">Notes</a></li>
-										<li><a href="#">Project</a></li>
-										<li><a href="#">Lecture </a></li>
-										<li><a href="#">Reference Material</a></li>
-										<li><a href="#">Tutorial</a></li>
-										<li><a href="#">EdTech Tool </a></li>
-										<li><a href="#">Amusement</a></li>
-										<input type="text" placeholder="+Add a new category">
-									</ul>
-								</div>
-									</form>
+								<form class="question-ask ask-disccution" action="">
+									<textarea id="Q-area" name="" cols="" rows=""
+										class="question-ask-search"
+										placeholder="Ask your own question here....."
+										onfocus="this.placeholder = ''"></textarea>
+
+
+									<div id="upload-files1" class="btn-group attach-drop ">
+										<button id="upload-files2"
+											class="attach-drop-button drag-rectangle attach-drop-bg"
+											data-toggle="dropdown" data-original-title="Upload Files">
+										</button>
+										<ul id="question-file-upload"
+											class="dropdown-menu  attach-dropdwon">
+											<li><a href="#">Class Document</a></li>
+											<li><a href="#">Assignment</a></li>
+											<li><a href="#">Homework </a></li>
+											<li><a href="#">Notes</a></li>
+											<li><a href="#">Project</a></li>
+											<li><a href="#">Lecture </a></li>
+											<li><a href="#">Reference Material</a></li>
+											<li><a href="#">Tutorial</a></li>
+											<li><a href="#">EdTech Tool </a></li>
+											<li><a href="#">Amusement</a></li>
+											<input type="text" placeholder="+Add a new category">
+										</ul>
+									</div>
+								</form>
+							
 
 
 
-
-									<ul id="pollArea" class="answer">
-										<li><input name="Answer Is Yes" type="text" id="option1"
-											placeholder="Add 1st Poll Option" class="polloptionarea"></li>
-										<li><input name="Add Option" type="text" id="option2"
-											placeholder="Add 2nd Poll Option" class="polloptionarea"></li>
-										<a href="#" class="add-option">Another Poll Option</a>
-									</ul>
-									<ul id="Q-file-area" class="answer">
-										<li id="Q-file-name"></li>
-										<li>
-											<div class="progress-container" style="display: none;">
-												<div class="progress progress-striped active">
-													<div class="bar" style="width: 0%;"></div>
-												</div>
+								<ul id="pollArea" class="answer">
+									<li><input name="Answer Is Yes" type="text" id="option1"
+										placeholder="Add 1st Poll Option" class="polloptionarea"></li>
+									<li><input name="Add Option" type="text" id="option2"
+										placeholder="Add 2nd Poll Option" class="polloptionarea"></li>
+									<a href="#" class="add-option">Another Poll Option</a>
+								</ul>
+								<ul id="Q-file-area" class="answer">
+									<li id="Q-file-name"></li>
+									<li>
+										<div class="progress-container" style="display: none;">
+											<div class="progress progress-striped active">
+												
 											</div>
-										</li>
-									</ul>
-			
+										</div>
+									</li>
+								</ul>
+
 								<a id="post-question" class="ask-button question-button">ASK</a>
 								<div id="file-upload-loader" style="display: none;">
 									<!--<img src ="images/loading.gif"> -->
 								</div>
-								
+
 
 
 								<div id="upload-files1" class="btn-group attach-drop "
@@ -655,35 +661,27 @@ header, footer){
 			</div>
 
 		</div>
-		
-		
-		
+
+
+
 
 		<!--                                    -->
 		<!-- Modal for create google doc starts -->
 		<!--                                    -->
 
 		<div id="creategoogledoc"
-			class="modal hide fade invite-pop-up-googledoc" 
+			class="modal hide fade invite-pop-up-googledoc"
 			aria-labelledby="myModalLabel" aria-hidden="true">
-<div id="floatingCirclesG">
-<div class="f_circleG" id="frotateG_01">
-</div>
-<div class="f_circleG" id="frotateG_02">
-</div>
-<div class="f_circleG" id="frotateG_03">
-</div>
-<div class="f_circleG" id="frotateG_04">
-</div>
-<div class="f_circleG" id="frotateG_05">
-</div>
-<div class="f_circleG" id="frotateG_06">
-</div>
-<div class="f_circleG" id="frotateG_07">
-</div>
-<div class="f_circleG" id="frotateG_08">
-</div>
-</div>
+			<div id="floatingCirclesG">
+				<div class="f_circleG" id="frotateG_01"></div>
+				<div class="f_circleG" id="frotateG_02"></div>
+				<div class="f_circleG" id="frotateG_03"></div>
+				<div class="f_circleG" id="frotateG_04"></div>
+				<div class="f_circleG" id="frotateG_05"></div>
+				<div class="f_circleG" id="frotateG_06"></div>
+				<div class="f_circleG" id="frotateG_07"></div>
+				<div class="f_circleG" id="frotateG_08"></div>
+			</div>
 
 			<div class="maincreatedocs">
 				<div class="heading">
@@ -714,69 +712,74 @@ header, footer){
 						</div>
 					</div>
 				</div>
-				
-				<div class="contentcreatedoc">
-				
-				</div>
+
+				<div class="contentcreatedoc"></div>
 
 				<div class="sidebarcreategdocs">
-				
-				<form action="/newGoogleDocument" method="post" id="createAndPublishForm" url="">
-					<div class="sidebar-subheading">Publish as</div>
-					<div class="styled-select">
-						<select>
-							<option value="aDiscussion">A Discussion</option>
-						</select>
-					</div>
 
-					<div class="sidebar-subheading">Post Privacy</div>
-					<div class="styled-select">
-						<select id="streamSelectOption" name="streamId">
-						</select>
-					</div>
+					<form action="/newGoogleDocument" method="post"
+						id="createAndPublishForm" url="">
+						<div class="sidebar-subheading">Publish as</div>
+						<div class="styled-select">
+							<select>
+								<option value="aDiscussion">A Discussion</option>
+							</select>
+						</div>
 
-				
-						<input type="radio" name="postToFileMedia" value="true"> Post to Files &
-						Media
-				
-					<div class="sidebar-subheading">comment</div>
+						<div class="sidebar-subheading">Post Privacy</div>
+						<div class="styled-select">
+							<select id="streamSelectOption" name="streamId">
+							</select>
+						</div>
 
-					<textarea name="description" class="commentcreatedoc"
-						onfocus="this.value=''; setbg( '#e5fff3');"
-						onblur="setbg('white')">
+
+						<input type="radio" name="postToFileMedia" value="true">
+						Post to Files & Media
+
+						<div class="sidebar-subheading">comment</div>
+
+						<textarea name="description" class="commentcreatedoc"
+							onfocus="this.value=''; setbg( '#e5fff3');"
+							onblur="setbg('white')">
                 </textarea>
 
-					<ul class="social">
-						<div class="sidebar-subheading share-on">share on:</div>
-						<li><a class="gp" href="#"><img src="/beamstream-new/img/gp.png"></a></li>
-						<li><a class="tw" href="#"><img src="/beamstream-new/img/tw.png"></a></li>
-						<li><a class="fb" href="#"><img src="/beamstream-new/img/fb.png"></a></li>
-						<li><a class="li" href="#"><img src="/beamstream-new/img/li.png"></a></li>
-						<li><a class="pin" href="#"><img src="/beamstream-new/img/pin.png"></a></li>
-					</ul>
+						<ul class="social">
+							<div class="sidebar-subheading share-on">share on:</div>
+							<li><a class="gp" href="#"><img
+									src="/beamstream-new/img/gp.png"></a></li>
+							<li><a class="tw" href="#"><img
+									src="/beamstream-new/img/tw.png"></a></li>
+							<li><a class="fb" href="#"><img
+									src="/beamstream-new/img/fb.png"></a></li>
+							<li><a class="li" href="#"><img
+									src="/beamstream-new/img/li.png"></a></li>
+							<li><a class="pin" href="#"><img
+									src="/beamstream-new/img/pin.png"></a></li>
+						</ul>
 
-					<div class="publish-btn">
-						<img src="/beamstream-new/img/publish.png" class="publish-icon"> <input type="submit" value="Publish Doc" 
-						class="publish-txt">
-					</div>
-					<div class="cancel-publish">
-						<div class="cancel-publish-txt">Remove Doc</div>
-					</div>
-						<input type="hidden" id="docName" name=docName value="">
-						<input type="hidden" id="docUrl" name=docUrl value="">
+						<div class="publish-btn">
+							<img src="/beamstream-new/img/publish.png" class="publish-icon">
+							<input type="submit" value="Publish Doc" class="publish-txt">
+						</div>
+						<div class="cancel-publish">
+							<div class="cancel-publish-txt">Remove Doc</div>
+						</div>
+						<input type="hidden" id="docName" name=docName value=""> <input
+							type="hidden" id="docUrl" name=docUrl value="">
 					</form>
 				</div>
 			</div>
 
 
-		</div> <!-- Modal for create google doc ends-->
+		</div>
+		<!-- Modal for create google doc ends-->
 
 
 
-		
-		
-		
-		
+
+
+
+
 
 
 
@@ -785,7 +788,7 @@ header, footer){
 		<!-- Modal for show google doc starts -->
 
 		<div id="showgoogledoc"
-			class="modal hide fade invite-pop-up-googledoc" 
+			class="modal hide fade invite-pop-up-googledoc"
 			aria-labelledby="myModalLabel" aria-hidden="true">
 
 
@@ -794,7 +797,7 @@ header, footer){
 				<div class="heading">
 					<div class="title">Access Google Drive</div>
 					<div class="close">
-					<div class="close-icon close" aria-hidden="true"
+						<div class="close-icon close" aria-hidden="true"
 							data-dismiss="modal">
 							<img width="22" height="22"
 								src="/beamstream-new/images/close-pop.png">
@@ -822,7 +825,7 @@ header, footer){
 
 
 					<div class="drive-view" id="docsview">
-						
+
 						<div class="drive-view-header">
 							<div class="drive-folder-txt-container">
 								<div class="drive-folder-txt">My Drive</div>
@@ -831,35 +834,28 @@ header, footer){
 							</div>
 						</div>
 						<div id="floatingCirclesG">
-<div class="f_circleG" id="frotateG_01">
-</div>
-<div class="f_circleG" id="frotateG_02">
-</div>
-<div class="f_circleG" id="frotateG_03">
-</div>
-<div class="f_circleG" id="frotateG_04">
-</div>
-<div class="f_circleG" id="frotateG_05">
-</div>
-<div class="f_circleG" id="frotateG_06">
-</div>
-<div class="f_circleG" id="frotateG_07">
-</div>
-<div class="f_circleG" id="frotateG_08">
-</div>
-</div>
+							<div class="f_circleG" id="frotateG_01"></div>
+							<div class="f_circleG" id="frotateG_02"></div>
+							<div class="f_circleG" id="frotateG_03"></div>
+							<div class="f_circleG" id="frotateG_04"></div>
+							<div class="f_circleG" id="frotateG_05"></div>
+							<div class="f_circleG" id="frotateG_06"></div>
+							<div class="f_circleG" id="frotateG_07"></div>
+							<div class="f_circleG" id="frotateG_08"></div>
+						</div>
 					</div>
 				</div>
 				<!-- content end -->
-				
-				
+
+
 			</div>
 			<!-- main end -->
-	
-	
-		<div class="sidebarcreategdocs showgoogledocsSidebar">
-				
-				<form action="/newGoogleDocument" method="post" id="publishForm" url="">
+
+
+			<div class="sidebarcreategdocs showgoogledocsSidebar">
+
+				<form action="/newGoogleDocument" method="post" id="publishForm"
+					url="">
 					<div class="sidebar-subheading">Publish as</div>
 					<div class="styled-select">
 						<select>
@@ -873,10 +869,10 @@ header, footer){
 						</select>
 					</div>
 
-				
-						<input type="radio" name="postToFileMedia" value="true"> Post to Files &
-						Media
-				
+
+					<input type="radio" name="postToFileMedia" value="true">
+					Post to Files & Media
+
 					<div class="sidebar-subheading">comment</div>
 
 					<textarea name="description" class="commentcreatedoc"
@@ -886,24 +882,29 @@ header, footer){
 
 					<ul class="social">
 						<div class="sidebar-subheading share-on">share on:</div>
-						<li><a class="gp" href="#"><img src="/beamstream-new/img/gp.png"></a></li>
-						<li><a class="tw" href="#"><img src="/beamstream-new/img/tw.png"></a></li>
-						<li><a class="fb" href="#"><img src="/beamstream-new/img/fb.png"></a></li>
-						<li><a class="li" href="#"><img src="/beamstream-new/img/li.png"></a></li>
-						<li><a class="pin" href="#"><img src="/beamstream-new/img/pin.png"></a></li>
+						<li><a class="gp" href="#"><img
+								src="/beamstream-new/img/gp.png"></a></li>
+						<li><a class="tw" href="#"><img
+								src="/beamstream-new/img/tw.png"></a></li>
+						<li><a class="fb" href="#"><img
+								src="/beamstream-new/img/fb.png"></a></li>
+						<li><a class="li" href="#"><img
+								src="/beamstream-new/img/li.png"></a></li>
+						<li><a class="pin" href="#"><img
+								src="/beamstream-new/img/pin.png"></a></li>
 					</ul>
-					
+
 					<div class="publish-btn">
-						<img src="/beamstream-new/img/publish.png" class="publish-icon"> <input type="submit" value="Publish Doc" 
-						class="publish-txt">
+						<img src="/beamstream-new/img/publish.png" class="publish-icon">
+						<input type="submit" value="Publish Doc" class="publish-txt">
 					</div>
 					<div class="cancel-publish" id="closepublishsidebar">
 						<div class="cancel-publish-txt">Close & Don't Publsih</div>
 					</div>
-					<input type="hidden" id="docName" name=docName value="">
-						<input type="hidden" id="docUrl" name=docUrl>
-					</form>
-				</div>
+					<input type="hidden" id="docName" name=docName value=""> <input
+						type="hidden" id="docUrl" name=docUrl>
+				</form>
+			</div>
 
 
 
@@ -915,34 +916,37 @@ header, footer){
 		<!--                                    -->
 
 		<div id="uploadgoogledoc"
-			class="modal hide fade invite-pop-up-googledoc" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			class="modal hide fade invite-pop-up-googledoc" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
 
-	
-				<div class="heading">
-					<div class="title">Upload Files To Google Drive</div>
-					<div class="close">
-						<div class="close-txt" class="close" aria-hidden="true"
-							data-dismiss="modal">Close</div>
-						<div class="close-icon close" aria-hidden="true"
-							data-dismiss="modal">
-							<img width="22" height="22"
-								src="/beamstream-new/images/close-pop.png">
-						</div>
+
+			<div class="heading">
+				<div class="title">Upload Files To Google Drive</div>
+				<div class="close">
+					<div class="close-txt" class="close" aria-hidden="true"
+						data-dismiss="modal">Close</div>
+					<div class="close-icon close" aria-hidden="true"
+						data-dismiss="modal">
+						<img width="22" height="22"
+							src="/beamstream-new/images/close-pop.png">
 					</div>
 				</div>
-				<!-- heading end -->
-			
-					<div class="uploadgdocs">
-				<form action="/uploadToGoogleDrive" enctype="multipart/form-data" method="post" id='uploadForm' >
-					<input type="file" name="picture" id="uplaodfilestogoogle"> <input type="submit"
-						value="UPLOAD" class="upload-doc" id="uploadToGoogle">
+			</div>
+			<!-- heading end -->
+
+			<div class="uploadgdocs">
+				<form action="/uploadToGoogleDrive" enctype="multipart/form-data"
+					method="post" id='uploadForm'>
+					<input type="file" name="picture" id="uplaodfilestogoogle">
+					<input type="submit" value="UPLOAD" class="upload-doc"
+						id="uploadToGoogle">
 				</form>
 			</div>
-				
 
 
 
-			
+
+
 
 
 			<!-- Modal for upload google doc ends -->
@@ -990,366 +994,321 @@ header, footer){
 				</div>
 			</div>
 		</div>
-		
 
-		<div id="questionStreamView">	
+
+		<div id="questionStreamView"></div>
+
+
+		<div id="sidequestionexpand">
+			<div class="rate-lecturer" id="number-new-questions-container">
+				<div id="rate-lecturer-question-icon"></div>
+				<div id="number-new-questions">150</div>
+			</div>
 		</div>
 
-	
-			<div id="sidequestionexpand">
-		<div class="rate-lecturer" id="number-new-questions-container">
-			<div id="rate-lecturer-question-icon"></div>
-			<div id="number-new-questions">150</div>
-		</div>
+
 	</div>
-				
-		
-		</div>
 
 
-		
-		
-		
-   <div class="chatbox" style="display: none;"></div>		
+
+
+
+	<div class="chatbox" style="display: none;"></div>
 	<div class="chatbox_own" style="display: none;"></div>
-	
-		<script>
-         startChat('@session.get("userId").get');
-		</script>
-		
-		<script type="text/javascript">
-		if('@flag' == 'presentation')
-				{
-				$("#creategoogledoc").modal('show');
-							$(".contentcreatedoc").empty();
-							$('#creategoogledoc #floatingCirclesG')
-							.show();
+
+	<script>
+		startChat('@session.get("userId").get');
+	</script>
+
+	<script type="text/javascript">
+		if ('@flag' == 'presentation') {
+			$('#creategoogledoc').modal({
+								  backdrop: 'static',
+								  keyboard: false
+								})
+			$(".contentcreatedoc").empty();
+			$('#creategoogledoc #floatingCirclesG').show();
+			$
+					.ajax({
+
+						type : 'GET',
+						url : 'googleDoc/presentation',
+
+						success : function(data) {
+							$('#creategoogledoc #floatingCirclesG').hide();
+							String.prototype.startsWith = function(s) {
+								if (this.indexOf(s) == 0)
+									return true;
+								return false;
+							}
+							if (data.toString().startsWith(
+									"https://accounts.google.com/o/oauth2/")) {
+								window.location.assign(data)
+							} else {
+								/*
+								 * $("#creategoogledoc").modal(
+								 * 'show');
+								 */
+								$(".contentcreatedoc").empty();
+								$(".contentcreatedoc")
+										.append(
+												"<iframe id='googleStuff' style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src="
+														+ data[0] + "/>");
+								$("#docUrl").attr("value", data[0])
+								$("#docName").attr("value", data[1]);
+								$("div.file-name").text(data[1]);
+							}
+
+						}
+					});
+						$
+					.ajax({
+						type : 'GET',
+						url : '/allStreamsForAUser',
+
+						success : function(data) {
+
+							$("select#streamSelectOption").empty();
 							$
-									.ajax({
+									.each(
+											data,
+											function(index, value) {
 
-										type : 'GET',
-										url : 'googleDoc/presentation',
-
-										success : function(data) {
-											$('#creategoogledoc #floatingCirclesG')
-													.hide();
-											String.prototype.startsWith = function(
-													s) {
-												if (this.indexOf(s) == 0)
-													return true;
-												return false;
-											}
-											if (data
-													.toString()
-													.startsWith(
-															"https://accounts.google.com/o/oauth2/")) {
-												window.location.assign(data)
-											} else {
-												/*
-												 * $("#creategoogledoc").modal(
-												 * 'show');
-												 */
-												$(".contentcreatedoc").empty();
-												$(".contentcreatedoc")
+												$("select#streamSelectOption")
 														.append(
-																"<iframe id='googleStuff' style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src="
-																		+ data[0]
-																		+ "/>");
-												$("#docUrl")
-												.attr("value", data[0])
-												$("#docName").attr("value", data[1]);
-												$("div.file-name").text(data[1]);
-											}
-
-										}
-									});
-							$
-									.ajax({
-
-										type : 'GET',
-										url : '/allStreamsForAUser',
-
-										success : function(data) {
-
-											$("select#streamSelectOption")
-													.empty();
-											$
-													.each(
-															data,
-															function(index,
-																	value) {
-
-																$(
-																		"select#streamSelectOption")
-																		.append(
-																				"<option value="
+																"<option value="
 																						+ value.stream.id.id
 																						+ ">"
-																						+ value.stream.streamName
-																						+ "</option>");
+																		+ value.stream.streamName
+																		+ "</option>");
 
-															});
+											});
 
-										}
+						}
 
-									});
-				}
+					});
+		}
 
+		else if ('@flag' == 'spreadsheet') {
+				$('#creategoogledoc').modal({
+								  backdrop: 'static',
+								  keyboard: false
+								})
+			$(".contentcreatedoc").empty();
+			$('#creategoogledoc #floatingCirclesG').show();
+			$
+					.ajax({
 
+						type : 'GET',
+						url : 'googleDoc/spreadsheet',
 
+						success : function(data) {
+							$('#creategoogledoc #floatingCirclesG').hide();
+							String.prototype.startsWith = function(s) {
+								if (this.indexOf(s) == 0)
+									return true;
+								return false;
+							}
+							if (data.toString().startsWith(
+									"https://accounts.google.com/o/oauth2/")) {
+								window.location.assign(data)
+							} else {
+								/*
+								 * $("#creategoogledoc").modal(
+								 * 'show');
+								 */
+								$(".contentcreatedoc").empty();
+								$(".contentcreatedoc")
+										.append(
+												"<iframe id='googleStuff' style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src="
+														+ data[0] + "/>");
+								$("#docUrl").attr("value", data[0])
+								$("#docName").attr("value", data[1]);
+								$("div.file-name").text(data[1]);
+							}
+						}
+					});
+			$
+					.ajax({
 
+						type : 'GET',
+						url : '/allStreamsForAUser',
 
+						success : function(data) {
 
-
-
-
-
-
-
-
-else if('@flag' == 'spreadsheet')
-				{
-				$("#creategoogledoc").modal('show');
-							$(".contentcreatedoc").empty();
-							$('#creategoogledoc #floatingCirclesG')
-							.show();
+							$("select#streamSelectOption").empty();
 							$
-									.ajax({
+									.each(
+											data,
+											function(index, value) {
 
-										type : 'GET',
-										url : 'googleDoc/spreadsheet',
-
-										success : function(data) {
-											$('#creategoogledoc #floatingCirclesG')
-													.hide();
-											String.prototype.startsWith = function(
-													s) {
-												if (this.indexOf(s) == 0)
-													return true;
-												return false;
-											}
-											if (data
-													.toString()
-													.startsWith(
-															"https://accounts.google.com/o/oauth2/")) {
-												window.location.assign(data)
-											} else {
-												/*
-												 * $("#creategoogledoc").modal(
-												 * 'show');
-												 */
-												$(".contentcreatedoc").empty();
-												$(".contentcreatedoc")
+												$("select#streamSelectOption")
 														.append(
-																"<iframe id='googleStuff' style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src="
-																		+ data[0]
-																		+ "/>");
-												$("#docUrl")
-												.attr("value", data[0])
-												$("#docName").attr("value", data[1]);
-												$("div.file-name").text(data[1]);
-											}
-										}
-									});
-							$
-									.ajax({
-
-										type : 'GET',
-										url : '/allStreamsForAUser',
-
-										success : function(data) {
-
-											$("select#streamSelectOption")
-													.empty();
-											$
-													.each(
-															data,
-															function(index,
-																	value) {
-
-																$(
-																		"select#streamSelectOption")
-																		.append(
-																				"<option value="
+																"<option value="
 																						+ value.stream.id.id
 																						+ ">"
-																						+ value.stream.streamName
-																						+ "</option>");
+																		+ value.stream.streamName
+																		+ "</option>");
 
-															});
+											});
 
-										}
+						}
 
-									});
+					});
 
-				}
+		}
 
-
-
-
-else if ('@flag' == 'document') {
-					$("#creategoogledoc").modal('show');
-					$(".contentcreatedoc").empty();
-					$('#creategoogledoc #floatingCirclesG').show();
-					$.ajax({
+		else if ('@flag' == 'document') {
+			$('#creategoogledoc').modal({
+								  backdrop: 'static',
+								  keyboard: false
+								});
+			$(".contentcreatedoc").empty();
+			$('#creategoogledoc #floatingCirclesG').show();
+			$
+					.ajax({
 						type : 'GET',
 						url : 'googleDoc/document',
-							success : function(data) {
+						success : function(data) {
 							$('#creategoogledoc #floatingCirclesG').hide();
-							String.prototype.startsWith = function(s)
-									{
-										if (this.indexOf(s) == 0)
-											return true;
-										return false;
-									}
-									if (data.toString().startsWith("https://accounts.google.com/o/oauth2/"))
-									{
-										window.location.assign(data)
-									} 
-									else 
-									{
-										/*
-										 * $("#creategoogledoc").modal(
-										 * 'show');
-										 */
-										$(".contentcreatedoc").empty();
-										
-										$(".contentcreatedoc").append("<iframe id='googleStuff' style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src="
-										+ data[0]
-										+ "/>");
-										$("#docUrl").attr("value", data[0]);
-										$("#docName").attr("value", data[1]);
-										$("div.file-name").text(data[1]);
-									}
-								}
-							});
-					
-						$.ajax({
-							
+							String.prototype.startsWith = function(s) {
+								if (this.indexOf(s) == 0)
+									return true;
+								return false;
+							}
+							if (data.toString().startsWith(
+									"https://accounts.google.com/o/oauth2/")) {
+								window.location.assign(data)
+							} else {
+								/*
+								 * $("#creategoogledoc").modal(
+								 * 'show');
+								 */
+								$(".contentcreatedoc").empty();
 
-								type : 'GET',
-								url : '/allStreamsForAUser',
+								$(".contentcreatedoc")
+										.append(
+												"<iframe id='googleStuff' style='width:100%;height:100%;border-radius:0 0 10px 10px;' frameborder='0' src="
+														+ data[0] + "/>");
+								$("#docUrl").attr("value", data[0]);
+								$("#docName").attr("value", data[1]);
+								$("div.file-name").text(data[1]);
+							}
+						}
+					});
 
-								success : function(data) {
+			$
+					.ajax({
 
-									$("select#streamSelectOption")
-											.empty();
-									$
-											.each(
-													data,
-													function(index,
-															value) {
+						type : 'GET',
+						url : '/allStreamsForAUser',
 
-														$(
-																"select#streamSelectOption")
-																.append(
-																		"<option value="
+						success : function(data) {
+
+							$("select#streamSelectOption").empty();
+							$
+									.each(
+											data,
+											function(index, value) {
+
+												$("select#streamSelectOption")
+														.append(
+																"<option value="
 																				+ value.stream.id.id
 																				+ ">"
-																				+ value.stream.streamName
-																				+ "</option>");
+																		+ value.stream.streamName
+																		+ "</option>");
 
-													});
+											});
 
-								}
+						}
 
-							});
-				}
-				
+					});
+		}
 
+		else if ('@flag' == 'show') {
+			$("#showgoogledoc").modal('show');
 
+			$(".showgoogledocsSidebar").hide();
 
+			$
+					.ajax({
 
- else if('@flag' == 'show')
-		        {$("#showgoogledoc").modal('show');
+						type : 'GET',
+						url : '/allStreamsForAUser',
 
-							$(".showgoogledocsSidebar").hide();
+						success : function(data) {
 
+							$("select#streamSelectOption").empty();
 							$
-									.ajax({
+									.each(
+											data,
+											function(index, value) {
 
-										type : 'GET',
-										url : '/allStreamsForAUser',
-
-										success : function(data) {
-
-											$("select#streamSelectOption")
-													.empty();
-											$
-													.each(
-															data,
-															function(index,
-																	value) {
-																
-															
-
-																$(
-																		"select#streamSelectOption")
-																		.append(
-																				"<option value="
+												$("select#streamSelectOption")
+														.append(
+																"<option value="
 																						+ value.stream.id.id
 																						+ ">"
-																						+ value.stream.streamName
-																						+ "</option>");
-																// alert(value.stream.streamName);
-															});
+																		+ value.stream.streamName
+																		+ "</option>");
+												// alert(value.stream.streamName);
+											});
 
-										}
+						}
 
-									});
+					});
 
-							$
-									.ajax({
+			$
+					.ajax({
 
-										type : 'GET',
-										url : 'googleDoc/show',
+						type : 'GET',
+						url : 'googleDoc/show',
 
-										success : function(data) {
-											$('#showgoogledoc #floatingCirclesG')
-													.hide();
-											String.prototype.startsWith = function(
-													s) {
-												if (this.indexOf(s) == 0)
-													return true;
-												return false;
-											}
-											if (data.toString().startsWith(
-													"http")) {
-												window.location.assign(data)
-											} else {
+						success : function(data) {
+							$('#showgoogledoc #floatingCirclesG').hide();
+							String.prototype.startsWith = function(s) {
+								if (this.indexOf(s) == 0)
+									return true;
+								return false;
+							}
+							if (data.toString().startsWith("http")) {
+								window.location.assign(data)
+							} else {
 
-												$("#docsview > .drive-view-row")
-														.remove();
+								$("#docsview > .drive-view-row").remove();
 
-												/*
-												 * $("#showgoogledoc").modal(
-												 * 'show');
-												 */
+								/*
+								 * $("#showgoogledoc").modal(
+								 * 'show');
+								 */
 
-												$
-														.each(
-																data,
-																function(index,
-																		value) {
-																	var nameOfDocument = "Name Not Available";
-																	;
-																	if (value._1 != null) {
-																		nameOfDocument = value._1;
-																		var extention = value._1
-																				.split('.')[1];
-																	}
-																	if (extention == "ppt"
-																			|| extention == "pptx"
-																			|| extention == "odp") {
-																		$(
-																				"#docsview")
-																				.append(
-																						" <div class='drive-view-row'><div class='powerpoint-img'><img src='"+value._5 +"'></div><div class='doc-txt-container'><div class='doc-name'>"
-																								+ nameOfDocument
-																								+ "</div><div class='doc-info'><div class='owner'>OWNER: <span>"+value._4+"</span></div>"
-																								+ "<div class='last-modified'>LAST MODIFIED:"
-																								+ " <span>"+value._3+"</span></div></div></div>"
-																								+ "<a class='preview-btn' target='_blank' href="
+								$
+										.each(
+												data,
+												function(index, value) {
+													var nameOfDocument = "Name Not Available";
+													;
+													if (value._1 != null) {
+														nameOfDocument = value._1;
+														var extention = value._1
+																.split('.')[1];
+													}
+													if (extention == "ppt"
+															|| extention == "pptx"
+															|| extention == "odp") {
+														$("#docsview")
+																.append(
+																		" <div class='drive-view-row'><div class='powerpoint-img'><img src='"+value._5 +"'></div><div class='doc-txt-container'><div class='doc-name'>"
+																				+ nameOfDocument
+																				+ "</div><div class='doc-info'><div class='owner'>OWNER: <span>"
+																				+ value._4
+																				+ "</span></div>"
+																				+ "<div class='last-modified'>LAST MODIFIED:"
+																				+ " <span>"
+																				+ value._3
+																				+ "</span></div></div></div>"
+																				+ "<a class='preview-btn' target='_blank' href="
 																								+ value._2
 																								+ ">Preview</a><div class='preview-btn publishGdocs'  data-id='"
 																								+ nameOfDocument
@@ -1358,20 +1317,23 @@ else if ('@flag' == 'document') {
 																								+ ""
 																								+ ">Publish</div></div>");
 
-																	}
+													}
 
-																	else if (extention == "xls"
-																			|| extention == "ods") {
-																		$(
-																				"#docsview")
-																				.append(
-																						" <div class='drive-view-row'><div class='spreadsheet-img'><img src='"+value._5 +"'></div><div class='doc-txt-container'><div class='doc-name'>"
-																								+ nameOfDocument
-																								+ "</div><div class='doc-info'>"
-																								+ "<div class='owner'>OWNER: <span>"+value._4+"</span></div>"
-																								+ "<div class='last-modified'>LAST MODIFIED:"
-																								+ " <span>"+value._3+"</span></div></div></div>"
-																								+ "<a class='preview-btn' target='_blank' href="
+													else if (extention == "xls"
+															|| extention == "ods") {
+														$("#docsview")
+																.append(
+																		" <div class='drive-view-row'><div class='spreadsheet-img'><img src='"+value._5 +"'></div><div class='doc-txt-container'><div class='doc-name'>"
+																				+ nameOfDocument
+																				+ "</div><div class='doc-info'>"
+																				+ "<div class='owner'>OWNER: <span>"
+																				+ value._4
+																				+ "</span></div>"
+																				+ "<div class='last-modified'>LAST MODIFIED:"
+																				+ " <span>"
+																				+ value._3
+																				+ "</span></div></div></div>"
+																				+ "<a class='preview-btn' target='_blank' href="
 																								+ value._2
 																								+ ">Preview</a><div class='preview-btn publishGdocs'  data-id='"
 																								+ nameOfDocument
@@ -1380,19 +1342,22 @@ else if ('@flag' == 'document') {
 																								+ ""
 																								+ ">Publish</div></div>");
 
-																	}
+													}
 
-																	else {
-																		$(
-																				"#docsview")
-																				.append(
-																						" <div class='drive-view-row'><div class='text-img'><img src='"+value._5 +"'></div><div class='doc-txt-container'><div class='doc-name'>"
-																								+ nameOfDocument
-																								+ "</div><div class='doc-info'>"
-																								+ "<div class='owner'>OWNER: <span>"+value._4+"</span></div>"
-																								+ "<div class='last-modified'>LAST MODIFIED:"
-																								+ " <span>"+value._3+"</span></div></div></div>"
-																								+ "<a class='preview-btn' target='_blank' href="
+													else {
+														$("#docsview")
+																.append(
+																		" <div class='drive-view-row'><div class='text-img'><img src='"+value._5 +"'></div><div class='doc-txt-container'><div class='doc-name'>"
+																				+ nameOfDocument
+																				+ "</div><div class='doc-info'>"
+																				+ "<div class='owner'>OWNER: <span>"
+																				+ value._4
+																				+ "</span></div>"
+																				+ "<div class='last-modified'>LAST MODIFIED:"
+																				+ " <span>"
+																				+ value._3
+																				+ "</span></div></div></div>"
+																				+ "<a class='preview-btn' target='_blank' href="
 																								+ value._2
 																								+ ">Preview</a><div class='preview-btn publishGdocs' data-id='"
 																								+ nameOfDocument
@@ -1401,66 +1366,39 @@ else if ('@flag' == 'document') {
 																								+ ""
 																								+ ">Publish</div></div>");
 
-																	}
+													}
 
-																});
+												});
 
-											}
-										}
+							}
+						}
 
-									});
-		        
-		        }
-				else if('@flag' == 'upload')
-				{$.ajax({
+					});
 
-								type : 'GET',
-								url : 'googleDoc/upload',
+		} else if ('@flag' == 'upload') {
+			$.ajax({
 
-								success : function(data) {
+				type : 'GET',
+				url : 'googleDoc/upload',
 
-									String.prototype.startsWith = function(s) {
-										if (this.indexOf(s) == 0)
-											return true;
-										return false;
-									}
-									if (data.toString().startsWith("http")) {
-										window.location.assign(data)
-									} else {
-										$("#uploadgoogledoc").modal('show');
-									}
+				success : function(data) {
 
-								}
+					String.prototype.startsWith = function(s) {
+						if (this.indexOf(s) == 0)
+							return true;
+						return false;
+					}
+					if (data.toString().startsWith("http")) {
+						window.location.assign(data)
+					} else {
+						$("#uploadgoogledoc").modal('show');
+					}
 
-							});
-
-							
 				}
-		        
-			
-		</script>
 
-}
+			});
 
+		}
+	</script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	}

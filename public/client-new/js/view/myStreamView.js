@@ -34,6 +34,7 @@ define(
 							'click #sidequestionexpand' : 'restoretonormal',
 							'click #create-google-docs-close' : 'askToPublishDocs',
 							'click .cancel-publish' : 'askToPublishDocs',
+							
 						},
 						messagesPerPage : 10,
 						pageNo : 1,
@@ -80,6 +81,10 @@ define(
 										.setQuestionStreamId(evt.streamId);
 
 							});
+							
+							
+							
+							
 
 							// // on pagePushUid change, notify the
 							// questionStream
@@ -277,7 +282,7 @@ define(
 							$.ajax({
 
 								type : 'GET',
-								url : 'gogoleDoc/upload',
+								url : 'googleDoc/upload',
 
 								success : function(data) {
 
@@ -316,15 +321,16 @@ define(
 						/* ------------------------------- */
 
 						createGDocument : function(create) {
-							/*$
-							.ajax({
 
-								type : 'GET',
-								url : 'uploadNow/show',
-								success : function(data){
-									}
-								}*/
-							$("#creategoogledoc").modal('show');
+							
+						/*		alert("ankit");
+							    $('.modal-backdrop').attr('disabled',true);*/
+					
+							
+							$('#creategoogledoc').modal({
+								  backdrop: 'static',
+								  keyboard: false
+								});
 							$(".contentcreatedoc").empty();
 							$(".publish-btn")
 									.css("border", "2px solid #3d71a5");
@@ -401,13 +407,22 @@ define(
 										}
 
 									});
-
+									
+							
+							
+							
+						
+						
 						},// Create Google document Ends
 
 						// Create Google spreadsheet
 
 						createGSpreadsheet : function(create) {
-							$("#creategoogledoc").modal('show');
+						
+							$('#creategoogledoc').modal({
+								  backdrop: 'static',
+								  keyboard: false
+								})
 							$(".contentcreatedoc").empty();
 							$(".publish-btn")
 									.css("border", "2px solid #3d71a5");
@@ -490,7 +505,11 @@ define(
 						// Create Google Presentation
 
 						createGPresentation : function(create) {
-							$("#creategoogledoc").modal('show');
+							
+							$('#creategoogledoc').modal({
+								  backdrop: 'static',
+								  keyboard: false
+								})
 							$(".contentcreatedoc").empty();
 							$(".publish-btn")
 									.css("border", "2px solid #3d71a5");

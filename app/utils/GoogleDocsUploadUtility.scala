@@ -91,7 +91,7 @@ object GoogleDocsUploadUtility {
       service.files().delete(docId).execute();
     } catch {
       case ex: Exception => println(ex)
-    } 
+    }
   }
 
   /**
@@ -99,14 +99,20 @@ object GoogleDocsUploadUtility {
    */
 
   def getNewAccessToken(refreshToken: String): String = {
-    val credentialBuilder = new GoogleCredential.Builder()
-      .setTransport(httpTransport).setJsonFactory(jsonFactory)
-      .setClientSecrets(CLIENT_ID, CLIENT_SECRET);
+    try {
+      val credentialBuilder = new GoogleCredential.Builder()
+        .setTransport(httpTransport).setJsonFactory(jsonFactory)
+        .setClientSecrets(CLIENT_ID, CLIENT_SECRET);
 
-    val credential = credentialBuilder.build()
-    credential.setRefreshToken(refreshToken)
-    credential.refreshToken
-    credential.getAccessToken
+      val credential = credentialBuilder.build()
+      credential.setRefreshToken(refreshToken)
+      credential.refreshToken
+      credential.getAccessToken
+    } catch {
+      case ex: Exception => "Not Found"
+    } finally {
+      val response = "Not Found"
+    }
   }
 
 }
