@@ -87,14 +87,19 @@ object ClassController extends Controller {
    */
   def renderClassPage = Action { implicit request =>
     OnlineUserCache.returnOnlineUsers.isEmpty match {
-      case false => OnlineUserCache.returnOnlineUsers(0).onlineUsers.isEmpty match {
-        case true =>
-          Ok(views.html.login())
-        case false =>
-          Ok(views.html.classpage())
-      }
+      case false =>
+        OnlineUserCache.returnOnlineUsers(0).onlineUsers.isEmpty match {
+          case true => Redirect("/login")
+          case false =>
+            val user = new ObjectId(OnlineUserCache.returnOnlineUsers(0).onlineUsers.keys.head)
+            val loggedInUser = User.getUserProfile(new ObjectId(request.session.get("userId").get))
+            loggedInUser.get.classes.isEmpty match {
+              case true => Redirect("/class")
+              case false => Ok(views.html.stream("ok"))
+            }
+        }
       case true =>
-        Ok(views.html.classpage())
+        Redirect("/signOut")
     }
   }
   /**
