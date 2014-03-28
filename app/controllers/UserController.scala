@@ -25,6 +25,8 @@ import scala.concurrent.Future
 import java.util.Calendar
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.Logger
+import models.Token
+import play.api.Play
 
 object UserController extends Controller {
 
@@ -236,39 +238,47 @@ object UserController extends Controller {
     val userPassword = (jsonReceived \ "password").as[String]
     val encryptedPassword = (new PasswordHashingUtil).encryptThePassword(userPassword)
     val authenticatedUser = User.findUser(userEmailorName, encryptedPassword)
+
     authenticatedUser match {
       case Some(user) =>
         val userSession = request.session + ("userId" -> user.id.toString)
         val authenticatedUserJson = write(user)
         val loggedInUser = User.getUserProfile(user.id)
         val profilePic = UserMedia.getProfilePicForAUser(user.id)
-
+        val tokenReceived = Token.findTokenById(new ObjectId(authenticatedUser.get.id.toString()))
+        val userToken = request.session + ("token" -> tokenReceived(0).tokenString)
+        val server = Play.current.configuration.getString("server").get
         val hasClasses = loggedInUser.get.classes.isEmpty match {
           case true => false
           case false => true
         }
 
-        val result = loggedInUser.get.schools.isEmpty match {
-          case true => Ok("Oops... Looks like you had some problem during registration, follow the link on your emailid to register or signup again")
+        tokenReceived(0).used match {
           case false =>
-            (profilePic.isEmpty) match {
+            Ok(write(LoginResult(ResulttoSent("Success", tokenReceived(0).tokenString), loggedInUser, None, Option(hasClasses), server))).as("application/json").withSession(userToken)
+          case true =>
+
+            val result = loggedInUser.get.schools.isEmpty match {
+              case true => Ok("Oops... Looks like you had some problem during registration, follow the link on your emailid to register or signup again")
               case false =>
-                Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, Option(profilePic.head.mediaUrl), Option(hasClasses)))).as("application/json").withSession(userSession)
-              case true => Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, None, Option(hasClasses)))).as("application/json").withSession(userSession)
+                (profilePic.isEmpty) match {
+                  case false =>
+                    Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, Option(profilePic.head.mediaUrl), Option(hasClasses), server))).as("application/json").withSession(userSession)
+                  case true => Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, None, Option(hasClasses), server))).as("application/json").withSession(userSession)
+                }
+
             }
 
-        }
+            Future {
+              val utcMilliseconds = OnlineUserCache.returnUTCTime
+              OnlineUserCache.setOnline(user.id.toString, utcMilliseconds)
+            }
 
-        Future {
-          val utcMilliseconds = OnlineUserCache.returnUTCTime
-          OnlineUserCache.setOnline(user.id.toString, utcMilliseconds)
+            result
         }
-
-        result
       case None =>
-        Ok(write(LoginResult(ResulttoSent("Failure", "Login Unsuccessful"), None, None, None))).as("application/json")
+        Ok(write(LoginResult(ResulttoSent("Failure", "Login Unsuccessful"), None, None, None, ""))).as("application/json")
     }
-
   }
 
   /**
