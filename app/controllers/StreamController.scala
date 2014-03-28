@@ -125,7 +125,7 @@ object StreamController extends Controller {
             val user = new ObjectId(OnlineUserCache.returnOnlineUsers(0).onlineUsers.keys.head)
             val loggedInUser = User.getUserProfile(new ObjectId(request.session.get("userId").get))
             loggedInUser.get.classes.isEmpty match {
-              case true => Redirect("/class")
+              case true => Ok(views.html.classpage())
               case false => Ok(views.html.stream("ok"))
             }
         }
