@@ -1159,17 +1159,18 @@ header, footer){
 		}
 
 		else if ('@flag' == 'document') {
-			$('#creategoogledoc').modal({
+				$('#creategoogledoc').modal({
 								  backdrop: 'static',
 								  keyboard: false
 								});
-			$(".contentcreatedoc").empty();
 			$('#creategoogledoc #floatingCirclesG').show();
 			$
 					.ajax({
 						type : 'GET',
 						url : 'googleDoc/document',
 						success : function(data) {
+					
+			$(".contentcreatedoc").empty();
 							$('#creategoogledoc #floatingCirclesG').hide();
 							String.prototype.startsWith = function(s) {
 								if (this.indexOf(s) == 0)
