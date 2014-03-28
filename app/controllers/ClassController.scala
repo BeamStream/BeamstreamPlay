@@ -21,6 +21,7 @@ import models.ResulttoSent
 import models.Stream
 import models.ClassResult
 import utils.OnlineUserCache
+import models.Token
 
 object ClassController extends Controller {
 
@@ -91,11 +92,10 @@ object ClassController extends Controller {
         OnlineUserCache.returnOnlineUsers(0).onlineUsers.isEmpty match {
           case true => Ok(views.html.login())
           case false =>
-            val user = new ObjectId(OnlineUserCache.returnOnlineUsers(0).onlineUsers.keys.head)
-            val loggedInUser = User.getUserProfile(new ObjectId(request.session.get("userId").get))
-            loggedInUser.get.classes.isEmpty match {
+            val userToken = Token.findTokenById(new ObjectId(request.session.get("userId").get))
+            userToken.head.used match {
               case true => Ok(views.html.classpage())
-              case false => Ok(views.html.stream("ok"))
+              case false => Ok(views.html.login())
             }
         }
       case true =>
