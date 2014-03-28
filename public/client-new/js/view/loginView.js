@@ -82,30 +82,40 @@ define(
 							if (data.result.status == 'Success') {
 								$('.sign-tick').hide();
 								$('.sign-close').hide();
-								// set the logged users profile picture and Id
-								if (data.profilePicOfUser)
-									localStorage["loggedUserProfileUrl"] = data.profilePicOfUser;
-								else
-									localStorage["loggedUserProfileUrl"] = '/beamstream-new/images/profile-upload.png';
+								// redirect to Registration page if user has not
+								// registered yet
+								if (data.result.message != "Login Successful"
+										&& data.result.message != "Login Unsuccessful") {
+									window.location = data.server
+											+ "/registration?userId="
+											+ data.user.id.id + "&token="
+											+ data.result.message
+								} else {
+									// set the logged users profile picture and
+									// Id
+									if (data.profilePicOfUser)
+										localStorage["loggedUserProfileUrl"] = data.profilePicOfUser;
+									else
+										localStorage["loggedUserProfileUrl"] = '/beamstream-new/images/profile-upload.png';
 
-								localStorage["loggedUserId"] = data.user.id.id;
+									localStorage["loggedUserId"] = data.user.id.id;
 
-								/* PUBNUB -- AUTO AJAX PUSH */
-								/*
-								 * PUBNUB.publish({ channel : "onlineUsers",
-								 * message : {
-								 * pagePushUid:self.pagePushUid,userInfo:data} })
-								 */
-								/*
-								 * redirect to class page if the user has no
-								 * stream
-								 */
+									/* PUBNUB -- AUTO AJAX PUSH */
+									/*
+									 * PUBNUB.publish({ channel : "onlineUsers",
+									 * message : {
+									 * pagePushUid:self.pagePushUid,userInfo:data} })
+									 */
+									/*
+									 * redirect to class page if the user has no
+									 * stream
+									 */
 
-								if (data.hasClasses == true) {
-									window.location = "/stream";
-								} else
-									window.location = "/class";
-
+									if (data.hasClasses == true) {
+										window.location = "/stream";
+									} else
+										window.location = "/class";
+								}
 							} else {
 								alert(data.result.message);
 

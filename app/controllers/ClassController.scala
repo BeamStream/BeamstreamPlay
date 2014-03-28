@@ -21,6 +21,7 @@ import models.ResulttoSent
 import models.Stream
 import models.ClassResult
 import utils.OnlineUserCache
+import models.Token
 
 object ClassController extends Controller {
 
@@ -87,14 +88,18 @@ object ClassController extends Controller {
    */
   def renderClassPage = Action { implicit request =>
     OnlineUserCache.returnOnlineUsers.isEmpty match {
-      case false => OnlineUserCache.returnOnlineUsers(0).onlineUsers.isEmpty match {
-        case true =>
-          Ok(views.html.login())
-        case false =>
-          Ok(views.html.classpage())
-      }
+      case false =>
+        OnlineUserCache.returnOnlineUsers(0).onlineUsers.isEmpty match {
+          case true => Ok(views.html.login())
+          case false =>
+            val userToken = Token.findTokenById(new ObjectId(request.session.get("userId").get))
+            userToken.head.used match {
+              case true => Ok(views.html.classpage())
+              case false => Ok(views.html.login())
+            }
+        }
       case true =>
-        Ok(views.html.classpage())
+        Redirect("/signOut")
     }
   }
   /**

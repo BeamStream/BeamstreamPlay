@@ -121,7 +121,12 @@ object StreamController extends Controller {
       case false =>
         OnlineUserCache.returnOnlineUsers(0).onlineUsers.isEmpty match {
           case true => Ok(views.html.login())
-          case false => Ok(views.html.stream("ok"))
+          case false =>
+            val loggedInUser = User.getUserProfile(new ObjectId(request.session.get("userId").get))
+            loggedInUser.get.classes.isEmpty match {
+              case true => Ok(views.html.classpage())
+              case false => Ok(views.html.stream("ok"))
+            }
         }
       case true =>
         Redirect("/signOut")

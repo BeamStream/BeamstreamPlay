@@ -28,6 +28,11 @@ object Token {
     TokenDAO.find(MongoDBObject("tokenString" -> tokenString)).toList
   }
 
+  
+  def findTokenById(userId: ObjectId): List[Token] = {
+    TokenDAO.find(MongoDBObject("_id" -> userId)).toList
+  }
+  
   /**
    * Find Mail TOken on basis of user Id
    */

@@ -23,6 +23,7 @@ import scala.concurrent.Future
 import play.api.libs.concurrent.Execution.Implicits._
 import models.School
 import models.ResulttoSent
+import java.util.GregorianCalendar
 
 object Registration extends Controller {
   implicit val formats = new net.liftweb.json.DefaultFormats {
@@ -41,16 +42,20 @@ object Registration extends Controller {
         val token = request.queryString("token").toList(0)
         val userId = request.queryString("userId").toList(0)
         val tokenReceived = Token.findToken(token)
-        (tokenReceived.isEmpty) match {
-          case false =>
-            (tokenReceived.head.used == false) match {
-              case true =>
-                Ok(views.html.registration(userId, None)).withSession("token" -> token)
-              case false => Ok("This user has already been registered. Please login with your username and password or register using a new email address.")
-            }
+        if (tokenReceived.head.id == userId && tokenReceived.head.tokenString == token) {
+          (tokenReceived.isEmpty) match {
+            case false =>
+              (tokenReceived.head.used == false) match {
+                case true =>
+                  Ok(views.html.registration(userId, None)).withSession("token" -> token)
+                case false => Ok("This user has already been registered. Please login with your username and password or register using a new email address.")
+              }
 
-          case true =>
-            Ok("Token not found")
+            case true =>
+              Ok("Token not found")
+          }
+        } else {
+          Redirect("/login")
         }
       case false =>
         val userFound = User.getUserProfile(new ObjectId(request.session.get("userId").get))
@@ -82,7 +87,7 @@ object Registration extends Controller {
               case false => Redirect("/stream")
             }
           }
-          case None =>  Redirect("/signOut")
+          case None => Redirect("/signOut")
         }
     }
   }
