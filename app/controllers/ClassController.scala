@@ -92,11 +92,17 @@ object ClassController extends Controller {
         OnlineUserCache.returnOnlineUsers(0).onlineUsers.isEmpty match {
           case true => Ok(views.html.login())
           case false =>
-            val userToken = Token.findTokenById(new ObjectId(request.session.get("userId").get))
-            userToken.head.used match {
-              case true => Ok(views.html.classpage())
-              case false => Ok(views.html.login())
+            val userID = request.session.get("userId")
+            userID match {
+              case Some(id) =>
+                val userToken = Token.findTokenById(new ObjectId(id))
+                userToken.head.used match {
+                  case true => Ok(views.html.classpage())
+                  case false => Ok(views.html.login())
+                }
+              case None => Redirect("/login")
             }
+
         }
       case true =>
         Redirect("/signOut")
