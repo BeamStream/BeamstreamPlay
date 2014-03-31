@@ -42,7 +42,7 @@ object Registration extends Controller {
         val token = request.queryString("token").toList(0)
         val userId = request.queryString("userId").toList(0)
         val tokenReceived = Token.findToken(token)
-        if (tokenReceived.head.id == userId && tokenReceived.head.tokenString == token) {
+        if (tokenReceived.head.userId == userId && tokenReceived.head.tokenString == token) {
           (tokenReceived.isEmpty) match {
             case false =>
               (tokenReceived.head.used == false) match {
@@ -124,7 +124,7 @@ object Registration extends Controller {
             val graduationDate = (jsonReceived \ "graduationDate").asOpt[String]
             val graduationDateFound = (graduationDate != None) match {
 
-              case true => Option(new Date(graduationDate.get))
+              case true => Option(new SimpleDateFormat("MM/dd/yyyy").parse(graduationDate.get))
               case false => None
             }
 
@@ -181,7 +181,7 @@ object Registration extends Controller {
             val graduationDate = (jsonReceived \ "graduationDate").asOpt[String]
             val graduationDateFound = (graduationDate != None) match {
 
-              case true => Option(new Date(graduationDate.get))
+              case true => Option(new SimpleDateFormat("MM/dd/yyyy").parse(graduationDate.get))
               case false => None
             }
 

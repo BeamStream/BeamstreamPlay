@@ -90,7 +90,7 @@ object UtilityActor extends EmailUtility {
     val transport = authenticatedMessageAndSession._2.getTransport("smtp");
     transport.connect(Play.current.configuration.getString("smtp_server_out").get, 80, Play.current.configuration.getString("email_address").get, Play.current.configuration.getString("email_password").get)
     transport.sendMessage(authenticatedMessageAndSession._1, authenticatedMessageAndSession._1.getAllRecipients)
-    val token = new Token((new ObjectId(userId)), authToken, false)
+    val token = new Token((new ObjectId()),userId, authToken, false)
     Token.addToken(token)
   }
 

@@ -10,7 +10,7 @@ import com.mongodb.casbah.commons.MongoDBObject
 import com.mongodb.WriteConcern
 import models.mongoContext._
 
-case class Token(@Key("_id") id: ObjectId, tokenString: String, used: Boolean)
+case class Token(@Key("_id") id: ObjectId, userId: String, tokenString: String, used: Boolean)
 object Token {
 
   /**
@@ -29,12 +29,12 @@ object Token {
   }
 
   
-  def findTokenById(userId: ObjectId): List[Token] = {
-    TokenDAO.find(MongoDBObject("_id" -> userId)).toList
+  def findTokenByUserId(userId: String): List[Token] = {
+    TokenDAO.find(MongoDBObject("userId" -> userId)).toList
   }
   
   /**
-   * Find Mail TOken on basis of user Id
+   * Find Mail Token on basis of user Id
    */
 
 //  def findTokenOnBasisOfUserID(userId: String): List[Token] = {

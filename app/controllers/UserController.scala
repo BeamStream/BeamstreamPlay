@@ -245,7 +245,7 @@ object UserController extends Controller {
         val authenticatedUserJson = write(user)
         val loggedInUser = User.getUserProfile(user.id)
         val profilePic = UserMedia.getProfilePicForAUser(user.id)
-        val tokenReceived = Token.findTokenById(new ObjectId(authenticatedUser.get.id.toString()))
+        val tokenReceived = Token.findTokenByUserId(authenticatedUser.get.id.toString())
         val userToken = request.session + ("token" -> tokenReceived(0).tokenString)
         val server = Play.current.configuration.getString("server").get
         val hasClasses = loggedInUser.get.classes.isEmpty match {
@@ -255,7 +255,7 @@ object UserController extends Controller {
 
         tokenReceived(0).used match {
           case false =>
-            Ok(write(LoginResult(ResulttoSent("Success", tokenReceived(0).tokenString), loggedInUser, None, Option(hasClasses), server))).as("application/json").withSession(userToken)
+            Ok(write(LoginResult(ResulttoSent("Success", tokenReceived(0).tokenString), loggedInUser, None, Option(hasClasses), server))).as("application/json")
           case true =>
 
             val result = loggedInUser.get.schools.isEmpty match {

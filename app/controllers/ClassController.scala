@@ -95,7 +95,7 @@ object ClassController extends Controller {
             val userID = request.session.get("userId")
             userID match {
               case Some(id) =>
-                val userToken = Token.findTokenById(new ObjectId(id))
+                val userToken = Token.findTokenByUserId(id)
                 userToken.head.used match {
                   case true => Ok(views.html.classpage())
                   case false => Ok(views.html.login())
