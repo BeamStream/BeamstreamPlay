@@ -22,6 +22,13 @@ import utils.PasswordHashingUtil
 import play.api.mvc.SimpleResult
 import play.api.mvc.ResponseHeader
 import play.api.libs.iteratee.Enumerator
+import models.Token
+import models.LoginResult
+import models.ResulttoSent
+import play.api.Play
+import play.api.mvc.Cookie
+import models.UserMedia
+import play.api.mvc.DiscardingCookie
 
 object StreamController extends Controller {
 
@@ -117,27 +124,71 @@ object StreamController extends Controller {
    * Renders the stream page
    */
   def renderStreamPage = Action { implicit request =>
-    OnlineUserCache.returnOnlineUsers.isEmpty match {
+    (request.session.get("userId")) match {
+      case Some(userId) =>
+        val userFound = User.getUserProfile(new ObjectId(userId))
+        userFound match {
+          case Some(user) =>
+            user.classes.isEmpty match {
+              case true => Redirect("/class").withCookies(Cookie("Beamstream",userId.toString()+" class", Option(864000))) //Ok(views.html.classpage())
+              case false => Ok(views.html.stream("ok")).withCookies(Cookie("Beamstream",userId.toString()+" stream", Option(864000)))
+            }
+          case None => Redirect("/signOut")
+        }
+      case None =>
+        request.cookies.get("Beamstream") match {
+          case None => Redirect("/login").discardingCookies(DiscardingCookie("Beamstream"))
+          case Some(cookie) =>
+            val userId = cookie.value.split(" ")(0)
+            val userFound = User.getUserProfile(new ObjectId(userId))
+            cookie.value.split(" ")(1) match {
+              case "class" => Redirect("/class").withSession("userId" -> userId).withCookies(Cookie("Beamstream",userId.toString()+" class", Option(864000)))
+              case "stream" => Redirect("/stream").withSession("userId" -> userId).withCookies(Cookie("Beamstream",userId.toString()+" stream", Option(864000)))
+              case "browsemedia" => Redirect("/browsemedia").withSession("userId" -> userId).withCookies(Cookie("Beamstream",userId.toString()+" browsemedia", Option(864000)))
+              case "registration" =>
+                val tokenFound = Token.findTokenByUserId(userId)
+                userFound match {
+                  case Some(user) =>
+                    val server = Play.current.configuration.getString("server").get
+                    user.firstName match {
+                      case "" => Redirect(server+"/registration?userId="+userId+"&token="+tokenFound(0).tokenString).withSession("token" -> tokenFound(0).tokenString).withCookies(Cookie("Beamstream",userId.toString()+" registration", Option(864000)))//Ok(write(LoginResult(ResulttoSent("Success", tokenFound(0).tokenString), userFound, None, Option(false), server))).as("application/json").withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
+                      case _ =>
+                        val userMedia = UserMedia.findUserMediaByUserId(new ObjectId(userId))
+                        userMedia.isEmpty match {
+                          case true => Redirect(server+"/registration?userId="+userId+"&token="+tokenFound(0).tokenString).withSession("token" -> tokenFound(0).tokenString).withCookies(Cookie("Beamstream",userId.toString()+" registration", Option(864000)))//Ok(write(LoginResult(ResulttoSent("Success", tokenFound(0).tokenString), userFound, None, Option(false), server))).as("application/json").withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
+                          case false => Redirect("/class").withSession("userId" -> userId).withCookies(Cookie("Beamstream",userId.toString()+" class", Option(864000)))
+                        }
+                    }
+                  case None => Redirect("/signOut")
+                }
+              case _ => Redirect("/" + cookie.value.split(" ")(1)).withSession("userId" -> userId).withCookies(Cookie("Beamstream",userId.toString()+" "+ cookie.value.split(" ")(1), Option(864000)))
+            }
+        }
+    }
+  }
+  /*    OnlineUserCache.returnOnlineUsers.isEmpty match {
       case false =>
         OnlineUserCache.returnOnlineUsers(0).onlineUsers.isEmpty match {
-          case true => Ok(views.html.login())
+          case true => println("11111111111111111");Ok(views.html.login())
           case false =>
+            println("2222222222222222222222222")
             val userID = request.session.get("userId")
             userID match {
               case Some(id) =>
+                println("33333333333333333333333333333333")
                 val loggedInUser = User.getUserProfile(new ObjectId(id))
                 loggedInUser.get.classes.isEmpty match {
-                  case true => Ok(views.html.classpage())
+                  case true => println("444444444444444444444444");Ok(views.html.classpage())
                   case false => Ok(views.html.stream("ok"))
                 }
-              case None => Redirect("/login")
+              case None => println("55555555555555555555555555");Redirect("/login")
             }
         }
       case true =>
         Redirect("/signOut")
     }
   }
-
+*/
   /**
    * Ajax Support
    */

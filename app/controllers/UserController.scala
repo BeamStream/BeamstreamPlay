@@ -27,6 +27,8 @@ import play.api.libs.concurrent.Execution.Implicits._
 import play.api.Logger
 import models.Token
 import play.api.Play
+import play.api.mvc.Cookie
+import play.api.mvc.DiscardingCookie
 
 object UserController extends Controller {
 
@@ -41,7 +43,7 @@ object UserController extends Controller {
     val userId = request.session.get("userId")
     if (userId.isDefined) {
       OnlineUserCache.setOffline(userId.get)
-      Ok(write(ResulttoSent("Success", userId.get))).withNewSession
+      Ok(write(ResulttoSent("Success", userId.get))).withNewSession.discardingCookies(DiscardingCookie("Beamstream"))
     } else {
       Redirect("/login")
     }
@@ -255,16 +257,16 @@ object UserController extends Controller {
 
         tokenReceived(0).used match {
           case false =>
-            Ok(write(LoginResult(ResulttoSent("Success", tokenReceived(0).tokenString), loggedInUser, None, Option(hasClasses), server))).as("application/json")
+            Ok(write(LoginResult(ResulttoSent("Failure", "Please verify your Email"), loggedInUser, None, Option(hasClasses), server))).as("application/json")
           case true =>
 
             val result = loggedInUser.get.schools.isEmpty match {
               case true => Ok("Oops... Looks like you had some problem during registration, follow the link on your emailid to register or signup again")
               case false =>
-                (profilePic.isEmpty) match {
-                  case false =>
-                    Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, Option(profilePic.head.mediaUrl), Option(hasClasses), server))).as("application/json").withSession(userSession)
-                  case true => Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, None, Option(hasClasses), server))).as("application/json").withSession(userSession)
+                (profilePic(0).mediaUrl) match {
+                  case "" =>
+                    Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, None, Option(hasClasses), server))).as("application/json").withSession(userSession).withCookies(Cookie("Beamstream",user.id.toString()+" stream", Option(864000000)))
+                  case _=> Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, Option(profilePic.head.mediaUrl), Option(hasClasses), server))).as("application/json").withSession(userSession).withCookies(Cookie("Beamstream",user.id.toString()+" stream", Option(864000000)))
                 }
 
             }
