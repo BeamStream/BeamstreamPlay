@@ -23,7 +23,12 @@ import scala.concurrent.Future
 import play.api.libs.concurrent.Execution.Implicits._
 import models.School
 import models.ResulttoSent
-import java.util.GregorianCalendar
+import models.LoginResult
+import play.api.Play
+import play.api.mvc.Cookie
+import models.UserMedia
+import play.api.mvc.DiscardingCookie
+import com.ning.http.client.Response
 
 object Registration extends Controller {
   implicit val formats = new net.liftweb.json.DefaultFormats {
@@ -34,30 +39,138 @@ object Registration extends Controller {
    * Registration after Mail ((VA))
    */
   def registration = Action { implicit request =>
-
-    (request.session.get("userId") == None) match {
+    val token = request.queryString("token").toList(0)
+    request.session.get("userId") match {
+      case None =>println("333333333333333333")
+        request.cookies.get("Beamstream") match {
+          case Some(cookie) => println("4444444444444444444444444")
+            val userId = cookie.value.split(" ")(0)
+            val tokenReceived = Token.findToken(token)
+            (tokenReceived.isEmpty) match {
+              case false =>
+                if (tokenReceived.head.userId == userId && tokenReceived.head.tokenString == token) {
+                  tokenReceived.head.used match {
+                    case false =>
+                      cookie.value.split(" ")(1) match {
+                        case "class" => Redirect("/class").withSession("userId" -> userId)
+                        case _ =>
+                          val userFound = User.getUserProfile(new ObjectId(userId))
+                          userFound match {
+                            case Some(user) =>
+                              val server = Play.current.configuration.getString("server").get
+                              user.firstName match {
+                                case "" => Redirect(server+"/registration?userId="+userId+"&token="+token).withSession("userId" -> userId).withCookies(Cookie("Beamstream",userId.toString()+" registration", Option(864000)))
+                                  //Ok(views.html.registration(userId, None)).withSession("token" -> token).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
+                                //Ok(write(LoginResult(ResulttoSent("Success", tokenReceived(0).tokenString), userFound, None, Option(false), server))).as("application/json").withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
+                                case _ =>
+                                  val userMedia = UserMedia.findUserMediaByUserId(new ObjectId(userId))
+                                  userMedia.isEmpty match {
+                                    case true => Redirect(server+"/registration?userId="+userId+"&token="+token).withSession("userId" -> userId).withCookies(Cookie("Beamstream",userId.toString()+" registration", Option(864000)))
+                                      //Ok(views.html.registration(userId, None)).withSession("token" -> token).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
+                                    //Ok(write(LoginResult(ResulttoSent("Success", tokenReceived(0).tokenString), userFound, None, Option(false), server))).as("application/json").withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
+                                    case false => Redirect("/class").withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
+                                  }
+                              }
+                            case None => Redirect("/signOut")
+                          }
+                      }
+                    case true => cookie.value.split(" ")(1) match {
+                      case "registration" => Redirect("/stream").withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + cookie.value.split(" ")(1), Option(864000)))
+                      case _ => Redirect("/" + cookie.value.split(" ")(1)).withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + cookie.value.split(" ")(1), Option(864000)))
+                    }
+                  }
+                } else {
+                  Redirect("/login").withNewSession.discardingCookies(DiscardingCookie("Beamstream"))
+                }
+              case true => Redirect("/login").withNewSession.discardingCookies(DiscardingCookie("Beamstream"))
+            }
+          case None => println("111111111111111111")
+            val userId = request.queryString("userId").toList(0)
+            val tokenReceived = Token.findToken(token)
+            (tokenReceived.isEmpty) match {
+              case false =>
+                if (tokenReceived.head.userId == userId && tokenReceived.head.tokenString == token) {
+                  tokenReceived.head.used match {
+                    case false =>
+                      val userFound = User.getUserProfile(new ObjectId(userId))
+                      userFound match {
+                        case Some(user) =>
+                          val server = Play.current.configuration.getString("server").get
+                          user.firstName match {
+                            case "" => Redirect(server+"/registration?userId="+userId+"&token="+token).withSession("userId" -> userId).withCookies(Cookie("Beamstream",userId.toString()+" registration", Option(864000)))
+                              //Ok(views.html.registration(userId, None)).withSession("token" -> token).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
+                            case _ =>
+                              val userMedia = UserMedia.findUserMediaByUserId(new ObjectId(userId))
+                              userMedia.isEmpty match {
+                                case true => Redirect(server+"/registration?userId="+userId+"&token="+token).withSession("userId" -> userId).withCookies(Cookie("Beamstream",userId.toString()+" registration", Option(864000)))
+                                  //Ok(views.html.registration(userId, None)).withSession("token" -> token).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
+                                case false => Redirect("/class").withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
+                              }
+                          }
+                        case None => Redirect("/signOut")
+                      }
+                    case true => Redirect("/stream").withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " stream", Option(864000)))
+                  }
+                } else {
+                  Redirect("/login").withNewSession.discardingCookies(DiscardingCookie("Beamstream"))
+                }
+              case true => Redirect("/login").withNewSession.discardingCookies(DiscardingCookie("Beamstream"))
+            }
+        }
+      case Some(userId) => println("2222222222222222222222222")
+            val tokenReceived = Token.findToken(token)
+            (tokenReceived.isEmpty) match {
+              case false =>
+                if (tokenReceived.head.userId == userId && tokenReceived.head.tokenString == token) {
+                  tokenReceived.head.used match {
+                    case false =>
+                      val userFound = User.getUserProfile(new ObjectId(userId))
+                      userFound match {
+                        case Some(user) => Ok(views.html.registration(userId, None)).withSession("token" -> token).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000))).withHeaders(CACHE_CONTROL -> "max-age=1")
+      /*                    val server = Play.current.configuration.getString("server").get
+                          user.firstName match {
+                            case "" => Ok(views.html.registration(userId, None)).withSession("token" -> token).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
+                            case _ =>
+                              val userMedia = UserMedia.findUserMediaByUserId(new ObjectId(userId))
+                              userMedia.isEmpty match {
+                                case true => Ok(views.html.registration(userId, None)).withSession("token" -> token).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
+                                case false => Redirect("/class").withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
+                              }
+                          }*/
+                        case None => Redirect("/signOut")
+                      }
+                    case true => 
+                      Redirect("/stream").withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " stream", Option(864000)))
+                  }
+                } else {
+                  Redirect("/login").withNewSession.discardingCookies(DiscardingCookie("Beamstream"))
+                }
+              case true => Redirect("/login").withNewSession.discardingCookies(DiscardingCookie("Beamstream"))
+            }
+      /*    (request.session.get("userId") == None) match {
 
       case true =>
 
         val token = request.queryString("token").toList(0)
         val userId = request.queryString("userId").toList(0)
         val tokenReceived = Token.findToken(token)
-        if (tokenReceived.head.userId == userId && tokenReceived.head.tokenString == token) {
-          (tokenReceived.isEmpty) match {
-            case false =>
+        (tokenReceived.isEmpty) match {
+          case false =>
+            if (tokenReceived.head.userId == userId && tokenReceived.head.tokenString == token) {
               (tokenReceived.head.used == false) match {
-                case true =>
-                  Ok(views.html.registration(userId, None)).withSession("token" -> token)
+                case true => Ok(views.html.registration(userId, None)).withSession("token" -> token)
                 case false => Ok("This user has already been registered. Please login with your username and password or register using a new email address.")
               }
-
-            case true =>
-              Ok("Token not found")
-          }
-        } else {
-          Redirect("/login")
+            } else {
+              Redirect("/login")
+            }
+          case true =>
+            Ok("Token not found")
         }
       case false =>
+        val token = request.queryString("token").toList(0)
+        val userId = request.queryString("userId").toList(0)
+        val tokenReceived = Token.findToken(token)
         val userFound = User.getUserProfile(new ObjectId(request.session.get("userId").get))
         userFound match {
           case Some(user) => user.classes.isEmpty match {
@@ -68,6 +181,7 @@ object Registration extends Controller {
             Redirect("/signOut")
         }
     }
+*/ }
   }
 
   /**
@@ -76,18 +190,29 @@ object Registration extends Controller {
    */
   def loginPage = Action { implicit request =>
     (request.session.get("userId")) match {
-      case None =>
-        Ok(views.html.login())
-      case Some(user) =>
-        val userFound = User.getUserProfile(new ObjectId(request.session.get("userId").getOrElse("")))
+      case Some(userId) =>
+        val userFound = User.getUserProfile(new ObjectId(userId))
         userFound match {
-          case Some(user) => {
+          case Some(user) =>
             user.classes.isEmpty match {
               case true => Redirect("/class")
               case false => Redirect("/stream")
             }
-          }
           case None => Redirect("/signOut")
+        }
+      case None =>
+        request.cookies.get("Beamstream") match {
+          case None => Ok(views.html.login())
+          case Some(cookie) =>
+            val userFound = User.getUserProfile(new ObjectId(cookie.value.split(" ")(0)))
+            userFound match {
+              case Some(user) =>
+                user.classes.isEmpty match {
+                  case true => Redirect("/class").withSession("userId" -> user.id.toString()).withCookies(Cookie("Beamstream", user.id.toString() + " class", Option(864000)))
+                  case false => Redirect("/stream").withSession("userId" -> user.id.toString()).withCookies(Cookie("Beamstream", user.id.toString() + " stream", Option(864000)))
+                }
+              case None => Redirect("/signOut")
+            }
         }
     }
   }
@@ -138,7 +263,7 @@ object Registration extends Controller {
             OnlineUserCache.setOnline(userId, utcMilliseconds)
             //retrieve token in session and invalidate
             val token = request.session.get("token").get
-            Token.updateToken(token)
+            //            Token.updateToken(token)
 
             Ok(write(RegistrationResults(userCreated.get, userSchool))).as("application/json").withSession("userId" -> userId)
 
@@ -250,5 +375,12 @@ object Registration extends Controller {
       User.updateUser(new ObjectId(userId), firstName, lastName, userName, emailId, location, about, cellNumber)
     }
     canRegister
+  }
+
+  def registrationComplete = Action { implicit request =>
+    val userId = request.session.get("userId").get
+    val tokenFound = Token.findTokenByUserId(userId)
+    Token.updateToken(tokenFound(0).tokenString)
+    Ok
   }
 }

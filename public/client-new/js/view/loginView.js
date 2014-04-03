@@ -91,7 +91,8 @@ define(
 											+ data.user.id.id + "&token="
 											+ data.result.message
 								} else {
-									// set the logged users profile picture and
+									// set the logged users
+									// profile picture and
 									// Id
 									if (data.profilePicOfUser)
 										localStorage["loggedUserProfileUrl"] = data.profilePicOfUser;

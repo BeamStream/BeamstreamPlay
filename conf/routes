@@ -45,7 +45,6 @@ GET    /name/school/:schoolId                                                   
 
 #Class
 GET    /classesFor/user/:userId                                                            controllers.ClassController.getAllClassesForAUser(userId:String)
-
 GET    /loggedInUserJson                                                                   controllers.UserController.returnUserJson
 
 
@@ -126,6 +125,7 @@ PUT    /followUser/:userId                                                      
 
 #Registration (V)
 GET    /registration                                                                       controllers.Registration.registration
+GET    /registrationComplete                                                               controllers.Registration.registrationComplete
 POST   /registration                                                                       controllers.Registration.registerUser
 PUT    /registration/:userId                                                               controllers.Registration.editUserInfo(userId:String)    
 
@@ -148,6 +148,7 @@ POST   /login                                                                   
 
 # Media
 POST   /media                                                                              controllers.MediaController.uploadMediaToAmazon
+GET   /defaultMedia                                                                       controllers.MediaController.uploadDefaultMedia
 GET    /recentMedia                                                                        controllers.MediaController.getRecentMediaAndDocs
 #Messages + Comments + ProfilePicUrl
 GET    /allMessagesForAStream/:streamId/:sortBy/:messagesPerPage/:pageNo/:period           controllers.MessageController.allMessagesForAStream(streamId:String,sortBy:String,messagesPerPage:Int,pageNo:Int,period:String)
