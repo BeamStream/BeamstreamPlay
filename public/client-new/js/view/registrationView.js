@@ -432,19 +432,26 @@ define(
 						completeRegistration : function(e) {
 							e.preventDefault();
 							$("#selectUploadPhoto").modal('show');
+							$.ajax({
+								type : 'GET',
+								url : "/defaultMedia",
+								cache : false,
+								contentType : false,
+								processData : false
+							});
+
 						},
 
 						noprofilepic : function(e) {
 							e.preventDefault();
 							$("#selectUploadPhoto").modal('hide');
-						$
-									.ajax({
-										type : 'GET',
-										url : "/defaultMedia",
-										cache : false,
-										contentType : false,
-										processData : false
-									});
+/*							$.ajax({
+								type : 'GET',
+								url : "/defaultMedia",
+								cache : false,
+								contentType : false,
+								processData : false
+							});*/
 							localStorage["loggedUserProfileUrl"] = '/beamstream-new/images/profile-upload.png';
 							window.location = "/class";
 						},

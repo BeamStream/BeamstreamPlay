@@ -682,6 +682,11 @@ define(
 								classType : 'semester'
 							});
 							$('span.error').remove();
+							$.ajax({
+								type : 'GET',
+								url : "/registrationComplete"
+							});
+//							window.location = "/stream";
 						},
 
 						serverError : function(model, data) {
@@ -711,10 +716,10 @@ define(
 						 */
 						startBeamstream : function(e) {
 							e.preventDefault();
-							$.ajax({
+							/*$.ajax({
 								type : 'GET',
 								url : "/registrationComplete"
-							});
+							});*/
 							window.location = "/stream";
 						},
 

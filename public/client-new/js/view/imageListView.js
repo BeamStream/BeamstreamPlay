@@ -43,6 +43,8 @@ define(['baseView',
             
 			/* render file items */
         	_.each(this.data.models[0].attributes.photos, function(model) {
+        		
+       
 
         		var datas = {
 			 	 "data" : model,
@@ -76,6 +78,7 @@ define(['baseView',
 		},
 
 	 	displayNoResult : function(callback) {
+	 		
 			this.animate.effect = "fade";
 			this.$(".content").html("");
 		},
