@@ -26,6 +26,8 @@ import models.User
 import play.api.mvc.Cookie
 import models.Token
 import play.api.Play
+import play.api.cache.Cache
+import play.api.Play.current
 
 object MediaController extends Controller {
 
@@ -353,7 +355,7 @@ object MediaController extends Controller {
 
     val media = UserMedia(new ObjectId, "", "", new ObjectId(request.session.get("userId").get), new Date, "", UserMediaType.Image, Access.Public, true, None, "", 0, Nil, Nil, 0)
     UserMedia.saveMediaForUser(media)
-
+    println(Cache.get("userData"))
     Ok(write(media)).as("application/json")
 
   }

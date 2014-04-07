@@ -128,7 +128,7 @@ GET    /registration                                                            
 GET    /registrationComplete                                                               controllers.Registration.registrationComplete
 POST   /registration                                                                       controllers.Registration.registerUser
 PUT    /registration/:userId                                                               controllers.Registration.editUserInfo(userId:String)    
-
+GET    /findUserData                                                                       controllers.Registration.getUserDataFromCache
 
 #Add a School (V)
 POST   /school                                                                             controllers.SchoolController.addANewSchool

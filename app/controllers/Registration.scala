@@ -29,6 +29,8 @@ import play.api.mvc.Cookie
 import models.UserMedia
 import play.api.mvc.DiscardingCookie
 import com.ning.http.client.Response
+import play.api.cache.Cache
+import play.api.Play.current
 
 object Registration extends Controller {
   implicit val formats = new net.liftweb.json.DefaultFormats {
@@ -120,7 +122,16 @@ object Registration extends Controller {
                 case false =>
                   val userFound = User.getUserProfile(new ObjectId(userId))
                   userFound match {
-                    case Some(user) => Ok(views.html.registration(userId, None)).withSession("token" -> token).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000))).withHeaders(CACHE_CONTROL -> "max-age=1")
+                    case Some(user) =>
+                      user.firstName match {
+                        case "" => Ok(views.html.registration(userId, None)).withSession("token" -> token).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000))) //Redirect(server + "/registration?userId=" + userId + "&token=" + token).withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
+                        case _ =>
+                          val userMedia = UserMedia.findUserMediaByUserId(new ObjectId(userId))
+                          userMedia.isEmpty match {
+                            case true => println("11111111111111"+Cache.get("userData"));Ok(views.html.registration(userId, Cache.getAs("userData"))).withSession("token" -> token).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000))) //Redirect(server + "/registration?userId=" + userId + "&token=" + token).withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
+                            case false => Redirect("/class").withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
+                          }
+                      } //Ok(views.html.registration(userId, Cache.getAs("userData"))).withSession("token" -> token).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000))).withHeaders(CACHE_CONTROL -> "max-age=1")
                     case None => Redirect("/signOut")
                   }
                 case true => Redirect("/stream").withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " stream", Option(864000)))
@@ -192,7 +203,7 @@ object Registration extends Controller {
               case Some(user) =>
                 user.classes.isEmpty match {
                   case true => Redirect("/class").withSession("userId" -> user.id.toString()).withCookies(Cookie("Beamstream", user.id.toString() + " class", Option(864000)))
-                  case false => Redirect("/"+cookie.value.split(" ")(1)).withSession("userId" -> user.id.toString()).withCookies(Cookie("Beamstream", user.id.toString() +" "+cookie.value.split(" ")(1), Option(864000)))
+                  case false => Redirect("/" + cookie.value.split(" ")(1)).withSession("userId" -> user.id.toString()).withCookies(Cookie("Beamstream", user.id.toString() + " " + cookie.value.split(" ")(1), Option(864000)))
                 }
               case None => Redirect("/signOut")
             }
@@ -205,7 +216,7 @@ object Registration extends Controller {
    */
   def registerUser = Action { implicit request =>
     val jsonReceived = request.body.asJson.get
-
+    Cache.set("userData", jsonReceived)
     val associatedSchoolId = (jsonReceived \ "associatedSchoolId").as[String]
     val schoolName = (jsonReceived \ "schoolName").as[String]
 
@@ -245,9 +256,9 @@ object Registration extends Controller {
             val utcMilliseconds = OnlineUserCache.returnUTCTime
             OnlineUserCache.setOnline(userId, utcMilliseconds)
             //retrieve token in session and invalidate
-//            val token = request.session.get("token").get
+            //            val token = request.session.get("token").get
             //            Token.updateToken(token)
-
+            
             Ok(write(RegistrationResults(userCreated.get, userSchool))).as("application/json").withSession("userId" -> userId)
 
           case false => Ok(write(userUpdate._2)).as("application/json")
@@ -364,6 +375,16 @@ object Registration extends Controller {
     val userId = request.session.get("userId").get
     val tokenFound = Token.findTokenByUserId(userId)
     Token.updateToken(tokenFound(0).tokenString)
+    Cache.remove("userData")
+    println(Cache.getAs("userData"))
     Ok
+  }
+
+   def getUserDataFromCache = Action { implicit request =>
+    /*val userId = request.session.get("userId").get
+    val tokenFound = Token.findTokenByUserId(userId)
+    Token.updateToken(tokenFound(0).tokenString)*/
+    //println(Cache.getAs("userData"))
+    Ok(write(Cache.get("userData"))).as("application/json")
   }
 }

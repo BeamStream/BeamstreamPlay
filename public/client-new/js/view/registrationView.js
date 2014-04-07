@@ -47,7 +47,7 @@ define(
 
 						onAfterInit : function() {
 
-							this.data.reset();
+							//this.data.reset();
 							this.profile = null;
 						},
 
@@ -131,6 +131,51 @@ define(
 							 * ,'mailId': email}); this.$(".content").html(
 							 * compiledTemplate(userInfo)); } }
 							 */
+							
+							$
+							.ajax({
+								type : 'GET',
+								url:'/findUserData',
+								
+						
+								success : function(data) {
+										
+									
+								
+								alert(JSON.stringify(data));
+									
+									$('#username').val(data.fields[10]._2.value);
+									
+									$('#firstName').val(data.fields[0]._2.value);
+									$('#lastName').val(data.fields[1]._2.value);
+									$('#schoolName').val(data.fields[2]._2.value);
+									$('#major').val(data.fields[3]._2.value);
+									$('#aboutYourself').val(data.fields[9]._2.value);
+									$('#gradeLevel .filter-option').text(data.fields[4]._2.value);
+									$('#degreeProgram .filter-option').text(data.fields[5]._2.value);
+									$('#location').val(data.fields[7]._2.value);
+									$('#cellNumber').val(data.fields[8]._2.value);
+									$('#graduate .filter-option').text(data.fields[6]._2.value);
+									
+									if(data.fields[6]._2.value == "yes")
+										{
+										
+										$('#graduationDate-set').css('visibility','visible');
+										$('#graduationDate-set').css('display','block');
+										$('#graduationDate').val(data.fields[11]._2.value);
+										
+										}
+									
+									$('#associatedSchoolId').val(data.fields[13]._2.value);
+									$('#myUserId').val(data.fields[12]._2.value);
+								/*	$('#done_step2').click();*/
+								/*	this.saveform();*/
+								/*	this.enableStepThree();*/
+
+								}
+							});
+							
+							
 						},
 
 						onAfterRender : function() {
@@ -197,10 +242,12 @@ define(
 						 * form
 						 */
 						comepleteSecondStep : function(e) {
-
+								
+								alert("hjadgf");
 							e.preventDefault();
+							alert("2");
 							this.data.url = "/registration";
-
+							alert("3");
 							/*
 							 * @TODO only select a school from existing list or
 							 * add new school
@@ -242,13 +289,21 @@ define(
 								'associatedSchoolId' : $('#associatedSchoolId')
 										.val()
 							});
+							alert("4");
+							alert($('#lastName').val());
+							
 							this.saveForm();
+							
+							
+							alert("5");
 						},
 
 						/**
 						 * step 2 registration success
 						 */
 						success : function(model, data) {
+							
+							
 							/* enable step 3 */
 							if (data != "Username Already Exists"
 									&& data != "Please select an existing school or create your own one") {
@@ -386,7 +441,7 @@ define(
 											type : 'POST',
 											data : data,
 											url : "/media",
-											cache : false,
+//											cache : false,
 											contentType : false,
 											processData : false,
 											success : function(data) {
@@ -435,7 +490,7 @@ define(
 							$.ajax({
 								type : 'GET',
 								url : "/defaultMedia",
-								cache : false,
+//								cache : false,
 								contentType : false,
 								processData : false
 							});
