@@ -1,4 +1,3 @@
-
 package models
 
 import com.novus.salat._
@@ -16,6 +15,8 @@ import java.util.Date
 import java.net.URL
 import java.util.regex.Pattern
 import models.mongoContext._
+import scala.language.postfixOps
+
 /**
  * Enumeration for the document access
  *
@@ -111,7 +112,7 @@ object Document extends RockConsumer {
   /**
    * Get all documents for a user (Modified)
    */
-  def getAllPublicDocumentForAUser(userId: ObjectId) = {
+  def getAllPublicDocumentForAUser(userId: ObjectId): List[models.Document] = {
     DocumentDAO.find(MongoDBObject("userId" -> userId, "documentAccess" -> "Public")).toList
   }
   /**
@@ -141,7 +142,7 @@ object Document extends RockConsumer {
   /**
    * Change the Title and description of a document (Modified)
    */
-  def updateTitleAndDescription(documentId: ObjectId, newName: String, newDescription: String) = {
+  def updateTitleAndDescription(documentId: ObjectId, newName: String, newDescription: String): WriteResult = {
     val document = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
     DocumentDAO.update(MongoDBObject("_id" -> documentId), document.copy(documentDescription = newDescription, documentName = newName), false, false, new WriteConcern)
   }
@@ -149,7 +150,7 @@ object Document extends RockConsumer {
   /**
    * add Comment to document
    */
-  def addCommentToDocument(commentId: ObjectId, docId: ObjectId) = {
+  def addCommentToDocument(commentId: ObjectId, docId: ObjectId): WriteResult = {
     val doc = DocumentDAO.find(MongoDBObject("_id" -> docId)).toList(0)
     DocumentDAO.update(MongoDBObject("_id" -> docId), doc.copy(commentsOnDocument = (doc.commentsOnDocument ++ List(commentId))), false, false, new WriteConcern)
   }
@@ -175,7 +176,7 @@ object Document extends RockConsumer {
   /**
    * Increasing View Count
    */
-  def increaseViewCountOfADocument(docId: ObjectId) = {
+  def increaseViewCountOfADocument(docId: ObjectId): Int = {
     val docFound = DocumentDAO.find(MongoDBObject("_id" -> docId)).toList(0)
     DocumentDAO.update(MongoDBObject("_id" -> docId), docFound.copy(views = (docFound.views + 1)), false, false, new WriteConcern)
     val updatedDocFound = DocumentDAO.find(MongoDBObject("_id" -> docId)).toList(0)
@@ -237,7 +238,7 @@ object Document extends RockConsumer {
   /**
    * Update Preview image of Document
    */
-  def updatePreviewImageUrl(documentName: String, newPreviewImageUrl: String = "") = {
+  def updatePreviewImageUrl(documentName: String, newPreviewImageUrl: String = ""): ObjectId = {
     val document = DocumentDAO.find(MongoDBObject("documentName" -> documentName)).toList
     document.isEmpty match {
       case false => {DocumentDAO.update(MongoDBObject("documentName" -> documentName), document(0).copy(previewImageUrl = newPreviewImageUrl), false, false, new WriteConcern)

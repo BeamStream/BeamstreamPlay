@@ -14,6 +14,8 @@ import java.text.DateFormat
 import com.novus.salat.global._
 import models.mongoContext._
 import java.util.regex.Pattern
+import scala.language.postfixOps
+
 object Type extends Enumeration {
 
   val Text = Value(0, "Text")
@@ -108,7 +110,7 @@ object Message { //extends CommentConsumer {
    * Get all public messages for a user
    *  param userId is the id of the user for which the messages are required
    */
-  def getAllPublicMessagesForAUser(userId: ObjectId) = {
+  def getAllPublicMessagesForAUser(userId: ObjectId): List[models.Message] = {
     MessageDAO.find(MongoDBObject("userId" -> userId, "messageAccess" -> "Public")).toList
   }
 
@@ -122,7 +124,7 @@ object Message { //extends CommentConsumer {
   }
 
   /*
-   *  Update the Rockers List and increase the count by one 
+   *  Update the Rockers List and increase the count by one
    */
 
   def rockedIt(messageId: ObjectId, userId: ObjectId): Int = {
@@ -263,7 +265,7 @@ object Message { //extends CommentConsumer {
    * param  commentId is the id of the comment which is created
    * param  messageId is the id of message to which this comments belongs
    */
-  def addCommentToMessage(commentId: ObjectId, messageId: ObjectId) = {
+  def addCommentToMessage(commentId: ObjectId, messageId: ObjectId): WriteResult = {
     val message = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
     MessageDAO.update(MongoDBObject("_id" -> messageId), message.copy(comments = (message.comments ++ List(commentId))), false, false, new WriteConcern)
   }
@@ -273,7 +275,7 @@ object Message { //extends CommentConsumer {
    * param  commentId is the id of the comment which is created
    * param  messageId is the id of message to which this comments belongs
    */
-  def removeCommentFromMessage(commentId: ObjectId, messageId: ObjectId) = {
+  def removeCommentFromMessage(commentId: ObjectId, messageId: ObjectId): WriteResult = {
     val message = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
     MessageDAO.update(MongoDBObject("_id" -> messageId), message.copy(comments = (message.comments filterNot (List(commentId)contains))), false, false, new WriteConcern)
   }
@@ -284,7 +286,7 @@ object Message { //extends CommentConsumer {
    * param  userId is the id of owner of message
    */
 
-  def deleteMessagePermanently(messageId: ObjectId, userId: ObjectId) = {
+  def deleteMessagePermanently(messageId: ObjectId, userId: ObjectId): Boolean = {
 
     val messageToRemove = Message.findMessageById(messageId).get
     val commentsOfMessageToBeRemoved = messageToRemove.comments
@@ -322,14 +324,12 @@ object Message { //extends CommentConsumer {
           }
           case false => ""
         }
-
         val isRocked = Message.isARocker(message.id, userId)
         val isFollowed = Message.isAFollower(message.id, userId)
-        //        val comments = Comment.getAllComments(message.comments)   // H12 Heroku 
-
+        //        val comments = Comment.getAllComments(message.comments)   // H12 Heroku
         /*TODO  : Very Important : Trouble due to deleting the user from the PROD DB
                 val followerOfMessagePoster = User.getUserProfile(message.userId).head.followers.contains(userId)
-               
+
                 (message.docIdIfAny != None) match {
                   case true =>
                     val userMedia = UserMedia.findMediaById(message.docIdIfAny.get)
@@ -341,7 +341,6 @@ object Message { //extends CommentConsumer {
                     }
                   case false => DocResulttoSent(Option(message), None, "", "", isRocked, isFollowed, Option(profilePicForUser), Option(comments), Option(followerOfMessagePoster), User.giveMeTheRockers(message.rockers))
                 }*/
-
         (message.docIdIfAny != None) match {
           case true =>
             val userMedia = UserMedia.findMediaById(message.docIdIfAny.get)
@@ -357,7 +356,7 @@ object Message { //extends CommentConsumer {
     docResultToSend
   }
 
-  def updateMessageImageUrl(documentId: ObjectId, newAnyPreviewImageUrl: String) = {
+  def updateMessageImageUrl(documentId: ObjectId, newAnyPreviewImageUrl: String): Any = {
     val message = MessageDAO.find(MongoDBObject("docIdIfAny" -> documentId)).toList
     message.isEmpty match {
       case false =>

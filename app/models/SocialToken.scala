@@ -9,13 +9,14 @@ import utils.MongoHQConfig
 import com.mongodb.casbah.commons.MongoDBObject
 import models.mongoContext._
 import com.mongodb.WriteConcern
+import com.mongodb.casbah.Imports.WriteResult
 
 case class SocialToken(@Key("_id") id: ObjectId, refreshToken: String, tokenFlag: Boolean)
 object SocialToken {
   /**
    * Store RefreshToken
    */
-  def addToken(refreshToken: SocialToken) = {
+  def addToken(refreshToken: SocialToken): Option[Int] = {
     SocialTokenDAO.insert(refreshToken)
   }
 
@@ -30,7 +31,7 @@ object SocialToken {
     }
   }
 
-  def findSocialTokenObject(userId: ObjectId) = {
+  def findSocialTokenObject(userId: ObjectId): Option[SocialToken] = {
     val tokenFound = SocialTokenDAO.find(MongoDBObject("_id" -> userId)).toList
     tokenFound.isEmpty match {
       case true => None
@@ -38,12 +39,12 @@ object SocialToken {
     }
   }
 
-  def updateTokenFlag(userId: ObjectId, flag: Boolean) = {
+  def updateTokenFlag(userId: ObjectId, flag: Boolean): WriteResult = {
     val tokenRequired = SocialTokenDAO.find(MongoDBObject("_id" -> userId)).toList
     SocialTokenDAO.update(MongoDBObject("_id" -> userId), tokenRequired.head.copy(tokenFlag = flag), false, false, new WriteConcern)
   }
 
-  def deleteSocialToken(refreshToken: String) = {
+  def deleteSocialToken(refreshToken: String): WriteResult = {
     val socialTokenToRemove = SocialTokenDAO.find(MongoDBObject("refreshToken" -> refreshToken)).toList
     SocialTokenDAO.remove(socialTokenToRemove(0))
   }

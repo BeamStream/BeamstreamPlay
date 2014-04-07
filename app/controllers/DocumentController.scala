@@ -26,6 +26,8 @@ import utils.ObjectIdSerializer
 import utils.PreviewOfPDFUtil
 import utils.TokenEmailUtil
 import play.Logger
+import play.api.mvc.AnyContent
+
 /**
  * This controller class is used to store and retrieve all the information about documents.
  */
@@ -33,7 +35,7 @@ import play.Logger
 object DocumentController extends Controller {
 
   implicit val formats = new net.liftweb.json.DefaultFormats {
-    override def dateFormatter = new SimpleDateFormat("MM/dd/yyyy")
+    override def dateFormatter: SimpleDateFormat = new SimpleDateFormat("MM/dd/yyyy")
   } + new ObjectIdSerializer
 
   /**
@@ -63,7 +65,7 @@ object DocumentController extends Controller {
 
   }*/
 
-  def newGoogleDocument = Action { implicit request =>
+  def newGoogleDocument: Action[AnyContent] = Action { implicit request =>
 
     val data = request.body.asFormUrlEncoded.get
     val docName = data("docName").toList.head
@@ -88,7 +90,7 @@ object DocumentController extends Controller {
    * Get all Documents for a User
    */
 
-  def getAllGoogleDocumentsForAUser = Action { implicit request =>
+  def getAllGoogleDocumentsForAUser: Action[AnyContent] = Action { implicit request =>
     val allDocumentsForAUser = Document.getAllGoogleDocumentsForAUser(new ObjectId(request.session.get("userId").get))
     Ok(write(Documents(allDocumentsForAUser))).as("application/json")
   }
@@ -97,7 +99,7 @@ object DocumentController extends Controller {
    * Rock the document
    * Rocking any kind of Doc Audio, Video , PPT etc.
    */
-  def rockTheDocument(documentId: String) = Action { implicit request =>
+  def rockTheDocument(documentId: String): Action[AnyContent] = Action { implicit request =>
     val totalRocks = Document.rockTheDocument(new ObjectId(documentId), new ObjectId(request.session.get("userId").get))
     Ok(write(totalRocks.toString)).as("application/json")
   }
@@ -105,7 +107,7 @@ object DocumentController extends Controller {
   /**
    * Change the title and description
    */
-  def changeTitleAndDescriptionForADocument(documentId: String) = Action { implicit request =>
+  def changeTitleAndDescriptionForADocument(documentId: String): Action[AnyContent] = Action { implicit request =>
     val jsonReceived = request.body.asJson.get
     val docDescription = (jsonReceived \ "docDescription").as[String]
     val docName = (jsonReceived \ "docName").as[String]
@@ -128,7 +130,7 @@ object DocumentController extends Controller {
   /**
    * Rockers of a document
    */
-  def giveMeRockersOfDocument(documentId: String) = Action { implicit request =>
+  def giveMeRockersOfDocument(documentId: String): Action[AnyContent] = Action { implicit request =>
     val rockers = Document.rockersNames(new ObjectId(documentId))
     val rockersJson = write(rockers)
     Ok(rockersJson).as("application/json")
@@ -138,7 +140,7 @@ object DocumentController extends Controller {
    * Upload Media From HardDrive
    */
 
-  def uploadDocumentFromDisk = Action(parse.multipartFormData) { request =>
+  def uploadDocumentFromDisk: Action[play.api.mvc.MultipartFormData[play.api.libs.Files.TemporaryFile]] = Action(parse.multipartFormData) { request =>
     val documentJsonMap = request.body.asFormUrlEncoded.toMap
     val streamId = documentJsonMap("streamId").toList(0)
     val docDescription = documentJsonMap("docDescription").toList(0)
@@ -163,14 +165,14 @@ object DocumentController extends Controller {
           val userId = new ObjectId(request.session.get("userId").get)
           val user = User.getUserProfile(userId)
 
-          if (isImage == true) {
+          if (isImage) {
             val uploadResults = saveImageFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, uploadedFrom)
             Option(uploadResults)
-          } else if (isVideo == true) {
+          } else if (isVideo) {
             val uploadResults = saveVideoFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom, uploadedFrom)
             Option(uploadResults)
           } else {
-            if (isPdf == true) {
+            if (isPdf) {
               val previewImageUrl = PreviewOfPDFUtil.convertPdfToImage(documentReceived, docNameOnAmazom)
               val uploadResults = savePdfFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom, previewImageUrl, uploadedFrom)
               Option(uploadResults)
@@ -190,7 +192,7 @@ object DocumentController extends Controller {
   /**
    * Get All File Types (V)
    */
-  def getAllFilesForAUser = Action { implicit request =>
+  def getAllFilesForAUser: Action[AnyContent] = Action { implicit request =>
     val allfiles = Files.getAllFileTypes(new ObjectId(request.session.get("userId").get))
     val mediaFiles = UserMedia.getAllMediaForAUser(new ObjectId(request.session.get("userId").get))
     val alluserdocsandfiles = List(DocumentsAndMedia(allfiles, mediaFiles))
@@ -201,7 +203,7 @@ object DocumentController extends Controller {
    * Get All AudioFiles
    */
 
-  def getAllAudioFilesForAUser = Action { implicit request =>
+  def getAllAudioFilesForAUser: Action[AnyContent] = Action { implicit request =>
     val audioFiles = Files.getAllAudioFiles(new ObjectId(request.session.get("userId").get))
     Ok(write(Documents(audioFiles))).as("application/json")
   }
@@ -210,7 +212,7 @@ object DocumentController extends Controller {
    * Get All PPTFiles
    */
 
-  def getAllPPTFilesForAUser = Action { implicit request =>
+  def getAllPPTFilesForAUser: Action[AnyContent] = Action { implicit request =>
     val PPTFiles = Files.getAllPPTFiles(new ObjectId(request.session.get("userId").get))
     Ok(write(Documents(PPTFiles))).as("application/json")
   }
@@ -219,7 +221,7 @@ object DocumentController extends Controller {
    * Get All PPTFiles
    */
 
-  def getAllPDFFilesForAUser = Action { implicit request =>
+  def getAllPDFFilesForAUser: Action[AnyContent] = Action { implicit request =>
     val PDFFiles = Files.getAllPDFFiles(new ObjectId(request.session.get("userId").get))
     Ok(write(Documents(PDFFiles))).as("application/json")
   }
@@ -228,7 +230,7 @@ object DocumentController extends Controller {
    * Get All DOCSFiles
    */
 
-  def getAllDOCSFilesForAUser = Action { implicit request =>
+  def getAllDOCSFilesForAUser: Action[AnyContent] = Action { implicit request =>
     val DocsFiles = Files.getAllDOCSFiles(new ObjectId(request.session.get("userId").get))
     Ok(write(Documents(DocsFiles))).as("application/json")
   }
@@ -237,7 +239,7 @@ object DocumentController extends Controller {
    * Follow Document
    */
 
-  def followDocument(documentId: String) = Action { implicit request =>
+  def followDocument(documentId: String): Action[AnyContent] = Action { implicit request =>
     val followers = Document.followDocument(new ObjectId(request.session.get("userId").get), new ObjectId(documentId))
     Ok(write(followers.toString)).as("application/json")
   }
@@ -329,7 +331,7 @@ object DocumentController extends Controller {
    * Get view count of a document
    */
 
-  def viewCount(documentId: String) = Action { implicit request =>
+  def viewCount(documentId: String): Action[AnyContent] = Action { implicit request =>
     val mediaFile = UserMedia.findMediaById(new ObjectId(documentId))
     val viewCount = (mediaFile != None) match {
       case true => UserMedia.increaseViewCountOfUsermedia(mediaFile.get.id)

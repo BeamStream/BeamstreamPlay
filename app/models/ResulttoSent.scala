@@ -9,7 +9,7 @@ import utils.MongoHQConfig
 import com.novus.salat.global.ctx
 import models.mongoContext._
 /*
- * JSON format for response 
+ * JSON format for response
  * @purpose :  Success or failure
  */
 case class ResulttoSent(status: String,
@@ -50,7 +50,7 @@ case class RegistrationResults(user: User, userSchool: UserSchool)
  * Stream Result
  */
 
-//TODO :Extra 
+//TODO :Extra
 case class StreamResult(stream: Stream, usersOfStream: Int)
 case class ClassResult(stream: Stream, resultToSend: ResulttoSent)
 case class LoginResult(result: ResulttoSent, user: Option[User], profilePicOfUser: Option[String], hasClasses: Option[Boolean], server: String)

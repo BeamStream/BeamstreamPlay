@@ -24,13 +24,14 @@ import utils.OnlineUserCache
 import models.Token
 import models.LoginResult
 import models.UserMedia
+import play.api.mvc.AnyContent
 
 object ClassController extends Controller {
 
   val EnumList: List[Enumeration] = List(ClassType)
 
   implicit val formats = new net.liftweb.json.DefaultFormats {
-    override def dateFormatter = new SimpleDateFormat("MM/dd/yyyy")
+    override def dateFormatter: SimpleDateFormat = new SimpleDateFormat("MM/dd/yyyy")
   } + new EnumerationSerializer(EnumList) + new ObjectIdSerializer //+ new CollectionSerializer
 
   /**
@@ -38,7 +39,7 @@ object ClassController extends Controller {
    *  Purpose : Class code and class name auto-populate on class stream page
    */
 
-  def findClasstoAutoPopulatebyCode = Action { implicit request =>
+  def findClasstoAutoPopulatebyCode: Action[AnyContent] = Action { implicit request =>
 
     val classCodeMap = request.body.asFormUrlEncoded.get
     val classCode = classCodeMap("data").toList(0)
@@ -54,7 +55,7 @@ object ClassController extends Controller {
    *
    */
 
-  def findClasstoAutoPopulatebyName = Action { implicit request =>
+  def findClasstoAutoPopulatebyName: Action[AnyContent] = Action { implicit request =>
     try {
       val classNameMap = request.body.asFormUrlEncoded.get
       val className = classNameMap("data").toList(0)
@@ -70,7 +71,7 @@ object ClassController extends Controller {
    * Edit Class Functionality
    * Purpose: Getting all classes for a user
    */
-  def getAllClassesForAUser(userId: String) = Action { implicit request =>
+  def getAllClassesForAUser(userId: String): Action[AnyContent] = Action { implicit request =>
     try {
       val classIdList = Class.getAllClassesIdsForAUser(new ObjectId(userId))
       val getAllClassesForAUser = Class.getAllClasses(classIdList)
@@ -88,7 +89,7 @@ object ClassController extends Controller {
   /**
    * Display Class Page (V)
    */
-  def renderClassPage = Action { implicit request =>
+  def renderClassPage: Action[AnyContent] = Action { implicit request =>
     val server = Play.current.configuration.getString("server").get
     (request.session.get("userId")) match {
       case Some(userId) =>
@@ -96,18 +97,18 @@ object ClassController extends Controller {
         tokenFound.isEmpty match {
           case false =>
             tokenFound(0).used match {
-              case true => Ok(views.html.classpage(true)).withCookies(Cookie("Beamstream",userId.toString()+" class", Option(864000)))
+              case true => Ok(views.html.classpage(true)).withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
               case false =>
                 val userData = User.getUserProfile(new ObjectId(userId))
                 userData.get.firstName match {
-                  case "" => Redirect(server+"/registration?userId="+userId+"&token="+tokenFound(0).tokenString).withSession("token" -> tokenFound(0).tokenString).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
-                    //Ok(write(LoginResult(ResulttoSent("Success", tokenFound(0).tokenString), userData, None, Option(false), server))).as("application/json").withCookies(Cookie("Beamstream",userId.toString()+" registration", Option(864000)))
+                  case "" => Redirect(server + "/registration?userId=" + userId + "&token=" + tokenFound(0).tokenString).withSession("token" -> tokenFound(0).tokenString).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
+                  //Ok(write(LoginResult(ResulttoSent("Success", tokenFound(0).tokenString), userData, None, Option(false), server))).as("application/json").withCookies(Cookie("Beamstream",userId.toString()+" registration", Option(864000)))
                   case _ =>
                     val userMedia = UserMedia.findUserMediaByUserId(new ObjectId(userId))
                     userMedia.isEmpty match {
-                      case true => Redirect(server+"/registration?userId="+userId+"&token="+tokenFound(0).tokenString).withSession("token" -> tokenFound(0).tokenString).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
-                        //Ok(write(LoginResult(ResulttoSent("Success", tokenFound(0).tokenString), userData, None, Option(false), server))).as("application/json").withCookies(Cookie("Beamstream",userId.toString()+" registration", Option(864000)))
-                      case false => Ok(views.html.classpage()).withCookies(Cookie("Beamstream",userId.toString()+" class", Option(864000)))
+                      case true => Redirect(server + "/registration?userId=" + userId + "&token=" + tokenFound(0).tokenString).withSession("token" -> tokenFound(0).tokenString).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
+                      //Ok(write(LoginResult(ResulttoSent("Success", tokenFound(0).tokenString), userData, None, Option(false), server))).as("application/json").withCookies(Cookie("Beamstream",userId.toString()+" registration", Option(864000)))
+                      case false => Ok(views.html.classpage()).withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
                     }
                 }
             }
@@ -120,19 +121,19 @@ object ClassController extends Controller {
             val userId = cookie.value.split(" ")(0)
             val userFound = User.getUserProfile(new ObjectId(userId))
             cookie.value.split(" ")(1) match {
-              case "class" => Redirect("/class").withSession("userId" -> userId).withCookies(Cookie("Beamstream",userId.toString()+" class", Option(864000)))
-              case "stream" => Redirect("/stream").withSession("userId" -> userId).withCookies(Cookie("Beamstream",userId.toString()+" stream", Option(864000)))
+              case "class" => Redirect("/class").withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
+              case "stream" => Redirect("/stream").withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " stream", Option(864000)))
               case "registration" =>
                 val tokenFound = Token.findTokenByUserId(userId)
                 userFound match {
                   case Some(user) =>
                     user.firstName match {
-                      case "" => Redirect(server+"/registration?userId="+userId+"&token="+tokenFound(0).tokenString).withSession("token" -> tokenFound(0).tokenString).withCookies(Cookie("Beamstream",userId.toString()+" registration", Option(864000)))
+                      case "" => Redirect(server + "/registration?userId=" + userId + "&token=" + tokenFound(0).tokenString).withSession("token" -> tokenFound(0).tokenString).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
                       case _ =>
                         val userMedia = UserMedia.findUserMediaByUserId(new ObjectId(userId))
                         userMedia.isEmpty match {
-                          case true => Redirect(server+"/registration?userId="+userId+"&token="+tokenFound(0).tokenString).withSession("token" -> tokenFound(0).tokenString).withCookies(Cookie("Beamstream",userId.toString()+" registration", Option(864000)))
-                          case false => Redirect("/class").withSession("userId" -> userId).withCookies(Cookie("Beamstream",userId.toString()+" class", Option(864000)))
+                          case true => Redirect(server + "/registration?userId=" + userId + "&token=" + tokenFound(0).tokenString).withSession("token" -> tokenFound(0).tokenString).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
+                          case false => Redirect("/class").withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
                         }
                     }
                   case None => Redirect("/signOut")
@@ -167,7 +168,7 @@ object ClassController extends Controller {
   /**
    * Create Class (V)
    */
-  def createClass = Action { implicit request =>
+  def createClass: Action[AnyContent] = Action { implicit request =>
     try {
       val jsonReceived = request.body.asJson.get
       val id = (jsonReceived \ "id").asOpt[String]

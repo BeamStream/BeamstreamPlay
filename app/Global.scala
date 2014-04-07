@@ -1,9 +1,6 @@
 import java.io.File
-
 import scala.concurrent.Future
-
 import com.typesafe.config.ConfigFactory
-
 import actors.Cleaner
 import models.School
 import play.api.Application
@@ -15,6 +12,10 @@ import play.api.mvc.RequestHeader
 import play.api.mvc.Results.InternalServerError
 import play.api.mvc.Results.NotFound
 import play.api.mvc.Results.Redirect
+import play.api.mvc.SimpleResult
+import scala.concurrent.Future
+import play.api.mvc.SimpleResult
+
 object Global extends GlobalSettings {
 
   override def onStart(app: Application) {
@@ -31,16 +32,16 @@ object Global extends GlobalSettings {
     super.onLoadConfig(modeSpecificConfig, path, classloader, mode)
   }*/
 
-  override def onError(request: RequestHeader, ex: Throwable) = {
+  override def onError(request: RequestHeader, ex: Throwable): Future[SimpleResult] = {
     Future.successful(Redirect("/error"))
   }
 
-  override def onHandlerNotFound(request: RequestHeader) = {
+  override def onHandlerNotFound(request: RequestHeader): Future[SimpleResult] = {
     Future.successful(NotFound(
       views.html.error()))
   }
 
-  override def onBadRequest(request: RequestHeader, error: String) = {
+  override def onBadRequest(request: RequestHeader, error: String): Future[SimpleResult] = {
     Future.successful(InternalServerError(views.html.error()))
   }
 

@@ -12,7 +12,7 @@ object QuestionPolling {
    * Vote The Option Of A Question's Poll
    */
 
-  def voteTheOptionOfAQuestion(optionOfAQuestionId: ObjectId, userId: ObjectId) = {
+  def voteTheOptionOfAQuestion(optionOfAQuestionId: ObjectId, userId: ObjectId): Int = {
 
     val optionOfAQuestion = OptionOfQuestionDAO.find(MongoDBObject("_id" -> optionOfAQuestionId)).toList(0)
     (optionOfAQuestion.voters.contains(userId)) match {

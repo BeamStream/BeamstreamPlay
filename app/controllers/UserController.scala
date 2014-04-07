@@ -29,6 +29,7 @@ import models.Token
 import play.api.Play
 import play.api.mvc.Cookie
 import play.api.mvc.DiscardingCookie
+import play.api.mvc.AnyContent
 
 object UserController extends Controller {
 
@@ -39,7 +40,7 @@ object UserController extends Controller {
    * Reducing active user on sign Out
    */
 
-  def signOut = Action { implicit request =>
+  def signOut: Action[AnyContent] = Action { implicit request =>
     val userId = request.session.get("userId")
     if (userId.isDefined) {
       OnlineUserCache.setOffline(userId.get)
@@ -53,9 +54,9 @@ object UserController extends Controller {
    * Get All Online Users (Only Those Who Are The Member Of User's Class)
    */
 
-  def getAllOnlineUsers = Action { implicit request =>
+  def getAllOnlineUsers: Action[AnyContent] = Action { implicit request =>
     var usersToShow: List[String] = Nil
-    val onlineUsers = (OnlineUserCache.returnOnlineUsers.isEmpty == true) match {
+    val onlineUsers = OnlineUserCache.returnOnlineUsers.isEmpty match {
       case false =>
 
         val userToShow = OnlineUserCache.returnOnlineUsers.head.onlineUsers -= request.session.get("userId").get
@@ -100,7 +101,7 @@ object UserController extends Controller {
   /**
    * Invite User To join Beamstream
    */
-  def inviteUserToBeamstream = Action { implicit request =>
+  def inviteUserToBeamstream: Action[AnyContent] = Action { implicit request =>
     val userJsonMap = request.body.asFormUrlEncoded.get
     val emailList = userJsonMap("data").toList.head.split(",").toList
     for (eachEmail <- emailList) SendEmailUtility.inviteUserToBeamstream(eachEmail)
@@ -112,7 +113,7 @@ object UserController extends Controller {
    * @Purpose : public profile of a user
    */
 
-  def returnUserJson = Action { implicit request =>
+  def returnUserJson: Action[AnyContent] = Action { implicit request =>
     val userId = request.session.get("userId")
     if (userId == None) {
       Ok(write("Session Has Been Expired")).as("application/json")
@@ -126,7 +127,7 @@ object UserController extends Controller {
    * Password Recovery
    * @purpose : Send a mail to user with password
    */
-  def forgotPassword = Action { implicit request =>
+  def forgotPassword: Action[AnyContent] = Action { implicit request =>
     val jsonReceived = request.body.asJson.get
     val emailId = (jsonReceived \ "mailId").as[String]
     val passwordSent = User.forgotPassword(emailId)
@@ -139,7 +140,7 @@ object UserController extends Controller {
 
   // Code by Daniel Hew Starts here
 
-  def testNeo4j = Action { implicit request =>
+  def testNeo4j: Action[AnyContent] = Action { implicit request =>
     var node: Node = SocialGraphEmbeddedNeo4j.findOrCreateBSNode(24, "Joe", "Shmoe")
     var node2: Node = SocialGraphEmbeddedNeo4j.createBSNode(72, "Michael", "Vick", node)
     print("node1: " + node.getProperty("firstName") + "\n")
@@ -148,14 +149,14 @@ object UserController extends Controller {
     Ok(write(new ResulttoSent("Success", "User added to Social stack")))
   }
 
-  def testNeo4jFindNode = Action { implicit request =>
+  def testNeo4jFindNode: Action[AnyContent] = Action { implicit request =>
     //var node: Node = SocialGraphEmbeddedNeo4j.findOrCreateBSNode(24, null, null)
     var node: Node = SocialGraphEmbeddedNeo4j.findBSNode(50)
     print("node1: " + node.getProperty("firstName") + "\n")
     Ok(write(new ResulttoSent("Success", "User found")))
   }
 
-  def testNeo4jAddFriends = Action { implicit request =>
+  def testNeo4jAddFriends: Action[AnyContent] = Action { implicit request =>
     var node: Node = SocialGraphEmbeddedNeo4j.findOrCreateBSNode(50, "Dirk", "Nowitzki")
     var node1: Neo4jFriend = new Neo4jFriend("hotpotato1", "forum1", 51, null, null)
     var node2: Neo4jFriend = new Neo4jFriend("hotpotato2", "forum2", 52, null, null)
@@ -167,7 +168,7 @@ object UserController extends Controller {
     Ok(write(new ResulttoSent("Success", "Friends Added!!!")))
   }
 
-  def testNeo4jPrintFriends = Action { implicit request =>
+  def testNeo4jPrintFriends: Action[AnyContent] = Action { implicit request =>
     var node: Node = SocialGraphEmbeddedNeo4j.findBSNode(50)
     var relationships = node.getRelationships();
     var iterator = relationships.iterator()
@@ -187,7 +188,7 @@ object UserController extends Controller {
     var node: Node = SocialGraphEmbeddedNeo4j.findBSNode(userId)
     if (node == null) {
       Ok(write(new ResulttoSent("Failure", "Parent user does not exist in friends database")))
-      return true
+      true
     }
     for (friend <- friends) {
       var node2: Node = SocialGraphEmbeddedNeo4j.createBSNode(friend.userId, friend.firstName, friend.lastName, node)
@@ -197,7 +198,7 @@ object UserController extends Controller {
     }
     SocialGraphEmbeddedNeo4j.shutDown()
     Ok(write(new ResulttoSent("Success", "Users added to Social stack")))
-    return true
+    true
   }
 
   // Code by Daniel Hew Ends here
@@ -206,7 +207,7 @@ object UserController extends Controller {
    * Deactivate User On Browser Closed Event
    */
 
-  def active = Action { implicit request =>
+  def active: Action[AnyContent] = Action { implicit request =>
     Future {
       val utcMilliseconds = OnlineUserCache.returnUTCTime
       request.session.get("userId") match {
@@ -223,7 +224,7 @@ object UserController extends Controller {
    * Follow User
    */
 
-  def followUser(userIdOfFollower: String) = Action { implicit request =>
+  def followUser(userIdOfFollower: String): Action[AnyContent] = Action { implicit request =>
     val followers = User.followUser(new ObjectId(request.session.get("userId").get), new ObjectId(userIdOfFollower))
     Ok(write(followers.toString)).as("application/json")
   }
@@ -234,7 +235,7 @@ object UserController extends Controller {
   /**
    * Find and Authenticate the user to proceed. (RA)
    */
-  def findUser = Action { implicit request =>
+  def findUser: Action[AnyContent] = Action { implicit request =>
     val jsonReceived = request.body.asJson.get
     val userEmailorName = (jsonReceived \ "mailId").as[String]
     val userPassword = (jsonReceived \ "password").as[String]
@@ -265,8 +266,8 @@ object UserController extends Controller {
               case false =>
                 (profilePic(0).mediaUrl) match {
                   case "" =>
-                    Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, None, Option(hasClasses), server))).as("application/json").withSession(userSession).withCookies(Cookie("Beamstream",user.id.toString()+" stream", Option(864000000)))
-                  case _=> Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, Option(profilePic.head.mediaUrl), Option(hasClasses), server))).as("application/json").withSession(userSession).withCookies(Cookie("Beamstream",user.id.toString()+" stream", Option(864000000)))
+                    Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, None, Option(hasClasses), server))).as("application/json").withSession(userSession).withCookies(Cookie("Beamstream", user.id.toString() + " stream", Option(864000000)))
+                  case _ => Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, Option(profilePic.head.mediaUrl), Option(hasClasses), server))).as("application/json").withSession(userSession).withCookies(Cookie("Beamstream", user.id.toString() + " stream", Option(864000000)))
                 }
 
             }
@@ -287,7 +288,7 @@ object UserController extends Controller {
    * Render Forgot Password View
    */
 
-  def renderForgotPasswordView = Action { implicit request =>
+  def renderForgotPasswordView: Action[AnyContent] = Action { implicit request =>
     Ok(views.html.recoverPassword("Recover Password Page"))
   }
 
@@ -295,11 +296,11 @@ object UserController extends Controller {
    * Reset Account
    */
 
-  def accountReset = Action { implicit request =>
+  def accountReset: Action[AnyContent] = Action { implicit request =>
     Ok(views.html.resetaccount())
   }
 
-  def reset = Action { implicit request =>
+  def reset: Action[AnyContent] = Action { implicit request =>
     val data = request.body.asFormUrlEncoded.get
     val emailToReset = data("email").toList(0)
     val user = User.findUserByEmailId(emailToReset)

@@ -1,4 +1,5 @@
 package utils
+
 import com.novus.salat.dao.SalatDAO
 import org.bson.types.ObjectId
 import com.novus.salat.global._
@@ -11,11 +12,11 @@ case class AmazonProgress(userId: String, percentage: Int)
 object ProgressStatusUtil {
 
   /**
-   * Add Progress 
+   * Add Progress
    * param userId is the Id of the User
    * param percentage is the percentage of the done progress
    */
-  def addProgress(userId: String, percentage: Int) = {
+  def addProgress(userId: String, percentage: Int): Object = {
     val amazonProgressObj = AmazonProgressDAO.find(MongoDBObject("userId" -> userId)).toList
     (!amazonProgressObj.isEmpty) match {
       case true => AmazonProgressDAO.update(MongoDBObject("userId" -> userId), new AmazonProgress(userId, percentage), false, false, new WriteConcern)
@@ -24,11 +25,11 @@ object ProgressStatusUtil {
 
   }
  /**
-   * Find Progress 
+   * Find Progress
    * param userId is the Id of the User
-   * 
+   *
    */
-  def findProgress(userId: String) = {
+  def findProgress(userId: String): Int = {
     val amazonProgressObj = AmazonProgressDAO.find(MongoDBObject("userId" -> userId)).toList
     (!amazonProgressObj.isEmpty) match {
       case true => amazonProgressObj(0).percentage

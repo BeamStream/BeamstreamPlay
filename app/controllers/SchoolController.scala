@@ -8,33 +8,35 @@ import net.liftweb.json.Serialization.write
 import play.api.mvc.Action
 import play.api.mvc.Controller
 import utils.ObjectIdSerializer
+import play.api.mvc.AnyContent
 
 object SchoolController extends Controller {
   implicit val formats = new net.liftweb.json.DefaultFormats {
-    override def dateFormatter = new SimpleDateFormat("MM/dd/yyyy")
+    override def dateFormatter: SimpleDateFormat = new SimpleDateFormat("MM/dd/yyyy")
   } + new ObjectIdSerializer
 
   /**
    * Add a new school (V)
    */
-  def addANewSchool = Action { implicit request =>
+  def addANewSchool: Action[AnyContent] = Action { implicit request =>
     val schoolInfojsonMap = request.body.asJson.get
     val schoolName = (schoolInfojsonMap \ "schoolName").as[String]
     val schoolWebsite = (schoolInfojsonMap \ "schoolWebsite").as[String]
     val schools = School.findSchoolByName(schoolName)
-    if (!schools.isEmpty) Ok(write("School Already Exists")).as("application/json")
-    else {
-      val schoolToCreate = new School(new ObjectId, schoolName, schoolWebsite)
-      val schoolId = School.addNewSchool(schoolToCreate)
-      School.allSchoolsInDatabase ++= List(schoolToCreate)
-      Ok(write(schoolToCreate)).as("application/json")
+    schools.isEmpty match {
+      case false => Ok(write("School Already Exists")).as("application/json")
+      case true =>
+        val schoolToCreate = new School(new ObjectId, schoolName, schoolWebsite)
+        val schoolId = School.addNewSchool(schoolToCreate)
+        School.allSchoolsInDatabase ++= List(schoolToCreate)
+        Ok(write(schoolToCreate)).as("application/json")
     }
   }
 
   /**
    * Provides All School For a User (V)
    */
-  def getAllSchoolForAUser = Action { implicit request =>
+  def getAllSchoolForAUser: Action[AnyContent] = Action { implicit request =>
     try {
       val userId = new ObjectId(request.session.get("userId").get)
       val schoolIdList = UserSchool.getAllSchoolforAUser(userId)
@@ -51,7 +53,7 @@ object SchoolController extends Controller {
    * Returns school name by schoolId
    */
 
-  def getSchoolName(schoolId: String) = Action { implicit request =>
+  def getSchoolName(schoolId: String): Action[AnyContent] = Action { implicit request =>
     val school = School.findSchoolsById(new ObjectId(schoolId))
     Ok(write(school)).as("application/json")
   }
@@ -60,7 +62,7 @@ object SchoolController extends Controller {
    * All Schools From database(V)
    * Purpose: For auto populate schools on school screen'
    */
-  def getAllSchoolsForAutopopulate = Action { implicit request =>
+  def getAllSchoolsForAutopopulate: Action[AnyContent] = Action { implicit request =>
     val schoolNameStartingStringJsonMap = request.body.asFormUrlEncoded.get
     val schoolNamesStartingCharacter = schoolNameStartingStringJsonMap("data").toList(0)
 

@@ -28,11 +28,12 @@ import models.Token
 import play.api.Play
 import play.api.cache.Cache
 import play.api.Play.current
+import play.api.mvc.AnyContent
 
 object MediaController extends Controller {
 
   implicit val formats = new net.liftweb.json.DefaultFormats {
-    override def dateFormatter = new SimpleDateFormat("MM/dd/yyyy")
+    override def dateFormatter: SimpleDateFormat = new SimpleDateFormat("MM/dd/yyyy")
   } + new ObjectIdSerializer
 
   /**
@@ -132,7 +133,7 @@ object MediaController extends Controller {
    * Get All Photos for a user
    *
    */
-  def getAllPicsForAUser = Action { implicit request =>
+  def getAllPicsForAUser: Action[AnyContent] = Action { implicit request =>
     val allProfileMediaForAUser = UserMedia.getAllPicsForAUser(new ObjectId(request.session.get("userId").get))
     Ok(write(Photos(allProfileMediaForAUser))).as("application/json")
   }
@@ -141,7 +142,7 @@ object MediaController extends Controller {
    * Get All Video for a user for a user
    * @Purpose : Show all Video For A User
    */
-  def allVideosForAuser = Action { implicit request =>
+  def allVideosForAuser: Action[AnyContent] = Action { implicit request =>
     val allProfileMediaForAUser = UserMedia.allVideosForAuser(new ObjectId(request.session.get("userId").get))
     Ok(write(Videos(allProfileMediaForAUser))).as("application/json")
   }
@@ -150,7 +151,7 @@ object MediaController extends Controller {
    * Rock the UserMedia (Modified)
    *
    */
-  def rockTheUsermedia(mediaId: String) = Action { implicit request =>
+  def rockTheUsermedia(mediaId: String): Action[AnyContent] = Action { implicit request =>
     val totalRocks = UserMedia.rockUserMedia(new ObjectId(mediaId), new ObjectId(request.session.get("userId").get))
     Ok(write(totalRocks.toString)).as("application/json")
   }
@@ -158,7 +159,7 @@ object MediaController extends Controller {
   /**
    * Rockers of a document
    */
-  def giveMeRockersOfUserMedia(mediaId: String) = Action { implicit request =>
+  def giveMeRockersOfUserMedia(mediaId: String): Action[AnyContent] = Action { implicit request =>
     val rockers = UserMedia.rockersNamesOfUserMedia(new ObjectId(mediaId))
     val rockersJson = write(rockers)
     Ok(rockersJson).as("application/json")
@@ -167,7 +168,7 @@ object MediaController extends Controller {
   /**
    * Change the title and description
    */
-  def changeTitleAndDescriptionUserMedia(mediaId: String, name: String, description: String) = Action { implicit request =>
+  def changeTitleAndDescriptionUserMedia(mediaId: String, name: String, description: String): Action[AnyContent] = Action { implicit request =>
     UserMedia.updateTitleAndDescription(new ObjectId(mediaId), name, description)
     val mediaObtained = UserMedia.findMediaById(new ObjectId(mediaId))
     val mediaJson = write(List(mediaObtained.get))
@@ -178,7 +179,7 @@ object MediaController extends Controller {
    *  Get User Media
    */
 
-  def getUserMedia = Action { implicit request =>
+  def getUserMedia: Action[AnyContent] = Action { implicit request =>
     val mediaIdJsonMap = request.body.asFormUrlEncoded.get
     (mediaIdJsonMap.contains(("userMediaId"))) match {
       case false => Ok(write(new ResulttoSent("Failure", "No Media Found")))
@@ -197,7 +198,7 @@ object MediaController extends Controller {
   /**
    * Upload Profile photo to Amazon (V)
    */
-  def uploadMediaToAmazon = Action(parse.multipartFormData) { implicit request =>
+  def uploadMediaToAmazon: Action[play.api.mvc.MultipartFormData[play.api.libs.Files.TemporaryFile]] = Action(parse.multipartFormData) { implicit request =>
 
     val media = request.body.file("profileData").map { profileData =>
       val Filename = profileData.filename
@@ -233,7 +234,7 @@ object MediaController extends Controller {
    * @ Purpose: fetches the recent profile picture for a user
    */
 
-  def getProfilePicForAUser(userId: String) = Action { implicit request =>
+  def getProfilePicForAUser(userId: String): Action[AnyContent] = Action { implicit request =>
     val mediaObtained = UserMedia.getProfilePicForAUser(new ObjectId(userId))
     if (!mediaObtained.size.equals(0)) {
       val MediaJson = write(mediaObtained.last)
@@ -246,7 +247,7 @@ object MediaController extends Controller {
   /**
    * Render Browse Media Page
    */
-  def browseMedia = Action { implicit request =>
+  def browseMedia: Action[AnyContent] = Action { implicit request =>
     (request.session.get("userId")) match {
       case Some(userId) =>
         val userFound = User.getUserProfile(new ObjectId(userId))
@@ -302,35 +303,35 @@ object MediaController extends Controller {
   /**
    * Get Recent Media
    */
-  def getRecentMediaAndDocs = Action { implicit request =>
+  def getRecentMediaAndDocs: Action[AnyContent] = Action { implicit request =>
     val recentImage = UserMedia.recentProfilePicForAUser(new ObjectId(request.session.get("userId").get))
     val recentVideo = UserMedia.recentProfileVideoForAUser(new ObjectId(request.session.get("userId").get))
 
     val recentDocs = Files.getAllDOCSFiles(new ObjectId(request.session.get("userId").get))
-    val recentDoc = (recentDocs.isEmpty == false) match {
-      case true =>
+    val recentDoc = recentDocs.isEmpty match {
+      case false =>
         Option(recentDocs.head)
-      case false => None
+      case true => None
     }
     val recentGoogleDoc = Document.recentGoogleDocsForAUser(new ObjectId(request.session.get("userId").get))
 
     val recentPPTs = Files.getAllPPTFiles(new ObjectId(request.session.get("userId").get))
-    val recentPPT = (recentPPTs.isEmpty == false) match {
-      case true =>
+    val recentPPT = recentPPTs.isEmpty match {
+      case false =>
         Option(recentPPTs.head)
-      case false => None
+      case true => None
     }
 
     val recentPDFs = Files.getAllPDFFiles(new ObjectId(request.session.get("userId").get))
-    val recentPDF = (recentPDFs.isEmpty == false) match {
-      case true => Option(recentPDFs.head)
-      case false => None
+    val recentPDF = recentPDFs.isEmpty match {
+      case false => Option(recentPDFs.head)
+      case true => None
     }
 
     val recentAudios = Files.getAllAudioFiles(new ObjectId(request.session.get("userId").get))
-    val recentAudio = (recentAudios.isEmpty == false) match {
-      case true => Option(recentAudios.head)
-      case false => None
+    val recentAudio = recentAudios.isEmpty match {
+      case false => Option(recentAudios.head)
+      case true => None
     }
     recentImage match {
       case None => Ok(write(List(MediaResults(recentImage, recentVideo, recentDoc, recentGoogleDoc, recentAudio, recentPDF, recentPPT)))).as("application/json")
@@ -345,17 +346,16 @@ object MediaController extends Controller {
    * Search media and documents
    */
   // TODO Change the response format as required by UI team
-  def searchMediaOrDocumentForAUser(keyword: String) = Action { implicit request =>
+  def searchMediaOrDocumentForAUser(keyword: String): Action[AnyContent] = Action { implicit request =>
     val userMediaForAUserByThisKeyword = UserMedia.searchMediaForAUserByName(new ObjectId(request.session.get("userId").get), keyword)
     val documentsForAUserByThisKeyword = Document.searchDocumentForAUserByName(new ObjectId(request.session.get("userId").get), keyword)
     Ok(write(userMediaForAUserByThisKeyword ++ documentsForAUserByThisKeyword)).as("application/json")
   }
 
-  def uploadDefaultMedia = Action { implicit request =>
+  def uploadDefaultMedia: Action[AnyContent] = Action { implicit request =>
 
     val media = UserMedia(new ObjectId, "", "", new ObjectId(request.session.get("userId").get), new Date, "", UserMediaType.Image, Access.Public, true, None, "", 0, Nil, Nil, 0)
     UserMedia.saveMediaForUser(media)
-    println(Cache.get("userData"))
     Ok(write(media)).as("application/json")
 
   }

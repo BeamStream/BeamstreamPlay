@@ -15,6 +15,7 @@ import java.util.Date
 import java.util.regex.Pattern
 import java.net.URL
 import models.mongoContext._
+import scala.language.postfixOps
 
 /**
  * Enumeration for the Question access
@@ -107,7 +108,7 @@ object Question {
   /**
    * Change the access of a Question
    */
-  def changeAccess(questionId: ObjectId, newAccess: Access.Value) = {
+  def changeAccess(questionId: ObjectId, newAccess: Access.Value): WriteResult = {
     val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
     QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(questionAccess = newAccess), false, false, new WriteConcern)
   }
@@ -141,14 +142,14 @@ object Question {
    * Sort Question within a stream on the basis of total rocks (#403)
    */
 
-  def getAllQuestionsForAStreamSortedbyRocks(streamId: ObjectId, pageNumber: Int, messagesPerPage: Int) = {
+  def getAllQuestionsForAStreamSortedbyRocks(streamId: ObjectId, pageNumber: Int, messagesPerPage: Int): List[Question] = {
     QuestionDAO.find(MongoDBObject("streamId" -> streamId)).sort(orderBy = MongoDBObject("rockers" -> -1, "timeCreated" -> -1)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
   }
 
   /**
    *   Get All Answered & UnAnswered Question For A Stream
    */
-  def getAllAnsweredQuestionsForAStream(streamId: ObjectId, pageNumber: Int, messagesPerPage: Int, answerStatus: String) = {
+  def getAllAnsweredQuestionsForAStream(streamId: ObjectId, pageNumber: Int, messagesPerPage: Int, answerStatus: String): List[Question] = {
     (answerStatus == "answered") match {
       case true =>
         QuestionDAO.find(MongoDBObject("streamId" -> streamId, "answered" -> true)).sort(orderBy = MongoDBObject("timeCreated" -> -1)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
@@ -161,7 +162,7 @@ object Question {
    * FInd All Private To Class Questions For A User
    */
 
-  def getAllPrivateToAClassQuestionForAUser(userId: ObjectId) = {
+  def getAllPrivateToAClassQuestionForAUser(userId: ObjectId): List[Question] = {
     QuestionDAO.find(MongoDBObject("userId" -> userId, "questionAccess" -> "PrivateToClass")).toList
   }
 
@@ -169,7 +170,7 @@ object Question {
    * FInd All Private To School Questions For A User
    */
 
-  def getAllPrivateToASchoolQuestionForAUser(userId: ObjectId) = {
+  def getAllPrivateToASchoolQuestionForAUser(userId: ObjectId): List[Question] = {
     QuestionDAO.find(MongoDBObject("userId" -> userId, "questionAccess" -> "PrivateToSchool")).toList
   }
 
@@ -177,7 +178,7 @@ object Question {
    * Delete A Question (Either Stream Admin Or The User Who Has Posted The Question)
    */
 
-  def deleteQuestionPermanently(questionId: ObjectId, userId: ObjectId) = {
+  def deleteQuestionPermanently(questionId: ObjectId, userId: ObjectId): Boolean = {
     val questionToRemove = Question.findQuestionById(questionId).get
     val commentsOfQuestionToBeRemoved = questionToRemove.comments
     val streamObtained = Stream.findStreamById(questionToRemove.streamId)
@@ -199,7 +200,7 @@ object Question {
   /**
    * Get All Questions For A User
    */
-  def getAllQuestionsForAUser(userId: ObjectId) = {
+  def getAllQuestionsForAUser(userId: ObjectId): List[Question] = {
     QuestionDAO.find(MongoDBObject("userId" -> userId)).toList
   }
 
@@ -224,7 +225,7 @@ object Question {
   /**
    * add Comment to Question
    */
-  def addCommentToQuestion(commentId: ObjectId, questionId: ObjectId) = {
+  def addCommentToQuestion(commentId: ObjectId, questionId: ObjectId): WriteResult = {
     val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
     QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(comments = (question.comments ++ List(commentId))), false, false, new WriteConcern)
   }
@@ -232,14 +233,14 @@ object Question {
   /**
    * Remove Comment from Question
    */
-  def removeCommentFromQuestion(commentId: ObjectId, questionId: ObjectId) = {
+  def removeCommentFromQuestion(commentId: ObjectId, questionId: ObjectId): WriteResult = {
     val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
     QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(comments = (question.comments filterNot (List(commentId)contains))), false, false, new WriteConcern)
   }
   /**
    * Remove Answer from Question
    */
-  def removeAnswerFromQuestion(answerId: ObjectId, questionId: ObjectId) = {
+  def removeAnswerFromQuestion(answerId: ObjectId, questionId: ObjectId): WriteResult = {
     val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
     QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(answers = (question.answers filterNot (List(answerId)contains))), false, false, new WriteConcern)
   }
@@ -247,7 +248,7 @@ object Question {
   /**
    *  add Poll to Question
    */
-  def addPollToQuestion(pollId: ObjectId, questionId: ObjectId) = {
+  def addPollToQuestion(pollId: ObjectId, questionId: ObjectId): WriteResult = {
     val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
     QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(pollOptions = question.pollOptions ++ List(pollId)), false, false, new WriteConcern)
   }
@@ -342,7 +343,7 @@ object Question {
    * Get Answer of a question
    */
 
-  def answers(questionId: ObjectId) = {
+  def answers(questionId: ObjectId): List[ObjectId] = {
     val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList
     question.isEmpty match {
       case true => Nil
@@ -354,7 +355,7 @@ object Question {
    * Delete a answer
    */
 
-  def deleteAnswerPermanently(answerId: ObjectId, questionId: ObjectId, userId: ObjectId) = {
+  def deleteAnswerPermanently(answerId: ObjectId, questionId: ObjectId, userId: ObjectId): Boolean = {
     val answerToBeRemoved = Comment.findCommentById(answerId)
     (answerToBeRemoved.get.userId == userId) match {
       case true =>
@@ -368,4 +369,3 @@ object Question {
 }
 
 object QuestionDAO extends SalatDAO[Question, ObjectId](collection = MongoHQConfig.mongoDB("question"))
- 

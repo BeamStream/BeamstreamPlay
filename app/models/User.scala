@@ -13,6 +13,7 @@ import utils.PasswordHashingUtil
 import com.novus.salat.global.ctx
 import models.mongoContext._
 import java.util.Date
+import scala.language.postfixOps
 
 case class User(@Key("_id") id: ObjectId,
   userType: UserType.Value,
@@ -75,7 +76,7 @@ object User {
    * Add info to a user (V)
    */
 
-  def addInfo(schoolList: List[UserSchool], userId: ObjectId) = {
+  def addInfo(schoolList: List[UserSchool], userId: ObjectId): List[Unit] = {
     schoolList map {
       case school =>
         val userSchoolIds = User.getUserProfile(userId).get.schools
@@ -234,8 +235,10 @@ object User {
       case true => // No user
         None
       case false =>
-        if (authenticatedUserviaEmail.isEmpty) Option(authenticatedUserviaName.toList(0))
-        else Option(authenticatedUserviaEmail.toList(0))
+        authenticatedUserviaEmail.isEmpty match {
+          case true => Option(authenticatedUserviaName.toList(0))
+          case false => Option(authenticatedUserviaEmail.toList(0))
+        }
     }
 
   }

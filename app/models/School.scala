@@ -1,4 +1,5 @@
 package models
+
 import com.novus.salat.dao.SalatDAO
 import com.novus.salat.annotations.Key
 import com.novus.salat.global._
@@ -49,7 +50,7 @@ object School {
 
   def findSchoolsById(schoolId: ObjectId): Option[School] = {
     val schoolFound = SchoolDAO.find(MongoDBObject("_id" -> schoolId)).toList
-    (schoolFound.isEmpty == true) match {
+    schoolFound.isEmpty match {
       case true => None
       case false => Option(schoolFound.head)
     }
@@ -70,7 +71,7 @@ object School {
    * Find A School By Name
    */
 
-  def findSchoolByName(schoolName: String) = {
+  def findSchoolByName(schoolName: String): List[models.School] = {
     val schoolNamePattern = Pattern.compile(schoolName, Pattern.CASE_INSENSITIVE)
     SchoolDAO.find(MongoDBObject("schoolName" -> schoolNamePattern)).toList
   }

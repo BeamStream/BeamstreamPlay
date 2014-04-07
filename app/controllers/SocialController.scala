@@ -12,6 +12,7 @@ import play.api.mvc.Action
 import play.api.mvc.Controller
 import utils.OnlineUserCache
 import utils.SendEmailUtility
+import play.api.mvc.AnyContent
 
 object SocialController extends Controller {
   implicit val formats = DefaultFormats
@@ -22,7 +23,7 @@ object SocialController extends Controller {
    *
    * Returns a JSON of user profile information
    */
-  def signUpViaSocialSites = Action { implicit request =>
+  def signUpViaSocialSites: Action[AnyContent] = Action { implicit request =>
         /*val tokenList = request.body.asFormUrlEncoded.get.values.toList(0)
         val token = tokenList(0)
         val apiKey = Play.current.configuration.getString("janrain_apiKey").get
@@ -30,9 +31,9 @@ object SocialController extends Controller {
         val promise = WS.url(URL).setQueryParameter("format", "json").setQueryParameter("token", token).setQueryParameter("apiKey", apiKey).get
         val body = promise.get.getBody
         val json = Json.parse(body)
-    
+
         val identifier = (json \ "profile" \ "identifier").asOpt[String]
-    
+
         val userToCreate = new User(new ObjectId, UserType.Student, "", "", "", "", None, "", "", "", "", Nil, Nil, Nil, Nil, Nil, Option(json), None)
         val IdOfUserCreted = User.createUser(userToCreate)
         val userSession = request.session + ("userId" -> IdOfUserCreted.get.toString) + ("social_identifier" -> identifier.get)
@@ -44,7 +45,7 @@ object SocialController extends Controller {
   /**
    * LogIn via social sites
    */
-  def logInViaSocialSites = Action { implicit request =>
+  def logInViaSocialSites: Action[AnyContent] = Action { implicit request =>
 
    /*     val tokenList = request.body.asFormUrlEncoded.get.values.toList(0)
         val token = tokenList(0)
@@ -60,14 +61,14 @@ object SocialController extends Controller {
         (authenticatedUser == None) match {
           case true => Ok("No User Found").as("application/json")
           case false =>
-    
+
             val userSession = request.session + ("userId" -> authenticatedUser.get.id.toString) + ("social_identifier" -> identifier.get)
             val noOfOnLineUsers = OnlineUserCache.setOnline(authenticatedUser.get.id.toString)
             (authenticatedUser.get.classes.size == 0) match {
               case true => Redirect("/class").withSession(userSession)
               case false => Redirect("/stream").withSession(userSession)
             }
-    
+
         }*/
     Ok
 
@@ -79,7 +80,7 @@ object SocialController extends Controller {
    *
    * Returns a JSON of user contact information
    */
-  def getContacts = Action { implicit request =>
+  def getContacts: Action[AnyContent] = Action { implicit request =>
     /*println("social_identifier: " + session.get("social_identifier"))
     session.get("social_identifier").map { identifier =>
       val apiKey = Play.current.configuration.getString("janrain_apiKey").get
@@ -98,7 +99,7 @@ object SocialController extends Controller {
    *
    * Returns a JSON of user contact information
    */
-  def inviteFriends = Action { implicit request =>
+  def inviteFriends: Action[AnyContent] = Action { implicit request =>
     val userId = request.session.get("userId")
     (userId == None) match {
       case true => Ok(write("Session Has Been Expired")).as("application/json")

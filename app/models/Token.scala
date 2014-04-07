@@ -9,6 +9,8 @@ import utils.MongoHQConfig
 import com.mongodb.casbah.commons.MongoDBObject
 import com.mongodb.WriteConcern
 import models.mongoContext._
+import com.mongodb.casbah.Imports.WriteResult
+import com.mongodb.WriteResult
 
 case class Token(@Key("_id") id: ObjectId, userId: String, tokenString: String, used: Boolean)
 object Token {
@@ -16,7 +18,7 @@ object Token {
   /**
    * Add Mail Token
    */
-  def addToken(token: Token) = {
+  def addToken(token: Token): Option[Int] = {
     TokenDAO.insert(token)
   }
 
@@ -28,11 +30,11 @@ object Token {
     TokenDAO.find(MongoDBObject("tokenString" -> tokenString)).toList
   }
 
-  
+
   def findTokenByUserId(userId: String): List[Token] = {
     TokenDAO.find(MongoDBObject("userId" -> userId)).toList
   }
-  
+
   /**
    * Find Mail Token on basis of user Id
    */
@@ -49,7 +51,7 @@ object Token {
    * Update Mail TOken (VA)
    */
 
-  def updateToken(tokenString: String) = {
+  def updateToken(tokenString: String): WriteResult = {
     val tokenRequired = TokenDAO.find(MongoDBObject("tokenString" -> tokenString)).toList
     TokenDAO.update(MongoDBObject("tokenString" -> tokenString), tokenRequired.head.copy(used = true), false, false, new WriteConcern)
 

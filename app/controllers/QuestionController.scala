@@ -18,6 +18,7 @@ import utils.ObjectIdSerializer
 import models.UserMedia
 import models.Comment
 import models.Type
+import play.api.mvc.AnyContent
 
 /**
  * This controller class is used to store and retrieve all the information about Question and Answers.
@@ -28,14 +29,14 @@ import models.Type
 object QuestionController extends Controller {
 
   implicit val formats = new net.liftweb.json.DefaultFormats {
-    override def dateFormatter = new SimpleDateFormat("MM/dd/yyyy")
+    override def dateFormatter: SimpleDateFormat = new SimpleDateFormat("MM/dd/yyyy")
   } + new ObjectIdSerializer
 
   /**
    * Asking A New Question
    */
 
-  def newQuestion = Action { implicit request =>
+  def newQuestion: Action[AnyContent] = Action { implicit request =>
 
     val questionJsonMap = request.body.asJson.get
     val streamId = (questionJsonMap \ "streamId").as[String]
@@ -86,7 +87,7 @@ object QuestionController extends Controller {
    * Get All Questions For A User
    */
 
-  def getAllQuestionsForAUser = Action { implicit request =>
+  def getAllQuestionsForAUser: Action[AnyContent] = Action { implicit request =>
     val allQuestionsForAUser = Question.getAllQuestionsForAUser(new ObjectId(request.session.get("userId").get))
     val allQuestionForAStreamJson = write(allQuestionsForAUser)
     Ok(write(allQuestionForAStreamJson)).as("application/json")
@@ -95,7 +96,7 @@ object QuestionController extends Controller {
   /**
    * Rock the Question
    */
-  def rockTheQuestion(questionId: String) = Action { implicit request =>
+  def rockTheQuestion(questionId: String): Action[AnyContent] = Action { implicit request =>
     val totalRocks = Question.rockTheQuestion(new ObjectId(questionId), new ObjectId(request.session.get("userId").get))
     val totalRocksJson = write(totalRocks.toString)
     Ok(totalRocksJson).as("application/json")
@@ -104,7 +105,7 @@ object QuestionController extends Controller {
   /**
    * Rockers of a Question
    */
-  def giveMeRockers(questionId: String) = Action { implicit request =>
+  def giveMeRockers(questionId: String): Action[AnyContent] = Action { implicit request =>
     val rockers = Question.rockersNameOfAQuestion(new ObjectId(questionId))
     val rockersJson = write(rockers)
     Ok(rockersJson).as("application/json")
@@ -113,7 +114,7 @@ object QuestionController extends Controller {
    * Follow Question
    */
 
-  def followQuestion(questionId: String) = Action { implicit request =>
+  def followQuestion(questionId: String): Action[AnyContent] = Action { implicit request =>
     val followers = Question.followQuestion(new ObjectId(request.session.get("userId").get), new ObjectId(questionId))
     Ok(write(followers.toString)).as("application/json")
   }
@@ -121,7 +122,7 @@ object QuestionController extends Controller {
   /**
    * Vote an option of a question (Polling)
    */
-  def voteAnOptionOfAQuestion(optionId: String) = Action { implicit request =>
+  def voteAnOptionOfAQuestion(optionId: String): Action[AnyContent] = Action { implicit request =>
     val votes = QuestionPolling.voteTheOptionOfAQuestion(new ObjectId(optionId), new ObjectId(request.session.get("userId").get))
     val optionOfAQuestion = QuestionPolling.findOptionOfAQuestionById(new ObjectId(optionId))
     Ok(write(optionOfAQuestion)).as("application/json")
@@ -130,17 +131,19 @@ object QuestionController extends Controller {
   /**
    * Delete A Question
    */
-  def deleteQuestion(questionId: String) = Action { implicit request =>
+  def deleteQuestion(questionId: String): Action[AnyContent] = Action { implicit request =>
     val questionDeleted = Question.deleteQuestionPermanently(new ObjectId(questionId), new ObjectId(request.session.get("userId").get))
-    if (questionDeleted == true) Ok(write(new ResulttoSent("Success", "Question Has Been Deleted")))
-    else Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Question")))
+    questionDeleted match {
+      case true => Ok(write(new ResulttoSent("Success", "Question Has Been Deleted")))
+      case false => Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Question")))
+    }
   }
 
   //==================================================//
   //======Displays all the question within a Stream===//
   //==================================================//
 
-  def getAllQuestionForAStreamWithPagination = Action { implicit request =>
+  def getAllQuestionForAStreamWithPagination: Action[AnyContent] = Action { implicit request =>
     val streamIdJsonMap = request.body.asFormUrlEncoded.get
     val streamId = streamIdJsonMap("streamId").toList(0)
     val pageNo = streamIdJsonMap("pageNo").toList(0).toInt
@@ -154,7 +157,7 @@ object QuestionController extends Controller {
   //==================================================================//
   //======Displays all the questions within a Stream sorted by rocks===//
   //================================================================//
-  def getAllQuestionsForAStreamSortedbyRocks = Action { implicit request =>
+  def getAllQuestionsForAStreamSortedbyRocks: Action[AnyContent] = Action { implicit request =>
     val streamIdJsonMap = request.body.asFormUrlEncoded.get
     val streamId = streamIdJsonMap("streamId").toList(0)
     val pageNo = streamIdJsonMap("pageNo").toList(0).toInt
@@ -168,7 +171,7 @@ object QuestionController extends Controller {
   //==================================================================//
   //======Displays all the questions within a Stream for a keyword===//
   //================================================================//
-  def getAllQuestionsForAStreambyKeyword = Action { implicit request =>
+  def getAllQuestionsForAStreambyKeyword: Action[AnyContent] = Action { implicit request =>
     val keywordJsonMap = request.body.asFormUrlEncoded.get
     val keyword = keywordJsonMap("keyword").toList(0)
     val streamId = keywordJsonMap("streamId").toList(0)
@@ -222,7 +225,7 @@ object QuestionController extends Controller {
   /**
    * Get All Questions For A Stream
    */
-  def getAllQuestionForAStream(streamId: String, sortBy: String, messagesPerPage: Int, pageNo: Int) = Action { implicit request =>
+  def getAllQuestionForAStream(streamId: String, sortBy: String, messagesPerPage: Int, pageNo: Int): Action[AnyContent] = Action { implicit request =>
     val userId = new ObjectId(request.session.get("userId").get)
     val allQuestionsForAStream = (sortBy == "date") match {
       case true => Question.getAllQuestionForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
@@ -239,7 +242,7 @@ object QuestionController extends Controller {
   /**
    * Get All Answered Or UnAnswered Question For A Stream
    */
-  def getAllAnswerdQuestionForAStream(streamId: String, messagesPerPage: Int, pageNo: Int, answerStatus: String) = Action { implicit request =>
+  def getAllAnswerdQuestionForAStream(streamId: String, messagesPerPage: Int, pageNo: Int, answerStatus: String): Action[AnyContent] = Action { implicit request =>
     val userId = new ObjectId(request.session.get("userId").get)
     val allAnsweredOrUnAnsweredQuestionsForAStream = Question.getAllAnsweredQuestionsForAStream(new ObjectId(streamId), messagesPerPage, pageNo, answerStatus)
     val questionsObtainedWithOtherInformation = questionWithOtherInformation(allAnsweredOrUnAnsweredQuestionsForAStream, userId)
@@ -251,7 +254,7 @@ object QuestionController extends Controller {
    * All Answer of a Question
    */
 
-  def answers(questionId: String) = Action { implicit request =>
+  def answers(questionId: String): Action[AnyContent] = Action { implicit request =>
     val answers = Question.answers(new ObjectId(questionId))
     val answersOfThisQuestion = answers.map {
       case answer =>
@@ -265,10 +268,12 @@ object QuestionController extends Controller {
    * Delete A Comment
    */
 
-  def deleteTheAnswer(answerId: String, questionId: String) = Action { implicit request =>
+  def deleteTheAnswer(answerId: String, questionId: String): Action[AnyContent] = Action { implicit request =>
     val deletedTheCommnet = Question.deleteAnswerPermanently(new ObjectId(answerId), new ObjectId(questionId), new ObjectId(request.session.get("userId").get))
-    if (deletedTheCommnet == true) Ok(write(new ResulttoSent("Success", "Answer Has Been Deleted")))
-    else Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Answer")))
+    deletedTheCommnet match {
+      case true => Ok(write(new ResulttoSent("Success", "Answer Has Been Deleted")))
+      case false => Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Answer")))
+    }
   }
 }
 

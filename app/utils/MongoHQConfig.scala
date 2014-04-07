@@ -1,4 +1,5 @@
 package utils
+
 import com.mongodb.casbah.MongoConnection
 import play.api.Play
 

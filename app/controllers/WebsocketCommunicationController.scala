@@ -8,6 +8,8 @@ import play.api.mvc.Action
 import play.api.mvc.Controller
 import play.api.mvc.WebSocket
 import utils.WebsocketCommunication
+import play.api.mvc.AnyContent
+
 object WebsocketCommunicationController extends Controller {
 
   //TODO : Move Map From Here
@@ -16,13 +18,13 @@ object WebsocketCommunicationController extends Controller {
   /**
    * Handles the chat websocket.
    */
-  def chat = WebSocket.async[JsValue] { implicit request =>
+  def chat: WebSocket[play.api.libs.json.JsValue] = WebSocket.async[JsValue] { implicit request =>
     val user = User.getUserProfile(new ObjectId(request.session.get("userId").get))
     WebsocketCommunication.join(user.get.firstName, None, request.session.get("userId").get)
 
   }
 
-  def instantiateChat(userId: String) = Action { implicit request =>
+  def instantiateChat(userId: String): Action[AnyContent] = Action { implicit request =>
     val start = usersChatSockets.contains(new ObjectId(userId))
     Ok(start.toString)
   }
@@ -30,7 +32,7 @@ object WebsocketCommunicationController extends Controller {
   /**
    * Handles the chat Websocket.
    */
-  def startChat(me: String, toWhom: String) = WebSocket.async[JsValue] { implicit request =>
+  def startChat(me: String, toWhom: String): WebSocket[play.api.libs.json.JsValue] = WebSocket.async[JsValue] { implicit request =>
     //alreadyOpened ++= List((me, toWhom))
     val user = User.getUserProfile(new ObjectId(request.session.get("userId").get))
     val channelWithChat = usersChatSockets(new ObjectId(toWhom))

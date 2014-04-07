@@ -12,6 +12,8 @@ import org.neo4j.graphdb.RelationshipType
 import org.neo4j.graphdb.Transaction
 import org.neo4j.kernel.impl.util.FileUtils
 
+import scala.language.implicitConversions
+
 //Code By Daniel Hew
 
 object SocialGraphEmbeddedNeo4j {
@@ -96,7 +98,7 @@ object SocialGraphEmbeddedNeo4j {
     var nodeIndex = graphDb.index().forNodes(INDEX_NAME)
     var node: Node = nodeIndex.get(USER_KEY, userId).getSingle()
 
-    return node
+    node
   }
 
   /*
@@ -113,7 +115,7 @@ object SocialGraphEmbeddedNeo4j {
     if (node == null) {
       node = createBSNode(userId, firstName, lastName, null)
     }
-    return node
+    node
   }
 
   /*
@@ -144,7 +146,7 @@ object SocialGraphEmbeddedNeo4j {
       secondNode
     } catch {
       case ioe: Exception =>
-        return null
+        null
     } finally {
       tx.finish()
     }

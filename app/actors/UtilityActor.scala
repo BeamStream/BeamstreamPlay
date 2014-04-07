@@ -30,14 +30,14 @@ object UtilityActor extends EmailUtility {
   /**
    * Send Email Clubbed through Future(T)
    */
-  def sendMailWhenBetaUserRegisters(emailId: String) = {
+  def sendMailWhenBetaUserRegisters(emailId: String): Future[Unit] = {
     Future { sendMailToBetaUsers(emailId) }
   }
 
   /**
    * Send Mail to beta user who registers on Beamstream(RA)
    */
-  def sendMailToBetaUsers(emailId: String) = {
+  def sendMailToBetaUsers(emailId: String): Unit = {
     val authenticatedMessageAndSession = setEmailCredentials
     val recipientAddress = new InternetAddress(emailId)
     authenticatedMessageAndSession._1.setFrom(new InternetAddress(BEAMTEAM_EMAIL, BEAMTEAM_EMAIL))
@@ -52,7 +52,7 @@ object UtilityActor extends EmailUtility {
   /**
    * Basic Send Mail Feature on Beamstream(RA)
    */
-  def sendMail(emailId: String, subject: String, content: String, fromAddress: String) = {
+  def sendMail(emailId: String, subject: String, content: String, fromAddress: String): Unit = {
     val authenticatedMessageAndSession = setEmailCredentials
     val recipientAddress = new InternetAddress(emailId)
     if (fromAddress != null)
@@ -70,7 +70,7 @@ object UtilityActor extends EmailUtility {
   /**
    * Send Email After User signs up (RA)
    */
-  def sendMailAfterUserSignsUp(userId: String, authToken: String, emailId: String) = {
+  def sendMailAfterUserSignsUp(userId: String, authToken: String, emailId: String): Future[Unit] = {
     Future { sendMailAfterSignUp(userId, authToken, emailId) }
   }
 

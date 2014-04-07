@@ -25,6 +25,8 @@ import models.DocType
 import net.liftweb.json.Serialization.{ read, write }
 import models.PreviewImage
 import utils.PasswordHashingUtil
+import play.api.mvc.AnyContent
+
 object GoogleDocsUploadUtilityController extends Controller {
 
   implicit val formats = net.liftweb.json.DefaultFormats
@@ -33,7 +35,7 @@ object GoogleDocsUploadUtilityController extends Controller {
   val GoogleClientId = Play.current.configuration.getString("GoogleClientId").get
   val GoogleClientSecret = Play.current.configuration.getString("GoogleClientSecret").get
 
-  def authenticateToGoogle(action: String) = Action { implicit request =>
+  def authenticateToGoogle(action: String): Action[AnyContent] = Action { implicit request =>
 
     val tokenInfo = SocialToken.findSocialTokenObject(new ObjectId(request.session.get("userId").get))
     tokenInfo match {
@@ -87,7 +89,7 @@ object GoogleDocsUploadUtilityController extends Controller {
   /**
    * Google Oauth2 accessing code and exchanging it for Access & Refresh Token
    */
-  def googleDriveAuthentication = Action { implicit request =>
+  def googleDriveAuthentication: Action[AnyContent] = Action { implicit request =>
     try {
       val code = request.queryString("code").toList(0)
       val url = "https://accounts.google.com/o/oauth2/token"
@@ -140,7 +142,7 @@ object GoogleDocsUploadUtilityController extends Controller {
   /**
    * @Deprecated
    */
-  def accessToken = Action { implicit request =>
+  def accessToken: Action[AnyContent] = Action { implicit request =>
     val access_Token = request.queryString("access_token").toList(0)
     request.session + ("access_token" -> access_Token)
     Ok.withSession(request.session + ("accessToken" -> access_Token))
@@ -148,7 +150,7 @@ object GoogleDocsUploadUtilityController extends Controller {
   /**
    * Uploading File To Google
    */
-  def uploadToGoogleDrive = Action(parse.multipartFormData) { request =>
+  def uploadToGoogleDrive: Action[play.api.mvc.MultipartFormData[play.api.libs.Files.TemporaryFile]] = Action(parse.multipartFormData) { request =>
     request.body.file("picture").map { file =>
       val contentType = file.contentType
       val fileName = file.filename

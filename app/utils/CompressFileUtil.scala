@@ -1,4 +1,5 @@
 package utils
+
 import java.io.FileInputStream
 import javax.imageio.ImageIO
 import java.io.File
@@ -25,7 +26,7 @@ object CompressFileUtil extends App {
   def compressImage(file: File, filename: String, qualityOfOutPutImage: Float): InputStream = {
     val inputStream = new FileInputStream(file)
 
-    // Creating An In Memory Output Stream 
+    // Creating An In Memory Output Stream
     val outPutStream = new ByteArrayOutputStream
 
     val image = ImageIO.read(inputStream) // BufferedImage
@@ -51,6 +52,7 @@ object CompressFileUtil extends App {
 
     // Creating The InputStream From ByteArrayInputStream
     val fileInputStream: InputStream = new ByteArrayInputStream(outPutStream.toByteArray)
-    fileInputStream // Returned The Compressed Image Input Stream 
+    fileInputStream // Returned The Compressed Image Input Stream
   }
 }
+

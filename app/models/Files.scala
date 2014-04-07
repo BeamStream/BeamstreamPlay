@@ -1,4 +1,5 @@
 package models
+
 import com.mongodb.casbah.commons.MongoDBObject
 import org.bson.types.ObjectId
 import scala.collection.immutable.List

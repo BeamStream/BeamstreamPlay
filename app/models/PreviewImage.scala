@@ -50,7 +50,7 @@ object PreviewImage extends Controller {
           in.close
         }
       } catch {
-        case e: Exception => println(e.getMessage())
+        case e: Exception => e.printStackTrace()
       } finally {
         //      out.close
         //      in.close

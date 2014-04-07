@@ -1,4 +1,5 @@
 package utils
+
 import java.security.Key
 import javax.crypto.Cipher
 import javax.crypto.spec.SecretKeySpec
@@ -15,14 +16,14 @@ class PasswordHashingUtil {
    * Creates The Unique Key For The Purpose Of Encryption & Decryption
    */
 
-  def generateKey = {
+  def generateKey: SecretKeySpec = {
     new SecretKeySpec(keyValue, ALGO)
   }
 
   /**
    * Encryption Of Password By AES (V)
    */
-  def encryptThePassword(password: String) = {
+  def encryptThePassword(password: String): String = {
     val key = generateKey
     val cipher = Cipher.getInstance(ALGO)
     cipher.init(Cipher.ENCRYPT_MODE, key)
@@ -33,7 +34,7 @@ class PasswordHashingUtil {
   /**
    * Decryption Of Password By AES
    */
-  def decryptThePassword(encryptedPassword: String) = {
+  def decryptThePassword(encryptedPassword: String): String = {
     val key = generateKey
     val cipher = Cipher.getInstance(ALGO)
     cipher.init(Cipher.DECRYPT_MODE, key)

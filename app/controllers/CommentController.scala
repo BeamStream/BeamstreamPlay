@@ -18,14 +18,15 @@ import models.RockDocOrMedia
 import java.text.SimpleDateFormat
 import models.ResulttoSent
 import models.UserMedia
+import play.api.mvc.AnyContent
 
 object CommentController extends Controller {
 
   implicit val formats = new net.liftweb.json.DefaultFormats {
-    override def dateFormatter = new SimpleDateFormat("MM/dd/yyyy")
+    override def dateFormatter: SimpleDateFormat = new SimpleDateFormat("MM/dd/yyyy")
   } + new ObjectIdSerializer
 
-  def newComment = Action { implicit request =>
+  def newComment: Action[AnyContent] = Action { implicit request =>
 
     val commentJson = request.body.asJson.get
     ((commentJson \ "messageId").asOpt[String] != None) match {
@@ -91,7 +92,7 @@ object CommentController extends Controller {
    * Method for retrieving all the comments based on the input
    */
 
-  def getAllComments = Action { implicit request =>
+  def getAllComments: Action[AnyContent] = Action { implicit request =>
     try {
       val jsonWithid = request.body.asJson.get
       ((jsonWithid \ "messageId").asOpt[String] != None) match {
@@ -129,7 +130,7 @@ object CommentController extends Controller {
    * Rocking a comment
    */
 
-  def rockingTheComment(commentId: String) = Action { implicit request =>
+  def rockingTheComment(commentId: String): Action[AnyContent] = Action { implicit request =>
     try {
       val totalRocksForAComment = Comment.rockTheComment(new ObjectId(commentId), new ObjectId(request.session.get("userId").get))
       Ok(write(totalRocksForAComment.toString)).as("application/json")
@@ -142,7 +143,7 @@ object CommentController extends Controller {
    * Return Comment Rockers List
    */
 
-  def commentRockers(commentId: String) = Action { implicit request =>
+  def commentRockers(commentId: String): Action[AnyContent] = Action { implicit request =>
     val rockersNameForAComment = Comment.commentsRockersNames(new ObjectId(commentId))
     Ok(write(rockersNameForAComment)).as("application/json")
 
@@ -152,17 +153,19 @@ object CommentController extends Controller {
    * Delete A Comment
    */
 
-  def deleteTheComment(commentId: String, messageOrQuestionId: String) = Action { implicit request =>
+  def deleteTheComment(commentId: String, messageOrQuestionId: String): Action[AnyContent] = Action { implicit request =>
     val deletedTheCommnet = Comment.deleteCommentPermanently(new ObjectId(commentId), new ObjectId(messageOrQuestionId), new ObjectId(request.session.get("userId").get))
-    if (deletedTheCommnet == true) Ok(write(new ResulttoSent("Success", "Comment Has Been Deleted")))
-    else Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Comment")))
+    deletedTheCommnet match {
+      case true => Ok(write(new ResulttoSent("Success", "Comment Has Been Deleted")))
+      case false => Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Comment")))
+    }
   }
 
   /**
    * Is a Rocker
    * @ Purpose: identify if the user has rocked the comment or not
    */
-  def isARocker(commentId: String) = Action { implicit request =>
+  def isARocker(commentId: String): Action[AnyContent] = Action { implicit request =>
     {
       val isARockerOfComment = Comment.isARocker(new ObjectId(commentId), new ObjectId(request.session.get("userId").get))
       Ok(write(isARockerOfComment.toString)).as("application/json")
@@ -172,7 +175,7 @@ object CommentController extends Controller {
   /**
    * Answer of a question
    */
-  def newAnswer = Action { implicit request =>
+  def newAnswer: Action[AnyContent] = Action { implicit request =>
     val answerJson = request.body.asJson.get
     val questionId = (answerJson \ "questionId").as[String]
     val answerText = (answerJson \ "answerText").as[String]

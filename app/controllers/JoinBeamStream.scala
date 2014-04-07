@@ -11,6 +11,7 @@ import net.liftweb.json.Serialization.write
 import play.api.Logger
 import play.api.mvc.Action
 import play.api.mvc.Controller
+import play.api.mvc.AnyContent
 
 object JoinBeamStream extends Controller {
 
@@ -20,7 +21,7 @@ object JoinBeamStream extends Controller {
    *  Beta User Page Rendering & if session exists take the user directs to application
    */
 
-  def betaUserRegistration = Action { implicit request =>
+  def betaUserRegistration: Action[AnyContent] = Action { implicit request =>
     try {
       request.cookies.get("PLAY_SESSION") match {
         case Some(cookie) =>
@@ -49,7 +50,7 @@ object JoinBeamStream extends Controller {
   /**
    *  Beta Users Registration(T)
    */
-  def regsisterToBeamStreamBeta = Action { implicit request =>
+  def regsisterToBeamStreamBeta: Action[AnyContent] = Action { implicit request =>
     val userInfoJsonMap = request.body.asJson.get
     val emailId = (userInfoJsonMap \ "mailId").as[String]
 
@@ -64,4 +65,4 @@ object JoinBeamStream extends Controller {
     }
   }
 
-}  
+}

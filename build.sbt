@@ -42,3 +42,5 @@ play.Project.playScalaSettings
 parallelExecution in Test := false
 
 parallelExecution in ScctTest := false
+
+scalacOptions += "-feature"

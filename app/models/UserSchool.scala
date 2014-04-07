@@ -36,7 +36,7 @@ object UserSchool {
 
   def getUserSchoolById(userSchoolId: ObjectId): Option[UserSchool] = {
     val userSchoolsFound = UserSchoolDAO.find(MongoDBObject("_id" -> userSchoolId)).toList
-    (userSchoolsFound.isEmpty == true) match {
+    userSchoolsFound.isEmpty match {
       case true => None
       case false => Option(userSchoolsFound.head)
     }

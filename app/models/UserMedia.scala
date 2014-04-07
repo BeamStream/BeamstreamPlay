@@ -11,6 +11,8 @@ import com.mongodb.WriteConcern
 import java.util.Date
 import java.util.regex.Pattern
 import models.mongoContext._
+import scala.language.postfixOps
+import com.mongodb.casbah.Imports.WriteResult
 
 case class UserMedia(@Key("_id") id: ObjectId,
   name: String,
@@ -39,7 +41,7 @@ object UserMedia extends RockConsumer {
    * Find userMedia by userId
    *
    */
-  def findUserMediaByUserId(userId: ObjectId) = {
+  def findUserMediaByUserId(userId: ObjectId): List[UserMedia] = {
     UserMediaDAO.find(MongoDBObject("userId" -> userId, "isPrimary" -> true)).toList
 
   }
@@ -48,7 +50,7 @@ object UserMedia extends RockConsumer {
    * Save User Media
    */
   def saveMediaForUser(media: UserMedia): Option[ObjectId] = {
-    (media.isPrimary == true) match {
+    media.isPrimary match {
       case true => makePresentOnePrimary(media.userId)
       case false =>
     }
@@ -123,7 +125,7 @@ object UserMedia extends RockConsumer {
   /**
    * add Comment to UserMedia
    */
-  def addCommentToUserMedia(commentId: ObjectId, usermediaId: ObjectId) = {
+  def addCommentToUserMedia(commentId: ObjectId, usermediaId: ObjectId): WriteResult = {
     val userMedia = UserMediaDAO.find(MongoDBObject("_id" -> usermediaId)).toList(0)
     UserMediaDAO.update(MongoDBObject("_id" -> usermediaId), userMedia.copy(comments = (userMedia.comments ++ List(commentId))), false, false, new WriteConcern)
   }
@@ -163,7 +165,7 @@ object UserMedia extends RockConsumer {
   /**
    * Change the Title and description of Media
    */
-  def updateTitleAndDescription(userMediaId: ObjectId, newName: String, newDescription: String) = {
+  def updateTitleAndDescription(userMediaId: ObjectId, newName: String, newDescription: String): WriteResult = {
     val usermedia = UserMediaDAO.find(MongoDBObject("_id" -> userMediaId)).toList(0)
     UserMediaDAO.update(MongoDBObject("_id" -> userMediaId), usermedia.copy(description = newDescription, name = newName), false, false, new WriteConcern)
   }
@@ -171,7 +173,7 @@ object UserMedia extends RockConsumer {
   /**
    * Increasing View Count
    */
-  def increaseViewCountOfUsermedia(userMediaId: ObjectId) = {
+  def increaseViewCountOfUsermedia(userMediaId: ObjectId): Int = {
     val userMediaFound = UserMediaDAO.find(MongoDBObject("_id" -> userMediaId)).toList(0)
     UserMediaDAO.update(MongoDBObject("_id" -> userMediaId), userMediaFound.copy(views = (userMediaFound.views + 1)), false, false, new WriteConcern)
     val updatedUserMedia1 = UserMediaDAO.find(MongoDBObject("_id" -> userMediaId)).toList(0)

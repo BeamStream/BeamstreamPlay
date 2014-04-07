@@ -13,11 +13,12 @@ import utils.ObjectIdSerializer
 import utils.PasswordHashingUtil
 import utils.TokenEmailUtil
 import java.util.Date
+import play.api.mvc.AnyContent
 
 object BasicRegistration extends Controller {
 
   implicit val formats = new net.liftweb.json.DefaultFormats {
-    override def dateFormatter = new SimpleDateFormat("dd/MM/yyyy")
+    override def dateFormatter: SimpleDateFormat = new SimpleDateFormat("dd/MM/yyyy")
   } + new ObjectIdSerializer
 
   /**
@@ -27,7 +28,7 @@ object BasicRegistration extends Controller {
   /**
    * SignUp Page Rendering (V)
    */
-  def signUpPage = Action { implicit request =>
+  def signUpPage: Action[AnyContent] = Action { implicit request =>
     (request.session.get("userId")) match {
       case None =>
         Ok(views.html.signup())
@@ -49,7 +50,7 @@ object BasicRegistration extends Controller {
    * Registering a new User to Beamstream
    */
 
-  def signUpUser = Action { implicit request =>
+  def signUpUser: Action[AnyContent] = Action { implicit request =>
     val userInfoJsonMap = request.body.asJson.get
     val iam = (userInfoJsonMap \ "iam").as[String]
     val emailId = (userInfoJsonMap \ "mailId").as[String]
@@ -59,7 +60,7 @@ object BasicRegistration extends Controller {
     val encryptedConfirmPassword = (new PasswordHashingUtil).encryptThePassword(confirmPassword)
     val canUserRegister = User.canUserRegisterWithThisEmail(emailId)
 
-    (canUserRegister == true) match {
+    canUserRegister match {
       case true =>
         (encryptedPassword == encryptedConfirmPassword) match {
           case true =>

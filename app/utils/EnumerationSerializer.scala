@@ -1,4 +1,5 @@
 package utils
+
 import net.liftweb.json.JsonDSL
 import net.liftweb.json.MappingException
 import net.liftweb.json.TypeInfo
@@ -65,7 +66,7 @@ class EnumerationSerializer(enumList: List[Enumeration]) extends net.liftweb.jso
 class ObjectIdSerializer extends Serializer[ObjectId] {
   private val Class = classOf[ObjectId]
 
-  def deserialize(implicit format: Formats) = {
+  def deserialize(implicit format: Formats): PartialFunction[(TypeInfo, JValue), ObjectId] = {
     case (TypeInfo(Class, _), json) => json match {
       //      case JInt(s) => new ObjectId
       //      case List(JInt(s)) => new ObjectId
@@ -75,7 +76,7 @@ class ObjectIdSerializer extends Serializer[ObjectId] {
     }
   }
 
-  def serialize(implicit format: Formats) = {
+  def serialize(implicit format: Formats): PartialFunction[Any, JValue] = {
     case x: ObjectId => JObject(JField("id", JString(x.toString)) :: Nil)
 
   }
@@ -99,7 +100,8 @@ object DateTimeSerializer extends Serializer[Option[Date]] {
 
       case x => throw new MappingException("Can't convert " + x + " to Date")
     }
-    case _ => println("Getting to this case and hence it is an error!"); Option(new Date)
+    case _ => //println("Getting to this case and hence it is an error!"); 
+      Option(new Date)
   }
 
   def serialize(implicit format: Formats): PartialFunction[Any, JValue] = {

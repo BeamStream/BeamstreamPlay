@@ -32,7 +32,7 @@ trait EmailUtility {
 
 object SendEmailUtility extends EmailUtility {
 
-  //TODO : Move Email Contents From here 
+  //TODO : Move Email Contents From here
   val BEAMTEAM_EMAIL = "beamteam@beamstream.com"
 
   /**
@@ -63,25 +63,25 @@ object SendEmailUtility extends EmailUtility {
     val recepientAddress = new InternetAddress(emailId)
     authenticatedMessageAndSession._1.setFrom(new InternetAddress("beamteam@beamstream.com", "beamteam@beamstream.com"))
     authenticatedMessageAndSession._1.addRecipient(Message.RecipientType.TO, recepientAddress)
-    if (newStream == true) {
-      authenticatedMessageAndSession._1.setSubject("You've Created " + streamName + " Stream On Beamstream")
-      authenticatedMessageAndSession._1.setContent(
+    newStream match {
+      case true =>
+        authenticatedMessageAndSession._1.setSubject("You've Created " + streamName + " Stream On Beamstream")
+        authenticatedMessageAndSession._1.setContent(
 
-        "Hi <b>Beamstream</b> Rocker." + "<br>" + "<br>" +
-          "You've created the " + streamName + " Stream in Your Profile" + "<br>" + "<br>" +
-          "Start sharing now & be a Beamstream Rocker" + "<br>" + "<br>" ++ "<br>" +
-          "Cheers," + "<br>" +
-          "The Really Nice Beamstream Folks , US" + "<br>", "text/html")
-    } else {
+          "Hi <b>Beamstream</b> Rocker." + "<br>" + "<br>" +
+            "You've created the " + streamName + " Stream in Your Profile" + "<br>" + "<br>" +
+            "Start sharing now & be a Beamstream Rocker" + "<br>" + "<br>" ++ "<br>" +
+            "Cheers," + "<br>" +
+            "The Really Nice Beamstream Folks , US" + "<br>", "text/html")
+      case false =>
+        authenticatedMessageAndSession._1.setSubject("You've Joined " + streamName + " Stream On Beamstream")
+        authenticatedMessageAndSession._1.setContent(
 
-      authenticatedMessageAndSession._1.setSubject("You've Joined " + streamName + " Stream On Beamstream")
-      authenticatedMessageAndSession._1.setContent(
-
-        "Hi <b>Beamstream</b> Rocker." + "<br>" + "<br>" +
-          "You've Joined the " + streamName + " Stream " + "<br>" + "<br>" +
-          "Start sharing now & be a Beamstream Rocker" + "<br>" + "<br>" ++ "<br>" +
-          "Cheers," + "<br>" +
-          "The Really Nice Beamstream Folks , US" + "<br>", "text/html")
+          "Hi <b>Beamstream</b> Rocker." + "<br>" + "<br>" +
+            "You've Joined the " + streamName + " Stream " + "<br>" + "<br>" +
+            "Start sharing now & be a Beamstream Rocker" + "<br>" + "<br>" ++ "<br>" +
+            "Cheers," + "<br>" +
+            "The Really Nice Beamstream Folks , US" + "<br>", "text/html")
 
     }
 

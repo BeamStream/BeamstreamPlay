@@ -10,6 +10,7 @@ import java.text.DateFormat
 import com.mongodb.casbah.commons.MongoDBObject
 import com.mongodb.WriteConcern
 import models.mongoContext._
+import scala.language.postfixOps
 
 case class Comment(@Key("_id") id: ObjectId,
   commentBody: String,
@@ -119,7 +120,7 @@ object Comment {
    * Delete A Comment
    */
 
-  def deleteCommentPermanently(commentId: ObjectId, messageOrQuestionId: ObjectId, userId: ObjectId) = {
+  def deleteCommentPermanently(commentId: ObjectId, messageOrQuestionId: ObjectId, userId: ObjectId): Boolean = {
     val commentToBeremoved = Comment.findCommentById(commentId)
     (commentToBeremoved.get.userId == userId) match {
       case true =>

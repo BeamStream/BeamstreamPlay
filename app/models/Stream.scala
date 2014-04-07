@@ -1,4 +1,5 @@
 package models
+
 import com.novus.salat._
 import com.novus.salat.global._
 import com.novus.salat.annotations._
@@ -11,6 +12,7 @@ import utils.MongoHQConfig
 import utils.SendEmailUtility
 import actors.UtilityActor
 import models.mongoContext._
+import scala.language.postfixOps
 
 
 case class Stream(@Key("_id") id: ObjectId,
@@ -130,7 +132,7 @@ object Stream {
    * No. of Users Attending Class
    */
 
-  def usersAttendingClass(streamId: ObjectId) = {
+  def usersAttendingClass(streamId: ObjectId): List[ObjectId] = {
     val streamObtained = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
     streamObtained.usersOfStream
   }
@@ -143,8 +145,8 @@ object Stream {
 
     val streamsObtained = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList
 
-    (streamsObtained.isEmpty == false) match {
-      case true =>
+    streamsObtained.isEmpty match {
+      case false =>
         (streamsObtained.head.creatorOfStream == userId) match {
           case true =>
             Stream.deleteStream(streamsObtained.head)
@@ -157,7 +159,7 @@ object Stream {
             ResulttoSent("Success", "Removed Access Successfully")
         }
 
-      case false => ResulttoSent("Failure", "No Streams found")
+      case true => ResulttoSent("Failure", "No Streams found")
     }
 
   }
@@ -165,7 +167,7 @@ object Stream {
   /**
    * Notify Other Users Of A Stream About New User That Has Been Joined In A Stream (RA)
    */
-  def sendMailToUsersOfStream(streamId: ObjectId, userIdWhoHasJoinedTheStream: ObjectId) = {
+  def sendMailToUsersOfStream(streamId: ObjectId, userIdWhoHasJoinedTheStream: ObjectId): Unit = {
     val userWhoHasJoinedTheStream = User.getUserProfile(userIdWhoHasJoinedTheStream)
     val stream = Stream.findStreamById(streamId)
     for (user <- stream.get.usersOfStream) {

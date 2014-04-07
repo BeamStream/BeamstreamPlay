@@ -29,19 +29,20 @@ import play.api.Play
 import play.api.mvc.Cookie
 import models.UserMedia
 import play.api.mvc.DiscardingCookie
+import play.api.mvc.AnyContent
 
 object StreamController extends Controller {
 
   val EnumList: List[Enumeration] = List(ClassType)
   implicit val formats = new net.liftweb.json.DefaultFormats {
-    override def dateFormatter = new SimpleDateFormat("MM/dd/yyyy")
+    override def dateFormatter: SimpleDateFormat = new SimpleDateFormat("MM/dd/yyyy")
   } + new EnumerationSerializer(EnumList) + new ObjectIdSerializer
 
   /**
    * Check the cookies if login exists & take corresponding actions
    */
 
-  def index = Action { implicit request =>
+  def index: Action[AnyContent] = Action { implicit request =>
     // val playCookiee = request.cookies.get("PLAY_SESSION")
     (request.session.get("userId") == None) match {
       case true => Redirect("/")
@@ -63,14 +64,14 @@ object StreamController extends Controller {
   /**
    * On Error Redirect to error page
    */
-  def onError = Action { implicit request =>
+  def onError: Action[AnyContent] = Action { implicit request =>
     Ok(views.html.error())
   }
 
   /**
    * Get All Stream for a user(V)
    */
-  def getAllStreamForAUser = Action { implicit request =>
+  def getAllStreamForAUser: Action[AnyContent] = Action { implicit request =>
     val allStreamsForAUser = Stream.getAllStreamforAUser(new ObjectId(request.session.get("userId").get))
     Ok(write(allStreamsForAUser)).as("application/json")
   }
@@ -78,7 +79,7 @@ object StreamController extends Controller {
   /**
    * Get All Class Stream for a user
    */
-  def allClassStreamsForAUser = Action { implicit request =>
+  def allClassStreamsForAUser: Action[AnyContent] = Action { implicit request =>
     val allClassStreamsForAUser = Stream.allClassStreamsForAUser(new ObjectId(request.session.get("userId").get))
     val allStreamsForAUserJson = write(allClassStreamsForAUser)
     Ok(allStreamsForAUserJson).as("application/json")
@@ -89,7 +90,7 @@ object StreamController extends Controller {
    * @Purpose: For Showing no. of classes
    */
 
-  def noOfUsersAttendingAClass(streamId: String) = Action { implicit request =>
+  def noOfUsersAttendingAClass(streamId: String): Action[AnyContent] = Action { implicit request =>
     val usersAttendingClass = Stream.usersAttendingClass(new ObjectId(streamId))
     val rolesOfUsers = User.countRolesOfAUser(usersAttendingClass)
     Ok(write(rolesOfUsers)).as("application/json")
@@ -99,7 +100,7 @@ object StreamController extends Controller {
    * Get All Public Messages For A User
    * @Purpose: For Public Profile (Stream Specific Results)
    */
-  def allPublicMessagesFromAllStreamsForAUser = Action { implicit request =>
+  def allPublicMessagesFromAllStreamsForAUser: Action[AnyContent] = Action { implicit request =>
     val UserIdJsonMap = request.body.asFormUrlEncoded.get
     val userId = UserIdJsonMap("userId").toList(0)
     val classListForAUser = Class.getAllClassesForAUser(new ObjectId(userId))
@@ -111,7 +112,7 @@ object StreamController extends Controller {
   /**
    *  Delete A Stream
    */
-  def deleteTheStream(streamId: String) = Action { implicit request =>
+  def deleteTheStream(streamId: String): Action[AnyContent] = Action { implicit request =>
     val result = Stream.deleteStreams(new ObjectId(request.session.get("userId").get), new ObjectId(streamId))
     Ok(write(result)).as("application/json")
 
@@ -123,15 +124,15 @@ object StreamController extends Controller {
   /**
    * Renders the stream page
    */
-  def renderStreamPage = Action { implicit request =>
+  def renderStreamPage: Action[AnyContent] = Action { implicit request =>
     (request.session.get("userId")) match {
       case Some(userId) =>
         val userFound = User.getUserProfile(new ObjectId(userId))
         userFound match {
           case Some(user) =>
             user.classes.isEmpty match {
-              case true => Redirect("/class").withCookies(Cookie("Beamstream",userId.toString()+" class", Option(864000))) //Ok(views.html.classpage())
-              case false => Ok(views.html.stream("ok")).withCookies(Cookie("Beamstream",userId.toString()+" stream", Option(864000)))
+              case true => Redirect("/class").withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000))) //Ok(views.html.classpage())
+              case false => Ok(views.html.stream("ok")).withCookies(Cookie("Beamstream", userId.toString() + " stream", Option(864000)))
             }
           case None => Redirect("/signOut")
         }
@@ -142,26 +143,26 @@ object StreamController extends Controller {
             val userId = cookie.value.split(" ")(0)
             val userFound = User.getUserProfile(new ObjectId(userId))
             cookie.value.split(" ")(1) match {
-              case "class" => Redirect("/class").withSession("userId" -> userId).withCookies(Cookie("Beamstream",userId.toString()+" class", Option(864000)))
-              case "stream" => Redirect("/stream").withSession("userId" -> userId).withCookies(Cookie("Beamstream",userId.toString()+" stream", Option(864000)))
-              case "browsemedia" => Redirect("/browsemedia").withSession("userId" -> userId).withCookies(Cookie("Beamstream",userId.toString()+" browsemedia", Option(864000)))
+              case "class" => Redirect("/class").withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
+              case "stream" => Redirect("/stream").withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " stream", Option(864000)))
+              case "browsemedia" => Redirect("/browsemedia").withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " browsemedia", Option(864000)))
               case "registration" =>
                 val tokenFound = Token.findTokenByUserId(userId)
                 userFound match {
                   case Some(user) =>
                     val server = Play.current.configuration.getString("server").get
                     user.firstName match {
-                      case "" => Redirect(server+"/registration?userId="+userId+"&token="+tokenFound(0).tokenString).withSession("token" -> tokenFound(0).tokenString).withCookies(Cookie("Beamstream",userId.toString()+" registration", Option(864000)))//Ok(write(LoginResult(ResulttoSent("Success", tokenFound(0).tokenString), userFound, None, Option(false), server))).as("application/json").withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
+                      case "" => Redirect(server + "/registration?userId=" + userId + "&token=" + tokenFound(0).tokenString).withSession("token" -> tokenFound(0).tokenString).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000))) //Ok(write(LoginResult(ResulttoSent("Success", tokenFound(0).tokenString), userFound, None, Option(false), server))).as("application/json").withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
                       case _ =>
                         val userMedia = UserMedia.findUserMediaByUserId(new ObjectId(userId))
                         userMedia.isEmpty match {
-                          case true => Redirect(server+"/registration?userId="+userId+"&token="+tokenFound(0).tokenString).withSession("token" -> tokenFound(0).tokenString).withCookies(Cookie("Beamstream",userId.toString()+" registration", Option(864000)))//Ok(write(LoginResult(ResulttoSent("Success", tokenFound(0).tokenString), userFound, None, Option(false), server))).as("application/json").withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
-                          case false => Redirect("/class").withSession("userId" -> userId).withCookies(Cookie("Beamstream",userId.toString()+" class", Option(864000)))
+                          case true => Redirect(server + "/registration?userId=" + userId + "&token=" + tokenFound(0).tokenString).withSession("token" -> tokenFound(0).tokenString).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000))) //Ok(write(LoginResult(ResulttoSent("Success", tokenFound(0).tokenString), userFound, None, Option(false), server))).as("application/json").withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
+                          case false => Redirect("/class").withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
                         }
                     }
                   case None => Redirect("/signOut")
                 }
-              case _ => Redirect("/" + cookie.value.split(" ")(1)).withSession("userId" -> userId).withCookies(Cookie("Beamstream",userId.toString()+" "+ cookie.value.split(" ")(1), Option(864000)))
+              case _ => Redirect("/" + cookie.value.split(" ")(1)).withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " " + cookie.value.split(" ")(1), Option(864000)))
             }
         }
     }
@@ -193,7 +194,7 @@ object StreamController extends Controller {
    * Ajax Support
    */
 
-  def javascriptRoutes = Action { implicit request =>
+  def javascriptRoutes: Action[AnyContent] = Action { implicit request =>
     import routes.javascript._
     Ok(
       Routes.javascriptRouter("jsRoutes")(

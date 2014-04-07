@@ -16,21 +16,22 @@ import play.api.mvc.Controller
 import utils.ObjectIdSerializer
 import utils.BitlyAuthUtil
 import models.ResulttoSent
+import play.api.mvc.AnyContent
 
 object MessageController extends Controller {
 
   implicit val formats = new net.liftweb.json.DefaultFormats {
-    override def dateFormatter = new SimpleDateFormat("MM/dd/yyyy")
+    override def dateFormatter: SimpleDateFormat = new SimpleDateFormat("MM/dd/yyyy")
   } + new ObjectIdSerializer
 
   //==========================//
   //======Post a new message==//
   //==========================//
 
-  def newMessage = Action { implicit request =>
+  def newMessage: Action[AnyContent] = Action { implicit request =>
     val messageListJsonMap = request.body.asJson.get
     val streamId = (messageListJsonMap \ "streamId").as[String]
-    //    val messageAccess = (messageListJsonMap \ "messageAccess").as[String] 
+    //    val messageAccess = (messageListJsonMap \ "messageAccess").as[String]
     val messageBody = (messageListJsonMap \ "message").as[String]
     val messagePoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
     val messageToCreate = new Message(new ObjectId, messageBody, Option(Type.Text), Option(Access.Public), new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)), messagePoster.get.firstName, messagePoster.get.lastName, 0, Nil, Nil, 0, Nil, "")
@@ -54,7 +55,7 @@ object MessageController extends Controller {
   /**
    * Rock the message
    */
-  def rockedTheMessage(messageId: String) = Action { implicit request =>
+  def rockedTheMessage(messageId: String): Action[AnyContent] = Action { implicit request =>
     val totalRocks = Message.rockedIt(new ObjectId(messageId), new ObjectId(request.session.get("userId").get))
     val totalRocksJson = write(totalRocks.toString)
     Ok(totalRocksJson).as("application/json")
@@ -63,7 +64,7 @@ object MessageController extends Controller {
   /**
    * Rockers of message
    */
-  def giveMeRockers(messageId: String) = Action { implicit request =>
+  def giveMeRockers(messageId: String): Action[AnyContent] = Action { implicit request =>
     val rockersOfMessage = Message.rockersNames(new ObjectId(messageId))
     val rockerJson = write(rockersOfMessage)
     Ok(rockerJson).as("application/json")
@@ -73,7 +74,7 @@ object MessageController extends Controller {
    * Give Short Url Json Via bitly
    */
 
-  def getShortUrlViabitly = Action { implicit request =>
+  def getShortUrlViabitly: Action[AnyContent] = Action { implicit request =>
     val longUrlMap = request.body.asFormUrlEncoded.get
     val longUrl = longUrlMap("link").toList(0)
     val shortUrlJson = BitlyAuthUtil.returnShortUrlViabitly(longUrl)
@@ -83,7 +84,7 @@ object MessageController extends Controller {
   //==================================================================//
   //======Displays all the messages within a Stream for a keyword===//
   //================================================================//
-  def getAllMessagesForAStreambyKeyword = Action { implicit request =>
+  def getAllMessagesForAStreambyKeyword: Action[AnyContent] = Action { implicit request =>
     val keywordJsonMap = request.body.asFormUrlEncoded.get
     val keyword = keywordJsonMap("keyword").toList(0)
     val streamId = keywordJsonMap("streamId").toList(0)
@@ -97,7 +98,7 @@ object MessageController extends Controller {
   /**
    * Rock the message
    */
-  def followTheMessage(messageId: String) = Action { implicit request =>
+  def followTheMessage(messageId: String): Action[AnyContent] = Action { implicit request =>
     val totalFollows = Message.followMessage(new ObjectId(messageId), new ObjectId(request.session.get("userId").get))
     val totalFollowJson = write(totalFollows.toString)
     Ok(totalFollowJson).as("application/json")
@@ -107,7 +108,7 @@ object MessageController extends Controller {
    * Is a follower
    * @ Purpose: identify if the user is following a message or not
    */
-  def isAFollower(messageId: String) = Action { implicit request =>
+  def isAFollower(messageId: String): Action[AnyContent] = Action { implicit request =>
     {
       val isAFollowerOfMessage = Message.isAFollower(new ObjectId(messageId), new ObjectId(request.session.get("userId").get))
       Ok(write(isAFollowerOfMessage.toString)).as("application/json")
@@ -118,7 +119,7 @@ object MessageController extends Controller {
    * Is a Rocker
    * @ Purpose: identify if the user is following a message or not
    */
-  def isARocker(messageId: String) = Action { implicit request =>
+  def isARocker(messageId: String): Action[AnyContent] = Action { implicit request =>
     val isARockerOfMessage = Message.isARocker(new ObjectId(messageId), new ObjectId(request.session.get("userId").get))
     Ok(write(isARockerOfMessage.toString)).as("application/json")
   }
@@ -127,10 +128,12 @@ object MessageController extends Controller {
    * Delete A Message
    */
 
-  def deleteTheMessage(messageId: String) = Action { implicit request =>
+  def deleteTheMessage(messageId: String): Action[AnyContent] = Action { implicit request =>
     val messsageDeleted = Message.deleteMessagePermanently(new ObjectId(messageId), new ObjectId(request.session.get("userId").get))
-    if (messsageDeleted == true) Ok(write(new ResulttoSent("Success", "Message Has Been Deleted"))).as("application/json")
-    else Ok(write(new ResulttoSent("Failure", "You're Not Authorized To Delete This Message"))).as("application/json")
+    messsageDeleted match {
+      case true => Ok(write(new ResulttoSent("Success", "Message Has Been Deleted"))).as("application/json")
+      case false => Ok(write(new ResulttoSent("Failure", "You're Not Authorized To Delete This Message"))).as("application/json")
+    }
   }
 
   /**
@@ -140,13 +143,12 @@ object MessageController extends Controller {
   /**
    * All messages for a stream sorted by date & rock along with the limits
    */
-  def allMessagesForAStream(streamId: String, sortBy: String, messagesPerPage: Int, pageNo: Int, period: String) = Action { implicit request =>
+  def allMessagesForAStream(streamId: String, sortBy: String, messagesPerPage: Int, pageNo: Int, period: String): Action[AnyContent] = Action { implicit request =>
     val allMessagesForAStream = (sortBy == "date") match {
       case true => Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
       case false => (sortBy == "rock") match {
         case true => Message.getAllMessagesForAStreamSortedbyRocks(new ObjectId(streamId), pageNo, messagesPerPage)
-        case false => 
-          Message.getAllMessagesForAKeyword(sortBy, new ObjectId(streamId), pageNo, messagesPerPage)
+        case false => Message.getAllMessagesForAKeyword(sortBy, new ObjectId(streamId), pageNo, messagesPerPage)
       }
     }
     (allMessagesForAStream.isEmpty) match {
