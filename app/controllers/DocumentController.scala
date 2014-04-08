@@ -71,10 +71,7 @@ object DocumentController extends Controller {
     val docName = data("docName").toList.head
     val docUrl = data("docUrl").toList.head
     val description = data("description").toList.head
-    val post = data.keys.toList.contains("postToFileMedia") match {
-      case true => true
-      case false => false
-    }
+    val post = data.keys.toList.contains("postToFileMedia")
     val streamId = data("streamId").toList.head
     val userId = request.session.get("userId").get
     val documentToCreate = new Document(new ObjectId, docName, description, docUrl, DocType.GoogleDocs, new ObjectId(userId), Access.PrivateToClass, new ObjectId(streamId), new Date, new Date, 0, Nil, Nil, Nil, "", 0)

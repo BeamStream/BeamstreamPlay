@@ -1,4 +1,5 @@
 package controllers
+
 import org.junit.runner.RunWith
 import org.scalatest.BeforeAndAfter
 import org.scalatest.FunSuite
@@ -21,6 +22,7 @@ import models.Access
 import java.text.DateFormat
 import models.StreamType
 import java.util.Date
+
 @RunWith(classOf[JUnitRunner])
 class MessageControllerTest extends FunSuite with BeforeAndAfter {
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")

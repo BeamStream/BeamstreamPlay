@@ -85,14 +85,14 @@ object Stream {
    */
   def joinStream(streamId: ObjectId, userId: ObjectId): ResulttoSent = {
     val stream = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
-    (!stream.usersOfStream.contains(userId)) match {
-      case true =>
+    stream.usersOfStream.contains(userId) match {
+      case false =>
         StreamDAO.update(MongoDBObject("_id" -> streamId), stream.copy(usersOfStream = (stream.usersOfStream ++ List(userId))), false, false, new WriteConcern)
         val user = User.getUserProfile(userId)
         UtilityActor.sendEmailAfterStreamCreation(user.get.email, stream.streamName, false)
         UtilityActor.sendEmailAfterStreamCreationToNotifyOtherUsers(streamId, userId)
         ResulttoSent("Success", "Joined Stream Successfully")
-      case false => ResulttoSent("Failure", "You've already joined the stream")
+      case true => ResulttoSent("Failure", "You've already joined the stream")
     }
 
   }

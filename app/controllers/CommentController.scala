@@ -135,7 +135,9 @@ object CommentController extends Controller {
       val totalRocksForAComment = Comment.rockTheComment(new ObjectId(commentId), new ObjectId(request.session.get("userId").get))
       Ok(write(totalRocksForAComment.toString)).as("application/json")
     } catch {
-      case exception: Throwable => InternalServerError("Can't rock the comment")
+      case exception: Throwable =>
+        InternalServerError("Can't rock the comment")
+        Ok
     }
   }
 

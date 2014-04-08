@@ -71,7 +71,7 @@ object School {
    * Find A School By Name
    */
 
-  def findSchoolByName(schoolName: String): List[models.School] = {
+  def findSchoolByName(schoolName: String): List[School] = {
     val schoolNamePattern = Pattern.compile(schoolName, Pattern.CASE_INSENSITIVE)
     SchoolDAO.find(MongoDBObject("schoolName" -> schoolNamePattern)).toList
   }

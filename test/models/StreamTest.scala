@@ -33,6 +33,20 @@ class StreamTest extends FunSuite with BeforeAndAfter {
     }
   }
 
+  test("Join stream") {
+    running(FakeApplication()) {
+      val userId = User.createUser(user)
+      val stream = Stream(new ObjectId, "al1pha", StreamType.Class, userId.get, List(), true, List())
+      val streamId = Stream.createStream(stream)
+      val streamsForAUser = Stream.getAllStreamforAUser(userId.get)
+      assert(streamsForAUser.size === 0)
+      Stream.joinStream(streamId.get, userId.get)
+      val streamsForAUserAfterJoining = Stream.getAllStreamforAUser(userId.get)
+      assert(streamsForAUserAfterJoining.size === 1)
+      assert(streamsForAUserAfterJoining.head.usersOfStream == 1)
+    }
+  }
+  
   test("attach user to stream") {
     running(FakeApplication()) {
       val userId = User.createUser(user)
@@ -44,6 +58,40 @@ class StreamTest extends FunSuite with BeforeAndAfter {
     }
   }
 
+  test("delete a stream") {
+    running(FakeApplication()) {
+      val userId = User.createUser(user)
+      val stream = Stream(new ObjectId, "al1pha", StreamType.Class, userId.get, List(userId.get), true, List())
+      val streamId = Stream.createStream(stream)
+      val streamsForAUser = Stream.getAllStreamforAUser(userId.get)
+      assert(streamsForAUser.size === 1)
+      assert(streamsForAUser.head.usersOfStream == 1)
+      val streamIdAfterDeletion = Stream.deleteStream(stream)
+      val streamsForAUserAfterDeletion = Stream.getAllStreamforAUser(userId.get)
+      assert(streamsForAUserAfterDeletion.size === 0)
+    }
+  }
+  
+  test("Add Tags to Stream") {
+    running(FakeApplication()) {
+      val userId = User.createUser(user)
+      val stream = Stream(new ObjectId, "al1pha", StreamType.Class, userId.get, List(), true, List())
+      val streamId = Stream.createStream(stream)
+      val tagsAdded = Stream.addTagsToStream(List(), streamId.get)
+      assert(stream.streamTag.size === 0)
+    }
+  }
+  
+  test("Users attending Stream") {
+    running(FakeApplication()) {
+      val userId = User.createUser(user)
+      val stream = Stream(new ObjectId, "al1pha", StreamType.Class, userId.get, List(userId.get), true, List())
+      val streamId = Stream.createStream(stream)
+      val usersAttendingStream = Stream.usersAttendingClass(streamId.get)
+      assert(usersAttendingStream.size === 1)
+    }
+  }
+  
   test("get all stream for a user") {
     running(FakeApplication()) {
       val userId = User.createUser(user)
@@ -88,12 +136,22 @@ class StreamTest extends FunSuite with BeforeAndAfter {
   }
 
   test("Delete the Streams") {
+    val newObjectId = new ObjectId
     val userId = User.createUser(user)
-    val stream = Stream(new ObjectId, "Neel's Stream", StreamType.Class, new ObjectId, List(userId.get), true, List())
+    val stream = Stream(new ObjectId, "Neel's Stream", StreamType.Class, userId.get, List(newObjectId), true, List())
     val streamId = Stream.createStream(stream)
-    val result = Stream.deleteStreams(userId.get, streamId.get)
+    val result = Stream.deleteStreams(newObjectId, streamId.get)
     assert(result.status === "Success")
     assert(result.message === "Removed Access Successfully")
+    /*val stream2 = Stream(new ObjectId, "Neel's Stream", StreamType.Class, userId.get, List(newObjectId), true, List())
+    val streamId2 = Stream.createStream(stream2)
+    val result2 = Stream.deleteStreams(userId.get, streamId.get)
+    assert(result2.status === "Success")
+    assert(result2.message === "Deleted Stream Successfully")
+    val result3 = Stream.deleteStreams(userId.get, streamId2.get)
+    assert(result2.status === "Failure")
+    assert(result2.message === "No Stream found")*/
+    
   }
 
   after {

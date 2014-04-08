@@ -48,6 +48,16 @@ class SchoolTest extends FunSuite with BeforeAndAfter {
     }
   }
 
+  test("School not Found") {
+    running(FakeApplication()) {
+      val schoolId = School.addNewSchool(school)
+      val schools = SchoolDAO.find(MongoDBObject())
+      assert(schools.size === 1)
+      val schoolsObtained = School.findSchoolsById(new ObjectId)
+      assert(schoolsObtained.size === 0)
+    }
+  }
+  
   test("Update School Name") {
     running(FakeApplication()) {
       val schoolId = School.addNewSchool(school)

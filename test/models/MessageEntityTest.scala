@@ -1,4 +1,5 @@
 package models
+
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.FunSuite
@@ -15,7 +16,7 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
 
-  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", new Date,Nil, Nil, Nil, None, None, None)
+  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
   val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, user.id, List(user.id), true, Nil)
 
   before {
@@ -25,6 +26,21 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
       UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
       User.createUser(user)
       Stream.createStream(stream)
+    }
+  }
+
+  test("Message Removal") {
+    running(FakeApplication()) {
+
+      val stream = StreamDAO.find(MongoDBObject()).toList(0)
+      val user = UserDAO.find(MongoDBObject()).toList(0)
+      val message = Message(new ObjectId, "some message", Option(Type.Audio), Option(Access.Public), formatter.parse("23-07-12"), user.id, Option(stream.id), "", "", 0, Nil, Nil, 0, Nil)
+      val messageId = Message.createMessage(message)
+      val messagesBefore = MessageDAO.find(MongoDBObject())
+      assert(messagesBefore.size === 1)
+      Message.removeMessage(message)
+      val messagesAfter = MessageDAO.find(MongoDBObject())
+      assert(messagesAfter.size === 0)
     }
   }
 
@@ -55,6 +71,7 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
       assert(messageFound.get.messageBody === "some message")
     }
   }
+
   test("Message Creation and rocking the message") {
     running(FakeApplication()) {
       val stream = StreamDAO.find(MongoDBObject()).toList(0)
@@ -72,6 +89,13 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
       assert(messageAfter.rockers(0) === user.id)
       val rockersList = Message.rockersNames(messageAfter.id)
       assert(rockersList === List("Neel "))
+      //Rocks Again After
+      Message.rockedIt(messageId.get, user.id)
+      val messageAgainAfter = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+      assert(messageAgainAfter.rocks === 0)
+      assert(messageAgainAfter.rockers.size === 0)
+      val rockersAgainList = Message.rockersNames(messageAfter.id)
+      assert(rockersAgainList.size === 0)
     }
   }
 
@@ -163,6 +187,11 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
       assert(messageAfter.follows === 1)
       assert(messageAfter.followers.size === 1)
       assert(messageAfter.followers(0) === user.id)
+      //Rocks Again
+      Message.followMessage(messageId.get, user.id)
+      val messageAgain = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+      assert(messageAgain.follows === 0)
+      assert(messageAgain.followers.size === 0)
     }
   }
   test("Get All Public Messages For A Stream") {

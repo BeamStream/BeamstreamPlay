@@ -94,10 +94,7 @@ object UserSchool {
   def isUserAlreadyContainsTheSchoolThatUserWantsToJoin(assosiatedSchoolId: ObjectId, userId: ObjectId): Boolean = {
     val userSchoolsIdListOfAUser = UserSchool.getAllSchoolforAUser(userId)
 
-    (userSchoolsIdListOfAUser.contains(assosiatedSchoolId)) match {
-      case true => true
-      case false => false
-    }
+    userSchoolsIdListOfAUser.contains(assosiatedSchoolId)
 
   }
 

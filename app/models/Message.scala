@@ -110,7 +110,7 @@ object Message { //extends CommentConsumer {
    * Get all public messages for a user
    *  param userId is the id of the user for which the messages are required
    */
-  def getAllPublicMessagesForAUser(userId: ObjectId): List[models.Message] = {
+  def getAllPublicMessagesForAUser(userId: ObjectId): List[Message] = {
     MessageDAO.find(MongoDBObject("userId" -> userId, "messageAccess" -> "Public")).toList
   }
 
@@ -226,10 +226,7 @@ object Message { //extends CommentConsumer {
   def isAFollower(messageId: ObjectId, userId: Object): Boolean = {
     val message = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
 
-    (message.followers.contains(userId)) match {
-      case true => true
-      case false => false
-    }
+    message.followers.contains(userId)
 
   }
 
@@ -243,10 +240,7 @@ object Message { //extends CommentConsumer {
   def isARocker(messageId: ObjectId, userId: Object): Boolean = {
     val message = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
 
-    (message.rockers.contains(userId)) match {
-      case true => true
-      case false => false
-    }
+    message.rockers.contains(userId)
 
   }
 

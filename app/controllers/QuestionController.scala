@@ -188,7 +188,7 @@ object QuestionController extends Controller {
    * ***********************************************************REARCHITECTED CODE****************************************************************
    */
 
-  private def questionWithOtherInformation(allQuestionsForAStream: List[Question], userId: ObjectId): List[models.QuestionWithPoll] = {
+  private def questionWithOtherInformation(allQuestionsForAStream: List[Question], userId: ObjectId): List[QuestionWithPoll] = {
     allQuestionsForAStream map {
       case questionObtained =>
 

@@ -198,10 +198,7 @@ object User {
    */
   def canUserRegisterWithThisEmail(userEmail: String): Boolean = {
     val userHavingSameMailId = UserDAO.find(MongoDBObject("email" -> userEmail)).toList
-    (userHavingSameMailId.isEmpty) match {
-      case true => true
-      case false => false
-    }
+    userHavingSameMailId.isEmpty
   }
 
   /**
@@ -209,10 +206,7 @@ object User {
    */
   def canUserRegisterWithThisUsername(userName: String): Boolean = {
     val userHavingSameUserName = UserDAO.find(MongoDBObject("userName" -> userName)).toList
-    (userHavingSameUserName.isEmpty) match {
-      case true => true
-      case false => false
-    }
+    userHavingSameUserName.isEmpty
   }
 
   /**
@@ -252,10 +246,7 @@ object User {
 
   def isAFollower(followedUserId: ObjectId, userId: Object): Boolean = {
     val followedUser = UserDAO.find(MongoDBObject("_id" -> followedUserId)).toList(0)
-    (followedUser.followers.contains(userId)) match {
-      case true => true
-      case false => false
-    }
+    followedUser.followers.contains(userId)
 
   }
 

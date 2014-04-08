@@ -315,10 +315,7 @@ object Question {
   def isAFollower(questionId: ObjectId, userId: Object): Boolean = {
     val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
 
-    (question.followers.contains(userId)) match {
-      case true => true
-      case false => false
-    }
+    question.followers.contains(userId)
 
   }
 
@@ -332,10 +329,7 @@ object Question {
   def isARocker(questionId: ObjectId, userId: Object): Boolean = {
     val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
 
-    (question.rockers.contains(userId)) match {
-      case true => true
-      case false => false
-    }
+    question.rockers.contains(userId)
 
   }
 

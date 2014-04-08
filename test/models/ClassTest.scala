@@ -50,6 +50,8 @@ class ClassTest extends FunSuite with BeforeAndAfter {
       assert(Class.findClasssById(classToBeCretaed.id).get.className === "IT")
       val classesFound = Class.findClassByName("IT", new ObjectId("47cc67093475061e3d95369d"))
       assert(classesFound.size === 1)
+      val classesNotFound = Class.findClassByName("CSE", new ObjectId("47cc67093475061e3d95369d"))
+      assert(classesNotFound.size === 0)
     }
   }
 
@@ -63,6 +65,8 @@ class ClassTest extends FunSuite with BeforeAndAfter {
       assert(Class.findClasssById(classToBeCretaed.id).get.className === "IT")
       val classesFound = Class.findClassByCode("201", new ObjectId("47cc67093475061e3d95369d"))
       assert(classesFound.size === 1)
+      val classesNotFound = Class.findClassByCode("301", new ObjectId("47cc67093475061e3d95369d"))
+      assert(classesNotFound.size === 0)
     }
   }
 

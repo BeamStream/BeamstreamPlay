@@ -1,4 +1,5 @@
 package models
+
 import org.scalatest.FunSuite
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
@@ -53,6 +54,8 @@ class UserTest extends FunSuite with BeforeAndAfter {
       val userId = User.createUser(userA)
       val userFound = User.findUserByEmailId("neel@knoldus.com")
       assert(userFound.size === 1)
+      val userNotFound = User.findUserByEmailId("neel@gmail.com")
+      assert(userNotFound.size === 0)
     }
   }
 
@@ -71,6 +74,8 @@ class UserTest extends FunSuite with BeforeAndAfter {
       val userId = User.createUser(userA)
       val userObtained = User.getUserProfile(userId.get)
       assert(userObtained.get.email === "neel@knoldus.com")
+      val userNotObtained = User.getUserProfile(new ObjectId)
+      assert(userNotObtained === None)
     }
   }
 
@@ -101,6 +106,8 @@ class UserTest extends FunSuite with BeforeAndAfter {
       val userId = User.createUser(user)
       val userObtained = User.findUserComingViaSocailSite("NeelS", "Facebook")
       assert(userObtained.size === 1)
+      val userNotObtained = User.findUserComingViaSocailSite("Neel", "Facebook")
+      assert(userNotObtained.size === 0)
     }
   }
 
@@ -130,8 +137,14 @@ class UserTest extends FunSuite with BeforeAndAfter {
     running(FakeApplication()) {
       val user1Id = User.createUser(userA)
       val user2Id = User.createUser(userB)
-      val useFound = User.findUser("NeelS", "Neel")
-      assert(useFound != None)
+      val userNotFoundByUserName = User.findUser("Neel", "Neel")
+      assert(userNotFoundByUserName == None)
+      val userNotFoundByEmail = User.findUser("neel@gmail.com", "Neel")
+      assert(userNotFoundByEmail == None)
+      val userFoundByUserName = User.findUser("NeelS", "Neel")
+      assert(userFoundByUserName != None)
+      val userFoundByEmail = User.findUser("neel@knoldus.com", "Neel")
+      assert(userFoundByEmail != None)
     }
   }
   test("Add Info To User") {
@@ -170,8 +183,38 @@ class UserTest extends FunSuite with BeforeAndAfter {
       User.followUser(new ObjectId, userId.get)
       val user = User.getUserProfile(userId.get)
       assert(user.get.followers.size === 1)
+      val userAlreadyFollowing = User.getUserProfile(userId.get)
+      assert(userAlreadyFollowing.get.followers.size === 1)
     }
   }
+
+  test("Found Forgot Password") {
+    running(FakeApplication()) {
+      val userId = User.createUser(userB)
+      val passwordNotFound = User.forgotPassword("neel@gmail.com")
+      assert(passwordNotFound === false)
+    }
+  }
+
+  /*test("Can User Register with this Email") {
+    running(FakeApplication()) {
+      val userId = User.createUser(userA)
+      val emailIdAvailableToRegister = User.canUserRegisterWithThisEmail("neel@gmail.com")
+      assert(emailIdAvailableToRegister === true)
+      val emailIdNotAvailableToRegister = User.canUserRegisterWithThisEmail("neel@knoldus.com")
+      assert(emailIdNotAvailableToRegister === false)
+    }
+  }
+
+  test("Can User Register with this Username") {
+    running(FakeApplication()) {
+      val userNameAvailableToRegister = User.canUserRegisterWithThisUsername("NeelS")
+      assert(userNameAvailableToRegister === true)
+      val userId = User.createUser(userA)
+      val userNameNotAvailableToRegister = User.canUserRegisterWithThisUsername("NeelS")
+      assert(userNameNotAvailableToRegister === false)
+    }
+  }*/
 
   after {
     running(FakeApplication()) {

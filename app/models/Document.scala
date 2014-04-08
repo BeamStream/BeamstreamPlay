@@ -112,7 +112,7 @@ object Document extends RockConsumer {
   /**
    * Get all documents for a user (Modified)
    */
-  def getAllPublicDocumentForAUser(userId: ObjectId): List[models.Document] = {
+  def getAllPublicDocumentForAUser(userId: ObjectId): List[Document] = {
     DocumentDAO.find(MongoDBObject("userId" -> userId, "documentAccess" -> "Public")).toList
   }
   /**
