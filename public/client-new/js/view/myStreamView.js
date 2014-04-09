@@ -172,12 +172,12 @@ define(
 						},
 
 						fliptoQuestion : function() {
-							$('#discussions-link').css('display', 'block');
-							$('#discussions-link').css('padding', '0');
-							$('#discussions-link').css('text-decoration',
-									'none');
-							$('#flipQuestion').css('display', 'none');
-							$('#questions-icon').css('display', 'none');
+							//$('#discussions-link').css('display', 'block');
+							//$('#discussions-link').css('padding', '0');
+							//$('#discussions-link').css('text-decoration',
+								//	'none');
+							//$('#flipQuestion').css('display', 'none');
+							//$('#questions-icon').css('display', 'none');
 						},
 
 						fliptoDiscussion : function() {

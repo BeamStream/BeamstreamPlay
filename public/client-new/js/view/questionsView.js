@@ -26,7 +26,7 @@ define(['view/formView',
 			'click #Q-private-to' : 'checkPrivateAccess',
 			'click #question-file-upload li' : 'uploadFiles',
 			'change #Q-files-area' : 'getUploadedData',
-			'keypress #Q-area' : 'postQuestionOnEnterKey',
+			//'keypress #Q-area' : 'postQuestionOnEnterKey',
 			'keyup #Q-area' : 'removePreview',
 			
 
@@ -235,7 +235,7 @@ $( "ul#pollArea" ).on( "click", "li", function(event) {
         /**
 		 * post question on enter key press
 		 */
-        postQuestionOnEnterKey: function(eventName){
+      /*  postQuestionOnEnterKey: function(eventName){
 			var self = this;
 	    	
 			if(eventName.which == 13) {
@@ -248,10 +248,10 @@ $( "ul#pollArea" ).on( "click", "li", function(event) {
 				if(!self.links)
 					self.links =  text.match(this.website); 
 				
-				 /* create bitly for each url in text */
+				  create bitly for each url in text 
 				self.generateBitly(self.links);
 			}
-        },
+        },*/
 
         removePreview:function(eventName){
 
@@ -725,7 +725,10 @@ $( "ul#pollArea" ).on( "click", "li", function(event) {
 		    }
 
 		    
-
+	
+		    		
+		    		setTimeout(function(){
+			    		$("#discussions-link").click();		},125)
 	         
 		},
 		

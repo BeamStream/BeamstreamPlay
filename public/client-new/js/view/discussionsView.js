@@ -235,7 +235,7 @@ define(['view/formView',
  			        	this.progress = setInterval(function() {
 	                    	
  			        		this.bar = $('.bar'); 			        		
-	                        if (this.bar.width()>= 200) {
+	                        if (this.bar.width()>= 195) {
 	                            clearInterval(this.progress);
 		    		        } 
 	                        else 
