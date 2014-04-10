@@ -132,7 +132,7 @@ define(
 							 * compiledTemplate(userInfo)); } }
 							 */
 							
-							$
+							/*$
 							.ajax({
 								type : 'GET',
 								url:'/findUserData',
@@ -168,12 +168,12 @@ define(
 									
 									$('#associatedSchoolId').val(data.fields[13]._2.value);
 									$('#myUserId').val(data.fields[12]._2.value);
-								/*	$('#done_step2').click();*/
-								/*	this.saveform();*/
-								/*	this.enableStepThree();*/
+									$('#done_step2').click();
+									this.saveform();
+									this.enableStepThree();
 
 								}
-							});
+							});*/
 							
 							
 						},
@@ -243,11 +243,8 @@ define(
 						 */
 						comepleteSecondStep : function(e) {
 								
-								alert("hjadgf");
 							e.preventDefault();
-							alert("2");
 							this.data.url = "/registration";
-							alert("3");
 							/*
 							 * @TODO only select a school from existing list or
 							 * add new school
@@ -289,13 +286,10 @@ define(
 								'associatedSchoolId' : $('#associatedSchoolId')
 										.val()
 							});
-							alert("4");
-							alert($('#lastName').val());
 							
 							this.saveForm();
 							
 							
-							alert("5");
 						},
 
 						/**

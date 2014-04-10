@@ -20,6 +20,13 @@ import models.UserDAO
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.ws.WS
 import java.util.Date
+import models.Class
+import models.Token
+import utils.TokenEmailUtil
+import models.UserMedia
+import models.UserMediaType
+import models.Access
+import play.api.mvc.Cookie
 
 @RunWith(classOf[JUnitRunner])
 class ClassControllerTest extends FunSuite with BeforeAndAfter {
@@ -28,9 +35,9 @@ class ClassControllerTest extends FunSuite with BeforeAndAfter {
   private def userToBeCreated = {
     User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", new Date,Nil, Nil, Nil, None, None, None)
   }
-
+  
   private def classToBeCreated = {
-    models.Class(new ObjectId("51ac282644ae723fa2ad1c4b"), "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), Nil)
+    Class(new ObjectId("51ac282644ae723fa2ad1c4b"), "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), Nil)
   }
 
   before {
@@ -42,12 +49,43 @@ class ClassControllerTest extends FunSuite with BeforeAndAfter {
   }
 
   test("Render Class page") {
+    val userId = User.createUser(userToBeCreated)
+    val tokenTobeCreated = Token(new ObjectId, userId.get.toString(), TokenEmailUtil.securityToken, false)
+    Token.addToken(tokenTobeCreated)
+    val userMedia = UserMedia(new ObjectId, "", "", userId.get, new Date, "", UserMediaType.Image, Access.Public, true, None, "", 0, Nil, Nil, 0)
+    UserMedia.saveMediaForUser(userMedia)
     running(FakeApplication()) {
       val result = route(FakeRequest(GET, "/class")).get
       result onComplete {
         case stat => assert(stat.isSuccess === true)
       }
-
+    }
+    running(FakeApplication()) {
+      val result = route(FakeRequest(GET, "/class").withSession("userId" -> userId.get.toString())).get
+      result onComplete {
+        case stat => assert(stat.isSuccess === true)
+      }
+    }
+    running(FakeApplication()) {
+      val result = route(FakeRequest(GET, "/class").withCookies(Cookie("Beamstream", userId.get.toString() + " class"))).get
+      /*result onComplete {
+        case stat => assert(stat.isSuccess === false)
+      }*/
+      assert(status(result) === 303)
+    }
+    running(FakeApplication()) {
+      val result = route(FakeRequest(GET, "/class").withCookies(Cookie("Beamstream", userId.get.toString() + " stream"))).get
+      result onComplete {
+        case stat => assert(stat.isSuccess === false)
+      }
+      assert(status(result) === 303)
+    }
+    running(FakeApplication()) {
+      val result = route(FakeRequest(GET, "/class").withCookies(Cookie("Beamstream", userId.get.toString() + " registration"))).get
+      result onComplete {
+        case stat => assert(stat.isSuccess === false)
+      }
+      assert(status(result) === 303)
     }
   }
 
@@ -78,7 +116,7 @@ class ClassControllerTest extends FunSuite with BeforeAndAfter {
 
   }
 
-  test("FInd Class By Code") {
+  test("Find Class By Code") {
     val userId = User.createUser(userToBeCreated)
     running(FakeApplication()) {
       val classId = models.Class.createClass(classToBeCreated, userId.get)

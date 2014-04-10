@@ -15,12 +15,32 @@ import scala.concurrent._
 import scala.concurrent.duration._
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.Play
+import org.bson.types.ObjectId
+import models.User
+import models.UserType
+import java.util.Date
+import models.ClassType
+import java.text.DateFormat
+import models.Class
+import models.ClassDAO
+
 @RunWith(classOf[JUnitRunner])
 class BasicRegistrationTest extends FunSuite with BeforeAndAfter {
+
+  val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
+
+  private def userToBeCreated = {
+    User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
+  }
+
+  private def classToBeCreated = {
+    models.Class(new ObjectId("51ac282644ae723fa2ad1c4b"), "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), Nil)
+  }
 
   before {
     running(FakeApplication()) {
       UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
+      ClassDAO.remove(MongoDBObject("className" -> ".*".r))
     }
   }
 
@@ -31,8 +51,32 @@ class BasicRegistrationTest extends FunSuite with BeforeAndAfter {
     }
   }
 
+  test("Render Signup page with Session") {
+    running(FakeApplication()) {
+      val result = route(FakeRequest(GET, "/signup").withSession("userId" -> (new ObjectId).toString()))
+      assert(status(result.get) === 303)
+    }
+  }
+
+  test("Render Signup page with Session & User") {
+    val userId = User.createUser(userToBeCreated)
+    running(FakeApplication()) {
+      val result = route(FakeRequest(GET, "/signup").withSession("userId" -> userId.get.toString()))
+      assert(status(result.get) === 303)
+    }
+  }
+
+  test("Render Signup page with Session, User & Class") {
+    val userId = User.createUser(userToBeCreated)
+    val classId = Class.createClass(classToBeCreated, userId.get)
+    running(FakeApplication()) {
+      val result = route(FakeRequest(GET, "/signup").withSession("userId" -> userId.get.toString()))
+      assert(status(result.get) === 303)
+    }
+  }
+
   test("SignUp user") {
-    val jsonString = """{"iam": "1","mailId": "neelkanth@knoldus.com","password": "123","confirmPassword": "123"}"""
+    val jsonString = """{"iam": "1","mailId": "neelkanth@knoldus.com","password": "123456","confirmPassword": "123456"}"""
     val json: JsValue = play.api.libs.json.Json.parse(jsonString)
     running(FakeApplication()) {
       val result = route(
@@ -47,6 +91,7 @@ class BasicRegistrationTest extends FunSuite with BeforeAndAfter {
   after {
     running(FakeApplication()) {
       UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
+      ClassDAO.remove(MongoDBObject("className" -> ".*".r))
     }
   }
 
