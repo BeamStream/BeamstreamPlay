@@ -1,4 +1,5 @@
 package controllers
+
 import org.junit.runner.RunWith
 import org.scalatest.BeforeAndAfter
 import org.scalatest.FunSuite
@@ -68,6 +69,19 @@ class DocumentControllerTest extends FunSuite with BeforeAndAfter {
       assert(status(result.get) === 200)
     }
   }
+  
+  test("Get All PPT Files") {
+    running(FakeApplication()) {
+      val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", Option("Neel"), "", "", "", "", new Date,Nil, Nil, Nil, None, None, None)
+      val userId = User.createUser(user)
+      val firstDocumentToCreate = new Document(new ObjectId, "Neel'sFile.ppt", "Neel'sFile", "http://neel.ly/Neel'sFile.ppt", DocType.Other, userId.get, Access.PrivateToClass, new ObjectId, new Date, new Date, 0, Nil, Nil, Nil, "")
+      val secondDocumentToCreate = new Document(new ObjectId, "Neel'sFile.mp3", "Neel'sFile", "http://neel.ly/Neel'sFile.mp3", DocType.Other, userId.get, Access.PrivateToClass, new ObjectId, new Date, new Date, 0, Nil, Nil, Nil, "")
+      Document.addDocument(firstDocumentToCreate)
+      Document.addDocument(secondDocumentToCreate)
+      val result = route(FakeRequest(GET, "/allPPTFilesForAUser").withSession("userId" -> userId.get.toString))
+      assert(status(result.get) === 200)
+    }
+  }
 
   test("Get All Docs File") {
     running(FakeApplication()) {
@@ -82,6 +96,19 @@ class DocumentControllerTest extends FunSuite with BeforeAndAfter {
     }
   }
 
+  test("Get All Google Docs for a User") {
+    running(FakeApplication()) {
+      val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", Option("Neel"), "", "", "", "", new Date,Nil, Nil, Nil, None, None, None)
+      val userId = User.createUser(user)
+      val firstDocumentToCreate = new Document(new ObjectId, "Neel'sFile.pdf", "Neel'sFile", "http://neel.ly/Neel'sFile.pdf", DocType.GoogleDocs, userId.get, Access.PrivateToClass, new ObjectId, new Date, new Date, 0, Nil, Nil, Nil, "")
+      val secondDocumentToCreate = new Document(new ObjectId, "Neel'sFile.mp3", "Neel'sFile", "http://neel.ly/Neel'sFile.mp3", DocType.GoogleDocs, userId.get, Access.PrivateToClass, new ObjectId, new Date, new Date, 0, Nil, Nil, Nil, "")
+      Document.addDocument(firstDocumentToCreate)
+      Document.addDocument(secondDocumentToCreate)
+      val result = route(FakeRequest(GET, "/getAllGoogleDocs").withSession("userId" -> userId.get.toString))
+      assert(status(result.get) === 200)
+    }
+  }
+  
   test("Follow The Document") {
     running(FakeApplication()) {
       val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", Option("Neel"), "", "", "", "", new Date,Nil, Nil, Nil, None, None, None)
@@ -94,6 +121,42 @@ class DocumentControllerTest extends FunSuite with BeforeAndAfter {
     }
   }
 
+  test("Rock The Document") {
+    running(FakeApplication()) {
+      val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", Option("Neel"), "", "", "", "", new Date,Nil, Nil, Nil, None, None, None)
+      val userId = User.createUser(user)
+      val firstDocumentToCreate = new Document(new ObjectId, "Neel'sFile.pdf", "Neel'sFile", "http://neel.ly/Neel'sFile.pdf", DocType.Other, userId.get, Access.PrivateToClass, new ObjectId, new Date, new Date, 0, Nil, Nil, Nil, "")
+      val documentId = Document.addDocument(firstDocumentToCreate)
+      val result = route(FakeRequest(PUT, "/rock/document/" + documentId.toString).withSession("userId" -> userId.get.toString))
+      assert(status(result.get) === 200)
+
+    }
+  }
+  
+  test("View Count of a Document") {
+    running(FakeApplication()) {
+      val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", Option("Neel"), "", "", "", "", new Date,Nil, Nil, Nil, None, None, None)
+      val userId = User.createUser(user)
+      val firstDocumentToCreate = new Document(new ObjectId, "Neel'sFile.pdf", "Neel'sFile", "http://neel.ly/Neel'sFile.pdf", DocType.Other, userId.get, Access.PrivateToClass, new ObjectId, new Date, new Date, 0, Nil, Nil, Nil, "")
+      val documentId = Document.addDocument(firstDocumentToCreate)
+      val result = route(FakeRequest(PUT, "/viewCountOf/document/" + documentId.toString).withSession("userId" -> userId.get.toString))
+      assert(status(result.get) === 200)
+
+    }
+  }
+  
+  /*test("Rockers of a Document") {
+    running(FakeApplication()) {
+      val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", Option("Neel"), "", "", "", "", new Date,Nil, Nil, Nil, None, None, None)
+      val userId = User.createUser(user)
+      val firstDocumentToCreate = new Document(new ObjectId, "Neel'sFile.pdf", "Neel'sFile", "http://neel.ly/Neel'sFile.pdf", DocType.Other, userId.get, Access.PrivateToClass, new ObjectId, new Date, new Date, 0, Nil, Nil, Nil, "")
+      val documentId = Document.addDocument(firstDocumentToCreate)
+      val result = route(FakeRequest(PUT, "/rockersOf/document/" + documentId.toString).withSession("userId" -> userId.get.toString))
+      assert(status(result.get) === 200)
+
+    }
+  }*/
+  
   after {
     running(FakeApplication()) {
       DocumentDAO.remove(MongoDBObject("documentName" -> ".*".r))

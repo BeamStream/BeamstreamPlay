@@ -27,6 +27,7 @@ import models.UserMedia
 import models.UserMediaType
 import models.Access
 import play.api.mvc.Cookie
+import models.TokenDAO
 
 @RunWith(classOf[JUnitRunner])
 class ClassControllerTest extends FunSuite with BeforeAndAfter {
@@ -45,6 +46,7 @@ class ClassControllerTest extends FunSuite with BeforeAndAfter {
       ClassDAO.remove(MongoDBObject("className" -> ".*".r))
       StreamDAO.remove(MongoDBObject("streamName" -> ".*".r))
       UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
+      TokenDAO.remove(MongoDBObject("tokenString" -> ".*".r))
     }
   }
 
@@ -68,9 +70,9 @@ class ClassControllerTest extends FunSuite with BeforeAndAfter {
     }
     running(FakeApplication()) {
       val result = route(FakeRequest(GET, "/class").withCookies(Cookie("Beamstream", userId.get.toString() + " class"))).get
-      /*result onComplete {
+      result onComplete {
         case stat => assert(stat.isSuccess === false)
-      }*/
+      }
       assert(status(result) === 303)
     }
     running(FakeApplication()) {
@@ -158,6 +160,7 @@ class ClassControllerTest extends FunSuite with BeforeAndAfter {
       ClassDAO.remove(MongoDBObject("className" -> ".*".r))
       StreamDAO.remove(MongoDBObject("streamName" -> ".*".r))
       UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
+      TokenDAO.remove(MongoDBObject("tokenString" -> ".*".r))
     }
   }
 
