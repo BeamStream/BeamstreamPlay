@@ -47,7 +47,7 @@ define(
 
 						onAfterInit : function() {
 
-							//this.data.reset();
+							this.data.reset();
 							this.profile = null;
 						},
 
@@ -242,9 +242,10 @@ define(
 						 * form
 						 */
 						comepleteSecondStep : function(e) {
-								
+
 							e.preventDefault();
 							this.data.url = "/registration";
+
 							/*
 							 * @TODO only select a school from existing list or
 							 * add new school
@@ -286,18 +287,15 @@ define(
 								'associatedSchoolId' : $('#associatedSchoolId')
 										.val()
 							});
-							
+
 							this.saveForm();
-							
-							
 						},
 
 						/**
 						 * step 2 registration success
 						 */
 						success : function(model, data) {
-							
-							
+
 							/* enable step 3 */
 							if (data != "Username Already Exists"
 									&& data != "Please select an existing school or create your own one") {

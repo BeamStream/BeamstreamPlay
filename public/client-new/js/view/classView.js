@@ -720,6 +720,7 @@ define(
 								type : 'GET',
 								url : "/registrationComplete"
 							});*/
+
 							window.location = "/stream";
 						},
 
