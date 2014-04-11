@@ -25,6 +25,14 @@ import java.util.Date
 import models.UserMediaType
 import models.Access
 import play.api.mvc.Cookie
+import play.api.libs.json.JsValue
+import models.UserSchoolDAO
+import models.UserSchool
+import java.text.DateFormat
+import models.Year
+import models.Degree
+import models.Graduated
+import models.DegreeExpected
 
 @RunWith(classOf[JUnitRunner])
 class RegistrationTest extends FunSuite with BeforeAndAfter {
@@ -34,6 +42,7 @@ class RegistrationTest extends FunSuite with BeforeAndAfter {
       UserMediaDAO.remove(MongoDBObject("name" -> ".*".r))
       StreamDAO.remove(MongoDBObject("streamName" -> ".*".r))
       TokenDAO.remove(MongoDBObject("tokenString" -> ".*".r))
+      UserSchoolDAO.remove(MongoDBObject("schoolName" -> ".*".r))
     }
   }
 
@@ -60,35 +69,51 @@ class RegistrationTest extends FunSuite with BeforeAndAfter {
       }*/
       assert(status(result.get) == 303)
       running(FakeApplication()) {
-      val result = route(FakeRequest(GET, "/registration?userId=" + userId.get + "&token=" + tokenTobeCreated.id).withSession("userId" -> userId.get.toString())).get
-      result onComplete {
-        case stat => assert(stat.isSuccess === true)
+        val result = route(FakeRequest(GET, "/registration?userId=" + userId.get + "&token=" + tokenTobeCreated.id).withSession("userId" -> userId.get.toString())).get
+        result onComplete {
+          case stat => assert(stat.isSuccess === true)
+        }
       }
-    }
-    running(FakeApplication()) {
-      val result = route(FakeRequest(GET, "/registration?userId=" + userId.get + "&token=" + new ObjectId).withCookies(Cookie("Beamstream", userId.get.toString() + " class"))).get
-      result onComplete {
-        case stat => assert(stat.isSuccess === false)
+      running(FakeApplication()) {
+        val result = route(FakeRequest(GET, "/registration?userId=" + userId.get + "&token=" + new ObjectId).withCookies(Cookie("Beamstream", userId.get.toString() + " class"))).get
+        result onComplete {
+          case stat => assert(stat.isSuccess === false)
+        }
+        assert(status(result) === 303)
       }
-      assert(status(result) === 303)
-    }
-    running(FakeApplication()) {
-      val result = route(FakeRequest(GET, "/registration?userId=" + userId.get + "&token=" + new ObjectId).withCookies(Cookie("Beamstream", userId.get.toString() + " stream"))).get
-      result onComplete {
-        case stat => assert(stat.isSuccess === false)
+      running(FakeApplication()) {
+        val result = route(FakeRequest(GET, "/registration?userId=" + userId.get + "&token=" + new ObjectId).withCookies(Cookie("Beamstream", userId.get.toString() + " stream"))).get
+        result onComplete {
+          case stat => assert(stat.isSuccess === false)
+        }
+        assert(status(result) === 303)
       }
-      assert(status(result) === 303)
-    }
-    running(FakeApplication()) {
-      val result = route(FakeRequest(GET, "/registration?userId=" + userId.get + "&token=" + tokenTobeCreated.id).withCookies(Cookie("Beamstream", userId.get.toString() + " registration"))).get
-      result onComplete {
-        case stat => assert(stat.isSuccess === false)
+      running(FakeApplication()) {
+        val result = route(FakeRequest(GET, "/registration?userId=" + userId.get + "&token=" + tokenTobeCreated.id).withCookies(Cookie("Beamstream", userId.get.toString() + " registration"))).get
+        result onComplete {
+          case stat => assert(stat.isSuccess === false)
+        }
+        assert(status(result) === 303)
       }
-      assert(status(result) === 303)
-    }
 
     }
   }
+
+  /*test("Register User") {
+    val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
+
+    val myUserSchool = UserSchool(new ObjectId, new ObjectId("5347af57c4aa242096d8eb4d"), "IIITD", Year.Graduated_Masters, Degree.Masters,
+      "CSE", Graduated.No, Option(formatter.parse("12-07-2011")), Option(DegreeExpected.Winter2014), None)
+    val schoolId = UserSchool.createSchool(myUserSchool)
+    val jsonString = """{"firstName":"Himanshu","lastName":"Gupta","schoolName":"IIITD","major":"CSE","gradeLevel":"Graduated(Master's)","degreeProgram":"Master's","graduate":"no","location":"Delhi","cellNumber":"(995) 870-4887","aboutYourself":"Master of Technology","username":"himanshug735","degreeExpected":"Winter 2014","userId":"5347af05c4aa242096d8eb4b","associatedSchoolId":""" + """"""" + schoolId.get + """"""" + """}"""
+    val json: JsValue = play.api.libs.json.Json.parse(jsonString)
+    running(FakeApplication()) {
+      val result = route(
+        FakeRequest(POST, "/registration").
+          withJsonBody(json))
+      assert(status(result.get) === 200)
+    }
+  }*/
 
   after {
     running(FakeApplication()) {
@@ -96,6 +121,7 @@ class RegistrationTest extends FunSuite with BeforeAndAfter {
       UserMediaDAO.remove(MongoDBObject("name" -> ".*".r))
       StreamDAO.remove(MongoDBObject("streamName" -> ".*".r))
       TokenDAO.remove(MongoDBObject("tokenString" -> ".*".r))
+      UserSchoolDAO.remove(MongoDBObject("schoolName" -> ".*".r))
     }
   }
 }

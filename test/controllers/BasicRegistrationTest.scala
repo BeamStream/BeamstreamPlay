@@ -23,6 +23,14 @@ import models.ClassType
 import java.text.DateFormat
 import models.Class
 import models.ClassDAO
+import models.UserMedia
+import models.Token
+import play.api.mvc.Cookie
+import utils.TokenEmailUtil
+import models.UserMediaType
+import models.Access
+import models.TokenDAO
+import models.UserMediaDAO
 
 @RunWith(classOf[JUnitRunner])
 class BasicRegistrationTest extends FunSuite with BeforeAndAfter {
@@ -41,6 +49,8 @@ class BasicRegistrationTest extends FunSuite with BeforeAndAfter {
     running(FakeApplication()) {
       UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
       ClassDAO.remove(MongoDBObject("className" -> ".*".r))
+      TokenDAO.remove(MongoDBObject("tokenString" -> ".*".r))
+      UserMediaDAO.remove(MongoDBObject("name" -> ".*".r))
     }
   }
 
@@ -75,6 +85,40 @@ class BasicRegistrationTest extends FunSuite with BeforeAndAfter {
     }
   }
 
+  test("Render Signup page with Cookies") {
+    val userId = User.createUser(userToBeCreated)
+    val classId = Class.createClass(classToBeCreated, userId.get)
+    val tokenTobeCreated = Token(new ObjectId, userId.get.toString(), TokenEmailUtil.securityToken, false)
+    Token.addToken(tokenTobeCreated)
+    val userMedia = UserMedia(new ObjectId, "", "", userId.get, new Date, "", UserMediaType.Image, Access.Public, true, None, "", 0, Nil, Nil, 0)
+    UserMedia.saveMediaForUser(userMedia)
+    running(FakeApplication()) {
+      val result = route(FakeRequest(GET, "/signup").withCookies(Cookie("Beamstream", userId.get.toString() + " class"))).get
+      result onComplete {
+        case stat => assert(stat.isSuccess === false)
+      }
+      assert(status(result) === 303)
+    }
+    running(FakeApplication()) {
+      val result = route(FakeRequest(GET, "/signup").withCookies(Cookie("Beamstream", userId.get.toString() + " stream"))).get
+      result onComplete {
+        case stat => assert(stat.isSuccess === false)
+      }
+      assert(status(result) === 303)
+    }
+    running(FakeApplication()) {
+      val result = route(FakeRequest(GET, "/signup").withCookies(Cookie("Beamstream", userId.get.toString() + " registration"))).get
+      result onComplete {
+        case stat => assert(stat.isSuccess === false)
+      }
+      assert(status(result) === 303)
+    }
+    running(FakeApplication()) {
+      val result = route(FakeRequest(GET, "/signup").withSession("userId" -> userId.get.toString()))
+      assert(status(result.get) === 303)
+    }
+  }
+  
   test("SignUp user") {
     val jsonString = """{"iam": "1","mailId": "neelkanth@knoldus.com","password": "123456","confirmPassword": "123456"}"""
     val json: JsValue = play.api.libs.json.Json.parse(jsonString)
@@ -92,6 +136,8 @@ class BasicRegistrationTest extends FunSuite with BeforeAndAfter {
     running(FakeApplication()) {
       UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
       ClassDAO.remove(MongoDBObject("className" -> ".*".r))
+      TokenDAO.remove(MongoDBObject("tokenString" -> ".*".r))
+      UserMediaDAO.remove(MongoDBObject("name" -> ".*".r))
     }
   }
 

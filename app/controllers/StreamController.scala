@@ -101,6 +101,7 @@ object StreamController extends Controller {
    * @Purpose: For Public Profile (Stream Specific Results)
    */
   def allPublicMessagesFromAllStreamsForAUser: Action[AnyContent] = Action { implicit request =>
+    println("StreamController allPublicMessagesFromAllStreamsForAUser" + request.body.asFormUrlEncoded)
     val UserIdJsonMap = request.body.asFormUrlEncoded.get
     val userId = UserIdJsonMap("userId").toList(0)
     val classListForAUser = Class.getAllClassesForAUser(new ObjectId(userId))

@@ -28,6 +28,7 @@ import models.UserMediaType
 import models.Access
 import play.api.mvc.Cookie
 import models.TokenDAO
+import models.UserMediaDAO
 
 @RunWith(classOf[JUnitRunner])
 class ClassControllerTest extends FunSuite with BeforeAndAfter {
@@ -47,6 +48,7 @@ class ClassControllerTest extends FunSuite with BeforeAndAfter {
       StreamDAO.remove(MongoDBObject("streamName" -> ".*".r))
       UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
       TokenDAO.remove(MongoDBObject("tokenString" -> ".*".r))
+      UserMediaDAO.remove(MongoDBObject("name" -> ".*".r))
     }
   }
 
@@ -161,6 +163,7 @@ class ClassControllerTest extends FunSuite with BeforeAndAfter {
       StreamDAO.remove(MongoDBObject("streamName" -> ".*".r))
       UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
       TokenDAO.remove(MongoDBObject("tokenString" -> ".*".r))
+      UserMediaDAO.remove(MongoDBObject("name" -> ".*".r))
     }
   }
 

@@ -14,6 +14,11 @@ import utils.PasswordHashingUtil
 import utils.TokenEmailUtil
 import java.util.Date
 import play.api.mvc.AnyContent
+import play.api.mvc.DiscardingCookie
+import play.api.mvc.Cookie
+import models.Token
+import play.api.Play
+import models.UserMedia
 
 object BasicRegistration extends Controller {
 
@@ -30,8 +35,34 @@ object BasicRegistration extends Controller {
    */
   def signUpPage: Action[AnyContent] = Action { implicit request =>
     (request.session.get("userId")) match {
-      case None =>
-        Ok(views.html.signup())
+      case None => 
+        request.cookies.get("Beamstream") match {
+          case None => Ok(views.html.signup()).discardingCookies(DiscardingCookie("Beamstream"))
+          case Some(cookie) =>
+            val userId = cookie.value.split(" ")(0)
+            val userFound = User.getUserProfile(new ObjectId(userId))
+            cookie.value.split(" ")(1) match {
+              case "class" => Redirect("/class").withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
+              case "stream" => Redirect("/stream").withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " stream", Option(864000)))
+              case "registration" =>
+                val tokenFound = Token.findTokenByUserId(userId)
+                userFound match {
+                  case Some(user) =>
+                    val server = Play.current.configuration.getString("server").get
+                    user.firstName match {
+                      case "" => Redirect(server + "/registration?userId=" + userId + "&token=" + tokenFound(0).tokenString).withSession("token" -> tokenFound(0).tokenString).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
+                      case _ =>
+                        val userMedia = UserMedia.findUserMediaByUserId(new ObjectId(userId))
+                        userMedia.isEmpty match {
+                          case true => Redirect(server + "/registration?userId=" + userId + "&token=" + tokenFound(0).tokenString).withSession("token" -> tokenFound(0).tokenString).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
+                          case false => Redirect("/class").withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
+                        }
+                    }
+                  case None => Redirect("/signOut")
+                }
+              case _ => Redirect("/" + cookie.value.split(" ")(1))
+            }
+        }
       case Some(user) =>
         val userFound = User.getUserProfile(new ObjectId(request.session.get("userId").getOrElse("")))
         userFound match {
@@ -51,6 +82,7 @@ object BasicRegistration extends Controller {
    */
 
   def signUpUser: Action[AnyContent] = Action { implicit request =>
+    println("BasicRegistration signUpUser " + request.body.asJson)
     val userInfoJsonMap = request.body.asJson.get
     val iam = (userInfoJsonMap \ "iam").as[String]
     val emailId = (userInfoJsonMap \ "mailId").as[String]
