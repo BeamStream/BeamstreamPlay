@@ -2295,8 +2295,8 @@ ul.sign-menu li a {
   display: inline-block;
   height: 115px;
   color: #a0aeb8;
-  font-weight: 500;
-  font-size: 14px;
+  font-weight: 300;
+  font-size: 145%
 }
 ul.sign-menu li a:hover {
   color: #d59a1c;
