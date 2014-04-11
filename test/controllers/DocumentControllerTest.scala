@@ -145,6 +145,18 @@ class DocumentControllerTest extends FunSuite with BeforeAndAfter {
     }
   }
   
+  test("New Google Document") {
+    running(FakeApplication()) {
+      val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", Option("Neel"), "", "", "", "", new Date,Nil, Nil, Nil, None, None, None)
+      val userId = User.createUser(user)
+      val firstDocumentToCreate = new Document(new ObjectId, "Neel'sFile.pdf", "Neel'sFile", "http://neel.ly/Neel'sFile.pdf", DocType.Other, userId.get, Access.PrivateToClass, new ObjectId, new Date, new Date, 0, Nil, Nil, Nil, "")
+      val documentId = Document.addDocument(firstDocumentToCreate)
+      val result = route(FakeRequest(PUT, "/viewCountOf/document/" + documentId.toString).withSession("userId" -> userId.get.toString))
+      assert(status(result.get) === 200)
+
+    }
+  }
+  
   /*test("Rockers of a Document") {
     running(FakeApplication()) {
       val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", Option("Neel"), "", "", "", "", new Date,Nil, Nil, Nil, None, None, None)
