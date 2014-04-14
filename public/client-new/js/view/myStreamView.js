@@ -98,7 +98,13 @@ define(
 						},
 
 						popout : function() {
-
+								
+							$('#discussions-link').css('display', 'block');
+							$('#discussions-link').css('padding', '0');
+							$('#discussions-link').css('text-decoration',
+								'none');
+							$('#flipQuestion').css('display', 'none');
+							$('#questions-icon').css('display', 'none');
 							$("#messageListView").hide();
 							$("#questionListView").css("display", "block");
 							$("#questionListView").css("visibility", "visible");
@@ -209,7 +215,16 @@ define(
 						/* Expand Side Question Stream */
 
 						restoretonormal : function() {
-
+							/*
+							$("#messageListView").show();
+							$("#questionListView").css("display", "none");*/
+							
+							$('#discussions-link').css('display', 'none');
+							$('#flipQuestion').css('padding',
+									'0px 0px 0px 12px');
+							$('#questions-icon').css('margin-top', '-2px');
+							$('#flipQuestion').css('display', 'block');
+							$('#questions-icon').css('display', 'block');
 							$("#messageListView").show();
 							$("#questionListView").css("display", "none");
 

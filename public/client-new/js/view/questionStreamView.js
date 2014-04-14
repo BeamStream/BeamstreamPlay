@@ -101,6 +101,7 @@ define([
 															// =
 															// Handlebars.compile(QuestionStreamItem);
                                                          $('#questionStreamView div.questionStreamItems').prepend(questionStreamItemView.render().el);
+                                                        
                                                          // $('#questionStreamView
 															// div.questionStreamItems').prepend(compiledTemplate);
                                                 }
