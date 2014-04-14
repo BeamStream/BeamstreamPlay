@@ -108,6 +108,8 @@ class QuestionTest extends FunSuite with BeforeAndAfter {
       assert(Question.findQuestionById(questionId.get).head.followers.size === 0)
       Question.followQuestion(user.id, questionId.get)
       assert(Question.findQuestionById(questionId.get).head.followers.size === 1)
+      Question.followQuestion(user.id, questionId.get)
+      assert(Question.findQuestionById(questionId.get).head.followers.size === 0)
     }
   }
 
@@ -140,6 +142,7 @@ class QuestionTest extends FunSuite with BeforeAndAfter {
       assert(Question.findQuestionById(questionId.get).head.comments.size === 0)
     }
   }
+  
   test("Add Poll To Question") {
     running(FakeApplication()) {
       val question = Question(new ObjectId, "How Was the Class ?", new ObjectId, Access.PrivateToClass, Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil, Nil, false, None, None)
@@ -153,6 +156,7 @@ class QuestionTest extends FunSuite with BeforeAndAfter {
       assert(Question.findQuestionById(questionId.get).head.pollOptions.size === 1)
     }
   }
+  
   test("Vote A Option Of A Question") {
     running(FakeApplication()) {
       val option = OptionOfQuestion(new ObjectId, "Poll1", Nil)
@@ -164,6 +168,71 @@ class QuestionTest extends FunSuite with BeforeAndAfter {
       assert(QuestionPolling.findOptionOfAQuestionById(pollId.get).get.voters.size === 1)
     }
   }
+  
+  test("Change Access of a Question") {
+    running(FakeApplication()) {
+      val question = Question(new ObjectId, "How Was the Class ?", new ObjectId, Access.PrivateToClass, Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil, Nil, false, None, None)
+      val questionId = Question.addQuestion(question)
+      Question.changeAccess(questionId.get, Access.PrivateToDegree)
+      assert(QuestionDAO.findOneById(questionId.get).get.questionAccess === Access.PrivateToDegree)
+    }
+  }
+  
+  test("Total Rocks of a Question") {
+    running(FakeApplication()) {
+      val question = Question(new ObjectId, "How Was the Class ?", new ObjectId, Access.PrivateToClass, Type.Text, stream.id, "Neel", "Sachdeva", new Date, List(new ObjectId), Nil, Nil, Nil, Nil, false, None, None)
+      val questionId = Question.addQuestion(question)
+      assert(Question.totalRocks(questionId.get) === 1)
+    }
+  }
+  
+  test("Add Answer to Question") {
+    running(FakeApplication()) {
+      val question = Question(new ObjectId, "How Was the Class ?", new ObjectId, Access.PrivateToClass, Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil, Nil, false, None, None)
+      val questionId = Question.addQuestion(question)
+      Question.addAnswerToQuestion(questionId.get, new ObjectId)
+      assert(QuestionDAO.findOneById(questionId.get).get.answered === true)
+      assert(QuestionDAO.findOneById(questionId.get).get.answers.size === 1)
+    }
+  }
+  
+  test("Remove Answer from Question") {
+    running(FakeApplication()) {
+      val answerId = new ObjectId
+      val question = Question(new ObjectId, "How Was the Class ?", new ObjectId, Access.PrivateToClass, Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, List(answerId), Nil, Nil, true, None, None)
+      val questionId = Question.addQuestion(question)
+      Question.removeAnswerFromQuestion(answerId, questionId.get)
+      assert(QuestionDAO.findOneById(questionId.get).get.answers.size === 0)
+    }
+  }
+  
+  test("Is a Follower") {
+    running(FakeApplication()) {
+      val question = Question(new ObjectId, "How Was the Class ?", new ObjectId, Access.PrivateToClass, Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, List(user.id), Nil, true, None, None)
+      val questionId = Question.addQuestion(question)
+      assert(Question.isAFollower(questionId.get, user.id) === true)
+      assert(Question.isAFollower(questionId.get, new ObjectId) === false)
+    }
+  }
+  
+  test("Is a Rocker") {
+    running(FakeApplication()) {
+      val question = Question(new ObjectId, "How Was the Class ?", new ObjectId, Access.PrivateToClass, Type.Text, stream.id, "Neel", "Sachdeva", new Date, List(user.id), Nil, Nil, Nil, Nil, true, None, None)
+      val questionId = Question.addQuestion(question)
+      assert(Question.isARocker(questionId.get, user.id) === true)
+      assert(Question.isARocker(questionId.get, new ObjectId) === false)
+    }
+  }
+  
+  test("Find Answers to a Question") {
+    running(FakeApplication()) {
+      val question = Question(new ObjectId, "How Was the Class ?", new ObjectId, Access.PrivateToClass, Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, List(new ObjectId), Nil, Nil, true, None, None)
+      val questionId = Question.addQuestion(question)
+      assert(Question.answers(questionId.get).size === 1)
+      assert(Question.answers(new ObjectId).size === 0)
+    }
+  }
+  
   after {
     running(FakeApplication()) {
       UserDAO.remove(MongoDBObject("firstName" -> ".*".r))

@@ -33,6 +33,15 @@ class SchoolControllerTest extends FunSuite with BeforeAndAfter {
       assert(status(result.get) === 200)
     }
   }
+
+  test("Get All Schools for Auto Populate") {
+    running(FakeApplication()) {
+      val result = route(
+        FakeRequest(POST, "/getAllSchoolsForAutopopulate").withFormUrlEncodedBody("data" -> "IIIT-Delhi"))
+      assert(status(result.get) === 200)
+    }
+  }
+
   after {
     running(FakeApplication()) {
       UserSchoolDAO.remove(MongoDBObject("schoolName" -> ".*".r))

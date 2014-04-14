@@ -216,6 +216,7 @@ object Registration extends Controller {
    * User Registration In Detail (V)
    */
   def registerUser: Action[AnyContent] = Action { implicit request =>
+    println("Registration registerUser" + request.body.asJson)
     val jsonReceived = request.body.asJson.get
     Cache.set("userData", jsonReceived)
     val associatedSchoolId = (jsonReceived \ "associatedSchoolId").as[String]
@@ -274,6 +275,7 @@ object Registration extends Controller {
    */
   def editUserInfo(userId: String): Action[AnyContent] = Action { implicit request =>
 
+    println("Registration editUserInfo" + request.body.asJson)
     val jsonReceived = request.body.asJson.get
 
     val associatedSchoolId = (jsonReceived \ "associatedSchoolId").as[String]

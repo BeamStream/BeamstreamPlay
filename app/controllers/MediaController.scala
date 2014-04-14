@@ -168,18 +168,18 @@ object MediaController extends Controller {
   /**
    * Change the title and description
    */
-  def changeTitleAndDescriptionUserMedia(mediaId: String, name: String, description: String): Action[AnyContent] = Action { implicit request =>
+  /*def changeTitleAndDescriptionUserMedia(mediaId: String, name: String, description: String): Action[AnyContent] = Action { implicit request =>
     UserMedia.updateTitleAndDescription(new ObjectId(mediaId), name, description)
     val mediaObtained = UserMedia.findMediaById(new ObjectId(mediaId))
     val mediaJson = write(List(mediaObtained.get))
     Ok(mediaJson).as("application/json")
-  }
+  }*/
 
   /**
    *  Get User Media
    */
 
-  def getUserMedia: Action[AnyContent] = Action { implicit request =>
+  /*def getUserMedia: Action[AnyContent] = Action { implicit request =>
     val mediaIdJsonMap = request.body.asFormUrlEncoded.get
     (mediaIdJsonMap.contains(("userMediaId"))) match {
       case false => Ok(write(new ResulttoSent("Failure", "No Media Found")))
@@ -189,7 +189,7 @@ object MediaController extends Controller {
         val mediaJson = write(List(mediaFound.get))
         Ok(mediaJson).as("application/json")
     }
-  }
+  }*/
 
   /**
    * ***********************************************************REARCHITECTED CODE****************************************************************

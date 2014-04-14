@@ -1,7 +1,6 @@
 package controllers
 
 import org.bson.types.ObjectId
-
 import actors.UtilityActor
 import models.BetaUser
 import models.ResulttoSent
@@ -51,6 +50,7 @@ object JoinBeamStream extends Controller {
    *  Beta Users Registration(T)
    */
   def regsisterToBeamStreamBeta: Action[AnyContent] = Action { implicit request =>
+    println("JoinBeamStream registerToBeamStreamBeta" + request.body.asJson)
     val userInfoJsonMap = request.body.asJson.get
     val emailId = (userInfoJsonMap \ "mailId").as[String]
 

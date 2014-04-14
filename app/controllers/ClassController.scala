@@ -41,6 +41,7 @@ object ClassController extends Controller {
 
   def findClasstoAutoPopulatebyCode: Action[AnyContent] = Action { implicit request =>
 
+    println("ClassController findClasstoAutoPopulatebyCode" + request.body.asFormUrlEncoded)
     val classCodeMap = request.body.asFormUrlEncoded.get
     val classCode = classCodeMap("data").toList(0)
     val assosiatedSchoolId = classCodeMap("assosiatedSchoolId").toList(0)
@@ -57,6 +58,7 @@ object ClassController extends Controller {
 
   def findClasstoAutoPopulatebyName: Action[AnyContent] = Action { implicit request =>
     try {
+      println("ClassController findClasstoAutoPopulatebyName" + request.body.asFormUrlEncoded)
       val classNameMap = request.body.asFormUrlEncoded.get
       val className = classNameMap("data").toList(0)
       val assosiatedSchoolId = classNameMap("schoolId").toList(0)
@@ -170,6 +172,7 @@ object ClassController extends Controller {
    */
   def createClass: Action[AnyContent] = Action { implicit request =>
     try {
+      println("ClassController createClass" + request.body.asJson)
       val jsonReceived = request.body.asJson.get
       val id = (jsonReceived \ "id").asOpt[String]
       if (id == None) {

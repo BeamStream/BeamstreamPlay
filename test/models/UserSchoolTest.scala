@@ -71,6 +71,8 @@ class UserSchoolTest extends FunSuite with BeforeAndAfter {
       val userSchoolId = UserSchool.createSchool(myUserSchool)
       val schoolFound = UserSchool.getUserSchoolById(userSchoolId.get)
       assert(schoolFound != None)
+      val userSchoolNotFound = UserSchool.getUserSchoolById(new ObjectId)
+      assert(userSchoolNotFound === None)
       val userSchoolsFound = UserSchool.getAllSchools(List(userSchoolId.get))
       assert(userSchoolsFound.head.schoolName == "MPS")
     }
@@ -103,6 +105,12 @@ class UserSchoolTest extends FunSuite with BeforeAndAfter {
       UserSchool.updateUserSchool(myUpdatedUserSchool)
       val updatedSchoolFound = UserSchool.getUserSchoolById(userSchoolId.get)
       assert(updatedSchoolFound.get.schoolName === "DPS")
+    }
+  }
+  
+  test("Get all Schools of a User") {
+    running(FakeApplication()) {
+      assert(UserSchool.getAllSchoolforAUser(new ObjectId).size === 0)
     }
   }
 

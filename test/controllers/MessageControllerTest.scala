@@ -47,7 +47,6 @@ class MessageControllerTest extends FunSuite with BeforeAndAfter {
           withJsonBody(json).withSession("userId" -> userId.get.toString))
       assert(status(result.get) === 200)
     }
-
   }
 
   test("Rock the message") {
@@ -62,7 +61,6 @@ class MessageControllerTest extends FunSuite with BeforeAndAfter {
       assert(contentType(result.get) === Some("application/json"))
 
     }
-
   }
 
   test("Rocker Names") {

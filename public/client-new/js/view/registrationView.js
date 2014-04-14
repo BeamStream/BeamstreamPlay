@@ -47,7 +47,7 @@ define(
 
 						onAfterInit : function() {
 
-							//this.data.reset();
+							this.data.reset();
 							this.profile = null;
 						},
 
@@ -132,7 +132,7 @@ define(
 							 * compiledTemplate(userInfo)); } }
 							 */
 							
-							$
+							/*$
 							.ajax({
 								type : 'GET',
 								url:'/findUserData',
@@ -168,12 +168,12 @@ define(
 									
 									$('#associatedSchoolId').val(data.fields[13]._2.value);
 									$('#myUserId').val(data.fields[12]._2.value);
-								/*	$('#done_step2').click();*/
-								/*	this.saveform();*/
-								/*	this.enableStepThree();*/
+									$('#done_step2').click();
+									this.saveform();
+									this.enableStepThree();
 
 								}
-							});
+							});*/
 							
 							
 						},
@@ -242,12 +242,10 @@ define(
 						 * form
 						 */
 						comepleteSecondStep : function(e) {
-								
-								alert("hjadgf");
+
 							e.preventDefault();
-							alert("2");
 							this.data.url = "/registration";
-							alert("3");
+
 							/*
 							 * @TODO only select a school from existing list or
 							 * add new school
@@ -289,21 +287,15 @@ define(
 								'associatedSchoolId' : $('#associatedSchoolId')
 										.val()
 							});
-							alert("4");
-							alert($('#lastName').val());
-							
+
 							this.saveForm();
-							
-							
-							alert("5");
 						},
 
 						/**
 						 * step 2 registration success
 						 */
 						success : function(model, data) {
-							
-							
+
 							/* enable step 3 */
 							if (data != "Username Already Exists"
 									&& data != "Please select an existing school or create your own one") {
