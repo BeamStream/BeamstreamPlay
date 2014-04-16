@@ -31,7 +31,7 @@ object OptionOfQuestionDAO extends SalatDAO[OptionOfQuestion, ObjectId](collecti
 /**
  * Question With Polls
  */
-case class QuestionWithPoll(question: Question, rocked: Boolean, followed: Boolean, followerOfQuestionPoster: Boolean, profilePic: Option[String] = None, comments: Option[Int] = None,answers: Option[Int] = None, polls: List[OptionOfQuestion])
+case class QuestionWithPoll(question: Question, rocked: Boolean, followed: Boolean, followerOfQuestionPoster: Boolean, profilePic: Option[String] = None, comments: Option[Int] = None, answers: Option[Int] = None, polls: List[OptionOfQuestion])
 
 /**
  * Comment With Profile Picture
@@ -41,7 +41,7 @@ case class CommentResult(comment: Comment, var profilePic: Option[String] = None
 /**
  * Document Results After Uploading From Main Stream
  */
-case class DocResulttoSent(message: Option[Message], question:Option[Question]=None, docName: String, docDescription: String, rocked: Boolean, followed: Boolean,  profilePic: Option[String] = None, comments: Option[Int] = None, followerOfMessagePoster: Option[Boolean] = None, rockersNames: List[String])
+case class DocResulttoSent(message: Option[Message], question: Option[Question] = None, docName: String, docDescription: String, rocked: Boolean, followed: Boolean, profilePic: Option[String] = None, comments: Option[Int] = None, followerOfMessagePoster: Option[Boolean] = None, rockersNames: List[String])
 /**
  * User & User School details after Registration
  */
@@ -59,3 +59,4 @@ case class Photos(photos: List[UserMedia])
 case class Videos(videos: List[UserMedia])
 case class Documents(documents: List[Document])
 case class DocumentsAndMedia(documents: List[Document], media: List[UserMedia])
+case class RegistrationResultToSet(firstName: Option[String], lastName: Option[String], schoolName: Option[String], major: Option[String], gradeLevel: Option[String], degreeProgram: Option[String], graduate: Option[String], location: Option[String], cellNumber: Option[String], aboutYourself: Option[String], username: Option[String], degreeExpected: Option[String], userId: Option[String], associatedSchoolId: Option[String])

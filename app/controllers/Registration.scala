@@ -32,6 +32,8 @@ import com.ning.http.client.Response
 import play.api.cache.Cache
 import play.api.Play.current
 import play.api.mvc.AnyContent
+import play.api.libs.json._
+
 
 object Registration extends Controller {
   implicit val formats = new net.liftweb.json.DefaultFormats {
@@ -383,6 +385,7 @@ object Registration extends Controller {
   }
 
    def getUserDataFromCache: Action[AnyContent] = Action { implicit request =>
-    Ok(write(Cache.get("userData"))).as("application/json")
+     val userInfo: JsValue  = Cache.getAs[JsValue]("userData").get
+     Ok(Json.obj("data" -> userInfo))
   }
 }

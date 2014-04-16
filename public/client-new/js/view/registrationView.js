@@ -132,7 +132,7 @@ define(
 							 * compiledTemplate(userInfo)); } }
 							 */
 							
-							/*$
+		/*					$
 							.ajax({
 								type : 'GET',
 								url:'/findUserData',
@@ -173,8 +173,8 @@ define(
 									this.enableStepThree();
 
 								}
-							});*/
-							
+							});
+*/							
 							
 						},
 

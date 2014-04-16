@@ -37,10 +37,10 @@ org.scalastyle.sbt.ScalastylePlugin.Settings
 
 ScctPlugin.instrumentSettings
 
-play.Project.playScalaSettings
-
 parallelExecution in Test := false
 
 parallelExecution in ScctTest := false
+
+play.Project.playScalaSettings
 
 scalacOptions += "-feature"
