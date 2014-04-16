@@ -18,7 +18,7 @@ object ReadingSpreadsheetUtil extends App {
    * Read Schools From Spreadsheet and Save In Database If  Not Exist Already
    */
   def readExcelSheetOfSchool {
-    val fileContainingSchools = new File("/home/neelkanth/Desktop/List of Schools (copy).csv")
+    /*val fileContainingSchools = new File("/home/neelkanth/Desktop/List of Schools (copy).csv")
     val inputStream = new FileInputStream(fileContainingSchools)
     val sheetContainingSchools = WorkbookFactory.create(inputStream).getSheetAt(0)
     val rowsOftheSheet = sheetContainingSchools.rowIterator
@@ -30,20 +30,20 @@ object ReadingSpreadsheetUtil extends App {
         val schoolListContainingThisSchoolName = School.findSchoolByName(cellsOfTheRow.next.toString)
         if (schoolListContainingThisSchoolName.isEmpty) School.addNewSchool(school)
       }
-    }
+    }*/
 
   }
 
   def readCSVOfSchools {
-    val reader = new CSVReader(new FileReader("/home/neelkanth/Desktop/school.csv"))
+    /*val reader = new CSVReader(new FileReader("/home/neelkanth/Desktop/school.csv"))
     for (row <- reader.readAll) {
       val schoolNameToSave = row(1) + ", " + row(3)
       val schoolToCreate = new School(new ObjectId, schoolNameToSave, "")
       val schoolId = School.addNewSchool(schoolToCreate)
-    }
+    }*/
   }
 
   //Calling Function
-  readCSVOfSchools
+//  readCSVOfSchools
 
 }

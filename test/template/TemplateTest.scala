@@ -11,6 +11,7 @@ import play.api.test.Helpers._
 import play.api.mvc.Session
 import play.api.mvc.Flash
 import play.api.mvc.RequestHeader
+import play.mvc.Results.Redirect
 
 class TemplateTest extends Specification {
 
@@ -35,13 +36,11 @@ class TemplateTest extends Specification {
   "render error template" in {
     val html = views.html.error()
     contentType(html) must equalTo("text/html")
-    //    contentAsString(html) must contain("Media")
   }
 
   "render fetchtoken template" in {
     val html = views.html.fetchtoken()
     contentType(html) must equalTo("text/html")
-    //    contentAsString(html) must contain("Media")
   }
 
   "render header template" in {
@@ -87,12 +86,24 @@ class TemplateTest extends Specification {
     contentAsString(html) must contain("Recover")
   }
 
+  "render registration template" in {
+    val html = views.html.registration("", None)
+    contentType(html) must equalTo("text/html")
+    contentAsString(html) must contain("Registration")
+  }
+  
   "render resetAccount template" in {
     val html = views.html.resetaccount()
     contentType(html) must equalTo("text/html")
     contentAsString(html) must contain("Reset")
   }
 
+  "render showgoogledocs template" in {
+    val html = views.html.showgoogledocs(List(("","")))
+    contentType(html) must equalTo("text/html")
+    contentAsString(html) must contain("docs")
+  }
+  
   "render sidebar template" in {
     val html = views.html.sidebar()
     contentType(html) must equalTo("text/html")
@@ -108,12 +119,13 @@ class TemplateTest extends Specification {
   /**
    * TODO testing of stream page
    */
-  /*"render stream template" in {
-    val html = views.html.stream("Ok")
+/*  "render stream template" in {
+    implicit request => RequestHeader
+    val html = views.html.stream("Ok")(Session(), Flash(), RequestHeader)
     contentType(html) must equalTo("text/html")
     contentAsString(html) must contain("Sign up")
-  }*/
-
+  }
+*/
   "render uploadgoogledocs template" in {
     val html = views.html.uploadgoogledocs()
     contentType(html) must equalTo("text/html")
