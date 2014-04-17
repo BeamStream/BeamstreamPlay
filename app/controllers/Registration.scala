@@ -32,6 +32,8 @@ import com.ning.http.client.Response
 import play.api.cache.Cache
 import play.api.Play.current
 import play.api.mvc.AnyContent
+import play.api.libs.json._
+
 
 object Registration extends Controller {
   implicit val formats = new net.liftweb.json.DefaultFormats {
@@ -325,6 +327,7 @@ object Registration extends Controller {
    * Update User (VA)
    */
   private def updateUser(userJson: JsValue): (Boolean, String) = {
+    println(userJson)
     val userId = (userJson \ "userId").as[String]
     val firstName = (userJson \ "firstName").as[String]
     val email = (userJson \ "mailId").asOpt[String]
@@ -333,7 +336,7 @@ object Registration extends Controller {
     val location = (userJson \ "location").as[String]
     val about = (userJson \ "aboutYourself").as[String]
     val cellNumber = (userJson \ "cellNumber").as[String]
-
+   
     val canUserRegisterWithThisUsername = User.canUserRegisterWithThisUsername(userName)
 
     def canUserRegister: (Boolean, String) = {
@@ -383,6 +386,7 @@ object Registration extends Controller {
   }
 
    def getUserDataFromCache: Action[AnyContent] = Action { implicit request =>
-    Ok(write(Cache.get("userData"))).as("application/json")
+     val userInfo: JsValue  = Cache.getAs[JsValue]("userData").get
+     Ok(Json.obj("data" -> userInfo))
   }
 }

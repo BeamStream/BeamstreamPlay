@@ -16,9 +16,10 @@ define(
 		[ 'view/formView', '../../lib/bootstrap.min',
 				'../../lib/bootstrap-select', '../../lib/bootstrap-modal',
 				'../../lib/jquery.meio.mask', '../../lib/bootstrap-datepicker',
-				'text!templates/registration.tpl', ],
+				'text!templates/registration.tpl',
+				'text!templates/registered.tpl' ],
 		function(FormView, Bootstrap, BootstrapSelect, BootstrapModal,
-				MaskedInput, Datepicker, RegistrationTpl) {
+				MaskedInput, Datepicker, RegistrationTpl, RegisteredTpl) {
 			var RegistrationView;
 			RegistrationView = FormView
 					.extend({
@@ -131,51 +132,9 @@ define(
 							 * ,'mailId': email}); this.$(".content").html(
 							 * compiledTemplate(userInfo)); } }
 							 */
-							
-							/*$
-							.ajax({
-								type : 'GET',
-								url:'/findUserData',
-								
-						
-								success : function(data) {
-										
-									
-								
-								alert(JSON.stringify(data));
-									
-									$('#username').val(data.fields[10]._2.value);
-									
-									$('#firstName').val(data.fields[0]._2.value);
-									$('#lastName').val(data.fields[1]._2.value);
-									$('#schoolName').val(data.fields[2]._2.value);
-									$('#major').val(data.fields[3]._2.value);
-									$('#aboutYourself').val(data.fields[9]._2.value);
-									$('#gradeLevel .filter-option').text(data.fields[4]._2.value);
-									$('#degreeProgram .filter-option').text(data.fields[5]._2.value);
-									$('#location').val(data.fields[7]._2.value);
-									$('#cellNumber').val(data.fields[8]._2.value);
-									$('#graduate .filter-option').text(data.fields[6]._2.value);
-									
-									if(data.fields[6]._2.value == "yes")
-										{
-										
-										$('#graduationDate-set').css('visibility','visible');
-										$('#graduationDate-set').css('display','block');
-										$('#graduationDate').val(data.fields[11]._2.value);
-										
-										}
-									
-									$('#associatedSchoolId').val(data.fields[13]._2.value);
-									$('#myUserId').val(data.fields[12]._2.value);
-									$('#done_step2').click();
-									this.saveform();
-									this.enableStepThree();
 
-								}
-							});*/
 							
-							
+
 						},
 
 						onAfterRender : function() {
@@ -186,6 +145,50 @@ define(
 							});
 
 							$('#datepicker').datepicker();
+							
+							$
+							.ajax({
+								type : 'GET',
+								url : '/findUserData',
+								success : function(data) {
+									$('#username').val(
+											data.data.username);
+									$('#firstName').val(
+											data.data.firstName);
+									$('#lastName').val(
+											data.data.lastName);
+									$('#schoolName').val(
+											data.data.schoolName);
+									$('#major').val(data.data.major);
+									$('#aboutYourself').val(
+											data.data.aboutYourself);
+									var gradeLvl = data.data.gradeLevel;
+									$('[name=gradeLevel] option')
+											.filter(
+													function() {
+														return ($(this)
+																.text() == gradeLvl);
+													}).prop('selected',
+													true);
+									var degreePgrm = data.data.degreeProgram;
+									$('[name=degreeProgram] option')
+											.filter(
+													function() {
+														return ($(this)
+																.text() == degreePgrm);
+													}).prop('selected',
+													true);
+									$('#location').val(
+											data.data.location);
+									$('#cellNumber').val(
+											data.data.cellNumber);
+									$('#associatedSchoolId')
+											.val(
+													data.data.associatedSchoolId);
+									$('#myUserId')
+											.val(data.data.userId);
+								}
+							});
 						},
 
 						/**
@@ -273,13 +276,15 @@ define(
 								});
 							}
 
+							
+
 							// set validation for degreeExpected field
 							if (!$('#degreeExpected-set').is(':hidden')
 									&& !$('#degreeExpected').val()) {
 								this.data.models[0].set({
 									'degreeExpected' : ''
 								});
-							}
+							} 
 							// set school details to modal
 							this.data.models[0].set({
 								'userId' : $('#myUserId').val(),
@@ -287,7 +292,17 @@ define(
 								'associatedSchoolId' : $('#associatedSchoolId')
 										.val()
 							});
-
+							this.data.models[0].set({
+								'username' : $('#username').val(),
+								'firstName' : $('#firstName').val(),
+								'lastName' : $('#lastName').val(),
+								'major' : $('#major').val(),
+								'aboutYourself' : $('#aboutYourself').val(),
+								'gradeLevel' : $('#gradeLevel').val(),
+								'degreeProgram' : $('#degreeProgram').val(),
+								'location' : $('#location').val(),
+								'cellNumber' : $('#cellNumber').val(),
+							});
 							this.saveForm();
 						},
 
@@ -295,7 +310,6 @@ define(
 						 * step 2 registration success
 						 */
 						success : function(model, data) {
-
 							/* enable step 3 */
 							if (data != "Username Already Exists"
 									&& data != "Please select an existing school or create your own one") {
@@ -309,6 +323,7 @@ define(
 								});
 								this.data.models[0].removeAttr('user');
 								this.data.models[0].removeAttr('userSchool');
+
 								this.enableStepThree();
 							} else {
 								alert(data)
@@ -433,7 +448,7 @@ define(
 											type : 'POST',
 											data : data,
 											url : "/media",
-//											cache : false,
+											// cache : false,
 											contentType : false,
 											processData : false,
 											success : function(data) {
@@ -482,7 +497,7 @@ define(
 							$.ajax({
 								type : 'GET',
 								url : "/defaultMedia",
-//								cache : false,
+								// cache : false,
 								contentType : false,
 								processData : false
 							});
@@ -492,13 +507,11 @@ define(
 						noprofilepic : function(e) {
 							e.preventDefault();
 							$("#selectUploadPhoto").modal('hide');
-/*							$.ajax({
-								type : 'GET',
-								url : "/defaultMedia",
-								cache : false,
-								contentType : false,
-								processData : false
-							});*/
+							/*
+							 * $.ajax({ type : 'GET', url : "/defaultMedia",
+							 * cache : false, contentType : false, processData :
+							 * false });
+							 */
 							localStorage["loggedUserProfileUrl"] = '/beamstream-new/images/profile-upload.png';
 							window.location = "/class";
 						},

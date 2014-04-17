@@ -145,13 +145,16 @@ define(
 								$(e.target).addClass(this.FIELD_CHANGE)
 							}
 						},
+						
 						_onSave : function(e) {
 							this.onSave(e)
 						},
+						
 						onSave : function(e) {
 						},
+						
 						saveForm : function(e, callback) {
-							_.bindAll(this, "success", "error",
+							_.bindAll(this,
 									"afterSubmitError", "afterSubmitSuccess",
 									"success", "error", "serverError");
 							var that = this, attribute;
@@ -166,6 +169,7 @@ define(
 								validate : false
 							})
 						},
+						
 						setValue : function(model, p, v, i) {
 							var key, value, child;
 							if (_.isEmpty(_.pick(model.attributes, p[0]))) {
