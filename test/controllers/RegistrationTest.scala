@@ -35,6 +35,8 @@ import models.Graduated
 import models.DegreeExpected
 import play.api.cache.Cache
 import play.api.Play.current
+import models.SchoolDAO
+import models.School
 
 @RunWith(classOf[JUnitRunner])
 class RegistrationTest extends FunSuite with BeforeAndAfter {
@@ -45,6 +47,7 @@ class RegistrationTest extends FunSuite with BeforeAndAfter {
       StreamDAO.remove(MongoDBObject("streamName" -> ".*".r))
       TokenDAO.remove(MongoDBObject("tokenString" -> ".*".r))
       UserSchoolDAO.remove(MongoDBObject("schoolName" -> ".*".r))
+      SchoolDAO.remove(MongoDBObject("schoolName" -> ".*".r))
     }
   }
 
@@ -107,22 +110,41 @@ class RegistrationTest extends FunSuite with BeforeAndAfter {
     }
   }
 
-  /*test("Register User") {
+  test("Register User") {
+    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
+    val userId = User.createUser(user)
     val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
 
     val myUserSchool = UserSchool(new ObjectId, new ObjectId("5347af57c4aa242096d8eb4d"), "IIITD", Year.Graduated_Masters, Degree.Masters,
       "CSE", Graduated.No, Option(formatter.parse("12-07-2011")), Option(DegreeExpected.Winter2014), None)
-    val schoolId = UserSchool.createSchool(myUserSchool)
-    val jsonString = """{"firstName":"Himanshu","lastName":"Gupta","schoolName":"IIITD","major":"CSE","gradeLevel":"Graduated(Master's)","degreeProgram":"Master's","graduate":"no","location":"Delhi","cellNumber":"(995) 870-4887","aboutYourself":"Master of Technology","username":"himanshug735","degreeExpected":"Winter 2014","userId":"5347af05c4aa242096d8eb4b","associatedSchoolId":""" + """"""" + schoolId.get + """"""" + """}"""
+    val userSchoolId = UserSchool.createSchool(myUserSchool)
+    val school = School(new ObjectId, "IIITD", "www.iiitd.ac.in")
+    val schoolId = School.addNewSchool(school)
+    val jsonString = """{"firstName":"Himanshu","lastName":"Gupta","schoolName":"IIITD","major":"CSE","gradeLevel":"Graduated(Master's)","degreeProgram":"Master's","graduate":"no","location":"Delhi","cellNumber":"(995) 870-4887","aboutYourself":"Master of Technology","username":"himanshug735","degreeExpected":"Winter 2014","userId":""" + """"""" + userId.get + """"""" + ""","mailId":"himanshu1205@iiitd.ac.in","associatedSchoolId":""" + """"""" + schoolId.get + """"""" + """}"""
     val json: JsValue = play.api.libs.json.Json.parse(jsonString)
     running(FakeApplication()) {
-      val result = route(
-        FakeRequest(POST, "/registration").
-          withJsonBody(json))
+      val result = route(FakeRequest(POST, "/registration").withBody(json))
       assert(status(result.get) === 200)
     }
   }
-*/
+
+  test("Edit User Info") {
+    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
+    val userId = User.createUser(user)
+    val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
+
+    val myUserSchool = UserSchool(new ObjectId, new ObjectId("5347af57c4aa242096d8eb4d"), "IIITD", Year.Graduated_Masters, Degree.Masters,
+      "CSE", Graduated.No, Option(formatter.parse("12-07-2011")), Option(DegreeExpected.Winter2014), None)
+    val userSchoolId = UserSchool.createSchool(myUserSchool)
+    val school = School(new ObjectId, "IIITD", "www.iiitd.ac.in")
+    val schoolId = School.addNewSchool(school)
+    val jsonString = """{"firstName":"Himanshu","lastName":"Gupta","schoolName":"IIITD","major":"CSE","gradeLevel":"Graduated(Master's)","degreeProgram":"Master's","graduate":"yes","location":"Delhi","cellNumber":"(995) 870-4887","aboutYourself":"Master of Technology","username":"himanshug735","degreeExpected":"Winter 2014","userId":""" + """"""" + userId.get + """"""" + ""","mailId":"himanshu1205@iiitd.ac.in","associatedSchoolId":""" + """"""" + schoolId.get + """"""" + ""","userSchoolId":""" + """"""" + userSchoolId.get + """"""" + """}"""
+    val json: JsValue = play.api.libs.json.Json.parse(jsonString)
+    running(FakeApplication()) {
+      val result = route(FakeRequest(PUT, "/registration/" + userId.get).withBody(json))
+      assert(status(result.get) === 200)
+    }
+  }
 
   test("Registration Complete") {
     running(FakeApplication()) {
@@ -156,6 +178,7 @@ class RegistrationTest extends FunSuite with BeforeAndAfter {
       StreamDAO.remove(MongoDBObject("streamName" -> ".*".r))
       TokenDAO.remove(MongoDBObject("tokenString" -> ".*".r))
       UserSchoolDAO.remove(MongoDBObject("schoolName" -> ".*".r))
+      SchoolDAO.remove(MongoDBObject("schoolName" -> ".*".r))
     }
   }
 }

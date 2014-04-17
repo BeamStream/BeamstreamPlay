@@ -269,8 +269,8 @@ object QuestionController extends Controller {
    */
 
   def deleteTheAnswer(answerId: String, questionId: String): Action[AnyContent] = Action { implicit request =>
-    val deletedTheCommnet = Question.deleteAnswerPermanently(new ObjectId(answerId), new ObjectId(questionId), new ObjectId(request.session.get("userId").get))
-    deletedTheCommnet match {
+    val deletedTheComment = Question.deleteAnswerPermanently(new ObjectId(answerId), new ObjectId(questionId), new ObjectId(request.session.get("userId").get))
+    deletedTheComment match {
       case true => Ok(write(new ResulttoSent("Success", "Answer Has Been Deleted")))
       case false => Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Answer")))
     }

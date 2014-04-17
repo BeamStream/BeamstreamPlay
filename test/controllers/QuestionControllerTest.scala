@@ -28,6 +28,7 @@ import play.api.test.FakeApplication
 import play.api.test.Helpers._
 import play.api.libs.json.JsValue
 import play.api.test.FakeRequest
+
 @RunWith(classOf[JUnitRunner])
 class QuestionControllerTest extends FunSuite with BeforeAndAfter {
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
@@ -100,7 +101,64 @@ class QuestionControllerTest extends FunSuite with BeforeAndAfter {
       assert(status(result.get) === 200)
     }
   }
+  
+  test("Get All Questions of a Stream") {
+    running(FakeApplication()) {
+      val userId = User.createUser(user)
+      val question = Question(new ObjectId, "How Was the Class ?", user.id, Access.Public, Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil, Nil, false, None, None)
+      val questionId = Question.addQuestion(question)
+      val anotherQuestion = Question(new ObjectId, "How Was the Day ?", user.id, Access.Public, Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil, Nil, false, None, None)
+      val anotherQuestionId = Question.addQuestion(anotherQuestion)
+      val result1 = route(FakeRequest(GET, "/getAllQuestionsForAStream/"+ stream.id + "/date/2/1").withSession("userId" -> userId.get.toString))
+      assert(status(result1.get) === 200)
+      val result2 = route(FakeRequest(GET, "/getAllQuestionsForAStream/"+ stream.id + "/rock/2/1").withSession("userId" -> userId.get.toString))
+      assert(status(result2.get) === 200)
+      val result3 = route(FakeRequest(GET, "/getAllQuestionsForAStream/"+ stream.id + "/the/2/1").withSession("userId" -> userId.get.toString))
+      assert(status(result2.get) === 200)
+    }
+  }
 
+  test("Get All Answered Questions of a Stream") {
+    running(FakeApplication()) {
+      val userId = User.createUser(user)
+      val question = Question(new ObjectId, "How Was the Class ?", user.id, Access.Public, Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil, Nil, true, None, None)
+      val questionId = Question.addQuestion(question)
+      val anotherQuestion = Question(new ObjectId, "How Was the Day ?", user.id, Access.Public, Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil, Nil, true, None, None)
+      val anotherQuestionId = Question.addQuestion(anotherQuestion)
+      val result1 = route(FakeRequest(GET, "/getAllAnswerdQuestionForAStream/" + stream.id + "/2/1/answered").withSession("userId" -> userId.get.toString))
+      assert(status(result1.get) === 200)
+    }
+  }
+  
+  test("Get All Answers of a Question") {
+    running(FakeApplication()) {
+      val userId = User.createUser(user)
+      val comment = Comment(new ObjectId, "Good", new Date, userId.get, user.firstName, user.lastName, 0, List(userId.get))
+      val commentId = Comment.createComment(comment)
+      val question = Question(new ObjectId, "How was the Class ?", user.id, Access.Public, Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, List(commentId.get), Nil, Nil, true, None, None)
+      val questionId = Question.addQuestion(question)
+      val result = route(FakeRequest(GET, "/answers/" + questionId.get))
+      assert(status(result.get) === 200)
+    }
+  }
+  
+  /**
+   * TODO testing of Deleting an Answer of a Question
+   */
+  /*test("Delete an Answer of a Question") {
+    running(FakeApplication()) {
+      val userId = User.createUser(user)
+      val comment = Comment(new ObjectId, "Good", new Date, userId.get, user.firstName, user.lastName, 0, List(userId.get))
+      val commentId = Comment.createComment(comment)
+      val question = Question(new ObjectId, "How was the Class ?", user.id, Access.Public, Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, List(commentId.get), Nil, Nil, true, None, None)
+      val questionId = Question.addQuestion(question)
+      val result1 = route(FakeRequest(PUT, "/remove/answer/" + questionId.get + "/" + commentId.get.toString()).withSession("userId" -> userId.get.toString))
+      assert(status(result1.get) === 200)
+      val result2 = route(FakeRequest(PUT, "/remove/answer/" + questionId.get + "/" + commentId.get.toString()).withSession("userId" -> (new ObjectId).toString()))
+      assert(status(result2.get) === 200)
+    }
+  }*/
+  
   after {
     running(FakeApplication()) {
       UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
