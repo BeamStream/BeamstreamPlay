@@ -33,6 +33,8 @@ import models.Year
 import models.Degree
 import models.Graduated
 import models.DegreeExpected
+import play.api.cache.Cache
+import play.api.Play.current
 
 @RunWith(classOf[JUnitRunner])
 class RegistrationTest extends FunSuite with BeforeAndAfter {
@@ -52,6 +54,12 @@ class RegistrationTest extends FunSuite with BeforeAndAfter {
       result onComplete {
         case stat => assert(stat.isSuccess === true)
       }
+      val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
+      val userId = User.createUser(user)
+      val result1 = route(FakeRequest(GET, "/login").withSession("userId" -> userId.get.toString())).get
+      assert(status(result) === 200)
+      val result2 = route(FakeRequest(GET, "/login").withCookies(Cookie("Beamstream", userId.get.toString() + " class"))).get
+      assert(status(result) === 200)
     }
   }
 
@@ -113,7 +121,33 @@ class RegistrationTest extends FunSuite with BeforeAndAfter {
           withJsonBody(json))
       assert(status(result.get) === 200)
     }
-  }*/
+  }
+*/
+
+  test("Registration Complete") {
+    running(FakeApplication()) {
+      val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
+      val userId = User.createUser(user)
+      val tokenTobeCreated = Token(new ObjectId, userId.get.toString(), TokenEmailUtil.securityToken, false)
+      Token.addToken(tokenTobeCreated)
+      val result = route(FakeRequest(GET, "/registrationComplete").withSession("userId" -> userId.get.toString())).get
+      assert(status(result) === 200)
+    }
+  }
+
+  test("Get UserData from Cache") {
+    running(FakeApplication()) {
+      val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
+      val myUserSchool = UserSchool(new ObjectId, new ObjectId("5347af57c4aa242096d8eb4d"), "IIITD", Year.Graduated_Masters, Degree.Masters,
+        "CSE", Graduated.No, Option(formatter.parse("12-07-2011")), Option(DegreeExpected.Winter2014), None)
+      val schoolId = UserSchool.createSchool(myUserSchool)
+      val jsonString = """{"firstName":"Himanshu","lastName":"Gupta","schoolName":"IIITD","major":"CSE","gradeLevel":"Graduated(Master's)","degreeProgram":"Master's","graduate":"no","location":"Delhi","cellNumber":"(995) 870-4887","aboutYourself":"Master of Technology","username":"himanshug735","degreeExpected":"Winter 2014","userId":"5347af05c4aa242096d8eb4b","associatedSchoolId":""" + """"""" + schoolId.get + """"""" + """}"""
+      val json: JsValue = play.api.libs.json.Json.parse(jsonString)
+      Cache.set("userData", json)
+      val result = route(FakeRequest(GET, "/findUserData")).get
+      assert(status(result) === 200)
+    }
+  }
 
   after {
     running(FakeApplication()) {

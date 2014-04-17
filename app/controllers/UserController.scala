@@ -41,10 +41,11 @@ object UserController extends Controller {
    */
 
   def signOut: Action[AnyContent] = Action { implicit request =>
-    val userId = request.session.get("userId")
-    if (userId.isDefined) {
-      OnlineUserCache.setOffline(userId.get)
-      Ok(write(ResulttoSent("Success", userId.get))).withNewSession.discardingCookies(DiscardingCookie("Beamstream"))
+    val userId_session = request.session.get("userId")
+    val userId_cookies = request.cookies.get("Beamstream")
+    if (userId_session.isDefined || userId_cookies.isDefined) {
+      OnlineUserCache.setOffline(userId_cookies.get.value.split(" ")(0))
+      Ok(write(ResulttoSent("Success", userId_cookies.get.value.split(" ")(0)))).withNewSession.discardingCookies(DiscardingCookie("Beamstream"))
     } else {
       Redirect("/login")
     }

@@ -26,6 +26,7 @@ class ProgressStatusUtilTest extends FunSuite with BeforeAndAfter {
   before {
     running(FakeApplication()) {
       UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
+      AmazonProgressDAO.remove(MongoDBObject("userId" -> ".*".r))
     }
   }
 
@@ -42,17 +43,16 @@ class ProgressStatusUtilTest extends FunSuite with BeforeAndAfter {
   test("Find Progress from Amazon") {
     running(FakeApplication()) {
       val userId = User.createUser(user)
-      ProgressStatusUtil.findProgress(userId.get.toString())
-      assert(AmazonProgressDAO.find(MongoDBObject("userId" -> userId.get.toString())).toList(0).percentage === 0)
+      assert(ProgressStatusUtil.findProgress(userId.get.toString()) === 0)
       ProgressStatusUtil.addProgress(userId.get.toString(), 10)
-      ProgressStatusUtil.findProgress(userId.get.toString())
-      assert(AmazonProgressDAO.find(MongoDBObject("userId" -> userId.get.toString())).toList(0).percentage === 10)
+      assert(ProgressStatusUtil.findProgress(userId.get.toString()) === 10)
     }
   }
 
   after {
     running(FakeApplication()) {
       UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
+      AmazonProgressDAO.remove(MongoDBObject("userId" -> ".*".r))
     }
   }
 

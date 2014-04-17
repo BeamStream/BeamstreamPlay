@@ -81,8 +81,31 @@ class AmazonUpload {
     val putObjectRequest = new PutObjectRequest(bucketName, profilePicName, profilePic, new ObjectMetadata)
     s3Client.putObject(putObjectRequest)
   }
+
+  def isFileExists(profilePicName: String): Boolean = {
+    val bucketName = "BeamStream"
+    val s3Client = fetchS3Client
+    try {
+      s3Client.getObject(bucketName, profilePicName)
+      true
+    }
+    catch {
+      case ex: Exception => ex.printStackTrace()
+      false
+    }
+  }
+  
+  def deleteFileFromAmazon(profilePicName: String): Boolean = {
+    val bucketName = "BeamStream"
+    val s3Client = fetchS3Client
+    try {
+      s3Client.deleteObject(bucketName, profilePicName)
+      true
+    }
+    catch {
+      case ex: Exception => ex.printStackTrace()
+      false
+    }
+  }
+
 }
-
-
-
-

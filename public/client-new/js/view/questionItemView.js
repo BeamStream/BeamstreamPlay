@@ -971,7 +971,7 @@ showAllAnswerList: function(eventName){
 						question.save({id: questionId},{
 	    					success : function(model, response) {
 		    		
-	    						alert(">>>>>>>>>>>>>>>>>>sucess")
+//	    						alert(">>>>>>>>>>>>>>>>>>sucess")
 	    						
 					 			if(response.status == "Success")
 		                	 	{
