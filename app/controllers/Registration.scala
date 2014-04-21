@@ -220,7 +220,7 @@ object Registration extends Controller {
   def registerUser: Action[AnyContent] = Action { implicit request =>
     println("Registration registerUser" + request.body.asJson)
     val jsonReceived = request.body.asJson.get
-    Cache.set("userData", jsonReceived)
+    
     val associatedSchoolId = (jsonReceived \ "associatedSchoolId").as[String]
     val schoolName = (jsonReceived \ "schoolName").as[String]
 
@@ -238,6 +238,11 @@ object Registration extends Controller {
             val otherDegree = (jsonReceived \ "otherDegree").asOpt[String]
             val graduate = (jsonReceived \ "graduate").as[String]
             val degreeExpected = (jsonReceived \ "degreeExpected").asOpt[String]
+            
+            /**
+             * Setting User Info in Cache for Autofill feature
+             */
+            Cache.set(userId, jsonReceived)  
 
             val degreeExpectedSeason = (degreeExpected != None) match {
               case true => Option(DegreeExpected.withName(degreeExpected.get))
@@ -386,7 +391,11 @@ object Registration extends Controller {
   }
 
    def getUserDataFromCache: Action[AnyContent] = Action { implicit request =>
-     val userInfo: JsValue  = Cache.getAs[JsValue]("userData").get
-     Ok(Json.obj("data" -> userInfo))
+     val userId = request.cookies.get("Beamstream").get.value.split(" ")(0)
+     val userInfo: Option[JsValue]  = Cache.getAs[JsValue](userId)
+     userInfo match {
+       case None => Ok
+       case Some(userData) => Ok(Json.obj("data" -> userData))
+     }
   }
 }

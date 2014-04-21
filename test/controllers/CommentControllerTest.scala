@@ -205,8 +205,8 @@ class CommentControllerTest extends FunSuite with BeforeAndAfter {
       val comment = Comment(new ObjectId, "Comment1", new Date, userId.get, user.firstName, user.lastName, 0, Nil)
       val commentId = Comment.createComment(comment)
       Message.addCommentToMessage(commentId.get, messageId.get)
-      val result1 = route(FakeRequest(PUT, "/remove/comment/" + messageId.get.toString + "/" + commentId.get.toString).withSession("userId" -> userId.get.toString))
-      assert(status(result1.get) === 200)
+      val result = route(FakeRequest(PUT, "/remove/comment/" + messageId.get.toString + "/" + commentId.get.toString).withSession("userId" -> userId.get.toString))
+      assert(status(result.get) === 200)
     }
   }
 
@@ -243,6 +243,22 @@ class CommentControllerTest extends FunSuite with BeforeAndAfter {
     }
   }
 
+  test("Get Comment Rockers") {
+    running(FakeApplication()) {
+      val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "NeelS", "", Option("Neel"), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
+      val userId = User.createUser(user)
+      val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(userId.get), true, Nil)
+      val streamId = Stream.createStream(stream)
+      val message = Message(new ObjectId, "some message", Option(Type.Audio), Option(Access.Public), formatter.parse("23-07-12"), userId.get, Option(streamId.get), "", "", 0, Nil, Nil, 0, Nil)
+      val messageId = Message.createMessage(message)
+      val comment = Comment(new ObjectId, "Comment1", new Date, userId.get, user.firstName, user.lastName, 0, List(userId.get))
+      val commentId = Comment.createComment(comment)
+      Message.addCommentToMessage(commentId.get, messageId.get)
+      val result = route(FakeRequest(GET, "/rockersOf/comment/" + commentId.get.toString))
+      assert(status(result.get) === 200)
+    }
+  }
+  
   after {
     running(FakeApplication()) {
       UserDAO.remove(MongoDBObject("firstName" -> ".*".r))

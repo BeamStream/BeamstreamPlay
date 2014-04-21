@@ -73,6 +73,7 @@ GET    /rockersOf/question/:questionId                                          
 PUT    /follow/question/:questionId                                                        controllers.QuestionController.followQuestion(questionId:String)
 PUT    /voteAnOptionOf/question/:optionId                                                  controllers.QuestionController.voteAnOptionOfAQuestion(optionId:String)
 PUT    /remove/question/:questionId                                                        controllers.QuestionController.deleteQuestion(questionId:String)              
+GET    /noOfUnansweredQuestions/:streamId                                                  controllers.QuestionController.noOfUnansweredQusetions(streamId:String)
 
 #bitly
 POST   /bitly                                                                              controllers.MessageController.getShortUrlViabitly 

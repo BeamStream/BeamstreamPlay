@@ -18,10 +18,9 @@ object WebsocketCommunicationController extends Controller {
   /**
    * Handles the chat websocket.
    */
-  def chat: WebSocket[play.api.libs.json.JsValue] = WebSocket.async[JsValue] { implicit request =>
+  def chat: WebSocket[JsValue] = WebSocket.async[JsValue] { implicit request =>
     val user = User.getUserProfile(new ObjectId(request.session.get("userId").get))
     WebsocketCommunication.join(user.get.firstName, None, request.session.get("userId").get)
-
   }
 
   def instantiateChat(userId: String): Action[AnyContent] = Action { implicit request =>
