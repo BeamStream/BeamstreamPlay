@@ -127,6 +127,8 @@ class QuestionControllerTest extends FunSuite with BeforeAndAfter {
       val anotherQuestionId = Question.addQuestion(anotherQuestion)
       val result1 = route(FakeRequest(GET, "/getAllAnswerdQuestionForAStream/" + stream.id + "/2/1/answered").withSession("userId" -> userId.get.toString))
       assert(status(result1.get) === 200)
+      val result2 = route(FakeRequest(GET, "/getAllAnswerdQuestionForAStream/" + stream.id + "/2/1/ok").withSession("userId" -> userId.get.toString))
+      assert(status(result2.get) === 200)
     }
   }
   

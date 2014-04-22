@@ -135,6 +135,7 @@ class DocumentTest extends FunSuite with BeforeAndAfter {
       val docToFollow = Document(new ObjectId, "Neel'sFile.jpg", "Neel'sFile", "http://neel.ly/Neel'sFile.jpg", DocType.Other, userId.get, Access.PrivateToClass, new ObjectId, new Date, new Date, 0, Nil, Nil, Nil, "")
       val docId = Document.addDocument(docToFollow)
       assert(Document.followDocument(userId.get, docId) === 1)
+      assert(Document.followDocument(userId.get, docId) === 0)
     }
   }
   
