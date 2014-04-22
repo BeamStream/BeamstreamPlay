@@ -22,7 +22,7 @@ object Global extends GlobalSettings {
   override def onStart(app: Application) {
     try {
       val filePath = Global.getClass().getClassLoader().getResource("ListofSchools.csv")
-      if (School.getAllSchools.length == 0)
+      if (School.getAllSchools.length < 7487)
         ReadingSpreadsheetUtil.readCSVOfSchools(new File(filePath.toURI()))
     } catch {
       case ex: Exception => ex.printStackTrace() //for Reading CSV of schools
