@@ -15,11 +15,18 @@ import play.api.mvc.Results.Redirect
 import play.api.mvc.SimpleResult
 import scala.concurrent.Future
 import play.api.mvc.SimpleResult
+import utils.ReadingSpreadsheetUtil
 
 object Global extends GlobalSettings {
 
   override def onStart(app: Application) {
-    //    ReadingSpreadsheetUtil.readCSVOfSchools      //for Reading CSV of schools
+    try {
+      val filePath = Global.getClass().getClassLoader().getResource("ListofSchools.csv")
+      if (School.getAllSchools.length == 0)
+        ReadingSpreadsheetUtil.readCSVOfSchools(new File(filePath.toURI()))
+    } catch {
+      case ex: Exception => ex.printStackTrace() //for Reading CSV of schools
+    }
     val listOfAllSchools = School.getAllSchools
     School.allSchoolsInDatabase = Nil
     School.allSchoolsInDatabase ++= listOfAllSchools
