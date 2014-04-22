@@ -56,6 +56,10 @@ class ClassControllerTest extends FunSuite with BeforeAndAfter {
     val userId = User.createUser(userToBeCreated)
     val tokenTobeCreated = Token(new ObjectId, userId.get.toString(), TokenEmailUtil.securityToken, false)
     Token.addToken(tokenTobeCreated)
+    running(FakeApplication()) {
+      val result = route(FakeRequest(GET, "/class").withCookies(Cookie("Beamstream", userId.get.toString() + " registration"))).get
+      assert(status(result) === 303)
+    }
     val userMedia = UserMedia(new ObjectId, "", "", userId.get, new Date, "", UserMediaType.Image, Access.Public, true, None, "", 0, Nil, Nil, 0)
     UserMedia.saveMediaForUser(userMedia)
     running(FakeApplication()) {
@@ -72,23 +76,42 @@ class ClassControllerTest extends FunSuite with BeforeAndAfter {
     }
     running(FakeApplication()) {
       val result = route(FakeRequest(GET, "/class").withCookies(Cookie("Beamstream", userId.get.toString() + " class"))).get
-      result onComplete {
-        case stat => assert(stat.isSuccess === false)
-      }
       assert(status(result) === 303)
     }
     running(FakeApplication()) {
       val result = route(FakeRequest(GET, "/class").withCookies(Cookie("Beamstream", userId.get.toString() + " stream"))).get
-      result onComplete {
-        case stat => assert(stat.isSuccess === false)
-      }
       assert(status(result) === 303)
     }
     running(FakeApplication()) {
       val result = route(FakeRequest(GET, "/class").withCookies(Cookie("Beamstream", userId.get.toString() + " registration"))).get
-      result onComplete {
-        case stat => assert(stat.isSuccess === false)
-      }
+      assert(status(result) === 303)
+    }
+    running(FakeApplication()) {
+      val result = route(FakeRequest(GET, "/class").withCookies(Cookie("Beamstream", userId.get.toString() + " browsemedia"))).get
+      assert(status(result) === 303)
+    }
+    val user2 = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", new Date,Nil, Nil, Nil, None, None, None)
+    val user2Id = User.createUser(user2)
+    val token2TobeCreated = Token(new ObjectId, user2Id.get.toString(), TokenEmailUtil.securityToken, true)
+    Token.addToken(token2TobeCreated)
+    running(FakeApplication()) {
+      val result = route(FakeRequest(GET, "/class").withCookies(Cookie("Beamstream", user2Id.get.toString() + " registration"))).get
+      assert(status(result) === 303)
+    }
+    running(FakeApplication()) {
+      val result = route(FakeRequest(GET, "/class").withSession("userId" -> user2Id.get.toString())).get
+      assert(status(result) === 200)
+    }
+    val user3 = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", Option("Neel"), "", "", "", "", new Date,Nil, Nil, Nil, None, None, None)
+    val user3Id = User.createUser(user3)
+    val token3TobeCreated = Token(new ObjectId, user3Id.get.toString(), TokenEmailUtil.securityToken, false)
+    Token.addToken(token3TobeCreated)
+    running(FakeApplication()) {
+      val result = route(FakeRequest(GET, "/class").withCookies(Cookie("Beamstream", user3Id.get.toString() + " registration"))).get
+      assert(status(result) === 303)
+    }
+    running(FakeApplication()) {
+      val result = route(FakeRequest(GET, "/class").withSession("userId" -> user3Id.get.toString())).get
       assert(status(result) === 303)
     }
   }

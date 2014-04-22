@@ -1,4 +1,4 @@
-/*package controllers
+package controllers
 
 import org.scalatest.BeforeAndAfter
 import org.junit.runner.RunWith
@@ -39,6 +39,7 @@ import models.SocialToken
 class GoogleDocsUploadUtilityControllerTest extends FunSuite with BeforeAndAfter {
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
+  val tokenString = "1/xRKyMMkTgYbvY_2BggewKeHMOGu98BI_ZCaKq74im6M"
 
   before {
     running(FakeApplication()) {
@@ -51,11 +52,10 @@ class GoogleDocsUploadUtilityControllerTest extends FunSuite with BeforeAndAfter
     running(FakeApplication()) {
       val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", Option("Neel"), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
       val userId = User.createUser(user)
-      val socialToken = SocialToken(new ObjectId(userId.get.toString()), "1/LMMF-mRLuNabgh9xdP80hMKLh7CXn4_4uoIaJi1ejdU", true)
+      val socialToken = SocialToken(new ObjectId(userId.get.toString()), tokenString, true)
       SocialToken.addToken(socialToken)
-      val result = route(FakeRequest(GET, "/googleDoc/").withSession("userId" -> userId.get.toString()))
-      println(result + ">>>>>>>>>>>>>>>>>>>>>>>")
-//      assert(status(result.get) === 200)
+      val result = route(FakeRequest(GET, "googleDoc/show").withSession("userId" -> userId.get.toString()))
+      assert(status(result.get) === 200)
     }
   }
 
@@ -66,4 +66,4 @@ class GoogleDocsUploadUtilityControllerTest extends FunSuite with BeforeAndAfter
     }
   }
 
-}*/
+}

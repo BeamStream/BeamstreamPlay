@@ -359,6 +359,11 @@ object Question {
       case false => false
     }
   }
+  
+  def getNoOfUnansweredQuestions(streamId: ObjectId): Int = {
+    val unansweredQuestions = QuestionDAO.find(MongoDBObject("streamId" -> streamId, "answered" -> false)).toList
+    unansweredQuestions.length
+  }
 
 }
 

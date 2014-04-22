@@ -151,6 +151,7 @@ object GoogleDocsUploadUtilityController extends Controller {
    * Uploading File To Google
    */
   def uploadToGoogleDrive: Action[play.api.mvc.MultipartFormData[play.api.libs.Files.TemporaryFile]] = Action(parse.multipartFormData) { request =>
+    println("GoogleDocsUploadUtilityController uploadToGoogleDrive " + request.body.file("picture"))
     request.body.file("picture").map { file =>
       val contentType = file.contentType
       val fileName = file.filename

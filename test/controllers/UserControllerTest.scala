@@ -16,6 +16,11 @@ import play.api.Logger
 import play.api.libs.json.JsValue
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import models.User
+import org.bson.types.ObjectId
+import models.UserType
+import java.util.Date
+import play.api.mvc.Cookie
 
 @RunWith(classOf[JUnitRunner])
 class UserControllerTest extends FunSuite with BeforeAndAfter {
@@ -29,6 +34,88 @@ class UserControllerTest extends FunSuite with BeforeAndAfter {
       OnlineUserDAO.remove(MongoDBObject("onlineUsers" -> ".*".r))
     }
   }
+
+  test("Signout") {
+    running(FakeApplication()) {
+      val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
+      val userId = User.createUser(user)
+      val result1 = route(FakeRequest(GET, "/signOut").withCookies(Cookie("Beamstream", userId.get.toString() + " class")))
+      assert(status(result1.get) === 200)
+      val result2 = route(FakeRequest(GET, "/signOut"))
+      assert(status(result2.get) === 303)
+    }
+  }
+  
+  test("Return User JSON") {
+    running(FakeApplication()) {
+      val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
+      val userId = User.createUser(user)
+      val result1 = route(FakeRequest(GET, "/loggedInUserJson").withSession("userId" -> userId.get.toString()))
+      assert(status(result1.get) === 200)
+      val result2 = route(FakeRequest(GET, "/loggedInUserJson"))
+      assert(status(result2.get) === 200)
+    }
+  }
+  
+  test("Test Neo4j") {
+    running(FakeApplication()) {
+      val result = route(FakeRequest(GET, "/testNeo4j"))
+      assert(status(result.get) === 200)
+    }
+  }
+
+  test("Test Neo4j to Find Node") {
+    running(FakeApplication()) {
+      val result = route(FakeRequest(GET, "/testNeo4jFindNode"))
+      assert(status(result.get) === 200)
+    }
+  }
+  
+  test("Test Neo4j to Add Friends") {
+    running(FakeApplication()) {
+      val result = route(FakeRequest(GET, "/testNeo4jAddFriends"))
+      assert(status(result.get) === 200)
+    }
+  }
+  
+  test("Test Neo4j to Print Friends") {
+    running(FakeApplication()) {
+      val result = route(FakeRequest(GET, "/testNeo4jPrintFriends"))
+      assert(status(result.get) === 200)
+    }
+  }
+  
+  test("Active") {
+    running(FakeApplication()) {
+      val result = route(FakeRequest(GET, "/active"))
+      assert(status(result.get) === 200)
+    }
+  }
+  
+  test("Follow User") {
+    running(FakeApplication()) {
+      val user1 = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
+      val user1Id = User.createUser(user1)
+      val user2 = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
+      val user2Id = User.createUser(user2)
+      val result = route(FakeRequest(PUT, "/followUser/" + user2Id.get).withSession("userId" -> user1Id.get.toString()))
+      assert(status(result.get) === 200)
+    }
+  }
+  
+  test("Render Forgot Password View") {
+    running(FakeApplication()) {
+      val result = route(FakeRequest(GET, "/recover"))
+      assert(status(result.get) === 200)
+    }
+  }
+  
+  test("Account Reset") {
+    running(FakeApplication()) {
+      val result = route(FakeRequest(GET, "/accountReset"))
+      assert(status(result.get) === 200)
+    }
+  }
   
   test("Find User for Login") {
     val jsonString = """{"mailId": "neelkanth@knoldus.com","password": "123456"}"""
@@ -40,7 +127,7 @@ class UserControllerTest extends FunSuite with BeforeAndAfter {
       assert(status(result) === 200)
     }
   }
-  
+
   after {
     running(FakeApplication()) {
       ClassDAO.remove(MongoDBObject("className" -> ".*".r))

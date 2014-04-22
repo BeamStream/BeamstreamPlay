@@ -18,6 +18,9 @@ import java.util.Date
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import models.UserDAO
+import models.StreamDAO
+import models.StreamType
+import models.Stream
 
 @RunWith(classOf[JUnitRunner])
 class DocumentControllerTest extends FunSuite with BeforeAndAfter {
@@ -26,6 +29,7 @@ class DocumentControllerTest extends FunSuite with BeforeAndAfter {
     running(FakeApplication()) {
       DocumentDAO.remove(MongoDBObject("documentName" -> ".*".r))
       UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
+      StreamDAO.remove(MongoDBObject("streamName" -> ".*".r))
     }
   }
 
@@ -192,7 +196,9 @@ class DocumentControllerTest extends FunSuite with BeforeAndAfter {
     running(FakeApplication()) {
       val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", Option("Neel"), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
       val userId = User.createUser(user)
-      val result = route(FakeRequest(POST, "/uploadDocumentFromDisk").withSession("userId" -> userId.get.toString).withFormUrlEncodedBody("docAccess" -> "Public", "streamId" -> "5347b032c4aa242096d8eb52", "docDescription" -> "", "uploadedFrom" -> "discussion")).get
+      val stream = Stream(new ObjectId, "al1pha", StreamType.Class, userId.get, List(), true, List())
+      val streamId = Stream.createStream(stream)
+      val result = route(FakeRequest(POST, "/uploadDocumentFromDisk").withSession("userId" -> userId.get.toString).withFormUrlEncodedBody("docAccess" -> "Public", "streamId" -> streamId.get.toString(), "docDescription" -> "", "uploadedFrom" -> "discussion")).get
       assert(status(result) === 500)
     }
   }
@@ -201,6 +207,7 @@ class DocumentControllerTest extends FunSuite with BeforeAndAfter {
     running(FakeApplication()) {
       DocumentDAO.remove(MongoDBObject("documentName" -> ".*".r))
       UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
+      StreamDAO.remove(MongoDBObject("streamName" -> ".*".r))
     }
   }
 

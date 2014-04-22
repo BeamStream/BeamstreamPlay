@@ -19,6 +19,7 @@ import models.UserMedia
 import models.Comment
 import models.Type
 import play.api.mvc.AnyContent
+import play.api.libs.json.Json
 
 /**
  * This controller class is used to store and retrieve all the information about Question and Answers.
@@ -37,7 +38,7 @@ object QuestionController extends Controller {
    */
 
   def newQuestion: Action[AnyContent] = Action { implicit request =>
-
+    println("Questioncontroller newQuestion " + request.body.asJson)
     val questionJsonMap = request.body.asJson.get
     val streamId = (questionJsonMap \ "streamId").as[String]
     val questionBody = (questionJsonMap \ "questionBody").as[String]
@@ -144,6 +145,7 @@ object QuestionController extends Controller {
   //==================================================//
 
   def getAllQuestionForAStreamWithPagination: Action[AnyContent] = Action { implicit request =>
+    println("QuestionController getAllQuestionforAStreamWithPagination " + request.body.asFormUrlEncoded)
     val streamIdJsonMap = request.body.asFormUrlEncoded.get
     val streamId = streamIdJsonMap("streamId").toList(0)
     val pageNo = streamIdJsonMap("pageNo").toList(0).toInt
@@ -158,6 +160,7 @@ object QuestionController extends Controller {
   //======Displays all the questions within a Stream sorted by rocks===//
   //================================================================//
   def getAllQuestionsForAStreamSortedbyRocks: Action[AnyContent] = Action { implicit request =>
+    println("QuestionController getAllQuestionforAStreamSortedbyRocks " + request.body.asFormUrlEncoded)
     val streamIdJsonMap = request.body.asFormUrlEncoded.get
     val streamId = streamIdJsonMap("streamId").toList(0)
     val pageNo = streamIdJsonMap("pageNo").toList(0).toInt
@@ -172,6 +175,7 @@ object QuestionController extends Controller {
   //======Displays all the questions within a Stream for a keyword===//
   //================================================================//
   def getAllQuestionsForAStreambyKeyword: Action[AnyContent] = Action { implicit request =>
+    println("QuestionController getAllQuestionforAStreambyKeyword " + request.body.asFormUrlEncoded)
     val keywordJsonMap = request.body.asFormUrlEncoded.get
     val keyword = keywordJsonMap("keyword").toList(0)
     val streamId = keywordJsonMap("streamId").toList(0)
@@ -269,11 +273,16 @@ object QuestionController extends Controller {
    */
 
   def deleteTheAnswer(answerId: String, questionId: String): Action[AnyContent] = Action { implicit request =>
-    val deletedTheCommnet = Question.deleteAnswerPermanently(new ObjectId(answerId), new ObjectId(questionId), new ObjectId(request.session.get("userId").get))
-    deletedTheCommnet match {
+    val deletedTheComment = Question.deleteAnswerPermanently(new ObjectId(answerId), new ObjectId(questionId), new ObjectId(request.session.get("userId").get))
+    deletedTheComment match {
       case true => Ok(write(new ResulttoSent("Success", "Answer Has Been Deleted")))
       case false => Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Answer")))
     }
+  }
+  
+  def noOfUnansweredQusetions(streamId: String): Action[AnyContent] = Action {implicit request =>
+    val unansweredQuestions = Question.getNoOfUnansweredQuestions(new ObjectId(streamId))
+    Ok(Json.obj("count" -> unansweredQuestions))
   }
 }
 
