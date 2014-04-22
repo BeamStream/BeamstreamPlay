@@ -74,6 +74,7 @@ define(['view/formView',
 
             // get the model attributes
         	var model = this.model.attributes;
+        	
     		
 			var contentType ='';
 			var questionType ='';
@@ -954,6 +955,7 @@ showAllAnswerList: function(eventName){
         	e.preventDefault();
 		 	var questionId = e.target.id;
 		 	var ownerId = $('div#'+questionId).attr('name');
+		 	  var streamId =  $('.sortable li.active').attr('id');
 		 	var self = this;			 
 
 		 	if(localStorage["loggedUserId"] == ownerId)
@@ -981,11 +983,11 @@ showAllAnswerList: function(eventName){
 	                		 		/* pubnum auto push -- delete question*/
    									PUBNUB.publish({
    			                			channel : "deleteQuestionMainStream",
-		                       			 message : { pagePushUid: self.pagePushUid ,questionId : questionId}
+		                       			 message : { pagePushUid: self.pagePushUid,streamId:streamId ,questionId : questionId}
    			               			 })
    			               		   PUBNUB.publish({
    			                			channel : "deleteQuestionSideStream",
-		                       			 message : { pagePushUid: self.pagePushUid ,questionId : questionId}
+		                       			 message : { pagePushUid: self.pagePushUid,streamId:streamId ,questionId : questionId}
    			               			 })
 
 		                	 	}

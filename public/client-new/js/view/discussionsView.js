@@ -188,7 +188,7 @@ define(['view/formView',
 		  */
 		 
 		 showPostButton: function(){
-			 $('.ask-outer').height(function (index, height) {
+			 $('#discussionsView .ask-outer').height(function (index, height) {
  			    return (height + 70);
     		 });
 			 $('#msg-area').css('padding','7.5% 18% 6% 2%');

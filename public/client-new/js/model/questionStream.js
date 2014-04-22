@@ -41,15 +41,14 @@ define(['baseModel',
 
 		setCurrentFilter: function(newFilter){
 			this.set('currentFilter', newFilter);
-			if (this.get('searchStatus')){
+			/*if (this.get('searchStatus')){
 				this.set({searchStatus: false}, {silent: true});
 				//this.restartInterval();
-			}
+			}*/
 		},
 
 		// controls pausing of server updates while text boxes are open
 		updateEditStatus: function(event){
-			
 			
 			
 			if (event.editCounter > 0) {
@@ -63,7 +62,6 @@ define(['baseModel',
 		// },
 
 		updateCurrentStream: function(searchQuery){
-			
 			
 		
 			var that = this;
@@ -100,6 +98,8 @@ define(['baseModel',
 
 		// handles the server request for all question data
 		createQuestionList: function(){
+
+			
 			if((this.get('streamId')) != null  || (this.get('streamId')) != undefined){
 			var requestURL = '/getAllQuestionsForAStream/' + this.get('streamId') + '/date/10/1';
 			var that = this;
@@ -110,10 +110,17 @@ define(['baseModel',
 										that.updateCurrentStream();
 									}
 								});
-			}
 			
+
+			}
+
+		
+		
 		
 		}, 
+		
+		
+		
 
 		/*restartInterval: function(){
 			if (!this.get('searchStatus')){
@@ -121,27 +128,11 @@ define(['baseModel',
 			}
 		}*/
 
-		// // this is not working -- it's unclear if pubnub is actually functioning for questions
-		/*getQuestionsFromPubNub: function(){
-			console.log('getQuestionsFromPubNub is being called');
-			PUBNUB.subscribe({
-		 		channel: 'questions', 
-				restore: true, 
-	 		callback: function(question){
-	 			console.log('getQuestionsFromPubNub', question);
-				},
-				error: function(data){
-				console.log('getQuestionsFromPubNub', data);
-			}
-			})
-		 }*/
+		
 
 	});
 	
-	/*PUBNUB.subscribe({
-		channel : 'questions',
-		message: function(m){alert(m)}
-		});*/
+	
 			 
 	return QuestionStream;
 });

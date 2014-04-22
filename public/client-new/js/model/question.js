@@ -137,7 +137,8 @@ define(['baseModel',
 			this.clear({silent: true});
 			this.set({'deleted': true}, {silent: true});
 			this.trigger('questionModelDelete');
-		}
+		},
+		
 
 		// this was the attempted implementation with pubnub
 		// rockQuestion: function(){

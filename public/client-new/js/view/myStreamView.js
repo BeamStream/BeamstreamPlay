@@ -73,12 +73,30 @@ define(
 										el : $('#questionStreamView')
 									});
 							this.addView(currentQuestionStream);
-
+							
+						
+							
 							// on streamId change, notify the questionStream
 							currentStreamView.on('change:streamId', function(
 									evt) {
 								currentQuestionStream.model
 										.setQuestionStreamId(evt.streamId);
+								
+								
+												
+									$.ajax({
+										
+										type: 'GET',	           
+							            url: "/noOfUnansweredQuestions/"+evt.streamId,
+							            success: function(data){
+							            	
+							            	
+							            	$("#number-new-questions").text	(data.count);
+							            }
+										
+									});
+									
+							
 
 							});
 							
@@ -96,6 +114,9 @@ define(
 							// })
 
 						},
+						
+						
+					
 
 						popout : function() {
 								
@@ -135,6 +156,8 @@ define(
 									+ view.pageNo;
 
 							view.fetch();
+							
+							
 
 						},
 
@@ -338,7 +361,7 @@ define(
 						createGDocument : function(create) {
 
 							
-						/*		alert("ankit");
+						/*		
 							    $('.modal-backdrop').attr('disabled',true);*/
 					
 							
@@ -637,7 +660,6 @@ define(
 																						+ ">"
 																						+ value.stream.streamName
 																						+ "</option>");
-																// alert(value.stream.streamName);
 															});
 
 										}
