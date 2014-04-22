@@ -164,6 +164,9 @@ define(
 									            }
 												
 											});
+											var countUnansweredQues = $("#number-new-questions").text();
+											countUnansweredQues--;
+											$("#number-new-questions").text(countUnansweredQues);
 											
 										}
 									

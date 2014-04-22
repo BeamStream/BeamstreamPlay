@@ -10,7 +10,7 @@
     </div>
 
     <div class="filters">
-        <li id="filter-unanswered"><a href="#">Unanswered</a></li>
+        <li id="filter-unanswered" class="selected-filter selected-arrow"><a href="#">Unanswered</a></li>
         <li id="filter-answered"><a href="#">Answered</a></li>
         <li id="filter-myquestions"><a href="#">My Questions</a></li>
     </div>
