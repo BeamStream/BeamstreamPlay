@@ -74,12 +74,11 @@
             
             <div class="profile-select-block">
               <fieldset class="field">  
-              <select id="gradeLevel"  name="gradeLevel" >
-                           <option value="" selected>Grade Level</option>
-                <option value="Freshman" >Freshman</option>
+              <select id="gradeLevel" data-name="user.gradeLevel" name="gradeLevel" class="selectpicker-info " style="display: none;" placeholder="Grade Level?">
+                <option value="Freshman">Freshman</option>
                 <option value="Sophomore">Sophomore</option>
                 <option value="Junior">Junior</option>
-                <option value="Senior" >Senior</option>
+                <option value="Senior">Senior</option>
                 <option value="Graduated(Master's)">Graduated(Master's)</option>
                 <option value="Graduated(Phd)">Graduated(Phd)</option>
                 <option value="Other">Other</option>
@@ -87,13 +86,10 @@
                <span class="red-star select-star">*</span>
                </fieldset>
             </div>
-            
-            
             <div class="profile-select-block">
               <fieldset class="field">
-              <select id="degreeProgram"  name="degreeProgram">
-                  <option value="" selected>Degree Program</option>
-                <option value="Associate's(AA)" >Associate's(AA)</option>
+              <select id="degreeProgram" data-name="user.degreeProgram" name="degreeProgram" class="selectpicker-info " style="display: none;" placeholder="Degree Program?">
+                <option value="Associate's(AA)">Associate's(AA)</option>
                 <option value="Bachelor's">Bachelor's</option>
                 <option value="Master's">Master's</option>
                 <option value="Doctorate(Phd)">Doctorate(Phd)</option>
@@ -102,6 +98,12 @@
                <span class="red-star select-star">*</span>
               </fieldset>
             </div>
+            
+            <fieldset class="field">  
+            <input style="display:none;" type="text" placeholder="Degree " value="" name="otherDegree" data-name="user.otherDegree" id="otherDegree">
+             <span class="red-star">*</span>
+            </fieldset>
+            
             
             <fieldset class="field">  
             <input style="display:none;" type="text" placeholder="Degree " value="" name="otherDegree" data-name="user.otherDegree" id="otherDegree">

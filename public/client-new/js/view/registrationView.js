@@ -17,9 +17,9 @@ define(
 				'../../lib/bootstrap-select', '../../lib/bootstrap-modal',
 				'../../lib/jquery.meio.mask', '../../lib/bootstrap-datepicker',
 				'text!templates/registration.tpl',
-				'text!templates/registered.tpl' ],
+				 ],
 		function(FormView, Bootstrap, BootstrapSelect, BootstrapModal,
-				MaskedInput, Datepicker, RegistrationTpl, RegisteredTpl) {
+				MaskedInput, Datepicker, RegistrationTpl) {
 			var RegistrationView;
 			RegistrationView = FormView
 					.extend({
@@ -298,8 +298,8 @@ define(
 								'lastName' : $('#lastName').val(),
 								'major' : $('#major').val(),
 								'aboutYourself' : $('#aboutYourself').val(),
-								'gradeLevel' : $('#gradeLevel').val(),
-								'degreeProgram' : $('#degreeProgram').val(),
+								//'gradeLevel' : $('#gradeLevel').val(),
+								//'degreeProgram' : $('#degreeProgram').val(),
 								'location' : $('#location').val(),
 								'cellNumber' : $('#cellNumber').val(),
 							});
