@@ -112,9 +112,9 @@ class MediaControllerTest extends FunSuite with BeforeAndAfter {
     running(FakeApplication()) {
       val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
       val userId = User.createUser(user)
-      val UserMediaObj = UserMedia(new ObjectId, "", "", userId.get, new Date, "http://beamstream.com/Neel.png", UserMediaType.Video, Access.Public, false, Option(new ObjectId), "", 0, Nil, Nil, 0)
+      val UserMediaObj = UserMedia(new ObjectId, "", "", userId.get, new Date, "http://beamstream.com/Neel.png", UserMediaType.Video, Access.Public, false, Option(new ObjectId), "", 0, List(userId.get), Nil, 0)
       UserMedia.saveMediaForUser(UserMediaObj)
-      val result = route(FakeRequest(GET, "/rock/media/" + UserMediaObj.id.toString()).withSession("userId" -> userId.get.toString()))
+      val result = route(FakeRequest(GET, "/rock/media/" + UserMediaObj.id).withSession("userId" -> userId.get.toString()))
       assert(status(result.get) === 200)
     }
   }*/
@@ -123,7 +123,7 @@ class MediaControllerTest extends FunSuite with BeforeAndAfter {
     running(FakeApplication()) {
       val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
       val userId = User.createUser(user)
-      val UserMediaObj = UserMedia(new ObjectId, "", "", userId.get, new Date, "http://beamstream.com/Neel.png", UserMediaType.Video, Access.Public, false, Option(new ObjectId), "", 0, Nil, Nil, 0)
+      val UserMediaObj = UserMedia(new ObjectId, "", "", userId.get, new Date, "http://beamstream.com/Neel.png", UserMediaType.Video, Access.Public, false, Option(new ObjectId), "", 0, List(userId.get), Nil, 0)
       UserMedia.saveMediaForUser(UserMediaObj)
       val result = route(FakeRequest(GET, "/rockersOf/media/" + UserMediaObj.id.toString()).withSession("userId" -> userId.get.toString())).get
       assert(status(result) === 200)

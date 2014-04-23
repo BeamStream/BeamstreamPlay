@@ -175,9 +175,11 @@ class RegistrationTest extends FunSuite with BeforeAndAfter {
       val schoolId = UserSchool.createSchool(myUserSchool)
       val jsonString = """{"firstName":"Himanshu","lastName":"Gupta","schoolName":"IIITD","major":"CSE","gradeLevel":"Graduated(Master's)","degreeProgram":"Master's","graduate":"no","location":"Delhi","cellNumber":"(995) 870-4887","aboutYourself":"Master of Technology","username":"himanshug735","degreeExpected":"Winter 2014","userId":"5347af05c4aa242096d8eb4b","associatedSchoolId":""" + """"""" + schoolId.get + """"""" + """}"""
       val json: JsValue = play.api.libs.json.Json.parse(jsonString)
-      Cache.set("userData", json)
-      val result = route(FakeRequest(GET, "/findUserData").withCookies(Cookie("Beamstream", userId.get.toString() + " registration"))).get
-      assert(status(result) === 200)
+      Cache.set(userId.get.toString(), json)
+      val result1 = route(FakeRequest(GET, "/findUserData").withCookies(Cookie("Beamstream", userId.get.toString() + " registration"))).get
+      assert(status(result1) === 200)
+      val result2 = route(FakeRequest(GET, "/findUserData").withCookies(Cookie("Beamstream", (new ObjectId).toString() + " registration"))).get
+      assert(status(result2) === 200)
     }
   }
 
