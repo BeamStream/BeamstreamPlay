@@ -79,11 +79,13 @@ define(
 							// on streamId change, notify the questionStream
 							currentStreamView.on('change:streamId', function(
 									evt) {
-								currentQuestionStream.model
-										.setQuestionStreamId(evt.streamId);
+								currentQuestionStream.model.setQuestionStreamId(evt.streamId);
 								
 								
-												
+								
+								
+								if(evt.streamId)
+									{
 									$.ajax({
 										
 										type: 'GET',	           
@@ -96,7 +98,7 @@ define(
 										
 									});
 									
-							
+									}
 
 							});
 							
