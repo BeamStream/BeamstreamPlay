@@ -69,9 +69,11 @@ class QuestionTest extends FunSuite with BeforeAndAfter {
       val questionId = Question.addQuestion(question)
       val anotherQuestion = Question(new ObjectId, "How Was the Day ?", user.id, Access.Public, Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil, Nil, false, None, None)
       val anotherQuestionId = Question.addQuestion(anotherQuestion)
-      Question.rockTheQuestion(questionId.get, user.id)
+      val result = Question.rockTheQuestion(questionId.get, user.id)
+      assert(result === 1)
       assert(Question.rockersNameOfAQuestion(questionId.get) === List("Neel "))
       assert(Question.rockersNameOfAQuestion(questionId.get).size === 1)
+      assert(Question.rockTheQuestion(questionId.get, user.id) === 0)
     }
   }
 
@@ -230,6 +232,38 @@ class QuestionTest extends FunSuite with BeforeAndAfter {
       val questionId = Question.addQuestion(question)
       assert(Question.answers(questionId.get).size === 1)
       assert(Question.answers(new ObjectId).size === 0)
+    }
+  }
+  
+  test("Get Number of Unanswered Questions") {
+    running(FakeApplication()) {
+      val question = Question(new ObjectId, "How Was the Class ?", new ObjectId, Access.PrivateToClass, Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, List(new ObjectId), Nil, Nil, false, None, None)
+      val questionId = Question.addQuestion(question)
+      assert(Question.getNoOfUnansweredQuestions(stream.id) === 1)
+    }
+  }
+  
+  test("Delete Answer Permanently") {
+    running(FakeApplication()) {
+      val userId = User.createUser(user)
+      val question = Question(new ObjectId, "How Was the Class ?", new ObjectId, Access.PrivateToClass, Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, List(new ObjectId), Nil, Nil, false, None, None)
+      val questionId = Question.addQuestion(question)
+      val answer = Comment(new ObjectId, "Good", new Date, userId.get, user.firstName, user.lastName, 0, List(userId.get))
+      val answerId = Comment.createComment(answer)
+      assert(Question.deleteAnswerPermanently(answerId.get, questionId.get, new ObjectId) === false)
+      assert(Question.deleteAnswerPermanently(answerId.get, questionId.get, userId.get) === true)
+    }
+  }
+  
+  test("Return Questions with Polls") {
+    running(FakeApplication()) {
+      val userId = User.createUser(user)
+      val question = Question(new ObjectId, "How Was the Class ?", userId.get, Access.PrivateToClass, Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, List(new ObjectId), Nil, Nil, false, None, None)
+      val questionId = Question.addQuestion(question)
+      val answer = Comment(new ObjectId, "Good", new Date, userId.get, user.firstName, user.lastName, 0, List(userId.get))
+      val answerId = Comment.createComment(answer)
+      val questionsList = Question.getAllQuestionsForAStreambyKeyword("How", stream.id, 1, 0)
+      assert(Question.returnQuestionsWithPolls(userId.get, questionsList).size === 1)
     }
   }
   

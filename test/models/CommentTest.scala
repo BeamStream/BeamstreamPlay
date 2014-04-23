@@ -21,6 +21,7 @@ class CommentTest extends FunSuite with BeforeAndAfter {
       StreamDAO.remove(MongoDBObject("streamName" -> ".*".r))
       CommentDAO.remove(MongoDBObject("commentBody" -> ".*".r))
       QuestionDAO.remove(MongoDBObject("questionBody" -> ".*".r))
+      UserMediaDAO.remove(MongoDBObject("name" -> ".*".r))
     }
   }
   test("Create a Comment and find comment by id") {
@@ -79,6 +80,8 @@ class CommentTest extends FunSuite with BeforeAndAfter {
       val commentId = Comment.createComment(comment)
       val anotherComment = Comment(new ObjectId, "Comment2", new Date, userId.get, user.firstName, user.lastName, 11, Nil)
       val anotherCommentId = Comment.createComment(anotherComment)
+      val UserMediaObj = UserMedia(new ObjectId, "", "", userId.get, new Date, "http://beamstream.com/Neel.png", UserMediaType.Image, Access.Public, true, Option(new ObjectId), "", 0, Nil, Nil, 0)
+      UserMedia.saveMediaForUser(UserMediaObj)
 
       assert(Comment.getAllComments(List(commentId.get, anotherCommentId.get)).size === 2)
       assert(Comment.getAllComments(List(commentId.get, anotherCommentId.get))(0).comment.commentBody === "Comment1")
@@ -104,6 +107,7 @@ class CommentTest extends FunSuite with BeforeAndAfter {
       val questionId = Question.addQuestion(question)
       val comment2 = Comment(new ObjectId, "Comment2", new Date, userId.get, user.firstName, user.lastName, 0, Nil)
       val commentId2 = Comment.createComment(comment2)
+      assert(Comment.deleteCommentPermanently(commentId2.get, questionId.get, new ObjectId) === false)
       assert(Comment.deleteCommentPermanently(commentId2.get, questionId.get, userId.get) === true)
     }
   }
@@ -132,6 +136,7 @@ class CommentTest extends FunSuite with BeforeAndAfter {
       StreamDAO.remove(MongoDBObject("streamName" -> ".*".r))
       CommentDAO.remove(MongoDBObject("commentBody" -> ".*".r))
       QuestionDAO.remove(MongoDBObject("questionBody" -> ".*".r))
+      UserMediaDAO.remove(MongoDBObject("name" -> ".*".r))
     }
   }
 }

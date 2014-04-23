@@ -9,6 +9,7 @@ import org.bson.types.ObjectId
 import play.api.test.Helpers.running
 import play.api.test.FakeApplication
 import java.util.Date
+import java.text.DateFormat
 
 @RunWith(classOf[JUnitRunner])
 class StreamTest extends FunSuite with BeforeAndAfter {
@@ -17,6 +18,7 @@ class StreamTest extends FunSuite with BeforeAndAfter {
     running(FakeApplication()) {
       StreamDAO.remove(MongoDBObject("streamName" -> ".*".r))
       UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
+      ClassDAO.remove(MongoDBObject("className" -> ".*".r))
     }
   }
 
@@ -140,6 +142,9 @@ class StreamTest extends FunSuite with BeforeAndAfter {
     val userId = User.createUser(user)
     val stream = Stream(new ObjectId, "Neel's Stream", StreamType.Class, userId.get, List(newObjectId), true, List())
     val streamId = Stream.createStream(stream)
+    val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
+    val classToBeCreated = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), List(streamId.get))
+    Class.createClass(classToBeCreated, userId.get)
     val result = Stream.deleteStreams(newObjectId, streamId.get)
     assert(result.status === "Success")
     assert(result.message === "Removed Access Successfully")
@@ -157,6 +162,7 @@ class StreamTest extends FunSuite with BeforeAndAfter {
   after {
     StreamDAO.remove(MongoDBObject("streamName" -> ".*".r))
     UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
+    ClassDAO.remove(MongoDBObject("className" -> ".*".r))
   }
 
 }
