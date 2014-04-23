@@ -170,9 +170,6 @@ function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionMod
 
 		deleteQuestion: function(){
 			this.model.deleteQuestion();
-			var countUnansweredQues = $("#number-new-questions").text();
-			countUnansweredQues--;
-			$("#number-new-questions").text(countUnansweredQues);
 		},
 
 		toggleDropdown: function(){

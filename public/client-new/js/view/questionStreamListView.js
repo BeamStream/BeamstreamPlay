@@ -23,6 +23,13 @@ function(BaseView, questionStreamListTPL, QuestionStreamItemView){
 			this.compiledTemplate = Handlebars.compile(questionStreamListTPL);
 
 		},
+		
+		onAfterInit: function(){
+			this.receiveThroughPubNub();
+		},
+		
+		
+		
 
 		addChildViews: function() {
 			var that = this;

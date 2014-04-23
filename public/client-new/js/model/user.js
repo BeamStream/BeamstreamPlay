@@ -20,7 +20,7 @@ define(['baseModel'], function(BaseModel) {
 	var User = BaseModel.extend({ 
 		objName: 'User',
         defaults: {	   
-        	
+        	username:'',
             firstName: '',
 			lastName: '',
 			schoolName: '',
@@ -36,6 +36,9 @@ define(['baseModel'], function(BaseModel) {
 
         
 		validation: {
+			username: {
+				required: true
+			},
 			
             firstName: {
 				required: true
