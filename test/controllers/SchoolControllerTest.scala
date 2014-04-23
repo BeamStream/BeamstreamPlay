@@ -40,10 +40,10 @@ class SchoolControllerTest extends FunSuite with BeforeAndAfter {
     val jsonString = """{"schoolName": "Cambridge","schoolWebsite": "www.cambridge.com"}"""
     val json: JsValue = play.api.libs.json.Json.parse(jsonString)
     running(FakeApplication()) {
-      val result = route(
-        FakeRequest(POST, "/school").
-          withJsonBody(json))
-      assert(status(result.get) === 200)
+      val result1 = route(FakeRequest(POST, "/school").withJsonBody(json))
+      assert(status(result1.get) === 200)
+      val result2 = route(FakeRequest(POST, "/school").withJsonBody(json))
+      assert(status(result2.get) === 200)
     }
   }
 

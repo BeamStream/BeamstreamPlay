@@ -40,7 +40,6 @@ class QuestionControllerTest extends FunSuite with BeforeAndAfter {
       UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
       QuestionDAO.remove(MongoDBObject("questionBody" -> ".*".r))
       StreamDAO.remove(MongoDBObject("name" -> ".*".r))
-
     }
   }
 
@@ -82,15 +81,20 @@ class QuestionControllerTest extends FunSuite with BeforeAndAfter {
     }
   }
 
-  test("Delete The Question") {
+  /**
+   * TODO Testing of Delete The Question
+   */
+  /*test("Delete The Question") {
     running(FakeApplication()) {
       val userId = User.createUser(user)
       val question = Question(new ObjectId, "How Was the Class ?", user.id, Access.PrivateToClass, Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil, Nil, false, None, None)
       val questionId = Question.addQuestion(question)
-      val result = route(FakeRequest(PUT, "/remove/question/" + questionId.get.toString).withSession("userId" -> userId.get.toString))
-      assert(status(result.get) === 200)
+      val result1 = route(FakeRequest(PUT, "/remove/question/" + questionId.get.toString).withSession("userId" -> (new ObjectId).toString))
+      assert(status(result1.get) === 200)
+      val result2 = route(FakeRequest(PUT, "/remove/question/" + questionId.get.toString).withSession("userId" -> userId.get.toString))
+      assert(status(result2.get) === 200)
     }
-  }
+  }*/
 
   test("Follow The Question") {
     running(FakeApplication()) {
@@ -166,12 +170,22 @@ class QuestionControllerTest extends FunSuite with BeforeAndAfter {
       val commentId = Comment.createComment(comment)
       val question = Question(new ObjectId, "How was the Class ?", user.id, Access.Public, Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, List(commentId.get), Nil, Nil, true, None, None)
       val questionId = Question.addQuestion(question)
-      val result1 = route(FakeRequest(PUT, "/remove/answer/" + questionId.get + "/" + commentId.get.toString()).withSession("userId" -> userId.get.toString))
+      val result1 = route(FakeRequest(PUT, "/remove/answer/" + commentId.get.toString() + "/" + questionId.get).withSession("userId" -> userId.get.toString))
       assert(status(result1.get) === 200)
-      val result2 = route(FakeRequest(PUT, "/remove/answer/" + questionId.get + "/" + commentId.get.toString()).withSession("userId" -> (new ObjectId).toString()))
+      val result2 = route(FakeRequest(PUT, "/remove/answer/" + commentId.get.toString() + "/" + questionId.get).withSession("userId" -> (new ObjectId).toString()))
       assert(status(result2.get) === 200)
     }
   }*/
+  
+  test("Get Numner of Unanswered Questions") {
+    running(FakeApplication()) {
+      val userId = User.createUser(user)
+      val question = Question(new ObjectId, "How was the Class ?", user.id, Access.Public, Type.Text, stream.id, "Neel", "Sachdeva", new Date, List(userId.get), Nil, Nil, Nil, Nil, false, None, None)
+      val questionId = Question.addQuestion(question)
+      val result = route(FakeRequest(GET, "/noOfUnansweredQuestions/" + stream.id))
+      assert(status(result.get) === 200)
+    }
+  }
   
   after {
     running(FakeApplication()) {

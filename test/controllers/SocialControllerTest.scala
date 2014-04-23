@@ -45,6 +45,14 @@ class SocialControllerTest extends FunSuite with BeforeAndAfter {
     }
   }
 
+  test("Sign Up Via Social Sites") {
+    running(FakeApplication()) {
+      val result = route(FakeRequest(POST, "/social/social_authentication"))
+      assert(status(result.get) === 200)
+    }
+  }
+  
+  
   after {
     running(FakeApplication()) {
       UserDAO.remove(MongoDBObject("firstName" -> ".*".r))

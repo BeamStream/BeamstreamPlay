@@ -21,6 +21,14 @@ import org.bson.types.ObjectId
 import models.UserType
 import java.util.Date
 import play.api.mvc.Cookie
+import models.UserMedia
+import models.UserMediaType
+import models.Access
+import models.UserMediaDAO
+import models.StreamDAO
+import models.Class
+import models.ClassType
+import java.text.DateFormat
 
 @RunWith(classOf[JUnitRunner])
 class UserControllerTest extends FunSuite with BeforeAndAfter {
@@ -32,6 +40,8 @@ class UserControllerTest extends FunSuite with BeforeAndAfter {
       UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
       UserSchoolDAO.remove(MongoDBObject("schoolName" -> ".*".r))
       OnlineUserDAO.remove(MongoDBObject("onlineUsers" -> ".*".r))
+      UserMediaDAO.remove(MongoDBObject("name" -> ".*".r))
+      StreamDAO.remove(MongoDBObject("streamName" -> ".*".r))
     }
   }
 
@@ -45,7 +55,7 @@ class UserControllerTest extends FunSuite with BeforeAndAfter {
       assert(status(result2.get) === 303)
     }
   }
-  
+
   test("Return User JSON") {
     running(FakeApplication()) {
       val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
@@ -56,7 +66,7 @@ class UserControllerTest extends FunSuite with BeforeAndAfter {
       assert(status(result2.get) === 200)
     }
   }
-  
+
   test("Test Neo4j") {
     running(FakeApplication()) {
       val result = route(FakeRequest(GET, "/testNeo4j"))
@@ -70,28 +80,28 @@ class UserControllerTest extends FunSuite with BeforeAndAfter {
       assert(status(result.get) === 200)
     }
   }
-  
+
   test("Test Neo4j to Add Friends") {
     running(FakeApplication()) {
       val result = route(FakeRequest(GET, "/testNeo4jAddFriends"))
       assert(status(result.get) === 200)
     }
   }
-  
+
   test("Test Neo4j to Print Friends") {
     running(FakeApplication()) {
       val result = route(FakeRequest(GET, "/testNeo4jPrintFriends"))
       assert(status(result.get) === 200)
     }
   }
-  
+
   test("Active") {
     running(FakeApplication()) {
       val result = route(FakeRequest(GET, "/active"))
       assert(status(result.get) === 200)
     }
   }
-  
+
   test("Follow User") {
     running(FakeApplication()) {
       val user1 = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
@@ -102,21 +112,21 @@ class UserControllerTest extends FunSuite with BeforeAndAfter {
       assert(status(result.get) === 200)
     }
   }
-  
+
   test("Render Forgot Password View") {
     running(FakeApplication()) {
       val result = route(FakeRequest(GET, "/recover"))
       assert(status(result.get) === 200)
     }
   }
-  
+
   test("Account Reset") {
     running(FakeApplication()) {
       val result = route(FakeRequest(GET, "/accountReset"))
       assert(status(result.get) === 200)
     }
   }
-  
+
   test("Find User for Login") {
     val jsonString = """{"mailId": "neelkanth@knoldus.com","password": "123456"}"""
     val json: JsValue = play.api.libs.json.Json.parse(jsonString)
@@ -128,13 +138,28 @@ class UserControllerTest extends FunSuite with BeforeAndAfter {
     }
   }
 
+  test("Get all Online Users") {
+    running(FakeApplication()) {
+      val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", Option("Neel"), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
+      val userId = User.createUser(user)
+      val userMedia = UserMedia(new ObjectId, "", "", userId.get, new Date, "", UserMediaType.Image, Access.Public, true, None, "", 0, Nil, Nil, 0)
+      UserMedia.saveMediaForUser(userMedia)
+      val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
+      val classToBeCretaed = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), Nil)
+      Class.createClass(classToBeCretaed, userId.get)
+      val result = route(FakeRequest(GET, "/onlineUsers").withSession("userId" -> userId.get.toString()))
+      assert(status(result.get) === 200)
+    }
+  }
+
   after {
     running(FakeApplication()) {
       ClassDAO.remove(MongoDBObject("className" -> ".*".r))
       UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
       UserSchoolDAO.remove(MongoDBObject("schoolName" -> ".*".r))
       OnlineUserDAO.remove(MongoDBObject("onlineUsers" -> ".*".r))
-
+      UserMediaDAO.remove(MongoDBObject("name" -> ".*".r))
+      StreamDAO.remove(MongoDBObject("streamName" -> ".*".r))
     }
   }
 

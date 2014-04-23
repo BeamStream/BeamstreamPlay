@@ -387,7 +387,6 @@ object Registration extends Controller {
     val tokenFound = Token.findTokenByUserId(userId)
     Token.updateToken(tokenFound(0).tokenString)
     Cache.remove(userId)
-    println(Cache.get(userId) + ">>>>>>>>>>>>>")
     Ok
   }
 
