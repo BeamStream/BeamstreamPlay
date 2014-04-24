@@ -179,11 +179,13 @@ class UserTest extends FunSuite with BeforeAndAfter {
 
   test("Follow User") {
     running(FakeApplication()) {
-      val userId = User.createUser(userA)
-      User.followUser(new ObjectId, userId.get)
-      val user = User.getUserProfile(userId.get)
+      val userAId = User.createUser(userA)
+      val userBId = User.createUser(userB)
+      User.followUser(userBId.get, userAId.get)
+      val user = User.getUserProfile(userAId.get)
       assert(user.get.followers.size === 1)
-      val userAlreadyFollowing = User.getUserProfile(userId.get)
+      User.followUser(userAId.get, userBId.get)
+      val userAlreadyFollowing = User.getUserProfile(userAId.get)
       assert(userAlreadyFollowing.get.followers.size === 1)
     }
   }

@@ -12,6 +12,8 @@ import play.api.mvc.Session
 import play.api.mvc.Flash
 import play.api.mvc.RequestHeader
 import play.mvc.Results.Redirect
+import play.api.test.TestServer
+import play.api.libs.ws.WS
 
 class TemplateTest extends Specification {
 
@@ -131,5 +133,26 @@ class TemplateTest extends Specification {
     contentType(html) must equalTo("text/html")
     contentAsString(html) must contain("upload")
   }
+  
+  /*"run in a server" in {
+  running(TestServer(9000)) {
+  
+    await(WS.url("http://localhost:9000/login").get).status must equalTo(OK)
+  
+  }*/
+  
+  "run in a browser" in {
+  running(TestServer(9000), HTMLUNIT) { browser =>
+    
+    browser.goTo("http://localhost:9000/login")
+    browser.$("#title").getTexts().get(0) must equalTo("Login")
+    
+    /*browser.$("a").click()
+    
+    browser.url must equalTo("http://localhost:3333/Coco")
+    browser.$("#title").getTexts().get(0) must equalTo("Hello Coco")*/
+
+  }
+}
   
 }

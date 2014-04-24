@@ -96,6 +96,34 @@ define(['baseModel',
 			this.get('currentQuestionStream').counter = 0;
 			
 		},
+		updateCurrentStream: function(searchQuery){
+			
+		
+			var that = this;
+
+			var updatedStream = that.get('questionStreams').filter(function(model){
+				if(searchQuery){
+					return model.get('question').questionBody.indexOf(searchQuery) !== -1;
+				}
+				else if(model.get('deleted')){
+					return false;
+				}
+				else if(that.get('currentFilter') === 'unanswered'){
+					return model.get('question').answered === false;
+				}
+				else if(that.get('currentFilter') === 'answered'){
+					return model.get('question').answered === true;
+				}
+				else if(that.get('currentFilter') === 'myQuestions'){
+					return model.get('question').userId.id === that.get('onlineUser').id.id;
+				}
+			});
+			if (searchQuery){
+				this.setSearchStatus();
+			}
+			this.get('currentQuestionStream').reset(updatedStream);
+			this.get('currentQuestionStream').counter = 0;
+		},
 
 		// controls pausing of server updates while searching
 		setSearchStatus: function(){
