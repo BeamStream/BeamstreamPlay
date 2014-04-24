@@ -35,7 +35,7 @@ define(
 							
 							
 							
-							this.receiveQuestionThroughPubNub();
+							this.receiveQuestionThroughPubNubQs();
 							
 							
 							this.render();
@@ -48,7 +48,7 @@ define(
 						/**
 						 * PUBNUB real time push
 						 */
-						receiveQuestionThroughPubNub : function() {
+						receiveQuestionThroughPubNubQs : function() {
 
 
 							var self = this;

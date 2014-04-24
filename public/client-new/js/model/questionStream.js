@@ -21,7 +21,7 @@ define(['baseModel',
 			this.setLoggedInUser();
 			//this.set({'intervalId': setInterval(this.createQuestionList.bind(this), 100)}, {silent: true});
 			// this is unused code from an attempt to use pubnub
-			// this.on('change:pagePushUid', this.getQuestionsFromPubNub);
+			//this.on('change:pagePushUid', this.getQuestionsFromPubNub);
 		},
 		
 		
@@ -40,16 +40,18 @@ define(['baseModel',
 		},
 
 		setCurrentFilter: function(newFilter){
+			
 			this.set('currentFilter', newFilter);
-			/*if (this.get('searchStatus')){
+			this.createQuestionList();
+		
+			if (this.get('searchStatus')){
 				this.set({searchStatus: false}, {silent: true});
-				//this.restartInterval();
-			}*/
+			}
 		},
 
 		// controls pausing of server updates while text boxes are open
 		updateEditStatus: function(event){
-			
+			alert(event.editCounter);
 			
 			if (event.editCounter > 0) {
 				clearInterval(this.get('intervalId'));
@@ -63,6 +65,7 @@ define(['baseModel',
 
 		updateCurrentStream: function(searchQuery){
 			
+		
 		
 			var that = this;
 
@@ -83,11 +86,15 @@ define(['baseModel',
 					return model.get('question').userId.id === that.get('onlineUser').id.id;
 				}
 			});
+			
+			
+			
 			if (searchQuery){
 				this.setSearchStatus();
 			}
 			this.get('currentQuestionStream').reset(updatedStream);
 			this.get('currentQuestionStream').counter = 0;
+			
 		},
 
 		// controls pausing of server updates while searching

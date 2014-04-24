@@ -66,9 +66,19 @@ function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionMod
 				var answerSubmission = this.$el.find('.qs-answer').val();
 				this.model.postAnswer(answerSubmission,parent,answerAmt);
 				this.$el.find('.qs-answer').val('');
-				this.model.updateEditStatus();
+				
+				var QuestionStream = new QuestionStreamModel();
+				
+				QuestionStream.createQuestionList();
+				/*alert(QuestionStream);
+				alert(this.model);
+				*/
+				var countUnansweredQues = $("#number-new-questions").text();
+				countUnansweredQues--;
+				$("#number-new-questions").text(countUnansweredQues);
 				
 			}
+			
 		}, 
 
 		submitComment: function(e){

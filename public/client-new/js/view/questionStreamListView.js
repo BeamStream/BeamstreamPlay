@@ -24,12 +24,7 @@ function(BaseView, questionStreamListTPL, QuestionStreamItemView){
 
 		},
 		
-		onAfterInit: function(){
-			this.receiveThroughPubNub();
-		},
-		
-		
-		
+	
 
 		addChildViews: function() {
 			var that = this;
