@@ -18,7 +18,7 @@ function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionMod
 			'keypress .qs-answer': 'submitAnswer', 
 			'keypress .qs-comment': 'submitComment',
 			'click .follow-question': 'followQuestion', 
-			'click .mark-answered': 'markAnswered', 
+			//'click .mark-answered': 'markAnswered', 
 			'click .delete-question': 'deleteQuestion',
 			'click .question-dropdown': 'toggleDropdown'
 		
@@ -59,11 +59,14 @@ function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionMod
 		}, 
 
 		submitAnswer: function(e){
+				//alert(answerAmt);
+			if (e.keyCode === 13) {
+				
 				var element = e.target.parentElement;
 				var parent =$(element).parents('div.side-question').attr('id');
 				var answerAmt = $('div#'+parent+'-totalanswersidebar').text();
-				//alert(answerAmt);
-			if (e.keyCode === 13) {
+				
+				
 				var answerSubmission = this.$el.find('.qs-answer').val();
 				this.model.postAnswer(answerSubmission,parent,answerAmt);
 				this.$el.find('.qs-answer').val('');
@@ -77,6 +80,9 @@ function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionMod
 				var countUnansweredQues = $("#number-new-questions").text();
 				countUnansweredQues--;
 				$("#number-new-questions").text(countUnansweredQues);
+				
+				
+				this.model.markAnswered();
 				
 			}
 			
@@ -175,10 +181,10 @@ function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionMod
 			this.model.followQuestion();
 		}, 
 
-		markAnswered: function(){
+		/*markAnswered: function(){
 			this.model.markAnswered();
 		},
-
+*/
 		deleteQuestion: function(){
 			this.model.deleteQuestion();
 			var countUnansweredQues = $("#number-new-questions").text();

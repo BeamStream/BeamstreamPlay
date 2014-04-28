@@ -125,6 +125,7 @@ define(['baseModel',
 		}, 
 
 		markAnswered: function(){
+			
 			this.get('question').answered = true;
 			this.urlRoot = '/markAsAnswered/true';
 			this.save({id: this.get('question').id.id}, {silent: true});
