@@ -50,7 +50,7 @@ define(
 						 */
 						receiveQuestionThroughPubNubQs : function() {
 
-
+							//alert("posting question 1>>>>>>>>>>");
 							var self = this;
 							self.pagePushUid = Math.floor(
 									Math.random() * 16777215).toString(16);
@@ -63,12 +63,13 @@ define(
 							 * self.pagePushUid });
 							 */
 
-							PUBNUB
-									.subscribe({
+							PUBNUB.subscribe({
 
 										channel : 'questionsSideStream',
 
 										callback : function(question) {
+											
+											//alert("posting question");
 
 
 											var streamId = $(

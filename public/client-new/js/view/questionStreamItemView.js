@@ -32,13 +32,14 @@ function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionMod
 
 		initialize: function(){
 			BaseView.prototype.initialize.apply(this, arguments);
-			this.model.on('answerPost', this.render, this);
-			this.model.on('commentPost', this.render, this);
+			//this.model.on('answerPost', this.render, this);
+			//this.model.on('commentPost', this.render, this);
 		},
 
 		render: function(){
 			var compiledTemplate = Handlebars.compile(questionStreamItemTPL);
 			this.$el.html(compiledTemplate(this.model.attributes));
+			//alert(JSON.stringify(this.model.attributes))
 			return this;
 		}, 
 

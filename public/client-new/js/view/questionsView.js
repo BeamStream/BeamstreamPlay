@@ -983,6 +983,7 @@ define(
 														 * PUBNUB -- AUTO AJAX
 														 * PUSH
 														 */
+														//alert("1")
 														PUBNUB
 																.publish({
 																	channel : "questionsMainStream",
@@ -1005,6 +1006,8 @@ define(
 																		data : response
 																	}
 																})
+																
+																
 														var questionItemView = new QuestionItemView(
 																{
 																	model : self.data.models[0]
@@ -1153,6 +1156,9 @@ define(
 															 * PUBNUB -- AUTO
 															 * AJAX PUSH
 															 */
+															
+															
+															//alert("2")
 															PUBNUB
 																	.publish({
 																		channel : "questionsMainStream",
@@ -1167,6 +1173,10 @@ define(
 															 * PUBNUB -- AUTO
 															 * AJAX PUSH
 															 */
+																	
+																	
+																	
+																	
 															PUBNUB
 																	.publish({
 																		channel : "questionsSideStream",
@@ -1241,6 +1251,9 @@ define(
 													{
 														success : function(
 																model, response) {
+															
+															
+															//alert("3")
 															/*
 															 * PUBNUB -- AUTO
 															 * AJAX PUSH

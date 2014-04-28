@@ -18,10 +18,10 @@ function(BaseView, questionStreamListTPL, QuestionStreamItemView){
 			var that = this;
 			this.collection.on('reset', function(){
 				that.render();
+				//alert(that.render());
 			});
 
 			this.compiledTemplate = Handlebars.compile(questionStreamListTPL);
-
 		},
 		
 	
