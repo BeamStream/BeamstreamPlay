@@ -102,13 +102,13 @@ object UserController extends Controller {
   /**
    * Invite User To join Beamstream
    */
-  def inviteUserToBeamstream: Action[AnyContent] = Action { implicit request =>
+  /*def inviteUserToBeamstream: Action[AnyContent] = Action { implicit request =>
     println("UserController inviteUserToBeamstream" + request.body.asFormUrlEncoded)
     val userJsonMap = request.body.asFormUrlEncoded.get
     val emailList = userJsonMap("data").toList.head.split(",").toList
     for (eachEmail <- emailList) SendEmailUtility.inviteUserToBeamstream(eachEmail)
     Ok(write(ResulttoSent("Success", "Invitations has been sent"))).as("application/json")
-  }
+  }*/
   /**
    *  Find User By ID
    *  @Purpose :Returns the user JSON on Stream page load

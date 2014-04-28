@@ -127,7 +127,7 @@ class BasicRegistrationTest extends FunSuite with BeforeAndAfter {
   }
 
   test("SignUp user") {
-    val jsonString = """{"iam": "0","mailId": "himanshu@knoldus.com","password": "123456","confirmPassword": "123456"}"""
+    val jsonString = """{"iam":"0","mailId":"himanshu@knoldus.com","password":"123456","confirmPassword":"123456"}"""
     val json: JsValue = play.api.libs.json.Json.parse(jsonString)
     running(FakeApplication()) {
       val result = route(FakeRequest(POST, "/betaUser").withJsonBody(json)).get

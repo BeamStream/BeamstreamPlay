@@ -21,13 +21,12 @@ class ReadingSpreadsheetUtilTest extends FunSuite with BeforeAndAfter {
 
   test("Reading List of Schools csv file") {
     running(FakeApplication()) {
-      object ReadingSpreadsheetUtilTest extends ReadingSpreadsheetUtilTest
-      val filePath = ReadingSpreadsheetUtilTest.getClass().getClassLoader().getResource("ListofSchools.csv")
-      ReadingSpreadsheetUtil.readCSVOfSchools(new File(filePath.toURI()))
+      val file = new File("/home/himanshu/BeamstreamPlay/conf/ListofSchools.csv")
+      ReadingSpreadsheetUtil.readCSVOfSchools(file)
       assert(SchoolDAO.find(MongoDBObject()).toList.size >= 7487)
     }
   }
-  
+
   after {
     running(FakeApplication()) {
       SchoolDAO.remove(MongoDBObject("schoolName" -> ".*".r))

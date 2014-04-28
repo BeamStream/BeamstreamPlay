@@ -144,7 +144,7 @@ object QuestionController extends Controller {
   //======Displays all the question within a Stream===//
   //==================================================//
 
-  def getAllQuestionForAStreamWithPagination: Action[AnyContent] = Action { implicit request =>
+  /*def getAllQuestionForAStreamWithPagination: Action[AnyContent] = Action { implicit request =>
     println("QuestionController getAllQuestionforAStreamWithPagination " + request.body.asFormUrlEncoded)
     val streamIdJsonMap = request.body.asFormUrlEncoded.get
     val streamId = streamIdJsonMap("streamId").toList(0)
@@ -154,12 +154,12 @@ object QuestionController extends Controller {
     val userId = new ObjectId(request.session.get("userId").get)
     val allQuestionForAStreamJson = write(Question.returnQuestionsWithPolls(userId, allQuestionsForAStream))
     Ok(allQuestionForAStreamJson).as("application/json")
-  }
+  }*/
 
   //==================================================================//
   //======Displays all the questions within a Stream sorted by rocks===//
   //================================================================//
-  def getAllQuestionsForAStreamSortedbyRocks: Action[AnyContent] = Action { implicit request =>
+  /*def getAllQuestionsForAStreamSortedbyRocks: Action[AnyContent] = Action { implicit request =>
     println("QuestionController getAllQuestionforAStreamSortedbyRocks " + request.body.asFormUrlEncoded)
     val streamIdJsonMap = request.body.asFormUrlEncoded.get
     val streamId = streamIdJsonMap("streamId").toList(0)
@@ -169,12 +169,12 @@ object QuestionController extends Controller {
     val userId = new ObjectId(request.session.get("userId").get)
     val allQuestionsForAStreamJson = write(Question.returnQuestionsWithPolls(userId, getAllQuestionsForAStream))
     Ok(allQuestionsForAStreamJson).as("application/json")
-  }
+  }*/
 
   //==================================================================//
   //======Displays all the questions within a Stream for a keyword===//
   //================================================================//
-  def getAllQuestionsForAStreambyKeyword: Action[AnyContent] = Action { implicit request =>
+  /*def getAllQuestionsForAStreambyKeyword: Action[AnyContent] = Action { implicit request =>
     println("QuestionController getAllQuestionforAStreambyKeyword " + request.body.asFormUrlEncoded)
     val keywordJsonMap = request.body.asFormUrlEncoded.get
     val keyword = keywordJsonMap("keyword").toList(0)
@@ -186,7 +186,7 @@ object QuestionController extends Controller {
     val allQuestionsForAStreamJson = write(Question.returnQuestionsWithPolls(userId, allQuestionsForAStream))
     Ok(allQuestionsForAStreamJson).as("application/json")
 
-  }
+  }*/
 
   /**
    * ***********************************************************REARCHITECTED CODE****************************************************************

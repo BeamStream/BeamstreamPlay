@@ -162,6 +162,12 @@ class UserMediaTest extends FunSuite with BeforeAndAfter {
       val userMediaId = UserMedia.saveMediaForUser(UserMediaObj)
       val profilePicUrl = UserMedia.getProfilePicUrlString(userId.get)
       assert(profilePicUrl === "http://beamstream.com/Neel.png")
+      val user2 = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "NeelS", Option("Neel"), "Knoldus", "", "", "", new Date, Nil, Nil, Nil, Option("Facebook"), None, None)
+      val user2Id = User.createUser(user2)
+      assert(UserMedia.getProfilePicUrlString(user2Id.get) === "")
+      val User2MediaObj = UserMedia(new ObjectId, "", "", user2Id.get, new Date, "http://beamstream.com/Neel.png", UserMediaType.Image, Access.Public, true, Option(new ObjectId), "http://beamstream.com/Neel.jpg", 0, Nil, Nil, 0)
+      val user2MediaId = UserMedia.saveMediaForUser(User2MediaObj)
+      assert(UserMedia.getProfilePicUrlString(user2Id.get) === "http://beamstream.com/Neel.jpg")
     }
   }
 

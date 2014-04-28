@@ -141,18 +141,18 @@ class TemplateTest extends Specification {
   
   }*/
   
-  "run in a browser" in {
+  /*"run in a browser" in {
   running(TestServer(9000), HTMLUNIT) { browser =>
     
     browser.goTo("http://localhost:9000/login")
-    browser.$("#title").getTexts().get(0) must equalTo("Login")
+    browser.$("#title").getTexts().get(0) must equalTo("Login")*/
     
     /*browser.$("a").click()
     
     browser.url must equalTo("http://localhost:3333/Coco")
     browser.$("#title").getTexts().get(0) must equalTo("Hello Coco")*/
 
-  }
-}
+  /*}
+}*/
   
 }

@@ -108,6 +108,15 @@ class UserSchoolTest extends FunSuite with BeforeAndAfter {
     }
   }
   
+  test("Update User School with original School Id") {
+    running(FakeApplication()) {
+      val userSchoolId = UserSchool.createSchool(myUserSchool)
+      val originalSchoolId = new ObjectId
+      UserSchool.updateUserSchoolWithOriginalSchoolId(userSchoolId.get, originalSchoolId)
+      assert(UserSchoolDAO.find(MongoDBObject()).toList(0).assosiatedSchoolId === originalSchoolId)
+    }
+  }
+  
   test("Get all Schools of a User") {
     running(FakeApplication()) {
       assert(UserSchool.getAllSchoolforAUser(new ObjectId).size === 0)

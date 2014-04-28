@@ -27,7 +27,7 @@ import java.util.Date
 class MessageControllerTest extends FunSuite with BeforeAndAfter {
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
   private def userToBeCreated = {
-    User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", new Date,Nil, Nil, Nil,None, None, None)
+    User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
   }
 
   before {
@@ -155,6 +155,25 @@ class MessageControllerTest extends FunSuite with BeforeAndAfter {
     }
 
   }
+
+  test("Get Short URL via Bitly") {
+    running(FakeApplication()) {
+      val result = route(FakeRequest(POST, "/bitly").withFormUrlEncodedBody("link" -> "http://blog.knoldus.com/2014/04/24/monthly-scala-news-letter-april-2014/"))
+      assert(status(result.get) === 200)
+    }
+  }
+
+  /*test("Get all Messages for a Stream by Keyword") {
+    running(FakeApplication()) {
+      val userId = User.createUser(userToBeCreated)
+      val stream = models.Stream(new ObjectId, "al1pha", StreamType.Class, new ObjectId, List(), true, List())
+      val streamId = models.Stream.createStream(stream)
+      val message = Message(new ObjectId, "some message", Option(Type.Audio), Option(Access.Public), formatter.parse("23-07-12"), userId.get, Option(streamId.get), "", "", 0, Nil, Nil, 0, Nil)
+      val messageId = Message.createMessage(message)
+      val result = route(FakeRequest(POST, "/bitly").withFormUrlEncodedBody("link" -> "http://blog.knoldus.com/2014/04/24/monthly-scala-news-letter-april-2014/"))
+      assert(status(result.get) === 200)
+    }
+  }*/
 
   after {
     running(FakeApplication()) {

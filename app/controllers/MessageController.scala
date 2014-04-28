@@ -86,7 +86,7 @@ object MessageController extends Controller {
   //==================================================================//
   //======Displays all the messages within a Stream for a keyword===//
   //================================================================//
-  def getAllMessagesForAStreambyKeyword: Action[AnyContent] = Action { implicit request =>
+  /*def getAllMessagesForAStreambyKeyword: Action[AnyContent] = Action { implicit request =>
     println("MessageController getAllMessagesForAStreambyKeyword" + request.body.asFormUrlEncoded)
     val keywordJsonMap = request.body.asFormUrlEncoded.get
     val keyword = keywordJsonMap("keyword").toList(0)
@@ -96,7 +96,7 @@ object MessageController extends Controller {
     val allMessagesForAStream = Message.getAllMessagesForAKeyword(keyword, new ObjectId(streamId), pageNo, messagesPerPage)
     val allMessagesForAStreamJson = write(allMessagesForAStream)
     Ok(allMessagesForAStreamJson).as("application/json")
-  }
+  }*/
 
   /**
    * Rock the message

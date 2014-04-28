@@ -72,17 +72,17 @@ class RegistrationTest extends FunSuite with BeforeAndAfter {
     val tokenTobeCreated = Token(new ObjectId, userId.get.toString(), TokenEmailUtil.securityToken, false)
     Token.addToken(tokenTobeCreated)
     running(FakeApplication()) {
-      val result = route(FakeRequest(GET, "/registration?userId=" + userId.get + "&token=" + tokenTobeCreated.id).withCookies(Cookie("Beamstream", userId.get.toString() + " registration"))).get
+      val result = route(FakeRequest(GET, "/registration?userId=" + userId.get + "&token=" + tokenTobeCreated.tokenString).withCookies(Cookie("Beamstream", userId.get.toString() + " registration"))).get
       assert(status(result) === 303)
     }
     val userMedia = UserMedia(new ObjectId, "", "", userId.get, new Date, "", UserMediaType.Image, Access.Public, true, None, "", 0, Nil, Nil, 0)
     UserMedia.saveMediaForUser(userMedia)
     running(FakeApplication()) {
-      val result = route(FakeRequest(GET, "/registration?userId=" + userId.get + "&token=" + tokenTobeCreated.id))
+      val result = route(FakeRequest(GET, "/registration?userId=" + userId.get + "&token=" + tokenTobeCreated.tokenString))
       assert(status(result.get) == 303)
     }
     running(FakeApplication()) {
-      val result = route(FakeRequest(GET, "/registration?userId=" + userId.get.toString() + "&token=" + tokenTobeCreated.id.toString()).withSession("userId" -> userId.get.toString())).get
+      val result = route(FakeRequest(GET, "/registration?userId=" + userId.get.toString() + "&token=" + tokenTobeCreated.tokenString.toString()).withSession("userId" -> userId.get.toString())).get
       result onComplete {
         case stat => assert(stat.isSuccess === true)
       }
@@ -96,15 +96,15 @@ class RegistrationTest extends FunSuite with BeforeAndAfter {
       assert(status(result) === 303)
     }
     running(FakeApplication()) {
-      val result = route(FakeRequest(GET, "/registration?userId=" + userId.get + "&token=" + tokenTobeCreated.id).withCookies(Cookie("Beamstream", userId.get.toString() + " registration"))).get
+      val result = route(FakeRequest(GET, "/registration?userId=" + userId.get + "&token=" + tokenTobeCreated.tokenString).withCookies(Cookie("Beamstream", userId.get.toString() + " registration"))).get
       assert(status(result) === 303)
     }
     running(FakeApplication()) {
-      val result = route(FakeRequest(GET, "/registration?userId=" + userId.get + "&token=" + tokenTobeCreated.id).withCookies(Cookie("Beamstream", userId.get.toString() + " browsemedia"))).get
+      val result = route(FakeRequest(GET, "/registration?userId=" + userId.get + "&token=" + tokenTobeCreated.tokenString).withCookies(Cookie("Beamstream", userId.get.toString() + " browsemedia"))).get
       assert(status(result) === 303)
     }
     running(FakeApplication()) {
-      val result = route(FakeRequest(GET, "/registration?userId=" + userId.get + "&token=" + tokenTobeCreated.id).withCookies(Cookie("Beamstream", userId.get.toString() + " signup"))).get
+      val result = route(FakeRequest(GET, "/registration?userId=" + userId.get + "&token=" + tokenTobeCreated.tokenString).withCookies(Cookie("Beamstream", userId.get.toString() + " signup"))).get
       assert(status(result) === 303)
     }
 
@@ -113,7 +113,7 @@ class RegistrationTest extends FunSuite with BeforeAndAfter {
     val token2TobeCreated = Token(new ObjectId, user2Id.get.toString(), TokenEmailUtil.securityToken, false)
     Token.addToken(token2TobeCreated)
     running(FakeApplication()) {
-      val result = route(FakeRequest(GET, "/registration?userId=" + user2Id.get + "&token=" + token2TobeCreated.id).withCookies(Cookie("Beamstream", userId.get.toString() + " registration"))).get
+      val result = route(FakeRequest(GET, "/registration?userId=" + user2Id.get + "&token=" + token2TobeCreated.tokenString).withCookies(Cookie("Beamstream", userId.get.toString() + " registration"))).get
       assert(status(result) === 303)
     }
   }

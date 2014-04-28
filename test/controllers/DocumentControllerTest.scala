@@ -21,6 +21,7 @@ import models.UserDAO
 import models.StreamDAO
 import models.StreamType
 import models.Stream
+import play.api.libs.json.JsValue
 
 @RunWith(classOf[JUnitRunner])
 class DocumentControllerTest extends FunSuite with BeforeAndAfter {
@@ -145,8 +146,10 @@ class DocumentControllerTest extends FunSuite with BeforeAndAfter {
       val userId = User.createUser(user)
       val firstDocumentToCreate = new Document(new ObjectId, "Neel'sFile.pdf", "Neel'sFile", "http://neel.ly/Neel'sFile.pdf", DocType.Other, userId.get, Access.PrivateToClass, new ObjectId, new Date, new Date, 0, Nil, Nil, Nil, "")
       val documentId = Document.addDocument(firstDocumentToCreate)
-      val result = route(FakeRequest(PUT, "/viewCountOf/document/" + documentId.toString).withSession("userId" -> userId.get.toString))
-      assert(status(result.get) === 200)
+      val result1 = route(FakeRequest(PUT, "/viewCountOf/document/" + documentId.toString).withSession("userId" -> userId.get.toString))
+      assert(status(result1.get) === 200)
+      val result2 = route(FakeRequest(PUT, "/viewCountOf/document/" + documentId.toString).withSession("userId" -> userId.get.toString))
+      assert(status(result2.get) === 200)
 
     }
   }
@@ -164,31 +167,31 @@ class DocumentControllerTest extends FunSuite with BeforeAndAfter {
   /**
    * TODO testing after getting JSON output of Changing Title & Description of Document
    */
-  /*test("Change Title & Description of a Document") {
-    val jsonString = """{"iam": "1","mailId": "neelkanth@knoldus.com","password": "123456","confirmPassword": "123456"}"""
-    val json: JsValue = play.api.libs.json.Json.parse(jsonString)
+  test("Change Title & Description of a Document") {
     running(FakeApplication()) {
-      val result = route(
-        FakeRequest(POST, "/betaUser").
-          withJsonBody(json)).get
-      result onComplete {
-        case stat => assert(stat.isSuccess === true)
-      }
+      val jsonString = """{"docDescription": "Good","docName": "Neel's file"}"""
+      val json: JsValue = play.api.libs.json.Json.parse(jsonString)
+      val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", Option("Neel"), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
+      val userId = User.createUser(user)
+      val firstDocumentToCreate = new Document(new ObjectId, "Neel'sFile.pdf", "Neel'sFile", "http://neel.ly/Neel'sFile.pdf", DocType.Other, userId.get, Access.PrivateToClass, new ObjectId, new Date, new Date, 0, Nil, Nil, Nil, "")
+      val documentId = Document.addDocument(firstDocumentToCreate)
+      val result = route(FakeRequest(PUT, "/document/" + documentId).withJsonBody(json)).get
+      assert(status(result) === 200)
     }
-  }*/
+  }
 
   /*test("Rockers of a Document") {
     running(FakeApplication()) {
       val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", Option("Neel"), "", "", "", "", new Date,Nil, Nil, Nil, None, None, None)
       val userId = User.createUser(user)
-      val firstDocumentToCreate = new Document(new ObjectId, "Neel'sFile.pdf", "Neel'sFile", "http://neel.ly/Neel'sFile.pdf", DocType.Other, userId.get, Access.PrivateToClass, new ObjectId, new Date, new Date, 0, Nil, Nil, Nil, "")
+      val firstDocumentToCreate = new Document(new ObjectId, "Neel'sFile.pdf", "Neel'sFile", "http://neel.ly/Neel'sFile.pdf", DocType.Other, userId.get, Access.PrivateToClass, new ObjectId, new Date, new Date, 0, List(userId.get), Nil, Nil, "")
       val documentId = Document.addDocument(firstDocumentToCreate)
       val result = route(FakeRequest(PUT, "/rockersOf/document/" + documentId.toString).withSession("userId" -> userId.get.toString))
       assert(status(result.get) === 200)
 
     }
   }*/
-
+  
   /**
    * TODO testing after getting JSON output of Uploading Doc from Disk
    */

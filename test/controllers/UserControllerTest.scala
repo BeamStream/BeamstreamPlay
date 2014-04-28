@@ -138,6 +138,34 @@ class UserControllerTest extends FunSuite with BeforeAndAfter {
     }
   }
 
+  test("Forgot Password") {
+    val user = User(new ObjectId, UserType.Professional, "himanshu@knoldus.com", "Himanshu", "", "HimanshuG", Option("bZBkmmKeQiDIoApAE1YavA=="), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
+    val userId = User.createUser(user)
+    val jsonString1 = """{"mailId": "himanshu@knoldus.com"}"""
+    val json1: JsValue = play.api.libs.json.Json.parse(jsonString1)
+    running(FakeApplication()) {
+      val result1 = route(FakeRequest(POST, "/forgotPassword").withJsonBody(json1)).get
+      assert(status(result1) === 200)
+    }
+    val jsonString2 = """{"mailId": "neel@knoldus.com"}"""
+    val json2: JsValue = play.api.libs.json.Json.parse(jsonString2)
+    running(FakeApplication()) {
+      val result2 = route(FakeRequest(POST, "/forgotPassword").withJsonBody(json2)).get
+      assert(status(result2) === 200)
+    }
+  }
+  
+  test("Reset") {
+    val user = User(new ObjectId, UserType.Professional, "himanshu@knoldus.com", "Himanshu", "", "HimanshuG", Option(""), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
+    val userId = User.createUser(user)
+    running(FakeApplication()) {
+      val result1 = route(FakeRequest(POST, "/reset").withFormUrlEncodedBody("email" -> "himanshu@knoldus.com")).get
+      assert(status(result1) === 200)
+      val result2 = route(FakeRequest(POST, "/reset").withFormUrlEncodedBody("email" -> "neel@knoldus.com")).get
+      assert(status(result2) === 200)
+    }
+  }
+
   test("Get all Online Users") {
     running(FakeApplication()) {
       val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", Option("Neel"), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)

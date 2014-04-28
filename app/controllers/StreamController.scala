@@ -42,7 +42,7 @@ object StreamController extends Controller {
    * Check the cookies if login exists & take corresponding actions
    */
 
-  def index: Action[AnyContent] = Action { implicit request =>
+  /*def index: Action[AnyContent] = Action { implicit request =>
     // val playCookiee = request.cookies.get("PLAY_SESSION")
     (request.session.get("userId") == None) match {
       case true => Redirect("/")
@@ -60,7 +60,7 @@ object StreamController extends Controller {
         }
     }
 
-  }
+  }*/
   /**
    * On Error Redirect to error page
    */
@@ -100,7 +100,7 @@ object StreamController extends Controller {
    * Get All Public Messages For A User
    * @Purpose: For Public Profile (Stream Specific Results)
    */
-  def allPublicMessagesFromAllStreamsForAUser: Action[AnyContent] = Action { implicit request =>
+ /* def allPublicMessagesFromAllStreamsForAUser: Action[AnyContent] = Action { implicit request =>
     println("StreamController allPublicMessagesFromAllStreamsForAUser" + request.body.asFormUrlEncoded)
     val UserIdJsonMap = request.body.asFormUrlEncoded.get
     val userId = UserIdJsonMap("userId").toList(0)
@@ -108,7 +108,7 @@ object StreamController extends Controller {
     val allPublicMessagesForAUserAcrossTheirStreams = Message.getAllPublicMessagesForAUser(classListForAUser)
     Ok(write(allPublicMessagesForAUserAcrossTheirStreams)).as("application/json")
 
-  }
+  }*/
 
   /**
    *  Delete A Stream
