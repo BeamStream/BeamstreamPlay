@@ -126,10 +126,18 @@ define(['baseModel',
 
 		markAnswered: function(){
 			
-			this.get('question').answered = true;
-			//this.urlRoot = '/markAsAnswered/true';
-			//this.save({id: this.get('question').id.id}, {silent: true});
-			this.trigger('questionAnsweredModel');
+			this.urlRoot = '/markAsAnswered/';
+			this.save({id: this.get('question').id.id}, {success:function(model,data){
+							
+				if (data.response == false){
+					alert("Question is not answered.");
+				}
+				if (data.response == true){					
+					model.get('question').answered = true;
+					model.trigger('questionAnsweredModel');
+				}				
+			}});
+			
 		}, 
 
 		deleteQuestion: function(){

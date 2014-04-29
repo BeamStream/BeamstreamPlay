@@ -22,6 +22,9 @@ define(['baseModel',
 			// this is unused code from an attempt to use pubnub
 			//this.on('change:pagePushUid', this.getQuestionsFromPubNub);
 		},
+		
+		
+		
 		setLoggedInUser: function(){
 			this.set('onlineUser', new OnlineUser());
 			var that = this;
@@ -48,7 +51,7 @@ define(['baseModel',
 				clearInterval(this.get('intervalId'));
 			} 
 		},
-		
+
 		// this is getting the id for the pubnub stream
 		// setPagePushUid: function(pagePushUid){
 		// 	this.set('pagePushUid', pagePushUid);
@@ -73,6 +76,8 @@ define(['baseModel',
 					return model.get('question').userId.id === that.get('onlineUser').id.id;
 				}
 			});
+			
+			
 			if (searchQuery){
 				this.setSearchStatus();
 			}
