@@ -18,6 +18,7 @@ POST   /reset                                                                   
 GET    /streams                                                                            controllers.StreamController.allClassStreamsForAUser
 GET    /noOfUsers/stream/:streamId                                                         controllers.StreamController.noOfUsersAttendingAClass(streamId:String)
 PUT    /remove/stream/:streamId                                                            controllers.StreamController.deleteTheStream(streamId:String)
+GET    /streamData/:streamId                                                               controllers.StreamController.getStreamData(streamId:String)
 
 #Messages
 
