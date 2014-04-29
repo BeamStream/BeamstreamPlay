@@ -135,7 +135,7 @@ object GoogleDocsUploadUtilityController extends Controller {
           Ok(views.html.stream(action))
       }
     } catch {
-      case ex: Exception => BadRequest("Authentication Failed")
+      case ex: Exception => Ok(views.html.stream("failure"))//BadRequest("Authentication Failed")
     }
   }
 

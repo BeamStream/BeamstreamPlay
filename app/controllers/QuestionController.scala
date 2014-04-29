@@ -287,10 +287,11 @@ object QuestionController extends Controller {
   
   def markAQuestionAsAnswered(questionId: String): Action[AnyContent] = Action {implicit request =>
     val questionMarkedAsAnswered = Question.markAQuestionAsAnswered(new ObjectId(questionId))
-    questionMarkedAsAnswered match {
-      case true => Ok("Success")
+    Ok(Json.obj("response" -> questionMarkedAsAnswered))
+    /*questionMarkedAsAnswered match {
+      case true => Ok(Json.obj("response" -> questionMarkedAsAnswered))
       case false => Ok("Failure")
-    }
+    }*/
   }
   
 }
