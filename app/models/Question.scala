@@ -127,7 +127,7 @@ object Question {
    */
   def addAnswerToQuestion(questionId: ObjectId, answerId: ObjectId) {
     val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
-    QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(answers = (question.answers ++ List(answerId)), answered = true), false, false, new WriteConcern)
+    QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(answers = (question.answers ++ List(answerId)) /*, answered = true*/ ), false, false, new WriteConcern)
   }
 
   /**
@@ -359,12 +359,21 @@ object Question {
       case false => false
     }
   }
-  
+
   def getNoOfUnansweredQuestions(streamId: ObjectId): Int = {
     val unansweredQuestions = QuestionDAO.find(MongoDBObject("streamId" -> streamId, "answered" -> false)).toList
     unansweredQuestions.length
   }
 
+  def markAQuestionAsAnswered(questionId: ObjectId): Boolean = {
+    val questionToBeMarkedAsanswered = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
+    (questionToBeMarkedAsanswered.answers.size > 0) match {
+      case true =>
+        QuestionDAO.update(MongoDBObject("_id" -> questionId), questionToBeMarkedAsanswered.copy(answered = true), false, false, new WriteConcern)
+        true
+      case false => false
+    }
+  }
 }
 
 object QuestionDAO extends SalatDAO[Question, ObjectId](collection = MongoHQConfig.mongoDB("question"))

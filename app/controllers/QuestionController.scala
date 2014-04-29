@@ -284,5 +284,14 @@ object QuestionController extends Controller {
     val unansweredQuestions = Question.getNoOfUnansweredQuestions(new ObjectId(streamId))
     Ok(Json.obj("count" -> unansweredQuestions))
   }
+  
+  def markAQuestionAsAnswered(questionId: String): Action[AnyContent] = Action {implicit request =>
+    val questionMarkedAsAnswered = Question.markAQuestionAsAnswered(new ObjectId(questionId))
+    questionMarkedAsAnswered match {
+      case true => Ok("Success")
+      case false => Ok("Failure")
+    }
+  }
+  
 }
 
