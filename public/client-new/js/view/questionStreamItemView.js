@@ -39,7 +39,6 @@ function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionMod
 		render: function(){
 			var compiledTemplate = Handlebars.compile(questionStreamItemTPL);
 			this.$el.html(compiledTemplate(this.model.attributes));
-			//alert(JSON.stringify(this.model.attributes))
 			return this;
 		}, 
 
@@ -59,7 +58,6 @@ function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionMod
 		}, 
 
 		submitAnswer: function(e){
-				//alert(answerAmt);
 			if (e.keyCode === 13) {
 				
 				var element = e.target.parentElement;
@@ -74,9 +72,6 @@ function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionMod
 				var QuestionStream = new QuestionStreamModel();
 				
 				QuestionStream.createQuestionList();
-				/*alert(QuestionStream);
-				alert(this.model);
-				*/
 				var countUnansweredQues = $("#number-new-questions").text();
 				countUnansweredQues--;
 				$("#number-new-questions").text(countUnansweredQues);

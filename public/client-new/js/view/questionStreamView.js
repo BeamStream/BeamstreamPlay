@@ -50,7 +50,6 @@ define(
 						 */
 						receiveQuestionThroughPubNubQs : function() {
 
-							//alert("posting question 1>>>>>>>>>>");
 							var self = this;
 							self.pagePushUid = Math.floor(
 									Math.random() * 16777215).toString(16);
@@ -69,7 +68,6 @@ define(
 
 										callback : function(question) {
 											
-											//alert("posting question");
 
 
 											var streamId = $(
@@ -181,7 +179,6 @@ define(
 										channel : "questionRockSideStream",
 										restore : false,
 										callback : function(question) {
-											// alert(JSON.stringify(question));
 											if (question.pagePushUid != self.pagePushUid) {
 
 												// if(localStorage["loggedUserId"]==question.ownerId)

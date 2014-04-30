@@ -983,7 +983,6 @@ define(
 														 * PUBNUB -- AUTO AJAX
 														 * PUSH
 														 */
-														//alert("1")
 														PUBNUB
 																.publish({
 																	channel : "questionsMainStream",
@@ -1158,7 +1157,6 @@ define(
 															 */
 															
 															
-															//alert("2")
 															PUBNUB
 																	.publish({
 																		channel : "questionsMainStream",
@@ -1253,7 +1251,6 @@ define(
 																model, response) {
 															
 															
-															//alert("3")
 															/*
 															 * PUBNUB -- AUTO
 															 * AJAX PUSH
@@ -1982,7 +1979,6 @@ define(
 										restore : false,
 										callback : function(question) {
 											if (question.pagePushUid != self.pagePushUid) {
-												// alert(JSON.stringify(question));
 												$(
 														'#'
 																+ question.quesId

@@ -154,13 +154,8 @@ define(
 						 * for online users PUBNUB.subscribe({ channel :
 						 * "onlineUsers",
 						 * 
-						 * callback : function(message) {
-						 * alert(localStorage["loggedUserId"]);
-						 * //alert(JSON.stringify(message)); // alert("ankit"); //
-						 * alert(self.pagePushUid);
-						 * //alert(message.pagePushUid); profileImageUrl = '';
-						 * if(message.pagePushUid != self.pagePushUid) {
-						 * //alert("ankit"); var template='<li id="'+message.userInfo.user.id.id+'" onclick=popit("'+localStorage["loggedUserId"]+'","'+message.userInfo.user.id.id+'","'+message.userInfo.user.firstName+'","'+ profileImageUrl +'")> '+
+						 * callback : function(message) { if(message.pagePushUid !=
+						 * self.pagePushUid) { var template='<li id="'+message.userInfo.user.id.id+'" onclick=popit("'+localStorage["loggedUserId"]+'","'+message.userInfo.user.id.id+'","'+message.userInfo.user.firstName+'","'+ profileImageUrl +'")> '+
 						 * message.userInfo.user.firstName +'<span
 						 * class="online-chat"><img width="12" height="13"
 						 * src="/beamstream-new/images/online-icon.png"></span></li>';
@@ -175,8 +170,7 @@ define(
 						 * 
 						 * for online users PUBNUB.subscribe({ channel :
 						 * "offlineuser", callback : function(message) { //
-						 * alert(JSON.stringify(message)); $('div#user-online ul
-						 * li').empty(); } }) },
+						 * $('div#user-online ul li').empty(); } }) },
 						 * 
 						 */
 
