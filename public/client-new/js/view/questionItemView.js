@@ -973,7 +973,6 @@ showAllAnswerList: function(eventName){
 						question.save({id: questionId},{
 	    					success : function(model, response) {
 		    		
-//	    						alert(">>>>>>>>>>>>>>>>>>sucess")
 	    						
 					 			if(response.status == "Success")
 		                	 	{
@@ -1053,7 +1052,6 @@ showAllAnswerList: function(eventName){
 	                		 		// $('#'+messageId+'-totalComment').text(commentCount-1);
 
 			                		//$('div#question-'+commentId).remove();
-									//alert('div#question-'+commentId);
 
 	                		 		/* pubnum auto push -- delete comment*/
    									PUBNUB.publish({

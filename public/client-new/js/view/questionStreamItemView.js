@@ -72,9 +72,7 @@ function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionMod
 				var QuestionStream = new QuestionStreamModel();
 				
 				QuestionStream.createQuestionList();
-				var countUnansweredQues = $("#number-new-questions").text();
-				countUnansweredQues--;
-				$("#number-new-questions").text(countUnansweredQues);
+				
 				
 				
 				
@@ -176,6 +174,7 @@ function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionMod
 		}, 
 
 		markAnswered: function(){
+			
 			this.model.markAnswered();
 		},
 

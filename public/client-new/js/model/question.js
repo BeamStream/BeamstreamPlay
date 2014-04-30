@@ -135,6 +135,9 @@ define(['baseModel',
 				if (data.response == true){					
 					model.get('question').answered = true;
 					model.trigger('questionAnsweredModel');
+					var countUnansweredQues = $("#number-new-questions").text();
+					countUnansweredQues--;
+					$("#number-new-questions").text(countUnansweredQues);
 				}				
 			}});
 			
