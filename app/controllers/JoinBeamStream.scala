@@ -50,7 +50,7 @@ object JoinBeamStream extends Controller {
    *  Beta Users Registration(T)
    */
   def regsisterToBeamStreamBeta: Action[AnyContent] = Action { implicit request =>
-    println("JoinBeamStream registerToBeamStreamBeta" + request.body.asJson)
+//    println("JoinBeamStream registerToBeamStreamBeta" + request.body.asJson)
     val userInfoJsonMap = request.body.asJson.get
     val emailId = (userInfoJsonMap \ "mailId").as[String]
 

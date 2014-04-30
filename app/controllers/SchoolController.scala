@@ -19,7 +19,7 @@ object SchoolController extends Controller {
    * Add a new school (V)
    */
   def addANewSchool: Action[AnyContent] = Action { implicit request =>
-    println("SchoolController addANewSchool" + request.body.asJson)
+//    println("SchoolController addANewSchool" + request.body.asJson)
     val schoolInfojsonMap = request.body.asJson.get
     val schoolName = (schoolInfojsonMap \ "schoolName").as[String]
     val schoolWebsite = (schoolInfojsonMap \ "schoolWebsite").as[String]
@@ -64,7 +64,7 @@ object SchoolController extends Controller {
    * Purpose: For auto populate schools on school screen'
    */
   def getAllSchoolsForAutopopulate: Action[AnyContent] = Action { implicit request =>
-    println("SchoolController getAllSchoolsForAutopopulate" + request.body.asFormUrlEncoded)
+//    println("SchoolController getAllSchoolsForAutopopulate" + request.body.asFormUrlEncoded)
     val schoolNameStartingStringJsonMap = request.body.asFormUrlEncoded.get
     val schoolNamesStartingCharacter = schoolNameStartingStringJsonMap("data").toList(0)
 

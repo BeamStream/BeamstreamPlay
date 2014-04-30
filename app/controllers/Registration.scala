@@ -218,7 +218,7 @@ object Registration extends Controller {
    * User Registration In Detail (V)
    */
   def registerUser: Action[AnyContent] = Action { implicit request =>
-    println("Registration registerUser" + request.body.asJson)
+//    println("Registration registerUser" + request.body.asJson)
     val jsonReceived = request.body.asJson.get
     
     val associatedSchoolId = (jsonReceived \ "associatedSchoolId").as[String]
@@ -282,7 +282,7 @@ object Registration extends Controller {
    */
   def editUserInfo(userId: String): Action[AnyContent] = Action { implicit request =>
 
-    println("Registration editUserInfo" + request.body.asJson)
+//    println("Registration editUserInfo" + request.body.asJson)
     val jsonReceived = request.body.asJson.get
 
     val associatedSchoolId = (jsonReceived \ "associatedSchoolId").as[String]
@@ -332,7 +332,7 @@ object Registration extends Controller {
    * Update User (VA)
    */
   private def updateUser(userJson: JsValue): (Boolean, String) = {
-    println(userJson)
+//    println(userJson)
     val userId = (userJson \ "userId").as[String]
     val firstName = (userJson \ "firstName").as[String]
     val email = (userJson \ "mailId").asOpt[String]

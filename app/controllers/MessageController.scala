@@ -29,7 +29,7 @@ object MessageController extends Controller {
   //==========================//
 
   def newMessage: Action[AnyContent] = Action { implicit request =>
-    println("MessageController newMessage" + request.body.asJson)
+//    println("MessageController newMessage" + request.body.asJson)
     val messageListJsonMap = request.body.asJson.get
     val streamId = (messageListJsonMap \ "streamId").as[String]
     //    val messageAccess = (messageListJsonMap \ "messageAccess").as[String]
@@ -76,7 +76,7 @@ object MessageController extends Controller {
    */
 
   def getShortUrlViabitly: Action[AnyContent] = Action { implicit request =>
-    println("MessageController getShortUrlViabitly" + request.body.asFormUrlEncoded)
+//    println("MessageController getShortUrlViabitly" + request.body.asFormUrlEncoded)
     val longUrlMap = request.body.asFormUrlEncoded.get
     val longUrl = longUrlMap("link").toList(0)
     val shortUrlJson = BitlyAuthUtil.returnShortUrlViabitly(longUrl)

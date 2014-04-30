@@ -38,7 +38,7 @@ object QuestionController extends Controller {
    */
 
   def newQuestion: Action[AnyContent] = Action { implicit request =>
-    println("Questioncontroller newQuestion " + request.body.asJson)
+//    println("Questioncontroller newQuestion " + request.body.asJson)
     val questionJsonMap = request.body.asJson.get
     val streamId = (questionJsonMap \ "streamId").as[String]
     val questionBody = (questionJsonMap \ "questionBody").as[String]

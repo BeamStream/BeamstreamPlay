@@ -100,7 +100,7 @@ object SocialController extends Controller {
    * Returns a JSON of user contact information
    */
   def inviteFriends: Action[AnyContent] = Action { implicit request =>
-    println("SocialController inviteFriends " + request.body.asJson)
+//    println("SocialController inviteFriends " + request.body.asJson)
     val userId = request.session.get("userId")
     (userId == None) match {
       case true => Ok(write("Session Has Been Expired")).as("application/json")

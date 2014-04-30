@@ -66,7 +66,7 @@ object DocumentController extends Controller {
   }*/
 
   def newGoogleDocument: Action[AnyContent] = Action { implicit request =>
-    println("DocumentController newGoogleDocument" + request.body.asFormUrlEncoded)
+//    println("DocumentController newGoogleDocument" + request.body.asFormUrlEncoded)
     val data = request.body.asFormUrlEncoded.get
     val docName = data("docName").toList.head
     val docUrl = data("docUrl").toList.head
@@ -105,7 +105,7 @@ object DocumentController extends Controller {
    * Change the title and description
    */
   def changeTitleAndDescriptionForADocument(documentId: String): Action[AnyContent] = Action { implicit request =>
-    println("DocumentController changeTitleAndDescriptionForADocument" + request.body.asJson)
+//    println("DocumentController changeTitleAndDescriptionForADocument" + request.body.asJson)
     val jsonReceived = request.body.asJson.get
     val docDescription = (jsonReceived \ "docDescription").as[String]
     val docName = (jsonReceived \ "docName").as[String]
@@ -139,7 +139,7 @@ object DocumentController extends Controller {
    */
 
   def uploadDocumentFromDisk: Action[play.api.mvc.MultipartFormData[play.api.libs.Files.TemporaryFile]] = Action(parse.multipartFormData) { request =>
-    println("DocumentController uploadDocumentFromDisk" + request.body.asFormUrlEncoded)
+//    println("DocumentController uploadDocumentFromDisk" + request.body.asFormUrlEncoded)
     val documentJsonMap = request.body.asFormUrlEncoded.toMap
     val streamId = documentJsonMap("streamId").toList(0)
     val docDescription = documentJsonMap("docDescription").toList(0)
