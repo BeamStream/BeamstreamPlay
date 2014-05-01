@@ -33,12 +33,6 @@ object Global extends GlobalSettings {
     Cleaner.makeUsersOfflineIfNotAvailable
   }
 
-  /* override def onLoadConfig(config: Configuration, path: File, classloader: ClassLoader, mode: Mode.Mode): Configuration = {
-    Logger.info("Apllication  configuration file is loading with " + mode.toString + "  mode")
-    val modeSpecificConfig = config ++ Configuration(ConfigFactory.load(s"${mode.toString.toLowerCase}.conf"))
-    super.onLoadConfig(modeSpecificConfig, path, classloader, mode)
-  }*/
-
   override def onError(request: RequestHeader, ex: Throwable): Future[SimpleResult] = {
     Future.successful(Redirect("/error"))
   }
