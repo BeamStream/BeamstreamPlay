@@ -12,7 +12,7 @@ import org.bson.types.ObjectId
 import au.com.bytecode.opencsv.CSVReader
 import models.School
 
-object ReadingSpreadsheetUtil extends App {
+object ReadingSpreadsheetUtil/* extends App*/ {
 
   /**
    * Read Schools From Spreadsheet and Save In Database If  Not Exist Already
@@ -34,11 +34,17 @@ object ReadingSpreadsheetUtil extends App {
   }*/
 
   def readCSVOfSchools(file: File) {
+    println("00000000000000000000" + file.length())
     val reader = new CSVReader(new FileReader(file))
+    println(">>>>>>>>>>>>>>>>>>>>>>>")
     for (row <- reader.readAll) {
+      println("------------------------------")
       val schoolNameToSave = row(1) + ", " + row(3)
+      println("<<<<<<<<<<<<<<<<<<<<<<<")
       val schoolToCreate = new School(new ObjectId, schoolNameToSave, "")
+      println("{{{{{{{{{{{{{{{{{{{{{{{{{{")
       val schoolId = School.addNewSchool(schoolToCreate)
+      println("}}}}}}}}}}}}}}}}}}}}}}}}}}}}")
     }
   }
 
