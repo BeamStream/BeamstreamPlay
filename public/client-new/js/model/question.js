@@ -144,8 +144,18 @@ define(['baseModel',
 		}, 
 
 		deleteQuestion: function(){
+			var questionId = this.get('question').id.id;
+			var streamID=this.get('question').streamId.id;
 			this.urlRoot = '/remove/question/';
-			this.save({id: this.get('question').id.id}, {silent: true});
+			this.save({id: this.get('question').id.id}, {success: function(model,data){
+				
+				
+				
+				PUBNUB.publish({
+		        	channel : "sideQuestionDelete",
+		        message : { pagePushUid: self.pagePushUid ,questionId :questionId,streamID:streamID}
+		        })
+			}});
 			this.clear({silent: true});
 			this.set({'deleted': true}, {silent: true});
 			this.trigger('questionModelDelete');

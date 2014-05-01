@@ -152,17 +152,7 @@ define(
 											}
 											
 
-											$.ajax({
-												
-												type: 'GET',	           
-									            url: "/noOfUnansweredQuestions/"+question.streamId,
-									            success: function(data){
-									            	
-									            	
-									            	$("#number-new-questions").text	(data.count);
-									            }
-												
-											});
+											
 											var countUnansweredQues = $("#number-new-questions").text();
 											countUnansweredQues--;
 											$("#number-new-questions").text(countUnansweredQues);
@@ -172,6 +162,57 @@ define(
 									
 									
 									})
+									
+									
+									
+									
+									
+									
+									
+									
+									PUBNUB
+									.subscribe({
+
+										channel : "sideQuestionDelete",
+										restore : false,
+										callback : function(question) {
+											
+											if (question.pagePushUid != self.pagePushUid) {
+
+												$(
+														'div#'
+																+ question.questionId
+																+ ":parent")
+														.remove();
+											}
+											
+
+											$.ajax({
+												
+												type: 'GET',	           
+									            url: "/noOfUnansweredQuestions/"+question.streamID,
+									            success: function(data){
+									            	
+									            	
+									            	$("#number-new-questions").text	(data.count);
+									            }
+												
+											});
+									
+										}
+									
+									
+									
+									})
+									
+									
+									
+									
+									
+									
+									
+									
+									
 
 							PUBNUB
 									.subscribe({
@@ -243,6 +284,46 @@ define(
 											}
 										}
 									})
+									
+									
+									PUBNUB
+									.subscribe({
+
+										channel : "deleteQuestionSideStream",
+										restore : false,
+										callback : function(question) {
+											
+											if (question.pagePushUid != self.pagePushUid) {
+
+												$(
+														'div#'
+																+ question.questionId
+																+ ":parent")
+														.remove();
+											}
+											
+
+											$.ajax({
+												
+												type: 'GET',	           
+									            url: "/noOfUnansweredQuestions/"+question.streamId,
+									            success: function(data){
+									            	
+									            	
+									            	$("#number-new-questions").text	(data.count);
+									            }
+												
+											});
+											var countUnansweredQues = $("#number-new-questions").text();
+											countUnansweredQues--;
+											$("#number-new-questions").text(countUnansweredQues);
+											
+										}
+									
+									
+									
+									})
+									
 							PUBNUB
 									.subscribe({
 										channel : "sideAnswerPushSideStream",
