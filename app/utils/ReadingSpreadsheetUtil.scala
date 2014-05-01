@@ -33,10 +33,10 @@ object ReadingSpreadsheetUtil/* extends App*/ {
     }
   }*/
 
-  def readCSVOfSchools(file: File) {
-    println("00000000000000000000" + file.length())
-    val reader = new CSVReader(new FileReader(file))
-    println(">>>>>>>>>>>>>>>>>>>>>>>")
+  def readCSVOfSchools(stream: java.io.InputStream) {
+//    println("00000000000000000000" + file.length())
+    val reader = new CSVReader(new java.io.InputStreamReader(stream))
+    println(">>>>>>>>>>>>>>>>>>>>>>>" + reader)
     for (row <- reader.readAll) {
       println("------------------------------")
       val schoolNameToSave = row(1) + ", " + row(3)
