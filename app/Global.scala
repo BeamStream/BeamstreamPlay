@@ -16,14 +16,17 @@ import play.api.mvc.SimpleResult
 import scala.concurrent.Future
 import play.api.mvc.SimpleResult
 import utils.ReadingSpreadsheetUtil
+import play.api.Play
+import play.api.Play.current
 
 object Global extends GlobalSettings {
 
   override def onStart(app: Application) {
     try {
-      val filePath = Global.getClass().getClassLoader().getResource("ListofSchools.csv")
+      val filePath = Play.classloader.getResource("ListofSchools.csv")//.getFile("conf/csv/ListofSchools.csv")
+      //val filePath = Global.getClass().getClassLoader().getResource("csv")
       if (School.getAllSchools.length < 7487)
-        ReadingSpreadsheetUtil.readCSVOfSchools(new File(filePath.toURI()))
+        ReadingSpreadsheetUtil.readCSVOfSchools(new File(filePath.toURI()))//.listFiles().head)
     } catch {
       case ex: Exception => ex.printStackTrace() //for Reading CSV of schools
     }
