@@ -22,29 +22,16 @@ object Global extends GlobalSettings {
 
   override def onStart(app: Application) {
     try {
-      //      val filePath = Play.classloader.getResource("ListofSchools.csv")//.getFile("conf/csv/ListofSchools.csv")
       val filePath = Global.getClass().getClassLoader().getResourceAsStream("ListofSchools.csv")
-      Logger.info("Reading CSV file>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-      println("1111111111111111111111")
-//      if (School.getAllSchools.length < 7487) {
-        println(filePath + ">>>>>>>>>>>>>>>>>>>>>>>")
-        println("2222222222222222222222222222") //InputStream)
+      if (School.getAllSchools.length < 7487)
         ReadingSpreadsheetUtil.readCSVOfSchools(filePath)
-        println("33333333333333333333333")
-//      }
     } catch {
-      case ex: Exception => println("444444444444444444444444");ex.printStackTrace() //for Reading CSV of schools
+      case ex: Exception => ex.printStackTrace() //for Reading CSV of schools
     }
-    val i = 5/0;	
-    println("55555555555555555555")
     val listOfAllSchools = School.getAllSchools
-    println("66666666666666666666666")
     School.allSchoolsInDatabase = Nil
-    println("77777777777777777")
     School.allSchoolsInDatabase ++= listOfAllSchools
-    println("8888888888888888888888888")
     Cleaner.makeUsersOfflineIfNotAvailable
-    println("9999999999999999999999999999999999")
   }
 
   override def onError(request: RequestHeader, ex: Throwable): Future[SimpleResult] = {
