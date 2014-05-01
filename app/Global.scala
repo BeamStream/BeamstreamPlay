@@ -23,15 +23,17 @@ object Global extends GlobalSettings {
     try {
       //      val filePath = Play.classloader.getResource("ListofSchools.csv")//.getFile("conf/csv/ListofSchools.csv")
       val filePath = Global.getClass().getClassLoader().getResource("csv")
+      Logger.info("Reading CSV file>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
       println("1111111111111111111111")
-      if (School.getAllSchools.length < 7487) {
+//      if (School.getAllSchools.length < 7487) {
         println("2222222222222222222222222222" + new File(filePath.toURI()).listFiles().head)
         ReadingSpreadsheetUtil.readCSVOfSchools(new File(filePath.toURI()).listFiles().head)
         println("33333333333333333333333")
-      }
+//      }
     } catch {
       case ex: Exception => println("444444444444444444444444");ex.printStackTrace() //for Reading CSV of schools
     }
+    val i = 5/0;	
     println("55555555555555555555")
     val listOfAllSchools = School.getAllSchools
     println("66666666666666666666666")
