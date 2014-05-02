@@ -1,7 +1,7 @@
 define(['baseModel', 
 				'../collection/questionStreams', 
-				'model/onlineuser'
-				], function(BaseModel, QuestionStreams, OnlineUser) {
+				'model/onlineuser','model/stream'
+				], function(BaseModel, QuestionStreams, OnlineUser,Stream) {
 	var QuestionStream = BaseModel.extend({ 
 		objName: 'questionStream',
 
@@ -33,6 +33,20 @@ define(['baseModel',
 				.fetch({url: requestURL});
 		},
 
+		setStreamOwner: function(streamId){
+			var streamCreator;
+			$.ajax({
+				type: 'GET',	           
+	            url: "/streamData/"+streamId,
+	            async: false,
+	            success: function(data){
+	            	 streamCreator = data.creatorOfStream.id;
+	            	 if(typeof callback === "function") callback(streamCreator);
+	            }
+			});
+			return(streamCreator);
+		},
+		
 		setQuestionStreamId: function(streamId){
 			this.set('streamId', streamId);
 		},
@@ -94,13 +108,15 @@ define(['baseModel',
 
 		// handles the server request for all question data
 		createQuestionList: function(){
+			
 			if((this.get('streamId')) != null  || (this.get('streamId')) != undefined){
+			var streamOwner = this.setStreamOwner(this.get('streamId'));
 			var requestURL = '/getAllQuestionsForAStream/' + this.get('streamId') + '/date/10/1';
 			var that = this;
 			this.get('questionStreams')
 					.fetch({url: requestURL,
-									success: function(){ 
-										that.get('questionStreams').addRockedByUser(that.get('onlineUser').get('id').id);
+									success: function(model , response){ 
+										that.get('questionStreams').addRockedByUser((that.get('onlineUser').get('id').id),streamOwner);
 										that.updateCurrentStream();
 									}
 								});

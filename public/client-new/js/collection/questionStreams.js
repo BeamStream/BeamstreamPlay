@@ -1,6 +1,6 @@
 define([
 	'collection/baseCollection', 
-	'../model/question'], function(BaseCollection, Question) {
+	'../model/question','../model/stream'], function(BaseCollection, Question,Stream) {
 	var QuestionStreams = BaseCollection.extend({ 
 		model: Question,
 		objName: 'questionStreams',
@@ -21,7 +21,7 @@ define([
 		// adds the current onlineUser id and whether a question was asked
 		// by that user and whether it was rocked by that user
 		// this is used in the template to know what to render
-		addRockedByUser: function(onlineUserId){
+		addRockedByUser: function(onlineUserId,streamOwner){
 			var checkForId = function(array, id){
 				for (var i = 0; i < array.length; i++){
 					if(array[i].id === id) {
@@ -34,12 +34,19 @@ define([
 				question.set({'onlineUser': onlineUserId}, {silent: true});
 				var onlineUserAsked = question.get('question').userId.id === onlineUserId ? true : false;
 				question.set({'onlineUserAsked': onlineUserAsked}, {silent: true});
+				
+				var StreamOwner = streamOwner === onlineUserId ? true : false;
+				question.set({'StreamOwner': StreamOwner}, {silent: true});
+				
+				
 				if (checkForId(question.get('question').rockers, onlineUserId)){
 					question.set('onlineUserRocked', true);
 				} else {
 					question.set('onlineUserRocked', false);
 				}
 			});
+			
+			
 		}, 
 
 		updateEditStatus: function(event){

@@ -10,6 +10,7 @@
        
     </div>
     	 <div class="follow-question">FOLLOW</div>
+   
     {{#if onlineUserAsked}}
     <div class="btn-group stream-dropdown question-setting">
         <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown"> 
@@ -20,7 +21,23 @@
             <li class="delete-question"><a href="#">Delete Question</a></li>
         </ul>
     </div>
+   {{else}}
+   {{#if StreamOwner}}
+   <div class="btn-group stream-dropdown question-setting">
+        <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown"> 
+					<span id="questions-edit-gear-icon"></span>
+				</button>
+            <ul class="dropdown-menu pull-right" >
+            <li class="mark-answered"><a href="#">Mark As Answered</a></li>
+            <li class="delete-question"><a href="#">Delete Question</a></li>
+        </ul>
+    </div>
+   {{/if}}
     {{/if}}
+    
+    
+   
+    
     <div class="post-info">
         <div class="post-date">{{question.creationDate}}</div>
         <div class="post-type">{{question.questionAccess.name}}</div>
