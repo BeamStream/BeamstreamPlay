@@ -220,7 +220,6 @@ object Registration extends Controller {
   def registerUser: Action[AnyContent] = Action { implicit request =>
     //    println("Registration registerUser" + request.body.asJson)
     val jsonReceived = request.body.asJson.get
-
     val associatedSchoolId = (jsonReceived \ "associatedSchoolId").as[String]
     val schoolName = (jsonReceived \ "schoolName").as[String]
 

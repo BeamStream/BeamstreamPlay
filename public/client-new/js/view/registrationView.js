@@ -16,8 +16,7 @@ define(
 		[ 'view/formView', '../../lib/bootstrap.min',
 				'../../lib/bootstrap-select', '../../lib/bootstrap-modal',
 				'../../lib/jquery.meio.mask', '../../lib/bootstrap-datepicker',
-				'text!templates/registration.tpl',
-				 ],
+				'text!templates/registration.tpl', ],
 		function(FormView, Bootstrap, BootstrapSelect, BootstrapModal,
 				MaskedInput, Datepicker, RegistrationTpl) {
 			var RegistrationView;
@@ -133,8 +132,6 @@ define(
 							 * compiledTemplate(userInfo)); } }
 							 */
 
-							
-
 						},
 
 						onAfterRender : function() {
@@ -145,50 +142,61 @@ define(
 							});
 
 							$('#datepicker').datepicker();
-							
+
 							$
-							.ajax({
-								type : 'GET',
-								url : '/findUserData',
-								success : function(data) {
-									$('#username').val(
-											data.data.username);
-									$('#firstName').val(
-											data.data.firstName);
-									$('#lastName').val(
-											data.data.lastName);
-									$('#schoolName').val(
-											data.data.schoolName);
-									$('#major').val(data.data.major);
-									$('#aboutYourself').val(
-											data.data.aboutYourself);
-									var gradeLvl = data.data.gradeLevel;
-									$('[name=gradeLevel] option')
-											.filter(
-													function() {
-														return ($(this)
-																.text() == gradeLvl);
-													}).prop('selected',
-													true);
-									var degreePgrm = data.data.degreeProgram;
-									$('[name=degreeProgram] option')
-											.filter(
-													function() {
-														return ($(this)
-																.text() == degreePgrm);
-													}).prop('selected',
-													true);
-									$('#location').val(
-											data.data.location);
-									$('#cellNumber').val(
-											data.data.cellNumber);
-									$('#associatedSchoolId')
-											.val(
-													data.data.associatedSchoolId);
-									$('#myUserId')
-											.val(data.data.userId);
-								}
-							});
+									.ajax({
+										type : 'GET',
+										url : '/findUserData',
+										success : function(data) {
+											if (data.data.username == undefined) {
+												$('#location').val(
+														data.data.location);
+											} else {
+												$('#username').val(
+														data.data.username);
+												$('#firstName').val(
+														data.data.firstName);
+												$('#lastName').val(
+														data.data.lastName);
+												$('#schoolName').val(
+														data.data.schoolName);
+												$('#major')
+														.val(data.data.major);
+												$('#aboutYourself')
+														.val(
+																data.data.aboutYourself);
+												var gradeLvl = data.data.gradeLevel;
+												$('[name=gradeLevel] option')
+														.filter(
+																function() {
+																	return ($(
+																			this)
+																			.text() == gradeLvl);
+																}).prop(
+																'selected',
+																true);
+												var degreePgrm = data.data.degreeProgram;
+												$('[name=degreeProgram] option')
+														.filter(
+																function() {
+																	return ($(
+																			this)
+																			.text() == degreePgrm);
+																}).prop(
+																'selected',
+																true);
+												$('#location').val(
+														data.data.location);
+												$('#cellNumber').val(
+														data.data.cellNumber);
+												$('#associatedSchoolId')
+														.val(
+																data.data.associatedSchoolId);
+												$('#myUserId').val(
+														data.data.userId);
+											}
+										}
+									});
 						},
 
 						/**
@@ -276,15 +284,13 @@ define(
 								});
 							}
 
-							
-
 							// set validation for degreeExpected field
 							if (!$('#degreeExpected-set').is(':hidden')
 									&& !$('#degreeExpected').val()) {
 								this.data.models[0].set({
 									'degreeExpected' : ''
 								});
-							} 
+							}
 							// set school details to modal
 							this.data.models[0].set({
 								'userId' : $('#myUserId').val(),
@@ -298,8 +304,8 @@ define(
 								'lastName' : $('#lastName').val(),
 								'major' : $('#major').val(),
 								'aboutYourself' : $('#aboutYourself').val(),
-								//'gradeLevel' : $('#gradeLevel').val(),
-								//'degreeProgram' : $('#degreeProgram').val(),
+								// 'gradeLevel' : $('#gradeLevel').val(),
+								// 'degreeProgram' : $('#degreeProgram').val(),
 								'location' : $('#location').val(),
 								'cellNumber' : $('#cellNumber').val(),
 							});
