@@ -34,17 +34,24 @@ define(['baseModel',
 		},
 
 		setStreamOwner: function(streamId){
-			var streamCreator;
-			$.ajax({
-				type: 'GET',	           
-	            url: "/streamData/"+streamId,
-	            async: false,
-	            success: function(data){
-	            	 streamCreator = data.creatorOfStream.id;
-	            	 if(typeof callback === "function") callback(streamCreator);
-	            }
-			});
-			return(streamCreator);
+			
+			if(streamId != "remove-button" )
+				{
+				var streamCreator;
+				$.ajax({
+					type: 'GET',	           
+		            url: "/streamData/"+streamId,
+		            async: false,
+		            success: function(data){
+		            	 streamCreator = data.creatorOfStream.id;
+		            	 if(typeof callback === "function") callback(streamCreator);
+		            }
+				});
+				
+				return(streamCreator);
+				}
+			
+	
 		},
 		
 		setQuestionStreamId: function(streamId){
@@ -109,7 +116,10 @@ define(['baseModel',
 		// handles the server request for all question data
 		createQuestionList: function(){
 			
-			if((this.get('streamId')) != null  || (this.get('streamId')) != undefined){
+			if((this.get('streamId')) != null  || (this.get('streamId')) != undefined ){
+				if(this.get('streamId') != "remove-button")
+					
+					{
 			var streamOwner = this.setStreamOwner(this.get('streamId'));
 			var requestURL = '/getAllQuestionsForAStream/' + this.get('streamId') + '/date/10/1';
 			var that = this;
@@ -120,6 +130,7 @@ define(['baseModel',
 										that.updateCurrentStream();
 									}
 								});
+					}
 			}
 		}, 
 		/*restartInterval: function(){
