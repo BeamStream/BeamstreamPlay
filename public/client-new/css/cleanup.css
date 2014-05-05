@@ -2127,7 +2127,7 @@ li .menu-arrow:hover {
   margin: -4 0 0 12px;
 }
 #settings-gear-icon {
-  background: url(http://localhost:9000/beamstream-new/less/../../beamstream-new/images/spryte.png) no-repeat;
+  background: url(/beamstream-new/images/spryte.png) no-repeat;
   background-position: -59px -1306px;
   height: 25px;
   width: 25px;
@@ -3088,7 +3088,7 @@ ul.register-social li a.link-in {
   overflow: hidden;
 }
 form.all-search span {
-  background: url(http://localhost:9000/beamstream-new/less/../../beamstream-new/images/spryte.png) no-repeat;
+  background: url(/beamstream-new/images/spryte.png) no-repeat;
   background-position: -64px -1437px;
   height: 25px;
   width: 25px;
