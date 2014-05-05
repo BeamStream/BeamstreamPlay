@@ -33,7 +33,7 @@ import play.api.cache.Cache
 import play.api.Play.current
 import play.api.mvc.AnyContent
 import play.api.libs.json._
-
+import utils.FetchLocationUtil
 
 object Registration extends Controller {
   implicit val formats = new net.liftweb.json.DefaultFormats {
@@ -131,7 +131,7 @@ object Registration extends Controller {
                         case _ =>
                           val userMedia = UserMedia.findUserMediaByUserId(new ObjectId(userId))
                           userMedia.isEmpty match {
-                            case true => Ok(views.html.registration(userId, Cache.getAs("userData"))).withSession("token" -> token).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000))) //Redirect(server + "/registration?userId=" + userId + "&token=" + token).withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
+                            case true => Ok(views.html.registration(userId, Cache.getAs(userId))).withSession("token" -> token).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000))) //Redirect(server + "/registration?userId=" + userId + "&token=" + token).withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
                             case false => Redirect("/class").withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
                           }
                       } //Ok(views.html.registration(userId, Cache.getAs("userData"))).withSession("token" -> token).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000))).withHeaders(CACHE_CONTROL -> "max-age=1")
@@ -218,9 +218,9 @@ object Registration extends Controller {
    * User Registration In Detail (V)
    */
   def registerUser: Action[AnyContent] = Action { implicit request =>
-//    println("Registration registerUser" + request.body.asJson)
+    //    println("Registration registerUser" + request.body.asJson)
     val jsonReceived = request.body.asJson.get
-    
+
     val associatedSchoolId = (jsonReceived \ "associatedSchoolId").as[String]
     val schoolName = (jsonReceived \ "schoolName").as[String]
 
@@ -238,11 +238,11 @@ object Registration extends Controller {
             val otherDegree = (jsonReceived \ "otherDegree").asOpt[String]
             val graduate = (jsonReceived \ "graduate").as[String]
             val degreeExpected = (jsonReceived \ "degreeExpected").asOpt[String]
-            
+
             /**
              * Setting User Info in Cache for Autofill feature
              */
-            Cache.set(userId, jsonReceived)  
+            Cache.set(userId, jsonReceived)
 
             val degreeExpectedSeason = (degreeExpected != None) match {
               case true => Option(DegreeExpected.withName(degreeExpected.get))
@@ -282,7 +282,7 @@ object Registration extends Controller {
    */
   def editUserInfo(userId: String): Action[AnyContent] = Action { implicit request =>
 
-//    println("Registration editUserInfo" + request.body.asJson)
+    //    println("Registration editUserInfo" + request.body.asJson)
     val jsonReceived = request.body.asJson.get
 
     val associatedSchoolId = (jsonReceived \ "associatedSchoolId").as[String]
@@ -332,7 +332,7 @@ object Registration extends Controller {
    * Update User (VA)
    */
   private def updateUser(userJson: JsValue): (Boolean, String) = {
-//    println(userJson)
+    //    println(userJson)
     val userId = (userJson \ "userId").as[String]
     val firstName = (userJson \ "firstName").as[String]
     val email = (userJson \ "mailId").asOpt[String]
@@ -341,7 +341,7 @@ object Registration extends Controller {
     val location = (userJson \ "location").as[String]
     val about = (userJson \ "aboutYourself").as[String]
     val cellNumber = (userJson \ "cellNumber").as[String]
-   
+
     val canUserRegisterWithThisUsername = User.canUserRegisterWithThisUsername(userName)
 
     def canUserRegister: (Boolean, String) = {
@@ -390,12 +390,16 @@ object Registration extends Controller {
     Ok
   }
 
-   def getUserDataFromCache: Action[AnyContent] = Action { implicit request =>
-     val userId = request.cookies.get("Beamstream").get.value.split(" ")(0)
-     val userInfo: Option[JsValue]  = Cache.getAs[JsValue](userId)
-     userInfo match {
-       case None => Ok
-       case Some(userData) => Ok(Json.obj("data" -> userData))
-     }
+  def getUserDataFromCache: Action[AnyContent] = Action { implicit request =>
+    val userId = request.cookies.get("Beamstream").get.value.split(" ")(0)
+    val userInfo: Option[JsValue] = Cache.getAs[JsValue](userId)
+    val ipAddress = request.remoteAddress
+    val location = FetchLocationUtil.getLocation(ipAddress)
+    val locationJsonString = """{"location": """ + location + """}"""
+    val locationJson: JsValue = play.api.libs.json.Json.parse(locationJsonString)
+    userInfo match {
+      case None => Ok(Json.obj("data" -> locationJson))
+      case Some(userData) => Ok(Json.obj("data" -> userData))
+    }
   }
 }
