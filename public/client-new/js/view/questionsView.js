@@ -2030,7 +2030,7 @@ define(
 							PUBNUB
 									.subscribe({
 
-										channel : "class_Members",
+										channel : "classMembers",
 										restore : false,
 										callback : function(question) {
 											if (question.pagePushUid != self.pagePushUid) {
