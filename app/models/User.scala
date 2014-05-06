@@ -59,7 +59,18 @@ object User {
       case true => None
       case false =>
         Option(userFound.head)
+    }
+  }
 
+  /**
+   * Find User By ObjectId
+   */
+  def findUserByObjectId(userId: ObjectId): Option[User] = {
+    val userFound = UserDAO.find(MongoDBObject("_id" -> userId)).toList
+    (userFound.isEmpty) match {
+      case true => None
+      case false =>
+        Option(userFound.head)
     }
   }
 

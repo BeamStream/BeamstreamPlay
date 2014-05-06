@@ -14,7 +14,6 @@ import actors.UtilityActor
 import models.mongoContext._
 import scala.language.postfixOps
 
-
 case class Stream(@Key("_id") id: ObjectId,
   streamName: String,
   streamType: StreamType.Value,
@@ -144,24 +143,28 @@ object Stream {
   def deleteStreams(userId: ObjectId, streamId: ObjectId): ResulttoSent = {
 
     val streamsObtained = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList
+    val userFound = User.findUserByObjectId(userId)
 
-    streamsObtained.isEmpty match {
-      case false =>
-        (streamsObtained.head.creatorOfStream == userId) match {
-          case true =>
-            Stream.deleteStream(streamsObtained.head)
-            val classAssosiatedWithThisStream = ClassDAO.find(MongoDBObject("streams" -> streamId)).toList(0)
-            ClassDAO.remove(classAssosiatedWithThisStream)
-            User.removeClassFromUser(userId, List(classAssosiatedWithThisStream.id))
-            ResulttoSent("Success", "Deleted Stream Successfuly")
+    userFound match {
+      case None => ResulttoSent("Failure", "User not Found")
+      case Some(user) =>
+        streamsObtained.isEmpty match {
           case false =>
-            Stream.removeAccessFromStream(streamId, userId)
-            ResulttoSent("Success", "Removed Access Successfully")
+            (streamsObtained.head.creatorOfStream == userId) match {
+              case true =>
+                Stream.deleteStream(streamsObtained.head)
+                val classAssosiatedWithThisStream = ClassDAO.find(MongoDBObject("streams" -> streamId)).toList(0)
+                ClassDAO.remove(classAssosiatedWithThisStream)
+                User.removeClassFromUser(userId, List(classAssosiatedWithThisStream.id))
+                ResulttoSent("Success", user.classes.length.toString)
+              case false =>
+                Stream.removeAccessFromStream(streamId, userId)
+                ResulttoSent("Success", user.classes.length.toString)
+            }
+
+          case true => ResulttoSent("Failure", "No Streams found")
         }
-
-      case true => ResulttoSent("Failure", "No Streams found")
     }
-
   }
 
   /**
