@@ -113,7 +113,7 @@
             <div class="profile-select-block">
           
               <fieldset class="field">   
-              <select id="graduate" data-name="user.graduate" name="graduate" class="selectpicker-info " placeholder="Graduated?">
+              <select id="graduate" data-name="user.graduate" name="graduate" class="selectpicker-info" placeholder="Graduated?">
                 <option value="attending">Still Attending</option>
                 <option value="yes">Yes</option>
                 <option value="no">No</option>

@@ -52,10 +52,16 @@ define(['view/formView',
 
             stream.save({id : streamId },{
                 success : function(model, response) {
+                	
+            
                 
                     if(response.status == "Success")
                     {
-                       
+                    	 PUBNUB.publish({
+     						channel : "deleteStream",
+     	                    message : { status: response.status,streamId : streamId}
+     	                })
+     	                
                         $('li#'+streamId).remove();
                         $('#deleteStream').modal("hide");
                         

@@ -733,7 +733,7 @@ define(
 									Math.random() * 16777215).toString(16);
 
 							/* for updating user count of stream */
-							PUBNUB
+							/*PUBNUB
 									.subscribe({
 
 										channel : "classMembers",
@@ -750,7 +750,7 @@ define(
 
 											}
 										}
-									})
+									})*/
 
 						}
 
