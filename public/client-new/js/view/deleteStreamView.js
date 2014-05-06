@@ -18,7 +18,7 @@
 
 
 define(['view/formView',
-        'model/str5eam',], function(FormView, StreamModel){
+        'model/stream',], function(FormView, StreamModel){
 	var DeleteStreamView;
 	DeleteStreamView = FormView.extend({
 		objName: 'DeleteStreamView',
@@ -66,11 +66,6 @@ define(['view/formView',
                         $('#deleteStream').modal("hide");
                         
                     }
-                    if (response.message == "1") {
-                    	 						alert("Please Create/Join a Class")
-                    	 						window.location = "/stream"
-                    	 					}
-                  
                 
                 },
                 error : function(model, response) {
