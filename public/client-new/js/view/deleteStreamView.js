@@ -66,6 +66,10 @@ define(['view/formView',
                         $('#deleteStream').modal("hide");
                         
                     }
+                    if(response.message == "1"){
+                    	alert("Please Create/Join a Class");
+                    	window.location = "/stream";
+                    }
                 
                 },
                 error : function(model, response) {

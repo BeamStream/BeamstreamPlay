@@ -150,12 +150,13 @@ object Stream {
       case Some(user) =>
         streamsObtained.isEmpty match {
           case false =>
+            val classAssosiatedWithThisStream = ClassDAO.find(MongoDBObject("streams" -> streamId)).toList(0)
+//                ClassDAO.remove(classAssosiatedWithThisStream)
+                User.removeClassFromUser(userId, List(classAssosiatedWithThisStream.id))
             (streamsObtained.head.creatorOfStream == userId) match {
               case true =>
                 Stream.deleteStream(streamsObtained.head)
-                val classAssosiatedWithThisStream = ClassDAO.find(MongoDBObject("streams" -> streamId)).toList(0)
                 ClassDAO.remove(classAssosiatedWithThisStream)
-                User.removeClassFromUser(userId, List(classAssosiatedWithThisStream.id))
                 ResulttoSent("Success", user.classes.length.toString)
               case false =>
                 Stream.removeAccessFromStream(streamId, userId)
