@@ -151,7 +151,7 @@ POST   /login                                                                   
 
 # Media
 POST   /media                                                                              controllers.MediaController.uploadMediaToAmazon
-GET   /defaultMedia                                                                       controllers.MediaController.uploadDefaultMedia
+GET    /defaultMedia                                                                       controllers.MediaController.uploadDefaultMedia
 GET    /recentMedia                                                                        controllers.MediaController.getRecentMediaAndDocs
 #Messages + Comments + ProfilePicUrl
 GET    /allMessagesForAStream/:streamId/:sortBy/:messagesPerPage/:pageNo/:period           controllers.MessageController.allMessagesForAStream(streamId:String,sortBy:String,messagesPerPage:Int,pageNo:Int,period:String)

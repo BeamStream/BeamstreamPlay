@@ -76,6 +76,10 @@ define(
 							var msgBody = model.message.messageBody;
 							var previewImageUrl = model.message.anyPreviewImageUrl
 							var docId = model.message.docIdIfAny
+							var messageAccess = model.message.messageAccess.name
+							if(messageAccess == "PrivateToClass"){
+								model.message.messageAccess.name = "Private To Class"
+							}
 
 							/* get url from the message text */
 							var msgUrl = msgBody.replace(self.urlRegex1,

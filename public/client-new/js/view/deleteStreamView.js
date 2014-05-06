@@ -66,6 +66,8 @@ define(['view/formView',
                         $('#deleteStream').modal("hide");
                         
                     }
+                    
+                  
                 
                 },
                 error : function(model, response) {
