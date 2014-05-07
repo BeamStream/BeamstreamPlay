@@ -179,7 +179,25 @@ function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionMod
 		},
 
 		deleteQuestion: function(){
-			this.model.deleteQuestion();
+			var model = this.model;
+			if (!model.get('onlineUserAsked')) {
+				if (model.get('StreamOwner')) {
+					bootbox.dialog("Are you sure you want to delete?", [ {
+						"label" : "Yes",
+						"class" : "delete-question",
+						"callback" : function() {
+							model.deleteQuestion();
+						}
+					}, {
+						"label" : "No",
+						"class" : "delete-question",
+						"callback" : function() {
+						}
+					} ]);
+				}
+			} else {
+				model.deleteQuestion();
+			}
 			/*var countUnansweredQues = $("#number-new-questions").text();
 			countUnansweredQues--;
 			$("#number-new-questions").text(countUnansweredQues);*/

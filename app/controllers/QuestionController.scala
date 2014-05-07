@@ -38,7 +38,7 @@ object QuestionController extends Controller {
    */
 
   def newQuestion: Action[AnyContent] = Action { implicit request =>
-//    println("Questioncontroller newQuestion " + request.body.asJson)
+    //    println("Questioncontroller newQuestion " + request.body.asJson)
     val questionJsonMap = request.body.asJson.get
     val streamId = (questionJsonMap \ "streamId").as[String]
     val questionBody = (questionJsonMap \ "questionBody").as[String]
@@ -133,10 +133,15 @@ object QuestionController extends Controller {
    * Delete A Question
    */
   def deleteQuestion(questionId: String): Action[AnyContent] = Action { implicit request =>
-    val questionDeleted = Question.deleteQuestionPermanently(new ObjectId(questionId), new ObjectId(request.session.get("userId").get))
-    questionDeleted match {
-      case true => Ok(write(new ResulttoSent("Success", "Question Has Been Deleted")))
-      case false => Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Question")))
+    val userId = request.session.get("userId")
+    userId match {
+      case None => Ok(write(new ResulttoSent("Failure", "User not Found")))
+      case Some(user) =>
+        val questionDeleted = Question.deleteQuestionPermanently(new ObjectId(questionId), new ObjectId(user))
+        questionDeleted match {
+          case true => Ok(write(new ResulttoSent("Success", "Question has been Deleted")))
+          case false => Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Question")))
+        }
     }
   }
 
@@ -279,13 +284,13 @@ object QuestionController extends Controller {
       case false => Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Answer")))
     }
   }
-  
-  def noOfUnansweredQusetions(streamId: String): Action[AnyContent] = Action {implicit request =>
+
+  def noOfUnansweredQusetions(streamId: String): Action[AnyContent] = Action { implicit request =>
     val unansweredQuestions = Question.getNoOfUnansweredQuestions(new ObjectId(streamId))
     Ok(Json.obj("count" -> unansweredQuestions))
   }
-  
-  def markAQuestionAsAnswered(questionId: String): Action[AnyContent] = Action {implicit request =>
+
+  def markAQuestionAsAnswered(questionId: String): Action[AnyContent] = Action { implicit request =>
     val questionMarkedAsAnswered = Question.markAQuestionAsAnswered(new ObjectId(questionId))
     Ok(Json.obj("response" -> questionMarkedAsAnswered))
     /*questionMarkedAsAnswered match {
@@ -293,6 +298,6 @@ object QuestionController extends Controller {
       case false => Ok("Failure")
     }*/
   }
-  
+
 }
 
