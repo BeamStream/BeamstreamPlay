@@ -114,7 +114,7 @@ object ClassController extends Controller {
                     }
                 }
             }
-          case true => Redirect("/signOut")
+          case true => Redirect("/login").withNewSession.discardingCookies(DiscardingCookie("Beamstream"))
         }
       case None =>
         request.cookies.get("Beamstream") match {
@@ -138,7 +138,7 @@ object ClassController extends Controller {
                           case false => Redirect("/class").withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
                         }
                     }
-                  case None => Redirect("/signOut")
+                  case None => Redirect("/login").withNewSession.discardingCookies(DiscardingCookie("Beamstream"))
                 }
               case _ => Redirect("/" + cookie.value.split(" ")(1))
             }

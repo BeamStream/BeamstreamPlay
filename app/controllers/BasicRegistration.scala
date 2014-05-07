@@ -58,7 +58,7 @@ object BasicRegistration extends Controller {
                           case false => Redirect("/class").withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
                         }
                     }
-                  case None => Redirect("/signOut")
+                  case None => Redirect("/login").withNewSession.discardingCookies(DiscardingCookie("Beamstream"))
                 }
               case _ => Redirect("/" + cookie.value.split(" ")(1))
             }
@@ -72,7 +72,7 @@ object BasicRegistration extends Controller {
               case false => Redirect("/stream")
             }
           }
-          case None => Redirect("/signOut")
+          case None => Redirect("/login").withNewSession.discardingCookies(DiscardingCookie("Beamstream"))
         }
     }
   }

@@ -52,9 +52,7 @@ define(['view/formView'], function(FormView){
 					dataType : "json",
 					success : function(data) {
 						if(data.status == "Success"){
-							
-							
-							
+														
 							localStorage["loggedUserProfileUrl"] =  '';
 			            	localStorage["loggedUserId"] =  '';
 							window.location = "/login";

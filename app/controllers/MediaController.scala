@@ -29,6 +29,7 @@ import play.api.Play
 import play.api.cache.Cache
 import play.api.Play.current
 import play.api.mvc.AnyContent
+import play.api.mvc.DiscardingCookie
 
 object MediaController extends Controller {
 
@@ -257,7 +258,7 @@ object MediaController extends Controller {
               case true => Redirect("/class").withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000))) //Ok(views.html.classpage())
               case false => Ok(views.html.browsemedia()).withCookies(Cookie("Beamstream", userId.toString() + " browsemedia", Option(864000)))
             }
-          case None => Redirect("/signOut")
+          case None => Redirect("/login").withNewSession.discardingCookies(DiscardingCookie("Beamstream"))
         }
       case None =>
         request.cookies.get("Beamstream") match {
@@ -282,7 +283,7 @@ object MediaController extends Controller {
                           case false => Redirect("/class").withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
                         }
                     }
-                  case None => Redirect("/signOut")
+                  case None => Redirect("/login").withNewSession.discardingCookies(DiscardingCookie("Beamstream"))
                 }
               case _ => Redirect("/" + cookie.value.split(" ")(1)).withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " " + cookie.value.split(" ")(1), Option(864000)))
             }
