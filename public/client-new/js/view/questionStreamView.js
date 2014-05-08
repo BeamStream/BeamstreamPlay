@@ -19,7 +19,7 @@ define(
 							'submit .question-form' : 'searchQuestions',
 
 						},
-
+						onlineuser : "",
 						
 						initialize : function() {
 
@@ -32,16 +32,27 @@ define(
 								currentFilter : 'unanswered'
 
 							});
-							
-							
-							
+							this.onlineuser = this.setOnlineuser();	
 							this.receiveQuestionThroughPubNubQs();
-							
-							
 							this.render();
+							
+												
 						},
 
-						
+						setOnlineuser: function(){
+								var onlineUser;
+								$.ajax({
+									type: 'GET',	           
+						            url: "/loggedInUserJson",
+						            async: false,
+						            success: function(data){
+						            	onlineUser = data.id.id;
+						            	 if(typeof callback === "function") callback(streamCreator);
+						            }
+								});
+								
+								return(onlineUser);
+						},
 						
 					
 						
@@ -55,6 +66,10 @@ define(
 									Math.random() * 16777215).toString(16);
 							var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
 							var trueUrl = '';
+						
+							self.useronline = this.onlineuser;
+	
+							
 
 							// Trigger the change pagePushUid event
 							/*
@@ -67,14 +82,18 @@ define(
 										channel : 'questionsSideStream',
 
 										callback : function(question) {
-											
-
-
 											var streamId = $(
 													'.sortable li.active')
 													.attr('id');
-												
 											
+											if(self.useronline == question.data.question.userId.id)
+											{
+												var onlineUserAsked = true;
+											}
+											else
+												{
+												var onlineUserAsked = false;
+												}
 											
 											if (question.pagePushUid != self.pagePushUid) {
 												if (question.streamId == streamId) {
@@ -85,10 +104,13 @@ define(
 													questionModel = new QuestionModel();
 													questionModel
 															.set({
+																
+															
 																// docDescription
 																// :question.data.docDescription,
 																// docName :
 																// question.data.docName,
+																onlineUserAsked:onlineUserAsked,
 																question : question.data.question,
 																questionAccess : question.data.questionAccess,
 																profilePic : question.data.profilePic,
