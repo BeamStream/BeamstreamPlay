@@ -194,6 +194,10 @@
 				 </div>
 				 {{#ifequal loggedUserId data.message.userId.id }}
 					<a id="{{data.message.id.id}}" href="#" data-original-title="Delete" href="#" class="delete_post drag-rectangle" ></a>
+					{{else}}					
+					 {{#ifequal streamCreatorId loggedUserId }}
+					<a id="{{data.message.id.id}}" href="#" data-original-title="Delete" href="#" class="delete_post drag-rectangle" ></a>
+				 {{/ifequal}}
 				 {{/ifequal}}
                 </div>
 								
