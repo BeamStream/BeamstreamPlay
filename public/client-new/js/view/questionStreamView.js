@@ -55,6 +55,26 @@ define(
 						},
 						
 					
+						setStreamOwner: function(streamId){
+							
+							if(streamId != "remove-button" )
+								{
+								var streamCreator;
+								$.ajax({
+									type: 'GET',	           
+						            url: "/streamData/"+streamId,
+						            async: false,
+						            success: function(data){
+						            	 streamCreator = data.creatorOfStream.id;
+						            	 if(typeof callback === "function") callback(streamCreator);
+						            }
+								});
+								return(streamCreator);
+								}
+							
+					
+						},
+						
 						
 						/**
 						 * PUBNUB real time push
@@ -86,6 +106,16 @@ define(
 													'.sortable li.active')
 													.attr('id');
 											
+											if (self.setStreamOwner(question.streamId) == question.data.question.userId.id)
+												{
+												StreamOwner = false;
+												}
+											else
+												{
+												StreamOwner = true;
+												}
+											
+											
 											if(self.useronline == question.data.question.userId.id)
 											{
 												var onlineUserAsked = true;
@@ -94,6 +124,7 @@ define(
 												{
 												var onlineUserAsked = false;
 												}
+											
 											
 											if (question.pagePushUid != self.pagePushUid) {
 												if (question.streamId == streamId) {
@@ -111,6 +142,7 @@ define(
 																// docName :
 																// question.data.docName,
 																onlineUserAsked:onlineUserAsked,
+																StreamOwner:StreamOwner,
 																question : question.data.question,
 																questionAccess : question.data.questionAccess,
 																profilePic : question.data.profilePic,
