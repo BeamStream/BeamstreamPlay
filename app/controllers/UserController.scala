@@ -62,37 +62,40 @@ object UserController extends Controller {
 
         val userToShow = OnlineUserCache.returnOnlineUsers.head.onlineUsers -= request.session.get("userId").get
         val otherUsers = userToShow.keys.toList
-        val currentUsersClasses = User.getUserProfile(new ObjectId(request.session.get("userId").get)).get.classes
+        val currentUsers = User.getUserProfile(new ObjectId(request.session.get("userId").get))
+        currentUsers match {
+          case None => Option(Nil)
+          case Some(currentUsers) =>
+            val currentUsersClasses = currentUsers.classes
+            currentUsersClasses map {
+              case eachClassOfUser =>
 
-        currentUsersClasses map {
-          case eachClassOfUser =>
-
-            val streams = models.Class.findClasssById(eachClassOfUser).get.streams
-            val streamUsers = Stream.findStreamById(streams.head).get.usersOfStream
-            val streamUserList = streamUsers map {
-              case user => user.toString
+                val streams = models.Class.findClasssById(eachClassOfUser).get.streams
+                val streamUsers = Stream.findStreamById(streams.head).get.usersOfStream
+                val streamUserList = streamUsers map {
+                  case user => user.toString
+                }
+                usersToShow ++= otherUsers.intersect(streamUserList)
             }
-            usersToShow ++= otherUsers.intersect(streamUserList)
-        }
-        val onlineUsersWithDetails = (usersToShow.distinct) map {
-          case eachUserId =>
-            val userWithDetailedInfo = User.getUserProfile(new ObjectId(eachUserId))
-            val profilePicForUser = UserMedia.getProfilePicForAUser(new ObjectId(eachUserId))
-            val onlineUsersAlongWithDetails = (profilePicForUser.isEmpty) match {
-              case true => {
-                AvailableUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
-                  userWithDetailedInfo.get.lastName, "")
-              }
-              case false => {
-                AvailableUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
-                  userWithDetailedInfo.get.lastName, profilePicForUser(0).mediaUrl)
-              }
+            val onlineUsersWithDetails = (usersToShow.distinct) map {
+              case eachUserId =>
+                val userWithDetailedInfo = User.getUserProfile(new ObjectId(eachUserId))
+                val profilePicForUser = UserMedia.getProfilePicForAUser(new ObjectId(eachUserId))
+                val onlineUsersAlongWithDetails = (profilePicForUser.isEmpty) match {
+                  case true => {
+                    AvailableUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
+                      userWithDetailedInfo.get.lastName, "")
+                  }
+                  case false => {
+                    AvailableUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
+                      userWithDetailedInfo.get.lastName, profilePicForUser(0).mediaUrl)
+                  }
+                }
+                onlineUsersAlongWithDetails
+
             }
-            onlineUsersAlongWithDetails
-
+            Option(onlineUsersWithDetails)
         }
-        Option(onlineUsersWithDetails)
-
       case true => Option(Nil)
     }
 
@@ -130,7 +133,7 @@ object UserController extends Controller {
    * @purpose : Send a mail to user with password
    */
   def forgotPassword: Action[AnyContent] = Action { implicit request =>
-//    println("UserController forgotPassword" + request.body.asJson)
+    //    println("UserController forgotPassword" + request.body.asJson)
     val jsonReceived = request.body.asJson.get
     val emailId = (jsonReceived \ "mailId").as[String]
     val passwordSent = User.forgotPassword(emailId)
@@ -239,7 +242,7 @@ object UserController extends Controller {
    * Find and Authenticate the user to proceed. (RA)
    */
   def findUser: Action[AnyContent] = Action { implicit request =>
-//    println("UserController findUser" + request.body.asJson)
+    //    println("UserController findUser" + request.body.asJson)
     val jsonReceived = request.body.asJson.get
     val userEmailorName = (jsonReceived \ "mailId").as[String]
     val userPassword = (jsonReceived \ "password").as[String]
@@ -305,7 +308,7 @@ object UserController extends Controller {
   }
 
   def reset: Action[AnyContent] = Action { implicit request =>
-//    println("UserController reset" + request.body.asFormUrlEncoded)
+    //    println("UserController reset" + request.body.asFormUrlEncoded)
     val data = request.body.asFormUrlEncoded.get
     val emailToReset = data("email").toList(0)
     val user = User.findUserByEmailId(emailToReset)
