@@ -179,22 +179,26 @@ object Question {
    */
 
   def deleteQuestionPermanently(questionId: ObjectId, userId: ObjectId): Boolean = {
-    val questionToRemove = Question.findQuestionById(questionId).get
-    val commentsOfQuestionToBeRemoved = questionToRemove.comments
-    val streamObtained = Stream.findStreamById(questionToRemove.streamId)
+    val question = Question.findQuestionById(questionId) //.get
+    question match {
+      case None => false
+      case Some(questionToRemove) =>
+        val commentsOfQuestionToBeRemoved = questionToRemove.comments
+        val streamObtained = Stream.findStreamById(questionToRemove.streamId)
 
-    val deletedQuestionSuccessfully = (questionToRemove.userId == userId || streamObtained.get.creatorOfStream == userId) match {
-      case true =>
-        QuestionDAO.remove(questionToRemove)
-        commentsOfQuestionToBeRemoved map {
-          case commentId =>
-            val commentToBeremoved = Comment.findCommentById(commentId)
-            if (commentToBeremoved != None) Comment.removeComment(commentToBeremoved.get)
+        val deletedQuestionSuccessfully = (questionToRemove.userId == userId || streamObtained.get.creatorOfStream == userId) match {
+          case true =>
+            QuestionDAO.remove(questionToRemove)
+            commentsOfQuestionToBeRemoved map {
+              case commentId =>
+                val commentToBeremoved = Comment.findCommentById(commentId)
+                if (commentToBeremoved != None) Comment.removeComment(commentToBeremoved.get)
+            }
+            true
+          case false => false
         }
-        true
-      case false => false
+        deletedQuestionSuccessfully
     }
-    deletedQuestionSuccessfully
   }
 
   /**
