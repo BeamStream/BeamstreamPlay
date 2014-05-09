@@ -195,6 +195,7 @@ define(
 									"type" : "googleDoc",
 									"contentType" : contentType,
 									"loggedUserId" : localStorage["loggedUserId"],
+									"streamCreatorId"	:	this.setStreamOwner(streamId)
 								}
 
 							} else if (contentType == "messageOnly") {
@@ -216,6 +217,7 @@ define(
 										"datVal" : datVal,
 										"contentType" : "media",
 										"loggedUserId" : localStorage["loggedUserId"],
+										"streamCreatorId"	:	this.setStreamOwner(streamId)
 									}
 
 								} else /*
