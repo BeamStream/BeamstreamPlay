@@ -195,8 +195,11 @@ object StreamController extends Controller {
   
   def getStreamData(streamId: String): Action[AnyContent] = Action {implicit request =>
     val streamfound = Stream.findStreamById(new ObjectId(streamId))
-    Ok(write(streamfound)).as("application/json")
+    streamfound match {
+      case None => Ok
+      case Some(streamData) => Ok(write(streamData)).as("application/json")
     }
+  }
   /**
    * Ajax Support
    */
