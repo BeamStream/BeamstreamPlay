@@ -80,7 +80,8 @@ define(
 						 * PUBNUB real time push
 						 */
 						receiveQuestionThroughPubNubQs : function() {
-
+							
+							
 							var self = this;
 							self.pagePushUid = Math.floor(
 									Math.random() * 16777215).toString(16);
@@ -98,7 +99,7 @@ define(
 							 */
 
 							PUBNUB.subscribe({
-
+								
 										channel : 'questionsSideStream',
 
 										callback : function(question) {
@@ -132,7 +133,7 @@ define(
 													 * set the values to
 													 * Question Model
 													 */
-													questionModel = new QuestionModel();
+													questionModel = new QuestionStream();
 													questionModel
 															.set({
 																
@@ -154,20 +155,18 @@ define(
 
 													// show the posted message
 													// on feed
-													var questionStreamItemView = new QuestionStreamItemView(
+													/*var questionStreamItemView = new QuestionStreamItemView(
 															{
 																model : questionModel
 															});
-													// var
-													// compiledTemplate
-													// =
-													// Handlebars.compile(QuestionStreamItem);
+													
 													$('#questionStreamView div.questionStreamItems').prepend(
 																	questionStreamItemView
-																			.render().el);
+																			.render().el);*/
 
-													// $('#questionStreamView
-													// div.questionStreamItems').prepend(compiledTemplate);
+													
+													var compiledTemplate = Handlebars.compile(QuestionStreamItem);
+													$('#questionStreamView div.questionStreamItems').prepend(compiledTemplate(questionModel.attributes));
 												}
 											}
 											
@@ -184,11 +183,12 @@ define(
 									            }
 												
 											});
-
+												
 										}
 
 									});
-
+							
+							
 							PUBNUB
 									.subscribe({
 
@@ -437,6 +437,7 @@ define(
 							return this;
 						},
 
+						
 						filterHandler : function(e) {
 							
 							
