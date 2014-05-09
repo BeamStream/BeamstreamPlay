@@ -10,6 +10,7 @@ import com.google.api.services.drive.model.File
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.Date
+import com.google.api.services.drive.model.Permission
 object GoogleDocsUploadUtility {
   val formatter: SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -82,6 +83,11 @@ object GoogleDocsUploadUtility {
     val docType = mimeType.substring(mimeType.lastIndexOf(".") + 1)
     body.setTitle("Untitled " + docType)
     val file = service.files.insert(body).execute
+    val permission = new Permission()
+    permission.setRole("reader")
+    permission.setType("anyone")
+    permission.setValue("me")
+    service.permissions().insert(file.getId(), permission).execute()
     List(file.getAlternateLink, file.getTitle(), file.getThumbnailLink())
   }
 
