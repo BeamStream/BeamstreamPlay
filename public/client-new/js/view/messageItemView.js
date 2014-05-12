@@ -60,26 +60,26 @@ define(
 									this.urlRegex = /(http\:\/\/|https\:\/\/)?([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-\./]*$/i;
 
 						},
-						
-						setStreamOwner: function(streamId){
-							
-							if(streamId != "remove-button" )
-								{
+
+						setStreamOwner : function(streamId) {
+
+							if (streamId != "remove-button") {
 								var streamCreator;
-								$.ajax({
-									type: 'GET',	           
-						            url: "/streamData/"+streamId,
-						            async: false,
-						            success: function(data){
-						            	 streamCreator = data.creatorOfStream.id;
-						            	 if(typeof callback === "function") callback(streamCreator);
-						            }
-								});
-								
-								return(streamCreator);
-								}
-							
-					
+								$
+										.ajax({
+											type : 'GET',
+											url : "/streamData/" + streamId,
+											async : false,
+											success : function(data) {
+												streamCreator = data.creatorOfStream.id;
+												if (typeof callback === "function")
+													callback(streamCreator);
+											}
+										});
+
+								return (streamCreator);
+							}
+
 						},
 
 						/**
@@ -100,11 +100,11 @@ define(
 							var messageAccess = model.message.messageAccess.name
 							var streamId = model.message.streamId.id
 							// alert(model.message.streamId.id);
-//							var streamCreatorId = {
-								 /*function() {
-									var streamdata;
-									if (true) {*/
-							
+							// var streamCreatorId = {
+							/*
+							 * function() { var streamdata; if (true) {
+							 */
+
 							if (messageAccess == "PrivateToClass") {
 								model.message.messageAccess.name = "Private To Class"
 							}
@@ -168,7 +168,8 @@ define(
 								"datVal" : datVal,
 								"contentType" : contentType,
 								"loggedUserId" : localStorage["loggedUserId"],
-								"streamCreatorId"	:	this.setStreamOwner(streamId),
+								"streamCreatorId" : this
+										.setStreamOwner(streamId),
 							}
 
 							/* generate data depends on its type */
@@ -195,7 +196,8 @@ define(
 									"type" : "googleDoc",
 									"contentType" : contentType,
 									"loggedUserId" : localStorage["loggedUserId"],
-									"streamCreatorId"	:	this.setStreamOwner(streamId)
+									"streamCreatorId" : this
+											.setStreamOwner(streamId)
 								}
 
 							} else if (contentType == "messageOnly") {
@@ -205,7 +207,8 @@ define(
 									"type" : contentType,
 									"contentType" : contentType,
 									"loggedUserId" : localStorage["loggedUserId"],
-									"streamCreatorId"	:	this.setStreamOwner(streamId),
+									"streamCreatorId" : this
+											.setStreamOwner(streamId),
 								}
 
 							} else {
@@ -217,7 +220,8 @@ define(
 										"datVal" : datVal,
 										"contentType" : "media",
 										"loggedUserId" : localStorage["loggedUserId"],
-										"streamCreatorId"	:	this.setStreamOwner(streamId)
+										"streamCreatorId" : this
+												.setStreamOwner(streamId)
 									}
 
 								} else /*
@@ -256,7 +260,8 @@ define(
 										"type" : type,
 										"contentType" : "docs",
 										"loggedUserId" : localStorage["loggedUserId"],
-										"streamCreatorId"	:	this.setStreamOwner(streamId),
+										"streamCreatorId" : this
+												.setStreamOwner(streamId),
 
 									}
 
@@ -556,7 +561,8 @@ define(
 							var messageId = e.target.id;
 							var ownerId = $('div#' + messageId).attr('name');
 							var self = this;
-							
+
+							if (localStorage["loggedUserId"] != ownerId) {
 								bootbox
 										.dialog(
 												"Are you sure you want to delete this message?",
@@ -627,6 +633,45 @@ define(
 																		.log("ok");
 															}
 														} ]);
+							}else {
+								var discussion = new DiscussionModel();
+								discussion.urlRoot = '/remove/message';
+
+								discussion
+										.save(
+												{
+													id : messageId
+												},
+												{
+													success : function(
+															model,
+															response) {
+
+														if (response.status == "Success") {
+
+															$(
+																	'div#'
+																			+ messageId)
+																	.remove();
+
+															/*
+															 * pubnum auto push --
+															 * delete message
+															 */
+															PUBNUB
+																	.publish({
+																		channel : "deleteMessage",
+																		message : {
+																			pagePushUid : self.pagePushUid,
+																			messageId : messageId
+																		}
+																	})
+														}else {
+															alert("You're Not Authorised To Delete This Message");
+														}
+													}
+												});
+							}
 						},
 
 						/**
