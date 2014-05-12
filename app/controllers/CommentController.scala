@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat
 import models.ResulttoSent
 import models.UserMedia
 import play.api.mvc.AnyContent
+import play.api.Logger
 
 object CommentController extends Controller {
 
@@ -28,7 +29,7 @@ object CommentController extends Controller {
 
   def newComment: Action[AnyContent] = Action { implicit request =>
 
-//    println("CommentController newComment" + request.body.asJson)
+    //    println("CommentController newComment" + request.body.asJson)
     val commentJson = request.body.asJson.get
     ((commentJson \ "messageId").asOpt[String] != None) match {
 
@@ -95,7 +96,7 @@ object CommentController extends Controller {
 
   def getAllComments: Action[AnyContent] = Action { implicit request =>
     try {
-//      println("CommentController getAllComments" + request.body.asJson)
+      //      println("CommentController getAllComments" + request.body.asJson)
       val jsonWithid = request.body.asJson.get
       ((jsonWithid \ "messageId").asOpt[String] != None) match {
         case true =>
@@ -123,7 +124,9 @@ object CommentController extends Controller {
         }
       }
     } catch {
-      case exception: Throwable => InternalServerError("Can't get the comments")
+      case exception: Throwable =>
+        Logger.info(exception.getStackTraceString)
+        InternalServerError("Can't get the comments")
     }
 
   }
@@ -138,6 +141,7 @@ object CommentController extends Controller {
       Ok(write(totalRocksForAComment.toString)).as("application/json")
     } catch {
       case exception: Throwable =>
+        Logger.info(exception.getStackTraceString)
         InternalServerError("Can't rock the comment")
         Ok
     }
@@ -180,7 +184,7 @@ object CommentController extends Controller {
    * Answer of a question
    */
   def newAnswer: Action[AnyContent] = Action { implicit request =>
-//    println("CommentController newAnswer" + request.body.asJson)
+    //    println("CommentController newAnswer" + request.body.asJson)
     val answerJson = request.body.asJson.get
     val questionId = (answerJson \ "questionId").as[String]
     val answerText = (answerJson \ "answerText").as[String]

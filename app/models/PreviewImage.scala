@@ -30,6 +30,7 @@ import play.api.libs.iteratee.Enumerator
 import play.api.mvc.Action
 import play.api.mvc.Controller
 import play.api.libs.concurrent.Execution.Implicits._
+import play.api.Logger
 
 object PreviewImage extends Controller {
 
@@ -50,7 +51,7 @@ object PreviewImage extends Controller {
           in.close
         }
       } catch {
-        case e: Exception => e.printStackTrace()
+        case e: Exception => Logger.info(e.getStackTraceString)
       } finally {
         //      out.close
         //      in.close

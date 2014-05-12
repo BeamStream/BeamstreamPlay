@@ -11,6 +11,8 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.Date
 import com.google.api.services.drive.model.Permission
+import play.api.Logger
+
 object GoogleDocsUploadUtility {
   val formatter: SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -91,11 +93,11 @@ object GoogleDocsUploadUtility {
     try {
       service.files().delete(docId).execute()
     } catch {
-      case ex: Exception => ex.printStackTrace()
+      case ex: Exception => Logger.info(ex.getStackTraceString)
     }
   }
 
-  def makeDocPublicToClass(code: String, fileId: String): Any = {
+  def makeGoogleDocPublicToClass(code: String, fileId: String): Any = {
     val service = prepareGoogleDrive(code)
     try {
       val permission = new Permission()
@@ -104,7 +106,7 @@ object GoogleDocsUploadUtility {
       permission.setValue("me")
       service.permissions().insert(fileId, permission).execute()
     } catch {
-      case ex: Exception => ex.printStackTrace()
+      case ex: Exception => Logger.info(ex.getStackTraceString)
     }
   }
 

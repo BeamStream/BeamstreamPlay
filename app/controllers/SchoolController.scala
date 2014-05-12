@@ -9,6 +9,7 @@ import play.api.mvc.Action
 import play.api.mvc.Controller
 import utils.ObjectIdSerializer
 import play.api.mvc.AnyContent
+import play.api.Logger
 
 object SchoolController extends Controller {
   implicit val formats = new net.liftweb.json.DefaultFormats {
@@ -19,7 +20,7 @@ object SchoolController extends Controller {
    * Add a new school (V)
    */
   def addANewSchool: Action[AnyContent] = Action { implicit request =>
-//    println("SchoolController addANewSchool" + request.body.asJson)
+    //    println("SchoolController addANewSchool" + request.body.asJson)
     val schoolInfojsonMap = request.body.asJson.get
     val schoolName = (schoolInfojsonMap \ "schoolName").as[String]
     val schoolWebsite = (schoolInfojsonMap \ "schoolWebsite").as[String]
@@ -45,7 +46,9 @@ object SchoolController extends Controller {
       val SchoolListJson = write(getAllSchoolsForAUser)
       Ok(SchoolListJson).as("application/json")
     } catch {
-      case exception: Throwable => InternalServerError("There was some errors during fetching the schools").as("application/json")
+      case exception: Throwable =>
+        Logger.info(exception.getStackTraceString)
+        InternalServerError("There was some errors during fetching the schools").as("application/json")
 
     }
   }
@@ -64,7 +67,7 @@ object SchoolController extends Controller {
    * Purpose: For auto populate schools on school screen'
    */
   def getAllSchoolsForAutopopulate: Action[AnyContent] = Action { implicit request =>
-//    println("SchoolController getAllSchoolsForAutopopulate" + request.body.asFormUrlEncoded)
+    //    println("SchoolController getAllSchoolsForAutopopulate" + request.body.asFormUrlEncoded)
     val schoolNameStartingStringJsonMap = request.body.asFormUrlEncoded.get
     val schoolNamesStartingCharacter = schoolNameStartingStringJsonMap("data").toList(0)
 

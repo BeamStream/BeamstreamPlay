@@ -41,7 +41,7 @@ object ClassController extends Controller {
 
   def findClasstoAutoPopulatebyCode: Action[AnyContent] = Action { implicit request =>
 
-//    println("ClassController findClasstoAutoPopulatebyCode" + request.body.asFormUrlEncoded)
+    //    println("ClassController findClasstoAutoPopulatebyCode" + request.body.asFormUrlEncoded)
     val classCodeMap = request.body.asFormUrlEncoded.get
     val classCode = classCodeMap("data").toList(0)
     val assosiatedSchoolId = classCodeMap("assosiatedSchoolId").toList(0)
@@ -58,14 +58,16 @@ object ClassController extends Controller {
 
   def findClasstoAutoPopulatebyName: Action[AnyContent] = Action { implicit request =>
     try {
-//      println("ClassController findClasstoAutoPopulatebyName" + request.body.asFormUrlEncoded)
+      //      println("ClassController findClasstoAutoPopulatebyName" + request.body.asFormUrlEncoded)
       val classNameMap = request.body.asFormUrlEncoded.get
       val className = classNameMap("data").toList(0)
       val assosiatedSchoolId = classNameMap("schoolId").toList(0)
       val classList = Class.findClassByName(className, new ObjectId(assosiatedSchoolId))
       Ok(write(classList)).as("application/json")
     } catch {
-      case exception: Throwable => InternalServerError("Class Autopopulate Failed")
+      case exception: Throwable =>
+        Logger.info(exception.getStackTraceString)
+        InternalServerError("Class Autopopulate Failed")
     }
   }
 
@@ -80,7 +82,9 @@ object ClassController extends Controller {
       val ClassListJson = write(getAllClassesForAUser)
       Ok(ClassListJson).as("application/json")
     } catch {
-      case exception: Throwable => BadRequest(write(new ResulttoSent("Failure", "There Was Some Problem To Get List Of Classes For A User")))
+      case exception: Throwable =>
+        Logger.info(exception.getStackTraceString)
+        BadRequest(write(new ResulttoSent("Failure", "There Was Some Problem To Get List Of Classes For A User")))
     }
   }
 
@@ -172,7 +176,7 @@ object ClassController extends Controller {
    */
   def createClass: Action[AnyContent] = Action { implicit request =>
     try {
-//      println("ClassController createClass" + request.body.asJson)
+      //      println("ClassController createClass" + request.body.asJson)
       val jsonReceived = request.body.asJson.get
       val id = (jsonReceived \ "id").asOpt[String]
       if (id == None) {
@@ -188,7 +192,9 @@ object ClassController extends Controller {
         Ok(write(ClassResult(stream.get, resultToSend))).as("application/json")
       }
     } catch {
-      case exception: Throwable => InternalServerError("Class Creation Failed")
+      case exception: Throwable =>
+        Logger.info(exception.getStackTraceString)
+        InternalServerError("Class Creation Failed")
     }
   }
 }

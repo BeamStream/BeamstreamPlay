@@ -26,6 +26,7 @@ import net.liftweb.json.Serialization.{ read, write }
 import models.PreviewImage
 import utils.PasswordHashingUtil
 import play.api.mvc.AnyContent
+import play.api.Logger
 
 object GoogleDocsUploadUtilityController extends Controller {
 
@@ -135,7 +136,9 @@ object GoogleDocsUploadUtilityController extends Controller {
           Ok(views.html.stream(action))
       }
     } catch {
-      case ex: Exception => Ok(views.html.stream("failure"))//BadRequest("Authentication Failed")
+      case ex: Exception =>
+        Logger.info(ex.getStackTraceString)
+        Ok(views.html.stream("failure")) //BadRequest("Authentication Failed")
     }
   }
 
@@ -151,7 +154,7 @@ object GoogleDocsUploadUtilityController extends Controller {
    * Uploading File To Google
    */
   def uploadToGoogleDrive: Action[play.api.mvc.MultipartFormData[play.api.libs.Files.TemporaryFile]] = Action(parse.multipartFormData) { request =>
-//    println("GoogleDocsUploadUtilityController uploadToGoogleDrive " + request.body.file("picture"))
+    //    println("GoogleDocsUploadUtilityController uploadToGoogleDrive " + request.body.file("picture"))
     request.body.file("picture").map { file =>
       val contentType = file.contentType
       val fileName = file.filename

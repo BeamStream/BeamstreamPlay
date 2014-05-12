@@ -89,7 +89,7 @@ object DocumentController extends Controller {
     val newAccessToken = GoogleDocsUploadUtility.getNewAccessToken(tokenInfo.refreshToken)
     val fileId = docUrl.split("/")
     if (fileId.length >= 8) {
-      GoogleDocsUploadUtility.makeDocPublicToClass(newAccessToken, fileId(7))
+      GoogleDocsUploadUtility.makeGoogleDocPublicToClass(newAccessToken, fileId(7))
     } /*else {
       val docId = fileId(6).split("=")(1).split("&")(0)
       GoogleDocsUploadUtility.makeDocPublicToClass(newAccessToken, docId)

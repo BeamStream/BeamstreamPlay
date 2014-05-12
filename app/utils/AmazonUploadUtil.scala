@@ -14,6 +14,7 @@ import java.io.InputStream
 import com.amazonaws.services.s3.model.ObjectMetadata
 import com.amazonaws.services.s3.model.ProgressListener
 import com.amazonaws.services.s3.model.ProgressEvent
+import play.api.Logger
 
 object AmazonUploadUtil {
   //
@@ -88,23 +89,24 @@ class AmazonUpload {
     try {
       s3Client.getObject(bucketName, profilePicName)
       true
-    }
-    catch {
-      case ex: Exception => ex.printStackTrace()
-      false
+    } catch {
+      case ex: Exception =>
+        Logger.info(ex.getStackTraceString)
+        ex.printStackTrace()
+        false
     }
   }
-  
+
   def deleteFileFromAmazon(profilePicName: String): Boolean = {
     val bucketName = "BeamStream"
     val s3Client = fetchS3Client
     try {
       s3Client.deleteObject(bucketName, profilePicName)
       true
-    }
-    catch {
-      case ex: Exception => ex.printStackTrace()
-      false
+    } catch {
+      case ex: Exception =>
+        Logger.info(ex.getStackTraceString)
+        false
     }
   }
 

@@ -26,7 +26,7 @@ object Global extends GlobalSettings {
       if (School.getAllSchools.length < 7487)
         ReadingSpreadsheetUtil.readCSVOfSchools(filePath)
     } catch {
-      case ex: Exception => ex.printStackTrace() //for Reading CSV of schools
+      case ex: Exception => Logger.info(ex.getStackTraceString) //for Reading CSV of schools
     }
     val listOfAllSchools = School.getAllSchools
     School.allSchoolsInDatabase = Nil

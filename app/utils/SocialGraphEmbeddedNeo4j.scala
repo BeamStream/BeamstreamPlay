@@ -2,7 +2,6 @@ package utils
 
 import java.io.File
 import java.io.IOException
-
 import org.neo4j.graphdb.factory.GraphDatabaseFactory
 import org.neo4j.graphdb.Direction
 import org.neo4j.graphdb.GraphDatabaseService
@@ -11,8 +10,8 @@ import org.neo4j.graphdb.Relationship
 import org.neo4j.graphdb.RelationshipType
 import org.neo4j.graphdb.Transaction
 import org.neo4j.kernel.impl.util.FileUtils
-
 import scala.language.implicitConversions
+import play.api.Logger
 
 //Code By Daniel Hew
 
@@ -146,6 +145,7 @@ object SocialGraphEmbeddedNeo4j {
       secondNode
     } catch {
       case ioe: Exception =>
+        Logger.info(ioe.getStackTraceString)
         null
     } finally {
       tx.finish()
