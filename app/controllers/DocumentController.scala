@@ -27,6 +27,8 @@ import utils.PreviewOfPDFUtil
 import utils.TokenEmailUtil
 import play.Logger
 import play.api.mvc.AnyContent
+import models.SocialToken
+import utils.GoogleDocsUploadUtility
 
 /**
  * This controller class is used to store and retrieve all the information about documents.
@@ -66,7 +68,7 @@ object DocumentController extends Controller {
   }*/
 
   def newGoogleDocument: Action[AnyContent] = Action { implicit request =>
-//    println("DocumentController newGoogleDocument" + request.body.asFormUrlEncoded)
+    //    println("DocumentController newGoogleDocument" + request.body.asFormUrlEncoded)
     val data = request.body.asFormUrlEncoded.get
     val docName = data("docName").toList.head
     val docUrl = data("docUrl").toList.head
@@ -77,9 +79,22 @@ object DocumentController extends Controller {
     val documentToCreate = new Document(new ObjectId, docName, description, docUrl, DocType.GoogleDocs, new ObjectId(userId), Access.PrivateToClass, new ObjectId(streamId), new Date, new Date, 0, Nil, Nil, Nil, "", 0)
     val docId = Document.addDocument(documentToCreate)
     val user = User.getUserProfile(new ObjectId(userId))
+
     //Create A Message As Well To Display The Doc Creation In Stream
     val message = Message(new ObjectId, docUrl, Option(Type.Document), Option(Access.PrivateToClass), new Date, new ObjectId(userId), Option(new ObjectId(streamId)), user.get.firstName, user.get.lastName, 0, Nil, Nil, 0, Nil, "", Option(docId))
     val messageId = Message.createMessage(message)
+
+    //Making Google Doc Public to Class
+    val tokenInfo = SocialToken.findSocialTokenObject(new ObjectId(userId)).get
+    val newAccessToken = GoogleDocsUploadUtility.getNewAccessToken(tokenInfo.refreshToken)
+    val fileId = docUrl.split("/")
+    if (fileId.length >= 8) {
+      GoogleDocsUploadUtility.makeDocPublicToClass(newAccessToken, fileId(7))
+    } /*else {
+      val docId = fileId(6).split("=")(1).split("&")(0)
+      GoogleDocsUploadUtility.makeDocPublicToClass(newAccessToken, docId)
+    }*/
+    
     Redirect("/stream")
   }
 
@@ -105,7 +120,7 @@ object DocumentController extends Controller {
    * Change the title and description
    */
   def changeTitleAndDescriptionForADocument(documentId: String): Action[AnyContent] = Action { implicit request =>
-//    println("DocumentController changeTitleAndDescriptionForADocument" + request.body.asJson)
+    //    println("DocumentController changeTitleAndDescriptionForADocument" + request.body.asJson)
     val jsonReceived = request.body.asJson.get
     val docDescription = (jsonReceived \ "docDescription").as[String]
     val docName = (jsonReceived \ "docName").as[String]
@@ -139,7 +154,7 @@ object DocumentController extends Controller {
    */
 
   def uploadDocumentFromDisk: Action[play.api.mvc.MultipartFormData[play.api.libs.Files.TemporaryFile]] = Action(parse.multipartFormData) { request =>
-//    println("DocumentController uploadDocumentFromDisk" + request.body.asFormUrlEncoded)
+    //    println("DocumentController uploadDocumentFromDisk" + request.body.asFormUrlEncoded)
     val documentJsonMap = request.body.asFormUrlEncoded.toMap
     val streamId = documentJsonMap("streamId").toList(0)
     val docDescription = documentJsonMap("docDescription").toList(0)

@@ -83,18 +83,26 @@ object GoogleDocsUploadUtility {
     val docType = mimeType.substring(mimeType.lastIndexOf(".") + 1)
     body.setTitle("Untitled " + docType)
     val file = service.files.insert(body).execute
-    val permission = new Permission()
-    permission.setRole("reader")
-    permission.setType("anyone")
-    permission.setValue("me")
-    service.permissions().insert(file.getId(), permission).execute()
     List(file.getAlternateLink, file.getTitle(), file.getThumbnailLink())
   }
 
   def deleteAGoogleDocument(code: String, docId: String): Any = {
     val service = prepareGoogleDrive(code)
     try {
-      service.files().delete(docId).execute();
+      service.files().delete(docId).execute()
+    } catch {
+      case ex: Exception => ex.printStackTrace()
+    }
+  }
+
+  def makeDocPublicToClass(code: String, fileId: String): Any = {
+    val service = prepareGoogleDrive(code)
+    try {
+      val permission = new Permission()
+      permission.setRole("reader")
+      permission.setType("anyone")
+      permission.setValue("me")
+      service.permissions().insert(fileId, permission).execute()
     } catch {
       case ex: Exception => ex.printStackTrace()
     }
