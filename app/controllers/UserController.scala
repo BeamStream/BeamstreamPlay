@@ -70,7 +70,7 @@ object UserController extends Controller {
             currentUsersClasses map {
               case eachClassOfUser =>
 
-                val streams = models.Class.findClasssById(eachClassOfUser) //.get.streams
+                val streams = models.Class.findClasssById(eachClassOfUser)
                 streams match {
                   case None => User.removeClassFromUser(new ObjectId(request.session.get("userId").get), List(eachClassOfUser))
                   case Some(streams) =>
