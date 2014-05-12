@@ -70,12 +70,16 @@ object UserController extends Controller {
             currentUsersClasses map {
               case eachClassOfUser =>
 
-                val streams = models.Class.findClasssById(eachClassOfUser).get.streams
-                val streamUsers = Stream.findStreamById(streams.head).get.usersOfStream
-                val streamUserList = streamUsers map {
-                  case user => user.toString
+                val streams = models.Class.findClasssById(eachClassOfUser) //.get.streams
+                streams match {
+                  case None => User.removeClassFromUser(new ObjectId(request.session.get("userId").get), List(eachClassOfUser))
+                  case Some(streams) =>
+                    val streamUsers = Stream.findStreamById(streams.streams.head).get.usersOfStream
+                    val streamUserList = streamUsers map {
+                      case user => user.toString
+                    }
+                    usersToShow ++= otherUsers.intersect(streamUserList)
                 }
-                usersToShow ++= otherUsers.intersect(streamUserList)
             }
             val onlineUsersWithDetails = (usersToShow.distinct) map {
               case eachUserId =>
