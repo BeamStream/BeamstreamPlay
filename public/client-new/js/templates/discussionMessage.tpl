@@ -33,7 +33,7 @@
 						<div name="single-doc">
 							<div class="image-wrapper hovereffect">
 						 		<h4 id=""></h4>
-								<span id="name-{{data.message.docIdIfAny.id}}" >{{#if data.docName}}{{data.docName}}{{else}}No Document Name{{/if}}></span>
+								<span id="name-{{data.message.docIdIfAny.id}}">{{#if data.docName}}{{data.docName}}{{else}}No Document Name{{/if}}</span>
 						  		<div class="hover-div">
 						  				{{#if commenImage}}
 						  			<div class="doc-image">

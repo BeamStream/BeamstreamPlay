@@ -90,9 +90,13 @@ object DocumentController extends Controller {
     val fileId = docUrl.split("/")
     if (fileId.length >= 8) {
       GoogleDocsUploadUtility.makeGoogleDocPublicToClass(newAccessToken, fileId(7))
-    } /*else {
+    }
+    /**
+     * TODO Send an Alert/Request of Permission for Restricted Google Docs.
+     */
+    /*else {
       val docId = fileId(6).split("=")(1).split("&")(0)
-      GoogleDocsUploadUtility.makeDocPublicToClass(newAccessToken, docId)
+      GoogleDocsUploadUtility.makeGoogleDocPublicToClass(newAccessToken, docId)
     }*/
     
     Redirect("/stream")

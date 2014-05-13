@@ -282,22 +282,26 @@ object Message { //extends CommentConsumer {
 
   def deleteMessagePermanently(messageId: ObjectId, userId: ObjectId): Boolean = {
 
-    val messageToRemove = Message.findMessageById(messageId).get
-    val commentsOfMessageToBeRemoved = messageToRemove.comments
-    val streamObtained = Stream.findStreamById(messageToRemove.streamId.get)
+    val messageToRemove = Message.findMessageById(messageId) //.get
+    messageToRemove match {
+      case None => false
+      case Some(messageToRemove) =>
+        val commentsOfMessageToBeRemoved = messageToRemove.comments
+        val streamObtained = Stream.findStreamById(messageToRemove.streamId.get)
 
-    val deletedMessageSuccessfully = (messageToRemove.userId == userId || streamObtained.get.creatorOfStream == userId) match {
-      case true =>
-        MessageDAO.remove(messageToRemove)
-        commentsOfMessageToBeRemoved map {
-          case commentId =>
-            val commentToBeremoved = Comment.findCommentById(commentId)
-            if (commentToBeremoved != None) Comment.removeComment(commentToBeremoved.get)
+        val deletedMessageSuccessfully = (messageToRemove.userId == userId || streamObtained.get.creatorOfStream == userId) match {
+          case true =>
+            MessageDAO.remove(messageToRemove)
+            commentsOfMessageToBeRemoved map {
+              case commentId =>
+                val commentToBeremoved = Comment.findCommentById(commentId)
+                if (commentToBeremoved != None) Comment.removeComment(commentToBeremoved.get)
+            }
+            true
+          case false => false
         }
-        true
-      case false => false
+        deletedMessageSuccessfully
     }
-    deletedMessageSuccessfully
   }
   /**
    * ****************************************Re-architecture*****************************************************
