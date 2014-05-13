@@ -133,7 +133,7 @@ define(
 													 * set the values to
 													 * Question Model
 													 */
-													questionModel = new QuestionStream();
+													questionModel = new QuestionModel();
 													questionModel
 															.set({
 																
@@ -155,18 +155,18 @@ define(
 
 													// show the posted message
 													// on feed
-													/*var questionStreamItemView = new QuestionStreamItemView(
+													var questionStreamItemView = new QuestionStreamItemView(
 															{
 																model : questionModel
 															});
 													
 													$('#questionStreamView div.questionStreamItems').prepend(
 																	questionStreamItemView
-																			.render().el);*/
+																			.render().el);
 
-													
+													/*
 													var compiledTemplate = Handlebars.compile(QuestionStreamItem);
-													$('#questionStreamView div.questionStreamItems').prepend(compiledTemplate(questionModel.attributes));
+													$('#questionStreamView div.questionStreamItems').prepend(compiledTemplate(questionModel.attributes));*/
 												}
 											}
 											

@@ -23,7 +23,7 @@ define(['view/formView',
 	  		 'keypress #sort_by_key' : 'sortMessagesByKey',
 			 'click #discussion-file-upload li' : 'uploadFiles',
 			 'click #private-to-list li' :'selectPrivateToList',
-			 'keypress #msg-area' : 'postMessageOnEnterKey',
+			/* 'keypress #msg-area' : 'postMessageOnEnterKey',*/
 			 'keyup #msg-area' : 'removePreview',
 			 'change #upload-files-area' : 'getUploadedData',
 			 
@@ -506,7 +506,7 @@ define(['view/formView',
         /**
 	     * post message on enter key
 	     */
-	    postMessageOnEnterKey: function(eventName){
+	    /*postMessageOnEnterKey: function(eventName){
 	    	
 	    	var self = this;
 	    	
@@ -521,11 +521,11 @@ define(['view/formView',
 					self.links = text.match(self.website); 
 
 
-				 /* create bitly for each url in text */
+				  create bitly for each url in text 
 				self.generateBitly(self.links);
 			}
 		
-    	},
+    	},*/
 
     	removePreview:function(eventName){
     		var self =this;
