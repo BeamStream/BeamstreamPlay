@@ -106,7 +106,7 @@ define(
 							 */
 
 							if (messageAccess == "PrivateToClass") {
-								model.message.messageAccess.name = "Private To Class"
+								model.message.messageAccess.name = "Private to Class"
 							}
 
 							/* get url from the message text */
