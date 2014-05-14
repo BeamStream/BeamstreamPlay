@@ -231,8 +231,13 @@ define(['view/formView',
  			        	
  			        	$('.progress-container').show();
  			        	
+ 			        	$('.ask-outer').height(function (index, height) {
+	        			    return (height + 70);
+	        		 });
  			        	/* updating progress bar */ 
  			        	this.progress = setInterval(function() {
+ 			        		
+ 			        		
 	                    	
  			        		this.bar = $('.bar'); 			        		
 	                        if (this.bar.width()>= 195) {
@@ -264,6 +269,7 @@ define(['view/formView',
  			                processData: false,
  			                dataType : "json",
  			                success: function(data){
+ 			                	
  			                	
  			    				// set progress bar as 100 %
  			                	self.bar = $('.bar');  
@@ -311,7 +317,11 @@ define(['view/formView',
 		 						self.selected_medias = [];
 			                    $('#share-discussions li.active').removeClass('active');
 		 						
+			                 	$('a.ask-button').css('visibility','hidden');
+			               	 $('.ask-outer').css('height','0px');
  		                    }
+ 			            	
+ 			            
  		                }); 
  			        	
  			        }
