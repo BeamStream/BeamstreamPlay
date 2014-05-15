@@ -110,6 +110,25 @@ object GoogleDocsUploadUtility {
     }
   }
 
+  def canMakeGoogleDocPublic(code: String, fileData: String): Boolean = {
+    val service = prepareGoogleDrive(code)
+    try {
+      val fileId = fileData.split("/")
+      if (fileId.length >= 8) {
+    	  val permissions = service.permissions().list(fileId(7)).execute()
+        if (permissions.getItems()(0).getRole() == "owner") {
+          true
+        } else {
+          false
+        }
+      } else { false }
+    } catch {
+      case ex: Exception =>
+        Logger.info(ex.getStackTraceString)
+        false
+    }
+  }
+
   /**
    * Get Access token Using refresh Token
    */

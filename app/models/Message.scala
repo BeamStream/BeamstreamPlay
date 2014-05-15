@@ -366,6 +366,3 @@ object Message { //extends CommentConsumer {
 }
 
 object MessageDAO extends SalatDAO[Message, ObjectId](collection = MongoHQConfig.mongoDB("message"))
-
-
-

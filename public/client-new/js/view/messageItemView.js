@@ -97,6 +97,7 @@ define(
 							var msgBody = model.message.messageBody;
 							var previewImageUrl = model.message.anyPreviewImageUrl
 							var docId = model.message.docIdIfAny
+//							alert(JSON.stringify(model.message));
 							var messageAccess = model.message.messageAccess.name
 							var streamId = model.message.streamId.id
 							// alert(model.message.streamId.id);

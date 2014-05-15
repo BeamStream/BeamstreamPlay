@@ -66,16 +66,23 @@ object GoogleDocsUploadUtilityController extends Controller {
             } else if (action == "presentation") {
               val result = GoogleDocsUploadUtility.createANewGoogleDocument(newAccessToken, "application/vnd.google-apps.presentation")
               Ok(write(result)).as("application/json")
-            } else if (action == "addPreviewImageUrl") {
+            } /*else if (action == "addPreviewImageUrl") {
+              println("111111111111111111")
               val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(newAccessToken)
               files.foreach(f => updateMessageImageUrl(updatePreviewImageUrl(f._1, f._5), f._5))
               Ok
-            } else {
+            }*/ else {
               Ok
             }
           } else {
             if (action.length() == 44) {
               val result = GoogleDocsUploadUtility.deleteAGoogleDocument(newAccessToken, action)
+              Ok
+            } else if (action == "addPreviewImageUrl") {
+              val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(newAccessToken)
+              for (f <- files) {
+                if (GoogleDocsUploadUtility.canMakeGoogleDocPublic(newAccessToken, f._2)) { updateMessageImageUrl(updatePreviewImageUrl(f._1, f._5), f._5) }
+              }
               Ok
             } else {
               val urlToRedirect = new GoogleBrowserClientRequestUrl(GoogleClientId, redirectURI, Arrays.asList("https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()
