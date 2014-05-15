@@ -162,6 +162,9 @@ define(
 							$('#Q-area').css('padding', '7.5% 18% 6% 2%');
 							$('#Q-area').css('margin', '0 0 24px 22px');
 							$('a#post-question').css('visibility', 'visible');
+							 $('#questionsView .ask-outer').height(function (index, height) {
+					 			    return (height + 70);
+					    		 });
 						},
 
 						
@@ -179,6 +182,7 @@ define(
 											'1px 0 -5px 14px');
 									$('a#post-question').css('visibility',
 											'hidden');
+									 $('.ask-outer').css('height','0px');
 									$('textarea#Q-area').val('');
 									$('#pollArea').slideUp(700);
 								}
