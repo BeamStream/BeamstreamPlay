@@ -33,7 +33,7 @@ trait EmailUtility {
 object SendEmailUtility extends EmailUtility {
 
   //TODO : Move Email Contents From here
-  val BEAMTEAM_EMAIL = "beamteam@beamstream.com"
+  val CLASSWALL_EMAIL = "classwall@classwall.com"
 
   /**
    * Forgot Password Functionality
@@ -41,16 +41,16 @@ object SendEmailUtility extends EmailUtility {
    */
   def sendPassword(emailId: String, password: String) {
 
-    val subject = "Password Recovery On BeamStream"
+    val subject = "Password Recovery On ClassWall"
 
     val content =
-      "Hi <b>Beamstream's</b> Rocker." + "<br>" + "<br>" +
+      "Hi <b>Classwall's</b> Rocker." + "<br>" + "<br>" +
         "Here is your account details " + "<br>" + "<br>" +
         "Email-Id: " + emailId + "<br>" +
         "Password: " + password + "<br>" +
         "<br>" + "<br>" + "<br>" +
         "Cheers," + "<br>" +
-        "The Really Nice Beamstream Folks , US" + "<br>"
+        "The Really Nice Classwall Folks , US" + "<br>"
 
     sendMessage(emailId, subject, content)
   }
@@ -61,27 +61,27 @@ object SendEmailUtility extends EmailUtility {
   def mailAfterStreamCreation(emailId: String, streamName: String, newStream: Boolean) {
     val authenticatedMessageAndSession = setEmailCredentials
     val recepientAddress = new InternetAddress(emailId)
-    authenticatedMessageAndSession._1.setFrom(new InternetAddress("beamteam@beamstream.com", "beamteam@beamstream.com"))
+    authenticatedMessageAndSession._1.setFrom(new InternetAddress(CLASSWALL_EMAIL, CLASSWALL_EMAIL))
     authenticatedMessageAndSession._1.addRecipient(Message.RecipientType.TO, recepientAddress)
     newStream match {
       case true =>
-        authenticatedMessageAndSession._1.setSubject("You've Created " + streamName + " Stream On Beamstream")
+        authenticatedMessageAndSession._1.setSubject("You've Created " + streamName + " Stream On Classwall")
         authenticatedMessageAndSession._1.setContent(
 
-          "Hi <b>Beamstream</b> Rocker." + "<br>" + "<br>" +
+          "Hi <b>Classwall</b> Rocker." + "<br>" + "<br>" +
             "You've created the " + streamName + " Stream in Your Profile" + "<br>" + "<br>" +
-            "Start sharing now & be a Beamstream Rocker" + "<br>" + "<br>" ++ "<br>" +
+            "Start sharing now & be a Classwall Rocker" + "<br>" + "<br>" ++ "<br>" +
             "Cheers," + "<br>" +
-            "The Really Nice Beamstream Folks , US" + "<br>", "text/html")
+            "The Really Nice Classwall Folks , US" + "<br>", "text/html")
       case false =>
-        authenticatedMessageAndSession._1.setSubject("You've Joined " + streamName + " Stream On Beamstream")
+        authenticatedMessageAndSession._1.setSubject("You've Joined " + streamName + " Stream On Classwall")
         authenticatedMessageAndSession._1.setContent(
 
-          "Hi <b>Beamstream</b> Rocker." + "<br>" + "<br>" +
+          "Hi <b>Classwall</b> Rocker." + "<br>" + "<br>" +
             "You've Joined the " + streamName + " Stream " + "<br>" + "<br>" +
-            "Start sharing now & be a Beamstream Rocker" + "<br>" + "<br>" ++ "<br>" +
+            "Start sharing now & be a Classwall Rocker" + "<br>" + "<br>" ++ "<br>" +
             "Cheers," + "<br>" +
-            "The Really Nice Beamstream Folks , US" + "<br>", "text/html")
+            "The Really Nice Classwall Folks , US" + "<br>", "text/html")
 
     }
 
@@ -98,11 +98,11 @@ object SendEmailUtility extends EmailUtility {
 
     val subject = firstNameOfJoiner + " " + lastNameOfJoiner + " has Joined the " + streamName + " Stream"
     val content =
-      "Hi <b>Beamstream</b> Rocker." + "<br>" + "<br>" +
+      "Hi <b>Classwall</b> Rocker." + "<br>" + "<br>" +
         firstNameOfJoiner + " " + lastNameOfJoiner + " has Joined the " + streamName + " Stream" +
         "<br>" + "<br>" +
         "Cheers," + "<br>" +
-        "The Really Nice Beamstream Folks , US" + "<br>"
+        "The Really Nice Classwall Folks , US" + "<br>"
 
     sendMessage(emailId, subject, content)
   }
@@ -115,13 +115,13 @@ object SendEmailUtility extends EmailUtility {
 
     val content =
       "Hello, " + "<br>" + "<br>" +
-        "You've been invited to join Beamstream." + "<br>" +
-        "Join and be ready to rock. " + "<a href ='" + Play.current.configuration.getString("server").get + "/beamstream/index.html#emailVerification'>REGISTER HERE</a>" +
+        "You've been invited to join Classwall." + "<br>" +
+        "Join and be ready to rock. " + "<a href ='" + Play.current.configuration.getString("server").get + "/classwall/index.html#emailVerification'>REGISTER HERE</a>" +
         "<br>" + "<br>" +
         "Cheers," + "<br>" +
-        "The Really Nice Beamstream Folks , US" + "<br>"
+        "The Really Nice Classwall Folks , US" + "<br>"
 
-    sendMessage(emailId, "Invitation to join Beamstream", content)
+    sendMessage(emailId, "Invitation to join Classwall", content)
   }
 
   /**
@@ -131,13 +131,13 @@ object SendEmailUtility extends EmailUtility {
   def inviteUserToBeamstreamWithReferral(emailId: String, friendUserString: String, friendNameString: String) {
     val content =
       "Hello, " + "<br>" + "<br>" +
-        friendNameString + " has invited to join Beamstream." + "<br>" +
+        friendNameString + " has invited to join Classwall." + "<br>" +
         "Join and be ready to rock. " + "<a href ='" + Play.current.configuration.getString("server").get + "/signup?email=" + emailId + "&referrer=" + friendUserString + "'>REGISTER HERE</a>" +
         "<br>" + "<br>" +
         "Cheers," + "<br>" +
-        "The Really Nice Beamstream Folks , US" + "<br>"
+        "The Really Nice Classwall Folks , US" + "<br>"
 
-    sendMessage(emailId, "Invitation to join Beamstream", content)
+    sendMessage(emailId, "Invitation to join Classwall", content)
   }
 
   /**
@@ -146,7 +146,7 @@ object SendEmailUtility extends EmailUtility {
   def sendMessage(emailId: String, subject: String, content: String) {
     val authenticatedMessageAndSession = setEmailCredentials
     val recepientAddress = new InternetAddress(emailId)
-    authenticatedMessageAndSession._1.setFrom(new InternetAddress(BEAMTEAM_EMAIL, BEAMTEAM_EMAIL))
+    authenticatedMessageAndSession._1.setFrom(new InternetAddress(CLASSWALL_EMAIL, CLASSWALL_EMAIL))
     authenticatedMessageAndSession._1.addRecipient(Message.RecipientType.TO, recepientAddress)
     authenticatedMessageAndSession._1.setSubject(subject)
     authenticatedMessageAndSession._1.setContent(content, "text/html")
