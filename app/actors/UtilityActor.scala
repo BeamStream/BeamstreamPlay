@@ -36,7 +36,7 @@ object UtilityActor extends EmailUtility {
   }
 
   /**
-   * Send Mail to beta user who registers on Beamstream(RA)
+   * Send Mail to beta user who registers on Classwall(RA)
    */
   def sendMailToBetaUsers(emailId: String): Unit = {
     val authenticatedMessageAndSession = setEmailCredentials
@@ -51,7 +51,7 @@ object UtilityActor extends EmailUtility {
   }
 
   /**
-   * Basic Send Mail Feature on Beamstream(RA)
+   * Basic Send Mail Feature on Classwall(RA)
    */
   def sendMail(emailId: String, subject: String, content: String, fromAddress: String): Unit = {
     val authenticatedMessageAndSession = setEmailCredentials
@@ -69,7 +69,7 @@ object UtilityActor extends EmailUtility {
   }
 
   /**
-   * Send Email After User signs up (RA)
+   * Send Email After User signs up Classwall(RA)
    */
   def sendMailAfterUserSignsUp(userId: String, authToken: String, emailId: String): Future[Unit] = {
     Future { sendMailAfterSignUp(userId, authToken, emailId) }
