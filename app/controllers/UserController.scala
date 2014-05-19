@@ -60,7 +60,7 @@ object UserController extends Controller {
     val onlineUsers = OnlineUserCache.returnOnlineUsers.isEmpty match {
       case false =>
 
-        val userToShow = OnlineUserCache.returnOnlineUsers.head.onlineUsers -= request.session.get("userId").getOrElse("")
+        val userToShow = OnlineUserCache.returnOnlineUsers.head.onlineUsers -= request.session.get("userId").getOrElse((new ObjectId).toString())
         val otherUsers = userToShow.keys.toList
         val currentUsers = User.getUserProfile(new ObjectId(request.session.get("userId").get))
         currentUsers match {
