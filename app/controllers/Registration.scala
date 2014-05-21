@@ -34,6 +34,7 @@ import play.api.Play.current
 import play.api.mvc.AnyContent
 import play.api.libs.json._
 import utils.FetchLocationUtil
+import play.api.mvc.DiscardingCookie
 
 object Registration extends Controller {
   implicit val formats = new net.liftweb.json.DefaultFormats {
@@ -390,15 +391,34 @@ object Registration extends Controller {
   }
 
   def getUserDataFromCache: Action[AnyContent] = Action { implicit request =>
-    val userId = request.cookies.get("Beamstream").get.value.split(" ")(0)
-    val userInfo: Option[JsValue] = Cache.getAs[JsValue](userId)
-    val ipAddress = request.remoteAddress
-    val location = FetchLocationUtil.getLocation(ipAddress)
-    val locationJsonString = """{"location": """ + location + """}"""
-    val locationJson: JsValue = play.api.libs.json.Json.parse(locationJsonString)
-    userInfo match {
-      case None => Ok(Json.obj("data" -> locationJson))
-      case Some(userData) => Ok(Json.obj("data" -> userData))
+    val cookieFound = request.cookies.get("Beamstream") //.get.value.split(" ")(0)
+    cookieFound match {
+      case None => Redirect("/signup")
+      case Some(cookie) =>
+        val userId = cookie.value.split(" ")(0)
+        val userInfo: Option[JsValue] = Cache.getAs[JsValue](userId)
+        val ipAddress = request.remoteAddress
+        val location = FetchLocationUtil.getLocation(ipAddress)
+        val locationJsonString = """{"location": """ + location + """}"""
+        val locationJson: JsValue = play.api.libs.json.Json.parse(locationJsonString)
+        userInfo match {
+          case None => Ok(Json.obj("data" -> locationJson))
+          case Some(userData) => Ok(Json.obj("data" -> userData))
+        }
+    }
+  }
+
+  // Cancel Registration
+  def cancelRegistration: Action[AnyContent] = Action { implicit request =>
+    val cookieFound = request.cookies.get("Beamstream") //.get.value.split(" ")(0)
+    cookieFound match {
+      case None => Redirect("/signup").withNewSession.discardingCookies(DiscardingCookie("Beamstream"))
+      case Some(cookie) =>
+        val userId = cookie.value.split(" ")(0)
+        val tokenFound = Token.findTokenByUserId(userId)
+        User.removeUser(new ObjectId(userId))
+        Token.removeToken(tokenFound.head)
+        Redirect("/signup").withNewSession.discardingCookies(DiscardingCookie("Beamstream"))
     }
   }
 }

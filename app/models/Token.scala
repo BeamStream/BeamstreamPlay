@@ -21,7 +21,14 @@ object Token {
   def addToken(token: Token): Option[Int] = {
     TokenDAO.insert(token)
   }
-
+  
+  /**
+   * Remove token by Token Id
+   */
+  def removeToken(token: Token) {
+    TokenDAO.remove(token)
+  }
+  
   /**
    * Find Mail TOken on basis of token string
    */

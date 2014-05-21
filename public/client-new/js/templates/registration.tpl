@@ -12,7 +12,7 @@
 		* Sl.No.  Date   Author   Description
 		* -
   -->
- 
+ <button type="button" id="cancle_registration" class="btn" >Cancel Registration</button>
 
  <div class="profile-wrapper">
         <div class="profile-left-container">

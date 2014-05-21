@@ -41,7 +41,8 @@ define(
 							'keyup #schoolName' : 'populateSchools',
 							'focusin #schoolName' : 'populateSchools',
 							'change #degreeProgram' : 'addOtherDegree',
-							'change #graduate' : 'showGraduateType'
+							'change #graduate' : 'showGraduateType',
+							'click #cancle_registration' : 'cancelRegistration'
 
 						},
 
@@ -684,6 +685,17 @@ define(
 								$('#degreeExpected-set').hide();
 								$('#graduationDate-set').hide();
 							}
+						},
+
+						cancelRegistration : function() {
+							$.ajax({
+								type : 'GET',
+								url : "/cancel/registration",
+								success : function() {
+									window.history.forward();
+									window.location = "/signup";
+								}
+							});
 						},
 
 					})
