@@ -692,8 +692,7 @@ define(
 								type : 'GET',
 								url : "/cancel/registration",
 								success : function() {
-									window.history.forward();
-									window.location = "/signup";
+									window.location.replace("/signup");
 								}
 							});
 						},
