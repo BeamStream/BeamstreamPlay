@@ -157,6 +157,7 @@
 {{/ifequal}}
 
 {{#ifequal fileType "googleDoc"}}
+{{#if data.postToFileMedia}}
 	<li data-groups='["recent"]' data-rock="{{data.documentRocks}}" data-date-created="{{data.creationDate}}" class="item" >
 			<div class="image-wrapper hovereffect" id="{{data.id.id}}">
 		 		<div class="hover-div">
@@ -206,7 +207,7 @@
 		</li>
 
 		
-
+{{/if}}
 {{/ifequal}}
 
 

@@ -73,7 +73,10 @@ class AmazonUpload {
   def uploadFileToAmazon(profilePicName: String, profilePic: File) {
     val bucketName = "BeamStream"
     val s3Client = fetchS3Client
-    s3Client.putObject(bucketName, profilePicName, profilePic)
+    try{s3Client.putObject(bucketName, profilePicName, profilePic)}
+    catch{
+      case ex: Exception => Logger.info(ex.getStackTraceString) 
+    }
   }
 
   def uploadCompressedFileToAmazon(profilePicName: String, profilePic: InputStream) {

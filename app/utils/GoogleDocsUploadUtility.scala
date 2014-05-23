@@ -60,7 +60,8 @@ object GoogleDocsUploadUtility {
    */
 
   def getAllDocumentsFromGoogleDocs(code: String): List[(String, String, String, String, String)] = {
-    val service = prepareGoogleDrive(code)
+    try {
+      val service = prepareGoogleDrive(code)
     var result: List[File] = Nil
     val request = service.files.list
 
@@ -75,6 +76,11 @@ object GoogleDocsUploadUtility {
         val date = formatter.parse(document.getModifiedDate().toString())
         formatter.format(date)
         (document.getTitle(), document.getAlternateLink, formatter.format(date).toString, document.getOwnerNames().head, document.getThumbnailLink())
+    }
+    }
+    catch {
+      case ex: Exception => Logger.info(ex.getStackTraceString)
+      List(("", "", "", "", ""))
     }
   }
 
@@ -111,8 +117,8 @@ object GoogleDocsUploadUtility {
   }
 
   def canMakeGoogleDocPublic(code: String, fileData: String): Boolean = {
-    val service = prepareGoogleDrive(code)
     try {
+      val service = prepareGoogleDrive(code)    
       val fileId = fileData.split("/")
       if (fileId.length >= 8) {
     	  val permissions = service.permissions().list(fileId(7)).execute()

@@ -238,7 +238,7 @@
 	{{/if}}
 
 	{{#if googleDocs}}
-		
+	
 		<li data-groups='["recent"]' data-rock="{{documents.documentRocks}}" data-date-created="{{googleDocs.creationDate}}" class="item" >
 			<div class="image-wrapper hovereffect" id="{{googleDocs.id.id}}">
 		 		<div class="hover-div">
