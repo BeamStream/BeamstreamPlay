@@ -62,25 +62,25 @@ object GoogleDocsUploadUtility {
   def getAllDocumentsFromGoogleDocs(code: String): List[(String, String, String, String, String)] = {
     try {
       val service = prepareGoogleDrive(code)
-    var result: List[File] = Nil
-    val request = service.files.list
+      var result: List[File] = Nil
+      val request = service.files.list
 
-    do {
-      val files = request.execute
-      result ++= (files.getItems)
-      request.setPageToken(files.getNextPageToken)
-    } while (request.getPageToken() != null && request.getPageToken().length() > 0)
+      do {
+        val files = request.execute
+        result ++= (files.getItems)
+        request.setPageToken(files.getNextPageToken)
+      } while (request.getPageToken() != null && request.getPageToken().length() > 0)
 
-    result map {
-      case document =>
-        val date = formatter.parse(document.getModifiedDate().toString())
-        formatter.format(date)
-        (document.getTitle(), document.getAlternateLink, formatter.format(date).toString, document.getOwnerNames().head, document.getThumbnailLink())
-    }
-    }
-    catch {
-      case ex: Exception => Logger.info(ex.getStackTraceString)
-      List(("", "", "", "", ""))
+      result map {
+        case document =>
+          val date = formatter.parse(document.getModifiedDate().toString())
+          formatter.format(date)
+          (document.getTitle(), document.getAlternateLink, formatter.format(date).toString, document.getOwnerNames().head, document.getThumbnailLink())
+      }
+    } catch {
+      case ex: Exception =>
+        Logger.error("This error occured while fetching all Google Docs from Google Drive :- ", ex)
+        List(("", "", "", "", ""))
     }
   }
 
@@ -99,7 +99,7 @@ object GoogleDocsUploadUtility {
     try {
       service.files().delete(docId).execute()
     } catch {
-      case ex: Exception => Logger.info(ex.getStackTraceString)
+      case ex: Exception => Logger.error("This error occured while Deleting a Google Doc :- ", ex)
     }
   }
 
@@ -112,16 +112,16 @@ object GoogleDocsUploadUtility {
       permission.setValue("me")
       service.permissions().insert(fileId, permission).execute()
     } catch {
-      case ex: Exception => Logger.info(ex.getStackTraceString)
+      case ex: Exception => Logger.error("This error occured while Making a Google Doc Public :- ", ex)
     }
   }
 
   def canMakeGoogleDocPublic(code: String, fileData: String): Boolean = {
     try {
-      val service = prepareGoogleDrive(code)    
+      val service = prepareGoogleDrive(code)
       val fileId = fileData.split("/")
       if (fileId.length >= 8) {
-    	  val permissions = service.permissions().list(fileId(7)).execute()
+        val permissions = service.permissions().list(fileId(7)).execute()
         if (permissions.getItems()(0).getRole() == "owner") {
           true
         } else {
@@ -130,7 +130,7 @@ object GoogleDocsUploadUtility {
       } else { false }
     } catch {
       case ex: Exception =>
-        Logger.info(ex.getStackTraceString)
+        Logger.error("This error occured while Checking a Google Docs Permissions :- ", ex)
         false
     }
   }
@@ -150,7 +150,9 @@ object GoogleDocsUploadUtility {
       credential.refreshToken
       credential.getAccessToken
     } catch {
-      case ex: Exception => "Not Found"
+      case ex: Exception =>
+        Logger.error("This error occured while getting a New Access Token from Google Drive :- ", ex)
+        "Not Found"
     }
   }
 

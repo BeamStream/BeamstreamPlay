@@ -66,7 +66,7 @@ object ClassController extends Controller {
       Ok(write(classList)).as("application/json")
     } catch {
       case exception: Throwable =>
-        Logger.info(exception.getStackTraceString)
+        Logger.error("This error occurred while Auto-Populating the Class by Name :- ",exception)
         InternalServerError("Class Autopopulate Failed")
     }
   }
@@ -83,7 +83,7 @@ object ClassController extends Controller {
       Ok(ClassListJson).as("application/json")
     } catch {
       case exception: Throwable =>
-        Logger.info(exception.getStackTraceString)
+        Logger.error("This error occurred while fetching all Classes for a User :- ", exception)
         BadRequest(write(new ResulttoSent("Failure", "There Was Some Problem To Get List Of Classes For A User")))
     }
   }
@@ -193,7 +193,7 @@ object ClassController extends Controller {
       }
     } catch {
       case exception: Throwable =>
-        Logger.info(exception.getStackTraceString)
+        Logger.error("This error occurred while creating a Class :- ", exception)
         InternalServerError("Class Creation Failed")
     }
   }

@@ -51,7 +51,7 @@ object PreviewImage extends Controller {
           in.close
         }
       } catch {
-        case e: Exception => Logger.info(e.getStackTraceString)
+        case ex: Exception => Logger.error("This error occurred while Adding Preview Image of Google Docs :- ", ex)
       } finally {
         //      out.close
         //      in.close

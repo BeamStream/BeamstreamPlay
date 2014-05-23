@@ -75,7 +75,7 @@ class AmazonUpload {
     val s3Client = fetchS3Client
     try{s3Client.putObject(bucketName, profilePicName, profilePic)}
     catch{
-      case ex: Exception => Logger.info(ex.getStackTraceString) 
+      case ex: Exception => Logger.error("This error occurred while Uploading a File to Amazon :- ", ex) 
     }
   }
 
@@ -83,7 +83,10 @@ class AmazonUpload {
     val bucketName = "BeamStream"
     val s3Client = fetchS3Client
     val putObjectRequest = new PutObjectRequest(bucketName, profilePicName, profilePic, new ObjectMetadata)
-    s3Client.putObject(putObjectRequest)
+    try {s3Client.putObject(putObjectRequest)}
+    catch {
+      case ex: Exception => Logger.error("This error occured while uploading a Compressed File to Amazon :- ", ex)
+    }
   }
 
   def isFileExists(profilePicName: String): Boolean = {
@@ -94,8 +97,7 @@ class AmazonUpload {
       true
     } catch {
       case ex: Exception =>
-        Logger.info(ex.getStackTraceString)
-        ex.printStackTrace()
+        Logger.error("This error occurred while Checking a File's Exixtence :- ", ex)
         false
     }
   }
@@ -108,7 +110,7 @@ class AmazonUpload {
       true
     } catch {
       case ex: Exception =>
-        Logger.info(ex.getStackTraceString)
+        Logger.error("This error occured while Deleting a File from Amazon :- ", ex)
         false
     }
   }

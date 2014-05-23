@@ -145,7 +145,7 @@ object SocialGraphEmbeddedNeo4j {
       secondNode
     } catch {
       case ioe: Exception =>
-        Logger.info(ioe.getStackTraceString)
+        Logger.error("This error occured while Creating a BS Node :- ", ioe)
         null
     } finally {
       tx.finish()

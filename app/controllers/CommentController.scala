@@ -125,7 +125,7 @@ object CommentController extends Controller {
       }
     } catch {
       case exception: Throwable =>
-        Logger.info(exception.getStackTraceString)
+        Logger.error("This error occurred while fetching all Comments :- ", exception)
         InternalServerError("Can't get the comments")
     }
 
@@ -141,7 +141,7 @@ object CommentController extends Controller {
       Ok(write(totalRocksForAComment.toString)).as("application/json")
     } catch {
       case exception: Throwable =>
-        Logger.info(exception.getStackTraceString)
+        Logger.error("This error occurred while Rocking a Comment :- ", exception)
         InternalServerError("Can't rock the comment")
         Ok
     }

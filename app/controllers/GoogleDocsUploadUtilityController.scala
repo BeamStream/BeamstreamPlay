@@ -144,7 +144,7 @@ object GoogleDocsUploadUtilityController extends Controller {
       }
     } catch {
       case ex: Exception =>
-        Logger.info(ex.getStackTraceString)
+        Logger.error("This error occurred while Authenticating Google Drive :- ", ex)
         Ok(views.html.stream("failure")) //BadRequest("Authentication Failed")
     }
   }

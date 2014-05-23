@@ -47,7 +47,7 @@ object SchoolController extends Controller {
       Ok(SchoolListJson).as("application/json")
     } catch {
       case exception: Throwable =>
-        Logger.info(exception.getStackTraceString)
+        Logger.error("This error occurred while fetching all Schools of a User :- ", exception)
         InternalServerError("There was some errors during fetching the schools").as("application/json")
 
     }
