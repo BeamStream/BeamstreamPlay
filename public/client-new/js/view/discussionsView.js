@@ -270,7 +270,7 @@ define(['view/formView',
  			                dataType : "json",
  			                success: function(data){
  			                	
- 			                	
+ 			                //	alert(JSON.stringify(data));
  			    				// set progress bar as 100 %
  			                	self.bar = $('.bar');  
  			                	
@@ -305,7 +305,7 @@ define(['view/formView',
  			  	               
  			  	                /* Pubnub auto push */
  			  	                PUBNUB.publish({
- 			  	                	channel : "question",
+ 			  	                	channel : "stream",
  			  	                	message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:self.data.models[0],}
  			  	                	
  			  	                }) 
