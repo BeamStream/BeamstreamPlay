@@ -70,12 +70,16 @@ class AmazonUpload {
    * param profilePicName is the name of file
    * param profilePic is the file to be uploaded
    */
-  def uploadFileToAmazon(profilePicName: String, profilePic: File) {
+  def uploadFileToAmazon(profilePicName: String, profilePic: File): Boolean = {
     val bucketName = "BeamStream"
     val s3Client = fetchS3Client
-    try{s3Client.putObject(bucketName, profilePicName, profilePic)}
-    catch{
-      case ex: Exception => Logger.error("This error occurred while Uploading a File to Amazon :- ", ex) 
+    try {
+      s3Client.putObject(bucketName, profilePicName, profilePic)
+      true
+    } catch {
+      case ex: Exception =>
+        Logger.error("This error occurred while Uploading a File to Amazon :- ", ex)
+        false
     }
   }
 
@@ -83,7 +87,7 @@ class AmazonUpload {
     val bucketName = "BeamStream"
     val s3Client = fetchS3Client
     val putObjectRequest = new PutObjectRequest(bucketName, profilePicName, profilePic, new ObjectMetadata)
-    try {s3Client.putObject(putObjectRequest)}
+    try { s3Client.putObject(putObjectRequest) }
     catch {
       case ex: Exception => Logger.error("This error occured while uploading a Compressed File to Amazon :- ", ex)
     }

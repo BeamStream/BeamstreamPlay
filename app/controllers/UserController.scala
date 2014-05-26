@@ -30,6 +30,7 @@ import play.api.Play
 import play.api.mvc.Cookie
 import play.api.mvc.DiscardingCookie
 import play.api.mvc.AnyContent
+import play.api.mvc.DiscardingCookie
 
 object UserController extends Controller {
 
@@ -57,53 +58,58 @@ object UserController extends Controller {
 
   def getAllOnlineUsers: Action[AnyContent] = Action { implicit request =>
     var usersToShow: List[String] = Nil
-    val onlineUsers = OnlineUserCache.returnOnlineUsers.isEmpty match {
-      case false =>
+    val userIdFound = request.session.get("userId")
+    userIdFound match {
+      case None => Redirect("/login").withNewSession.discardingCookies(DiscardingCookie("Beamstream"))
+      case Some(userId) =>
+        val onlineUsers = OnlineUserCache.returnOnlineUsers.isEmpty match {
+          case false =>
 
-        val userToShow = OnlineUserCache.returnOnlineUsers.head.onlineUsers -= request.session.get("userId").getOrElse((new ObjectId).toString())
-        val otherUsers = userToShow.keys.toList
-        val currentUsers = User.getUserProfile(new ObjectId(request.session.get("userId").get))
-        currentUsers match {
-          case None => Option(Nil)
-          case Some(currentUsers) =>
-            val currentUsersClasses = currentUsers.classes
-            currentUsersClasses map {
-              case eachClassOfUser =>
+            val userToShow = OnlineUserCache.returnOnlineUsers.head.onlineUsers -= request.session.get("userId").getOrElse((new ObjectId).toString())
+            val otherUsers = userToShow.keys.toList
 
-                val streams = models.Class.findClasssById(eachClassOfUser)
-                streams match {
-                  case None => User.removeClassFromUser(new ObjectId(request.session.get("userId").get), List(eachClassOfUser))
-                  case Some(streams) =>
-                    val streamUsers = Stream.findStreamById(streams.streams.head).get.usersOfStream
-                    val streamUserList = streamUsers map {
-                      case user => user.toString
+            val currentUsers = User.getUserProfile(new ObjectId(userId))
+            currentUsers match {
+              case None => Option(Nil)
+              case Some(currentUsers) =>
+                val currentUsersClasses = currentUsers.classes
+                currentUsersClasses map {
+                  case eachClassOfUser =>
+
+                    val streams = models.Class.findClasssById(eachClassOfUser)
+                    streams match {
+                      case None => User.removeClassFromUser(new ObjectId(request.session.get("userId").get), List(eachClassOfUser))
+                      case Some(streams) =>
+                        val streamUsers = Stream.findStreamById(streams.streams.head).get.usersOfStream
+                        val streamUserList = streamUsers map {
+                          case user => user.toString
+                        }
+                        usersToShow ++= otherUsers.intersect(streamUserList)
                     }
-                    usersToShow ++= otherUsers.intersect(streamUserList)
                 }
-            }
-            val onlineUsersWithDetails = (usersToShow.distinct) map {
-              case eachUserId =>
-                val userWithDetailedInfo = User.getUserProfile(new ObjectId(eachUserId))
-                val profilePicForUser = UserMedia.getProfilePicForAUser(new ObjectId(eachUserId))
-                val onlineUsersAlongWithDetails = (profilePicForUser.isEmpty) match {
-                  case true => {
-                    AvailableUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
-                      userWithDetailedInfo.get.lastName, "")
-                  }
-                  case false => {
-                    AvailableUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
-                      userWithDetailedInfo.get.lastName, profilePicForUser(0).mediaUrl)
-                  }
-                }
-                onlineUsersAlongWithDetails
+                val onlineUsersWithDetails = (usersToShow.distinct) map {
+                  case eachUserId =>
+                    val userWithDetailedInfo = User.getUserProfile(new ObjectId(eachUserId))
+                    val profilePicForUser = UserMedia.getProfilePicForAUser(new ObjectId(eachUserId))
+                    val onlineUsersAlongWithDetails = (profilePicForUser.isEmpty) match {
+                      case true => {
+                        AvailableUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
+                          userWithDetailedInfo.get.lastName, "")
+                      }
+                      case false => {
+                        AvailableUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
+                          userWithDetailedInfo.get.lastName, profilePicForUser(0).mediaUrl)
+                      }
+                    }
+                    onlineUsersAlongWithDetails
 
+                }
+                Option(onlineUsersWithDetails)
             }
-            Option(onlineUsersWithDetails)
+          case true => Option(Nil)
         }
-      case true => Option(Nil)
+        Ok(write(OnlineUsersResult(onlineUsers.get))).as("application/json")
     }
-
-    Ok(write(OnlineUsersResult(onlineUsers.get))).as("application/json")
   }
 
   /**

@@ -64,7 +64,7 @@ object BasicRegistration extends Controller {
             }
         }
       case Some(user) =>
-        val userFound = User.getUserProfile(new ObjectId(request.session.get("userId").getOrElse("")))
+        val userFound = User.getUserProfile(new ObjectId(request.session.get("userId").getOrElse((new ObjectId).toString())))
         userFound match {
           case Some(user) => {
             user.classes.isEmpty match {

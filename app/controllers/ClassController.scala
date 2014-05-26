@@ -66,7 +66,7 @@ object ClassController extends Controller {
       Ok(write(classList)).as("application/json")
     } catch {
       case exception: Throwable =>
-        Logger.error("This error occurred while Auto-Populating the Class by Name :- ",exception)
+        Logger.error("This error occurred while Auto-Populating the Class by Name :- ", exception)
         InternalServerError("Class Autopopulate Failed")
     }
   }
@@ -179,17 +179,23 @@ object ClassController extends Controller {
       //      println("ClassController createClass" + request.body.asJson)
       val jsonReceived = request.body.asJson.get
       val id = (jsonReceived \ "id").asOpt[String]
-      if (id == None) {
-        val classCreated = net.liftweb.json.parse(request.body.asJson.get.toString).extract[Class]
-        val streamIdReturned = Class.createClass(classCreated, new ObjectId(request.session.get("userId").get))
-        val stream = Stream.findStreamById(streamIdReturned)
-        Ok(write(ClassResult(stream.get, ResulttoSent("Success", "Class Created Successfully")))).as("application/json")
-      } else {
-        val classesobtained = Class.findClasssById(new ObjectId(id.get))
-        val resultToSend = Stream.joinStream(classesobtained.get.streams(0), new ObjectId(request.session.get("userId").get))
-        if (resultToSend.status == "Success") User.addClassToUser(new ObjectId(request.session.get("userId").get), List(new ObjectId(id.get)))
-        val stream = Stream.findStreamById(classesobtained.get.streams(0))
-        Ok(write(ClassResult(stream.get, resultToSend))).as("application/json")
+      val userIdFound = request.session.get("userId")
+      userIdFound match {
+        case None => Redirect("/login").withNewSession.discardingCookies(DiscardingCookie("Beamstream"))
+        case Some(userId) =>
+          id match {
+            case None =>
+              val classCreated = net.liftweb.json.parse(request.body.asJson.get.toString).extract[Class]
+              val streamIdReturned = Class.createClass(classCreated, new ObjectId(userId))
+              val stream = Stream.findStreamById(streamIdReturned)
+              Ok(write(ClassResult(stream.get, ResulttoSent("Success", "Class Created Successfully")))).as("application/json")
+            case Some(id) =>
+              val classesobtained = Class.findClasssById(new ObjectId(id))
+              val resultToSend = Stream.joinStream(classesobtained.get.streams(0), new ObjectId(userId))
+              if (resultToSend.status == "Success") User.addClassToUser(new ObjectId(userId), List(new ObjectId(id)))
+              val stream = Stream.findStreamById(classesobtained.get.streams(0))
+              Ok(write(ClassResult(stream.get, resultToSend))).as("application/json")
+          }
       }
     } catch {
       case exception: Throwable =>

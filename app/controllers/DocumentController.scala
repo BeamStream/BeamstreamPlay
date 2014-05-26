@@ -29,6 +29,7 @@ import play.Logger
 import play.api.mvc.AnyContent
 import models.SocialToken
 import utils.GoogleDocsUploadUtility
+import play.api.libs.json.Json
 
 /**
  * This controller class is used to store and retrieve all the information about documents.
@@ -178,25 +179,25 @@ object DocumentController extends Controller {
           val documentReceived: File = docData.ref.file.asInstanceOf[File]
           val docUniqueKey = TokenEmailUtil.securityToken
           val docNameOnAmazom = (docUniqueKey + documentName).replaceAll("\\s", "")
-          (new AmazonUpload).uploadFileToAmazon(docNameOnAmazom, documentReceived)
+          val isFileUploaded = (new AmazonUpload).uploadFileToAmazon(docNameOnAmazom, documentReceived)
           val docURL = "https://s3.amazonaws.com/BeamStream/" + docNameOnAmazom
           val userId = new ObjectId(request.session.get("userId").get)
           val user = User.getUserProfile(userId)
 
           if (isImage) {
             val uploadResults = saveImageFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, uploadedFrom)
-            Option(uploadResults)
+            List(Option(uploadResults),isFileUploaded)
           } else if (isVideo) {
             val uploadResults = saveVideoFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom, uploadedFrom)
-            Option(uploadResults)
+            List(Option(uploadResults),isFileUploaded)
           } else {
             if (isPdf) {
               val previewImageUrl = PreviewOfPDFUtil.convertPdfToImage(documentReceived, docNameOnAmazom)
               val uploadResults = savePdfFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom, previewImageUrl, uploadedFrom)
-              Option(uploadResults)
+              List(Option(uploadResults),isFileUploaded)
             } else {
               val uploadResults = saveOtherDOcFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom, uploadedFrom)
-              Option(uploadResults)
+              List(Option(uploadResults),isFileUploaded)
             }
           }
         }.get

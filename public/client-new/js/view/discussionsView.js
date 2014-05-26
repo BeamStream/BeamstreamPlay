@@ -269,8 +269,8 @@ define(['view/formView',
  			                processData: false,
  			                dataType : "json",
  			                success: function(data){
- 			                	
- 			                //	alert(JSON.stringify(data));
+
+ 			                	if(data[1]) {
  			    				// set progress bar as 100 %
  			                	self.bar = $('.bar');  
  			                	
@@ -285,22 +285,21 @@ define(['view/formView',
  			              	    
  			              	    $('#file-upload-loader').css("display","none");
  			              	    
- 			              	    var datVal = formatDateVal(data.message.timeCreated);
+ 			              	    var datVal = formatDateVal(data[0].message.timeCreated);
  			  	                
  			              	    var datas = {
- 		  	                		"data" : data,
+ 		  	                		"data" : data[0],
  		  	                		"datVal" :datVal
  			              	    }	
  			              	    
  			  	                $('.progress-container').hide();
  			  	                $('#uploded-file-area').hide();
  			  	                
- 			  	                
  			  	                // set the response data to model
- 			  	                self.data.models[0].set({message : data.message,
- 			  	                	                     docName : data.docName, 
- 			  	                	                     docDescription: data.docDescription,
- 			  	                	                     profilePic: data.profilePic })
+ 			  	                self.data.models[0].set({message : data[0].message,
+ 			  	                	                     docName : data[0].docName, 
+ 			  	                	                     docDescription: data[0].docDescription,
+ 			  	                	                     profilePic: data[0].profilePic })
 
  			  	               
  			  	                /* Pubnub auto push */
@@ -319,9 +318,11 @@ define(['view/formView',
 		 						
 			                 	$('a.ask-button').css('visibility','hidden');
 			               	 $('.ask-outer').css('height','0px');
+ 		                    }else {
+ 		                    	alert("Not able to Upload File.\nPlease try Again");
  		                    }
  			            	
- 			            
+ 			                }
  		                }); 
  			        	
  			        }
