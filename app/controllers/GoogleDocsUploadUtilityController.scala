@@ -52,27 +52,28 @@ object GoogleDocsUploadUtilityController extends Controller {
         } else {
           if (tokenInfo.tokenFlag) {
             SocialToken.updateTokenFlag(new ObjectId(request.session.get("userId").get), false)
-            if (action == "show") {
-              val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(newAccessToken)
-              Ok(write(files)).as("application/json")
-            } else if (action == "upload") {
-              Ok.withSession(request.session + ("accessToken" -> newAccessToken))
-            } else if (action == "document") {
-              val result = GoogleDocsUploadUtility.createANewGoogleDocument(newAccessToken, "application/vnd.google-apps.document")
-              Ok(write(result)).as("application/json")
-            } else if (action == "spreadsheet") {
-              val result = GoogleDocsUploadUtility.createANewGoogleDocument(newAccessToken, "application/vnd.google-apps.spreadsheet")
-              Ok(write(result)).as("application/json")
-            } else if (action == "presentation") {
-              val result = GoogleDocsUploadUtility.createANewGoogleDocument(newAccessToken, "application/vnd.google-apps.presentation")
-              Ok(write(result)).as("application/json")
-            } /*else if (action == "addPreviewImageUrl") {
+            action match {
+              case "show" =>
+                val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(newAccessToken)
+                Ok(write(files)).as("application/json")
+              case "upload" =>
+                Ok.withSession(request.session + ("accessToken" -> newAccessToken))
+              case "document" =>
+                val result = GoogleDocsUploadUtility.createANewGoogleDocument(newAccessToken, "application/vnd.google-apps.document")
+                Ok(write(result)).as("application/json")
+              case "spreadsheet" =>
+                val result = GoogleDocsUploadUtility.createANewGoogleDocument(newAccessToken, "application/vnd.google-apps.spreadsheet")
+                Ok(write(result)).as("application/json")
+              case "presentation" =>
+                val result = GoogleDocsUploadUtility.createANewGoogleDocument(newAccessToken, "application/vnd.google-apps.presentation")
+                Ok(write(result)).as("application/json")
+              /*else if (action == "addPreviewImageUrl") {
               println("111111111111111111")
               val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(newAccessToken)
               files.foreach(f => updateMessageImageUrl(updatePreviewImageUrl(f._1, f._5), f._5))
               Ok
-            }*/ else {
-              Ok
+            }*/ case _ =>
+                Ok
             }
           } else {
             if (action.length() == 44) {
