@@ -54,7 +54,7 @@ object GoogleDocsUploadUtilityController extends Controller {
             SocialToken.updateTokenFlag(new ObjectId(request.session.get("userId").get), false)
             action match {
               case "show" =>
-                val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(newAccessToken)
+                val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(newAccessToken, true)
                 Ok(write(files)).as("application/json")
               case "upload" =>
                 Ok.withSession(request.session + ("accessToken" -> newAccessToken))
@@ -80,9 +80,11 @@ object GoogleDocsUploadUtilityController extends Controller {
               val result = GoogleDocsUploadUtility.deleteAGoogleDocument(newAccessToken, action)
               Ok
             } else if (action == "addPreviewImageUrl") {
-              val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(newAccessToken)
+              val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(newAccessToken, false)
               for (f <- files) {
-                if (GoogleDocsUploadUtility.canMakeGoogleDocPublic(newAccessToken, f._2)) { updateMessageImageUrl(updatePreviewImageUrl(f._1, f._5), f._5) }
+                /*if (GoogleDocsUploadUtility.canMakeGoogleDocPublic(newAccessToken, f._2)) { */
+                updateMessageImageUrl(updatePreviewImageUrl(f._1, f._5), f._5) 
+                //}
               }
               Ok
             } else {

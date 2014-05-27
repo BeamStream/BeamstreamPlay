@@ -59,23 +59,34 @@ object GoogleDocsUploadUtility {
    * Get All Files From Google Drive
    */
 
-  def getAllDocumentsFromGoogleDocs(code: String): List[(String, String, String, String, String)] = {
+  def getAllDocumentsFromGoogleDocs(code: String, showAllGoogleDocs: Boolean): List[(String, String, String, String, String)] = {
     try {
       val service = prepareGoogleDrive(code)
       var result: List[File] = Nil
+      var resultAllGoogleDocs: List[File] = Nil
       val request = service.files.list
 
       do {
         val files = request.execute
-        result ++= (files.getItems)
+        result ++= files.getItems().filter(f => (f.getUserPermission().getRole() == "owner" || f.getUserPermission().getType() == "anyone"))
+        resultAllGoogleDocs ++= files.getItems()
         request.setPageToken(files.getNextPageToken)
       } while (request.getPageToken() != null && request.getPageToken().length() > 0)
 
-      result map {
-        case document =>
-          val date = formatter.parse(document.getModifiedDate().toString())
-          formatter.format(date)
-          (document.getTitle(), document.getAlternateLink, formatter.format(date).toString, document.getOwnerNames().head, document.getThumbnailLink())
+      if (showAllGoogleDocs) {
+        resultAllGoogleDocs map {
+          case document =>
+            val date = formatter.parse(document.getModifiedDate().toString())
+            formatter.format(date)
+            (document.getTitle(), document.getAlternateLink, formatter.format(date).toString, document.getOwnerNames().head, document.getThumbnailLink())
+        }
+      } else {
+        result map {
+          case document =>
+            val date = formatter.parse(document.getModifiedDate().toString())
+            formatter.format(date)
+            (document.getTitle(), document.getAlternateLink, formatter.format(date).toString, document.getOwnerNames().head, document.getThumbnailLink())
+        }
       }
     } catch {
       case ex: Exception =>
@@ -116,7 +127,11 @@ object GoogleDocsUploadUtility {
     }
   }
 
-  def canMakeGoogleDocPublic(code: String, fileData: String): Boolean = {
+  /**
+   * TODO Remove it when push it to Production
+   */
+  
+  /*def canMakeGoogleDocPublic(code: String, fileData: String): Boolean = {
     try {
       val service = prepareGoogleDrive(code)
       val fileId = fileData.split("/")
@@ -133,7 +148,7 @@ object GoogleDocsUploadUtility {
         Logger.error("This error occured while Checking a Google Docs Permissions :- ", ex)
         false
     }
-  }
+  }*/
 
   /**
    * Get Access token Using refresh Token
