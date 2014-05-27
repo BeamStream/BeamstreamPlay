@@ -68,7 +68,7 @@ object GoogleDocsUploadUtility {
 
       do {
         val files = request.execute
-        result ++= files.getItems().filter(f => (f.getUserPermission().getRole() == "owner" || f.getUserPermission().getType() == "anyone"))
+        result ++= files.getItems().filter(f => (f.getUserPermission().getRole() == "owner" || f.getUserPermission().getType() == "anyone" || f.getUserPermission().getRole() == "writer"))
         resultAllGoogleDocs ++= files.getItems()
         request.setPageToken(files.getNextPageToken)
       } while (request.getPageToken() != null && request.getPageToken().length() > 0)
@@ -115,13 +115,16 @@ object GoogleDocsUploadUtility {
   }
 
   def makeGoogleDocPublicToClass(code: String, fileId: String): Any = {
-    val service = prepareGoogleDrive(code)
     try {
-      val permission = new Permission()
-      permission.setRole("reader")
-      permission.setType("anyone")
-      permission.setValue("me")
-      service.permissions().insert(fileId, permission).execute()
+      val service = prepareGoogleDrive(code)
+      val getPermission = service.permissions().list(fileId).execute()
+      if (getPermission.getItems()(0).getRole() == "owner" || getPermission.getItems()(0).getRole() == "writer" || getPermission.getItems()(0).getType() == "anyone") {
+        val setPermission = new Permission()
+        setPermission.setRole("reader")
+        setPermission.setType("anyone")
+        setPermission.setValue("me")
+        service.permissions().insert(fileId, setPermission).execute()
+      }
     } catch {
       case ex: Exception => Logger.error("This error occured while Making a Google Doc Public :- ", ex)
     }
@@ -130,7 +133,7 @@ object GoogleDocsUploadUtility {
   /**
    * TODO Remove it when push it to Production
    */
-  
+
   /*def canMakeGoogleDocPublic(code: String, fileData: String): Boolean = {
     try {
       val service = prepareGoogleDrive(code)
