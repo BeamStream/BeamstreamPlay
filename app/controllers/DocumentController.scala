@@ -99,7 +99,7 @@ object DocumentController extends Controller {
       val docId = fileId(6).split("=")(1).split("&")(0)
       GoogleDocsUploadUtility.makeGoogleDocPublicToClass(newAccessToken, docId)
     }*/
-    
+
     Redirect("/stream")
   }
 
@@ -184,20 +184,23 @@ object DocumentController extends Controller {
           val userId = new ObjectId(request.session.get("userId").get)
           val user = User.getUserProfile(userId)
 
-          if (isImage) {
-            val uploadResults = saveImageFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, uploadedFrom)
-            List(Option(uploadResults),isFileUploaded)
-          } else if (isVideo) {
-            val uploadResults = saveVideoFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom, uploadedFrom)
-            List(Option(uploadResults),isFileUploaded)
-          } else {
-            if (isPdf) {
-              val previewImageUrl = PreviewOfPDFUtil.convertPdfToImage(documentReceived, docNameOnAmazom)
-              val uploadResults = savePdfFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom, previewImageUrl, uploadedFrom)
-              List(Option(uploadResults),isFileUploaded)
+          isFileUploaded match {
+            case false => List(Option("Failure"), isFileUploaded)
+            case true => if (isImage) {
+              val uploadResults = saveImageFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, uploadedFrom)
+              List(Option(uploadResults), isFileUploaded)
+            } else if (isVideo) {
+              val uploadResults = saveVideoFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom, uploadedFrom)
+              List(Option(uploadResults), isFileUploaded)
             } else {
-              val uploadResults = saveOtherDOcFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom, uploadedFrom)
-              List(Option(uploadResults),isFileUploaded)
+              if (isPdf) {
+                val previewImageUrl = PreviewOfPDFUtil.convertPdfToImage(documentReceived, docNameOnAmazom)
+                val uploadResults = savePdfFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom, previewImageUrl, uploadedFrom)
+                List(Option(uploadResults), isFileUploaded)
+              } else {
+                val uploadResults = saveOtherDOcFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom, uploadedFrom)
+                List(Option(uploadResults), isFileUploaded)
+              }
             }
           }
         }.get
