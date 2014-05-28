@@ -26,7 +26,7 @@ define(['view/formView',
 			/* 'keypress #msg-area' : 'postMessageOnEnterKey',*/
 			 'keyup #msg-area' : 'removePreview',
 			 'change #upload-files-area' : 'getUploadedData',
-			 
+			 'click .publish-btn':'publishGoogleDoc'
 			 
 		 },
 
@@ -114,7 +114,49 @@ define(['view/formView',
 		 },
 
 	  	
-		
+		 publishGoogleDoc : function(){
+			var aDiscussion = $("#aDiscussion").val();
+			var streamSelectOption = $("#streamSelectOption").val();
+			var postToFileMedia = $("#postToFileMedia").val();
+			var description = $("#description").val();
+			var docName = $("#docName").val();
+			var docUrl = $("#docUrl").val();
+			//this.modal('hide');
+			window.location.href("/stream");
+			alert(aDiscussion)
+			alert(streamSelectOption)
+			alert(postToFileMedia)
+			alert(description)
+			alert(docName)
+			alert(docUrl)
+			  $.ajax({
+	            	type: 'POST',
+	            	url: "/newGoogleDocument",
+	                data: {
+	                	aDiscussion:aDiscussion,
+	                	streamId:streamSelectOption,
+	                	postToFileMedia:postToFileMedia,
+	                	description:description,
+	                	docName:docName,
+	                	docUrl:docUrl,
+	                },
+	                
+	               cache: false,
+	                contentType: false,
+	               processData: false,
+	             //  dataType : "json",
+	                
+	                success: function(data){
+	                	alert("success");
+	                	//window.location.replace("/stream");
+	                }
+	                
+	                
+	                
+	                });
+			
+			
+			},
 		 
 		 
 		 /**
@@ -204,6 +246,7 @@ define(['view/formView',
          */
         postMessage: function(){
 
+        //	alert("google Doc")
         	
         	$('a.ask-button').css('visibility','hidden');
         	 $('.ask-outer').css('height','0px');
@@ -269,7 +312,6 @@ define(['view/formView',
  			                processData: false,
  			                dataType : "json",
  			                success: function(data){
-
  			                	if(data[1]) {
  			    				// set progress bar as 100 %
  			                	self.bar = $('.bar');  
@@ -310,7 +352,7 @@ define(['view/formView',
  			  	                }) 
  			  	                
 	                            // show the uploaded file on message llist
-		 			    		var messageItemView  = new MessageItemView({model : self.data.models[0]});
+		 			    		var messageItemView  = new MessageItemView({model : self.data.models[0]})
 		 						$('#messageListView div.content').prepend(messageItemView.render().el);
 		 						
 		 						self.selected_medias = [];
@@ -318,7 +360,9 @@ define(['view/formView',
 		 						
 			                 	$('a.ask-button').css('visibility','hidden');
 			               	 $('.ask-outer').css('height','0px');
- 		                    }else {
+ 		                    }
+ 			                	else
+ 			                	{
  		                    	alert("Not able to Upload File.\nPlease try Again");
  		                    }
  			            	
@@ -407,6 +451,7 @@ define(['view/formView',
         postMessageToServer: function(message,streamId,messageAccess,googleDoc){
         	var self = this;
         	if(googleDoc == true){
+        		
 
         		this.data.models[0].removeAttr('message');
         		this.data.models[0].removeAttr('profilePic');
@@ -844,6 +889,8 @@ define(['view/formView',
 				 channel : "stream",
 				 restore : false,
 				 callback : function(message) {
+					 
+					 alert(JSON.stringify(message))
 					 var streamId = $('.sortable li.active').attr('id');
 
 					 if (message.pagePushUid != self.pagePushUid)

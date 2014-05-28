@@ -34,7 +34,6 @@ define(
 							'click #sidequestionexpand' : 'restoretonormal',
 							'click #create-google-docs-close' : 'askToPublishDocs',
 							'click .cancel-publish' : 'askToPublishDocs',
-							
 						},
 						messagesPerPage : 10,
 						pageNo : 1,
@@ -114,8 +113,6 @@ define(
 
 						},
 						
-						
-					
 
 						popout : function() {
 								

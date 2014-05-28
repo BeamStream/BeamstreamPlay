@@ -69,7 +69,7 @@ object DocumentController extends Controller {
   }*/
 
   def newGoogleDocument: Action[AnyContent] = Action { implicit request =>
-    //    println("DocumentController newGoogleDocument" + request.body.asFormUrlEncoded)
+    val result = request.body
     val data = request.body.asFormUrlEncoded.get
     val docName = data("docName").toList.head
     val docUrl = data("docUrl").toList.head
@@ -84,7 +84,7 @@ object DocumentController extends Controller {
     //Create A Message As Well To Display The Doc Creation In Stream
     val message = Message(new ObjectId, docUrl, Option(Type.Document), Option(Access.PrivateToClass), new Date, new ObjectId(userId), Option(new ObjectId(streamId)), user.get.firstName, user.get.lastName, 0, Nil, Nil, 0, Nil, "", Option(docId))
     val messageId = Message.createMessage(message)
-
+    val resultToSend = DocResulttoSent(Option(message), None, docName, description, false, false, None, None, None, List())
     //Making Google Doc Public to Class
     val tokenInfo = SocialToken.findSocialTokenObject(new ObjectId(userId)).get
     val newAccessToken = GoogleDocsUploadUtility.getNewAccessToken(tokenInfo.refreshToken)
@@ -99,8 +99,7 @@ object DocumentController extends Controller {
       val docId = fileId(6).split("=")(1).split("&")(0)
       GoogleDocsUploadUtility.makeGoogleDocPublicToClass(newAccessToken, docId)
     }*/
-    
-    Redirect("/stream")
+    Ok(write(resultToSend)).as("application/json")
   }
 
   /**

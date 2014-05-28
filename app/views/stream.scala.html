@@ -436,6 +436,118 @@ header, footer){
                                 <div id="discussion-pagination" class="page-loader">
                                         <img src="/beamstream-new/images/loading-bars.gif" alt="">
                                 </div> -->
+                                
+                                
+                                
+                                <!--                                    -->
+		<!-- Modal for create google doc starts -->
+		<!--                                    -->
+
+		<div id="creategoogledoc"
+			class="modal hide fade invite-pop-up-googledoc"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div id="floatingCirclesG">
+				<div class="f_circleG" id="frotateG_01"></div>
+				<div class="f_circleG" id="frotateG_02"></div>
+				<div class="f_circleG" id="frotateG_03"></div>
+				<div class="f_circleG" id="frotateG_04"></div>
+				<div class="f_circleG" id="frotateG_05"></div>
+				<div class="f_circleG" id="frotateG_06"></div>
+				<div class="f_circleG" id="frotateG_07"></div>
+				<div class="f_circleG" id="frotateG_08"></div>
+			</div>
+
+			<div class="maincreatedocs">
+				<div class="heading">
+					<div class="close">
+						<div class="close-icon close" id="create-google-docs-close">
+							<img width="22" height="22"
+								src="/beamstream-new/images/close-pop.png">
+						</div>
+					</div>
+				</div>
+				<div class="header">
+					<div class="labelcreatedoc">
+						<div id="create-google-doc-popup"></div>
+						<div id="create-google-doc-type">#</div>
+					</div>
+					<div class="file-status">
+						<div class="view-container">
+							<img src="/beamstream-new/img/views.jpg" class="views-icon">
+							<div class="views">0</div>
+						</div>
+						<div class="rocks-container">
+							<img src="/beamstream-new/img/rocks.jpg" class="rocks-icon">
+							<div class="rocks">0</div>
+						</div>
+						<div class="comments-container">
+							<img src="/beamstream-new/img/comments.jpg" class="comments-icon">
+							<div class="comments">0</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="contentcreatedoc"></div>
+
+				<div class="sidebarcreategdocs">
+
+					<form action="" 
+						id="createAndPublishForm">
+						<div class="sidebar-subheading">Publish as</div>
+						<div class="styled-select">
+							<select id="aDiscussion" name="aDiscussion">
+								<option value="aDiscussion">A Discussion</option>
+							</select>
+						</div>
+
+						<div class="sidebar-subheading">Post Privacy</div>
+						<div class="styled-select">
+							<select id="streamSelectOption" name="streamId">
+							</select>
+						</div>
+
+
+						<input type="checkbox" name="postToFileMedia" value="true" checked="checked" id="postToFileMedia">
+						Post to Files & Media
+
+						<div class="sidebar-subheading">comment</div>
+
+						<textarea name="description" class="commentcreatedoc"
+							onfocus="this.value=''; setbg( '#e5fff3');"
+							onblur="setbg('white')" id="description">
+                </textarea>
+
+						<ul class="social">
+							<div class="sidebar-subheading share-on">share on:</div>
+							<li><a class="gp" href="#"><img
+									src="/beamstream-new/img/gp.png"></a></li>
+							<li><a class="tw" href="#"><img
+									src="/beamstream-new/img/tw.png"></a></li>
+							<li><a class="fb" href="#"><img
+									src="/beamstream-new/img/fb.png"></a></li>
+							<li><a class="li" href="#"><img
+									src="/beamstream-new/img/li.png"></a></li>
+							<li><a class="pin" href="#"><img
+									src="/beamstream-new/img/pin.png"></a></li>
+						</ul>
+
+						<div class="publish-btn">
+							<img src="/beamstream-new/img/publish.png" class="publish-icon">
+							<input type="button" value="Publish Doc" class="publish-txt">
+						</div>
+						<div class="cancel-publish">
+							<div class="cancel-publish-txt">Remove Doc</div>
+						</div>
+						<input type="hidden" id="docName" name=docName value="">
+						 <input type="hidden" id="docUrl" name=docUrl value="">
+					</form>
+				</div>
+			</div>
+
+
+		</div>
+		<!-- Modal for create google doc ends-->
+                                
 
 			</div>
 
@@ -665,115 +777,7 @@ header, footer){
 
 
 
-		<!--                                    -->
-		<!-- Modal for create google doc starts -->
-		<!--                                    -->
-
-		<div id="creategoogledoc"
-			class="modal hide fade invite-pop-up-googledoc"
-			aria-labelledby="myModalLabel" aria-hidden="true">
-			<div id="floatingCirclesG">
-				<div class="f_circleG" id="frotateG_01"></div>
-				<div class="f_circleG" id="frotateG_02"></div>
-				<div class="f_circleG" id="frotateG_03"></div>
-				<div class="f_circleG" id="frotateG_04"></div>
-				<div class="f_circleG" id="frotateG_05"></div>
-				<div class="f_circleG" id="frotateG_06"></div>
-				<div class="f_circleG" id="frotateG_07"></div>
-				<div class="f_circleG" id="frotateG_08"></div>
-			</div>
-
-			<div class="maincreatedocs">
-				<div class="heading">
-					<div class="close">
-						<div class="close-icon close" id="create-google-docs-close">
-							<img width="22" height="22"
-								src="/beamstream-new/images/close-pop.png">
-						</div>
-					</div>
-				</div>
-				<div class="header">
-					<div class="labelcreatedoc">
-						<div id="create-google-doc-popup"></div>
-						<div id="create-google-doc-type">#</div>
-					</div>
-					<div class="file-status">
-						<div class="view-container">
-							<img src="/beamstream-new/img/views.jpg" class="views-icon">
-							<div class="views">0</div>
-						</div>
-						<div class="rocks-container">
-							<img src="/beamstream-new/img/rocks.jpg" class="rocks-icon">
-							<div class="rocks">0</div>
-						</div>
-						<div class="comments-container">
-							<img src="/beamstream-new/img/comments.jpg" class="comments-icon">
-							<div class="comments">0</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="contentcreatedoc"></div>
-
-				<div class="sidebarcreategdocs">
-
-					<form action="/newGoogleDocument" method="post"
-						id="createAndPublishForm" url="">
-						<div class="sidebar-subheading">Publish as</div>
-						<div class="styled-select">
-							<select>
-								<option value="aDiscussion">A Discussion</option>
-							</select>
-						</div>
-
-						<div class="sidebar-subheading">Post Privacy</div>
-						<div class="styled-select">
-							<select id="streamSelectOption" name="streamId">
-							</select>
-						</div>
-
-
-						<input type="checkbox" name="postToFileMedia" value="true" checked="checked">
-						Post to Files & Media
-
-						<div class="sidebar-subheading">comment</div>
-
-						<textarea name="description" class="commentcreatedoc"
-							onfocus="this.value=''; setbg( '#e5fff3');"
-							onblur="setbg('white')">
-                </textarea>
-
-						<ul class="social">
-							<div class="sidebar-subheading share-on">share on:</div>
-							<li><a class="gp" href="#"><img
-									src="/beamstream-new/img/gp.png"></a></li>
-							<li><a class="tw" href="#"><img
-									src="/beamstream-new/img/tw.png"></a></li>
-							<li><a class="fb" href="#"><img
-									src="/beamstream-new/img/fb.png"></a></li>
-							<li><a class="li" href="#"><img
-									src="/beamstream-new/img/li.png"></a></li>
-							<li><a class="pin" href="#"><img
-									src="/beamstream-new/img/pin.png"></a></li>
-						</ul>
-
-						<div class="publish-btn">
-							<img src="/beamstream-new/img/publish.png" class="publish-icon">
-							<input type="submit" value="Publish Doc" class="publish-txt">
-						</div>
-						<div class="cancel-publish">
-							<div class="cancel-publish-txt">Remove Doc</div>
-						</div>
-						<input type="hidden" id="docName" name=docName value=""> <input
-							type="hidden" id="docUrl" name=docUrl value="">
-					</form>
-				</div>
-			</div>
-
-
-		</div>
-		<!-- Modal for create google doc ends-->
-
+		
 
 
 
