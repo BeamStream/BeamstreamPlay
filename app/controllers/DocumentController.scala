@@ -190,7 +190,10 @@ object DocumentController extends Controller {
               List(Option(uploadResults), isFileUploaded)
             } else if (isVideo) {
               val uploadResults = saveVideoFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom, uploadedFrom)
-              List(Option(uploadResults), isFileUploaded)
+              if (uploadResults.message == None && uploadResults.question == None)
+                List(Option("Failure"), false)
+              else
+                List(Option(uploadResults), isFileUploaded)
             } else {
               if (isPdf) {
                 val previewImageUrl = PreviewOfPDFUtil.convertPdfToImage(documentReceived, docNameOnAmazom)
@@ -292,21 +295,23 @@ object DocumentController extends Controller {
   private def saveVideoFromMainStream(documentName: String, docDescription: String, userId: ObjectId, docURL: String, docAccess: String, streamId: ObjectId, user: User, docNameOnAmazon: String, uploadedFrom: String) = {
     val frameOfVideo = ExtractFrameFromVideoUtil.extractFrameFromVideo(docURL)
     //    (new AmazonUpload).uploadCompressedFileToAmazon(docNameOnAmazon + "Frame", frameOfVideo, 0, false, userId.toString)
-    (new AmazonUpload).uploadCompressedFileToAmazon(docNameOnAmazon + "Frame", frameOfVideo)
-    val videoFrameURL = "https://s3.amazonaws.com/BeamStream/" + docNameOnAmazon + "Frame"
-    val media = UserMedia(new ObjectId, documentName, docDescription, userId, new Date, docURL, UserMediaType.Video, Access.PrivateToClass, false, Option(streamId), videoFrameURL, 0, Nil, Nil)
-    val mediaId = UserMedia.saveMediaForUser(media)
-    val profilePic = UserMedia.getProfilePicUrlString(userId)
-    (uploadedFrom == "discussion") match {
-      case true =>
-        val message = Message(new ObjectId, docURL, Option(Type.Video), Option(Access.PrivateToClass), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, Nil, Nil, 0, Nil, videoFrameURL, Option(mediaId.get))
-        val messageId = Message.createMessage(message)
-        DocResulttoSent(Option(message), None, documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(message.rockers))
-      case false =>
-        val question = Question(new ObjectId, docURL, userId, Access.PrivateToClass, Type.Video, streamId, user.firstName, user.lastName, new Date, Nil, Nil, Nil, Nil, Nil, false, Option(videoFrameURL), Option(mediaId.get))
-        Question.addQuestion(question)
-        DocResulttoSent(None, Option(question), documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(question.rockers))
-    }
+    val isCompressedFileUploaded = (new AmazonUpload).uploadCompressedFileToAmazon(docNameOnAmazon + "Frame", frameOfVideo)
+    if (isCompressedFileUploaded) {
+      val videoFrameURL = "https://s3.amazonaws.com/BeamStream/" + docNameOnAmazon + "Frame"
+      val media = UserMedia(new ObjectId, documentName, docDescription, userId, new Date, docURL, UserMediaType.Video, Access.PrivateToClass, false, Option(streamId), videoFrameURL, 0, Nil, Nil)
+      val mediaId = UserMedia.saveMediaForUser(media)
+      val profilePic = UserMedia.getProfilePicUrlString(userId)
+      (uploadedFrom == "discussion") match {
+        case true =>
+          val message = Message(new ObjectId, docURL, Option(Type.Video), Option(Access.PrivateToClass), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, Nil, Nil, 0, Nil, videoFrameURL, Option(mediaId.get))
+          val messageId = Message.createMessage(message)
+          DocResulttoSent(Option(message), None, documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(message.rockers))
+        case false =>
+          val question = Question(new ObjectId, docURL, userId, Access.PrivateToClass, Type.Video, streamId, user.firstName, user.lastName, new Date, Nil, Nil, Nil, Nil, Nil, false, Option(videoFrameURL), Option(mediaId.get))
+          Question.addQuestion(question)
+          DocResulttoSent(None, Option(question), documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(question.rockers))
+      }
+    } else { DocResulttoSent(None, None, "", "", false, false, None, None, Option(false), List()) }
   }
 
   /**
