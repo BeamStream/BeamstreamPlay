@@ -115,20 +115,14 @@ define(['view/formView',
 
 	  	
 		 publishGoogleDoc : function(){
+			 var self = this;
+			 var streamId =  $('.sortable li.active').attr('id');
 			var aDiscussion = $("#aDiscussion").val();
 			var streamSelectOption = $("#streamSelectOption").val();
 			var postToFileMedia = $("#postToFileMedia").val();
 			var description = $("#description").val();
 			var docName = $("#docName").val();
 			var docUrl = $("#docUrl").val();
-			//this.modal('hide');
-			window.location.href("/stream");
-			alert(aDiscussion)
-			alert(streamSelectOption)
-			alert(postToFileMedia)
-			alert(description)
-			alert(docName)
-			alert(docUrl)
 			  $.ajax({
 	            	type: 'POST',
 	            	url: "/newGoogleDocument",
@@ -140,22 +134,15 @@ define(['view/formView',
 	                	docName:docName,
 	                	docUrl:docUrl,
 	                },
-	                
-	               cache: false,
-	                contentType: false,
-	               processData: false,
-	             //  dataType : "json",
-	                
 	                success: function(data){
-	                	alert("success");
-	                	//window.location.replace("/stream");
+	                	  PUBNUB.publish({
+ 			  	                	channel : "stream",
+ 			  	                	message : { streamId:streamId,data:data}
+ 			  	                	
+ 			  	                }) 
+	                	window.location.replace("/stream");
 	                }
-	                
-	                
-	                
 	                });
-			
-			
 			},
 		 
 		 
@@ -312,7 +299,9 @@ define(['view/formView',
  			                processData: false,
  			                dataType : "json",
  			                success: function(data){
- 			                	if(data[1]) {
+ 			                	
+ 			                	//alert(JSON.stringify(data))
+ 			                	if(data[1] == true) {
  			    				// set progress bar as 100 %
  			                	self.bar = $('.bar');  
  			                	
@@ -364,14 +353,6 @@ define(['view/formView',
  			                	else
  			                	{
  		                    	alert("Not able to Upload File.\nPlease try Again");
- 		                    	 $('#msg-area').val("");
-  		                        $('#uploded-file').hide();
-  		                           self.file = "";
-  			              	  $('.progress-container').hide();
-			  	                $('#uploded-file-area').hide();
-			  	              $('a.ask-button').css('visibility','hidden');
-			  	        	 $('.ask-outer').css('height','0px');
-  			              	    
  		                    }
  			            	
  			                }
@@ -898,7 +879,7 @@ define(['view/formView',
 				 restore : false,
 				 callback : function(message) {
 					 
-					 alert(JSON.stringify(message))
+					// alert(JSON.stringify(message))
 					 var streamId = $('.sortable li.active').attr('id');
 
 					 if (message.pagePushUid != self.pagePushUid)
@@ -925,6 +906,37 @@ define(['view/formView',
 			 
 			 	   }
 		 	   })
+			 
+			 
+			 /*PUBNUB.subscribe({
+				 channel : "googledocs",
+				 restore : false,
+				 callback : function(message) {
+					 var streamId = $('.sortable li.active').attr('id');
+				     var streamId = $('.sortable li.active').attr('id');
+				 if (message.pagePushUid != self.pagePushUid)
+				 { 
+				 	
+					 if(message.streamId==streamId)
+		       		 	{
+						    set the values to Discussion model 
+						   discussionModel = new DiscussionModel();
+						   discussionModel.set({
+							   docDescription :message.data.docDescription,
+							   docName : message.data.docName,
+							   message : message.data.message,
+							   messageAccess : message.data.messageAccess,
+							   profilePic : message.data.profilePic,
+							   streamId : message.data.streamId,
+							   followerOfMessagePoster : message.data.followerOfMessagePoster
+						   })
+						    // show the posted message on feed
+						 	var messageItemView  = new MessageItemView({model :discussionModel});
+	 						$('#messageListView div.content').prepend(messageItemView.render().el);
+		       		 	}
+			 	   }
+		 	   }
+		 	 })*/
 		 	   
 		 	   
 		 	  /* auto push functionality for comments */
