@@ -68,7 +68,7 @@ object GoogleDocsUploadUtility {
 
       do {
         val files = request.execute
-        result ++= files.getItems().filter(f => (f.getUserPermission().getRole() == "owner" || f.getUserPermission().getType() == "anyone" || f.getUserPermission().getRole() == "writer"))
+        result ++= files.getItems().filter(f => (f.getUserPermission().getRole() == "owner" || f.getUserPermission().getRole() == "writer"))
         resultAllGoogleDocs ++= files.getItems()
         request.setPageToken(files.getNextPageToken)
       } while (request.getPageToken() != null && request.getPageToken().length() > 0)
@@ -118,7 +118,7 @@ object GoogleDocsUploadUtility {
     try {
       val service = prepareGoogleDrive(code)
       val getPermission = service.permissions().list(fileId).execute()
-      if (getPermission.getItems()(0).getRole() == "owner" || getPermission.getItems()(0).getRole() == "writer" || getPermission.getItems()(0).getType() == "anyone") {
+      if (getPermission.getItems()(0).getRole() == "owner" || getPermission.getItems()(0).getRole() == "writer") {
         val setPermission = new Permission()
         setPermission.setRole("reader")
         setPermission.setType("anyone")
