@@ -49,7 +49,7 @@ define(['view/formView',
         	_.each(this.data.models, function(model) {
         		//alert("message")
 				var messageItemView  = new MessageItemView({model : model});		
-				$('#messageListView div.content').append(messageItemView.el);
+				$('#messageListView div.content').append(messageItemView.render().el);
 				
 				
         	});
