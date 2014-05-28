@@ -291,15 +291,14 @@ define(
 						},
 
 						showsidebar : function(e) {
-							$(".showgoogledocsSidebar #publishForm #docName")
-									.attr("value",
-											$(e.currentTarget).data("id"));
-							$(".showgoogledocsSidebar #publishForm #docUrl")
-									.attr("value",
-											$(e.currentTarget).data("name"));
+							
+							
+							$("#showAndPublishForm ").find("#docName")
+									.attr("value",$(e.currentTarget).data("id"));
+							$("#showAndPublishForm ").find("#docUrl")
+									.attr("value",$(e.currentTarget).data("name"));
 							$(".showgoogledocsSidebar").show();
-							$("#showgoogledoc.modal")
-									.css("margin", "3% 0 0 4%");
+							$("#showgoogledoc.modal").css("margin", "3% 0 0 4%");
 						},
 
 						hidePublishSidebar : function() {
@@ -669,6 +668,9 @@ define(
 										url : 'googleDoc/show',
 
 										success : function(data) {
+											
+											
+											
 											$(
 													'#showgoogledoc #floatingCirclesG')
 													.hide();
@@ -696,6 +698,7 @@ define(
 																data,
 																function(index,
 																		value) {
+																	
 																	var nameOfDocument = "Name Not Available";
 																	;
 																	if (value._1 != null) {
@@ -728,6 +731,13 @@ define(
 																								+ value._2
 																								+ ""
 																								+ ">Publish</div></div>");
+																		
+																		/*$("#docUrl").attr("value",
+																				data[0]);
+																		$("#docName").attr("value",
+																				nameOfDocument);
+																		$("div.file-name")
+																				.text(data[1]);*/
 
 																	}
 
@@ -784,6 +794,7 @@ define(
 																								+ ""
 																								+ ">Publish</div></div>");
 
+																		
 																	}
 
 																});

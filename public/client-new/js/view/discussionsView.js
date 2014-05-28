@@ -26,8 +26,9 @@ define(['view/formView',
 			/* 'keypress #msg-area' : 'postMessageOnEnterKey',*/
 			 'keyup #msg-area' : 'removePreview',
 			 'change #upload-files-area' : 'getUploadedData',
-			 'click .publish-btn':'publishGoogleDoc'
-			 
+			 'click #createPublish':'createpublishGoogleDoc',
+			 'click #showPublish':'showpublishGoogleDoc'
+
 		 },
 
 		 messagesPerPage: 10,
@@ -114,15 +115,15 @@ define(['view/formView',
 		 },
 
 	  	
-		 publishGoogleDoc : function(){
+		 createpublishGoogleDoc : function(){
 			 var self = this;
 			 var streamId =  $('.sortable li.active').attr('id');
-			var aDiscussion = $("#aDiscussion").val();
-			var streamSelectOption = $("#streamSelectOption").val();
-			var postToFileMedia = $("#postToFileMedia").val();
-			var description = $("#description").val();
-			var docName = $("#docName").val();
-			var docUrl = $("#docUrl").val();
+			 var aDiscussion = $("#createAndPublishForm").find("#aDiscussion").val();
+			var streamSelectOption = $("#createAndPublishForm").find("#streamSelectOption").val();
+			var postToFileMedia =$("#createAndPublishForm").find("#postToFileMedia").val();
+			var description = $("#createAndPublishForm").find("#description").val();
+			var docName = $("#createAndPublishForm").find("#docName").val();
+			var docUrl =$("#createAndPublishForm").find("#docUrl").val();
 			  $.ajax({
 	            	type: 'POST',
 	            	url: "/newGoogleDocument",
@@ -144,6 +145,38 @@ define(['view/formView',
 	                }
 	                });
 			},
+			
+			
+			showpublishGoogleDoc : function(){
+				 var self = this;
+				 var streamId =  $('.sortable li.active').attr('id');
+				var aDiscussion = $("#showAndPublishForm").find("#aDiscussion").val();
+				var streamSelectOption = $("#showAndPublishForm").find("#streamSelectOption").val();
+				var postToFileMedia =$("#showAndPublishForm").find("#postToFileMedia").val();
+				var description = $("#showAndPublishForm").find("#description").val();
+				var docName = $("#showAndPublishForm").find("#docName").val();
+				var docUrl =$("#showAndPublishForm").find("#docUrl").val();
+				  $.ajax({
+		            	type: 'POST',
+		            	url: "/newGoogleDocument",
+		                data: {
+		                	aDiscussion:aDiscussion,
+		                	streamId:streamSelectOption,
+		                	postToFileMedia:postToFileMedia,
+		                	description:description,
+		                	docName:docName,
+		                	docUrl:docUrl,
+		                },
+		                success: function(data){
+		                	  PUBNUB.publish({
+	 			  	                	channel : "stream",
+	 			  	                	message : { streamId:streamId,data:data}
+	 			  	                	
+	 			  	                }) 
+		                	window.location.replace("/stream");
+		                }
+		                });
+				},
 		 
 		 
 		 /**

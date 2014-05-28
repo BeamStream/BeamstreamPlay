@@ -531,7 +531,7 @@ header, footer){
 									src="/beamstream-new/img/pin.png"></a></li>
 						</ul>
 
-						<div class="publish-btn">
+						<div class="publish-btn" id="createPublish">
 							<img src="/beamstream-new/img/publish.png" class="publish-icon">
 							<input type="button" value="Publish Doc" class="publish-txt">
 						</div>
@@ -546,8 +546,8 @@ header, footer){
 
 
 		</div>
-		<!-- Modal for create google doc ends-->
-                   <!-- Modal for show google doc starts -->
+		
+		<!-- Modal for show google doc starts -->
 
 		<div id="showgoogledoc"
 			class="modal hide fade invite-pop-up-googledoc"
@@ -616,62 +616,67 @@ header, footer){
 
 			<div class="sidebarcreategdocs showgoogledocsSidebar">
 
-				<form action=""  id="publishForm"
-					>
-					<div class="sidebar-subheading">Publish as</div>
-					<div class="styled-select">
-						<select>
-							<option value="aDiscussion">A Discussion</option>
-						</select>
-					</div>
+				<form action="" 
+						id="showAndPublishForm">
+						<div class="sidebar-subheading">Publish as</div>
+						<div class="styled-select">
+							<select id="aDiscussion" name="aDiscussion">
+								<option value="aDiscussion">A Discussion</option>
+							</select>
+						</div>
 
-					<div class="sidebar-subheading">Post Privacy</div>
-					<div class="styled-select">
-						<select id="streamSelectOption" name="streamId">
-						</select>
-					</div>
+						<div class="sidebar-subheading">Post Privacy</div>
+						<div class="styled-select">
+							<select id="streamSelectOption" name="streamId">
+							</select>
+						</div>
 
 
-					<input type="checkbox" name="postToFileMedia" value="true" checked="checked">
-					Post to Files & Media
+						<input type="checkbox" name="postToFileMedia" value="true" checked="checked" id="postToFileMedia">
+						Post to Files & Media
 
-					<div class="sidebar-subheading">comment</div>
+						<div class="sidebar-subheading">comment</div>
 
-					<textarea name="description" class="commentcreatedoc"
-						onfocus="this.value=''; setbg( '#e5fff3');"
-						onblur="setbg('white')">
+						<textarea name="description" class="commentcreatedoc"
+							onfocus="this.value=''; setbg( '#e5fff3');"
+							onblur="setbg('white')" id="description">
                 </textarea>
 
-					<ul class="social">
-						<div class="sidebar-subheading share-on">share on:</div>
-						<li><a class="gp" href="#"><img
-								src="/beamstream-new/img/gp.png"></a></li>
-						<li><a class="tw" href="#"><img
-								src="/beamstream-new/img/tw.png"></a></li>
-						<li><a class="fb" href="#"><img
-								src="/beamstream-new/img/fb.png"></a></li>
-						<li><a class="li" href="#"><img
-								src="/beamstream-new/img/li.png"></a></li>
-						<li><a class="pin" href="#"><img
-								src="/beamstream-new/img/pin.png"></a></li>
-					</ul>
+						<ul class="social">
+							<div class="sidebar-subheading share-on">share on:</div>
+							<li><a class="gp" href="#"><img
+									src="/beamstream-new/img/gp.png"></a></li>
+							<li><a class="tw" href="#"><img
+									src="/beamstream-new/img/tw.png"></a></li>
+							<li><a class="fb" href="#"><img
+									src="/beamstream-new/img/fb.png"></a></li>
+							<li><a class="li" href="#"><img
+									src="/beamstream-new/img/li.png"></a></li>
+							<li><a class="pin" href="#"><img
+									src="/beamstream-new/img/pin.png"></a></li>
+						</ul>
 
-					<div class="publish-btn">
-						<img src="/beamstream-new/img/publish.png" class="publish-icon">
-						<input type="button" value="Publish Doc" class="publish-txt">
-					</div>
-					<div class="cancel-publish" id="closepublishsidebar">
-						<div class="cancel-publish-txt">Close & Don't Publsih</div>
-					</div>
-					<input type="hidden" id="docName" name=docName value=""> <input
-						type="hidden" id="docUrl" name=docUrl>
-				</form>
+						<div class="publish-btn" id="showPublish">
+							<img src="/beamstream-new/img/publish.png" class="publish-icon">
+							<input type="button" value="Publish Doc" class="publish-txt">
+						</div>
+						<div class="cancel-publish">
+							<div class="cancel-publish-txt">Remove Doc</div>
+						</div>
+						<input type="hidden" id="docName" name=docName value="">
+						 <input type="hidden" id="docUrl" name=docUrl value="">
+					</form>
 			</div>
 
 
 
 		</div>
-		<!-- Modal for access google doc ends-->             
+		<!-- Modal for access google doc ends-->
+		
+		
+		
+		<!-- Modal for create google doc ends-->
+                                
 
 			</div>
 
