@@ -34,7 +34,7 @@
             </div>
 
             <fieldset class="field">  
-            <input id="username"  data-name="user.username" name="username" value="{{username}}"   type="text" placeholder="User Name">
+            <input id="username"  data-name="user.username" name="username" value="{{username}}"   type="text" placeholder="User Name" autocomplete="off">
             <span class="red-star">*</span>
             </fieldset>
 

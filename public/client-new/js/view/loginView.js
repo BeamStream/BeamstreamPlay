@@ -37,6 +37,8 @@ define(
 							$('.sign-close').hide();
 							$('#mailid').prop('disabled', false);
 							$('#password').prop('disabled', false);
+							$('#mailid1').prop('disabled', false);
+							$('#password1').prop('disabled', false);
 							$('div.container-fluid').last().addClass(
 									'signup-container');
 
