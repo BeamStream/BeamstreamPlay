@@ -71,12 +71,22 @@ object DocumentController extends Controller {
   def newGoogleDocument: Action[AnyContent] = Action { implicit request =>
     val result = request.body
     val data = request.body.asFormUrlEncoded.get
-    val docName = data("docName").toList.head
+    val userId = request.session.get("userId").get
     val docUrl = data("docUrl").toList.head
+    val tokenInfo = SocialToken.findSocialTokenObject(new ObjectId(userId)).get
+    val newAccessToken = GoogleDocsUploadUtility.getNewAccessToken(tokenInfo.refreshToken)
+    val fileId = docUrl.split("/")
+    if (fileId.length >= 8) {
+      GoogleDocsUploadUtility.makeGoogleDocPublicToClass(newAccessToken, fileId(7))
+    }
+    var docName: String = ""
+    if (fileId.length >= 8) {
+      docName = GoogleDocsUploadUtility.getGoogleDocData(newAccessToken, fileId(7))
+    }
+
     val description = data("description").toList.head
     val post = data.keys.toList.contains("postToFileMedia")
     val streamId = data("streamId").toList.head
-    val userId = request.session.get("userId").get
     val documentToCreate = new Document(new ObjectId, docName, description, docUrl, DocType.GoogleDocs, new ObjectId(userId), Access.PrivateToClass, new ObjectId(streamId), new Date, new Date, 0, Nil, Nil, Nil, "", 0, post)
     val docId = Document.addDocument(documentToCreate)
     val user = User.getUserProfile(new ObjectId(userId))
@@ -86,12 +96,7 @@ object DocumentController extends Controller {
     val messageId = Message.createMessage(message)
     val resultToSend = DocResulttoSent(Option(message), None, docName, description, false, false, None, None, None, List())
     //Making Google Doc Public to Class
-    val tokenInfo = SocialToken.findSocialTokenObject(new ObjectId(userId)).get
-    val newAccessToken = GoogleDocsUploadUtility.getNewAccessToken(tokenInfo.refreshToken)
-    val fileId = docUrl.split("/")
-    if (fileId.length >= 8) {
-      GoogleDocsUploadUtility.makeGoogleDocPublicToClass(newAccessToken, fileId(7))
-    }
+
     /**
      * TODO Send an Alert/Request of Permission for Restricted Google Docs.
      */

@@ -12,6 +12,8 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import com.google.api.services.drive.model.Permission
 import play.api.Logger
+import java.net.URL
+import javax.net.ssl.HttpsURLConnection
 
 object GoogleDocsUploadUtility {
   val formatter: SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -174,4 +176,46 @@ object GoogleDocsUploadUtility {
     }
   }
 
+  /**
+   * Get Google Doc Name & preview Image URL
+   */
+  def getGoogleDocData(code: String, fileId: String): String = {
+    try {
+      val service = prepareGoogleDrive(code)
+      val file = service.files().get(fileId).execute()
+      file.getTitle()
+    } catch {
+      case ex: Exception =>
+        Logger.error("This error occured while Fetching Google Doc Name & Preview Image URL", ex)
+        "Exception"
+    }
+  }
+
+  def isThumbnailNull(code: String, fileURL: String): Boolean = {
+    try {
+      /*val service = prepareGoogleDrive(code)
+      val file = service.files().get(fileId).execute()
+      val url = new URL(file.getThumbnailLink())*/
+      val url = new URL(fileURL)
+      val connection = url.openConnection().asInstanceOf[HttpsURLConnection]
+      connection.setRequestMethod("GET")
+      connection.connect()
+      /*if (connection.getContentLength() == -1) {
+        connection.disconnect()
+        true
+      } else {*/
+      if (connection.getContentLength() > 663) {
+        connection.disconnect()
+        false
+      } else {
+        connection.disconnect()
+        true
+      }
+      //      }
+    } catch {
+      case ex: Exception =>
+        Logger.error("This error occured while Checking Preview Image of Google Docs", ex)
+        true
+    }
+  }
 }

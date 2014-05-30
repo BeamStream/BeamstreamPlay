@@ -366,6 +366,18 @@ object Message { //extends CommentConsumer {
     }
   }
 
+  def deleteMessageImageUrl(documentIdList: List[ObjectId]): Any = {
+    documentIdList map {
+      case documentId =>
+      val message = MessageDAO.find(MongoDBObject("docIdIfAny" -> documentId)).toList
+      message.isEmpty match {
+        case false =>
+          MessageDAO.update(MongoDBObject("docIdIfAny" -> documentId), message(0).copy(anyPreviewImageUrl = ""), false, false, new WriteConcern)
+        case true =>
+      }
+    }
+  }
+  
 }
 
 object MessageDAO extends SalatDAO[Message, ObjectId](collection = MongoHQConfig.mongoDB("message"))

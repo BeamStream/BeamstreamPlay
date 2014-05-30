@@ -257,6 +257,24 @@ object Document extends RockConsumer {
     }
   }
 
+  def deletePreviewImageUrl(documentURL: String): List[ObjectId] = {
+    val documentList = DocumentDAO.find(MongoDBObject("documentURL" -> documentURL)).toList
+    documentList.isEmpty match {
+      case false => {
+        documentList map {
+          case doc =>
+          DocumentDAO.update(MongoDBObject("_id" -> doc.id), doc.copy(previewImageUrl = ""), false, false, new WriteConcern)
+          doc.id
+        }
+        // TODO Remove it when pushing on Production
+        /*documentList map {
+          case getDocumentId => getDocumentId.id
+        }*/
+      }
+      case true => List(new ObjectId)
+    }
+  }
+  
 }
 
 object DocumentDAO extends SalatDAO[Document, ObjectId](collection = MongoHQConfig.mongoDB("document"))
