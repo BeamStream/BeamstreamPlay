@@ -170,23 +170,28 @@ define([ 'baseModel', 'model/comment', 'model/answer',
 		},
 
 		markAnswered : function() {
-
+			var questionId = this.get('question').id.id;
+			var streamID = this.get('question').streamId.id;
 			this.urlRoot = '/markAsAnswered/';
 			this.save({
 				id : this.get('question').id.id
 			}, {
 				success : function(model, data) {
-
 					if (data.response == false) {
 						alert("Question is not answered.");
 					}
 					if (data.response == true) {
 						model.get('question').answered = true;
 						model.trigger('questionAnsweredModel');
-						var countUnansweredQues = $("#number-new-questions")
-								.text();
-						countUnansweredQues--;
-						$("#number-new-questions").text(countUnansweredQues);
+						
+						PUBNUB.publish({
+							channel : "markedAnswer",
+							message : {
+								pagePushUid : self.pagePushUid,
+								questionId : questionId,
+								streamID : streamID
+							}
+						})
 					}
 				}
 			});

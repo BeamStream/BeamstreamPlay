@@ -1,16 +1,16 @@
 define(
-		[ 'view/formView', 'view/questionItemView', 'model/question',
-				'text!templates/questionMessage.tpl',
-				'text!templates/questionComment.tpl',
-				'text!templates/questionAnswer.tpl', ],
-		function(FormView, QuestionItemView, QuestionModel, QuestionMessage,
-				QuestionComment, QuestionAnswer) {
-			var QuestionsView;
-			QuestionsView = FormView
-					.extend({
-						objName : 'QuestionsView',
+[ 'view/formView', 'view/questionItemView', 'model/question',
+'text!templates/questionMessage.tpl',
+'text!templates/questionComment.tpl',
+'text!templates/questionAnswer.tpl', ],
+function(FormView, QuestionItemView, QuestionModel, QuestionMessage,
+QuestionComment, QuestionAnswer) {
+var QuestionsView;
+QuestionsView = FormView
+.extend({
+objName : 'QuestionsView',
 
-						events : {
+events : {
 							'click #sortQuestionBy-list' : 'sortQuestions',
 							'focus #Q-area' : 'showAskButton',
 							'blur #Q-area' : 'hideAskButton',
@@ -145,32 +145,20 @@ define(
 													}
 												}
 											});
-							
-							
-						
-							
-							
+
 						},
 
-						
-						
-						
-						
-						
 						showAskButton : function() {
 
 							$('#Q-area').css('padding', '7.5% 18% 6% 2%');
 							$('#Q-area').css('margin', '0 0 24px 22px');
 							$('a#post-question').css('visibility', 'visible');
-							 $('#questionsView .ask-outer').height(function (index, height) {
-					 			    return (height + 70);
-					    		 });
+							$('#questionsView .ask-outer').height(
+									function(index, height) {
+										return (height + 70);
+									});
 						},
 
-						
-						
-						
-						
 						hideAskButton : function() {
 							$('textarea#Q-area').attr('placeholder',
 									'Ask your own question here...');
@@ -182,17 +170,11 @@ define(
 											'1px 0 -5px 14px');
 									$('a#post-question').css('visibility',
 											'hidden');
-									 $('.ask-outer').css('height','0px');
+									$('.ask-outer').css('height', '0px');
 									$('textarea#Q-area').val('');
 									$('#pollArea').slideUp(700);
 								}
 							}, 125);
-							
-							
-							
-							
-							
-							
 
 							$("ul#pollArea").on(
 									"click",
@@ -205,10 +187,6 @@ define(
 											$('#pollArea').slideDown(700);
 										}
 									});
-							
-							
-							
-							
 
 							if ($(".showpolloption").is(":visible")) {
 
@@ -218,9 +196,6 @@ define(
 							}
 						},
 
-						
-						
-						
 						/**
 						 * append messages to message list on pagination
 						 */
@@ -234,9 +209,9 @@ define(
 													.each(
 															models,
 															function(model) {
-																var questionModel = new QuestionModel();
-																questionModel
-																		.set({
+var questionModel = new QuestionModel();
+questionModel
+.set({
 																			question : model.question,
 																			comments : model.comments,
 																			followed : model.followed,
@@ -358,9 +333,6 @@ define(
 									});
 						},
 
-						
-						
-						
 						/**
 						 * post question on enter key press
 						 */
@@ -380,9 +352,6 @@ define(
 						 * self.generateBitly(self.links); } },
 						 */
 
-						
-						
-						
 						removePreview : function(eventName) {
 
 							var self = this;
@@ -451,9 +420,9 @@ define(
 										.match(/^(https:\/\/docs.google.com\/)/)) {
 									/* don't create bitly for shortened url */
 									if (!urlLink
-											.match(/^(http:\/\/bstre.am\/)/)) {
-										/* create bitly */
-										$.ajax({
+.match(/^(http:\/\/bstre.am\/)/)) {
+/* create bitly */
+$.ajax({
 											type : 'POST',
 											url : "bitly",
 											data : {
@@ -687,12 +656,9 @@ define(
 
 							var trueUrl = '';
 							if (streamId) {
-								
-								
-								
+
 								/* if there is any files for uploading */
 								if (this.file) {
-									
 
 									$('.progress-container').show();
 
@@ -717,12 +683,12 @@ define(
 									data.append('docDescription', question);
 									data.append('docAccess', questionAccess);
 									data.append('docData', self.file);
-									data.append('streamId', streamId);
-									data.append('uploadedFrom', "question");
+data.append('streamId', streamId);
+data.append('uploadedFrom', "question");
 
-									/* post profile page details */
-									$
-											.ajax({
+/* post profile page details */
+$
+.ajax({
 												type : 'POST',
 												data : data,
 												url : "/uploadDocumentFromDisk",
@@ -759,10 +725,10 @@ define(
 															.hide();
 													$('#Q-file-area').hide();
 
-													// set the response data to
-													// model
-													self.data.models[0]
-															.set({
+// set the response data to
+// model
+self.data.models[0]
+.set({
 																question : data.question,
 																docName : data.docName,
 																docDescription : data.docDescription,
@@ -803,17 +769,14 @@ define(
 									self.file = "";
 
 								} else {
-												
-									
-									
+
 									if (question.match(/^[\s]*$/))
 										return;
 
 									// find link part from the message
 									question = $.trim(question);
 									var link = question.match(self.urlReg);
-											
-									
+
 									if (!link)
 										link = question.match(self.website);
 
@@ -826,7 +789,6 @@ define(
 
 										var questionBody = question, link = questionBody
 												.match(self.urlReg);
-
 
 										if (!link)
 											link = questionBody
@@ -847,10 +809,10 @@ define(
 											// state or
 											// not
 											if (!urlLink
-													.match(/^(http:\/\/bstre.am\/)/)) {
-												/* post url information */
-												$
-														.ajax({
+.match(/^(http:\/\/bstre.am\/)/)) {
+/* post url information */
+$
+.ajax({
 															type : 'POST',
 															url : 'bitly',
 															data : {
@@ -899,10 +861,11 @@ define(
 								}
 							}
 
-							/*setTimeout(function() {
-								$("#discussions-link").click();
-							}, 125)*/
-							
+							/*
+							 * setTimeout(function() {
+							 * $("#discussions-link").click(); }, 125)
+							 */
+
 							$("#discussions-link").click();
 
 						},
@@ -944,17 +907,12 @@ define(
 						 */
 						postQuestionToServer : function(question, streamId,
 								questionAccess, googleDoc) {
-							
-								
-								
-							
+
 							var self = this;
 							this.data.models[0] = new QuestionModel();
-							
-							
+
 							if (googleDoc == true) {
-								
-								
+
 								console.log(44);
 								this.data.models[0].removeAttr('question');
 								this.data.models[0].removeAttr('profilePic');
@@ -978,8 +936,8 @@ define(
 													docURL : question,
 													docType : 'GoogleDocs',
 													docDescription : ''
-												},
-												{
+},
+{
 													success : function(model,
 															response) {
 
@@ -987,10 +945,10 @@ define(
 														 * PUBNUB -- AUTO AJAX
 														 * PUSH
 														 */
-														PUBNUB
-																.publish({
+PUBNUB
+.publish({
 																	channel : "questionsMainStream",
-																	message : {
+message : {
 																		pagePushUid : self.pagePushUid,
 																		streamId : streamId,
 																		data : response
@@ -1000,17 +958,16 @@ define(
 														 * PUBNUB -- AUTO AJAX
 														 * PUSH
 														 */
-														PUBNUB
-																.publish({
+PUBNUB
+.publish({
 																	channel : "questionsSideStream",
-																	message : {
+message : {
 																		pagePushUid : self.pagePushUid,
 																		streamId : streamId,
 																		data : response
 																	}
 																})
-																
-																
+
 														var questionItemView = new QuestionItemView(
 																{
 																	model : self.data.models[0]
@@ -1071,100 +1028,97 @@ define(
 
 												});
 							}
-							
-							
-							
-							
-							
-							
-							
-							
+
 							else {
-								
-								
-								
+
 								self.color = 0;
 								var pollOptions = '';
-								
-								
-								
-								
+
 								for (var i = 1; i <= this.options; i++) {
 									pollOptions += $('#option' + i).val() + ',';
 									$('#option' + i).val('');
 								}
-								
-								
-								
-								
+
 								pollOptions = pollOptions.substring(0,
 										pollOptions.length - 1);
-								
-								
-								
 
 								this.data.models[0].url = "/question";
 								if (pollOptions == '') {
-									
-									
-									
-									
+
 									var Question = new QuestionModel()
 									this.data.models[0]
 											.removeAttr('pollOptions');
-									this.data.models[0]
-											.save(
-													{
+this.data.models[0]
+.save(
+{
 														streamId : streamId,
 														questionBody : question,
 														questionAccess : questionAccess
-													},
-													
-													
-													
-													
-													{
+},
+
+
+
+
+{
 														success : function(
 																model, response) {
-															
-															
-															
-															
+
 															// show the posted
 															// message on feed
 															var questionItemView = new QuestionItemView(
 																	{
 																		model : self.data.models[0]
 																	});
-															$('#questionListView div.content').prepend(questionItemView.render().el);
+															$(
+																	'#questionListView div.content')
+																	.prepend(
+																			questionItemView
+																					.render().el);
 
-															$('div.selector').attr('display','none');
-															
-															$('div.selector').parents('form.ask-disccution').find('input[type="hidden"].preview_input').remove();
-															
-															$('div.selector').remove();
-															
-															$('.preview_input').remove();
-															
-															$('#Q-area').val("");
-															
-															$('#share-discussions li.active').removeClass('active');
-															
-															$('#pollArea').slideUp(700);
-															
-															$('.drag-rectangle').tooltip();
+															$('div.selector')
+																	.attr(
+																			'display',
+																			'none');
+
+															$('div.selector')
+																	.parents(
+																			'form.ask-disccution')
+																	.find(
+																			'input[type="hidden"].preview_input')
+																	.remove();
+
+															$('div.selector')
+																	.remove();
+
+															$('.preview_input')
+																	.remove();
+
+															$('#Q-area')
+																	.val("");
+
+															$(
+																	'#share-discussions li.active')
+																	.removeClass(
+																			'active');
+
+															$('#pollArea')
+																	.slideUp(
+																			700);
+
+															$('.drag-rectangle')
+																	.tooltip();
 
 															self.options = 0;
 															/*
 															 * PUBNUB -- AUTO
 															 * AJAX PUSH
 															 */
-															
-															
-															PUBNUB
-																	.publish({
+
+
+PUBNUB
+.publish({
 																		channel : "questionsMainStream",
-																		message : {
+message : {
 																			pagePushUid : self.pagePushUid,
 																			streamId : streamId,
 																			data : response
@@ -1175,23 +1129,20 @@ define(
 															 * PUBNUB -- AUTO
 															 * AJAX PUSH
 															 */
-																	
-																	
-																	
-																	
-															PUBNUB
-																	.publish({
+
+
+
+
+PUBNUB
+.publish({
 																		channel : "questionsSideStream",
-																		message : {
+message : {
 																			pagePushUid : self.pagePushUid,
 																			streamId : streamId,
 																			data : response
 																		}
 																	})
-																	
-																	
-																	
-																	
+
 															/* share widget */
 															if (self.selected_medias.length != 0) {
 																_
@@ -1207,62 +1158,48 @@ define(
 																							self.selected_medias);
 																				});
 															}
-															
-															
-															
-															
-															
+
 															self.selected_medias = [];
 														},
-														
-														
-														
-														
-														error : function(model,response) {
-															$('#Q-area').val("");
-															$('#pollArea').slideUp(700);
+
+														error : function(model,
+																response) {
+															$('#Q-area')
+																	.val("");
+															$('#pollArea')
+																	.slideUp(
+																			700);
 														}
 
 													});
-									
-									
-									
-									
-									
-									
-									
-									
-									
-								} 
-								
-								
-								
+
+								}
+
 								else {
-									
-									
-									
-									// set values to model
-									this.data.models[0]
-											.save(
-													{
+
+
+
+// set values to model
+this.data.models[0]
+.save(
+{
 														streamId : streamId,
 														questionBody : question,
 														questionAccess : questionAccess,
 														pollOptions : pollOptions
-													},
-													{
+},
+{
 														success : function(
 																model, response) {
-															
-															
+
 															/*
 															 * PUBNUB -- AUTO
 															 * AJAX PUSH
 															 */
-															PUBNUB
-																	.publish({
+PUBNUB
+.publish({
 																		channel : "questionsMainStream",
-																		message : {
+message : {
 																			pagePushUid : self.pagePushUid,
 																			streamId : streamId,
 																			data : response
@@ -1272,10 +1209,10 @@ define(
 															 * PUBNUB -- AUTO
 															 * AJAX PUSH
 															 */
-															PUBNUB
-																	.publish({
+PUBNUB
+.publish({
 																		channel : "questionsSideStream",
-																		message : {
+message : {
 																			pagePushUid : self.pagePushUid,
 																			streamId : streamId,
 																			data : response
@@ -1403,9 +1340,9 @@ define(
 								pagePushUid : self.pagePushUid
 							});
 
-							/* for question posting */
-							PUBNUB
-									.subscribe({
+/* for question posting */
+PUBNUB
+.subscribe({
 										channel : "questionsMainStream",
 										restore : false,
 										callback : function(question) {
@@ -1416,9 +1353,9 @@ define(
 											if (question.pagePushUid != self.pagePushUid) {
 
 												if (question.streamId == streamId) {
-							   /* set the values to Question Model */
-							   questionModel = new QuestionModel();
-							   questionModel.set({
+  /* set the values to Question Model */
+  questionModel = new QuestionModel();
+  questionModel.set({
 																// docDescription
 																// :question.data.docDescription,
 																// docName :
@@ -1449,9 +1386,9 @@ define(
 										}
 									})
 
-							/* for questio voting */
-							PUBNUB
-									.subscribe({
+/* for questio voting */
+PUBNUB
+.subscribe({
 										channel : "voting",
 										restore : false,
 										callback : function(question) {
@@ -1559,8 +1496,8 @@ define(
 															'#'
 																	+ question.parent
 																	+ '-allComments')
-															.prepend(
-																	compiledTemplate({
+.prepend(
+compiledTemplate({
 																		data : question.data,
 																		profileImage : question.profileImage
 																	}));
@@ -1584,8 +1521,8 @@ define(
 																'#'
 																		+ question.parent
 																		+ '-newCommentList')
-																.prepend(
-																		compiledTemplate({
+.prepend(
+compiledTemplate({
 																			data : question.data,
 																			profileImage : question.profileImage
 																		}));
@@ -1637,8 +1574,8 @@ define(
 															'#'
 																	+ answer.parent
 																	+ '-allAnswers')
-															.prepend(
-																	compiledTemplate({
+.prepend(
+compiledTemplate({
 																		data : answer.data,
 																		profileImage : question.profileImage
 																	}));
@@ -1673,8 +1610,8 @@ define(
 																'#'
 																		+ answer.parent
 																		+ '-newAnswerList')
-																.prepend(
-																		compiledTemplate({
+.prepend(
+compiledTemplate({
 																			data : answer.data,
 																			profileImage : localStorage["loggedUserProfileUrl"]
 																		}));
@@ -1760,8 +1697,8 @@ define(
 																'#'
 																		+ question.questionId
 																		+ '-newCommentList')
-																.prepend(
-																		compiledTemplate({
+.prepend(
+compiledTemplate({
 																			data : question.data,
 																			profileImage : question.profileImage
 																		}));
@@ -1776,8 +1713,8 @@ define(
 																'#'
 																		+ question.questionId
 																		+ '-newCommentList')
-																.prepend(
-																		compiledTemplate({
+.prepend(
+compiledTemplate({
 																			data : question.data,
 																			profileImage : localStorage["loggedUserProfileUrl"]
 																		}));
@@ -1856,8 +1793,8 @@ define(
 																'#'
 																		+ answer.questionId
 																		+ '-newAnswerList')
-																.prepend(
-																		compiledTemplate({
+.prepend(
+compiledTemplate({
 																			data : answer.data,
 																			profileImage : localStorage["loggedUserProfileUrl"]
 																		}));
@@ -1871,8 +1808,8 @@ define(
 																'#'
 																		+ answer.questionId
 																		+ '-newAnswerList')
-																.prepend(
-																		compiledTemplate({
+.prepend(
+compiledTemplate({
 																			data : answer.data,
 																			profileImage : localStorage["loggedUserProfileUrl"]
 																		}));
