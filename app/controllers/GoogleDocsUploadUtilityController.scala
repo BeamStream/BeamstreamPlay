@@ -27,6 +27,8 @@ import models.PreviewImage
 import utils.PasswordHashingUtil
 import play.api.mvc.AnyContent
 import play.api.Logger
+import play.api.cache.Cache
+import play.api.Play.current
 
 object GoogleDocsUploadUtilityController extends Controller {
 
@@ -38,7 +40,8 @@ object GoogleDocsUploadUtilityController extends Controller {
 
   def authenticateToGoogle(action: String): Action[AnyContent] = Action { implicit request =>
 
-    val tokenInfo = SocialToken.findSocialTokenObject(new ObjectId(request.session.get("userId").get))
+    val userId = request.session.get("userId")
+    val tokenInfo = SocialToken.findSocialTokenObject(new ObjectId(userId.get))
     tokenInfo match {
       case None =>
         val urlToRedirect = new GoogleBrowserClientRequestUrl(GoogleClientId, redirectURI, Arrays.asList("https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()
@@ -80,12 +83,23 @@ object GoogleDocsUploadUtilityController extends Controller {
               val result = GoogleDocsUploadUtility.deleteAGoogleDocument(newAccessToken, action)
               Ok
             } else if (action == "addPreviewImageUrl") {
-              val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(newAccessToken, false)
-              for (f <- files) {
-                /*if (GoogleDocsUploadUtility.canMakeGoogleDocPublic(newAccessToken, f._2)) { */
-                updateMessageImageUrl(updatePreviewImageUrl(f._1, f._5), f._5) 
-                //}
+              val filesFromCache = Cache.get(userId.get)
+              if (filesFromCache.isEmpty) {
+                val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(newAccessToken, false)
+                Cache.set(userId.get, "himanshu", 60)
+                for (f <- files) {
+                  /*if (GoogleDocsUploadUtility.canMakeGoogleDocPublic(newAccessToken, f._2)) { */
+                  updateMessageImageUrl(updatePreviewImageUrl(f._2, f._5), f._5)
+                  //}
+                }
               }
+              //TODO Remove it before pushing it on Production
+              /*else {
+                for (f <- filesFromCache.get) {
+                  if (GoogleDocsUploadUtility.canMakeGoogleDocPublic(newAccessToken, f._2)) { 
+                  updateMessageImageUrl(updatePreviewImageUrl(f._1, f._5), f._5)
+                  //}
+                }*/
               Ok
             } else {
               val urlToRedirect = new GoogleBrowserClientRequestUrl(GoogleClientId, redirectURI, Arrays.asList("https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()

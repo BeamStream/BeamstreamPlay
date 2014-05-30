@@ -239,12 +239,21 @@ object Document extends RockConsumer {
   /**
    * Update Preview image of Document
    */
-  def updatePreviewImageUrl(documentName: String, newPreviewImageUrl: String = ""): ObjectId = {
-    val document = DocumentDAO.find(MongoDBObject("documentName" -> documentName)).toList
-    document.isEmpty match {
-      case false => {DocumentDAO.update(MongoDBObject("documentName" -> documentName), document(0).copy(previewImageUrl = newPreviewImageUrl), false, false, new WriteConcern)
-                    document(0).id}
-      case true =>  new ObjectId
+  def updatePreviewImageUrl(documentURL: String, newPreviewImageUrl: String = ""): List[ObjectId] = {
+    val documentList = DocumentDAO.find(MongoDBObject("documentURL" -> documentURL)).toList
+    documentList.isEmpty match {
+      case false => {
+        documentList map {
+          case doc =>
+          DocumentDAO.update(MongoDBObject("_id" -> doc.id), doc.copy(previewImageUrl = newPreviewImageUrl), false, false, new WriteConcern)
+          doc.id
+        }
+        // TODO Remove it when pushing on Production
+        /*documentList map {
+          case getDocumentId => getDocumentId.id
+        }*/
+      }
+      case true => List(new ObjectId)
     }
   }
 
