@@ -354,12 +354,15 @@ object Message { //extends CommentConsumer {
     docResultToSend
   }
 
-  def updateMessageImageUrl(documentId: ObjectId, newAnyPreviewImageUrl: String): Any = {
-    val message = MessageDAO.find(MongoDBObject("docIdIfAny" -> documentId)).toList
-    message.isEmpty match {
-      case false =>
-        MessageDAO.update(MongoDBObject("docIdIfAny" -> documentId), message(0).copy(anyPreviewImageUrl = newAnyPreviewImageUrl), false, false, new WriteConcern)
-      case true =>
+  def updateMessageImageUrl(documentIdList: List[ObjectId], newAnyPreviewImageUrl: String): Any = {
+    documentIdList map {
+      case documentId =>
+      val message = MessageDAO.find(MongoDBObject("docIdIfAny" -> documentId)).toList
+      message.isEmpty match {
+        case false =>
+          MessageDAO.update(MongoDBObject("docIdIfAny" -> documentId), message(0).copy(anyPreviewImageUrl = newAnyPreviewImageUrl), false, false, new WriteConcern)
+        case true =>
+      }
     }
   }
 

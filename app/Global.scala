@@ -2,6 +2,7 @@ import java.io.File
 import scala.concurrent.Future
 import com.typesafe.config.ConfigFactory
 import actors.Cleaner
+import models.SchoolDAO
 import models.School
 import play.api.Application
 import play.api.Configuration
@@ -17,12 +18,14 @@ import scala.concurrent.Future
 import play.api.mvc.SimpleResult
 import utils.ReadingSpreadsheetUtil
 import java.io.InputStream
+import org.bson.types.ObjectId
 
 object Global extends GlobalSettings {
 
   override def onStart(app: Application) {
     try {
       val filePath = Global.getClass().getClassLoader().getResourceAsStream("ListofSchools.csv")
+      SchoolDAO.insert(new School(new ObjectId, "", ""))
       if (School.getAllSchools.length < 7487)
         ReadingSpreadsheetUtil.readCSVOfSchools(filePath)
     } catch {
