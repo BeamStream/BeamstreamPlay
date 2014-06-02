@@ -74,7 +74,7 @@ object Registration extends Controller {
                                     case false => Redirect("/class").withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
                                   }
                               }
-                            case None => Redirect("/signOut")
+                            case None => Redirect("/login").withNewSession.discardingCookies(DiscardingCookie("Beamstream"))
                           }
                       }
                     case true => cookie.value.split(" ")(1) match {
@@ -108,7 +108,7 @@ object Registration extends Controller {
                                 case false => Redirect("/class").withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
                               }
                           }
-                        case None => Redirect("/signOut")
+                        case None => Redirect("/login").withNewSession.discardingCookies(DiscardingCookie("Beamstream"))
                       }
                     case true => Redirect("/login").withNewSession.discardingCookies(DiscardingCookie("Beamstream"))
                   }
@@ -137,7 +137,7 @@ object Registration extends Controller {
                             case false => Redirect("/class").withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
                           }
                       } //Ok(views.html.registration(userId, Cache.getAs("userData"))).withSession("token" -> token).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000))).withHeaders(CACHE_CONTROL -> "max-age=1")
-                    case None => Redirect("/signOut")
+                    case None => Redirect("/login").withNewSession.discardingCookies(DiscardingCookie("Beamstream"))
                   }
                 case true => Redirect("/stream").withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " stream", Option(864000)))
               }
