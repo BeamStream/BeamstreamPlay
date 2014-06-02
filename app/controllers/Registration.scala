@@ -35,6 +35,7 @@ import play.api.mvc.AnyContent
 import play.api.libs.json._
 import utils.FetchLocationUtil
 import play.api.mvc.DiscardingCookie
+import play.api.mvc.DiscardingCookie
 
 object Registration extends Controller {
   implicit val formats = new net.liftweb.json.DefaultFormats {
@@ -196,7 +197,7 @@ object Registration extends Controller {
               case true => Redirect("/class")
               case false => Redirect("/stream")
             }
-          case None => Redirect("/signOut")
+          case None => Redirect("/login").withNewSession.discardingCookies(DiscardingCookie("Beamstream"))
         }
       case None =>
         request.cookies.get("Beamstream") match {
@@ -209,7 +210,7 @@ object Registration extends Controller {
                   case true => Redirect("/class").withSession("userId" -> user.id.toString()).withCookies(Cookie("Beamstream", user.id.toString() + " class", Option(864000)))
                   case false => Redirect("/" + cookie.value.split(" ")(1)).withSession("userId" -> user.id.toString()).withCookies(Cookie("Beamstream", user.id.toString() + " " + cookie.value.split(" ")(1), Option(864000)))
                 }
-              case None => Redirect("/signOut")
+              case None => Redirect("/login").withNewSession.discardingCookies(DiscardingCookie("Beamstream"))
             }
         }
     }
