@@ -2,10 +2,11 @@ define(
 		[ 'baseView', '../handlebar_helpers/pluralize_helper',
 				'text!templates/questionStreamItem.tpl',
 				'view/questionItemView', 'model/question',
-				'model/questionStream',
-], 
-function(BaseView, Pluralize, questionStreamItemTPL,QuestionItemView,QuestionModel,QuestionStreamModel){
-var QuestionStreamItem = BaseView.extend({
+				'model/questionStream', ],
+		function(BaseView, Pluralize, questionStreamItemTPL, QuestionItemView,
+				QuestionModel, QuestionStreamModel) {
+			var QuestionStreamItem = BaseView
+					.extend({
 						objName : 'questionStreamItem',
 
 						events : {
@@ -15,6 +16,8 @@ var QuestionStreamItem = BaseView.extend({
 							'click .qs-answer-link' : 'toggleQuestionText',
 							'keypress .qs-answer' : 'submitAnswer',
 							'keypress .qs-comment' : 'submitComment',
+							'blur .qs-answer' : 'hideAnswerInputField',
+							'blur .qs-comment' : 'hideCommentInputField',
 							'click .follow-question' : 'followQuestion',
 							'click .mark-answered' : 'markAnswered',
 							'click .delete-question' : 'deleteQuestion',
@@ -47,44 +50,47 @@ var QuestionStreamItem = BaseView.extend({
 						},
 
 						toggleCommentText : function() {
-							this.$el.find('.qs-comment').toggleClass(
-									'question-stream-hide',
-									'question-stream-show');
+							this.$el.find('.qs-comment').show();
+							this.$el.find('input.qs-comment').focus();
+							this.$el.find('.qs-answer').hide();
 							this.model.updateEditStatus();
 						},
 
 						toggleQuestionText : function() {
-							this.$el.find('.qs-answer').toggleClass(
-									'question-stream-hide',
-									'question-stream-show');
+							this.$el.find('.qs-answer').show();
+							this.$el.find('input.qs-answer').focus();
+							this.$el.find('.qs-comment').hide();
 							this.model.updateEditStatus();
 						},
 
 						submitAnswer : function(e) {
 							if (e.keyCode === 13) {
-
-								var element = e.target.parentElement;
-								var parent = $(element).parents(
-										'div.side-question').attr('id');
-								var answerAmt = $(
-										'div#' + parent + '-totalanswersidebar')
-										.text();
-
-								var answerSubmission = this.$el.find(
-										'.qs-answer').val();
-								this.model.postAnswer(answerSubmission, parent,
-										answerAmt);
-								this.$el.find('.qs-answer').val('');
-
-								var QuestionStream = new QuestionStreamModel();
-
-								QuestionStream.createQuestionList();
-
+								var answertext = $.trim(this.$el.find(
+										'.qs-answer').val());
+								if (answertext !== "") {
+									var element = e.target.parentElement;
+									var parent = $(element).parents(
+											'div.side-question').attr('id');
+									var answerAmt = $(
+											'div#' + parent
+													+ '-totalanswersidebar')
+											.text();
+									var answerSubmission = answertext;
+									this.model.postAnswer(answerSubmission,
+											parent, answerAmt);
+									this.$el.find('.qs-answer').val('');
+									var QuestionStream = new QuestionStreamModel();
+									QuestionStream.createQuestionList();
+									this.$el.find('.qs-answer').hide();
+								} else {
+									alert("Wrong Entity")
+								}
 							}
 
 						},
 
 						submitComment : function(e) {
+							
 							var element = e.target.parentElement;
 							var parent = $(element)
 									.parents('div.side-question').attr('id');
@@ -92,13 +98,100 @@ var QuestionStreamItem = BaseView.extend({
 									'div#' + parent + '-totalcommentsidebar')
 									.text();
 							if (e.keyCode === 13) {
-								var commentSubmission = this.$el.find(
-										'.qs-comment').val();
-								// var commentCount = $()
-								this.model.postComment(commentSubmission,
-										parent, commentAmt);
-								this.$el.find('.qs-comment').val('');
-								this.model.updateEditStatus();
+								var commenttext = $.trim(this.$el.find(
+										'.qs-comment').val());
+								if (commenttext !== "") {
+									var commentSubmission = commenttext;
+									// var commentCount = $()
+									this.model.postComment(commentSubmission,
+											parent, commentAmt);
+									this.$el.find('.qs-comment').val('');
+									this.model.updateEditStatus();
+									this.$el.find('.qs-comment').hide();
+								} else {
+									alert("Wrong Entity")
+								}
+							}
+						},
+
+						hideAnswerInputField : function(e) {
+							var self = this;
+							var answertext = $.trim(this.$el.find('.qs-answer')
+									.val());
+							if (answertext == "") {
+								this.$el.find('.qs-answer').hide();
+							} else {
+								bootbox
+										.dialog(
+												"Do you wana to post the Answer",
+												[
+														{
+
+															"label" : "YES",
+															"class" : "btn-primary",
+															"callback" : function() {
+
+															}
+
+														},
+														{
+															"label" : "NO",
+															"class" : "btn-primary",
+															"callback" : function() {
+
+																self.$el
+																		.find(
+																				'.qs-answer')
+																		.hide();
+																self.$el
+																		.find(
+																				'input.qs-answer')
+																		.val('');
+
+															}
+														} ]);
+
+							}
+
+						},
+
+						hideCommentInputField : function(e) {
+	var self = this;
+							var commenttext = $.trim(this.$el.find('.qs-comment')
+									.val());
+							if (commenttext == "") {
+								this.$el.find('.qs-comment').hide();
+							} else {
+								bootbox
+										.dialog(
+												"Do you wana to post the Answer",
+												[
+														{
+
+															"label" : "YES",
+															"class" : "btn-primary",
+															"callback" : function() {
+
+															}
+
+														},
+														{
+															"label" : "NO",
+															"class" : "btn-primary",
+															"callback" : function() {
+
+																self.$el
+																		.find(
+																				'.qs-comment')
+																		.hide();
+																self.$el
+																		.find(
+																				'input.qs-comment')
+																		.val('');
+
+															}
+														} ]);
+
 							}
 						},
 

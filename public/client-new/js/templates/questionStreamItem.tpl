@@ -63,9 +63,9 @@
         </div>
        </div>
         <form>
-        <input class="qs-answer question-stream-hide">
+        <input class="qs-answer question-stream-hide" placeholder="Answer">
         </input>
-        <input class="qs-comment question-stream-hide">
+        <input class="qs-comment question-stream-hide" placeholder="Comment">
         </input>
         </form>
        
