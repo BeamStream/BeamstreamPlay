@@ -120,7 +120,7 @@ define(['view/formView',
 			 var streamId =  $('.sortable li.active').attr('id');
 			 var aDiscussion = $("#createAndPublishForm").find("#aDiscussion").val();
 			var streamSelectOption = $("#createAndPublishForm").find("#streamSelectOption").val();
-			var postToFileMedia =$("#createAndPublishForm").find("#postToFileMedia").val();
+			var postToFileMedia =$("#createAndPublishForm").find("#postToFileMedia").is(':checked');
 			var description = $("#createAndPublishForm").find("#description").val();
 			var docName = $("#createAndPublishForm").find("#docName").val();
 			var docUrl =$("#createAndPublishForm").find("#docUrl").val();
@@ -152,7 +152,7 @@ define(['view/formView',
 				 var streamId =  $('.sortable li.active').attr('id');
 				var aDiscussion = $("#showAndPublishForm").find("#aDiscussion").val();
 				var streamSelectOption = $("#showAndPublishForm").find("#streamSelectOption").val();
-				var postToFileMedia =$("#showAndPublishForm").find("#postToFileMedia").val();
+				var postToFileMedia =$("#showAndPublishForm").find("#postToFileMedia").is(':checked');
 				var description = $("#showAndPublishForm").find("#description").val();
 				var docName = $("#showAndPublishForm").find("#docName").val();
 				var docUrl =$("#showAndPublishForm").find("#docUrl").val();
