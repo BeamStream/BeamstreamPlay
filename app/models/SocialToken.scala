@@ -44,9 +44,12 @@ object SocialToken {
     SocialTokenDAO.update(MongoDBObject("_id" -> userId), tokenRequired.head.copy(tokenFlag = flag), false, false, new WriteConcern)
   }
 
-  def deleteSocialToken(refreshToken: String): WriteResult = {
-    val socialTokenToRemove = SocialTokenDAO.find(MongoDBObject("refreshToken" -> refreshToken)).toList
-    SocialTokenDAO.remove(socialTokenToRemove(0))
+  def deleteSocialToken(id: ObjectId): WriteResult = {
+    val socialTokenToRemove = SocialTokenDAO.find(MongoDBObject("_id" -> id)).toList
+    socialTokenToRemove.isEmpty match {
+      case false => SocialTokenDAO.remove(socialTokenToRemove(0))
+      case true => SocialTokenDAO.remove(new SocialToken(new ObjectId, "", false))
+    }
   }
 
 }

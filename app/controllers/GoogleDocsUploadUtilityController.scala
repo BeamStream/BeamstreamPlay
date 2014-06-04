@@ -50,7 +50,7 @@ object GoogleDocsUploadUtilityController extends Controller {
       case Some(tokenInfo) =>
         val newAccessToken = GoogleDocsUploadUtility.getNewAccessToken(tokenInfo.refreshToken)
         if (newAccessToken == "Not Found") {
-          SocialToken.deleteSocialToken(tokenInfo.refreshToken)
+          SocialToken.deleteSocialToken(tokenInfo.id)
           val urlToRedirect = new GoogleBrowserClientRequestUrl(GoogleClientId, redirectURI, Arrays.asList("https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()
           Ok(urlToRedirect).withSession(request.session + ("action" -> action))
         } else {
@@ -93,18 +93,20 @@ object GoogleDocsUploadUtilityController extends Controller {
                 }
                 val filesToUse = docURLsToFind map { case docURL => files.filter(f => f._2 == docURL) }
                 Cache.set(userId.get, "himanshu", 60 * 2)
-                if (!filesToUse(0).isEmpty) {
-                  for (f <- filesToUse) {
-                    //if (GoogleDocsUploadUtility.canMakeGoogleDocPublic(newAccessToken, f._2)) {
-                    val fileURL = f(0)._2.split("/")
-                    if (fileURL.length >= 8) {
-                      val fileId = fileURL(7)
-                      if (GoogleDocsUploadUtility.isThumbnailNull(newAccessToken, f(0)._5))
-                        deleteMessageImageUrl(deletePreviewImageUrl(f(0)._2))
-                      else
-                        updateMessageImageUrl(updatePreviewImageUrl(f(0)._2, f(0)._5), f(0)._5)
+                if (!filesToUse.isEmpty) {
+                  if (!filesToUse(0).isEmpty) {
+                    for (f <- filesToUse) {
+                      //if (GoogleDocsUploadUtility.canMakeGoogleDocPublic(newAccessToken, f._2)) {
+                      val fileURL = f(0)._2.split("/")
+                      if (fileURL.length >= 8) {
+                        val fileId = fileURL(7)
+                        if (GoogleDocsUploadUtility.isThumbnailNull(newAccessToken, f(0)._5))
+                          deleteMessageImageUrl(deletePreviewImageUrl(f(0)._2))
+                        else
+                          updateMessageImageUrl(updatePreviewImageUrl(f(0)._2, f(0)._5), f(0)._5)
+                      }
+                      //}
                     }
-                    //}
                   }
                 }
               }
