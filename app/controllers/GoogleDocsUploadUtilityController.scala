@@ -91,19 +91,21 @@ object GoogleDocsUploadUtilityController extends Controller {
                   case doc =>
                     doc.documentURL
                 }
-                val filesToUse = docURLsToFind map {case docURL => files.filter(f => f._2 == docURL)}
-                Cache.set(userId.get, "himanshu", 60*2)
-                for (f <- filesToUse) {
-                  //if (GoogleDocsUploadUtility.canMakeGoogleDocPublic(newAccessToken, f._2)) {
-                  val fileURL = f(0)._2.split("/")
-                  if (fileURL.length >= 8) {
-                    val fileId = fileURL(7)
-                    if (GoogleDocsUploadUtility.isThumbnailNull(newAccessToken, f(0)._5))
-                      deleteMessageImageUrl(deletePreviewImageUrl(f(0)._2))
-                    else
-                      updateMessageImageUrl(updatePreviewImageUrl(f(0)._2, f(0)._5), f(0)._5)
+                val filesToUse = docURLsToFind map { case docURL => files.filter(f => f._2 == docURL) }
+                Cache.set(userId.get, "himanshu", 60 * 2)
+                if (!filesToUse(0).isEmpty) {
+                  for (f <- filesToUse) {
+                    //if (GoogleDocsUploadUtility.canMakeGoogleDocPublic(newAccessToken, f._2)) {
+                    val fileURL = f(0)._2.split("/")
+                    if (fileURL.length >= 8) {
+                      val fileId = fileURL(7)
+                      if (GoogleDocsUploadUtility.isThumbnailNull(newAccessToken, f(0)._5))
+                        deleteMessageImageUrl(deletePreviewImageUrl(f(0)._2))
+                      else
+                        updateMessageImageUrl(updatePreviewImageUrl(f(0)._2, f(0)._5), f(0)._5)
+                    }
+                    //}
                   }
-                  //}
                 }
               }
               //TODO Remove it before pushing it on Production

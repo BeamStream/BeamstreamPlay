@@ -76,9 +76,9 @@ object DocumentController extends Controller {
     val tokenInfo = SocialToken.findSocialTokenObject(new ObjectId(userId)).get
     val newAccessToken = GoogleDocsUploadUtility.getNewAccessToken(tokenInfo.refreshToken)
     val fileId = docUrl.split("/")
-    if (fileId.length >= 8) {
+    /*if (fileId.length >= 8) {
       GoogleDocsUploadUtility.makeGoogleDocPublicToClass(newAccessToken, fileId(7))
-    }
+    }*/
     var docName: String = ""
     if (fileId.length >= 8) {
       docName = GoogleDocsUploadUtility.getGoogleDocData(newAccessToken, fileId(7))
