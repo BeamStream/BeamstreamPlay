@@ -123,7 +123,7 @@ define(
 							} else {
 								bootbox
 										.dialog(
-												"Do you wana to post the Answer",
+												"Do you want to post the Answer?",
 												[
 														{
 
@@ -164,7 +164,7 @@ define(
 							} else {
 								bootbox
 										.dialog(
-												"Do you wana to post the Answer",
+												"Do you wana to post the Comment?",
 												[
 														{
 
