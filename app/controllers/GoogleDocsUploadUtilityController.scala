@@ -84,19 +84,19 @@ object GoogleDocsUploadUtilityController extends Controller {
               val result = GoogleDocsUploadUtility.deleteAGoogleDocument(newAccessToken, action)
               Ok
             } else if (action == "addPreviewImageUrl") {
-              val waitingTime = Cache.get(userId.get)                    //reducing number of hits on Google Drive setting cache for 2 minutes
+              val waitingTime = Cache.get(userId.get) //reducing number of hits on Google Drive setting cache for 2 minutes
               if (waitingTime.isEmpty) {
-                
+
                 Cache.set(userId.get, "himanshu", 60 * 2)
-                
+
                 val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(newAccessToken, false)
                 val docURLsToFind = Document.getAllGoogleDocumentsForAUser(new ObjectId(userId.get)) map {
                   case doc =>
                     doc.documentURL
                 }
-                
+
                 val filesToUse = docURLsToFind map { case docURL => files.filter(f => f._2 == docURL) }
-                
+
                 if (!filesToUse.isEmpty) {
                   if (!filesToUse(0).isEmpty) {
                     for (f <- filesToUse) {
@@ -122,6 +122,24 @@ object GoogleDocsUploadUtilityController extends Controller {
               //}
               //                }
               Ok
+            } else if (action.split(" ")(0) == "access") {
+              val docData = Document.findDocumentById(new ObjectId(action.split(" ")(1)))
+              docData match {
+                case None => Ok("false").as("application/json")
+                case Some(googleDoc) =>
+                  val refreshTokenOfOwner = SocialToken.findSocialToken(googleDoc.userId)
+                  refreshTokenOfOwner match {
+                    case None => Ok("false").as("application/json")
+                    case Some(refreshTokenOfOtherUser) =>
+                      if (refreshTokenOfOtherUser == tokenInfo.refreshToken) {
+                        Ok("true").as("application/json")
+                      }else{
+                        val newAccessTokenOfOwner = GoogleDocsUploadUtility.getNewAccessToken(refreshTokenOfOtherUser)
+                        val result = GoogleDocsUploadUtility.canAccessGoogleDoc(newAccessTokenOfOwner, googleDoc.documentURL)
+                        Ok(result.toString).as("application/json")
+                      }
+                  }
+              }
             } else {
               val urlToRedirect = new GoogleBrowserClientRequestUrl(GoogleClientId, redirectURI, Arrays.asList("https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()
               Ok(urlToRedirect).withSession(request.session + ("action" -> action))

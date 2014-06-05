@@ -116,6 +116,27 @@ object GoogleDocsUploadUtility {
     }
   }
 
+  def canAccessGoogleDoc(code: String, fileURL: String): Boolean = {
+    val service = prepareGoogleDrive(code)
+    try {
+      val fileData = fileURL.split("/")
+      if (fileData.length >= 8) {
+        val fileId = fileData(7)
+        val permission = service.permissions().list(fileId).execute()
+        if (permission.getItems()(0).getType() == "anyone")
+          true
+        else
+          false
+      } else {
+        false
+      }
+    } catch {
+      case ex: Exception =>
+        Logger.error("This error occured while Displaying a Google Doc :- ", ex)
+        false
+    }
+  }
+
   /**
    * TODO Remove it before Pushing it to Production
    */

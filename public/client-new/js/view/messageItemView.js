@@ -97,7 +97,7 @@ define(
 							var msgBody = model.message.messageBody;
 							var previewImageUrl = model.message.anyPreviewImageUrl
 							var docId = model.message.docIdIfAny
-//							alert(JSON.stringify(model.message));
+							// alert(JSON.stringify(model.message));
 							var messageAccess = model.message.messageAccess.name
 							var streamId = model.message.streamId.id
 							// alert(model.message.streamId.id);
@@ -634,7 +634,7 @@ define(
 																		.log("ok");
 															}
 														} ]);
-							}else {
+							} else {
 								var discussion = new DiscussionModel();
 								discussion.urlRoot = '/remove/message';
 
@@ -644,8 +644,7 @@ define(
 													id : messageId
 												},
 												{
-													success : function(
-															model,
+													success : function(model,
 															response) {
 
 														if (response.status == "Success") {
@@ -667,7 +666,7 @@ define(
 																			messageId : messageId
 																		}
 																	})
-														}else {
+														} else {
 															alert("You're Not Authorised To Delete This Message");
 														}
 													}
@@ -884,11 +883,28 @@ define(
 								// $('#iframe-'+docId).attr('src',docUrl);
 								// $('#document-'+docId).modal("show");
 							}
-							$('#dwnload-url').attr('value', download_url);
-							$('#iframe-' + docId).attr('src', docUrl);
-//							$('#document-' + docId).modal("show");
-							window.open(docUrl, '_blank');
-
+							// var fileId = docUrl.split('/')[7];
+							$.ajax({
+								type : 'GET',
+								url : 'googleDoc/access ' + docId,
+								success : function(data) {
+									if (data == true) {
+										$('#dwnload-url').attr('value',
+												download_url);
+										$('#iframe-' + docId).attr('src',
+												docUrl);
+										$('#document-' + docId).modal("show");
+									} else {
+										alert("Request for Access first");
+									}
+								}
+							});
+							/*
+							 * $('#dwnload-url').attr('value', download_url);
+							 * $('#iframe-' + docId).attr('src', docUrl);
+							 * $('#document-' + docId).modal("show");
+							 */
+							// window.open(docUrl, '_blank');
 						},
 
 						download : function(eventName) {
