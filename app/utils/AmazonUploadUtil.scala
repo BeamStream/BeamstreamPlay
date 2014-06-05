@@ -74,7 +74,6 @@ class AmazonUpload {
     val bucketName = "BeamStream"
     val s3Client = fetchS3Client
     try {
-      val a = 3/0
       s3Client.putObject(bucketName, profilePicName, profilePic)
       true
     } catch {
