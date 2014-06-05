@@ -386,6 +386,12 @@ define(['view/formView',
  			                	else
  			                	{
  		                    	alert("Not able to Upload File.\nPlease try Again");
+ 		                    	$('.progress-container').hide();
+  			  	                $('#uploded-file-area').hide();
+  			  	                self.file = "";
+			              	    $('#file-upload-loader').css("display","none");
+			              	    $('a.ask-button').css('visibility','hidden');
+			              	    $('.ask-outer').css('height','0px');
  		                    }
  			            	
  			                }
