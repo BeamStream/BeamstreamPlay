@@ -84,15 +84,19 @@ object GoogleDocsUploadUtilityController extends Controller {
               val result = GoogleDocsUploadUtility.deleteAGoogleDocument(newAccessToken, action)
               Ok
             } else if (action == "addPreviewImageUrl") {
-              val filesFromCache = Cache.get(userId.get)
-              if (filesFromCache.isEmpty) {
+              val waitingTime = Cache.get(userId.get)                    //reducing number of hits on Google Drive setting cache for 2 minutes
+              if (waitingTime.isEmpty) {
+                
+                Cache.set(userId.get, "himanshu", 60 * 2)
+                
                 val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(newAccessToken, false)
                 val docURLsToFind = Document.getAllGoogleDocumentsForAUser(new ObjectId(userId.get)) map {
                   case doc =>
                     doc.documentURL
                 }
+                
                 val filesToUse = docURLsToFind map { case docURL => files.filter(f => f._2 == docURL) }
-                Cache.set(userId.get, "himanshu", 60 * 2)
+                
                 if (!filesToUse.isEmpty) {
                   if (!filesToUse(0).isEmpty) {
                     for (f <- filesToUse) {

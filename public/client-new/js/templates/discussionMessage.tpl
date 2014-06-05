@@ -115,6 +115,8 @@
 	                  <div  class="item">  
 						  <div id="{{data.message.docIdIfAny.id}}"   name="single-doc">
 						<div class="image-wrapper hovereffect" >
+						<h4 id=""></h4>
+								<span id="name-{{data.message.docIdIfAny.id}}">{{#if data.docName}}{{data.docName}}{{else}}No Media Name{{/if}}</span>
 						  <div class="hover-div"><img class="filmedia-picture" src="{{data.message.anyPreviewImageUrl}}">
 						    <div class="hover-text">               
 						     <div class="comment-wrapper" id="{{data.message.docIdIfAny.id}}">                                
