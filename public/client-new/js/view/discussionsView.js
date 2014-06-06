@@ -192,8 +192,8 @@ define(
 												window.location
 														.replace("/stream");
 											} else {
-												alert("Google Doc cannot be published");
 												window.location.replace("/stream");
+												alert("Google Doc cannot be published");
 											}
 										}
 									});
@@ -237,8 +237,8 @@ define(
 										})
 										window.location.replace("/stream");
 									}else{
-										alert("Google Doc cannot be published");
 										window.location.replace("/stream");
+										alert("Google Doc cannot be published");
 									}
 								}
 							});
