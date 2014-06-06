@@ -200,6 +200,18 @@ object GoogleDocsUploadUtility {
     }
   }
 
+  /*def getGoogleDocDomain(code: String, fileId: String): String = {
+    try {
+      val service = prepareGoogleDrive(code)
+      val domain = service.getGoogleClientRequestInitializer().permissions().list(arg0).execute.getItems()(0).get("domain")
+      domain.toString()
+    } catch {
+      case ex: Exception =>
+        Logger.error("This error occured while Fetching Google Doc Name & Preview Image URL", ex)
+        "Exception"
+    }
+  }*/
+  
   /**
    * Get Google Doc Name & preview Image URL
    */

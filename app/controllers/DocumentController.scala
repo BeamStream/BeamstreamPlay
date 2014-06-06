@@ -82,6 +82,8 @@ object DocumentController extends Controller {
     var docName: String = ""
     if (fileId.length >= 8) {
       docName = GoogleDocsUploadUtility.getGoogleDocData(newAccessToken, fileId(7))
+    }else{
+      docName = GoogleDocsUploadUtility.getGoogleDocData(newAccessToken, fileId(5))
     }
 
     val description = data("description").toList.head
