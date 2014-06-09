@@ -62,13 +62,19 @@
         
         </div>
        </div>
-        <form>
-        <input class="qs-answer question-stream-hide" placeholder="Answer">
-        </input>
-        <input class="qs-comment question-stream-hide" placeholder="Comment">
-        </input>
-        </form>
+       
        
     </div>
+    
+     <form action="#" class="questioAnswersComments">
+        <div class="answerinputField">
+        <input class="qs-answer question-stream-hide" placeholder="Answer">
+        <div class="answer-button" id="answer-button-sidestream">Post</div>
+       </div>
+        <div class="commentinputField">
+        <input class="qs-comment question-stream-hide" placeholder="Comment">
+        <div class="answer-button" id="comment-button-sidestream">Post</div>
+    	 </div>
+        </form>
 </div>
 </div>

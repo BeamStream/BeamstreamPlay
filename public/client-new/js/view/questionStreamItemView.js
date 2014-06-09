@@ -14,8 +14,8 @@ define(
 							'click .already-rocked' : 'rockQuestion',
 							'click .qs-comment-link' : 'toggleCommentText',
 							'click .qs-answer-link' : 'toggleQuestionText',
-							'keypress .qs-answer' : 'submitAnswer',
-							'keypress .qs-comment' : 'submitComment',
+							'click #answer-button-sidestream' : 'submitAnswer',
+							'click #comment-button-sidestream' : 'submitComment',
 							'blur .qs-answer' : 'hideAnswerInputField',
 							'blur .qs-comment' : 'hideCommentInputField',
 							'click .follow-question' : 'followQuestion',
@@ -51,148 +51,184 @@ define(
 
 						toggleCommentText : function() {
 							this.$el.find('.qs-comment').show();
+							this.$el.find('.commentinputField').show();
 							this.$el.find('input.qs-comment').focus();
 							this.$el.find('.qs-answer').hide();
+							this.$el.find('.answerinputField').hide();
 							this.model.updateEditStatus();
 						},
 
 						toggleQuestionText : function() {
 							this.$el.find('.qs-answer').show();
+							this.$el.find('.answerinputField').show();
 							this.$el.find('input.qs-answer').focus();
 							this.$el.find('.qs-comment').hide();
+							this.$el.find('.commentinputField').hide();
 							this.model.updateEditStatus();
 						},
 
 						submitAnswer : function(e) {
-							if (e.keyCode === 13) {
-								var answertext = $.trim(this.$el.find(
-										'.qs-answer').val());
-								if (answertext !== "") {
-									var element = e.target.parentElement;
-									var parent = $(element).parents(
-											'div.side-question').attr('id');
-									var answerAmt = $(
-											'div#' + parent
-													+ '-totalanswersidebar')
-											.text();
-									var answerSubmission = answertext;
-									this.model.postAnswer(answerSubmission,
-											parent, answerAmt);
-									this.$el.find('.qs-answer').val('');
-									var QuestionStream = new QuestionStreamModel();
-									QuestionStream.createQuestionList();
-									this.$el.find('.qs-answer').hide();
-								} else {
-									alert("Wrong Entity")
-								}
+							var answertext = $.trim(this.$el.find('.qs-answer')
+									.val());
+							if (answertext !== "") {
+								var element = e.target.parentElement;
+								var parent = $(element).parents(
+										'div.side-question').attr('id');
+								var answerAmt = $(
+										'div#' + parent + '-totalanswersidebar')
+										.text();
+								var answerSubmission = answertext;
+								this.model.postAnswer(answerSubmission, parent,
+										answerAmt);
+								this.$el.find('.qs-answer').val('');
+								var QuestionStream = new QuestionStreamModel();
+								QuestionStream.createQuestionList();
+								this.$el.find('.qs-answer').hide();
+								this.$el.find('.answerinputField').hide();
+							} else {
+								alert("Wrong Entity")
 							}
 
 						},
 
 						submitComment : function(e) {
-							
+
 							var element = e.target.parentElement;
 							var parent = $(element)
 									.parents('div.side-question').attr('id');
 							var commentAmt = $(
 									'div#' + parent + '-totalcommentsidebar')
 									.text();
-							if (e.keyCode === 13) {
-								var commenttext = $.trim(this.$el.find(
-										'.qs-comment').val());
-								if (commenttext !== "") {
-									var commentSubmission = commenttext;
-									// var commentCount = $()
-									this.model.postComment(commentSubmission,
-											parent, commentAmt);
-									this.$el.find('.qs-comment').val('');
-									this.model.updateEditStatus();
-									this.$el.find('.qs-comment').hide();
-								} else {
-									alert("Wrong Entity")
-								}
+							var commenttext = $.trim(this.$el.find(
+									'.qs-comment').val());
+							if (commenttext !== "") {
+								var commentSubmission = commenttext;
+								// var commentCount = $()
+								this.model.postComment(commentSubmission,
+										parent, commentAmt);
+								this.$el.find('.qs-comment').val('');
+								this.model.updateEditStatus();
+								this.$el.find('.qs-comment').hide();
+								this.$el.find('.commentinputField').hide();
+							} else {
+								alert("Wrong Entity")
 							}
+
 						},
 
 						hideAnswerInputField : function(e) {
+
 							var self = this;
 							var answertext = $.trim(this.$el.find('.qs-answer')
 									.val());
-							if (answertext == "") {
-								this.$el.find('.qs-answer').hide();
-							} else {
-								bootbox
-										.dialog(
-												"Do you want to post the Answer?",
-												[
-														{
+							setTimeout(
+									function() {
+										if ($('.answerinputField').is(
+												':visible'))
 
-															"label" : "YES",
-															"class" : "btn-primary",
-															"callback" : function() {
+										{
+											if (answertext == "") {
+												self.$el.find('.qs-answer')
+														.hide();
+												self.$el.find(
+														'.answerinputField')
+														.hide();
+											} else {
+												bootbox
+														.dialog(
+																"Do you want to post the Answer?",
+																[
+																		{
 
-															}
+																			"label" : "YES",
+																			"class" : "btn-primary",
+																			"callback" : function() {
 
-														},
-														{
-															"label" : "NO",
-															"class" : "btn-primary",
-															"callback" : function() {
+																			}
 
-																self.$el
-																		.find(
-																				'.qs-answer')
-																		.hide();
-																self.$el
-																		.find(
-																				'input.qs-answer')
-																		.val('');
+																		},
+																		{
+																			"label" : "NO",
+																			"class" : "btn-primary",
+																			"callback" : function() {
 
-															}
-														} ]);
+																				self.$el
+																						.find(
+																								'.qs-answer')
+																						.hide();
+																				self.$el
+																						.find(
+																								'input.qs-answer')
+																						.val(
+																								'');
+																				self.$el
+																						.find(
+																								'.answerinputField')
+																						.hide();
+																			}
+																		} ]);
 
-							}
+											}
 
+										}
+									}, 120)
 						},
 
 						hideCommentInputField : function(e) {
-	var self = this;
-							var commenttext = $.trim(this.$el.find('.qs-comment')
-									.val());
-							if (commenttext == "") {
-								this.$el.find('.qs-comment').hide();
-							} else {
-								bootbox
-										.dialog(
-												"Do you wana to post the Comment?",
-												[
-														{
+							var self = this;
+							var commenttext = $.trim(this.$el.find(
+									'.qs-comment').val());
 
-															"label" : "YES",
-															"class" : "btn-primary",
-															"callback" : function() {
+							setTimeout(
+									function() {
+										if ($('.commentinputField').is(
+												':visible'))
 
-															}
+										{
+											if (commenttext == "") {
+												self.$el.find('.qs-comment')
+														.hide();
+												self.$el.find(
+														'.commentinputField')
+														.hide();
 
-														},
-														{
-															"label" : "NO",
-															"class" : "btn-primary",
-															"callback" : function() {
+											} else {
+												bootbox
+														.dialog(
+																"Do you wana to post the Comment?",
+																[
+																		{
 
-																self.$el
-																		.find(
-																				'.qs-comment')
-																		.hide();
-																self.$el
-																		.find(
-																				'input.qs-comment')
-																		.val('');
+																			"label" : "YES",
+																			"class" : "btn-primary",
+																			"callback" : function() {
 
-															}
-														} ]);
+																			}
 
-							}
+																		},
+																		{
+																			"label" : "NO",
+																			"class" : "btn-primary",
+																			"callback" : function() {
+
+																				self.$el
+																						.find(
+																								'.qs-comment')
+																						.hide();
+																				self.$el
+																						.find(
+																								'input.qs-comment')
+																						.val(
+																								'');
+																				self.$el
+																						.find(
+																								'.commentinputField')
+																						.hide();
+																			}
+																		} ]);
+											}
+										}
+									}, 120)
 						},
 
 						receiveThroughPubNub : function() {
