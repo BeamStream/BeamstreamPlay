@@ -81,14 +81,24 @@
 				</div>
 
 <!-- shows the documents contents in a frame -->
-			  <div id="document-{{data.message.docIdIfAny.id}}"  class="modal hide fade white-modal-block doc-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-header">
-						  		<a class="close" data-dismiss="modal">×</a>
+
+			  <div id="document-{{data.message.docIdIfAny.id}}"  class="modal hide fade white-modal-block doc-modal" tabindex="-1"
+			   role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="box-shadow:none !important;border:none !important">
+			
+				<div class="close-icon close" aria-hidden="true"
+						data-dismiss="modal" style="margin: 20px 0px 0px 0px;">
+						<img width="22" height="22"
+							src="/beamstream-new/images/close-pop.png">
+					</div>	
+					
+				
+				<div class="modal-header" style="background:#fff;margin-top: 45px;">
+				
 						  		<input type="button" onclick="download()">
       							<div class="downloadbutton"><button class="btn btn-mini download" type="button">Download</button></div>
      							 <h3></h3>
 							</div>
-							<div class="modal-body" style="max-height:none !important;"> 
+							<div class="modal-body" style="overflow:scroll;background:#fff;"> 
 
 							<h4>{{data.docName}}</h4>
 								<input type="hidden" id="dwnload-url" value="" >
