@@ -899,12 +899,12 @@ define(
 									}
 								}
 							});
-							/*
-							 * $('#dwnload-url').attr('value', download_url);
-							 * $('#iframe-' + docId).attr('src', docUrl);
-							 * $('#document-' + docId).modal("show");
-							 */
-							// window.open(docUrl, '_blank');
+							
+							 /*$('#dwnload-url').attr('value', download_url);
+							 $('#iframe-' + docId).attr('src', docUrl);
+							 $('#document-' + docId).modal("show");*/
+							 
+//							 window.open(docUrl, '_blank');
 						},
 
 						download : function(eventName) {

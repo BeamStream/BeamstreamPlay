@@ -400,7 +400,7 @@ object Registration extends Controller {
         val userInfo: Option[JsValue] = Cache.getAs[JsValue](userId)
         val ipAddress = request.remoteAddress
         val location = FetchLocationUtil.getLocation(ipAddress)
-        val locationJsonString = """{"location": """ + location + """}"""
+        val locationJsonString = """{"location": """" + location + """"}"""
         val locationJson: JsValue = play.api.libs.json.Json.parse(locationJsonString)
         userInfo match {
           case None => Ok(Json.obj("data" -> locationJson))
