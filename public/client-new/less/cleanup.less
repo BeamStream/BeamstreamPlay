@@ -3371,18 +3371,18 @@ border-radius:4px 4px 4px 4px;
 }
 
 .register-select.btn .caret {
--webkit-border-radius:0 4px 4px 0;
--moz-border-radius:0 4px 4px 0;
-border-radius:0 4px 4px 0;
-border:0;
-height:40px;
-background:url(../images/select-arrow.png) no-repeat;
-width:44px;
-margin:0;
-right:0;
 position:relative;
 display:block;
-top:0
+}
+
+.register-select button#reg-dropdown {
+	position: relative;
+	display: inline-block;
+	margin-left: 192px;
+	background-color: #FFFFFF;
+	height: 38px;
+	width: 40px;
+	border-radius: 0px 4px 4px 0px;
 }
 
 .register-back {
@@ -11169,9 +11169,22 @@ margin: 30px 8px 8px 0px;}
 
 #graduationDate{z-index:0!important;}
 
-#cancle_registration{padding: 8px 20px 8px 20px;font-size: 18px;background: #d2322d;position: absolute;right: 12px;color:#fff;
-top: 10px;border:1px solid #ac2925;text-shadow:1px 1px 1px #330000;
-&:hover{box-shadow:0px 0px 5px #000;}
+#cancle_registration {
+	padding: 5px 13px 4px 13px;
+	border: solid 1px #cdd4db;
+	position: absolute;
+	right: 12px;
+	color: rgb(152, 152, 152);
+	top: 10px;
+	width: 34;
+	height: 31px;
+	font-size: 125%;
+}
+
+#cancle_registration:hover {
+	box-shadow: 0px 1px 8px rgb(152,152,152);
+	color: #fff;
+	text-shadow: .1px .4px 2.4px #330000;
 }
 
 .questioAnswersComments {clear:both;}
