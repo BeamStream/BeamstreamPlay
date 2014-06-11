@@ -132,7 +132,7 @@ object GoogleDocsUploadUtilityController extends Controller {
                         Ok("true").as("application/json")
                       }else{
                         val newAccessTokenOfOwner = GoogleDocsUploadUtility.getNewAccessToken(refreshTokenOfOtherUser)
-                        val result = GoogleDocsUploadUtility.canAccessGoogleDoc(newAccessTokenOfOwner, googleDoc.documentURL)
+                        val result = GoogleDocsUploadUtility.canAccessGoogleDoc(newAccessTokenOfOwner,newAccessToken, googleDoc.documentURL)
                         Ok(result.toString).as("application/json")
                       }
                   }

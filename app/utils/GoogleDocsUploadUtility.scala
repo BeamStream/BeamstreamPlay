@@ -118,17 +118,25 @@ object GoogleDocsUploadUtility {
     }
   }
 
-  def canAccessGoogleDoc(code: String, fileURL: String): Boolean = {
-    val service = prepareGoogleDrive(code)
+  def canAccessGoogleDoc(codeOfOwner: String, codeOfRequester: String, fileURL: String): Boolean = {
+
     try {
+      val serviceOfOwner = prepareGoogleDrive(codeOfOwner)
+      val serviceOfRequester = prepareGoogleDrive(codeOfRequester)
       val fileData = fileURL.split("/")
       if (fileData.length >= 8) {
         val fileId = fileData(7)
-        val permission = service.permissions().list(fileId).execute()
+        val permission = serviceOfOwner.permissions().list(fileId).execute()
         if (permission.getItems()(0).getType() == "anyone")
           true
-        else
-          false
+        else {
+          val fileFound = serviceOfRequester.files().get(fileId).execute()
+          if (fileFound.getUserPermission().toString().isDefinedAt(0)) {
+            true
+          } else {
+            false
+          }
+        }
       } else {
         false
       }
