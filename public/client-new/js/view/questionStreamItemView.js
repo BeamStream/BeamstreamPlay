@@ -139,19 +139,16 @@ define(
 																"Do you want to post the Answer?",
 																[
 																		{
-
 																			"label" : "YES",
 																			"class" : "btn-primary",
 																			"callback" : function() {
-
+																				self.submitAnswer(e);
 																			}
-
 																		},
 																		{
 																			"label" : "NO",
 																			"class" : "btn-primary",
 																			"callback" : function() {
-
 																				self.$el
 																						.find(
 																								'.qs-answer')
@@ -167,9 +164,7 @@ define(
 																						.hide();
 																			}
 																		} ]);
-
 											}
-
 										}
 									}, 120)
 						},
@@ -178,12 +173,10 @@ define(
 							var self = this;
 							var commenttext = $.trim(this.$el.find(
 									'.qs-comment').val());
-
 							setTimeout(
 									function() {
 										if ($('.commentinputField').is(
 												':visible'))
-
 										{
 											if (commenttext == "") {
 												self.$el.find('.qs-comment')
@@ -191,26 +184,22 @@ define(
 												self.$el.find(
 														'.commentinputField')
 														.hide();
-
 											} else {
 												bootbox
 														.dialog(
 																"Do you wana to post the Comment?",
 																[
 																		{
-
 																			"label" : "YES",
 																			"class" : "btn-primary",
 																			"callback" : function() {
-
+																				self.submitComment(e);
 																			}
-
 																		},
 																		{
 																			"label" : "NO",
 																			"class" : "btn-primary",
 																			"callback" : function() {
-
 																				self.$el
 																						.find(
 																								'.qs-comment')
@@ -237,7 +226,6 @@ define(
 									Math.random() * 16777215).toString(16);
 							var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
 							var trueUrl = '';
-
 							// Trigger the change pagePushUid event
 							this.trigger('change:pagePushUid', {
 								pagePushUid : self.pagePushUid
