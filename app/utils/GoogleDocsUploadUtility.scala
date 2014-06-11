@@ -14,6 +14,8 @@ import com.google.api.services.drive.model.Permission
 import play.api.Logger
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
+import java.io.BufferedReader
+import java.io.InputStreamReader
 
 object GoogleDocsUploadUtility {
   val formatter: SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -211,7 +213,7 @@ object GoogleDocsUploadUtility {
         "Exception"
     }
   }*/
-  
+
   /**
    * Get Google Doc Name & preview Image URL
    */
@@ -252,6 +254,29 @@ object GoogleDocsUploadUtility {
       case ex: Exception =>
         Logger.error("This error occured while Checking Preview Image of Google Docs", ex)
         true
+    }
+  }
+  def getGmailId(code: String): String = {
+    try {
+      val url = "https://www.googleapis.com/oauth2/v3/userinfo?access_token=" + code
+      val obj = new URL(url)
+      val con = obj.openConnection().asInstanceOf[HttpsURLConnection]
+      con.setRequestMethod("GET");
+      val in = new BufferedReader(
+        new InputStreamReader(con.getInputStream))
+      val response = new StringBuffer
+
+      while (in.readLine != null) {
+        response.append(in.readLine)
+      }
+      in.close
+      val Id = response.toString().split(",")(3).split(":")(1)
+      val gmailId = Id.substring(2, Id.length() - 1)
+      gmailId
+    } catch {
+      case ex: Exception =>
+        Logger.error("This error occured while fetching all Google Docs from Google Drive :- ", ex)
+        ""
     }
   }
 }

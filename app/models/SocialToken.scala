@@ -11,7 +11,7 @@ import models.mongoContext._
 import com.mongodb.WriteConcern
 import com.mongodb.casbah.Imports.WriteResult
 
-case class SocialToken(@Key("_id") id: ObjectId, refreshToken: String, tokenFlag: Boolean)
+case class SocialToken(@Key("_id") id: ObjectId, refreshToken: String, tokenFlag: Boolean, gmailId: String)
 object SocialToken {
   /**
    * Store RefreshToken
@@ -48,7 +48,7 @@ object SocialToken {
     val socialTokenToRemove = SocialTokenDAO.find(MongoDBObject("_id" -> id)).toList
     socialTokenToRemove.isEmpty match {
       case false => SocialTokenDAO.remove(socialTokenToRemove(0))
-      case true => SocialTokenDAO.remove(new SocialToken(new ObjectId, "", false))
+      case true => SocialTokenDAO.remove(new SocialToken(new ObjectId, "", false, ""))
     }
   }
 

@@ -853,6 +853,8 @@ define(
 						 * @TODO : show the uploaded file in a popup
 						 */
 						showFilesInAPopup : function(e) {
+							
+							var self = this;
 
 							var docId = e.currentTarget.id, docUrl = '';
 							var fileType = $(e.currentTarget).attr('name');
@@ -860,7 +862,6 @@ define(
 							/* show document is a popup */
 							if (fileType == "googleDoc") {
 								docUrl = $('input#id-' + docId).val();
-
 							} else {
 								docUrl = "http://docs.google.com/gview?url="
 										+ $('input#id-' + docId).val()
@@ -895,16 +896,39 @@ define(
 												docUrl);
 										$('#document-' + docId).modal("show");
 									} else {
-										alert("Request for Access first");
+										alert("You do have Permission to Access this Google Doc");
+//										self.requestAccessOfGoogleDoc(docUrl);
 									}
 								}
 							});
-							/*
-							 * $('#dwnload-url').attr('value', download_url);
-							 * $('#iframe-' + docId).attr('src', docUrl);
-							 * $('#document-' + docId).modal("show");
-							 */
-							// window.open(docUrl, '_blank');
+							
+							 
+								  /*$('#dwnload-url').attr('value',
+								  download_url); $('#iframe-' +
+								  docId).attr('src', docUrl); $('#document-' +
+								  docId).modal("show");*/
+								 
+							 
+//							window.open(docUrl, '_blank');
+						},
+						
+						requestAccessOfGoogleDoc : function(docUrl) {
+							bootbox
+									.dialog(
+											"Do you want Request for Access?",
+											[
+													{
+
+														"label" : "Yes",
+														"callback" : function() {
+														}
+													},
+													{
+														"label" : "No",
+														"callback" : function() {
+														}
+													} ]);
+
 						},
 
 						download : function(eventName) {

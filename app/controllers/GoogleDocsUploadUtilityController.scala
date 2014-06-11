@@ -185,7 +185,8 @@ object GoogleDocsUploadUtilityController extends Controller {
           }
           val accessToken = (tokenValues(0) \ "access_token").extract[String]
           val refreshToken = (tokenValues(2) \ "refresh_token").extract[String]
-          SocialToken.addToken(SocialToken(new ObjectId(request.session.get("userId").get), refreshToken, true))
+          val gmailId = GoogleDocsUploadUtility.getGmailId(accessToken)
+          SocialToken.addToken(SocialToken(new ObjectId(request.session.get("userId").get), refreshToken, true, gmailId))
           val action = request.session.get("action").get
           Ok(views.html.stream(action))
 
