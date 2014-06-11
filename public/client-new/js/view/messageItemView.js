@@ -853,7 +853,7 @@ define(
 						 * @TODO : show the uploaded file in a popup
 						 */
 						showFilesInAPopup : function(e) {
-							
+
 							var self = this;
 
 							var docId = e.currentTarget.id, docUrl = '';
@@ -885,55 +885,60 @@ define(
 								// $('#document-'+docId).modal("show");
 							}
 							// var fileId = docUrl.split('/')[7];
-							$.ajax({
-								type : 'GET',
-								url : 'googleDoc/access ' + docId,
-								success : function(data) {
-									if (data == true) {
-										$('#dwnload-url').attr('value',
-												download_url);
-										$('#iframe-' + docId).attr('src',
-												docUrl);
-										$('#document-' + docId).modal("show");
-									} else {
-//										alert("You do have Permission to Access this Google Doc");
-										self.requestAccessOfGoogleDoc(docId);
-									}
-								}
-							});
-							
-							 
-								  /*$('#dwnload-url').attr('value',
-								  download_url); $('#iframe-' +
-								  docId).attr('src', docUrl); $('#document-' +
-								  docId).modal("show");*/
-								 
-							 
-//							window.open(docUrl, '_blank');
-						},
-						
-						requestAccessOfGoogleDoc : function(docId) {
-							bootbox
-									.dialog(
-											"Do you want Request for Access?",
-											[
-													{
+							$
+									.ajax({
+										type : 'GET',
+										url : 'googleDoc/access ' + docId,
+										success : function(data) {
+											if (data == true) {
+												$('#dwnload-url').attr('value',
+														download_url);
+												$('#iframe-' + docId).attr(
+														'src', docUrl);
+												$('#document-' + docId).modal(
+														"show");
+											} else {
+												// alert(data);
+												// alert("You do have Permission
+												// to Access this Google Doc");
+												if (data == false)
+													self
+															.requestAccessOfGoogleDoc(docId);
+												else{
+													alert("Login into Gmail First");
+													window.location = data;
+												}
+											}
+										}
+									});
 
-														"label" : "Yes",
-														"callback" : function() {
-															$.ajax({
-																type : 'GET',
-																url : 'requestAccess/' + docId,
-																success : function() {
-																}
-															});
-														}
-													},
-													{
-														"label" : "No",
-														"callback" : function() {
-														}
-													} ]);
+							/*
+							 * $('#dwnload-url').attr('value', download_url);
+							 * $('#iframe-' + docId).attr('src', docUrl);
+							 * $('#document-' + docId).modal("show");
+							 */
+
+							// window.open(docUrl, '_blank');
+						},
+
+						requestAccessOfGoogleDoc : function(docId) {
+							bootbox.dialog("Do you want to Request Access?", [
+									{
+
+										"label" : "Yes",
+										"callback" : function() {
+											$.ajax({
+												type : 'GET',
+												url : 'requestAccess/' + docId,
+												success : function() {
+												}
+											});
+										}
+									}, {
+										"label" : "No",
+										"callback" : function() {
+										}
+									} ]);
 
 						},
 

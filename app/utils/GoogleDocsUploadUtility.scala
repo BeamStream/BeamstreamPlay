@@ -124,21 +124,32 @@ object GoogleDocsUploadUtility {
       val serviceOfOwner = prepareGoogleDrive(codeOfOwner)
       val serviceOfRequester = prepareGoogleDrive(codeOfRequester)
       val fileData = fileURL.split("/")
-      if (fileData.length >= 8) {
-        val fileId = fileData(7)
-        val permission = serviceOfOwner.permissions().list(fileId).execute()
-        if (permission.getItems()(0).getType() == "anyone")
-          true
-        else {
-          val fileFound = serviceOfRequester.files().get(fileId).execute()
-          if (fileFound.getUserPermission().toString().isDefinedAt(0)) {
+      fileData.length match {
+        case 9 =>
+          val fileId = fileData(7)
+          val permission = serviceOfOwner.permissions().list(fileId).execute()
+          if (permission.getItems()(0).getType() == "anyone")
             true
-          } else {
-            false
+          else {
+            val fileFound = serviceOfRequester.files().get(fileId).execute()
+            fileFound.getUserPermission().toString().isDefinedAt(0) match {
+              case true => true
+              case false => false
+            }
           }
-        }
-      } else {
-        false
+        case 7 =>
+          val fileId = fileData(5)
+          val permission = serviceOfOwner.permissions().list(fileId).execute()
+          if (permission.getItems()(0).getType() == "anyone")
+            true
+          else {
+            val fileFound = serviceOfRequester.files().get(fileId).execute()
+            fileFound.getUserPermission().toString().isDefinedAt(0) match {
+              case true => true
+              case false => false
+            }
+          }
+        case _ => false
       }
     } catch {
       case ex: Exception =>
