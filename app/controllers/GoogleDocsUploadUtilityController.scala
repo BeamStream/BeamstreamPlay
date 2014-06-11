@@ -30,6 +30,7 @@ import play.api.Logger
 import play.api.cache.Cache
 import play.api.Play.current
 import models.Document
+import utils.SendEmailUtility
 
 object GoogleDocsUploadUtilityController extends Controller {
 
@@ -225,4 +226,26 @@ object GoogleDocsUploadUtilityController extends Controller {
     Redirect("/stream")
   }
 
+  def sendMailOnGoogleDocRequestAccess(docId: String): Action[AnyContent] = Action { implicit request =>
+    val userId = request.session.get("userId")
+    val gmailIdOfRequester = SocialToken.findGmailId(new ObjectId(userId.get))
+    gmailIdOfRequester match{
+      case None => Ok
+      case Some(emailIdOfRequester) => 
+        val docData = Document.findDocumentById(new ObjectId(docId))
+        docData match{
+          case None => Ok
+          case Some(doc) => 
+            val userIdOfDocOwner = doc.userId
+            val gmailIdOfDocOwner = SocialToken.findGmailId(userIdOfDocOwner)
+            gmailIdOfDocOwner match {
+              case None => Ok
+              case Some(emailIdOfDocOwner) => 
+                val docURL = doc.documentURL
+                val result = SendEmailUtility.sendGoogleDocAccessMail(emailIdOfDocOwner, emailIdOfRequester, docURL)
+                Ok(write("success")).as("application/json")
+            }
+        }
+    }
+  }
 }

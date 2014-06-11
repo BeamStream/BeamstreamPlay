@@ -896,8 +896,8 @@ define(
 												docUrl);
 										$('#document-' + docId).modal("show");
 									} else {
-										alert("You do have Permission to Access this Google Doc");
-//										self.requestAccessOfGoogleDoc(docUrl);
+//										alert("You do have Permission to Access this Google Doc");
+										self.requestAccessOfGoogleDoc(docId);
 									}
 								}
 							});
@@ -912,7 +912,7 @@ define(
 //							window.open(docUrl, '_blank');
 						},
 						
-						requestAccessOfGoogleDoc : function(docUrl) {
+						requestAccessOfGoogleDoc : function(docId) {
 							bootbox
 									.dialog(
 											"Do you want Request for Access?",
@@ -921,6 +921,12 @@ define(
 
 														"label" : "Yes",
 														"callback" : function() {
+															$.ajax({
+																type : 'GET',
+																url : 'requestAccess/' + docId,
+																success : function() {
+																}
+															});
 														}
 													},
 													{

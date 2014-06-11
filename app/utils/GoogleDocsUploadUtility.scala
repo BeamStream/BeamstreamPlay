@@ -258,20 +258,14 @@ object GoogleDocsUploadUtility {
   }
   def getGmailId(code: String): String = {
     try {
-      val url = "https://www.googleapis.com/oauth2/v3/userinfo?access_token=" + code
-      val obj = new URL(url)
-      val con = obj.openConnection().asInstanceOf[HttpsURLConnection]
-      con.setRequestMethod("GET");
-      val in = new BufferedReader(
-        new InputStreamReader(con.getInputStream))
-      val response = new StringBuffer
-
-      while (in.readLine != null) {
-        response.append(in.readLine)
-      }
-      in.close
-      val Id = response.toString().split(",")(3).split(":")(1)
-      val gmailId = Id.substring(2, Id.length() - 1)
+      val service = prepareGoogleDrive(code)
+      val body = new File
+      val mimeType = "application/vnd.google-apps.document"
+      body.setMimeType(mimeType)
+      val docType = mimeType.substring(mimeType.lastIndexOf(".") + 1)
+      body.setTitle("Untitled " + docType)
+      val file = service.files.insert(body).execute
+      val gmailId = file.getOwners()(0).get("emailAddress").toString()
       gmailId
     } catch {
       case ex: Exception =>

@@ -216,7 +216,7 @@ GET    /chat                                                                    
 GET    /startChat/:me/:toWhom                                                              controllers.WebsocketCommunicationController.startChat(me: String, toWhom: String)
 GET    /javascriptRoutes                                                                   controllers.StreamController.javascriptRoutes
 GET    /instantiateChat/:userId                                                            controllers.WebsocketCommunicationController.instantiateChat(userId)
-
+GET    /requestAccess/:docURL                                                              controllers.GoogleDocsUploadUtilityController.sendMailOnGoogleDocRequestAccess(docURL: String)
 #Preview Image
 #GET   /image/:previewImageUrl                                                              controllers.StreamController.encryptTheUrl(previewImageUrl: String)
 #GET   /image/gridfs/:fileName                                                              controllers.StreamController.getPhoto(fileName: String)

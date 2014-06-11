@@ -155,4 +155,22 @@ object SendEmailUtility extends EmailUtility {
     transport.sendMessage(authenticatedMessageAndSession._1, authenticatedMessageAndSession._1.getAllRecipients)
   }
 
+  def sendGoogleDocAccessMail(emailIdOfDocOwner: String, emailIdOfRequester: String, docURL: String) {
+    val subject = "Request to share Google Doc"
+    val content = "Request to share" + "<br>" + "<br>" +
+      "<a href ='" + docURL + "'>Google Doc</a>" + "<br>" + "<br>" +
+      "You are the owner of this item and " + emailIdOfRequester + " has asked that you share this item with:" + "<br>" + "<br>" +
+      "+ " + emailIdOfRequester + "<br>" + "<br>" +
+      "Add these people in " + "<a href ='" + docURL + "'>Sharing Settings</a>"
+    val authenticatedMessageAndSession = setEmailCredentials
+    val recepientAddress = new InternetAddress(emailIdOfDocOwner)
+    authenticatedMessageAndSession._1.setFrom(new InternetAddress(CLASSWALL_EMAIL, CLASSWALL_EMAIL))
+    authenticatedMessageAndSession._1.addRecipient(Message.RecipientType.TO, recepientAddress)
+    authenticatedMessageAndSession._1.setSubject(subject)
+    authenticatedMessageAndSession._1.setContent(content, "text/html")
+    val transport = authenticatedMessageAndSession._2.getTransport("smtp");
+    transport.connect(Play.current.configuration.getString("smtp_server_out").get, 80, Play.current.configuration.getString("email_address").get, Play.current.configuration.getString("email_password").get)
+    transport.sendMessage(authenticatedMessageAndSession._1, authenticatedMessageAndSession._1.getAllRecipients)
+  }
+
 }
