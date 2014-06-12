@@ -862,10 +862,44 @@ define(
 							/* show document is a popup */
 							if (fileType == "googleDoc") {
 								docUrl = $('input#id-' + docId).val();
+								$
+								.ajax({
+									type : 'GET',
+									url : 'googleDoc/access ' + docId,
+									success : function(data) {
+										if (data == true) {
+											$('#dwnload-url').attr('value',
+													download_url);
+											$('#iframe-' + docId).attr(
+													'src', docUrl);
+											$('#document-' + docId).modal(
+													"show");
+										} else {
+											// alert(data);
+											// alert("You do have Permission
+											// to Access this Google Doc");
+											if (data == false)
+												self
+														.requestAccessOfGoogleDoc(docId);
+											else{
+												alert("Login into Gmail First");
+												window.location = data;
+											}
+										}
+									}
+								});
+
 							} else {
 								docUrl = "http://docs.google.com/gview?url="
 										+ $('input#id-' + docId).val()
 										+ "&embedded=true";
+								$('#dwnload-url').attr('value',
+										download_url);
+								$('#iframe-' + docId).attr(
+										'src', docUrl);
+								$('#document-' + docId).modal(
+										"show");
+
 
 								// userMediaModel = new UserMediaModel();
 								// userMediaModel.set({id:this.model.get('message').docIdIfAny.id
@@ -885,7 +919,7 @@ define(
 								// $('#document-'+docId).modal("show");
 							}
 							// var fileId = docUrl.split('/')[7];
-							$
+/*							$
 									.ajax({
 										type : 'GET',
 										url : 'googleDoc/access ' + docId,
@@ -911,7 +945,7 @@ define(
 											}
 										}
 									});
-
+*/
 							/*
 							 * $('#dwnload-url').attr('value', download_url);
 							 * $('#iframe-' + docId).attr('src', docUrl);
