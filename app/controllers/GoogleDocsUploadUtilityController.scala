@@ -78,7 +78,27 @@ object GoogleDocsUploadUtilityController extends Controller {
               files.foreach(f => updateMessageImageUrl(updatePreviewImageUrl(f._1, f._5), f._5))
               Ok
             }*/ case _ =>
-                Ok
+                if (action.split(" ")(0) == "access") {
+                  val docData = Document.findDocumentById(new ObjectId(action.split(" ")(1)))
+                  docData match {
+                    case None => Ok("false").as("application/json")
+                    case Some(googleDoc) =>
+                      val refreshTokenOfOwner = SocialToken.findSocialToken(googleDoc.userId)
+                      refreshTokenOfOwner match {
+                        case None => Ok("false").as("application/json")
+                        case Some(refreshTokenOfOtherUser) =>
+                          if (refreshTokenOfOtherUser == tokenInfo.refreshToken) {
+                            Ok("true").as("application/json")
+                          } else {
+                            val newAccessTokenOfOwner = GoogleDocsUploadUtility.getNewAccessToken(refreshTokenOfOtherUser)
+                            val result = GoogleDocsUploadUtility.canAccessGoogleDoc(newAccessTokenOfOwner, newAccessToken, googleDoc.documentURL)
+                            Ok(result.toString).as("application/json")
+                          }
+                      }
+                  }
+                } else {
+                  Ok
+                }
             }
           } else {
             if (action.length() == 44) {
@@ -119,7 +139,7 @@ object GoogleDocsUploadUtilityController extends Controller {
               //}
               //                }
               Ok
-            } else if (action.split(" ")(0) == "access") {
+            } /*else if (action.split(" ")(0) == "access") {
               val docData = Document.findDocumentById(new ObjectId(action.split(" ")(1)))
               docData match {
                 case None => Ok("false").as("application/json")
@@ -130,14 +150,14 @@ object GoogleDocsUploadUtilityController extends Controller {
                     case Some(refreshTokenOfOtherUser) =>
                       if (refreshTokenOfOtherUser == tokenInfo.refreshToken) {
                         Ok("true").as("application/json")
-                      }else{
+                      } else {
                         val newAccessTokenOfOwner = GoogleDocsUploadUtility.getNewAccessToken(refreshTokenOfOtherUser)
-                        val result = GoogleDocsUploadUtility.canAccessGoogleDoc(newAccessTokenOfOwner,newAccessToken, googleDoc.documentURL)
+                        val result = GoogleDocsUploadUtility.canAccessGoogleDoc(newAccessTokenOfOwner, newAccessToken, googleDoc.documentURL)
                         Ok(result.toString).as("application/json")
                       }
                   }
               }
-            } else {
+            }*/ else {
               val urlToRedirect = new GoogleBrowserClientRequestUrl(GoogleClientId, redirectURI, Arrays.asList("https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()
               Ok(urlToRedirect).withSession(request.session + ("action" -> action))
             }
@@ -229,23 +249,23 @@ object GoogleDocsUploadUtilityController extends Controller {
   def sendMailOnGoogleDocRequestAccess(docId: String): Action[AnyContent] = Action { implicit request =>
     val userId = request.session.get("userId")
     val gmailIdOfRequester = SocialToken.findGmailId(new ObjectId(userId.get))
-    gmailIdOfRequester match{
+    gmailIdOfRequester match {
       case None => Ok
-      case Some(emailIdOfRequester) => 
+      case Some(emailIdOfRequester) =>
         val docData = Document.findDocumentById(new ObjectId(docId))
-        docData match{
+        docData match {
           case None => Ok
-          case Some(doc) => 
+          case Some(doc) =>
             val userIdOfDocOwner = doc.userId
             val refreshTokenOfDocOwner = SocialToken.findSocialToken(userIdOfDocOwner)
             val accessTokenOfDocOwner = GoogleDocsUploadUtility.getNewAccessToken(refreshTokenOfDocOwner.get)
             val gmailIdOfDocOwner = GoogleDocsUploadUtility.findGmailIdOfDocOwner(accessTokenOfDocOwner, doc.documentURL)
             gmailIdOfDocOwner match {
               case "" => Ok
-              case _ => 
+              case _ =>
                 val docURL = doc.documentURL
                 val result = SendEmailUtility.sendGoogleDocAccessMail(gmailIdOfDocOwner, emailIdOfRequester, docURL)
-                Ok(write("success")).as("application/json")
+                Ok(write("Success")).as("application/json")
             }
         }
     }

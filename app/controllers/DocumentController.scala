@@ -376,6 +376,14 @@ object DocumentController extends Controller {
     }
     Ok(write(viewCount.toString)).as("application/json")
   }
+  
+  def getGoogleDocURL(docId: String): Action[AnyContent] = Action { implicit request =>
+    val googleDoc = Document.findDocumentById(new ObjectId(docId))
+    googleDoc match{
+      case None => Ok
+      case Some(doc) => Ok(doc.documentURL)
+    }																																																
+  }
 
 }
 

@@ -882,7 +882,6 @@ define(
 												self
 														.requestAccessOfGoogleDoc(docId);
 											else{
-												alert("Login into Gmail First");
 												window.location = data;
 											}
 										}
