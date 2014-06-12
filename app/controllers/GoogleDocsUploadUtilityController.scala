@@ -237,12 +237,14 @@ object GoogleDocsUploadUtilityController extends Controller {
           case None => Ok
           case Some(doc) => 
             val userIdOfDocOwner = doc.userId
-            val gmailIdOfDocOwner = SocialToken.findGmailId(userIdOfDocOwner)
+            val refreshTokenOfDocOwner = SocialToken.findSocialToken(userIdOfDocOwner)
+            val accessTokenOfDocOwner = GoogleDocsUploadUtility.getNewAccessToken(refreshTokenOfDocOwner.get)
+            val gmailIdOfDocOwner = GoogleDocsUploadUtility.findGmailIdOfDocOwner(accessTokenOfDocOwner, doc.documentURL)
             gmailIdOfDocOwner match {
-              case None => Ok
-              case Some(emailIdOfDocOwner) => 
+              case "" => Ok
+              case _ => 
                 val docURL = doc.documentURL
-                val result = SendEmailUtility.sendGoogleDocAccessMail(emailIdOfDocOwner, emailIdOfRequester, docURL)
+                val result = SendEmailUtility.sendGoogleDocAccessMail(gmailIdOfDocOwner, emailIdOfRequester, docURL)
                 Ok(write("success")).as("application/json")
             }
         }

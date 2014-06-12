@@ -16,6 +16,7 @@ import java.net.URL
 import javax.net.ssl.HttpsURLConnection
 import java.io.BufferedReader
 import java.io.InputStreamReader
+import com.sun.org.glassfish.gmbal.GmbalException
 
 object GoogleDocsUploadUtility {
   val formatter: SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -289,6 +290,31 @@ object GoogleDocsUploadUtility {
     } catch {
       case ex: Exception =>
         Logger.error("This error occured while fetching all Google Docs from Google Drive :- ", ex)
+        ""
+    }
+  }
+
+  def findGmailIdOfDocOwner(codeOfOwner: String, fileURL: String): String = {
+
+    try {
+      val serviceOfOwner = prepareGoogleDrive(codeOfOwner)
+      val fileData = fileURL.split("/")
+      fileData.length match {
+        case 9 =>
+          val fileId = fileData(7)
+          val fileFound = serviceOfOwner.files().get(fileId).execute()
+          val gmailIdOfDocOwner = fileFound.getOwners()(0).get("emailAddress").toString()
+          gmailIdOfDocOwner
+        case 7 =>
+          val fileId = fileData(5)
+          val fileFound = serviceOfOwner.files().get(fileId).execute()
+          val gmailIdOfDocOwner = fileFound.getOwners()(0).get("emailAddress").toString()
+          gmailIdOfDocOwner
+        case _ => ""
+      }
+    } catch {
+      case ex: Exception =>
+        Logger.error("This error occured while Displaying a Google Doc :- ", ex)
         ""
     }
   }
