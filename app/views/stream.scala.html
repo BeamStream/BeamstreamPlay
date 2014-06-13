@@ -902,7 +902,7 @@ header, footer){
 			</div>
 
 		</div>
-		
+		<!-- Google Doc Popup modal starts -->
 		<div id="document-"  class="modal hide fade white-modal-block doc-modal" tabindex="-1"
 			   role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="box-shadow:none !important;border:none !important">
 			
@@ -930,7 +930,7 @@ header, footer){
 								</p>	
 							</div>
 						</div>
-
+            <!-- Google Doc Popup modal ends -->
 
 
 
@@ -1439,52 +1439,50 @@ header, footer){
 		     alert("Use another Gmail Account");
 		} else if ('@flag'.length == 31){
 		     var docId = '@flag'.split(" ")[1];
-		     var accessURL = "/googleDocAccess/" + docId;
+		     var accessURL = "/googleDocURL/" + docId;
 		    $.ajax({										
-										type: 'GET',	           
-							            url: accessURL,
-							            success: function(data){
-							            var docUrl = data;
+				    type: 'GET',	           
+					url: accessURL,
+				    success: function(data){
+				        var docUrl = data;
 							            
-							            	$.ajax({
-												type : 'GET',
-												url : 'googleDoc/access ' + docId,
-												success : function(data) {
-													if (data == true) {
-													$('#iframe-').attr(
-													'src', docUrl);
-													$('#document-').modal(
-													"show");
-													} else {
-														if (data == false){
-															bootbox.dialog("Do you want to Request Access?", [
-																{
-																	"label" : "Yes",
-																	"callback" : function() {
-																	$.ajax({
-																		type : 'GET',
-																		url : 'requestAccess/' + docId,
-																		success : function() {
-																		}
-																	});
-																  }
-																}, {
-																	"label" : "No",
-																	"callback" : function() {
-																		}
-															} ]);
-														}														
-														else{
-															alert("Login into Gmail First");
-															window.location = data;
-														}
-													}
-												}
-											});
-							            }
-										
+						$.ajax({
+						type : 'GET',
+						url : 'googleDoc/access ' + docId,
+						success : function(data) {
+							if (data == true) {
+						    $('#iframe-').attr('src', docUrl);
+							$('#document-').modal("show");
+							} else {
+							  bootbox.dialog("Do you want to Request Access?", [
+								{
+									"label" : "Yes",
+									"callback" : function() {
+															
+										$.ajax({
+										type : 'GET',
+										url : 'requestAccess/' + docId,
+										success : function() {
+										  window.location = "/stream"
+										}
 									});
+								  }
+								}, 
+								{
+									"label" : "No",
+									"callback" : function() {
+									    window.location = "/stream";
+								     }
+								}
+							  ]
+							);
+						 }														
+						}
+					});
+				}
+										
+			});
 		}
 	</script>
 
-	}
+	} 
