@@ -27,7 +27,8 @@ define(['view/formView'], function(FormView){
             'click .lastblock a' : 'socialMediaSignup',
             'keypress #password' : 'clearConfirmPasswordField',
             'click .register-cancel' : 'clearAllFields',
-            'blur .home_reg' : 'validationsymbol'
+            'blur .home_reg' : 'validationsymbol',
+            'blur #mailid':'chekemail',
 		},
 
 		onAfterInit: function(){	
@@ -53,7 +54,35 @@ define(['view/formView'], function(FormView){
         		$(e.currentTarget).parent('fieldset').find('div.sign-close').show();
         	}
         },
-                  
+              
+        
+        chekemail: function(e){
+        	
+        	 var self = this;
+				  var mailId = $("input#mailid").val();
+				  var iam = "8080";
+				  var password = '12345a';
+				  var confirmPassword = '12345a';
+				 $.ajax ({
+					 type : 'POST',
+					 url : "/signup",
+					 dataType : "json",
+				     contentType : "application/json",
+					 data : JSON.stringify({
+						 mailId : mailId,
+						 iam : iam,
+						 password : password,
+						 confirmPassword : confirmPassword,
+						 }),
+						 
+					 success : function(data){
+						 if(data.status == "Failure")
+						 alert(data.message);
+					 }
+				 });
+			 
+        },
+        
         /**
         * @TODO  user registration 
         */
@@ -69,9 +98,7 @@ define(['view/formView'], function(FormView){
         * on form save success
         */
 		success: function(model, data){
-    	   
             var self = this;
-           
             if(data.status == 'Success')
             {
             	$('.sign-tick').hide();
