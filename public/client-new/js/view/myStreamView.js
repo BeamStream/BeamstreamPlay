@@ -34,6 +34,7 @@ define(
 							'click #sidequestionexpand' : 'restoretonormal',
 							'click #create-google-docs-close' : 'askToPublishDocs',
 							'click .cancel-publish' : 'askToPublishDocs',
+							'click #googleDocPopupCloseBtn' : 'updateGoogleDoc',
 						},
 						messagesPerPage : 10,
 						pageNo : 1,
@@ -111,6 +112,26 @@ define(
 							// evt.pagePushUid);
 							// })
 
+						},
+						
+						updateGoogleDoc : function(eventName){
+							var googleDocURL = $('#iframe-').attr('src').split("/");
+							var fileId = "";
+							if(googleDocURL.length == 9) {
+								fileId = googleDocURL[7];
+								}
+							else if(googleDocURL.length == 7) {
+								fileId = googleDocURL[5];
+							}
+							$.ajax({
+								
+								type: 'GET',	           
+					            url: 'googleDoc/update '+fileId,
+					            success: function(data){
+					            
+					            }
+								
+							});
 						},
 						
 

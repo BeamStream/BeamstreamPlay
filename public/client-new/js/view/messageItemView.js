@@ -49,8 +49,7 @@ define(
 							'click .downloadbutton' : 'download',
 							'click .delete_post' : 'deleteMessage',
 							'click .follow-user' : 'followUser',
-							'click .delete_comment' : 'deleteComment'
-
+							'click .delete_comment' : 'deleteComment',
 						},
 
 						onAfterInit : function() {
@@ -1277,6 +1276,9 @@ define(
 							});
 
 						},
+						
+						
+						
 						/**
 						 * Rock comments
 						 */

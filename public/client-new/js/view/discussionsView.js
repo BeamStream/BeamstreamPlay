@@ -30,8 +30,7 @@ define(
 							'keyup #msg-area' : 'removePreview',
 							'change #upload-files-area' : 'getUploadedData',
 							'click #createPublish' : 'createpublishGoogleDoc',
-							'click #showPublish' : 'showpublishGoogleDoc'
-
+							'click #showPublish' : 'showpublishGoogleDoc',
 						},
 
 						messagesPerPage : 10,
@@ -151,6 +150,10 @@ define(
 													}
 												}
 											});
+						},
+						
+						updateGoogleDoc : function(){
+							alert("1111");
 						},
 
 						createpublishGoogleDoc : function() {

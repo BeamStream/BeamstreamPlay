@@ -119,14 +119,14 @@ object GoogleDocsUploadUtilityController extends Controller {
                   if (!filesToUse(0).isEmpty) {
                     for (f <- filesToUse) {
                       //if (GoogleDocsUploadUtility.canMakeGoogleDocPublic(newAccessToken, f._2)) {
-//                      val fileURL = f(0)._2.split("/")
-//                      if (fileURL.length >= 8) {
-//                        val fileId = fileURL(7)
-                        if (GoogleDocsUploadUtility.isThumbnailNull(newAccessToken, f(0)._5))
-                          deleteMessageImageUrl(deletePreviewImageUrl(f(0)._2))
-                        else
-                          updateMessageImageUrl(updatePreviewImageUrl(f(0)._2, f(0)._5), f(0)._5)
-//                      }
+                      //                      val fileURL = f(0)._2.split("/")
+                      //                      if (fileURL.length >= 8) {
+                      //                        val fileId = fileURL(7)
+                      if (GoogleDocsUploadUtility.isThumbnailNull(newAccessToken, f(0)._5))
+                        deleteMessageImageUrl(deletePreviewImageUrl(f(0)._2))
+                      else
+                        updateMessageImageUrl(updatePreviewImageUrl(f(0)._2, f(0)._5), f(0)._5)
+                      //                      }
                       //}
                     }
                   }
@@ -140,25 +140,17 @@ object GoogleDocsUploadUtilityController extends Controller {
               //}
               //                }
               Ok
-            } /*else if (action.split(" ")(0) == "access") {
-              val docData = Document.findDocumentById(new ObjectId(action.split(" ")(1)))
-              docData match {
-                case None => Ok("false").as("application/json")
-                case Some(googleDoc) =>
-                  val refreshTokenOfOwner = SocialToken.findSocialToken(googleDoc.userId)
-                  refreshTokenOfOwner match {
-                    case None => Ok("false").as("application/json")
-                    case Some(refreshTokenOfOtherUser) =>
-                      if (refreshTokenOfOtherUser == tokenInfo.refreshToken) {
-                        Ok("true").as("application/json")
-                      } else {
-                        val newAccessTokenOfOwner = GoogleDocsUploadUtility.getNewAccessToken(refreshTokenOfOtherUser)
-                        val result = GoogleDocsUploadUtility.canAccessGoogleDoc(newAccessTokenOfOwner, newAccessToken, googleDoc.documentURL)
-                        Ok(result.toString).as("application/json")
-                      }
-                  }
-              }
-            }*/ else {
+            } else if (action.split(" ")(0) == "update") {
+              /*val googleDocId = Document.findDocumentByURL(action.split(" ")(1))
+              googleDocId match {
+               case None => Ok("Failure")*/
+//               case Some(fileId) => 
+                val fileId = action.split(" ")(1)
+                val docName = GoogleDocsUploadUtility.getGoogleDocData(newAccessToken, fileId)
+                val updateDocument = Document.updateTitle(fileId, docName)
+                Ok("Success")
+//              }
+            } else {
               val urlToRedirect = new GoogleBrowserClientRequestUrl(GoogleClientId, redirectURI, Arrays.asList("https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()
               Ok(urlToRedirect).withSession(request.session + ("action" -> action))
             }
@@ -272,4 +264,5 @@ object GoogleDocsUploadUtilityController extends Controller {
         }
     }
   }
+
 }
