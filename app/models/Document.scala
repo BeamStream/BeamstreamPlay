@@ -68,7 +68,8 @@ case class Document(@Key("_id") id: ObjectId,
   documentFollwers: List[ObjectId],
   previewImageUrl: String = "",
   views: Int = 0,
-  postToFileMedia: Boolean = true)
+  postToFileMedia: Boolean = true,
+  googleDocId: String = "")
 
 object Document extends RockConsumer {
 

@@ -115,8 +115,8 @@ object UtilityActor extends EmailUtility {
     Future { SendEmailUtility.sendPassword(emailId, password) }
   }
   
-  def requestAccessMail(emailIdOfDocOwner: String, emailIdOfRequester: String, docURL: String) {
-    Future{ SendEmailUtility.sendGoogleDocAccessMail(emailIdOfDocOwner, emailIdOfRequester, docURL) }
+  def requestAccessMail(emailIdOfDocOwner: String, emailIdOfRequester: String, docURL: String, docName: String) {
+    Future{ SendEmailUtility.sendGoogleDocAccessMail(emailIdOfDocOwner, emailIdOfRequester, docURL, docName) }
   }
 
 }

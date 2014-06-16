@@ -155,10 +155,10 @@ object SendEmailUtility extends EmailUtility {
     transport.sendMessage(authenticatedMessageAndSession._1, authenticatedMessageAndSession._1.getAllRecipients)
   }
 
-  def sendGoogleDocAccessMail(emailIdOfDocOwner: String, emailIdOfRequester: String, docURL: String) {
+  def sendGoogleDocAccessMail(emailIdOfDocOwner: String, emailIdOfRequester: String, docURL: String, docName: String) {
     val subject = "Request to share Google Doc"
     val content = "Request to share" + "<br>" + "<br>" +
-      "<a href ='" + docURL + "'>Google Doc</a>" + "<br>" + "<br>" +
+      "<a href ='" + docURL + "'>" + docName + "</a>" + "<br>" + "<br>" +
       "You are the owner of this item and " + emailIdOfRequester + " has asked that you share this item with:" + "<br>" + "<br>" +
       "+ " + emailIdOfRequester + "<br>" + "<br>" +
       "Add these people in " + "<a href ='" + docURL + "'>Sharing Settings</a>"

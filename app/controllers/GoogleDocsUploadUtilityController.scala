@@ -31,6 +31,7 @@ import play.api.cache.Cache
 import play.api.Play.current
 import models.Document
 import utils.SendEmailUtility
+import actors.UtilityActor
 
 object GoogleDocsUploadUtilityController extends Controller {
 
@@ -91,7 +92,7 @@ object GoogleDocsUploadUtilityController extends Controller {
                             Ok("true").as("application/json")
                           } else {
                             val newAccessTokenOfOwner = GoogleDocsUploadUtility.getNewAccessToken(refreshTokenOfOtherUser)
-                            val result = GoogleDocsUploadUtility.canAccessGoogleDoc(newAccessTokenOfOwner, newAccessToken, googleDoc.documentURL)
+                            val result = GoogleDocsUploadUtility.canAccessGoogleDoc(newAccessTokenOfOwner, newAccessToken, googleDoc.googleDocId)
                             Ok(result.toString).as("application/json")
                           }
                       }
@@ -118,14 +119,14 @@ object GoogleDocsUploadUtilityController extends Controller {
                   if (!filesToUse(0).isEmpty) {
                     for (f <- filesToUse) {
                       //if (GoogleDocsUploadUtility.canMakeGoogleDocPublic(newAccessToken, f._2)) {
-                      val fileURL = f(0)._2.split("/")
-                      if (fileURL.length >= 8) {
-                        val fileId = fileURL(7)
+//                      val fileURL = f(0)._2.split("/")
+//                      if (fileURL.length >= 8) {
+//                        val fileId = fileURL(7)
                         if (GoogleDocsUploadUtility.isThumbnailNull(newAccessToken, f(0)._5))
                           deleteMessageImageUrl(deletePreviewImageUrl(f(0)._2))
                         else
                           updateMessageImageUrl(updatePreviewImageUrl(f(0)._2, f(0)._5), f(0)._5)
-                      }
+//                      }
                       //}
                     }
                   }
@@ -259,12 +260,13 @@ object GoogleDocsUploadUtilityController extends Controller {
             val userIdOfDocOwner = doc.userId
             val refreshTokenOfDocOwner = SocialToken.findSocialToken(userIdOfDocOwner)
             val accessTokenOfDocOwner = GoogleDocsUploadUtility.getNewAccessToken(refreshTokenOfDocOwner.get)
-            val gmailIdOfDocOwner = GoogleDocsUploadUtility.findGmailIdOfDocOwner(accessTokenOfDocOwner, doc.documentURL)
+            val gmailIdOfDocOwner = GoogleDocsUploadUtility.findGmailIdOfDocOwner(accessTokenOfDocOwner, doc.googleDocId)
             gmailIdOfDocOwner match {
               case "" => Ok
               case _ =>
                 val docURL = doc.documentURL
-                val result = SendEmailUtility.sendGoogleDocAccessMail(gmailIdOfDocOwner, emailIdOfRequester, docURL)
+                val docName = doc.documentName
+                val result = UtilityActor.requestAccessMail(gmailIdOfDocOwner, emailIdOfRequester, docURL, docName)
                 Ok(write("Success")).as("application/json")
             }
         }
