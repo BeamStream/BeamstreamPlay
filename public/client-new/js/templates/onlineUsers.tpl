@@ -19,7 +19,7 @@
 			        <div id="user-online" class="scroll-block chat-view">
 			            <ul id="onlinechatbox">
 
-	            		<li id="me" class="online"> <a href="#" class"active"><img src="" width="30" height="28"> <span>Me</span> <span class="online-chat">Online</span></a></li>
+	            		<li id="me" class="online"> <a href="#" class"active"><img src="" width="30" height="28"> <span>Me</span> <span class="online-chat"></span></a></li>
 		            	 
 			           
 			            </ul>

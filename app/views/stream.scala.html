@@ -425,7 +425,7 @@ header, footer){
 					</div>
 					<form class="all-search" action="">
 						<span></span> <input type="text" id="sort_by_key"
-							class="quest-search" placeholder="Search Discussions">
+							class="quest-search" placeholder="Search Discussions" autocomplete="off">
 					</form>
 				</div>
 
@@ -902,7 +902,35 @@ header, footer){
 			</div>
 
 		</div>
+		<!-- Google Doc Popup modal starts -->
+		<div id="document-"  class="modal hide fade white-modal-block doc-modal" tabindex="-1"
+			   role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="box-shadow:none !important;border:none !important">
+			
+				<div id="googleDocPopupCloseBtn" class="close-icon close" aria-hidden="true"
+						data-dismiss="modal" style="margin: 20px 0px 0px 0px;">
+						<img width="22" height="22"
+							src="/beamstream-new/images/close-pop.png">
+					</div>	
+					
+				
+				<div class="modal-header" style="background:#fff;margin-top: 45px;">
+				
+						  		<input type="button" onclick="download()">
+      							<div class="downloadbutton"><button class="btn btn-mini download" type="button">Download</button></div>
+     							 <h3></h3>
+							</div>
+							<div class="modal-body" style="overflow:scroll;background:#fff;"> 
 
+							<h4></h4>
+								<input type="hidden" id="dwnload-url" value="" >
+						  		<p>
+								  	<iframe id ="iframe-" src="" scrolling="NO"  width="963" height="500" style="border: none">
+										<p>Your browser does not support iframes.</p>
+									</iframe> 
+								</p>	
+							</div>
+						</div>
+            <!-- Google Doc Popup modal ends -->
 
 
 
@@ -1409,7 +1437,50 @@ header, footer){
 
 		} else if ('@flag' == 'failure') {
 		     alert("Use another Gmail Account");
+		} else if ('@flag'.length == 31){
+		     var docId = '@flag'.split(" ")[1];
+		     var accessURL = "/googleDocURL/" + docId;
+		    $.ajax({										
+				    type: 'GET',	           
+					url: accessURL,
+				    success: function(data){
+				        var docUrl = data;
+							            
+						$.ajax({
+						type : 'GET',
+						url : 'googleDoc/access ' + docId,
+						success : function(data) {
+							if (data == true) {
+						    $('#iframe-').attr('src', docUrl);
+							$('#document-').modal("show");
+							} else {
+							  bootbox.dialog("Do you want to Request Access?", [
+								{
+									"label" : "Yes",
+									"callback" : function() {
+															
+										$.ajax({
+										type : 'GET',
+										url : 'requestAccess/' + docId,
+										success : function() {
+										}
+									});
+								  }
+								}, 
+								{
+									"label" : "No",
+									"callback" : function() {
+								     }
+								}
+							  ]
+							);
+						 }														
+						}
+					});
+				}
+										
+			});
 		}
 	</script>
 
-	}
+	} 

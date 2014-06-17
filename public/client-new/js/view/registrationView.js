@@ -42,7 +42,8 @@ define(
 							'focusin #schoolName' : 'populateSchools',
 							'change #degreeProgram' : 'addOtherDegree',
 							'change #graduate' : 'showGraduateType',
-							'click #cancle_registration' : 'cancelRegistration'
+							'click #cancle_registration' : 'cancelRegistration',
+							'blur #username':'usernamecheck',
 
 						},
 
@@ -52,6 +53,26 @@ define(
 							this.profile = null;
 						},
 
+						
+						
+						usernamecheck : function(e){
+							
+							var username = $("#username").val();
+							$.ajax ({
+								 type : 'POST',
+								 url : "/isUserNameAvailable",
+								 dataType : "json",
+							     contentType : "application/json",
+								 data : JSON.stringify({
+									 username : username,
+									 }),
+									 
+								 success : function(data){
+									 if(data == false)
+									 alert("Username already taken");
+								 }
+							 });
+							},
 						/**
 						 * @TODO JanRain Sign up
 						 */

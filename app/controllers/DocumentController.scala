@@ -75,15 +75,18 @@ object DocumentController extends Controller {
     val docUrl = data("docUrl").toList.head
     val tokenInfo = SocialToken.findSocialTokenObject(new ObjectId(userId)).get
     val newAccessToken = GoogleDocsUploadUtility.getNewAccessToken(tokenInfo.refreshToken)
-    val fileId = docUrl.split("/")
+    val fileIdList = docUrl.split("/")
     /*if (fileId.length >= 8) {
       GoogleDocsUploadUtility.makeGoogleDocPublicToClass(newAccessToken, fileId(7))
     }*/
     var docName: String = ""
-    if (fileId.length >= 8) {
-      docName = GoogleDocsUploadUtility.getGoogleDocData(newAccessToken, fileId(7))
+    var fileId: String = ""  
+    if (fileIdList.length >= 8) {
+      docName = GoogleDocsUploadUtility.getGoogleDocData(newAccessToken, fileIdList(7))
+      fileId = fileIdList(7)
     } else {
-      docName = GoogleDocsUploadUtility.getGoogleDocData(newAccessToken, fileId(5))
+      docName = GoogleDocsUploadUtility.getGoogleDocData(newAccessToken, fileIdList(5))
+      fileId = fileIdList(5)
     }
 
     docName match {
@@ -92,7 +95,7 @@ object DocumentController extends Controller {
         val description = data("description").toList.head
         val post = data("postToFileMedia").toList.head.toBoolean
         val streamId = data("streamId").toList.head
-        val documentToCreate = new Document(new ObjectId, docName, description, docUrl, DocType.GoogleDocs, new ObjectId(userId), Access.PrivateToClass, new ObjectId(streamId), new Date, new Date, 0, Nil, Nil, Nil, "", 0, post)
+        val documentToCreate = new Document(new ObjectId, docName, description, docUrl, DocType.GoogleDocs, new ObjectId(userId), Access.PrivateToClass, new ObjectId(streamId), new Date, new Date, 0, Nil, Nil, Nil, "", 0, post, fileId)
         val docId = Document.addDocument(documentToCreate)
         val user = User.getUserProfile(new ObjectId(userId))
 
@@ -375,6 +378,14 @@ object DocumentController extends Controller {
       case false => Document.increaseViewCountOfADocument(new ObjectId(documentId))
     }
     Ok(write(viewCount.toString)).as("application/json")
+  }
+  
+  def getGoogleDocURL(docId: String): Action[AnyContent] = Action { implicit request =>
+    val googleDoc = Document.findDocumentById(new ObjectId(docId))
+    googleDoc match{
+      case None => Ok
+      case Some(doc) => Ok(doc.documentURL)
+    }																																																
   }
 
 }

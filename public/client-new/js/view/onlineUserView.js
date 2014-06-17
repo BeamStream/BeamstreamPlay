@@ -68,10 +68,12 @@ define(
 
 											var self = this;
 											$('#user-online ul').html("");
+											var onlineUsersLength = data.onlineUsers.length - 1;
 											$('.online-count')
+											
 													.html(
 															"Online("
-																	+ data.onlineUsers.length // this.data.models[0].attributes.onlineUsers.length
+																	+ onlineUsersLength // this.data.models[0].attributes.onlineUsers.length
 																	+ ")");
 											_
 													.each(

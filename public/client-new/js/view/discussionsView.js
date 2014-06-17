@@ -23,14 +23,14 @@ define(
 							'click #sortBy-list' : 'sortMessages',
 							'click #date-sort-list' : 'sortMessagesWithinAPeriod',
 							'keypress #sort_by_key' : 'sortMessagesByKey',
+							'blur #sort_by_key': 'sortMessagesByBlur',
 							'click #discussion-file-upload li' : 'uploadFiles',
 							'click #private-to-list li' : 'selectPrivateToList',
 							/* 'keypress #msg-area' : 'postMessageOnEnterKey', */
 							'keyup #msg-area' : 'removePreview',
 							'change #upload-files-area' : 'getUploadedData',
 							'click #createPublish' : 'createpublishGoogleDoc',
-							'click #showPublish' : 'showpublishGoogleDoc'
-
+							'click #showPublish' : 'showpublishGoogleDoc',
 						},
 
 						messagesPerPage : 10,
@@ -150,6 +150,10 @@ define(
 													}
 												}
 											});
+						},
+						
+						updateGoogleDoc : function(){
+							alert("1111");
 						},
 
 						createpublishGoogleDoc : function() {
@@ -987,9 +991,68 @@ define(
 										view.fetch();
 
 									}
+								} else {
+									view = this.getViewById('messageListView');
+									if (view) {
+
+										view.myStreams = this
+												.getViewById('sidebar').myStreams;
+
+										view.data.url = "/allMessagesForAStream/"
+												+ this.getViewById('sidebar').streamId
+												+ "/date/"
+												+ view.messagesPerPage
+												+ "/"
+												+ view.pageNo + "/week";
+										view.fetch();
+
+									}
 								}
 
 							}
+						},
+						
+						sortMessagesByBlur : function(eventName) {
+
+							var self = this;
+							this.pageNo = 1;
+							var streamId = $('.sortable li.active').attr('id');
+							var keyword = $('#sort_by_key').val();
+								self.msgSortedType = "keyword";
+								eventName.preventDefault();
+								if (keyword) {
+									/* render the message list */
+									view = this.getViewById('messageListView');
+									if (view) {
+
+										view.data.url = "/allMessagesForAStream/"
+												+ streamId
+												+ "/"
+												+ keyword
+												+ "/"
+												+ view.messagesPerPage
+												+ "/" + view.pageNo + "/trash";
+										view.fetch();
+
+									}
+								} else {
+									view = this.getViewById('messageListView');
+									if (view) {
+
+										view.myStreams = this
+												.getViewById('sidebar').myStreams;
+
+										view.data.url = "/allMessagesForAStream/"
+												+ this.getViewById('sidebar').streamId
+												+ "/date/"
+												+ view.messagesPerPage
+												+ "/"
+												+ view.pageNo + "/week";
+										view.fetch();
+
+									}
+								}
+
 						},
 
 						/**
@@ -1120,7 +1183,6 @@ define(
 						getUploadedData : function(e) {
 
 							var self = this;
-							;
 							file = e.target.files[0];
 							var reader = new FileReader();
 

@@ -133,6 +133,7 @@ POST   /registration                                                            
 PUT    /registration/:userId                                                               controllers.Registration.editUserInfo(userId:String)    
 GET    /findUserData                                                                       controllers.Registration.getUserDataFromCache
 GET    /cancel/registration                                                                controllers.Registration.cancelRegistration
+POST    /isUserNameAvailable                                                                controllers.Registration.isUserNameAvailable
 
 #Add a School (V)
 POST   /school                                                                             controllers.SchoolController.addANewSchool
@@ -189,6 +190,7 @@ GET    /answers/:questionId                                                     
 
 #Documents
 POST   /uploadDocumentFromDisk                                                             controllers.DocumentController.uploadDocumentFromDisk
+GET    /googleDocURL/:docId                                                             controllers.DocumentController.getGoogleDocURL(docId: String)
 #Password Recovery
 POST   /forgotPassword                                                                     controllers.UserController.forgotPassword
 GET    /recover                                                                            controllers.UserController.renderForgotPasswordView
@@ -216,7 +218,7 @@ GET    /chat                                                                    
 GET    /startChat/:me/:toWhom                                                              controllers.WebsocketCommunicationController.startChat(me: String, toWhom: String)
 GET    /javascriptRoutes                                                                   controllers.StreamController.javascriptRoutes
 GET    /instantiateChat/:userId                                                            controllers.WebsocketCommunicationController.instantiateChat(userId)
-
+GET    /requestAccess/:docURL                                                              controllers.GoogleDocsUploadUtilityController.sendMailOnGoogleDocRequestAccess(docURL: String)
 #Preview Image
 #GET   /image/:previewImageUrl                                                              controllers.StreamController.encryptTheUrl(previewImageUrl: String)
 #GET   /image/gridfs/:fileName                                                              controllers.StreamController.getPhoto(fileName: String)

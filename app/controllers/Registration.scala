@@ -36,6 +36,7 @@ import play.api.libs.json._
 import utils.FetchLocationUtil
 import play.api.mvc.DiscardingCookie
 import play.api.mvc.DiscardingCookie
+import models.ResulttoSent
 
 object Registration extends Controller {
   implicit val formats = new net.liftweb.json.DefaultFormats {
@@ -420,6 +421,17 @@ object Registration extends Controller {
         User.removeUser(new ObjectId(userId))
         Token.removeToken(tokenFound.head)
         Redirect("/signup").withNewSession.discardingCookies(DiscardingCookie("Beamstream"))
+    }
+  }
+
+  def isUserNameAvailable: Action[AnyContent] = Action { implicit request =>
+        val userName = request.body.asJson
+        userName match {
+          case None => Ok("false").as("application/json")
+          case Some(userName) =>
+            val userNameToCheck = (userName \ "username").as[String]
+            val isUserNameAvailable = User.canUserRegisterWithThisUsername(userNameToCheck)
+            Ok(isUserNameAvailable.toString).as("application/json")
     }
   }
 }

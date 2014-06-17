@@ -35,7 +35,7 @@ object BasicRegistration extends Controller {
    */
   def signUpPage: Action[AnyContent] = Action { implicit request =>
     (request.session.get("userId")) match {
-      case None => 
+      case None =>
         request.cookies.get("Beamstream") match {
           case None => Ok(views.html.signup()).discardingCookies(DiscardingCookie("Beamstream"))
           case Some(cookie) =>
@@ -82,8 +82,9 @@ object BasicRegistration extends Controller {
    */
 
   def signUpUser: Action[AnyContent] = Action { implicit request =>
-//    println("BasicRegistration signUpUser " + request.body.asJson)
+    //    println("BasicRegistration signUpUser " + request.body.asJson)
     val userInfoJsonMap = request.body.asJson.get
+
     val iam = (userInfoJsonMap \ "iam").as[String]
     val emailId = (userInfoJsonMap \ "mailId").as[String]
     val password = (userInfoJsonMap \ "password").as[String]
@@ -94,18 +95,21 @@ object BasicRegistration extends Controller {
 
     canUserRegister match {
       case true =>
-        (encryptedPassword == encryptedConfirmPassword) match {
-          case true =>
-            val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, "", "", "", Option(encryptedPassword), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
-            val IdOfUserCreted = User.createUser(userToCreate)
-            val createdUser = User.getUserProfile(IdOfUserCreted.get)
-            UtilityActor.sendMailAfterUserSignsUp(IdOfUserCreted.get.toString, TokenEmailUtil.securityToken, emailId)
-            Ok(write(new ResulttoSent("Success", "SignUp Successful"))).as("application/json")
-          case false => Ok(write(new ResulttoSent("Failure", "Password Do Not Match"))).as("application/json")
+        iam match {
+          case "8080" => Ok(write(new ResulttoSent("Success", "This User Email Is Available to Register"))).as("application/json")
+          case _ =>
+            (encryptedPassword == encryptedConfirmPassword) match {
+              case true =>
+                val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, "", "", "", Option(encryptedPassword), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
+                val IdOfUserCreted = User.createUser(userToCreate)
+                val createdUser = User.getUserProfile(IdOfUserCreted.get)
+                UtilityActor.sendMailAfterUserSignsUp(IdOfUserCreted.get.toString, TokenEmailUtil.securityToken, emailId)
+                Ok(write(new ResulttoSent("Success", "SignUp Successful"))).as("application/json")
+              case false => Ok(write(new ResulttoSent("Failure", "Password Do Not Match"))).as("application/json")
+            }
         }
       case false =>
         Ok(write(new ResulttoSent("Failure", "This User Email Is Already Taken"))).as("application/json")
     }
-
   }
 }

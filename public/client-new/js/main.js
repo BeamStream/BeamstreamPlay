@@ -1,13 +1,9 @@
 requirejs.config({
 	waitSeconds : 500,
 	paths : {
-//		a : '/beamstream-new/js/libs/backbone/backbone-validator',
-//		b : '/beamstream-new/js/model/baseModel',
-//		c : '/beamstream-new/js/model/user',
-//		d : '/beamstream-new/js/model/userLogin',
 		moduleActivator : 'apps/common/module-activator',
-//		jquery : '/beamstream-new/lib/jquery-1.7.1.min',
-		backbone : 'libs/backbone/backbone-min',
+	//	jquery : '/beamstream-new/lib/jquery-1.9.1.min',
+		backbone : 'libs/backbone/backbone.0.9.2',
 		console : 'libs/console/ba-debug.min',
 		underscore : 'libs/underscore/underscore-min.1.4.2',
 		handlebars : 'libs/handlebars/handlebars',
@@ -26,7 +22,7 @@ requirejs.config({
 	},
 	shim : {
 		'backbone' : {
-			deps : [ 'underscore', 'jquery','json2', 'jqueryUI' ],
+			deps : [ 'underscore','json2', 'jqueryUI' ],
 			exports : 'Backbone'
 		},
 		'baseView' : {
