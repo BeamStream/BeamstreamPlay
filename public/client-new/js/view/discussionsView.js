@@ -23,7 +23,9 @@ define(
 							'click #sortBy-list' : 'sortMessages',
 							'click #date-sort-list' : 'sortMessagesWithinAPeriod',
 							'keypress #sort_by_key' : 'sortMessagesByKey',
+							'keyup #sort_by_key' : 'sortMessagesByKeyup',
 							'blur #sort_by_key': 'sortMessagesByBlur',
+							'click form.all-search span.backToNormal' : 'clearSearchField',
 							'click #discussion-file-upload li' : 'uploadFiles',
 							'click #private-to-list li' : 'selectPrivateToList',
 							/* 'keypress #msg-area' : 'postMessageOnEnterKey', */
@@ -1010,6 +1012,8 @@ define(
 								}
 
 							}
+							
+							
 						},
 						
 						sortMessagesByBlur : function(eventName) {
@@ -1053,6 +1057,57 @@ define(
 									}
 								}
 
+						},
+						
+						sortMessagesByKeyup: function(eventName) {
+							var self = this;
+							this.pageNo = 1;
+							var streamId = $('.sortable li.active').attr('id');
+							var keyword = $('#sort_by_key').val();
+							
+							$('form.all-search span.backToNormal').css('visibility','visible');
+							
+							if(keyword == "")
+								{
+								$('form.all-search span.backToNormal').css('visibility','hidden');
+								view = this.getViewById('messageListView');
+								if (view) {
+
+									view.myStreams = this
+											.getViewById('sidebar').myStreams;
+
+									view.data.url = "/allMessagesForAStream/"
+											+ this.getViewById('sidebar').streamId
+											+ "/date/"
+											+ view.messagesPerPage
+											+ "/"
+											+ view.pageNo + "/week";
+									view.fetch();
+
+								}
+								}
+						},
+						
+						clearSearchField: function(eventName) {
+							var self = this;
+							this.pageNo = 1;
+							var streamId = $('.sortable li.active').attr('id');
+							view = this.getViewById('messageListView');
+							if (view) {
+
+								view.myStreams = this
+										.getViewById('sidebar').myStreams;
+
+								view.data.url = "/allMessagesForAStream/"
+										+ this.getViewById('sidebar').streamId
+										+ "/date/"
+										+ view.messagesPerPage
+										+ "/"
+										+ view.pageNo + "/week";
+								view.fetch();
+							$('form.all-search span.backToNormal').css('visibility','hidden');
+							$('#sort_by_key').val('');
+							}
 						},
 
 						/**
