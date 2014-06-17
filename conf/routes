@@ -190,6 +190,7 @@ GET    /answers/:questionId                                                     
 
 #Documents
 POST   /uploadDocumentFromDisk                                                             controllers.DocumentController.uploadDocumentFromDisk
+POST   /postDocumentFromDisk                                                               controllers.DocumentController.postDocumentFromDisk
 GET    /googleDocURL/:docId                                                             controllers.DocumentController.getGoogleDocURL(docId: String)
 #Password Recovery
 POST   /forgotPassword                                                                     controllers.UserController.forgotPassword
