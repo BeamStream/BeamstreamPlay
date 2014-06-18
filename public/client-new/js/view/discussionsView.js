@@ -1142,6 +1142,9 @@ define(
 							file = e.target.files[0];
 							var reader = new FileReader();
 							var fileSize = Math.round(file.size/1000);
+							if(fileSize < 500){
+								fileSize = 500;
+							}
 
 							/* capture the file informations */
 							reader.onload = (function(f) {
