@@ -1141,6 +1141,7 @@ define(
 							var self = this;
 							file = e.target.files[0];
 							var reader = new FileReader();
+							var fileSize = Math.round(file.size/1000);
 
 							/* capture the file informations */
 							reader.onload = (function(f) {
@@ -1178,7 +1179,7 @@ define(
 								}
 								this.bar.text(this.bar.width() / 2 + "%");
 
-							}, 500);
+							}, fileSize);
 							
 							var message = $('#msg-area').val();
 							var msgAccess = $('#private-to').attr('checked');

@@ -190,6 +190,7 @@ object DocumentController extends Controller {
           val isPdf = contentType.contains("pdf")
           val docAccess = documentJsonMap("docAccess").toList(0)
           val documentReceived: File = docData.ref.file.asInstanceOf[File]
+//          println(documentReceived.length() + ">>>>>>>>>>>>>>>>>>>>>>>>")
           val docUniqueKey = TokenEmailUtil.securityToken
           val docNameOnAmazom = (docUniqueKey + documentName).replaceAll("\\s", "")
           val isFileUploaded = (new AmazonUpload).uploadFileToAmazon(docNameOnAmazom, documentReceived)
@@ -198,8 +199,10 @@ object DocumentController extends Controller {
           val user = User.getUserProfile(userId)
 
           isFileUploaded match {
-            case false => List(Option("Failure"), isFileUploaded)
-            case true => List(Option(docURL), isFileUploaded)/*if (isImage) {
+            case false => List(Option("Failure"), false)
+            case true => List(Option(docURL), true)
+            //TODO remove before pushing to Production
+            /*if (isImage) {
               val uploadResults = saveImageFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, uploadedFrom)
               List(Option(uploadResults), isFileUploaded)
             } else if (isVideo) {
