@@ -1153,6 +1153,7 @@ define(
 
 								$('#file-name').html(f.name);
 								$('#uploded-file-area').show();
+								$('.progress-container').show();
 								$('.ask-outer').css('height', '0px');
 								$('.ask-outer').height(function(index, height) {
 
