@@ -106,13 +106,15 @@ function startChat(userId) {
 }
 
 function popit(userId, toWhom, name, profileImageUrl) {
+	if(document.querySelector('#chat-' + toWhom) == null){
+	
 	/*$
 			.ajax({
 				url : '/canStartChat/ask/' + userId + "/" + toWhom,
 				success : function(data) {
 					if (data == "true") {*/
 						var newChatSocket = new WebSocket('ws://localhost:9000/startChat/' + userId + "/"+ toWhom)
-						var itsId = randomString(8);
+						var itsId = "chat" + "-" + toWhom;
 						$(".chatbox")
 								.append(
 										"<div id="
@@ -174,7 +176,7 @@ function popit(userId, toWhom, name, profileImageUrl) {
 
 									/*$.ajax({
 										url : '/canStartChat/""/' + userId
-												+ "/" + toWhom,
+												+ "/" + itsId,
 										success : function(data) {
 											console.log(data)
 										}
@@ -214,7 +216,7 @@ function popit(userId, toWhom, name, profileImageUrl) {
 														url : '/canStartChat/""/'
 																+ userId
 																+ "/"
-																+ toWhom,
+																+ itsId,
 														success : function(data) {
 															console.log(data)
 														}
@@ -237,5 +239,5 @@ function popit(userId, toWhom, name, profileImageUrl) {
 					}*/
 
 			
-
+	}
 }
