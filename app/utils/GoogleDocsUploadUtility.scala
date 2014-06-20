@@ -286,6 +286,7 @@ object GoogleDocsUploadUtility {
       body.setTitle("Untitled " + docType)
       val file = service.files.insert(body).execute
       val gmailId = file.getOwners()(0).get("emailAddress").toString()
+      service.files().delete(file.getId()).execute()
       gmailId
     } catch {
       case ex: Exception =>
