@@ -85,8 +85,7 @@
 			  <div id="document-{{data.message.docIdIfAny.id}}"  class="modal hide fade white-modal-block doc-modal" tabindex="-1"
 			   role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="box-shadow:none !important;border:none !important">
 			
-				<div class="close-icon close" aria-hidden="true"
-						data-dismiss="modal" style="margin: 20px 0px 0px 0px;">
+				<div id="googleDocPopupCloseBtn"  style="margin: 20px 0px 0px 0px;">
 						<img width="22" height="22"
 							src="/beamstream-new/images/close-pop.png">
 					</div>	

@@ -1,3 +1,5 @@
+
+
 define(
 		[ 'view/formView', 'view/messageListView', 'view/messageItemView',
 				'model/discussion',
@@ -10,8 +12,8 @@ define(
 			var Discussions;
 			Discussions = FormView
 					.extend({
-						objName : 'Discussion',
-
+						objName : 'Discussion', 
+						docurlAmazon: '',
 						events : {
 							'click #post-button' : 'postMessage',
 							'focus #msg-area' : 'showPostButton',
@@ -23,6 +25,9 @@ define(
 							'click #sortBy-list' : 'sortMessages',
 							'click #date-sort-list' : 'sortMessagesWithinAPeriod',
 							'keypress #sort_by_key' : 'sortMessagesByKey',
+							'keyup #sort_by_key' : 'sortMessagesByKeyup',
+							'click form.all-search span.backToNormal' : 'clearSearchField',
+							'blur #sort_by_key': 'sortMessagesByBlur',
 							'click #discussion-file-upload li' : 'uploadFiles',
 							'click #private-to-list li' : 'selectPrivateToList',
 							/* 'keypress #msg-area' : 'postMessageOnEnterKey', */
@@ -192,7 +197,8 @@ define(
 												window.location
 														.replace("/stream");
 											} else {
-												window.location.replace("/stream");
+												window.location
+														.replace("/stream");
 												alert("Google Doc cannot be published");
 											}
 										}
@@ -214,34 +220,37 @@ define(
 									"#docName").val();
 							var docUrl = $("#showAndPublishForm").find(
 									"#docUrl").val();
-							$.ajax({
-								type : 'POST',
-								url : "/newGoogleDocument",
-								data : {
-									aDiscussion : aDiscussion,
-									streamId : streamSelectOption,
-									postToFileMedia : postToFileMedia,
-									description : description,
-									docName : docName,
-									docUrl : docUrl,
-								},
-								success : function(data) {
-									if (data != "") {
-										PUBNUB.publish({
-											channel : "stream",
-											message : {
-												streamId : streamId,
-												data : data
-											}
+							$
+									.ajax({
+										type : 'POST',
+										url : "/newGoogleDocument",
+										data : {
+											aDiscussion : aDiscussion,
+											streamId : streamSelectOption,
+											postToFileMedia : postToFileMedia,
+											description : description,
+											docName : docName,
+											docUrl : docUrl,
+										},
+										success : function(data) {
+											if (data != "") {
+												PUBNUB.publish({
+													channel : "stream",
+													message : {
+														streamId : streamId,
+														data : data
+													}
 
-										})
-										window.location.replace("/stream");
-									}else{
-										window.location.replace("/stream");
-										alert("Google Doc cannot be published");
-									}
-								}
-							});
+												})
+												window.location
+														.replace("/stream");
+											} else {
+												window.location
+														.replace("/stream");
+												alert("Google Doc cannot be published");
+											}
+										}
+									});
 						},
 
 						/**
@@ -350,6 +359,9 @@ define(
 
 							$('a.ask-button').css('visibility', 'hidden');
 							$('.ask-outer').css('height', '0px');
+
+							$('.progress-container').hide();
+							$('#uploded-file-area').hide();
 							var self = this;
 							var streamId = $('.sortable li.active').attr('id');
 							var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
@@ -372,28 +384,6 @@ define(
 								/* if there is any files for uploading */
 								if (this.file) {
 
-									$('.progress-container').show();
-
-									$('.ask-outer').height(
-											function(index, height) {
-												return (height + 70);
-											});
-									/* updating progress bar */
-									this.progress = setInterval(
-											function() {
-
-												this.bar = $('.bar');
-												if (this.bar.width() >= 195) {
-													clearInterval(this.progress);
-												} else {
-													this.bar.width(this.bar
-															.width() + 10);
-												}
-												this.bar.text(this.bar.width()
-														/ 2 + "%");
-
-											}, 500);
-
 									var data;
 									data = new FormData();
 									data.append('docDescription', message);
@@ -401,13 +391,13 @@ define(
 									data.append('docData', self.file);
 									data.append('streamId', streamId);
 									data.append('uploadedFrom', "discussion");
-
+									data.append('docURL', self.docurlAmazon);
 									/* post profile page details */
 									$
 											.ajax({
 												type : 'POST',
 												data : data,
-												url : "/uploadDocumentFromDisk",
+												url : "/postDocumentFromDisk",
 												cache : false,
 												contentType : false,
 												processData : false,
@@ -415,14 +405,8 @@ define(
 												success : function(data) {
 
 													// alert(JSON.stringify(data))
-													if (data[1] == true) {
 														// set progress bar as
 														// 100 %
-														self.bar = $('.bar');
-
-														self.bar.width(200);
-														self.bar.text("100%");
-														clearInterval(self.progress);
 
 														$('#msg-area').val("");
 														$('#uploded-file')
@@ -434,26 +418,21 @@ define(
 																.css("display",
 																		"none");
 
-														var datVal = formatDateVal(data[0].message.timeCreated);
+														var datVal = formatDateVal(data.message.timeCreated);
 
 														var datas = {
-															"data" : data[0],
+															"data" : data,
 															"datVal" : datVal
 														}
-
-														$('.progress-container')
-																.hide();
-														$('#uploded-file-area')
-																.hide();
 
 														// set the response data
 														// to model
 														self.data.models[0]
 																.set({
-																	message : data[0].message,
-																	docName : data[0].docName,
-																	docDescription : data[0].docDescription,
-																	profilePic : data[0].profilePic
+																	message : data.message,
+																	docName : data.docName,
+																	docDescription : data.docDescription,
+																	profilePic : data.profilePic
 																})
 
 														/* Pubnub auto push */
@@ -492,23 +471,6 @@ define(
 														$('.ask-outer')
 																.css('height',
 																		'0px');
-													} else {
-														alert("Not able to Upload File.\nPlease try Again");
-														$('.progress-container')
-																.hide();
-														$('#uploded-file-area')
-																.hide();
-														self.file = "";
-														$('#file-upload-loader')
-																.css("display",
-																		"none");
-														$('a.ask-button').css(
-																'visibility',
-																'hidden');
-														$('.ask-outer')
-																.css('height',
-																		'0px');
-													}
 
 												}
 											});
@@ -987,10 +949,121 @@ define(
 										view.fetch();
 
 									}
+								} else {
+									view = this.getViewById('messageListView');
+									if (view) {
+
+										view.myStreams = this
+												.getViewById('sidebar').myStreams;
+
+										view.data.url = "/allMessagesForAStream/"
+												+ this.getViewById('sidebar').streamId
+												+ "/date/"
+												+ view.messagesPerPage
+												+ "/"
+												+ view.pageNo + "/week";
+										view.fetch();
+
+									}
 								}
 
 							}
 						},
+						
+						sortMessagesByBlur : function(eventName) {
+
+							var self = this;
+							this.pageNo = 1;
+							var streamId = $('.sortable li.active').attr('id');
+							var keyword = $('#sort_by_key').val();
+								self.msgSortedType = "keyword";
+								eventName.preventDefault();
+								if (keyword) {
+									/* render the message list */
+									view = this.getViewById('messageListView');
+									if (view) {
+
+										view.data.url = "/allMessagesForAStream/"
+												+ streamId
+												+ "/"
+												+ keyword
+												+ "/"
+												+ view.messagesPerPage
+												+ "/" + view.pageNo + "/trash";
+										view.fetch();
+
+									}
+								} else {
+									view = this.getViewById('messageListView');
+									if (view) {
+
+										view.myStreams = this
+												.getViewById('sidebar').myStreams;
+
+										view.data.url = "/allMessagesForAStream/"
+												+ this.getViewById('sidebar').streamId
+												+ "/date/"
+												+ view.messagesPerPage
+												+ "/"
+												+ view.pageNo + "/week";
+										view.fetch();
+
+									}
+								}
+
+						},
+						
+						sortMessagesByKeyup: function(eventName) {
+							var self = this;
+							this.pageNo = 1;
+							var streamId = $('.sortable li.active').attr('id');
+							var keyword = $('#sort_by_key').val();
+							
+							$('form.all-search span.backToNormal').css('visibility','visible');
+							
+							if(keyword == "")
+								{
+								$('form.all-search span.backToNormal').css('visibility','hidden');
+								view = this.getViewById('messageListView');
+								if (view) {
+
+									view.myStreams = this
+											.getViewById('sidebar').myStreams;
+
+									view.data.url = "/allMessagesForAStream/"
+											+ this.getViewById('sidebar').streamId
+											+ "/date/"
+											+ view.messagesPerPage
+											+ "/"
+											+ view.pageNo + "/week";
+									view.fetch();
+
+								}
+								}
+						},
+						
+						clearSearchField: function(eventName) {
+							var self = this;
+							this.pageNo = 1;
+							var streamId = $('.sortable li.active').attr('id');
+							view = this.getViewById('messageListView');
+							if (view) {
+
+								view.myStreams = this
+										.getViewById('sidebar').myStreams;
+
+								view.data.url = "/allMessagesForAStream/"
+										+ this.getViewById('sidebar').streamId
+										+ "/date/"
+										+ view.messagesPerPage
+										+ "/"
+										+ view.pageNo + "/week";
+								view.fetch();
+							$('form.all-search span.backToNormal').css('visibility','hidden');
+							$('#sort_by_key').val('');
+							}
+						},
+
 
 						/**
 						 * sort messages within a period
@@ -1120,9 +1193,12 @@ define(
 						getUploadedData : function(e) {
 
 							var self = this;
-							;
 							file = e.target.files[0];
 							var reader = new FileReader();
+							var fileSize = Math.round(file.size/1000);
+							if(fileSize < 500){
+								fileSize = 500;
+							}
 
 							/* capture the file informations */
 							reader.onload = (function(f) {
@@ -1134,6 +1210,7 @@ define(
 
 								$('#file-name').html(f.name);
 								$('#uploded-file-area').show();
+								$('.progress-container').show();
 								$('.ask-outer').css('height', '0px');
 								$('.ask-outer').height(function(index, height) {
 
@@ -1148,6 +1225,56 @@ define(
 
 							// read the file as data URL
 							reader.readAsDataURL(file);
+
+							/* updating progress bar */
+							this.progress = setInterval(function() {
+
+								this.bar = $('.bar');
+								if (this.bar.width() >= 195) {
+									clearInterval(this.progress);
+								} else {
+									this.bar.width(this.bar.width() + 10);
+								}
+								this.bar.text(this.bar.width() / 2 + "%");
+
+							}, fileSize);
+							
+							var message = $('#msg-area').val();
+							var msgAccess = $('#private-to').attr('checked');
+							var privateTo = $('#select-privateTo')
+									.attr('value');
+							if (msgAccess == "checked") {
+								messageAccess = privateTo;
+							} else {
+								messageAccess = "Public";
+							}
+							var streamId = $('.sortable li.active').attr('id');
+							
+							var data;
+							data = new FormData();
+							data.append('docDescription', message);
+							data.append('docAccess', messageAccess);
+							data.append('docData', self.file);
+							data.append('streamId', streamId);
+							data.append('uploadedFrom', "discussion");
+
+							/* post profile page details */
+							$
+									.ajax({
+										type : 'POST',
+										data : data,
+										url : "/uploadDocumentFromDisk",
+										cache : false,
+										contentType : false,
+										processData : false,
+										dataType : "json",
+										success : function(data) {
+											self.docurlAmazon = data[0];
+
+										}
+									});
+
+							
 
 						},
 

@@ -3,8 +3,8 @@
 @CSS = {
 	 <link href="/beamstream-new/css/bootstrap.css" rel="stylesheet" type="text/css" /> 	
     <link href="/beamstream-new/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" /> 
-    <link href="/beamstream-new/less/cleanup.less" rel="stylesheet/less" type="text/css" /> 
- <link href="/beamstream-new/less/boot-responsive-cleanup.less" rel="stylesheet/less" type="text/css" /> 
+    <link href="@routes.Assets.at("/public/stylesheets","cleanup.css")" rel="stylesheet" type="text/css" /> 
+ <link href="@routes.Assets.at("/public/stylesheets","boot-responsive-cleanup.css")" rel="stylesheet" type="text/css" /> 
 }
 @JS = {
 	<script src="/beamstream-new/lib/less-1.4.1.js" type="text/javascript"></script>
@@ -57,10 +57,10 @@
                 <form id="login-form" action="" method="get">
                 
                  <fieldset class="message1 field" style="margin-top:-100000px;">
-                    <input class="home_reg" data-name="user.mailId"  name="mailId" type="text"  placeholder="Email1" id="mailid1" disabled>
+                    <input class="home_reg"   name="mailId" type="text"  placeholder="Email1" id="mailid1" disabled>
                   </fieldset>
                       <fieldset class="password1 field" style="margin-top:-100000px;">
-                    <input class="home_reg" data-name="user.password" name="password" type="password" placeholder="Password1" id="password1" disabled>
+                    <input class="home_reg"  name="password" type="password" placeholder="Password1" id="password1" disabled>
                   </fieldset>
                   
                   

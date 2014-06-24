@@ -68,7 +68,8 @@ case class Document(@Key("_id") id: ObjectId,
   documentFollwers: List[ObjectId],
   previewImageUrl: String = "",
   views: Int = 0,
-  postToFileMedia: Boolean = true)
+  postToFileMedia: Boolean = true,
+  googleDocId: String = "")
 
 object Document extends RockConsumer {
 
@@ -273,6 +274,19 @@ object Document extends RockConsumer {
       }
       case true => List(new ObjectId)
     }
+  }
+  
+  def findDocumentByURL(docURL: String): Option[String] = {
+    val documentList = DocumentDAO.find(MongoDBObject("documentURL" -> docURL)).toList
+    documentList.isEmpty match {
+      case true => None
+      case false => Option(documentList.head.googleDocId)
+    }
+  }
+  
+  def updateTitle(googleDocId: String, newName: String): WriteResult = {
+    val document = DocumentDAO.find(MongoDBObject("googleDocId" -> googleDocId)).toList(0)
+    DocumentDAO.update(MongoDBObject("googleDocId" -> googleDocId), document.copy(documentName = newName), false, false, new WriteConcern)
   }
   
 }

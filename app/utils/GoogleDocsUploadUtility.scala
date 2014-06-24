@@ -16,6 +16,7 @@ import java.net.URL
 import javax.net.ssl.HttpsURLConnection
 import java.io.BufferedReader
 import java.io.InputStreamReader
+import com.sun.org.glassfish.gmbal.GmbalException
 
 object GoogleDocsUploadUtility {
   val formatter: SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -118,20 +119,39 @@ object GoogleDocsUploadUtility {
     }
   }
 
-  def canAccessGoogleDoc(code: String, fileURL: String): Boolean = {
-    val service = prepareGoogleDrive(code)
+  def canAccessGoogleDoc(codeOfOwner: String, codeOfRequester: String, fileId: String): Boolean = {
+
     try {
-      val fileData = fileURL.split("/")
-      if (fileData.length >= 8) {
-        val fileId = fileData(7)
-        val permission = service.permissions().list(fileId).execute()
-        if (permission.getItems()(0).getType() == "anyone")
-          true
-        else
-          false
-      } else {
-        false
-      }
+      val serviceOfOwner = prepareGoogleDrive(codeOfOwner)
+      val serviceOfRequester = prepareGoogleDrive(codeOfRequester)
+      /*val fileData = fileURL.split("/")
+      fileData.length match {
+        case 9 =>
+          val fileId = fileData(7)*/
+          val permission = serviceOfOwner.permissions().list(fileId).execute()
+          if (permission.getItems()(0).getType() == "anyone")
+            true
+          else {
+            val fileFound = serviceOfRequester.files().get(fileId).execute()
+            fileFound.getUserPermission().toString().isDefinedAt(0) match {
+              case true => true
+              case false => false
+            }
+          }
+        /*case 7 =>
+          val fileId = fileData(5)
+          val permission = serviceOfOwner.permissions().list(fileId).execute()
+          if (permission.getItems()(0).getType() == "anyone")
+            true
+          else {
+            val fileFound = serviceOfRequester.files().get(fileId).execute()
+            fileFound.getUserPermission().toString().isDefinedAt(0) match {
+              case true => true
+              case false => false
+            }
+          }
+        case _ => false
+      }*/
     } catch {
       case ex: Exception =>
         Logger.error("This error occured while Displaying a Google Doc :- ", ex)
@@ -258,24 +278,44 @@ object GoogleDocsUploadUtility {
   }
   def getGmailId(code: String): String = {
     try {
-      val url = "https://www.googleapis.com/oauth2/v3/userinfo?access_token=" + code
-      val obj = new URL(url)
-      val con = obj.openConnection().asInstanceOf[HttpsURLConnection]
-      con.setRequestMethod("GET");
-      val in = new BufferedReader(
-        new InputStreamReader(con.getInputStream))
-      val response = new StringBuffer
-
-      while (in.readLine != null) {
-        response.append(in.readLine)
-      }
-      in.close
-      val Id = response.toString().split(",")(3).split(":")(1)
-      val gmailId = Id.substring(2, Id.length() - 1)
+      val service = prepareGoogleDrive(code)
+      val body = new File
+      val mimeType = "application/vnd.google-apps.document"
+      body.setMimeType(mimeType)
+      val docType = mimeType.substring(mimeType.lastIndexOf(".") + 1)
+      body.setTitle("Untitled " + docType)
+      val file = service.files.insert(body).execute
+      val gmailId = file.getOwners()(0).get("emailAddress").toString()
+      service.files().delete(file.getId()).execute()
       gmailId
     } catch {
       case ex: Exception =>
         Logger.error("This error occured while fetching all Google Docs from Google Drive :- ", ex)
+        ""
+    }
+  }
+
+  def findGmailIdOfDocOwner(codeOfOwner: String, fileId: String): String = {
+
+    try {
+      val serviceOfOwner = prepareGoogleDrive(codeOfOwner)
+      /*val fileData = fileURL.split("/")
+      fileData.length match {
+        case 9 =>
+          val fileId = fileData(7)*/
+          val fileFound = serviceOfOwner.files().get(fileId).execute()
+          val gmailIdOfDocOwner = fileFound.getOwners()(0).get("emailAddress").toString()
+          gmailIdOfDocOwner
+        /*case 7 =>
+          val fileId = fileData(5)
+          val fileFound = serviceOfOwner.files().get(fileId).execute()
+          val gmailIdOfDocOwner = fileFound.getOwners()(0).get("emailAddress").toString()
+          gmailIdOfDocOwner
+        case _ => ""
+      }*/
+    } catch {
+      case ex: Exception =>
+        Logger.error("This error occured while Displaying a Google Doc :- ", ex)
         ""
     }
   }
