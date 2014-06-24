@@ -451,7 +451,14 @@ define(
 
 							e.preventDefault();
 							var self = this;
+							var fileSize = 0;
 							/* post the image / video data as mutiform data */
+							if(this.profile != null) {
+							    fileSize = this.profile.size/1000;
+							}
+							if(fileSize < 500) {
+								fileSize = 500;
+							}
 							if (this.profile) {
 								$('.progress-container').show();
 
@@ -466,7 +473,7 @@ define(
 									}
 									this.bar.text(this.bar.width() / 2 + "%");
 
-								}, 800);
+								}, fileSize);
 
 								var data;
 								data = new FormData();
