@@ -47,13 +47,13 @@ object GoogleDocsUploadUtilityController extends Controller {
     val tokenInfo = SocialToken.findSocialTokenObject(new ObjectId(userId.get))
     tokenInfo match {
       case None =>
-        val urlToRedirect = new GoogleBrowserClientRequestUrl(GoogleClientId, redirectURI, Arrays.asList("https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()
+        val urlToRedirect = new GoogleBrowserClientRequestUrl(GoogleClientId, redirectURI, Arrays.asList("https://www.googleapis.com/auth/plus.login", "https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()
         Ok(urlToRedirect).withSession(request.session + ("action" -> action))
       case Some(tokenInfo) =>
         val newAccessToken = GoogleDocsUploadUtility.getNewAccessToken(tokenInfo.refreshToken)
         if (newAccessToken == "Not Found") {
           SocialToken.deleteSocialToken(tokenInfo.id)
-          val urlToRedirect = new GoogleBrowserClientRequestUrl(GoogleClientId, redirectURI, Arrays.asList("https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()
+          val urlToRedirect = new GoogleBrowserClientRequestUrl(GoogleClientId, redirectURI, Arrays.asList("https://www.googleapis.com/auth/plus.login", "https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()
           Ok(urlToRedirect).withSession(request.session + ("action" -> action))
         } else {
           if (tokenInfo.tokenFlag) {
@@ -151,7 +151,7 @@ object GoogleDocsUploadUtilityController extends Controller {
                 Ok("Success")
 //              }
             } else {
-              val urlToRedirect = new GoogleBrowserClientRequestUrl(GoogleClientId, redirectURI, Arrays.asList("https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()
+              val urlToRedirect = new GoogleBrowserClientRequestUrl(GoogleClientId, redirectURI, Arrays.asList("https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()
               Ok(urlToRedirect).withSession(request.session + ("action" -> action))
             }
           }
