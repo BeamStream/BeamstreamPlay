@@ -16,7 +16,7 @@ class CleanerActor extends Actor {
           val onlineUsersMap = OnlineUserCache.returnOnlineUsers.head.onlineUsers
           onlineUsersMap.foreach {
             a =>
-              if (utcMilliseconds - a._2 > 10000) {
+              if (utcMilliseconds - a._2 > 200000) {
                 OnlineUserCache.setOffline(a._1)
               }
           }
@@ -32,8 +32,8 @@ object Cleaner {
   import system.dispatcher
   def makeUsersOfflineIfNotAvailable: Unit = {
     val cancellable =
-      system.scheduler.schedule(10000 milliseconds,
-        10000 milliseconds,
+      system.scheduler.schedule(200000 milliseconds,
+        200000 milliseconds,
         myActor,
         "clean")
   }
