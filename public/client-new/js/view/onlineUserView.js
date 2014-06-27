@@ -142,7 +142,7 @@ define(
 							var self = this;
 							setInterval(function() {
 								self.displayPage();
-							}, 200000);
+							}, 120000);
 						},
 
 						/* Pubnub subscription for online user */
