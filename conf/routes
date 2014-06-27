@@ -110,7 +110,7 @@ GET    /js/*file                                                                
 GET    /css/*file                                                                          controllers.Assets.at(path="/public/js", file)
 GET    /images/*file                                                                       controllers.Assets.at(path="/public/images", file)
 GET    /stylesheets/*file                                                                  controllers.Assets.at(path="/public/stylesheets", file)
-
+GET    /javascripts/*file                                                                  controllers.Assets.at(path="/public/javascripts", file)
 
 ################################### Beamstream  Rearchitecture Routes ################################################
 
