@@ -49,7 +49,8 @@ case class Message(@Key("_id") id: ObjectId,
   follows: Int,
   followers: List[ObjectId],
   anyPreviewImageUrl: String = "",
-  docIdIfAny: Option[ObjectId] = None)
+  docIdIfAny: Option[ObjectId] = None,
+  messageGoogleDocTitle: String = "")
 
 object Message { //extends CommentConsumer {
 
@@ -170,7 +171,7 @@ object Message { //extends CommentConsumer {
    */
   def getAllMessagesForAKeyword(keyword: String, streamId: ObjectId, pageNumber: Int, messagesPerPage: Int): List[Message] = {
     val keyWordregExp = Pattern.compile(keyword, Pattern.CASE_INSENSITIVE) //(""".*""" + keyword + """.*""").r
-    MessageDAO.find(MongoDBObject("messageBody" -> keyWordregExp, "streamId" -> streamId)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
+    MessageDAO.find(MongoDBObject("messageBody" -> keyWordregExp, "streamId" -> streamId, "messageGoogleDocTitle" -> keyWordregExp)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
   }
 
   /**
