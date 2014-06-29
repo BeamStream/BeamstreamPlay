@@ -49,7 +49,8 @@ case class Message(@Key("_id") id: ObjectId,
   follows: Int,
   followers: List[ObjectId],
   anyPreviewImageUrl: String = "",
-  docIdIfAny: Option[ObjectId] = None)
+  docIdIfAny: Option[ObjectId] = None,
+  messageGoogleDocTitle: String = "")
 
 object Message { //extends CommentConsumer {
 
@@ -170,7 +171,8 @@ object Message { //extends CommentConsumer {
    */
   def getAllMessagesForAKeyword(keyword: String, streamId: ObjectId, pageNumber: Int, messagesPerPage: Int): List[Message] = {
     val keyWordregExp = Pattern.compile(keyword, Pattern.CASE_INSENSITIVE) //(""".*""" + keyword + """.*""").r
-    MessageDAO.find(MongoDBObject("messageBody" -> keyWordregExp, "streamId" -> streamId)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
+    MessageDAO.find(MongoDBObject("$or" -> (MongoDBObject("messageBody" -> keyWordregExp),MongoDBObject("messageGoogleDocTitle" -> keyWordregExp)), "streamId" -> streamId)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
+    //    val messageGoogleDocTitleResult = MessageDAO.find(MongoDBObject("streamId" -> streamId, "messageGoogleDocTitle" -> keyWordregExp)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
   }
 
   /**
@@ -357,27 +359,27 @@ object Message { //extends CommentConsumer {
   def updateMessageImageUrl(documentIdList: List[ObjectId], newAnyPreviewImageUrl: String): Any = {
     documentIdList map {
       case documentId =>
-      val message = MessageDAO.find(MongoDBObject("docIdIfAny" -> documentId)).toList
-      message.isEmpty match {
-        case false =>
-          MessageDAO.update(MongoDBObject("docIdIfAny" -> documentId), message(0).copy(anyPreviewImageUrl = newAnyPreviewImageUrl), false, false, new WriteConcern)
-        case true =>
-      }
+        val message = MessageDAO.find(MongoDBObject("docIdIfAny" -> documentId)).toList
+        message.isEmpty match {
+          case false =>
+            MessageDAO.update(MongoDBObject("docIdIfAny" -> documentId), message(0).copy(anyPreviewImageUrl = newAnyPreviewImageUrl), false, false, new WriteConcern)
+          case true =>
+        }
     }
   }
 
   def deleteMessageImageUrl(documentIdList: List[ObjectId]): Any = {
     documentIdList map {
       case documentId =>
-      val message = MessageDAO.find(MongoDBObject("docIdIfAny" -> documentId)).toList
-      message.isEmpty match {
-        case false =>
-          MessageDAO.update(MongoDBObject("docIdIfAny" -> documentId), message(0).copy(anyPreviewImageUrl = ""), false, false, new WriteConcern)
-        case true =>
-      }
+        val message = MessageDAO.find(MongoDBObject("docIdIfAny" -> documentId)).toList
+        message.isEmpty match {
+          case false =>
+            MessageDAO.update(MongoDBObject("docIdIfAny" -> documentId), message(0).copy(anyPreviewImageUrl = ""), false, false, new WriteConcern)
+          case true =>
+        }
     }
   }
-  
+
 }
 
 object MessageDAO extends SalatDAO[Message, ObjectId](collection = MongoHQConfig.mongoDB("message"))

@@ -1,27 +1,31 @@
 @import play.api.i18n.Messages
+
 @meta = {}
+
 @CSS = {
 	 <link href="/beamstream-new/css/bootstrap.css" rel="stylesheet" type="text/css" /> 	
     <link href="/beamstream-new/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" /> 
     <link href="@routes.Assets.at("/public/stylesheets","cleanup.css")" rel="stylesheet" type="text/css" /> 
  <link href="@routes.Assets.at("/public/stylesheets","boot-responsive-cleanup.css")" rel="stylesheet" type="text/css" /> 
 }
-@JS = {
-	<script src="/beamstream-new/lib/less-1.4.1.js" type="text/javascript"></script>
-	
 
+@JS = {
+	<!--<script src="/beamstream-new/lib/less-1.4.1.js" type="text/javascript"></script>-->
 }
+
 @bodyCls = {}
+
 @bodyModule = {}
+
 @bodyJS = {
     <script type="text/javascript">
        $('div.container-fluid').last().addClass('signup-container');
     </script>
 }
+
 @sideBar = {}
 
 @footer = {}
-
 
 @main("Login", "Body", meta, CSS, JS, bodyModule, bodyJS, sideBar, footer){
 
@@ -92,8 +96,5 @@
           </div>
         </div>
       </div>
-    </div>
-
-
-    
+    </div>    
 }

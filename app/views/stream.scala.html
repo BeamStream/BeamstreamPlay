@@ -1,17 +1,15 @@
 @(flag: String)(implicit session: play.api.mvc.Session,
-flash:play.api.mvc.Flash, request: RequestHeader) @meta = {} @CSS = {
+flash:play.api.mvc.Flash, request: RequestHeader) 
+
+@meta = {} 
+
+@CSS = {
 <!-- embedly preview js -->
-<link rel="stylesheet"
-	href="/beamstream-new/css/extracss/embedly-preview.css" type="text/css" />
+    <link rel="stylesheet" href="/beamstream-new/css/extracss/embedly-preview.css" type="text/css" />
 <!-- question feed stylesheet -->
 	<link href="@routes.Assets.at("/public/stylesheets","questionStreamStyle.css")" rel="stylesheet" type="text/css" />
 <!--  prettyPhoto -->
-<link rel="stylesheet"
-	href="/beamstream-new/css/extracss/prettyPhoto.css" type="text/css"
-	media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
-
-
-
+    <link rel="stylesheet" href="/beamstream-new/css/extracss/prettyPhoto.css" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
 	<link href="@routes.Assets.at("/public/stylesheets","lessgoogledocs/main.css")" rel="stylesheet" type="text/css" />
 	<link href="@routes.Assets.at("/public/stylesheets","lessgoogledocs/main-creatgdocs.css")" rel="stylesheet" type="text/css" />
 	<link href="@routes.Assets.at("/public/stylesheets","lessgoogledocs/chat.css")" rel="stylesheet" type="text/css" />
@@ -23,11 +21,11 @@ flash:play.api.mvc.Flash, request: RequestHeader) @meta = {} @CSS = {
         <link rel="stylesheet" href="/beamstream-new/css/cssgoogledocs/content.css">
         <link rel="stylesheet" href="/beamstream-new/css/cssgoogledocs/sidebar.css">
  -->
+} 
 
-} @JS = {
-<script type="text/JavaScript"
-	src="/beamstream-new/lib/bootstrap-dropdownhover.js"></script>
-<script src="/beamstream-new/js/BS_social.js" type="text/javascript"></script>
+@JS = {
+<script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","lib/bootstrap-dropdownhover.js")"></script>
+<script src="@routes.Assets.at("/public/javascripts","BS_social.js")" type="text/javascript"></script>
 
 <!-- Random Id Generation -->
 
@@ -52,22 +50,25 @@ flash:play.api.mvc.Flash, request: RequestHeader) @meta = {} @CSS = {
 <!-- Random Id Generation -->
 
 <!-- bootstrap dialog popups -->
-<script src="/beamstream-new/lib/extralib/bootbox.min.js"
-	type="text/javascript"></script>
+<script src="@routes.Assets.at("/public/javascripts","lib/extralib/bootbox.min.js")" type="text/javascript"></script>
 <!-- End -->
 
 <!-- for making pie charts -->
-<script type="text/JavaScript"
-	src="/beamstream-new/lib/extralib/raphael.js"></script>
+<script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","lib/extralib/raphael.js")"></script>
 <!-- end -->
 
 
 <!--  prettyPhoto js -->
 <!-- <script src="/beamstream-new/lib/extralib/jquery.prettyPhoto.js" type="text/javascript" -->
 <!--         charset="utf-8"></script> -->
-} @bodyCls = {} @bodyModule = {} @bodyJS = {
-<script type="text/JavaScript"
-	src="/beamstream-new/lib/jquery.preview.full.min.js"></script>
+} 
+
+@bodyCls = {} 
+
+@bodyModule = {} 
+
+@bodyJS = {
+<script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","lib/jquery.preview.full.min.js")"></script>
 <script type="text/javascript">
 	$('#msg-area').preview({
 		key : '4d205b6a796b11e1871a4040d3dc5c07'
@@ -209,10 +210,13 @@ flash:play.api.mvc.Flash, request: RequestHeader) @meta = {} @CSS = {
 </script>
 
 
-} @sideBar = { @views.html.sidebar.render } @header = {
-@views.html.header.render } @footer = { @views.html.footer.render }
+} 
 
+@sideBar = { @views.html.sidebar.render } @header = {
 
+@views.html.header.render } 
+
+@footer = { @views.html.footer.render }
 
 <style type="text/css">
 #innerSubList {
@@ -229,13 +233,9 @@ ul li#showSubList:hover ul {
 }
 </style>
 
-@main("My Stream", "Body", meta, CSS, JS, bodyModule, bodyJS, sideBar,
-header, footer){
+@main("My Stream", "Body", meta, CSS, JS, bodyModule, bodyJS, sideBar, header, footer){
 
-
-
-
-<div id="MyStream" data-module="view/myStreamView">
+ <div id="MyStream" data-module="view/myStreamView">
 	<div class="right-container">
 		<div class="stream-header">
 			<div id="myStream" class="stream-header-left" data-value=""></div>

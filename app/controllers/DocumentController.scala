@@ -100,7 +100,7 @@ object DocumentController extends Controller {
         val user = User.getUserProfile(new ObjectId(userId))
 
         //Create A Message As Well To Display The Doc Creation In Stream
-        val message = Message(new ObjectId, docUrl, Option(Type.Document), Option(Access.PrivateToClass), new Date, new ObjectId(userId), Option(new ObjectId(streamId)), user.get.firstName, user.get.lastName, 0, Nil, Nil, 0, Nil, "", Option(docId))
+        val message = Message(new ObjectId, docUrl, Option(Type.Document), Option(Access.PrivateToClass), new Date, new ObjectId(userId), Option(new ObjectId(streamId)), user.get.firstName, user.get.lastName, 0, Nil, Nil, 0, Nil, "", Option(docId), docName)
         val messageId = Message.createMessage(message)
         val resultToSend = DocResulttoSent(Option(message), None, docName, description, false, false, None, None, None, List())
         //Making Google Doc Public to Class

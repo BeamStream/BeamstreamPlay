@@ -35,7 +35,7 @@ define(
 						objName : 'MessageItemView',
 						events : {
 							'click .editMediaTitle' : 'editMediaTitle',
-							'keypress .add-message-comment' : 'addMessageComments',
+							'click .message-comment-button' : 'addMessageComments',
 							'click .rocks-message' : 'rockMessage',
 							'click .rock-message' : 'rockMessage',
 							'click .add-comment' : 'showCommentTextArea',
@@ -338,7 +338,7 @@ define(
 						 * post new comments on enter key press
 						 */
 						addMessageComments : function(eventName) {
-
+							
 							var element = eventName.target.parentElement;
 							var parent = $(element).parents(
 									'div.follow-container').attr('id');
@@ -349,7 +349,6 @@ define(
 							var self = this;
 
 							/* post comments on enter key press */
-							if (eventName.which == 13) {
 
 								eventName.preventDefault();
 
@@ -409,7 +408,7 @@ define(
 
 								}
 
-							}
+							
 						},
 
 						/**

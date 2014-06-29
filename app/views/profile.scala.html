@@ -1,4 +1,5 @@
 @meta = {}
+
 @CSS = {
 <link href="/beamstream-new/css/profile.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" media="screen" href="/beamstream-new/css/bootstrap-select.css">
@@ -8,34 +9,35 @@
 <!--     <link href="/beamstream-new/css/bootstrap.css" rel="stylesheet" type="text/css" />  -->
     <link href='https://fonts.googleapis.com/css?family=Covered+By+Your+Grace' rel='stylesheet' type='text/css'> 
     <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" 	rel="stylesheet" type="text/css" />
+}
 
-}
 @JS = {
-<script type="text/JavaScript" src="/beamstream-new/lib/bootstrap.min.js"></script>
-<script type="text/JavaScript" src="/beamstream-new/lib/jquery-1.js"></script>
-<script type="text/JavaScript" src="/beamstream-new/lib/jquery.js"></script>
-<script type="text/JavaScript" src="/beamstream-new/lib/bootstrap.js"></script>
-<script type="text/javascript" src="/beamstream-new/lib/css3-mediaqueries.js"></script>
-<script type="text/javascript" src="/beamstream-new/lib/jquery.simplyscroll.js"></script>
-<script src="/beamstream-new/lib/jquery.mousewheel.min.js"></script>
-<script src="/beamstream-new/lib/jquery.mCustomScrollbar.js"></script>
-<script src="/beamstream-new/lib/bootstrap-select.js"></script>
+<script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","lib/bootstrap.min.js")"></script>
+<script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","lib/jquery-1.js")"></script>
+<script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","jquery.js")"></script>
+<script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","lib/bootstrap.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("/public/javascripts","lib/css3-mediaqueries.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("/public/javascripts","lib/jquery.simplyscroll.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("/public/javascripts","lib/jquery.mousewheel.min.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("/public/javascripts","lib/jquery.mCustomScrollbar.js")"></script>
+<script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","lib/bootstrap-select.js")"></script>
 }
+
 @bodyCls = {}
+
 @bodyModule = {}
-@bodyJS = {
-    
-}
+
+@bodyJS = {}
+
 @sideBar = {}
+
 @header = {
 	@views.html.header.render
 }
+
 @footer = {}
 
-
 @main("Profile ", "Body", meta, CSS, JS, bodyModule, bodyJS, sideBar, header, footer){
-
-	
 
 <!-- <script>!window.jQuery.ui && document.write(unescape('%3Cscript src="jquery/jquery-ui-1.8.21.custom.min.js"%3E%3C/script%3E'))</script> -->
 
