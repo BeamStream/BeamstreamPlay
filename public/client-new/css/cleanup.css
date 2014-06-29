@@ -8726,7 +8726,8 @@ ul.follow-name-left li a.downrocks-message:hover {
   list-style: none;
 }
 .flipques li a {
-  color: #bf462e;
+	color: #EC1649;
+	font-weight: 500;
   background: none;
   text-decoration: underline;
   margin-left: 28px;
