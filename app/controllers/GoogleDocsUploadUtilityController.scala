@@ -30,6 +30,7 @@ import play.api.Logger
 import play.api.cache.Cache
 import play.api.Play.current
 import models.Document
+import models.Message
 import utils.SendEmailUtility
 import actors.UtilityActor
 
@@ -148,6 +149,7 @@ object GoogleDocsUploadUtilityController extends Controller {
                 val fileId = action.split(" ")(1)
                 val docName = GoogleDocsUploadUtility.getGoogleDocData(newAccessToken, fileId)
                 val updateDocument = Document.updateTitle(fileId, docName)
+                val updateMessage = Message.updateMessageGoogleDocTitle(updateDocument, docName)
                 Ok("Success")
 //              }
             } else {

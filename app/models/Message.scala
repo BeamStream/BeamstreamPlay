@@ -380,6 +380,16 @@ object Message { //extends CommentConsumer {
     }
   }
 
+  def updateMessageGoogleDocTitle(documentIdList: List[ObjectId], newName: String): Any = {
+    documentIdList map {
+      case documentId =>
+        val message = MessageDAO.find(MongoDBObject("docIdIfAny" -> documentId)).toList
+        message.isEmpty match {
+          case false => MessageDAO.update(MongoDBObject("docIdIfAny" -> documentId), message(0).copy(messageGoogleDocTitle = newName), false, false, new WriteConcern)
+          case true => 
+        }
+    }
+  }
 }
 
 object MessageDAO extends SalatDAO[Message, ObjectId](collection = MongoHQConfig.mongoDB("message"))
