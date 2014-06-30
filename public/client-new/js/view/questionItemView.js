@@ -1028,10 +1028,13 @@ showAllAnswerList: function(eventName){
  			var commentId = e.target.id;
  			var ownerId = $(e.target).attr('data-username');
  			var questionId = $(e.target).parents('div.ask-outer').attr('id');
- 			 
- 			if(localStorage["loggedUserId"] == ownerId)
- 			{
-	 			bootbox.dialog("Are you sure you want to delete this comment?", [{
+ 			$
+			.ajax({
+				type : 'GET',
+				url : '/can/remove/comment/' + commentId + '/' + questionId,
+				success : function(data) {								
+					if (data == "true") { 
+				    bootbox.dialog("Are you sure you want to delete this comment?", [{
 	
 	 				"label" : "DELETE",
 	 				"class" : "btn-primary",
@@ -1085,12 +1088,12 @@ showAllAnswerList: function(eventName){
 	 				"callback": function() {
 	 				}
 	 			 }]);
- 			 }
- 			 else
- 			 {
+ 			 } else {
  				bootbox.alert("You're Not Authorised To Delete This Comment");
- 			 }
-		},
+ 			  }
+		     }
+			});
+        },
        
 			
 	/**

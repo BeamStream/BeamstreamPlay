@@ -121,17 +121,12 @@ object Comment {
    */
 
   def deleteCommentPermanently(commentId: ObjectId, messageOrQuestionId: ObjectId, userId: ObjectId): Boolean = {
-    val commentToBeremoved = Comment.findCommentById(commentId)
-    (commentToBeremoved.get.userId == userId) match {
-      case true =>
-        Comment.removeComment(commentToBeremoved.get)
-        val message = Message.findMessageById(messageOrQuestionId)
-        message match {
-          case Some(message) => Message.removeCommentFromMessage(commentId, messageOrQuestionId)
-          case None => Question.removeCommentFromQuestion(commentId, messageOrQuestionId)
-        }
+    val commentToBeremoved = CommentDAO.findOneById(commentId)
+    commentToBeremoved match {
+      case Some(comment) => 
+        Comment.removeComment(comment)
         true
-      case false => false
+      case None => false
     }
   }
 
