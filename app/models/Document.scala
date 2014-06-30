@@ -246,8 +246,8 @@ object Document extends RockConsumer {
       case false => {
         documentList map {
           case doc =>
-          DocumentDAO.update(MongoDBObject("_id" -> doc.id), doc.copy(previewImageUrl = newPreviewImageUrl), false, false, new WriteConcern)
-          doc.id
+            DocumentDAO.update(MongoDBObject("_id" -> doc.id), doc.copy(previewImageUrl = newPreviewImageUrl), false, false, new WriteConcern)
+            doc.id
         }
         // TODO Remove it when pushing on Production
         /*documentList map {
@@ -264,8 +264,8 @@ object Document extends RockConsumer {
       case false => {
         documentList map {
           case doc =>
-          DocumentDAO.update(MongoDBObject("_id" -> doc.id), doc.copy(previewImageUrl = ""), false, false, new WriteConcern)
-          doc.id
+            DocumentDAO.update(MongoDBObject("_id" -> doc.id), doc.copy(previewImageUrl = ""), false, false, new WriteConcern)
+            doc.id
         }
         // TODO Remove it when pushing on Production
         /*documentList map {
@@ -275,7 +275,7 @@ object Document extends RockConsumer {
       case true => List(new ObjectId)
     }
   }
-  
+
   def findDocumentByURL(docURL: String): Option[String] = {
     val documentList = DocumentDAO.find(MongoDBObject("documentURL" -> docURL)).toList
     documentList.isEmpty match {
@@ -283,12 +283,19 @@ object Document extends RockConsumer {
       case false => Option(documentList.head.googleDocId)
     }
   }
-  
-  def updateTitle(googleDocId: String, newName: String): WriteResult = {
-    val document = DocumentDAO.find(MongoDBObject("googleDocId" -> googleDocId)).toList(0)
-    DocumentDAO.update(MongoDBObject("googleDocId" -> googleDocId), document.copy(documentName = newName), false, false, new WriteConcern)
+
+  def updateTitle(googleDocId: String, newName: String): List[ObjectId] = {
+    val document = DocumentDAO.find(MongoDBObject("googleDocId" -> googleDocId)).toList
+    document.isEmpty match {
+      case false => document map {
+        case doc =>
+          DocumentDAO.update(MongoDBObject("_id" -> doc.id), doc.copy(documentName = newName), false, false, new WriteConcern)
+          doc.id
+      }
+      case true => List(new ObjectId)
+    }
   }
-  
+
 }
 
 object DocumentDAO extends SalatDAO[Document, ObjectId](collection = MongoHQConfig.mongoDB("document"))

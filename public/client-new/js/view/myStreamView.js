@@ -128,7 +128,7 @@ define(
 								type: 'GET',	           
 					            url: 'googleDoc/update '+fileId,
 					            success: function(data){
-					            
+					            	window.location = "/stream";
 					            }
 								
 							});
