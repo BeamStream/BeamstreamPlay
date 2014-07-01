@@ -20,6 +20,7 @@ import models.Comment
 import models.Type
 import play.api.mvc.AnyContent
 import play.api.libs.json.Json
+import models.Stream
 
 /**
  * This controller class is used to store and retrieve all the information about Question and Answers.
@@ -273,15 +274,45 @@ object QuestionController extends Controller {
     Ok(write(answersOfThisQuestion)).as("application/json")
   }
 
+  def canDeleteTheAnswer(answerId: String, questionId: String): Action[AnyContent] = Action { implicit request =>
+    val answerToBeremoved = Comment.findAnswerById(new ObjectId(answerId))
+    val userId = request.session.get("userId").get
+    val question = Question.findQuestionById(new ObjectId(questionId))
+    question match {
+      case Some(question) =>
+        val stream = Stream.findStreamById(question.streamId)
+        stream match {
+          case Some(stream) =>
+            (stream.creatorOfStream == userId) match {
+              case true => Ok("true")
+              case false =>
+                (question.userId == userId) match {
+                  case true => Ok("true")
+                  case false =>
+                    (answerToBeremoved.get.userId == userId) match {
+                      case true => Ok("true")
+                      case false => Ok("false")
+                    }
+                }
+            }
+          case None => Ok("false")
+        }
+      case None => Ok("false")
+    }
+  }
+
   /**
-   * Delete A Comment
+   * Delete an Answer
    */
 
   def deleteTheAnswer(answerId: String, questionId: String): Action[AnyContent] = Action { implicit request =>
-    val deletedTheComment = Question.deleteAnswerPermanently(new ObjectId(answerId), new ObjectId(questionId), new ObjectId(request.session.get("userId").get))
-    deletedTheComment match {
-      case true => Ok(write(new ResulttoSent("Success", "Answer Has Been Deleted")))
-      case false => Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Answer")))
+    val answerToBeRemoved = Comment.findAnswerById(new ObjectId(answerId))
+    answerToBeRemoved match {
+      case Some(answer) =>
+        Comment.removeComment(answer)
+        Question.removeAnswerFromQuestion(new ObjectId(answerId), new ObjectId(questionId))
+        Ok(write(new ResulttoSent("Success", "Answer Has Been Deleted")))
+      case None => Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Answer")))
     }
   }
 

@@ -31,6 +31,7 @@ PUT    /remove/comment/:messageOrQuestionId/:commentId                          
 GET    /can/remove/comment/:commentId/:messageOrQuestionId                                 controllers.CommentController.canDeleteTheComment(commentId:String, messageOrQuestionId:String)
 PUT    /remove/answer/:questionId/:answerId                                                controllers.QuestionController.deleteTheAnswer(answerId, questionId)
 GET    /isARockerOf/comment/:commentId                                                     controllers.CommentController.isARocker(commentId:String)
+GET    /can/remove/answer/:answerId/:questionId                                           controllers.QuestionController.canDeleteTheAnswer(answerId:String, questionId:String)
 
 #Document
 GET    /getAllGoogleDocs                                                                   controllers.DocumentController.getAllGoogleDocumentsForAUser

@@ -49,6 +49,10 @@ object Comment {
     CommentDAO.findOneById(commentId)
   }
 
+  def findAnswerById(answerId: ObjectId): Option[Comment] = {
+    CommentDAO.findOneById(answerId)
+  }
+  
   /**
    * Rocking the comment
    */
@@ -124,7 +128,7 @@ object Comment {
     val commentToBeremoved = CommentDAO.findOneById(commentId)
     commentToBeremoved match {
       case Some(comment) => 
-        Comment.removeComment(comment)
+        CommentDAO.remove(comment)
         true
       case None => false
     }
