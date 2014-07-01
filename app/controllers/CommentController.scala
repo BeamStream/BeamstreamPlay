@@ -1,4 +1,5 @@
 package controllers
+
 import play.api.mvc.Controller
 import net.liftweb.json.DefaultFormats
 import play.api.mvc.Action
@@ -15,6 +16,7 @@ import models.Comment
 import models.ResulttoSent
 import models.Question
 import models.RockDocOrMedia
+import models.Stream
 import java.text.SimpleDateFormat
 import models.ResulttoSent
 import models.UserMedia
@@ -157,6 +159,55 @@ object CommentController extends Controller {
 
   }
 
+  def canDeleteTheComment(commentId: String, messageOrQuestionId: String): Action[AnyContent] = Action { implicit request =>
+    val commentToBeremoved = Comment.findCommentById(new ObjectId(commentId))
+    val userId = request.session.get("userId").get
+    val message = Message.findMessageById(new ObjectId(messageOrQuestionId))
+    message match {
+      case Some(message) =>
+        val stream = Stream.findStreamById(message.streamId.get)
+        stream match {
+          case Some(stream) =>
+            (stream.creatorOfStream == userId) match {
+              case true => Ok("true")
+              case false =>
+                (message.userId == userId) match {
+                  case true => Ok("true")
+                  case false =>
+                    (commentToBeremoved.get.userId == userId) match {
+                      case true => Ok("true")
+                      case false => Ok("false")
+                    }
+                }
+            }
+          case None => Ok("false")
+        }
+      case None =>
+        val question = Question.findQuestionById(new ObjectId(messageOrQuestionId))
+        question match {
+          case Some(question) =>
+            val stream = Stream.findStreamById(question.streamId)
+            stream match {
+              case Some(stream) =>
+                (stream.creatorOfStream == userId) match {
+                  case true => Ok("true")
+                  case false =>
+                    (question.userId == userId) match {
+                      case true => Ok("true")
+                      case false =>
+                        (commentToBeremoved.get.userId == userId) match {
+                          case true => Ok("true")
+                          case false => Ok("false")
+                        }
+                    }
+                }
+                case None => Ok("false")
+            }
+          case None => Ok("false")
+        }
+    }
+  }
+
   /**
    * Delete A Comment
    */
@@ -164,7 +215,13 @@ object CommentController extends Controller {
   def deleteTheComment(commentId: String, messageOrQuestionId: String): Action[AnyContent] = Action { implicit request =>
     val deletedTheCommnet = Comment.deleteCommentPermanently(new ObjectId(commentId), new ObjectId(messageOrQuestionId), new ObjectId(request.session.get("userId").get))
     deletedTheCommnet match {
-      case true => Ok(write(new ResulttoSent("Success", "Comment Has Been Deleted")))
+      case true =>
+        val message = Message.findMessageById(new ObjectId(messageOrQuestionId))
+        message match {
+          case Some(message) => Message.removeCommentFromMessage(new ObjectId(commentId), new ObjectId(messageOrQuestionId))
+          case None => Question.removeCommentFromQuestion(new ObjectId(commentId), new ObjectId(messageOrQuestionId))
+        }
+        Ok(write(new ResulttoSent("Success", "Comment Has Been Deleted")))
       case false => Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Comment")))
     }
   }

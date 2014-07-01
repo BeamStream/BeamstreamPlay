@@ -683,9 +683,13 @@ define(
 							var ownerId = $(e.target).attr('data-username');
 							var messageId = $(e.target)
 									.parents('div.ask-outer').attr('id');
-
-							if (localStorage["loggedUserId"] == ownerId) {
-								bootbox
+							$
+							.ajax({
+								type : 'GET',
+								url : '/can/remove/comment/' + commentId + '/' + messageId,
+								success : function(data) {								
+									if (data == "true") {
+								     bootbox
 										.dialog(
 												"Are you sure you want to delete this comment?",
 												[
@@ -771,7 +775,9 @@ define(
 							} else {
 								bootbox
 										.alert("You're Not Authorised To Delete This Comment");
-							}
+							  }
+						     }
+							});
 						},
 
 						// added by cuckoo
@@ -916,33 +922,15 @@ define(
 								// $('#document-'+docId).modal("show");
 							}
 							// var fileId = docUrl.split('/')[7];
-/*							$
-									.ajax({
-										type : 'GET',
-										url : 'googleDoc/access ' + docId,
-										success : function(data) {
-											if (data == true) {
-												$('#dwnload-url').attr('value',
-														download_url);
-												$('#iframe-' + docId).attr(
-														'src', docUrl);
-												$('#document-' + docId).modal(
-														"show");
-											} else {
-												// alert(data);
-												// alert("You do have Permission
-												// to Access this Google Doc");
-												if (data == false)
-													self
-															.requestAccessOfGoogleDoc(docId);
-												else{
-													alert("Login into Gmail First");
-													window.location = data;
-												}
-											}
-										}
-									});
-*/
+/*
+ * $ .ajax({ type : 'GET', url : 'googleDoc/access ' + docId, success :
+ * function(data) { if (data == true) { $('#dwnload-url').attr('value',
+ * download_url); $('#iframe-' + docId).attr( 'src', docUrl); $('#document-' +
+ * docId).modal( "show"); } else { // alert(data); // alert("You do have
+ * Permission // to Access this Google Doc"); if (data == false) self
+ * .requestAccessOfGoogleDoc(docId); else{ alert("Login into Gmail First");
+ * window.location = data; } } } });
+ */
 							/*
 							 * $('#dwnload-url').attr('value', download_url);
 							 * $('#iframe-' + docId).attr('src', docUrl);

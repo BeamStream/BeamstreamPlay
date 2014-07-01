@@ -353,16 +353,15 @@ object Question {
    * Delete a answer
    */
 
-  def deleteAnswerPermanently(answerId: ObjectId, questionId: ObjectId, userId: ObjectId): Boolean = {
-    val answerToBeRemoved = Comment.findCommentById(answerId)
-    (answerToBeRemoved.get.userId == userId) match {
-      case true =>
-        Comment.removeComment(answerToBeRemoved.get)
-        Question.removeAnswerFromQuestion(answerId, questionId)
+ /* def deleteAnswerPermanently(answerId: ObjectId, questionId: ObjectId, userId: ObjectId): Boolean = {
+    val answerToBeRemoved = Comment.findAnswerById(answerId)
+    answerToBeRemoved match {
+      case Some(answer) =>
+        Comment.removeComment(answer)
         true
-      case false => false
+      case None => false
     }
-  }
+  }*/
 
   def getNoOfUnansweredQuestions(streamId: ObjectId): Int = {
     val unansweredQuestions = QuestionDAO.find(MongoDBObject("streamId" -> streamId, "answered" -> false)).toList
