@@ -200,7 +200,7 @@
                      <a id="" href="#" class="delete_msg drag-rectangle" data-original-title="Flag this" style="visibility:hidden;"></a>
                   </div>
                   <div id="{{data.message.id.id}}-addComments" class="follow-comment">
-					<textarea id="{{data.message.id.id}}-msgComment" class="add-message-comment" rows="" cols="" placeholder="Add Comments.." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Add Comments..'" ></textarea>
+					<input type="text" id="{{data.message.id.id}}-msgComment" class="add-message-comment add-question-comment-input" rows="" cols="" placeholder="Add Comments.." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Add Comments..'" >
 					<div class="message-comment-button" id="message-comment-post-button">Post</div>
 				 </div>
 				 {{#ifequal loggedUserId data.message.userId.id }}
