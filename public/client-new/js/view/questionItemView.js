@@ -35,8 +35,8 @@ define(['view/formView',
 		events:{
 			'click .add-comment' : 'showCommentTextArea',
 			'click .add-answer' : 'showAnswerTextArea',
-			'keypress .add-question-comment' : 'addQuestionComments',
-			'keypress .add-question-answer' : 'addQuestionAnswer',	
+			'click #question-comment-post-button' : 'addQuestionComments',
+			'click #question-answer-post-button' : 'addQuestionAnswer',	
 			'click .rocks-question': 'rockQuestion',
 			'click .follow-question': 'followQuestion',
 			'click .rock-comments': 'rockComment',
@@ -366,7 +366,6 @@ define(['view/formView',
         	var self =this;
         
         	/* post comments on enter key press */
-        	if(eventName.which == 13) {
         		
 	    		eventName.preventDefault(); 
 	   			 	
@@ -402,7 +401,6 @@ define(['view/formView',
 
    			 	}
    			 	
-	        }
         },
         
 	/**
@@ -526,7 +524,6 @@ define(['view/formView',
 	        	var self =this;
 	        
 	        	/* post answers on enter key press */
-	        	if(eventName.which == 13) {
 	        		
 		    		eventName.preventDefault(); 
 		   			 	
@@ -566,7 +563,6 @@ define(['view/formView',
 
 	   			 	}
 	   			 	
-		        }
 	        },
       
       	
