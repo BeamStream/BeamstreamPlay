@@ -70,24 +70,30 @@ define(
 										}
 									})
 
-									
-									
-									PUBNUB
+							PUBNUB
 									.subscribe({
 
 										channel : "deleteStream",
 										restore : false,
 										callback : function(data) {
-										var noOfUers = $("#"+data.streamId+"-users").text();
-										if (noOfUers > 0)
-											{
-										 $("#"+data.streamId+"-users").text(noOfUers-1);
-										$("ul.strem-header-info li.mebers").text(noOfUers-1 + " Members");
+											var noOfUers = $(
+													"#" + data.streamId
+															+ "-users").text();
+											if (noOfUers > 0) {
+												$(
+														"#" + data.streamId
+																+ "-users")
+														.text(noOfUers - 1);
+												$(
+														"ul.strem-header-info li.mebers")
+														.text(
+																noOfUers
+																		- 1
+																		+ " Members");
 											}
 										}
 									});
-									
-									
+
 							/* added all streams to privateTo dropdown list */
 							var streamName = $('.sortable li.active').attr(
 									'name');
@@ -237,7 +243,8 @@ define(
 											},
 											function() {
 
-												$('a.done').text('EDIT');
+												//$('a.done').text('EDIT');
+												$('a.done').html('<span id="edit-stream-nav"></span>')
 												$('a.done').attr('data-value',
 														'active');
 
@@ -427,7 +434,6 @@ define(
 							this.renderTabContents(this.streamId);
 
 						},
-						  
 
 						/**
 						 * render tab contents of selected stream
@@ -458,8 +464,9 @@ define(
 							$('.sortable li.active').removeClass('active');
 							$('.sortable li#' + streamId).addClass('active');
 							$('.sortable li.active').append(this.activeDiv);
-							var userCount = $('.sortable li.active .menu-count').text();
-								
+							var userCount = $('.sortable li.active .menu-count')
+									.text();
+
 							/*
 							 * render the stream title and description view
 							 * based on selected stream

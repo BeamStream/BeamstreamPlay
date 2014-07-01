@@ -28,6 +28,7 @@ PUT    /remove/message/:messageId                                               
 POST   /answer                                                                             controllers.CommentController.newAnswer
 GET    /rockersOf/comment/:commentId                                                       controllers.CommentController.commentRockers(commentId:String)
 PUT    /remove/comment/:messageOrQuestionId/:commentId                                     controllers.CommentController.deleteTheComment(commentId:String,messageOrQuestionId:String)
+GET    /can/remove/comment/:commentId/:messageOrQuestionId                                 controllers.CommentController.canDeleteTheComment(commentId:String, messageOrQuestionId:String)
 PUT    /remove/answer/:questionId/:answerId                                                controllers.QuestionController.deleteTheAnswer(answerId, questionId)
 GET    /isARockerOf/comment/:commentId                                                     controllers.CommentController.isARocker(commentId:String)
 
