@@ -1108,7 +1108,7 @@ showAllAnswerList: function(eventName){
  			var questionId = $(e.target).parents('div.ask-outer').attr('id');
  			if(localStorage["loggedUserId"] == ownerId)
  			{
-	 			bootbox.dialog("Are you sure you want to delete this comment?", [{
+	 			bootbox.dialog("Are you sure you want to delete this answer?", [{
 	
 	 				"label" : "DELETE",
 	 				"class" : "btn-primary",
