@@ -1,4 +1,5 @@
 package controllers
+
 import play.api.mvc.Controller
 import net.liftweb.json.DefaultFormats
 import play.api.mvc.Action
@@ -15,6 +16,7 @@ import models.Comment
 import models.ResulttoSent
 import models.Question
 import models.RockDocOrMedia
+import models.Stream
 import java.text.SimpleDateFormat
 import models.ResulttoSent
 import models.UserMedia
@@ -163,25 +165,43 @@ object CommentController extends Controller {
     val message = Message.findMessageById(new ObjectId(messageOrQuestionId))
     message match {
       case Some(message) =>
-        (message.userId == userId) match {
-          case true => Ok("true")
-          case false =>
-            (commentToBeremoved.get.userId == userId) match {
+        val stream = Stream.findStreamById(message.streamId.get)
+        stream match {
+          case Some(stream) =>
+            (stream.creatorOfStream == userId) match {
               case true => Ok("true")
-              case false => Ok("false")
+              case false =>
+                (message.userId == userId) match {
+                  case true => Ok("true")
+                  case false =>
+                    (commentToBeremoved.get.userId == userId) match {
+                      case true => Ok("true")
+                      case false => Ok("false")
+                    }
+                }
             }
+          case None => Ok("false")
         }
       case None =>
         val question = Question.findQuestionById(new ObjectId(messageOrQuestionId))
         question match {
           case Some(question) =>
-            (question.userId == userId) match {
-              case true => Ok("true")
-              case false =>
-                (commentToBeremoved.get.userId == userId) match {
+            val stream = Stream.findStreamById(question.streamId)
+            stream match {
+              case Some(stream) =>
+                (stream.creatorOfStream == userId) match {
                   case true => Ok("true")
-                  case false => Ok("false")
+                  case false =>
+                    (question.userId == userId) match {
+                      case true => Ok("true")
+                      case false =>
+                        (commentToBeremoved.get.userId == userId) match {
+                          case true => Ok("true")
+                          case false => Ok("false")
+                        }
+                    }
                 }
+                case None => Ok("false")
             }
           case None => Ok("false")
         }
