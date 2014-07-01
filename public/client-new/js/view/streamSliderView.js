@@ -213,6 +213,8 @@ define(
 											function() {
 
 												$('a.done').text('DONE');
+												$('a.done').css('background','#ffba00');
+												$('a.done').css('color','#330000');
 												$('a.done').attr('data-value',
 														'inActive');
 												activeStream = $(
@@ -247,6 +249,7 @@ define(
 												$('a.done').html('<span id="edit-stream-nav"></span>')
 												$('a.done').attr('data-value',
 														'active');
+												$('a.done').css('background','#737b83');
 
 												$(
 														'.sortable li#'
