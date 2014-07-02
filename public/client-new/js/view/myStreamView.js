@@ -157,12 +157,18 @@ define(
 							$("#questionStreamView").animate({
 								//"margin-right" : '+=254',
 								"padding-right":"500px",
-								"opacity":'0'
-							}, 1000).css("display","none");
+								"opacity":'0',
+								"z-index":"-100"
+									
+							}, 1000);
 							$("#sidequestionexpand").animate({
 								"margin-right" : '+=254',
-									"opacity":'0'
-							}, 1000).css("display","none");
+									"opacity":'0',
+									"z-index":"-100"
+										
+							}, 1000);
+					
+											
 							
 							$('#topheader').css('padding-right', '0');
 							$('.header-profile').css('margin',
@@ -232,15 +238,19 @@ define(
 
 						fliptoDiscussion : function() {
 							//if (position <= "254px") {
-							$("#questionStreamView").css("display","block").animate({
-								"padding-right" : '5px'
+							$("#questionStreamView").animate({
+								"padding-right" : '5px',
+								"z-index":"100000"
 							}, 1000).animate({
-								"opacity" : '1px'
+								"opacity" : '1px',
+								
 							}, 1000);
-							$("#sidequestionexpand").css("display","block").animate({
-								"margin-right" : '-=254'
+							$("#sidequestionexpand").animate({
+								"margin-right" : '-=254',
+								"z-index":"100000"
 							}, 1000).animate({
-								"opacity" : '1px'
+								"opacity" : '1px',
+								
 							}, 1000);
 							
 
