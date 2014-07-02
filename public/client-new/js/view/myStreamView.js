@@ -158,11 +158,11 @@ define(
 								//"margin-right" : '+=254',
 								"padding-right":"500px",
 								"opacity":'0'
-							}, 1000)
+							}, 1000).css("display","none");
 							$("#sidequestionexpand").animate({
 								"margin-right" : '+=254',
 									"opacity":'0'
-							}, 1000);
+							}, 1000).css("display","none");
 							
 							$('#topheader').css('padding-right', '0');
 							$('.header-profile').css('margin',
@@ -232,12 +232,12 @@ define(
 
 						fliptoDiscussion : function() {
 							//if (position <= "254px") {
-							$("#questionStreamView").animate({
+							$("#questionStreamView").css("display","block").animate({
 								"padding-right" : '5px'
 							}, 1000).animate({
 								"opacity" : '1px'
 							}, 1000);
-							$("#sidequestionexpand").animate({
+							$("#sidequestionexpand").css("display","block").animate({
 								"margin-right" : '-=254'
 							}, 1000).animate({
 								"opacity" : '1px'
