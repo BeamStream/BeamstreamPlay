@@ -155,11 +155,15 @@ define(
 							$('#questions-icon').css('display', 'none');*/
 
 							$("#questionStreamView").animate({
-								"margin-right" : '-=254'
-							}, 1000);
+								//"margin-right" : '+=254',
+								"padding-right":"500px",
+								"opacity":'0'
+							}, 1000)
 							$("#sidequestionexpand").animate({
-								"margin-right" : '-=254'
+								"margin-right" : '+=254',
+									"opacity":'0'
 							}, 1000);
+							
 							$('#topheader').css('padding-right', '0');
 							$('.header-profile').css('margin',
 									'-5px 267px -17px 0px');
@@ -227,6 +231,20 @@ define(
 						},
 
 						fliptoDiscussion : function() {
+							//if (position <= "254px") {
+							$("#questionStreamView").animate({
+								"padding-right" : '5px'
+							}, 1000).animate({
+								"opacity" : '1px'
+							}, 1000);
+							$("#sidequestionexpand").animate({
+								"margin-right" : '-=254'
+							}, 1000).animate({
+								"opacity" : '1px'
+							}, 1000);
+							
+
+						//}
 							$('#discussions-link').css('display', 'none');
 							$('#flipQuestion').css('padding',
 									'0px 0px 0px 12px');
@@ -237,15 +255,7 @@ define(
 							$("#questionListView").css("display", "none");
 							var position = $("#sidequestionexpand").css(
 									"margin-right");
-							if (position <= "-254px") {
-								$("#questionStreamView").animate({
-									"margin-right" : '+=254'
-								}, 1000);
-								$("#sidequestionexpand").animate({
-									"margin-right" : '+=254'
-								}, 1000);
-
-							}
+							
 							// $( "#questionStreamView"
 							// ).animate({"margin-right": '+=300'}, 1000);
 							// $("#sidequestionexpand").animate({"margin-right":
