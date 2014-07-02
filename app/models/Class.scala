@@ -121,7 +121,7 @@ object Class {
    */
 
   def findClassByName(name: String, schoolId: ObjectId): List[ClassWithNoOfUsers] = {
-    val namePattern = Pattern.compile("^" + name, Pattern.CASE_INSENSITIVE)
+    val namePattern = Pattern.compile(name, Pattern.CASE_INSENSITIVE)
     val classesFound = ClassDAO.find(MongoDBObject("schoolId" -> schoolId, "className" -> namePattern)).toList
 
     classesFound.isEmpty match {
