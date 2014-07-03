@@ -140,7 +140,7 @@ object Class {
    */
 
   def findClassByCode(code: String, schoolId: ObjectId): List[ClassWithNoOfUsers] = {
-    val codePattern = Pattern.compile("^" + code, Pattern.CASE_INSENSITIVE)
+    val codePattern = Pattern.compile(code, Pattern.CASE_INSENSITIVE)
     val classesFound = ClassDAO.find(MongoDBObject("schoolId" -> schoolId, "classCode" -> codePattern)).toList
     classesFound.isEmpty match {
       case true =>
