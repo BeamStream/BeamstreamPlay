@@ -123,12 +123,15 @@ define(
 							else if(googleDocURL.length == 7) {
 								fileId = googleDocURL[5];
 							}
+							
+							window.location = "/stream";
+							
 							$.ajax({
 								
 								type: 'GET',	           
 					            url: 'googleDoc/update '+fileId,
 					            success: function(data){
-					            	window.location = "/stream";
+					            	
 					            }
 								
 							});
