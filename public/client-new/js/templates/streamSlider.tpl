@@ -8,7 +8,7 @@
 	</div>
 	<div class="display-stream">
 		<div class="btn-group stream-dropdown">
-			<button class="btn display-dropdown">Class Streams</button>
+			<button class="btn display-dropdown">My Classes</button>
             <button class="btn display-toggle" data-toggle="dropdown" id="stream-nav-dropdown"> <span class="caret display-caret"></span></button>
             <ul class="dropdown-menu display-sub">
                 <li><a href="#">Class Streams</a></li>
