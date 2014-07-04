@@ -395,6 +395,93 @@ PUBNUB
 											}
 										}
 									})
+									
+									
+									PUBNUB
+									.subscribe({
+										channel : "questioncommentSideStream",
+										restore : false,
+										callback : function(question) {
+											
+											
+											if (question.pagePushUid != self.pagePushUid) {
+
+												question.cmtCount++;
+
+												$(
+														'#'
+																+ question.parent
+																+ "-totalcommentsidebar")
+														.text(question.cmtCount);
+											}
+										}
+									})
+
+							PUBNUB
+									.subscribe({
+
+										channel : "delete_ques_CommentSideBar",
+										restore : false,
+										callback : function(question) {
+											if (question.pagePushUid != self.pagePushUid) {
+												var commentCountSideBar = $(
+														'#'
+																+ question.questionId
+																+ "-totalcommentsidebar")
+														.text();
+												$(
+														'#'
+																+ question.questionId
+																+ "-totalcommentsidebar")
+														.text(
+																commentCountSideBar - 1);
+
+											}
+										}
+									})
+
+							PUBNUB
+									.subscribe({
+										channel : "questionanswerSideStream",
+										restore : false,
+										callback : function(question) {
+
+											if (question.pagePushUid != self.pagePushUid) {
+
+												question.cmtCount++;
+
+												$(
+														'#'
+																+ question.parent
+																+ "-totalanswersidebar")
+														.text(question.cmtCount);
+											}
+										}
+									})
+
+							PUBNUB
+									.subscribe({
+
+										channel : "delete_ques_AnswerSide",
+										restore : false,
+										callback : function(question) {
+
+											if (question.pagePushUid != self.pagePushUid) {
+												var answerCountSideBar = $(
+														'#'
+																+ question.questionId
+																+ "-totalanswersidebar")
+														.text();
+												$(
+														'#'
+																+ question.questionId
+																+ "-totalanswersidebar")
+														.text(
+																answerCountSideBar - 1);
+
+											}
+										}
+									})
 						}
 
 					});
