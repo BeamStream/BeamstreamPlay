@@ -115,6 +115,7 @@ define(
 						},
 						
 						updateGoogleDoc : function(eventName){
+							
 							var googleDocURL = $('#iframe-').attr('src').split("/");
 							var fileId = "";
 							if(googleDocURL.length == 9) {
@@ -123,12 +124,14 @@ define(
 							else if(googleDocURL.length == 7) {
 								fileId = googleDocURL[5];
 							}
+							
+							window.location = "/stream";
+							
 							$.ajax({
 								
 								type: 'GET',	           
 					            url: 'googleDoc/update '+fileId,
 					            success: function(data){
-					            	window.location = "/stream";
 					            }
 								
 							});
@@ -991,6 +994,7 @@ define(
 																						"#creategoogledoc")
 																						.modal(
 																								'hide');
+																				        
 																			}
 																		});
 															} else {
