@@ -53,8 +53,8 @@
 																			{{#if data.docDescription}}{{data.docDescription}}{{else}}No 														Document Description..{{/if}}
 																		</p>
 									    							<div class="dateinfo">
-																			<span class="state">{{data.message.messageAccess.name}}</span>
 																			<span class="date date-btn">{{datVal}}</span>
+																			<span class="state">{{data.message.messageAccess.name}}</span>
 																		</div>
 						      							</div>
 																<form id="{{data.message.docIdIfAny.id}}" class="comment-wrapper2">
