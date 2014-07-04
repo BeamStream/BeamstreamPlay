@@ -68,7 +68,7 @@ define(
 
 											var self = this;
 											$('#user-online ul').html("");
-											var onlineUsersLength = data.onlineUsers.length - 1;
+											var onlineUsersLength = data.onlineUsers.length;
 											$('.online-count')
 											
 													.html(
