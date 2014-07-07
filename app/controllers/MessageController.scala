@@ -29,7 +29,7 @@ object MessageController extends Controller {
   //==========================//
 
   def newMessage: Action[AnyContent] = Action { implicit request =>
-//    println("MessageController newMessage" + request.body.asJson)
+    //    println("MessageController newMessage" + request.body.asJson)
     val messageListJsonMap = request.body.asJson.get
     val streamId = (messageListJsonMap \ "streamId").as[String]
     //    val messageAccess = (messageListJsonMap \ "messageAccess").as[String]
@@ -76,7 +76,7 @@ object MessageController extends Controller {
    */
 
   def getShortUrlViabitly: Action[AnyContent] = Action { implicit request =>
-//    println("MessageController getShortUrlViabitly" + request.body.asFormUrlEncoded)
+    //    println("MessageController getShortUrlViabitly" + request.body.asFormUrlEncoded)
     val longUrlMap = request.body.asFormUrlEncoded.get
     val longUrl = longUrlMap("link").toList(0)
     val shortUrlJson = BitlyAuthUtil.returnShortUrlViabitly(longUrl)
@@ -147,19 +147,24 @@ object MessageController extends Controller {
    * All messages for a stream sorted by date & rock along with the limits
    */
   def allMessagesForAStream(streamId: String, sortBy: String, messagesPerPage: Int, pageNo: Int, period: String): Action[AnyContent] = Action { implicit request =>
-    val allMessagesForAStream = (sortBy == "date") match {
-      case true => Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
-      case false => (sortBy == "rock") match {
-        case true => Message.getAllMessagesForAStreamSortedbyRocks(new ObjectId(streamId), pageNo, messagesPerPage)
-        case false => Message.getAllMessagesForAKeyword(sortBy, new ObjectId(streamId), pageNo, messagesPerPage)
+    if(streamId.length() == 24) {
+      val allMessagesForAStream = (sortBy == "date") match {
+        case true => Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
+        case false => (sortBy == "rock") match {
+          case true => Message.getAllMessagesForAStreamSortedbyRocks(new ObjectId(streamId), pageNo, messagesPerPage)
+          case false => Message.getAllMessagesForAKeyword(sortBy, new ObjectId(streamId), pageNo, messagesPerPage)
+        }
+      }
+      (allMessagesForAStream.isEmpty) match {
+        case true => Ok(write(ResulttoSent("Failure", "No More Data"))).as("application/json")
+        case false =>
+          val userId = request.session.get("userId").get
+          val messagesWithDescription = Message.messagesAlongWithDocDescription(allMessagesForAStream, new ObjectId(userId))
+          Ok(write(messagesWithDescription)).as("application/json")
       }
     }
-    (allMessagesForAStream.isEmpty) match {
-      case true => Ok(write(ResulttoSent("Failure", "No More Data"))).as("application/json")
-      case false =>
-        val userId = request.session.get("userId").get
-        val messagesWithDescription = Message.messagesAlongWithDocDescription(allMessagesForAStream, new ObjectId(userId))
-        Ok(write(messagesWithDescription)).as("application/json")
+    else{
+      Ok(write(ResulttoSent("Failure", "No More Data"))).as("application/json")
     }
   }
 }
