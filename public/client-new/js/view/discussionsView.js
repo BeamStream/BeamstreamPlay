@@ -1195,7 +1195,7 @@ define(
 							var self = this;
 							file = e.target.files[0];
 							var reader = new FileReader();
-							var fileSize = Math.round(file.size/1000);
+							var fileSize = Math.round(file.size/500);
 							if(fileSize < 500){
 								fileSize = 500;
 							}
