@@ -72,7 +72,7 @@ define(
 											$('.online-count')
 											
 													.html(
-															"Online("
+															"Online ("
 																	+ onlineUsersLength // this.data.models[0].attributes.onlineUsers.length
 																	+ ")");
 											_
