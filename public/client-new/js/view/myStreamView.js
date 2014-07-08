@@ -39,6 +39,13 @@ define(
 						messagesPerPage : 10,
 						pageNo : 1,
 						init : function() {
+							
+							var fullDate = new Date();
+							var twoDigitMonth = fullDate.getMonth()+"";if(twoDigitMonth.length==1)  twoDigitMonth="0" +twoDigitMonth;
+							var twoDigitDate = fullDate.getDate()+"";if(twoDigitDate.length==1) twoDigitDate="0" +twoDigitDate;
+							var currentDate = twoDigitDate + "/" + twoDigitMonth + "/" + fullDate.getFullYear();
+
+							$("div.current-date").text(currentDate);
 
 							var currentStreamView = new StreamSliderView({
 								el : $('#sidebar')

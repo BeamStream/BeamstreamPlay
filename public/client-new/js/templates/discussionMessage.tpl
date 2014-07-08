@@ -93,7 +93,9 @@
 				<div class="modal-header" style="background:#fff;margin-top: 45px;">
 				
 						  		<input type="button" onclick="download()">
-      							<div class="downloadbutton"><button class="btn btn-mini download" type="button">Download</button></div>
+      							<div class="downloadbutton"><button class="btn btn-mini download" type="button">Download</button>
+      							 <div class="current-date">{{datVal}}</div>
+      							</div>
      							 <h3></h3>
 							</div>
 							<div class="modal-body" style="overflow:scroll;background:#fff;"> 
