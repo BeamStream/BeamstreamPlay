@@ -115,6 +115,7 @@ define(
 						},
 						
 						updateGoogleDoc : function(eventName){
+							
 							var googleDocURL = $('#iframe-').attr('src').split("/");
 							var fileId = "";
 							if(googleDocURL.length == 9) {
@@ -131,7 +132,6 @@ define(
 								type: 'GET',	           
 					            url: 'googleDoc/update '+fileId,
 					            success: function(data){
-					            	
 					            }
 								
 							});
@@ -994,6 +994,7 @@ define(
 																						"#creategoogledoc")
 																						.modal(
 																								'hide');
+																				        
 																			}
 																		});
 															} else {
