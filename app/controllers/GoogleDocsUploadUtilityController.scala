@@ -146,11 +146,16 @@ object GoogleDocsUploadUtilityController extends Controller {
               googleDocId match {
                case None => Ok("Failure")*/
 //               case Some(fileId) => 
+              if(action.length() > 44) {
                 val fileId = action.split(" ")(1)
                 val docName = GoogleDocsUploadUtility.getGoogleDocData(newAccessToken, fileId)
                 val updateDocument = Document.updateTitle(fileId, docName)
                 val updateMessage = Message.updateMessageGoogleDocTitle(updateDocument, docName)
                 Ok("Success")
+              }
+              else{
+                Ok("Failure")
+              }
 //              }
             } else {
               val urlToRedirect = new GoogleBrowserClientRequestUrl(GoogleClientId, redirectURI, Arrays.asList("https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()
