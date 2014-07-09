@@ -50,18 +50,23 @@ object JoinBeamStream extends Controller {
    *  Beta Users Registration(T)
    */
   def regsisterToBeamStreamBeta: Action[AnyContent] = Action { implicit request =>
-//    println("JoinBeamStream registerToBeamStreamBeta" + request.body.asJson)
-    val userInfoJsonMap = request.body.asJson.get
-    val emailId = (userInfoJsonMap \ "mailId").as[String]
+    //    println("JoinBeamStream registerToBeamStreamBeta" + request.body.asJson)
+    try {
+      val userInfoJsonMap = request.body.asJson.get
+      val emailId = (userInfoJsonMap \ "mailId").as[String]
 
-    val betaUsersFound = BetaUser.findBetaUserbyEmail(emailId)
-    (!betaUsersFound.isEmpty) match {
-      case true => Ok(write(new ResulttoSent("Success", "You've been already added to the Beamstream's beta users list"))).as("application/json")
-      case false =>
-        val userToCreate = new BetaUser(new ObjectId, emailId)
-        BetaUser.addBetaUser(userToCreate)
-        UtilityActor.sendMailWhenBetaUserRegisters(userToCreate.emailId)
-        Ok(write(new ResulttoSent("Success", "Allow To Register"))).as("application/json")
+      val betaUsersFound = BetaUser.findBetaUserbyEmail(emailId)
+      (!betaUsersFound.isEmpty) match {
+        case true => Ok(write(new ResulttoSent("Success", "You've been already added to the Beamstream's beta users list"))).as("application/json")
+        case false =>
+          val userToCreate = new BetaUser(new ObjectId, emailId)
+          BetaUser.addBetaUser(userToCreate)
+          UtilityActor.sendMailWhenBetaUserRegisters(userToCreate.emailId)
+          Ok(write(new ResulttoSent("Success", "Allow To Register"))).as("application/json")
+      }
+    } catch {
+      case ex: Exception => Logger.error("This error occurred while Registering User to Beta List :- ", ex)
+      Ok(write(new ResulttoSent("Success", "You've been already added to the Beamstream's beta users list"))).as("application/json")
     }
   }
 

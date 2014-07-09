@@ -45,7 +45,7 @@ object GoogleDocsUploadUtilityController extends Controller {
   def authenticateToGoogle(action: String): Action[AnyContent] = Action { implicit request =>
 
     val userId = request.session.get("userId")
-    val tokenInfo = SocialToken.findSocialTokenObject(new ObjectId(userId.get))
+    val tokenInfo = SocialToken.findSocialTokenObject(new ObjectId(userId.getOrElse((new ObjectId).toString())))
     tokenInfo match {
       case None =>
         val urlToRedirect = new GoogleBrowserClientRequestUrl(GoogleClientId, redirectURI, Arrays.asList("https://www.googleapis.com/auth/plus.login", "https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()
