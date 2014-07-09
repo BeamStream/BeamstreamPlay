@@ -174,7 +174,7 @@ events : {
 									$('textarea#Q-area').val('');
 									$('#pollArea').slideUp(700);
 								}
-							}, 125);
+							}, 500);
 
 							$("ul#pollArea").on(
 									"click",
@@ -861,12 +861,12 @@ $
 								}
 							}
 
-							/*
-							 * setTimeout(function() {
-							 * $("#discussions-link").click(); }, 125)
-							 */
+							
+							 /* setTimeout(function() {
+							  $("#discussions-link").click(); }, 125)*/
+							 
 
-							$("#discussions-link").click();
+					$("#discussions-link").click();
 
 						},
 

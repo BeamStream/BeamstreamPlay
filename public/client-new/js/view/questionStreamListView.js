@@ -67,9 +67,9 @@ var QuestionStreamListView = BaseView.extend({
 						setStreamOwner : function(streamId) {
 
 							if (streamId != "remove-button" || streamId != null)
-{
-var streamCreator;
-$.ajax({
+							{
+								var streamCreator;
+									$.ajax({
 																				type : 'GET',
 											url : "/streamData/" + streamId,
 											async : false,
