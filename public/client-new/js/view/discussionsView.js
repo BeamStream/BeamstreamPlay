@@ -1212,31 +1212,35 @@ define(
 								$('#uploded-file-area').show();
 								$('.progress-container').show();
 								$('.ask-outer').css('height', '0px');
+								$('.fileUploadMsg').css('display', 'block');
 								$('.ask-outer').height(function(index, height) {
 
 									return (height + 70);
 
 								});
 
-								$('a.ask-button').css('visibility', 'visible');
-								$('a.ask-button').css('top', '40');
+								//$('a.ask-button').css('visibility', 'visible');
+								//$('a.ask-button').css('top', '40');
 
 							})(file);
 
 							// read the file as data URL
 							reader.readAsDataURL(file);
-
+							
 							/* updating progress bar */
 							this.progress = setInterval(function() {
-
+								
+								var self = this.bar;
+								
 								this.bar = $('.bar');
+								var self = this.bar;
 								if (this.bar.width() >= 195) {
 									clearInterval(this.progress);
 								} else {
 									this.bar.width(this.bar.width() + 10);
 								}
 								this.bar.text(this.bar.width() / 2 + "%");
-
+								
 							}, fileSize);
 							
 							var message = $('#msg-area').val();
@@ -1270,6 +1274,10 @@ define(
 										dataType : "json",
 										success : function(data) {
 											self.docurlAmazon = data[0];
+											$('.fileUploadMsg').css('display', 'none');
+											$('a.ask-button').css('top', '40');
+											$('a.ask-button').css('visibility', 'visible');
+										
 
 										}
 									});
