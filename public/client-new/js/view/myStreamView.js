@@ -253,7 +253,7 @@ define(
 							var position = $("#sidequestionexpand").css(
 							"right");
 							
-							if (position == "253px") {
+							if (position <= "253px") {
 								
 								$("#questionStreamView").animate({
 									"padding-right" : '5px',
@@ -272,7 +272,7 @@ define(
 							}
 						var positionAfter = $("#sidequestionexpand").css("margin-right");
 					
-						if (positionAfter >= "254px")
+						if (positionAfter <= "254px")
 							{
 							$("#questionStreamView").animate({
 								"opacity" : '1px',
