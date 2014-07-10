@@ -257,14 +257,14 @@ define(
 								
 								$("#questionStreamView").animate({
 									"padding-right" : '5px',
-									"z-index":"100000"
+									"z-index":"100"
 								}, 1000).animate({
 									"opacity" : '1px',
 									
 								}, 1000);
 								
 							$("#sidequestionexpand").animate({
-								"z-index":"100000"
+								"z-index":"100"
 							}, 1000).animate({
 								"opacity" : '1px',
 								
@@ -279,12 +279,12 @@ define(
 								
 							}, 1000).animate({
 								"padding-right" : '5px',
-								"z-index":"100000"
+								"z-index":"100"
 							}, 1000);
 							$("#sidequestionexpand").css("margin-right","0px")
 								$("#sidequestionexpand").animate({
 								
-									"z-index":"100000"
+									"z-index":"100"
 								}, 1000).animate({
 									"opacity" : '1',
 									
