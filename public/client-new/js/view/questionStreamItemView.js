@@ -68,6 +68,7 @@ define(
 						},
 
 						submitAnswer : function(e) {
+							var streamId =  $('.sortable li.active').attr('id');
 							var answertext = $.trim(this.$el.find('.qs-answer')
 									.val());
 							if (answertext !== "") {
@@ -79,7 +80,7 @@ define(
 										.text();
 								var answerSubmission = answertext;
 								this.model.postAnswer(answerSubmission, parent,
-										answerAmt);
+										answerAmt, streamId);
 								this.$el.find('.qs-answer').val('');
 								var QuestionStream = new QuestionStreamModel();
 								QuestionStream.createQuestionList();

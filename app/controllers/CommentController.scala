@@ -38,9 +38,10 @@ object CommentController extends Controller {
       case true =>
         val messageId = (commentJson \ "messageId").as[String]
         val commentText = (commentJson \ "comment").as[String]
+        val streamId = (commentJson \ "stream_id").as[String]
         val commentPoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
         val comment = new Comment(new ObjectId, commentText, new Date, new ObjectId(request.session.get("userId").get),
-          commentPoster.get.firstName, commentPoster.get.lastName, 0, List())
+          commentPoster.get.firstName, commentPoster.get.lastName, 0, List(), new ObjectId(streamId))
         val commentId = Comment.createComment(comment)
         Message.addCommentToMessage(commentId.get, new ObjectId(messageId))
         //        val message = Message.findMessageById(new ObjectId(messageId)).get
@@ -52,9 +53,10 @@ object CommentController extends Controller {
         case true =>
           val docId = (commentJson \ "docId").as[String]
           val commentText = (commentJson \ "comment").as[String]
+          val streamId = (commentJson \ "stream_id").as[String]
           val commentPoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
           val comment = new Comment(new ObjectId, commentText, new Date, new ObjectId(request.session.get("userId").get),
-            commentPoster.get.firstName, commentPoster.get.lastName, 0, List())
+            commentPoster.get.firstName, commentPoster.get.lastName, 0, List(), new ObjectId(streamId))
           val commentId = Comment.createComment(comment)
           Document.addCommentToDocument(commentId.get, new ObjectId(docId))
           Ok(write(List(comment))).as("application/json")
@@ -64,9 +66,10 @@ object CommentController extends Controller {
           case true =>
             val questionId = (commentJson \ "questionId").as[String]
             val commentText = (commentJson \ "comment").as[String]
+            val streamId = (commentJson \ "stream_id").as[String]
             val commentPoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
             val comment = new Comment(new ObjectId, commentText, new Date, new ObjectId(request.session.get("userId").get),
-              commentPoster.get.firstName, commentPoster.get.lastName, 0, List())
+              commentPoster.get.firstName, commentPoster.get.lastName, 0, List(), new ObjectId(streamId))
             val commentId = Comment.createComment(comment)
             Question.addCommentToQuestion(commentId.get, new ObjectId(questionId))
             Ok(write(comment)).as("application/json")
@@ -76,9 +79,10 @@ object CommentController extends Controller {
             case true =>
               val userMediaId = (commentJson \ "userMediaId").as[String]
               val commentText = (commentJson \ "comment").as[String]
+              val streamId = (commentJson \ "stream_id").as[String]
               val commentPoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
               val comment = new Comment(new ObjectId, commentText, new Date, new ObjectId(request.session.get("userId").get),
-                commentPoster.get.firstName, commentPoster.get.lastName, 0, List())
+                commentPoster.get.firstName, commentPoster.get.lastName, 0, List(), new ObjectId(streamId))
               val commentId = Comment.createComment(comment)
               UserMedia.addCommentToUserMedia(commentId.get, new ObjectId(userMediaId))
               Ok(write(comment)).as("application/json")
@@ -245,9 +249,10 @@ object CommentController extends Controller {
     val answerJson = request.body.asJson.get
     val questionId = (answerJson \ "questionId").as[String]
     val answerText = (answerJson \ "answerText").as[String]
+    val streamId = (answerJson \ "streamId").as[String]
     val commentPoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
     val ansWer = new Comment(new ObjectId, answerText, new Date, new ObjectId(request.session.get("userId").get),
-      commentPoster.get.firstName, commentPoster.get.lastName, 0, List())
+      commentPoster.get.firstName, commentPoster.get.lastName, 0, List(), new ObjectId(streamId))
     val answerId = Comment.createComment(ansWer)
     Question.addAnswerToQuestion(new ObjectId(questionId), answerId.get)
     Ok(write(ansWer)).as("application/json")

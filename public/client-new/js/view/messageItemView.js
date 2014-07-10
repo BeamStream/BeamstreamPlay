@@ -335,7 +335,7 @@ define(
 						},
 
 						/**
-						 * post new comments on enter key press
+						 * post new comments on clicking POST button
 						 */
 						addMessageComments : function(eventName) {
 							
@@ -359,13 +359,15 @@ define(
 									 * set the Comment model values and posted
 									 * to server
 									 */
+									var streamId = $('.sortable li.active').attr('id');
 									var comment = new CommentModel();
 									comment.urlRoot = "/newComment";
 									comment
 											.save(
 													{
 														comment : commentText,
-														messageId : parent
+														messageId : parent,
+														stream_id : streamId
 													},
 													{
 														success : function(

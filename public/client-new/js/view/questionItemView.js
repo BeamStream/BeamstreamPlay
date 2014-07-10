@@ -532,8 +532,9 @@ define(['view/formView',
   			 	
 	   			 		   // set the Comment model values and posted to server
 	   			 			var answer = new AnswerModel();
+	   			 		    var streamId =  $('.sortable li.active').attr('id');
 	   			 			answer.urlRoot = "/answer";
-	   			 			answer.save({answerText : answerText, questionId :parent},{
+	   			 			answer.save({answerText : answerText, questionId :parent, streamId : streamId},{
 		   			    	success : function(model, response) {
 	   			 				
 			   			    		

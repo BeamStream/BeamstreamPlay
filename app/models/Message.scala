@@ -169,10 +169,13 @@ object Message { //extends CommentConsumer {
    *  param pageNumber is the page number
    *  param messagesPerPage is the limit of messages per page
    */
-  def getAllMessagesForAKeyword(keyword: String, streamId: ObjectId, pageNumber: Int, messagesPerPage: Int): List[Message] = {
+  def getAllMessagesForAKeyword(keyword: String, streamId: ObjectId, pageNumber: Int, messagesPerPage: Int, commentIds: List[ObjectId]): List[Message] = {
     val keyWordregExp = Pattern.compile(keyword, Pattern.CASE_INSENSITIVE) //(""".*""" + keyword + """.*""").r
-    MessageDAO.find(MongoDBObject("$or" -> (MongoDBObject("messageBody" -> keyWordregExp),MongoDBObject("messageGoogleDocTitle" -> keyWordregExp)), "streamId" -> streamId)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
-    //    val messageGoogleDocTitleResult = MessageDAO.find(MongoDBObject("streamId" -> streamId, "messageGoogleDocTitle" -> keyWordregExp)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
+    MessageDAO.find(MongoDBObject("$or" -> (MongoDBObject("messageBody" -> keyWordregExp),MongoDBObject("messageGoogleDocTitle" -> keyWordregExp), MongoDBObject("comments" -> commentIds)), "streamId" -> streamId)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
+    /*val allMessages = MessageDAO.find(MongoDBObject()).toList
+    val allMessageCommentIds = allMessages flatMap {message => message.comments}
+    val commentMessages = allMessageCommentIds flatMap {messageCommentId => MessageDAO.find(MongoDBObject("$or" -> (MongoDBObject("messageBody" -> keyWordregExp),MongoDBObject("messageGoogleDocTitle" -> keyWordregExp), MongoDBObject("comments" -> messageCommentId)), "streamId" -> streamId)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList}*/
+//    commentMessages 
   }
 
   /**

@@ -11,6 +11,7 @@ import com.mongodb.casbah.commons.MongoDBObject
 import com.mongodb.WriteConcern
 import models.mongoContext._
 import scala.language.postfixOps
+import java.util.regex.Pattern
 
 case class Comment(@Key("_id") id: ObjectId,
   commentBody: String,
@@ -19,7 +20,8 @@ case class Comment(@Key("_id") id: ObjectId,
   firstNameofCommentPoster: String,
   lastNameofCommentPoster: String,
   rocks: Int,
-  rockers: List[ObjectId])
+  rockers: List[ObjectId],
+  streamId: ObjectId)
 
 object Comment {
 
@@ -142,6 +144,12 @@ object Comment {
   def isARocker(commentId: ObjectId, userId: Object): Boolean = {
     val comment = CommentDAO.find(MongoDBObject("_id" -> commentId)).toList(0)
     comment.rockers.contains(userId)
+  }
+  
+  def getAllCommentsForAKeyword(keyword: String, streamId: ObjectId, pageNumber: Int, messagesPerPage: Int): List[Comment] = {
+    val keyWordregExp = Pattern.compile(keyword, Pattern.CASE_INSENSITIVE) //(""".*""" + keyword + """.*""").r
+    CommentDAO.find(MongoDBObject("commentBody" -> keyWordregExp, "streamId" -> streamId)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
+    //    val messageGoogleDocTitleResult = MessageDAO.find(MongoDBObject("streamId" -> streamId, "messageGoogleDocTitle" -> keyWordregExp)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
   }
 
 }
