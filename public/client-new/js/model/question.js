@@ -114,7 +114,7 @@ define([ 'baseModel', 'model/comment', 'model/answer',
 			this.trigger('commentPost');
 		},
 
-		postAnswer : function(answerText, parent, answerAmt) {
+		postAnswer : function(answerText, parent, answerAmt, streamId) {
 			var questionId = parent;
 			var ansCount = answerAmt;
 			var answer = new Answer();
@@ -122,7 +122,8 @@ define([ 'baseModel', 'model/comment', 'model/answer',
 			answer.urlRoot = '/answer';
 			answer.save({
 				answerText : answerText,
-				questionId : this.get('question').id.id
+				questionId : this.get('question').id.id,
+				streamId : streamId
 			}, {
 				success : function(model, response) {
 
