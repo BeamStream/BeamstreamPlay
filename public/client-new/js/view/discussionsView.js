@@ -427,6 +427,7 @@ define(
 
 														// set the response data
 														// to model
+														if(self.data.models[0]) {
 														self.data.models[0]
 																.set({
 																	message : data.message,
@@ -434,6 +435,7 @@ define(
 																	docDescription : data.docDescription,
 																	profilePic : data.profilePic
 																})
+														
 
 														/* Pubnub auto push */
 														PUBNUB
@@ -446,6 +448,7 @@ define(
 																	}
 
 																})
+														}
 
 														// show the uploaded
 														// file on message llist
