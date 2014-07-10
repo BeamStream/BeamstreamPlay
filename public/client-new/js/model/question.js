@@ -70,7 +70,7 @@ define([ 'baseModel', 'model/comment', 'model/answer',
 			this.trigger('change:questionRock');
 		},
 
-		postComment : function(commentText, parent, commentAmt) {
+		postComment : function(commentText, parent, commentAmt, streamId) {
 			var questionId = parent;
 			var cmtCount = commentAmt;
 			var comment = new Comment();
@@ -81,7 +81,8 @@ define([ 'baseModel', 'model/comment', 'model/answer',
 			comment.urlRoot = '/newComment';
 			comment.save({
 				comment : commentText,
-				questionId : this.get('question').id.id
+				questionId : this.get('question').id.id,
+				stream_id : streamId
 			}, {
 				success : function(model, response) {
 

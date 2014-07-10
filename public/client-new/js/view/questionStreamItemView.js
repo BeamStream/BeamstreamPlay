@@ -93,7 +93,7 @@ define(
 						},
 
 						submitComment : function(e) {
-
+							var streamId =  $('.sortable li.active').attr('id');
 							var element = e.target.parentElement;
 							var parent = $(element)
 									.parents('div.side-question').attr('id');
@@ -106,7 +106,7 @@ define(
 								var commentSubmission = commenttext;
 								// var commentCount = $()
 								this.model.postComment(commentSubmission,
-										parent, commentAmt);
+										parent, commentAmt, streamId);
 								this.$el.find('.qs-comment').val('');
 								this.model.updateEditStatus();
 								this.$el.find('.qs-comment').hide();
