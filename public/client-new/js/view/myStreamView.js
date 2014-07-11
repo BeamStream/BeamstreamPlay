@@ -186,7 +186,7 @@ define(
 
 							view = this.getViewById('questionListView');
 							view.myStreams = this.getViewById('sidebar').myStreams;
-							view.myStreams = this.getViewById('sidebar').myStreams;
+							//view.myStreams = this.getViewById('sidebar').myStreams;
 							view.data.url = "/getAllQuestionsForAStream/"
 									+ this.getViewById('sidebar').streamId
 									+ "/date/" + view.messagesPerPage + "/"
@@ -194,7 +194,7 @@ define(
 
 							view.fetch();
 							
-							
+							$("#questionsLink").click();
 
 						},
 

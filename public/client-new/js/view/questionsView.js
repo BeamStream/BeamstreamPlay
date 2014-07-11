@@ -28,6 +28,10 @@ events : {
 							'change #Q-files-area' : 'getUploadedData',
 							// 'keypress #Q-area' : 'postQuestionOnEnterKey',
 							'keyup #Q-area' : 'removePreview',
+							'keypress #sort_by_key_questions' : 'searchQuestionByKey',
+							'blur #sort_by_key_questions':'searchQuestionByBlur',
+							'keyup #sort_by_key_questions':'searchQuestionByKeyup',
+							'click form.all-search span.backToNormal' : 'clearSearchField',
 
 						},
 
@@ -91,7 +95,7 @@ events : {
 															view = self
 																	.getViewById('questionListView');
 
-															if (self.questionSortedType == "date") {
+															/*if (self.questionSortedType == "date") {
 																self.pageNo++;
 																if (view) {
 
@@ -135,7 +139,7 @@ events : {
 																	self
 																			.appendMessages();
 																}
-															}
+															}*/
 
 														}
 													} else {
@@ -147,6 +151,141 @@ events : {
 											});
 
 						},
+						
+						
+						
+						searchQuestionByKey : function(eventName) {
+							
+							var self = this;
+							this.pageNo = 1;
+							var streamId = $('.sortable li.active').attr('id');
+							var keyword = $('#sort_by_key_questions').val();
+							if (eventName.which == 13) {
+								self.msgSortedType = "keyword";
+								eventName.preventDefault();
+								if (keyword) {
+									/* render the message list */
+									view = this.getViewById('questionListView');
+									if (view) {
+										view.data.url = "/getAllQuestionsForAStream/" + streamId
+												+ "/" + keyword + "/" + view.messagesPerPage
+												+ "/" + view.pageNo;
+										view.data.fetch();
+
+									}
+								} else {
+									view = this.getViewById('questionListView');
+									if (view) {
+
+										view.myStreams = this
+												.getViewById('sidebar').myStreams;
+
+										view.data.url = "/getAllQuestionsForAStream/"
+												+ this.getViewById('sidebar').streamId
+												+ "/date/"
+												+ view.messagesPerPage
+												+ "/"
+												+ view.pageNo;
+										view.fetch();
+
+									}
+								}
+
+							} 
+
+						},
+						
+						searchQuestionByBlur:  function(eventName) {
+
+							var self = this;
+							this.pageNo = 1;
+							var streamId = $('.sortable li.active').attr('id');
+							var keyword = $('#sort_by_key_questions').val();
+								self.msgSortedType = "keyword";
+								eventName.preventDefault();
+								if (keyword) {
+									/* render the message list */
+									view = this.getViewById('questionListView');
+									if (view) {
+
+										view.data.url = "/getAllQuestionsForAStream/" + streamId
+										+ "/" + keyword + "/" + view.messagesPerPage
+										+ "/" + view.pageNo;
+										view.fetch();
+
+									}
+								} else {
+									view = this.getViewById('questionListView');
+									if (view) {
+
+										view.myStreams = this
+												.getViewById('sidebar').myStreams;
+
+										view.data.url = "/getAllQuestionsForAStream/"
+												+ this.getViewById('sidebar').streamId
+												+ "/date/"
+												+ view.messagesPerPage
+												+ "/"
+												+ view.pageNo;
+										view.fetch();
+
+									}
+								}
+
+						},
+						
+						
+						searchQuestionByKeyup: function(eventName) {
+							var self = this;
+							this.pageNo = 1;
+							var streamId = $('.sortable li.active').attr('id');
+							var keyword = $('#sort_by_key_questions').val();
+							
+							$('form.all-search span.backToNormal').css('visibility','visible');
+							
+							if(keyword == "")
+								{
+								$('form.all-search span.backToNormal').css('visibility','hidden');
+								view = this.getViewById('questionListView');
+								if (view) {
+
+									view.myStreams = this
+											.getViewById('sidebar').myStreams;
+
+									view.data.url = "/getAllQuestionsForAStream/"
+											+ this.getViewById('sidebar').streamId
+											+ "/date/"
+											+ view.messagesPerPage
+											+ "/"
+											+ view.pageNo;
+									view.fetch();
+
+								}
+								}
+						},
+						clearSearchField: function(eventName) {
+							var self = this;
+							this.pageNo = 1;
+							var streamId = $('.sortable li.active').attr('id');
+							view = this.getViewById('questionListView');
+							if (view) {
+
+								view.myStreams = this
+										.getViewById('sidebar').myStreams;
+
+								view.data.url = "/getAllQuestionsForAStream/"
+									+ this.getViewById('sidebar').streamId
+									+ "/date/"
+									+ view.messagesPerPage
+									+ "/"
+									+ view.pageNo;
+								view.fetch();
+							$('form.all-search span.backToNormal').css('visibility','hidden');
+							$('#sort_by_key_questions').val('');
+							}
+						},
+						
+						
 
 						showAskButton : function() {
 
