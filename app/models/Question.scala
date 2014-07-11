@@ -266,7 +266,7 @@ object Question {
     val keywordQuestions = QuestionDAO.find(MongoDBObject("questionBody" -> keyWordregExp, "streamId" -> streamId)).skip((pageNumber - 1) * questionsPerPage).limit(questionsPerPage).toList
     val answerQuestions = answerIds map {
       answerId =>
-        QuestionDAO.find(MongoDBObject("comments" -> answerId,"streamId" -> streamId))
+        QuestionDAO.find(MongoDBObject("answers" -> answerId,"streamId" -> streamId))
         .skip((pageNumber - 1) * questionsPerPage)
         .limit(questionsPerPage)
         .toList

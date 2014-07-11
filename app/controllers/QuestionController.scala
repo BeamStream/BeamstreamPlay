@@ -243,7 +243,7 @@ object QuestionController extends Controller {
         case true => Question.getAllQuestionsForAStreamSortedbyRocks(new ObjectId(streamId), pageNo, questionsPerPage)
         case false => 
           val answers = Comment.getAllCommentsForAKeyword(sortBy, new ObjectId(streamId))
-          val answerIds = answers map {answer => answer.streamId}
+          val answerIds = answers map {answer => answer.id}
           Question.getAllQuestionsForAStreambyKeyword(sortBy, new ObjectId(streamId), pageNo, questionsPerPage, answerIds)
       }
     }
