@@ -235,13 +235,16 @@ object QuestionController extends Controller {
   /**
    * Get All Questions For A Stream
    */
-  def getAllQuestionForAStream(streamId: String, sortBy: String, messagesPerPage: Int, pageNo: Int): Action[AnyContent] = Action { implicit request =>
+  def getAllQuestionForAStream(streamId: String, sortBy: String, questionsPerPage: Int, pageNo: Int): Action[AnyContent] = Action { implicit request =>
     val userId = new ObjectId(request.session.get("userId").get)
     val allQuestionsForAStream = (sortBy == "date") match {
-      case true => Question.getAllQuestionForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
+      case true => Question.getAllQuestionForAStreamWithPagination(new ObjectId(streamId), pageNo, questionsPerPage)
       case false => (sortBy == "rock") match {
-        case true => Question.getAllQuestionsForAStreamSortedbyRocks(new ObjectId(streamId), pageNo, messagesPerPage)
-        case false => Question.getAllQuestionsForAStreambyKeyword(sortBy, new ObjectId(streamId), pageNo, messagesPerPage)
+        case true => Question.getAllQuestionsForAStreamSortedbyRocks(new ObjectId(streamId), pageNo, questionsPerPage)
+        case false => 
+          val answers = Comment.getAllCommentsForAKeyword(sortBy, new ObjectId(streamId))
+          val answerIds = answers map {answer => answer.streamId}
+          Question.getAllQuestionsForAStreambyKeyword(sortBy, new ObjectId(streamId), pageNo, questionsPerPage, answerIds)
       }
     }
     val questionsObtainedWithOtherInformation = questionWithOtherInformation(allQuestionsForAStream, userId)

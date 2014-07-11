@@ -260,10 +260,21 @@ object Question {
   /**
    * get all questions within a stream on the basis of keyword
    */
-  def getAllQuestionsForAStreambyKeyword(keyword: String, streamId: ObjectId, pageNumber: Int, messagesPerPage: Int): List[Question] = {
+  def getAllQuestionsForAStreambyKeyword(keyword: String, streamId: ObjectId, pageNumber: Int, questionsPerPage: Int, answerIds: List[ObjectId]): List[Question] = {
     //    val keyWordregExp = (""".*""" + keyword + """.*""").r
     val keyWordregExp = Pattern.compile(keyword, Pattern.CASE_INSENSITIVE)
-    QuestionDAO.find(MongoDBObject("questionBody" -> keyWordregExp, "streamId" -> streamId)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
+    val keywordQuestions = QuestionDAO.find(MongoDBObject("questionBody" -> keyWordregExp, "streamId" -> streamId)).skip((pageNumber - 1) * questionsPerPage).limit(questionsPerPage).toList
+    val answerQuestions = answerIds map {
+      answerId =>
+        QuestionDAO.find(MongoDBObject("comments" -> answerId,"streamId" -> streamId))
+        .skip((pageNumber - 1) * questionsPerPage)
+        .limit(questionsPerPage)
+        .toList
+    }
+    if(answerQuestions.length >= 1)
+    	(answerQuestions(0) ++ keywordQuestions).distinct
+    else
+    	  keywordQuestions
   }
 
   /**
