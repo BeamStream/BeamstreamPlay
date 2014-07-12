@@ -146,9 +146,9 @@ object Comment {
     comment.rockers.contains(userId)
   }
   
-  def getAllCommentsForAKeyword(keyword: String, streamId: ObjectId, pageNumber: Int, messagesPerPage: Int): List[Comment] = {
+  def getAllCommentsForAKeyword(keyword: String, streamId: ObjectId): List[Comment] = {
     val keyWordregExp = Pattern.compile(keyword, Pattern.CASE_INSENSITIVE) //(""".*""" + keyword + """.*""").r
-    CommentDAO.find(MongoDBObject("commentBody" -> keyWordregExp, "streamId" -> streamId)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
+    CommentDAO.find(MongoDBObject("commentBody" -> keyWordregExp, "streamId" -> streamId)).toList
     //    val messageGoogleDocTitleResult = MessageDAO.find(MongoDBObject("streamId" -> streamId, "messageGoogleDocTitle" -> keyWordregExp)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
   }
 

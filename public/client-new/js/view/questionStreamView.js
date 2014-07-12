@@ -30,8 +30,10 @@ var QuestionStreamView = BaseView
 
 			});
 			/* this.onlineuser = this.setOnlineuser(); */
-
+			
+			
 			this.render();
+			
 
 		},
 
@@ -65,7 +67,7 @@ var QuestionStreamView = BaseView
 
 			// Tell child views to setElement and render itself
 			this.streamListView.setElement(this.$el.find('.streamList'));
-			this.streamListView.render();
+			//this.streamListView.render();
 
 			return this;
 		},
@@ -106,7 +108,8 @@ var QuestionStreamView = BaseView
 			this.$el.find('.question-txt-input').val('');
 			this.$el.find('.selected-arrow').toggleClass('selected-arrow');
 			this.$el.find('.selected-filter').toggleClass('selected-filter');
-		}
+		},
+		
 
 	});
 

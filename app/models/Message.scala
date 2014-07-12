@@ -171,11 +171,18 @@ object Message { //extends CommentConsumer {
    */
   def getAllMessagesForAKeyword(keyword: String, streamId: ObjectId, pageNumber: Int, messagesPerPage: Int, commentIds: List[ObjectId]): List[Message] = {
     val keyWordregExp = Pattern.compile(keyword, Pattern.CASE_INSENSITIVE) //(""".*""" + keyword + """.*""").r
-    MessageDAO.find(MongoDBObject("$or" -> (MongoDBObject("messageBody" -> keyWordregExp),MongoDBObject("messageGoogleDocTitle" -> keyWordregExp)), "streamId" -> streamId)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
-    /*val allMessages = MessageDAO.find(MongoDBObject()).toList
-    val allMessageCommentIds = allMessages flatMap {message => message.comments}
-    val commentMessages = allMessageCommentIds flatMap {messageCommentId => MessageDAO.find(MongoDBObject("$or" -> (MongoDBObject("messageBody" -> keyWordregExp),MongoDBObject("messageGoogleDocTitle" -> keyWordregExp), MongoDBObject("comments" -> messageCommentId)), "streamId" -> streamId)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList}*/
-//    commentMessages 
+    val keywordMessages = MessageDAO.find(MongoDBObject("$or" -> (MongoDBObject("messageBody" -> keyWordregExp), MongoDBObject("messageGoogleDocTitle" -> keyWordregExp)), "streamId" -> streamId)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
+    val commentMessages = commentIds map {
+      commentId =>
+        MessageDAO.find(MongoDBObject("comments" -> commentId,"streamId" -> streamId))
+        .skip((pageNumber - 1) * messagesPerPage)
+        .limit(messagesPerPage)
+        .toList
+    }
+    if(commentMessages.length >= 1)
+    	(commentMessages(0) ++ keywordMessages).distinct
+    else
+    	  keywordMessages
   }
 
   /**
@@ -389,7 +396,7 @@ object Message { //extends CommentConsumer {
         val message = MessageDAO.find(MongoDBObject("docIdIfAny" -> documentId)).toList
         message.isEmpty match {
           case false => MessageDAO.update(MongoDBObject("docIdIfAny" -> documentId), message(0).copy(messageGoogleDocTitle = newName), false, false, new WriteConcern)
-          case true => 
+          case true =>
         }
     }
   }
