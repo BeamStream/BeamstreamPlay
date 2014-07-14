@@ -316,7 +316,7 @@ define(
 						 */
 						hidePostButton : function() {
 							setTimeout(function() {
-								$('#msg-area').css('padding', '4px 6px');
+								$('#msg-area').css('padding', '5px 6px 4px 6px');
 								$('#msg-area')
 										.css('margin', '-1px 0 -5px 14px');
 								$('.ask-outer').css('height', '0px');
