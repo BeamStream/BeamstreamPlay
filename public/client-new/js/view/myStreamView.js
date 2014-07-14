@@ -35,6 +35,7 @@ define(
 							'click #create-google-docs-close' : 'askToPublishDocs',
 							'click .cancel-publish' : 'askToPublishDocs',
 							'click #googleDocPopupCloseBtn' : 'updateGoogleDoc',
+							'click #googleDocGeneralCloseBtn' : 'closeGoogleDocGeneralPopup',
 						},
 						messagesPerPage : 10,
 						pageNo : 1,
@@ -121,6 +122,10 @@ define(
 
 						},
 						
+						closeGoogleDocGeneralPopup : function(){
+							window.history.pushState({}, "stream", "/stream");
+						},
+						
 						updateGoogleDoc : function(eventName){
 							
 							var googleDocURL = $('#iframe-').attr('src').split("/");
@@ -132,13 +137,14 @@ define(
 								fileId = googleDocURL[5];
 							}
 							
-							window.location = "/stream";
+							window.history.pushState({}, "stream", "/stream");
 							
 							$.ajax({
 								
 								type: 'GET',	           
 					            url: 'googleDoc/update '+fileId,
 					            success: function(data){
+					            	$('#streamTab a').click();
 					            }
 								
 							});
@@ -424,7 +430,6 @@ define(
 
 						uploadToGoogle : function(event) {
 							$("#uploadgoogledoc").modal('hide');
-
 						},
 
 						/* ------------------------------- */
@@ -985,6 +990,7 @@ define(
 														"class" : "btn googledocclose",
 
 														"callback" : function() {
+															window.history.pushState({}, "stream", "/stream");
 															if (docAttrs[6]
 																	.indexOf("key=") != -1) {
 																var key = docAttrs[6]
