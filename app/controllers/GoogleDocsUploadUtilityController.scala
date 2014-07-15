@@ -106,7 +106,7 @@ object GoogleDocsUploadUtilityController extends Controller {
             if (action.length() == 44) {
               val result = GoogleDocsUploadUtility.deleteAGoogleDocument(newAccessToken, action)
               Ok
-            } else if (action == "addPreviewImageUrl") {
+            } /*else if (action == "addPreviewImageUrl") {
               val waitingTime = Cache.get(userId.get) //reducing number of hits on Google Drive setting cache for 2 minutes
               if (waitingTime.isEmpty) {
                 Cache.set(userId.get, "himanshu", 60 * 2)
@@ -141,7 +141,7 @@ object GoogleDocsUploadUtilityController extends Controller {
               //}
               //                }
               Ok
-            } else if (action.split(" ")(0) == "update") {
+            }*/ else if (action.split(" ")(0) == "update") {
               /*val googleDocId = Document.findDocumentByURL(action.split(" ")(1))
               googleDocId match {
                case None => Ok("Failure")*/

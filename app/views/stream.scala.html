@@ -920,7 +920,7 @@ ul li#showSubList:hover ul {
 						  		<input type="button" onclick="download()">
       							<div class="downloadbutton">
       							<button class="btn btn-mini download" type="button">Download</button>
-      							 <div class="current-date"></div>
+      							 <div id="current-date-googleDoc"></div>
       							</div>
      							 <h3></h3>
      							
@@ -1450,8 +1450,8 @@ ul li#showSubList:hover ul {
 				    type: 'GET',	           
 					url: accessURL,
 				    success: function(data){
-				        var docUrl = data;
-							            
+				        var docUrl = data.documentURL;
+						$("#current-date-googleDoc").text(data.creationDate);	            
 						$.ajax({
 						type : 'GET',
 						url : 'googleDoc/access ' + docId,
