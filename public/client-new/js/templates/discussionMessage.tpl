@@ -50,10 +50,10 @@
 																<div name={{type}} class="description-left mediapopup drag-rectangle" id="{{data.message.docIdIfAny.id}}">
 						        							<input type="hidden" id="id-{{data.message.docIdIfAny.id}}"  value="{{data.message.messageBody}}">      
 						        								<p class="doc-description" id="description-{{data.message.docIdIfAny.id}}" >
-																			{{#if data.docDescription}}{{data.docDescription}}{{else}}No 														Document Description..{{/if}}
+																			{{#if data.docDescription}}{{data.docDescription}}{{/if}}
 																		</p>
 									    							<div class="dateinfo">
-																			<span class="date date-btn">{{datVal}}</span>
+																			<span class="date date-btn">{{data.message.timeCreated}}</span>
 																			<span class="state">{{data.message.messageAccess.name}}</span>
 																		</div>
 						      							</div>
@@ -94,7 +94,7 @@
 				
 						  		<input type="button" onclick="download()">
       							<div class="downloadbutton"><button class="btn btn-mini download" type="button">Download</button>
-      							 <div class="current-date">{{datVal}}</div>
+      							 <div class="current-date">{{data.message.timeCreated}}</div>
       							</div>
      							 <h3></h3>
 							</div>
@@ -139,7 +139,9 @@
 								    <div class="gallery">
 							           <a href="{{data.message.anyPreviewImageUrl}}" style="text-decoration: none" rel="prettyPhoto[gallery2]">
 							              <div class="description-left photo-popup">   
-							              <p class="google_doc doc-description" id="description-{{data.message.docIdIfAny.id}}"><input type="hidden" id="id-{{data.message.docIdIfAny.id}}" value="doc.url">{{#if data.docDescription}}{{data.docDescription}}{{else}}No Media Description{{/if}}</p>
+							              <p class="google_doc doc-description" id="description-{{data.message.docIdIfAny.id}}">
+							              <input type="hidden" id="id-{{data.message.docIdIfAny.id}}" value="doc.url">
+							              {{#if data.docDescription}}{{data.docDescription}}{{/if}}</p>
 								        </div>
 							           </a>
 								   </div>  
@@ -150,23 +152,30 @@
 			            		 <div class="gallery hrtxt">
 					           		<a href="{{data.message.messageBody}}" style="text-decoration: none" rel="prettyPhoto[gallery1]">
 					              		<div class="description-left photo-popup">   
-					              			<p class="google_doc doc-description" id="description-{{data.message.docIdIfAny.id}}"><input type="hidden" id="id-{{data.message.docIdIfAny.id}}" value="doc.url">{{#if data.docDescription}}{{data.docDescription}}{{else}}No Media Description{{/if}}</p>
+					              			<p class="google_doc doc-description" id="description-{{data.message.docIdIfAny.id}}">
+					              			<input type="hidden" id="id-{{data.message.docIdIfAny.id}}" value="doc.url">
+					              			{{#if data.docDescription}}{{data.docDescription}}{{/if}}</p>
 						   				 </div>
 					          		 </a>
 								 </div> 
 						       {{/ifequal}} 
 						    
 						      <div id="{{data.message.docIdIfAny.id}}" class="comment-wrapper2">
-						      <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon rock_media"></a>
+						      <a href="#" class="tag-icon" data-original-title="Search by Users"></a>
+						      <a href="#" class="hand-icon rock_media"></a>
 						      <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
 						      </div></div></div>
-						      
-						      <div class="edit-title-div">
-								{{#ifequal loggedUserId data.message.userId.id }}
-						      		<h5 class="editMediaTitle" id="{{data.message.docIdIfAny.id}}"><span><img src="beamstream-new/images/title-plus.png"></span>Title & Description</h5>
-						        {{/ifequal}}
-						      </div>        
-						     <div class="dateinfo"><span class="state">{{data.message.messageAccess.name}}</span><span class="date date-btn">{{datVal}}</span></div>
+						     <div class="dateinfo">
+						       <span class="date media-date-btn">{{data.message.timeCreated}}</span>
+						     <span class="media-state">{{data.message.messageAccess.name}}</span>
+						     
+						      <form id="{{data.message.docIdIfAny.id}}" class="comment-wrapper2">
+								<button id="media-document-rock-button">Rock Up</button>
+								<button id="media-document-comment-button">Comment</button>
+								<button id="media-document-share-button">Share</button>
+							</form>
+						     </div>
+						    
 						    </div>
 						   </div>
 						  </div>
