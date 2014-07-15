@@ -326,7 +326,7 @@ define(
 												return (height + 70);
 											});
 									$('a.ask-button').css('visibility',
-											'visible');
+											'hidden');
 								} else {
 									$('a.ask-button').css('visibility',
 											'hidden');
@@ -1194,26 +1194,26 @@ define(
 						 * get files data to be upload
 						 */
 						getUploadedData : function(e) {
-
+							$('a.ask-button').css('visibility', 'hidden');
 							var self = this;
 							file = e.target.files[0];
 							var reader = new FileReader();
-							var fileSize = Math.round(file.size/500);
+							/*var fileSize = Math.round(file.size/500);
 							if(fileSize < 500){
 								fileSize = 500;
-							}
+							}*/
 
 							/* capture the file informations */
 							reader.onload = (function(f) {
 								self.file = file;
-								self.bar = $('.bar'); // progress bar
-								self.bar.width('');
-								self.bar.text("");
+								//self.bar = $('.bar'); // progress bar
+								//self.bar.width('');
+								//self.bar.text("");
 								clearInterval(self.progress);
 
 								$('#file-name').html(f.name);
 								$('#uploded-file-area').show();
-								$('.progress-container').show();
+								//$('.progress-container').show();
 								$('.ask-outer').css('height', '0px');
 								$('.fileUploadMsg').css('display', 'block');
 								$('.ask-outer').height(function(index, height) {
@@ -1222,8 +1222,6 @@ define(
 
 								});
 
-								//$('a.ask-button').css('visibility', 'visible');
-								//$('a.ask-button').css('top', '40');
 
 							})(file);
 
@@ -1231,7 +1229,7 @@ define(
 							reader.readAsDataURL(file);
 							
 							/* updating progress bar */
-							this.progress = setInterval(function() {
+							/*this.progress = setInterval(function() {
 								
 								var self = this.bar;
 								
@@ -1244,7 +1242,7 @@ define(
 								}
 								this.bar.text(this.bar.width() / 2 + "%");
 								
-							}, fileSize);
+							}, fileSize);*/
 							
 							var message = $('#msg-area').val();
 							var msgAccess = $('#private-to').attr('checked');
@@ -1276,11 +1274,14 @@ define(
 										processData : false,
 										dataType : "json",
 										success : function(data) {
-											self.docurlAmazon = data[0];
+											$('.fileUploadMsg').css('visibility', 'hidden');
 											$('.fileUploadMsg').css('display', 'none');
+											$('#floatingCirclesG').css('visibility', 'hidden');
+											$('#floatingCirclesG').css('display', 'none');
+											self.docurlAmazon = data[0];
 											$('a.ask-button').css('top', '40');
 											$('a.ask-button').css('visibility', 'visible');
-										
+								
 
 										}
 									});
