@@ -440,7 +440,7 @@ object DocumentController extends Controller {
     val googleDoc = Document.findDocumentById(new ObjectId(docId))
     googleDoc match{
       case None => Ok
-      case Some(doc) => Ok(doc.documentURL)
+      case Some(doc) => Ok(write(doc)).as("application/json")
     }																																																
   }
 

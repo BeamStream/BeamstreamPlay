@@ -264,11 +264,14 @@ define(
 												.setStreamOwner(streamId),
 
 									}
+									
+									
 
 								}
 
 							}
-
+							
+							
 							// render the template
 							compiledTemplate = Handlebars
 									.compile(DiscussionMessage);
