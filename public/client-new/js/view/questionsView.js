@@ -313,7 +313,7 @@ events : {
 									$('textarea#Q-area').val('');
 									$('#pollArea').slideUp(700);
 								}
-							}, 500);
+							}, 1000);
 
 							$("ul#pollArea").on(
 									"click",

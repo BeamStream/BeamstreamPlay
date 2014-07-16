@@ -333,7 +333,7 @@ define(
 								}
 
 								$('textarea#msg-area').val('');
-							}, 500)
+							}, 1000)
 						},
 
 						/**
