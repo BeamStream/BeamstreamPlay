@@ -6,8 +6,8 @@
     <div class="answer-description-info">
       <div class="follow-names">
         <ul class="follow-name-left show-all-block">
-          <li><span>@{{data.firstNameofCommentPoster}} {{data.lastNameofCommentPoster}} </span> -  {{data.timeCreated}}  -  Public</li>
-          <li ><a href="#" class="rock-answers" >Rock</a></li>
+          <li><span>@{{data.firstNameofCommentPoster}} {{data.lastNameofCommentPoster}} </span> -  {{data.timeCreated}}  -  Private to Class</li>
+          <li ><a href="#" class="rock-answers">Rock</a></li>
           <li class="rocks-small-answer"><a id="{{{data.id.id}}-mrockCount" href="#">{{{data.rocks}}</a></li>
           <!--li><a class="comment-icon" href="#"></a></li-->
              

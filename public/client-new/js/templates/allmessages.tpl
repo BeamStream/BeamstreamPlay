@@ -8,7 +8,7 @@
                         <div class="answer-description-info">
                           <div class="follow-names">
                             <ul class="follow-name-left show-all-block">
-                              <li><span>@{{value.comment.firstNameofCommentPoster}} {{value.comment.lastNameofCommentPoster}} </span> -  {{value.comment.timeCreated}}  -  Public</li>
+                              <li><span>@{{value.comment.firstNameofCommentPoster}} {{value.comment.lastNameofCommentPoster}} </span> -  {{value.comment.timeCreated}}  -  Private to Class</li>
                               <li ><a href="#" class="rock-comments" >Rock</a></li>
                               <li class="rocks-small"><a id="{{value.comment.id.id}}-mrockCount" href="#">{{value.comment.rocks}}</a></li>
                               <!--li><a class="comment-icon" href="#"></a></li-->
