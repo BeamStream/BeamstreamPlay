@@ -16,6 +16,7 @@ libraryDependencies ++= Seq(
    "net.sf.opencsv" % "opencsv"                 % "2.1",
    "xuggle"         % "xuggle-xuggler"          % "5.4",
    "org.joda"       % "joda-convert"            % "1.1",
+   "org.twitter4j"  % "twitter4j-core"          % "4.0.2",
 	jdbc,
     anorm,
     cache
