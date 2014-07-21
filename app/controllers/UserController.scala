@@ -116,7 +116,6 @@ object UserController extends Controller {
    * Invite User To join Beamstream
    */
   /*def inviteUserToBeamstream: Action[AnyContent] = Action { implicit request =>
-    println("UserController inviteUserToBeamstream" + request.body.asFormUrlEncoded)
     val userJsonMap = request.body.asFormUrlEncoded.get
     val emailList = userJsonMap("data").toList.head.split(",").toList
     for (eachEmail <- emailList) SendEmailUtility.inviteUserToBeamstream(eachEmail)
@@ -143,7 +142,6 @@ object UserController extends Controller {
    * @purpose : Send a mail to user with password
    */
   def forgotPassword: Action[AnyContent] = Action { implicit request =>
-    //    println("UserController forgotPassword" + request.body.asJson)
     val jsonReceived = request.body.asJson.get
     val emailId = (jsonReceived \ "mailId").as[String]
     val passwordSent = User.forgotPassword(emailId)
@@ -252,7 +250,6 @@ object UserController extends Controller {
    * Find and Authenticate the user to proceed. (RA)
    */
   def findUser: Action[AnyContent] = Action { implicit request =>
-    //    println("UserController findUser" + request.body.asJson)
     val jsonReceived = request.body.asJson.get
     val userEmailorName = (jsonReceived \ "mailId").as[String]
     val userPassword = (jsonReceived \ "password").as[String]

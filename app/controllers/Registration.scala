@@ -27,14 +27,12 @@ import models.LoginResult
 import play.api.Play
 import play.api.mvc.Cookie
 import models.UserMedia
-import play.api.mvc.DiscardingCookie
 import com.ning.http.client.Response
 import play.api.cache.Cache
 import play.api.Play.current
 import play.api.mvc.AnyContent
 import play.api.libs.json._
 import utils.FetchLocationUtil
-import play.api.mvc.DiscardingCookie
 import play.api.mvc.DiscardingCookie
 import models.ResulttoSent
 
