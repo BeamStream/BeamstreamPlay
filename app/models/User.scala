@@ -10,7 +10,6 @@ import actors.UtilityActor
 import play.api.libs.json.JsValue
 import utils.MongoHQConfig
 import utils.PasswordHashingUtil
-import com.novus.salat.global.ctx
 import models.mongoContext._
 import java.util.Date
 import scala.language.postfixOps

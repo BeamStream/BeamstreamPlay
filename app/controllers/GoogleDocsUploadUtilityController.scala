@@ -75,7 +75,6 @@ object GoogleDocsUploadUtilityController extends Controller {
                 val result = GoogleDocsUploadUtility.createANewGoogleDocument(newAccessToken, "application/vnd.google-apps.presentation")
                 Ok(write(result)).as("application/json")
               /*else if (action == "addPreviewImageUrl") {
-              println("111111111111111111")
               val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(newAccessToken)
               files.foreach(f => updateMessageImageUrl(updatePreviewImageUrl(f._1, f._5), f._5))
               Ok
