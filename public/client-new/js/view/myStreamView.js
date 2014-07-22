@@ -298,6 +298,7 @@ define(
 							}
 
 						//}
+							$('button#upload-files2').css('visibility','visible');
 							$('#discussions-link').css('display', 'none');
 							$('#flipQuestion').css('padding',
 									'0px 0px 0px 12px');
@@ -917,6 +918,7 @@ define(
 							/*
 							 * eventName.preventDefault(); this.options = 2;
 							 */
+							$('button#upload-files2').css('visibility','hidden');
 							$('#pollArea').hide();
 							$('.question-button').text("ASK");
 							$('.add-poll').hide();
