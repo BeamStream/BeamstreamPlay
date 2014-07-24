@@ -315,7 +315,6 @@ object UserController extends Controller {
   }
 
   def reset: Action[AnyContent] = Action { implicit request =>
-    //    println("UserController reset" + request.body.asFormUrlEncoded)
     val data = request.body.asFormUrlEncoded.get
     val emailToReset = data("email").toList(0)
     val user = User.findUserByEmailId(emailToReset)

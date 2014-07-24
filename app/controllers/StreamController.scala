@@ -102,7 +102,6 @@ object StreamController extends Controller {
    * @Purpose: For Public Profile (Stream Specific Results)
    */
  /* def allPublicMessagesFromAllStreamsForAUser: Action[AnyContent] = Action { implicit request =>
-    println("StreamController allPublicMessagesFromAllStreamsForAUser" + request.body.asFormUrlEncoded)
     val UserIdJsonMap = request.body.asFormUrlEncoded.get
     val userId = UserIdJsonMap("userId").toList(0)
     val classListForAUser = Class.getAllClassesForAUser(new ObjectId(userId))
@@ -172,19 +171,17 @@ object StreamController extends Controller {
   /*    OnlineUserCache.returnOnlineUsers.isEmpty match {
       case false =>
         OnlineUserCache.returnOnlineUsers(0).onlineUsers.isEmpty match {
-          case true => println("11111111111111111");Ok(views.html.login())
+          case true => Ok(views.html.login())
           case false =>
-            println("2222222222222222222222222")
             val userID = request.session.get("userId")
             userID match {
               case Some(id) =>
-                println("33333333333333333333333333333333")
                 val loggedInUser = User.getUserProfile(new ObjectId(id))
                 loggedInUser.get.classes.isEmpty match {
-                  case true => println("444444444444444444444444");Ok(views.html.classpage())
+                  case true => Ok(views.html.classpage())
                   case false => Ok(views.html.stream("ok"))
                 }
-              case None => println("55555555555555555555555555");Redirect("/login")
+              case None => Redirect("/login")
             }
         }
       case true =>

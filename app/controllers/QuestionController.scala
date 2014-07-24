@@ -39,7 +39,6 @@ object QuestionController extends Controller {
    */
 
   def newQuestion: Action[AnyContent] = Action { implicit request =>
-    //    println("Questioncontroller newQuestion " + request.body.asJson)
     val questionJsonMap = request.body.asJson.get
     val streamId = (questionJsonMap \ "streamId").as[String]
     val questionBody = (questionJsonMap \ "questionBody").as[String]
@@ -151,7 +150,6 @@ object QuestionController extends Controller {
   //==================================================//
 
   /*def getAllQuestionForAStreamWithPagination: Action[AnyContent] = Action { implicit request =>
-    println("QuestionController getAllQuestionforAStreamWithPagination " + request.body.asFormUrlEncoded)
     val streamIdJsonMap = request.body.asFormUrlEncoded.get
     val streamId = streamIdJsonMap("streamId").toList(0)
     val pageNo = streamIdJsonMap("pageNo").toList(0).toInt
@@ -166,7 +164,6 @@ object QuestionController extends Controller {
   //======Displays all the questions within a Stream sorted by rocks===//
   //================================================================//
   /*def getAllQuestionsForAStreamSortedbyRocks: Action[AnyContent] = Action { implicit request =>
-    println("QuestionController getAllQuestionforAStreamSortedbyRocks " + request.body.asFormUrlEncoded)
     val streamIdJsonMap = request.body.asFormUrlEncoded.get
     val streamId = streamIdJsonMap("streamId").toList(0)
     val pageNo = streamIdJsonMap("pageNo").toList(0).toInt
@@ -181,7 +178,6 @@ object QuestionController extends Controller {
   //======Displays all the questions within a Stream for a keyword===//
   //================================================================//
   /*def getAllQuestionsForAStreambyKeyword: Action[AnyContent] = Action { implicit request =>
-    println("QuestionController getAllQuestionforAStreambyKeyword " + request.body.asFormUrlEncoded)
     val keywordJsonMap = request.body.asFormUrlEncoded.get
     val keyword = keywordJsonMap("keyword").toList(0)
     val streamId = keywordJsonMap("streamId").toList(0)
