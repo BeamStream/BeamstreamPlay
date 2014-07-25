@@ -189,7 +189,7 @@ object StreamController extends Controller {
     }
   }
 */
-  
+
   def getStreamData(streamId: String): Action[AnyContent] = Action {implicit request =>
     val streamfound = Stream.findStreamById(new ObjectId(streamId))
     streamfound match {

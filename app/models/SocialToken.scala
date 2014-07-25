@@ -38,10 +38,10 @@ object SocialToken {
       case false => Option(tokenFound.head)
     }
   }
-  
+
   def findGmailId(userId: ObjectId): Option[String] = {
     val gmailIdFound = SocialTokenDAO.find(MongoDBObject("_id" -> userId)).toList
-    gmailIdFound.isEmpty match{
+    gmailIdFound.isEmpty match {
       case true => None
       case false => Option(gmailIdFound.head.gmailId)
     }

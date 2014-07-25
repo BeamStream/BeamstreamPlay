@@ -150,7 +150,7 @@ object MessageController extends Controller {
         case true => Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
         case false => (sortBy == "rock") match {
           case true => Message.getAllMessagesForAStreamSortedbyRocks(new ObjectId(streamId), pageNo, messagesPerPage)
-          case false => 
+          case false =>
             val comments = Comment.getAllCommentsForAKeyword(sortBy, new ObjectId(streamId))
             val commentIds = comments map {c => c.id}
             Message.getAllMessagesForAKeyword(sortBy, new ObjectId(streamId), pageNo, messagesPerPage, commentIds)
