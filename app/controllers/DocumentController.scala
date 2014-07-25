@@ -138,7 +138,6 @@ object DocumentController extends Controller {
    * Change the title and description
    */
   def changeTitleAndDescriptionForADocument(documentId: String): Action[AnyContent] = Action { implicit request =>
-    //    println("DocumentController changeTitleAndDescriptionForADocument" + request.body.asJson)
     val jsonReceived = request.body.asJson.get
     val docDescription = (jsonReceived \ "docDescription").as[String]
     val docName = (jsonReceived \ "docName").as[String]
@@ -172,7 +171,6 @@ object DocumentController extends Controller {
    */
 
   def uploadDocumentFromDisk: Action[play.api.mvc.MultipartFormData[play.api.libs.Files.TemporaryFile]] = Action(parse.multipartFormData) { request =>
-    //    println("DocumentController uploadDocumentFromDisk" + request.body.asFormUrlEncoded)
     val documentJsonMap = request.body.asFormUrlEncoded.toMap
     val streamId = documentJsonMap("streamId").toList(0)
     val docDescription = documentJsonMap("docDescription").toList(0)
@@ -190,7 +188,6 @@ object DocumentController extends Controller {
           val isPdf = contentType.contains("pdf")
           val docAccess = documentJsonMap("docAccess").toList(0)
           val documentReceived: File = docData.ref.file.asInstanceOf[File]
-//          println(documentReceived.length() + ">>>>>>>>>>>>>>>>>>>>>>>>")
           val docUniqueKey = TokenEmailUtil.securityToken
           val docNameOnAmazom = (docUniqueKey + documentName).replaceAll("\\s", "")
           val isFileUploaded = (new AmazonUpload).uploadFileToAmazon(docNameOnAmazom, documentReceived)
@@ -228,7 +225,6 @@ object DocumentController extends Controller {
   }
   
   def postDocumentFromDisk: Action[play.api.mvc.MultipartFormData[play.api.libs.Files.TemporaryFile]] = Action(parse.multipartFormData) { request =>
-    //    println("DocumentController uploadDocumentFromDisk" + request.body.asFormUrlEncoded)
     val documentJsonMap = request.body.asFormUrlEncoded.toMap
     val streamId = documentJsonMap("streamId").toList(0)
     val docDescription = documentJsonMap("docDescription").toList(0)

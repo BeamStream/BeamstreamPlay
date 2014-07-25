@@ -82,7 +82,6 @@ object BasicRegistration extends Controller {
    */
 
   def signUpUser: Action[AnyContent] = Action { implicit request =>
-    //    println("BasicRegistration signUpUser " + request.body.asJson)
     val userInfoJsonMap = request.body.asJson.get
 
     val iam = (userInfoJsonMap \ "iam").as[String]

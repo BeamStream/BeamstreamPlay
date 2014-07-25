@@ -26,8 +26,9 @@ object Global extends GlobalSettings {
     try {
       val filePath = Global.getClass().getClassLoader().getResourceAsStream("ListofSchools.csv")
       SchoolDAO.insert(new School(new ObjectId, "", ""))
-      if (School.getAllSchools.length < 7487)
+      if (School.getAllSchools.length < 7487) {
         ReadingSpreadsheetUtil.readCSVOfSchools(filePath)
+      }
     } catch {
       case ex: Exception => Logger.error("This error occured while Reading School List CSV file :- ", ex) //for Reading CSV of schools
     }

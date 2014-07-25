@@ -63,9 +63,7 @@ object PreviewImage extends Controller {
   /*def getPhoto(previewImageUrl: String) = Action { implicit request =>
 
     val mongoDBConnection = MongoConnection()("myTestDB")
-    println("33333333333333333333333333333333333333")
     val gridFs = GridFS(mongoDBConnection, "image")
-    println("44444444444444444444444444444444444444")
     val fileName = (new PasswordHashingUtil).encryptThePassword(previewImageUrl)
     gridFs.findOne(fileName) match {
       case None => NotFound
