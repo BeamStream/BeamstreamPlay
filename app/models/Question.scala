@@ -266,15 +266,16 @@ object Question {
     val keywordQuestions = QuestionDAO.find(MongoDBObject("questionBody" -> keyWordregExp, "streamId" -> streamId)).skip((pageNumber - 1) * questionsPerPage).limit(questionsPerPage).toList
     val answerQuestions = answerIds map {
       answerId =>
-        QuestionDAO.find(MongoDBObject("answers" -> answerId,"streamId" -> streamId))
-        .skip((pageNumber - 1) * questionsPerPage)
-        .limit(questionsPerPage)
-        .toList
+        QuestionDAO.find(MongoDBObject("answers" -> answerId, "streamId" -> streamId))
+          .skip((pageNumber - 1) * questionsPerPage)
+          .limit(questionsPerPage)
+          .toList
     }
-    if(answerQuestions.length >= 1)
-    	(answerQuestions(0) ++ keywordQuestions).distinct
-    else
-    	  keywordQuestions
+    if (answerQuestions.length >= 1) {
+      (answerQuestions(0) ++ keywordQuestions).distinct
+    } else {
+      keywordQuestions
+    }
   }
 
   /**
@@ -364,7 +365,7 @@ object Question {
    * Delete a answer
    */
 
- /* def deleteAnswerPermanently(answerId: ObjectId, questionId: ObjectId, userId: ObjectId): Boolean = {
+  /* def deleteAnswerPermanently(answerId: ObjectId, questionId: ObjectId, userId: ObjectId): Boolean = {
     val answerToBeRemoved = Comment.findAnswerById(answerId)
     answerToBeRemoved match {
       case Some(answer) =>

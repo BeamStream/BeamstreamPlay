@@ -21,14 +21,14 @@ object Token {
   def addToken(token: Token): Option[Int] = {
     TokenDAO.insert(token)
   }
-  
+
   /**
    * Remove token by Token Id
    */
   def removeToken(token: Token) {
     TokenDAO.remove(token)
   }
-  
+
   /**
    * Find Mail TOken on basis of token string
    */
@@ -36,7 +36,6 @@ object Token {
   def findToken(tokenString: String): List[Token] = {
     TokenDAO.find(MongoDBObject("tokenString" -> tokenString)).toList
   }
-
 
   def findTokenByUserId(userId: String): List[Token] = {
     TokenDAO.find(MongoDBObject("userId" -> userId)).toList
@@ -46,13 +45,13 @@ object Token {
    * Find Mail Token on basis of user Id
    */
 
-//  def findTokenOnBasisOfUserID(userId: String): List[Token] = {
-//    TokenDAO.find(MongoDBObject("userId" -> new ObjectId(userId))).toList
-//  }
-//
-//  def isUserRegistered(userId: String) = {
-//    TokenDAO.find(MongoDBObject("userId" -> new ObjectId(userId))).toList.head.used
-//  }
+  //  def findTokenOnBasisOfUserID(userId: String): List[Token] = {
+  //    TokenDAO.find(MongoDBObject("userId" -> new ObjectId(userId))).toList
+  //  }
+  //
+  //  def isUserRegistered(userId: String) = {
+  //    TokenDAO.find(MongoDBObject("userId" -> new ObjectId(userId))).toList.head.used
+  //  }
 
   /**
    * Update Mail TOken (VA)

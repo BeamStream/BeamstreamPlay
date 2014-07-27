@@ -80,7 +80,7 @@ object DocumentController extends Controller {
       GoogleDocsUploadUtility.makeGoogleDocPublicToClass(newAccessToken, fileId(7))
     }*/
     var docName: String = ""
-    var fileId: String = ""  
+    var fileId: String = ""
     if (fileIdList.length >= 8) {
       docName = GoogleDocsUploadUtility.getGoogleDocData(newAccessToken, fileIdList(7))
       fileId = fileIdList(7)
@@ -138,7 +138,6 @@ object DocumentController extends Controller {
    * Change the title and description
    */
   def changeTitleAndDescriptionForADocument(documentId: String): Action[AnyContent] = Action { implicit request =>
-    //    println("DocumentController changeTitleAndDescriptionForADocument" + request.body.asJson)
     val jsonReceived = request.body.asJson.get
     val docDescription = (jsonReceived \ "docDescription").as[String]
     val docName = (jsonReceived \ "docName").as[String]
@@ -172,7 +171,6 @@ object DocumentController extends Controller {
    */
 
   def uploadDocumentFromDisk: Action[play.api.mvc.MultipartFormData[play.api.libs.Files.TemporaryFile]] = Action(parse.multipartFormData) { request =>
-    //    println("DocumentController uploadDocumentFromDisk" + request.body.asFormUrlEncoded)
     val documentJsonMap = request.body.asFormUrlEncoded.toMap
     val streamId = documentJsonMap("streamId").toList(0)
     val docDescription = documentJsonMap("docDescription").toList(0)
@@ -190,7 +188,6 @@ object DocumentController extends Controller {
           val isPdf = contentType.contains("pdf")
           val docAccess = documentJsonMap("docAccess").toList(0)
           val documentReceived: File = docData.ref.file.asInstanceOf[File]
-//          println(documentReceived.length() + ">>>>>>>>>>>>>>>>>>>>>>>>")
           val docUniqueKey = TokenEmailUtil.securityToken
           val docNameOnAmazom = (docUniqueKey + documentName).replaceAll("\\s", "")
           val isFileUploaded = (new AmazonUpload).uploadFileToAmazon(docNameOnAmazom, documentReceived)
@@ -226,9 +223,8 @@ object DocumentController extends Controller {
     }
     Ok(write(resultToSend)).as("application/json")
   }
-  
+
   def postDocumentFromDisk: Action[play.api.mvc.MultipartFormData[play.api.libs.Files.TemporaryFile]] = Action(parse.multipartFormData) { request =>
-    //    println("DocumentController uploadDocumentFromDisk" + request.body.asFormUrlEncoded)
     val documentJsonMap = request.body.asFormUrlEncoded.toMap
     val streamId = documentJsonMap("streamId").toList(0)
     val docDescription = documentJsonMap("docDescription").toList(0)
@@ -250,31 +246,32 @@ object DocumentController extends Controller {
           val docUniqueKey = TokenEmailUtil.securityToken
           val docNameOnAmazom = (docUniqueKey + documentName).replaceAll("\\s", "")
           //val isFileUploaded = (new AmazonUpload).uploadFileToAmazon(docNameOnAmazom, documentReceived)
-        //  val docURL = "https://s3.amazonaws.com/BeamStream/" + docNameOnAmazom
+          //  val docURL = "https://s3.amazonaws.com/BeamStream/" + docNameOnAmazom
           val userId = new ObjectId(request.session.get("userId").get)
           val user = User.getUserProfile(userId)
 
           //isFileUploaded match {
-            //case false => List(Option("Failure"), isFileUploaded)
-            if (isImage) {
-              val uploadResults = saveImageFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, uploadedFrom)
-              Option(uploadResults)
-            } else if (isVideo) {
-              val uploadResults = saveVideoFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom, uploadedFrom)
-              if (uploadResults.message == None && uploadResults.question == None)
-                Option("Failure")
-              else
-                Option(uploadResults)
+          //case false => List(Option("Failure"), isFileUploaded)
+          if (isImage) {
+            val uploadResults = saveImageFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, uploadedFrom)
+            Option(uploadResults)
+          } else if (isVideo) {
+            val uploadResults = saveVideoFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom, uploadedFrom)
+            if (uploadResults.message == None && uploadResults.question == None) {
+              Option("Failure")
             } else {
-              if (isPdf) {
-                val previewImageUrl = PreviewOfPDFUtil.convertPdfToImage(documentReceived, docNameOnAmazom)
-                val uploadResults = savePdfFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom, previewImageUrl, uploadedFrom)
-                Option(uploadResults)
-              } else {
-                val uploadResults = saveOtherDOcFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom, uploadedFrom)
-                Option(uploadResults)
-              }
+              Option(uploadResults)
             }
+          } else {
+            if (isPdf) {
+              val previewImageUrl = PreviewOfPDFUtil.convertPdfToImage(documentReceived, docNameOnAmazom)
+              val uploadResults = savePdfFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom, previewImageUrl, uploadedFrom)
+              Option(uploadResults)
+            } else {
+              val uploadResults = saveOtherDOcFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom, uploadedFrom)
+              Option(uploadResults)
+            }
+          }
         }.get
     }
     Ok(write(resultToSend)).as("application/json")
@@ -435,13 +432,13 @@ object DocumentController extends Controller {
     }
     Ok(write(viewCount.toString)).as("application/json")
   }
-  
+
   def getGoogleDocURL(docId: String): Action[AnyContent] = Action { implicit request =>
     val googleDoc = Document.findDocumentById(new ObjectId(docId))
-    googleDoc match{
+    googleDoc match {
       case None => Ok
       case Some(doc) => Ok(write(doc)).as("application/json")
-    }																																																
+    }
   }
 
 }

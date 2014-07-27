@@ -64,7 +64,6 @@ class CommentTest extends FunSuite with BeforeAndAfter {
       val messageId = Message.createMessage(message)
       val comment = Comment(new ObjectId, "Comment1", new Date, userId.get, user.firstName, user.lastName, 0, List(userId.get))
       val commentId = Comment.createComment(comment)
-      println(Comment.commentsRockersNames(commentId.get))
       assert(Comment.commentsRockersNames(commentId.get) === "Comment1")
     }
   }*/

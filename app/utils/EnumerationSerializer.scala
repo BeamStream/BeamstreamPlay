@@ -100,8 +100,7 @@ object DateTimeSerializer extends Serializer[Option[Date]] {
 
       case x => throw new MappingException("Can't convert " + x + " to Date")
     }
-    case _ => //println("Getting to this case and hence it is an error!"); 
-      Option(new Date)
+    case _ => Option(new Date)
   }
 
   def serialize(implicit format: Formats): PartialFunction[Any, JValue] = {

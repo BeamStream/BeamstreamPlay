@@ -135,7 +135,7 @@ object GoogleDocsUploadUtilityController extends Controller {
               //TODO Remove it before pushing it on Production
               //              else {
               //                for (f <- filesFromCache.get) {
-              //                  if (GoogleDocsUploadUtility.canMakeGoogleDocPublic(newAccessToken, f._2)) { 
+              //                  if (GoogleDocsUploadUtility.canMakeGoogleDocPublic(newAccessToken, f._2)) {
               //                  updateMessageImageUrl(updatePreviewImageUrl(f._1, f._5), f._5)
               //}
               //                }
@@ -144,7 +144,7 @@ object GoogleDocsUploadUtilityController extends Controller {
               /*val googleDocId = Document.findDocumentByURL(action.split(" ")(1))
               googleDocId match {
                case None => Ok("Failure")*/
-//               case Some(fileId) => 
+//               case Some(fileId) =>
               if(action.length() > 44) {
                 val fileId = action.split(" ")(1)
                 val docName = GoogleDocsUploadUtility.getGoogleDocData(newAccessToken, fileId)
@@ -234,7 +234,6 @@ object GoogleDocsUploadUtilityController extends Controller {
    * Uploading File To Google
    */
   def uploadToGoogleDrive: Action[play.api.mvc.MultipartFormData[play.api.libs.Files.TemporaryFile]] = Action(parse.multipartFormData) { request =>
-    //    println("GoogleDocsUploadUtilityController uploadToGoogleDrive " + request.body.file("picture"))
     request.body.file("picture").map { file =>
       val contentType = file.contentType
       val fileName = file.filename

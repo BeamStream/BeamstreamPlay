@@ -360,7 +360,7 @@ define(
 							$('a.ask-button').css('visibility', 'hidden');
 							$('.ask-outer').css('height', '0px');
 
-							$('.progress-container').hide();
+							//$('.progress-container').hide();
 							$('#uploded-file-area').hide();
 							var self = this;
 							var streamId = $('.sortable li.active').attr('id');
@@ -1210,12 +1210,15 @@ define(
 								//self.bar.width('');
 								//self.bar.text("");
 								clearInterval(self.progress);
-
+								$('.fileUploadMsg').css('visibility', 'visible');
+								$('.fileUploadMsg').css('display', 'block');
+								$('#floatingCirclesG').css('visibility', 'visible');
+								$('#floatingCirclesG').css('display', 'block');
 								$('#file-name').html(f.name);
 								$('#uploded-file-area').show();
 								//$('.progress-container').show();
 								$('.ask-outer').css('height', '0px');
-								$('.fileUploadMsg').css('display', 'block');
+								
 								$('.ask-outer').height(function(index, height) {
 
 									return (height + 70);

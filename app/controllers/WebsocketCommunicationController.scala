@@ -49,9 +49,7 @@ object WebsocketCommunicationController extends Controller {
         }
 
       case false =>
-        println(alreadyOpened + "Before")
         alreadyOpened = alreadyOpened.filter(a => a == List((me, toWhom)))
-        println(alreadyOpened + "After")
         Ok("removed")
     }
 

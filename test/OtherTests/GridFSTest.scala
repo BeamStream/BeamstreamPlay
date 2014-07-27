@@ -34,6 +34,4 @@ object GridFSTest extends App {
   gfsFile.filename = "Neel.jpg"
   gfsFile.save
 
-  println("Your file has been successfully saved")
-
 }

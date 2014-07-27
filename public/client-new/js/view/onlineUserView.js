@@ -89,7 +89,7 @@ define(
 																	profileImageUrl = '/beamstream-new/images/profile-upload.png';
 																}
 
-																if (model.id.id == localStorage["loggedUserId"]) {
+																if (model.id.id == localStorage["loggedUserId"] /*&& document.querySelector('#me') == null*/) {
 																	var template = '<li id="me" class="online active"><a href="#" class="active"><img src="'
 																			+ profileImageUrl
 																			+ '" width="30" height="28"> '
@@ -99,7 +99,7 @@ define(
 																			'#user-online ul')
 																			.prepend(
 																					template);
-																} else {
+																} else /*if(model.id.id != localStorage["loggedUserId"] && document.getElementById(model.id.id) == null)*/{
 
 																	var template = '<li id="'
 																			+ model.id.id
@@ -125,7 +125,7 @@ define(
 																					template);
 
 																}
-
+																
 																$(
 																		'#user-online')
 																		.mCustomScrollbar(
@@ -141,7 +141,7 @@ define(
 							var self = this;
 							setInterval(function() {
 								self.displayPage();
-							}, 15*60*1000);
+							}, 10*1000);
 						},
 
 						/* Pubnub subscription for online user */

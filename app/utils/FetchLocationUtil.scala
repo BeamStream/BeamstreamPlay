@@ -29,8 +29,9 @@ object FetchLocationUtil {
     var stateName: String = dataList(5).split(":")(1).toString()
     val name = stateName.substring(2, stateName.length() - 1)
     for (row <- reader.readAll) {
-      if (row(0).toUpperCase() == name)
+      if (row(0).toUpperCase() == name) {
         stateName = row(1)
+      }
     }
     val cityName = dataList(6).split(":")(1).toString()
     if (stateName.length() == 2) {

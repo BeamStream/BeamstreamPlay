@@ -81,8 +81,7 @@ object SocialController extends Controller {
    * Returns a JSON of user contact information
    */
   def getContacts: Action[AnyContent] = Action { implicit request =>
-    /*println("social_identifier: " + session.get("social_identifier"))
-    session.get("social_identifier").map { identifier =>
+/*    session.get("social_identifier").map { identifier =>
       val apiKey = Play.current.configuration.getString("janrain_apiKey").get
       val URL = "https://rpxnow.com/api/v2/get_contacts"
       val promise = WS.url(URL).setQueryParameter("format", "json").setQueryParameter("identifier", identifier).setQueryParameter("apiKey", apiKey).get
@@ -100,7 +99,6 @@ object SocialController extends Controller {
    * Returns a JSON of user contact information
    */
   def inviteFriends: Action[AnyContent] = Action { implicit request =>
-//    println("SocialController inviteFriends " + request.body.asJson)
     val userId = request.session.get("userId")
     (userId == None) match {
       case true => Ok(write("Session Has Been Expired")).as("application/json")

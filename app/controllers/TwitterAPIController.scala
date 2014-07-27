@@ -13,7 +13,6 @@ import twitter4j.TwitterException
 import twitter4j.TwitterFactory
 
 object TwitterAPIController extends Controller{
-  
 
   val currentUserId = "userId"
   var twitter: Twitter = null
@@ -46,7 +45,7 @@ object TwitterAPIController extends Controller{
       }
     }
   }
-  
+
    *//**
    * To get The root context from application.config
    *//*

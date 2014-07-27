@@ -31,7 +31,6 @@ object CommentController extends Controller {
 
   def newComment: Action[AnyContent] = Action { implicit request =>
 
-    //    println("CommentController newComment" + request.body.asJson)
     val commentJson = request.body.asJson.get
     ((commentJson \ "messageId").asOpt[String] != None) match {
 
@@ -102,7 +101,6 @@ object CommentController extends Controller {
 
   def getAllComments: Action[AnyContent] = Action { implicit request =>
     try {
-      //      println("CommentController getAllComments" + request.body.asJson)
       val jsonWithid = request.body.asJson.get
       ((jsonWithid \ "messageId").asOpt[String] != None) match {
         case true =>
@@ -245,7 +243,6 @@ object CommentController extends Controller {
    * Answer of a question
    */
   def newAnswer: Action[AnyContent] = Action { implicit request =>
-    //    println("CommentController newAnswer" + request.body.asJson)
     val answerJson = request.body.asJson.get
     val questionId = (answerJson \ "questionId").as[String]
     val answerText = (answerJson \ "answerText").as[String]
