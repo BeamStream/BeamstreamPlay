@@ -220,6 +220,37 @@ border-top-left-radius:0;
 background-clip:padding-box;
 }
 
+.CWpopup {
+  background-color: #F0F2F1;
+  margin: 0 auto;
+  padding: 100px;
+  text-align: center;
+  /* border-radius */
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  /* box-shadow */
+  font-weight: 500;
+  font-size: 145%;
+  color: #BBBBBB;
+  width: 183px;
+  height: 40px;
+  max-width: 183px;
+  border: 10px solid #6EC9E3;
+  border: 10px solid rgb(110, 201, 227);
+  border: 10px solid rgba(110, 201, 227, .6);
+  -webkit-background-clip: padding-box; /* for Safari */
+  background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+  position:absolute; top:50%; 
+  left:50%; 
+  margin-left:-200px;   /* negative half of width above */ 
+  margin-top:-200px;   /* negative half of height above */
+}
+
+.bootbox.modal.fade.in {
+	.CWpopup;
+}
+
 pre {
 border:1px solid #ccc;
 border:1px solid rgba(0,0,0,0.15);
