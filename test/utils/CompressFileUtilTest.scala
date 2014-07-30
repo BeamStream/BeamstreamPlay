@@ -13,7 +13,7 @@ class CompressFileUtilTest extends FunSuite {
 
   test("Compress Image") {
     running(FakeApplication()) {
-      val file = new File("/home/himanshu/beamstream.png")
+      val file = new File("/home/himanshu/Pictures/high_res.jpg")
       val result = CompressFileUtil.compressImage(file, "Himanshu", 1)
       assert(result.getClass().toString() === "class java.io.ByteArrayInputStream")
     }

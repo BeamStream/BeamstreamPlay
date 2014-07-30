@@ -14,7 +14,7 @@ class AmazonUploadUtilTest extends FunSuite {
 
   test("Upload File to Amazon") {
     running(FakeApplication()) {
-      val profilePic = new File("/home/himanshu/hello.txt")
+      val profilePic = new File("README")
       (new AmazonUpload).uploadFileToAmazon("Himanshu", profilePic)
       assert((new AmazonUpload).isFileExists("Himanshu") === true)
       (new AmazonUpload).deleteFileFromAmazon("Himanshu")
@@ -24,7 +24,7 @@ class AmazonUploadUtilTest extends FunSuite {
 
   test("Upload Compressed File to Amazon") {
     running(FakeApplication()) {
-      val profilePic = new FileInputStream("/home/himanshu/hello.txt")
+      val profilePic = new FileInputStream("README")
       (new AmazonUpload).uploadCompressedFileToAmazon("Himanshu", profilePic)
       assert((new AmazonUpload).isFileExists("Himanshu") === true)
       (new AmazonUpload).deleteFileFromAmazon("Himanshu")

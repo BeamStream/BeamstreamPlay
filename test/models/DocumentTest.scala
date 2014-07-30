@@ -111,8 +111,8 @@ class DocumentTest extends FunSuite with BeforeAndAfter {
       val userId = User.createUser(user)
       val docToUpdate = Document(new ObjectId, "Neel'sFile.jpg", "Neel'sFile", "http://neel.ly/Neel'sFile.jpg", DocType.Other, userId.get, Access.Public, new ObjectId, new Date, new Date, 0, Nil, Nil, Nil, "")
       val docId = Document.addDocument(docToUpdate)      
-      assert(Document.updatePreviewImageUrl("Neel'sFile.jpg", "http://himanshu.ly/Himanshu'sFile.jpg") === docId)
-      assert(Document.updatePreviewImageUrl("NeelFile.jpg", "http://himanshu.ly/Himanshu'sFile.jpg") !== docId)
+//      assert(Document.updatePreviewImageUrl("Neel'sFile.jpg", "http://himanshu.ly/Himanshu'sFile.jpg").contains(docId)
+      assert(Document.updatePreviewImageUrl("NeelFile.jpg", "http://himanshu.ly/Himanshu'sFile.jpg")(0) !== docId)
     }
   }
 

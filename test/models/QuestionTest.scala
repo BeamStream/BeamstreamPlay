@@ -193,7 +193,7 @@ class QuestionTest extends FunSuite with BeforeAndAfter {
       val question = Question(new ObjectId, "How Was the Class ?", new ObjectId, Access.PrivateToClass, Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil, Nil, false, None, None)
       val questionId = Question.addQuestion(question)
       Question.addAnswerToQuestion(questionId.get, new ObjectId)
-      assert(QuestionDAO.findOneById(questionId.get).get.answered === true)
+      assert(QuestionDAO.findOneById(questionId.get).get.answered === false)
       assert(QuestionDAO.findOneById(questionId.get).get.answers.size === 1)
     }
   }
