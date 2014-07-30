@@ -38,13 +38,6 @@ class UtilityActorTest extends FunSuite with BeforeAndAfter{
       assert(messageSent.toString === "()")
     }
   }
-  
-  test("Send Message via Email when Source Email Address is not provided") {
-    running(FakeApplication()) {
-      val messageSent = UtilityActor.sendMail("himanshu@knoldus.com", "Unit Testing Beamstream", "Successful", "")
-      assert(messageSent.toString === "()")
-    }
-  }
 
   test("Send Email after User SignsUp") {
     running(FakeApplication()) {

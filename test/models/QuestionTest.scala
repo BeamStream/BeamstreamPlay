@@ -250,8 +250,8 @@ class QuestionTest extends FunSuite with BeforeAndAfter {
       val questionId = Question.addQuestion(question)
       val answer = Comment(new ObjectId, "Good", new Date, userId.get, user.firstName, user.lastName, 0, List(userId.get), stream.id)
       val answerId = Comment.createComment(answer)
-      assert(Comment.deleteCommentPermanently(answerId.get, questionId.get, new ObjectId) === false)
       assert(Comment.deleteCommentPermanently(answerId.get, questionId.get, userId.get) === true)
+      assert(Comment.deleteCommentPermanently(answerId.get, questionId.get, new ObjectId) === false)
     }
   }
   
