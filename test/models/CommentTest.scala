@@ -24,6 +24,7 @@ class CommentTest extends FunSuite with BeforeAndAfter {
       UserMediaDAO.remove(MongoDBObject("name" -> ".*".r))
     }
   }
+
   test("Create a Comment and find comment by id") {
     running(FakeApplication()) {
       val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", Option("Neel"), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
@@ -106,11 +107,11 @@ class CommentTest extends FunSuite with BeforeAndAfter {
       val questionId = Question.addQuestion(question)
       val comment2 = Comment(new ObjectId, "Comment2", new Date, userId.get, user.firstName, user.lastName, 0, Nil, streamId.get)
       val commentId2 = Comment.createComment(comment2)
-      assert(Comment.deleteCommentPermanently(commentId2.get, questionId.get, new ObjectId) === false)
       assert(Comment.deleteCommentPermanently(commentId2.get, questionId.get, userId.get) === true)
+      assert(Comment.deleteCommentPermanently(commentId2.get, questionId.get, new ObjectId) === false)
     }
   }
-  
+
   test("Find whether a User is a Rocker of a Comment or not") {
     running(FakeApplication()) {
       val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", Option("Neel"), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
