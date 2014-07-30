@@ -19,6 +19,7 @@ class DocumentTest extends FunSuite with BeforeAndAfter {
     running(FakeApplication()) {
       DocumentDAO.remove(MongoDBObject("documentName" -> ".*".r))
       UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
+      StreamDAO.remove(MongoDBObject("streamName" -> ".*".r))
     }
   }
 
@@ -121,7 +122,9 @@ class DocumentTest extends FunSuite with BeforeAndAfter {
       val userId = User.createUser(user)
       val docToUpdate = Document(new ObjectId, "Neel'sFile.jpg", "Neel'sFile", "http://neel.ly/Neel'sFile.jpg", DocType.Other, userId.get, Access.Public, new ObjectId, new Date, new Date, 0, Nil, Nil, Nil, "")
       val docId = Document.addDocument(docToUpdate)
-      val comment = Comment(new ObjectId, "Comment1", new Date, userId.get, user.firstName, user.lastName, 0, List(userId.get))
+      val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(userId.get), true, Nil)
+      val streamId = Stream.createStream(stream)
+      val comment = Comment(new ObjectId, "Comment1", new Date, userId.get, user.firstName, user.lastName, 0, List(userId.get), streamId.get)
       val commentId = Comment.createComment(comment)
       Document.addCommentToDocument(commentId.get, docId)
       assert(DocumentDAO.findOneById(docId).get.commentsOnDocument.size === 1)
@@ -198,7 +201,9 @@ class DocumentTest extends FunSuite with BeforeAndAfter {
       val userId = User.createUser(user)
       val docToRock = Document(new ObjectId, "Neel'sFile.jpg", "Neel'sFile", "http://neel.ly/Neel'sFile.jpg", DocType.Other, userId.get, Access.PrivateToClass, new ObjectId, new Date, new Date, 0, Nil, Nil, Nil, "")
       val docId = Document.addDocument(docToRock)
-      val comment = Comment(new ObjectId, "Comment1", new Date, userId.get, user.firstName, user.lastName, 0, List(userId.get))
+      val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(userId.get), true, Nil)
+      val streamId = Stream.createStream(stream)
+      val comment = Comment(new ObjectId, "Comment1", new Date, userId.get, user.firstName, user.lastName, 0, List(userId.get), streamId.get)
       val commentId = Comment.createComment(comment)
       Document.commentTheMediaOrDoc(docId, commentId.get)
       assert(DocumentDAO.findOneById(docId).get.commentsOnDocument.size === 1)
@@ -300,6 +305,7 @@ class DocumentTest extends FunSuite with BeforeAndAfter {
     running(FakeApplication()) {
       DocumentDAO.remove(MongoDBObject("documentName" -> ".*".r))
       UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
+      StreamDAO.remove(MongoDBObject("streamName" -> ".*".r))
     }
   }
 }

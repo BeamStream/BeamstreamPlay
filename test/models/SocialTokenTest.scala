@@ -32,7 +32,7 @@ class SocialTokenTest extends FunSuite with BeforeAndAfter {
   test("Find Social Token") {
     running(FakeApplication()) {
       val userId = User.createUser(user)
-      val socialToken = SocialToken(new ObjectId(userId.get.toString()), refreshToken, false)
+      val socialToken = SocialToken(new ObjectId(userId.get.toString()), refreshToken, false, "")
       SocialToken.addToken(socialToken)
       assert(SocialToken.findSocialToken(userId.get).get === refreshToken)
     }
@@ -41,7 +41,7 @@ class SocialTokenTest extends FunSuite with BeforeAndAfter {
   test("Find Social Token Object") {
     running(FakeApplication()) {
       val userId = User.createUser(user)
-      val socialToken = SocialToken(new ObjectId(userId.get.toString()), refreshToken, false)
+      val socialToken = SocialToken(new ObjectId(userId.get.toString()), refreshToken, false, "")
       SocialToken.addToken(socialToken)
       assert(SocialToken.findSocialTokenObject(userId.get).get.refreshToken === refreshToken)
     }
@@ -50,7 +50,7 @@ class SocialTokenTest extends FunSuite with BeforeAndAfter {
   test("Update Social Token Flag") {
     running(FakeApplication()) {
       val userId = User.createUser(user)
-      val socialToken = SocialToken(new ObjectId(userId.get.toString()), refreshToken, false)
+      val socialToken = SocialToken(new ObjectId(userId.get.toString()), refreshToken, false, "")
       SocialToken.addToken(socialToken)
       SocialToken.updateTokenFlag(userId.get, true)
       assert(SocialToken.findSocialTokenObject(userId.get).get.tokenFlag === true)
@@ -60,9 +60,9 @@ class SocialTokenTest extends FunSuite with BeforeAndAfter {
   test("Delete Social Token") {
     running(FakeApplication()) {
       val userId = User.createUser(user)
-      val socialToken = SocialToken(new ObjectId(userId.get.toString()), refreshToken, false)
+      val socialToken = SocialToken(new ObjectId(userId.get.toString()), refreshToken, false, "")
       SocialToken.addToken(socialToken)
-      SocialToken.deleteSocialToken(refreshToken)
+      SocialToken.deleteSocialToken(new ObjectId(userId.get.toString()))
       assert(SocialToken.findSocialTokenObject(userId.get) === None)
     }
   }
