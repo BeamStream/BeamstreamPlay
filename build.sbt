@@ -17,6 +17,7 @@ libraryDependencies ++= Seq(
    "xuggle"         % "xuggle-xuggler"          % "5.4",
    "org.joda"       % "joda-convert"            % "1.1",
    "org.twitter4j"  % "twitter4j-core"          % "4.0.2",
+   "org.scribe"     % "scribe"                  % "1.3.5",
 	jdbc,
     anorm,
     cache
