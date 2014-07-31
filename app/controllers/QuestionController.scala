@@ -239,7 +239,7 @@ object QuestionController extends Controller {
         case true => Question.getAllQuestionsForAStreamSortedbyRocks(new ObjectId(streamId), pageNo, questionsPerPage)
         case false =>
           val answers = Comment.getAllCommentsForAKeyword(sortBy, new ObjectId(streamId))
-          val answerIds = answers map {answer => answer.id}
+          val answerIds = answers map { answer => answer.id }
           Question.getAllQuestionsForAStreambyKeyword(sortBy, new ObjectId(streamId), pageNo, questionsPerPage, answerIds)
       }
     }
@@ -316,8 +316,12 @@ object QuestionController extends Controller {
   }
 
   def noOfUnansweredQusetions(streamId: String): Action[AnyContent] = Action { implicit request =>
-    val unansweredQuestions = Question.getNoOfUnansweredQuestions(new ObjectId(streamId))
-    Ok(Json.obj("count" -> unansweredQuestions))
+    if (streamId.length() <= 24) {
+      val unansweredQuestions = Question.getNoOfUnansweredQuestions(new ObjectId(streamId))
+      Ok(Json.obj("count" -> unansweredQuestions))
+    } else {
+      Ok(Json.obj("count" -> 0))
+    }
   }
 
   def markAQuestionAsAnswered(questionId: String): Action[AnyContent] = Action { implicit request =>

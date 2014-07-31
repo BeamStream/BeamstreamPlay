@@ -16,7 +16,6 @@ import java.net.URL
 import javax.net.ssl.HttpsURLConnection
 import java.io.BufferedReader
 import java.io.InputStreamReader
-//import com.sun.org.glassfish.gmbal.GmbalException
 
 object GoogleDocsUploadUtility {
   val formatter: SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
