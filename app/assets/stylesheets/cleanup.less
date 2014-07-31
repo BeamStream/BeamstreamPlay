@@ -2507,49 +2507,28 @@ background:url(../../beamstream-new/images/signup-bg.jpg) no-repeat center cente
 }
 
 .signup-outer h3 a {
-background:#d59b1d;
-background:-webkit-gradient(linear,
-left bottom,
-left top,
-color-stop(0,
-#d59b1d),
-color-stop(1,
-#dba921));
-background:-ms-linear-gradient(bottom,
-#d59b1d,
-#dba921);
-background:-moz-linear-gradient(center bottom,
-#d59b1d 0,
-#dba921 100%);
-background:-o-linear-gradient(#dba921,
-#d59b1d);
-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dba921',
-endColorstr='#d59b1d',
-GradientType=0);
--webkit-box-shadow:#000 0 1px 3px;
--moz-box-shadow:#000 0 1px 3px;
-box-shadow:#000 0 1px 3px;
--webkit-border-radius:5px;
--moz-border-radius:5px;
-border-radius:5px;
-float:right;
-font-size:13px;
-padding:0 25px;
-height:30px;
-line-height:30px;
-color:#fff;
-margin:4px 0 0 10px;
-text-align:center;
-text-shadow:1px 1px 1px rgba(0,
-0,
-0,
-0.5);
-font-weight:500
+	background: @SecondaryButtonColor;
+	-webkit-box-shadow:#000 0 1px 0px;
+	-moz-box-shadow:#000 0 1px 0px;
+	box-shadow:#000 0 1px 0px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	float: right;
+	font-size: 13px;
+	padding: 0 25px;
+	height: 30px;
+	line-height: 30px;
+	color: #fff;
+	margin: 4px 0 0 10px;
+	text-align: center;
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+	font-weight: 500;
 }
 
-.signup-outer h3 a:hover {
-text-decoration:none;
-background:#daa821
+.signup-outer h3 a:hover, .signup-outer h3 a:active, {
+text-decoration: none;
+background: @SecondaryButtonColorHover;
 }
 
 .signup-outer h3 span {
@@ -2645,9 +2624,9 @@ ul.signup-register li fieldset {
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
-	-webkit-box-shadow: inset 1px 1.3px 3px 1px rgba(178, 178, 178, 1);
-	-moz-box-shadow: inset 1px 1.3px 3px 1px rgba(178, 178, 178, 1);
-	box-shadow: inset 1px 1.3px 3px 1px rgba(178, 178, 178, 1);
+	-webkit-box-shadow: inset 0px 0px 0px 1px rgba(178, 178, 178, 1);
+	-moz-box-shadow: inset 0px 0px 0px 1px rgba(178, 178, 178, 1);
+	box-shadow: inset 0px 0px 0px 1px rgba(178, 178, 178, 1);
 	float: left;
 	width: 70%;
 	height: 55px;
@@ -2933,27 +2912,19 @@ width:100%
 padding-right:8px
 }
 
+@Gray: #9d9d9d;
+@DarkGray: #858585;
+@LightBlue: #00b7e1; 
+@DarkBlue: #21A1BF;
+
+@ButtonColor: @Gray;
+@SecondaryButtonColor: @LightBlue;
+@SecondaryButtonColorHover: @DarkBlue;
+@RegButtonColorHover: @DarkGray;
+
 .register-btn {
-background:#417545;
-background:-webkit-gradient(linear,
-left bottom,
-left top,
-color-stop(0,
-#417545),
-color-stop(1,
-#57975b));
-background:-ms-linear-gradient(bottom,
-#417545,
-#57975b);
-background:-moz-linear-gradient(center bottom,
-#417545 0,
-#57975b 100%);
-background:-o-linear-gradient(#57975b,
-#417545);
-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#57975b',
-endColorstr='#417545',
-GradientType=0);
--webkit-border-radius:4px;
+background: @ButtonColor;
+-webkit-border-radius: 4px;
 -moz-border-radius:4px;
 border-radius:4px;
 font-size:18px;
@@ -2979,7 +2950,7 @@ float:left
 
 .register-btn:hover,
 .register-btn:focus {
-background:#4a834e;
+background: @RegButtonColorHover;
 text-decoration:none;
 color:#fff
 }
@@ -2990,7 +2961,7 @@ opacity:.5
 
 .register-cancel {
 float:left;
-color:#b6bbc1;
+color: @Gray;
 font-size:15px;
 text-decoration:underline;
 margin-left:3%;
@@ -3002,6 +2973,9 @@ float:left;
 margin-top:3%
 }
 	 
+a.register-cancel:hover, a.register-cancel:focus {
+	color: @DarkGray;
+}
 
 .right-container {
 background:url(../../beamstream-new/images/right_border.jpg) repeat-x left bottom #fff;
