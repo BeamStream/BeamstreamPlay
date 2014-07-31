@@ -58,7 +58,7 @@ class CommentControllerTest extends FunSuite with BeforeAndAfter {
       val streamId = Stream.createStream(stream)
       val message = Message(new ObjectId, "some message", Option(Type.Audio), Option(Access.Public), formatter.parse("23-07-12"), user.id, Option(streamId.get), "", "", 0, Nil, Nil, 0, Nil)
       val messageId = Message.createMessage(message)
-      val jsonString = """{"messageId": """ + """"""" + messageId.get + """"""" + """ """ + ',' + """ "comment" : "comment" }"""
+      val jsonString = """{"stream_id": """ + """"""" + streamId.get + """"""" + """ """ + ',' + """"messageId": """ + """"""" + messageId.get + """"""" + """ """ + ',' + """ "comment" : "comment" }"""
       val json: JsValue = play.api.libs.json.Json.parse(jsonString)
       val result = route(FakeRequest(POST, "/newComment").withJsonBody(json).withSession("userId" -> userId.get.toString))
       assert(status(result.get) === 200)
@@ -73,7 +73,7 @@ class CommentControllerTest extends FunSuite with BeforeAndAfter {
       val streamId = Stream.createStream(stream)
       val docToCreate = Document(new ObjectId, "Himanshu'sFile.jpg", "Himanshu'sFile", "http://himanshu.ly/Himanshu'sFile.jpg", DocType.Other, userId.get, Access.PrivateToClass, new ObjectId, new Date, new Date, 0, Nil, Nil, Nil, "")
       val docId = Document.addDocument(docToCreate)
-      val jsonString = """{"docId": """ + """"""" + docId + """"""" + """ """ + ',' + """ "comment" : "comment" }"""
+      val jsonString = """{"stream_id": """ + """"""" + streamId.get + """"""" + """ """ + ',' + """"docId": """ + """"""" + docId + """"""" + """ """ + ',' + """ "comment" : "comment" }"""
       val json: JsValue = play.api.libs.json.Json.parse(jsonString)
       val result = route(FakeRequest(POST, "/newComment").withJsonBody(json).withSession("userId" -> userId.get.toString))
       assert(status(result.get) === 200)
@@ -88,7 +88,7 @@ class CommentControllerTest extends FunSuite with BeforeAndAfter {
       val streamId = Stream.createStream(stream)
       val question = Question(new ObjectId, "How Was the Class ?", user.id, Access.Public, Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil, Nil, false, None, None)
       val questionId = Question.addQuestion(question)
-      val jsonString = """{"questionId": """ + """"""" + questionId.get + """"""" + """ """ + ',' + """ "comment" : "comment" }"""
+      val jsonString = """{"stream_id": """ + """"""" + streamId.get + """"""" + """ """ + ',' + """"questionId": """ + """"""" + questionId.get + """"""" + """ """ + ',' + """ "comment" : "comment" }"""
       val json: JsValue = play.api.libs.json.Json.parse(jsonString)
       val result = route(FakeRequest(POST, "/newComment").withJsonBody(json).withSession("userId" -> userId.get.toString))
       assert(status(result.get) === 200)
@@ -103,7 +103,7 @@ class CommentControllerTest extends FunSuite with BeforeAndAfter {
       val streamId = Stream.createStream(stream)
       val UserMediaObj = UserMedia(new ObjectId, "", "", userId.get, new Date, "http://beamstream.com/Neel.png", UserMediaType.Image, Access.Public, true, Option(new ObjectId), "", 0, Nil, Nil, 0)
       val userMediaId = UserMedia.saveMediaForUser(UserMediaObj)
-      val jsonString = """{"userMediaId": """ + """"""" + userMediaId.get + """"""" + """ """ + ',' + """ "comment" : "comment" }"""
+      val jsonString = """{"stream_id": """ + """"""" + streamId.get + """"""" + """ """ + ',' + """"userMediaId": """ + """"""" + userMediaId.get + """"""" + """ """ + ',' + """ "comment" : "comment" }"""
       val json: JsValue = play.api.libs.json.Json.parse(jsonString)
       val result = route(FakeRequest(POST, "/newComment").withJsonBody(json).withSession("userId" -> userId.get.toString))
       assert(status(result.get) === 200)
@@ -118,7 +118,7 @@ class CommentControllerTest extends FunSuite with BeforeAndAfter {
       val streamId = Stream.createStream(stream)
       val message = Message(new ObjectId, "some message", Option(Type.Audio), Option(Access.Public), formatter.parse("23-07-12"), user.id, Option(streamId.get), "", "", 0, Nil, Nil, 0, Nil)
       val messageId = Message.createMessage(message)
-      val comment = Comment(new ObjectId, "Comment1", new Date, userId.get, user.firstName, user.lastName, 0, Nil)
+      val comment = Comment(new ObjectId, "Comment1", new Date, userId.get, user.firstName, user.lastName, 0, Nil, streamId.get)
       val commentId = Comment.createComment(comment)
       val result = route(FakeRequest(PUT, "/rockingTheComment/" + commentId.get.toString).withSession("userId" -> userId.get.toString))
       assert(status(result.get) === 200)
@@ -132,7 +132,7 @@ class CommentControllerTest extends FunSuite with BeforeAndAfter {
       val userId = User.createUser(user)
       val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(userId.get), true, Nil)
       val streamId = Stream.createStream(stream)
-      val comment = Comment(new ObjectId, "Comment1", new Date, userId.get, user.firstName, user.lastName, 0, Nil)
+      val comment = Comment(new ObjectId, "Comment1", new Date, userId.get, user.firstName, user.lastName, 0, Nil, streamId.get)
       val commentId = Comment.createComment(comment)
       val message = Message(new ObjectId, "some message", Option(Type.Audio), Option(Access.Public), formatter.parse("23-07-12"), user.id, Option(streamId.get), "", "", 0, Nil, List(commentId.get), 0, Nil)
       val messageId = Message.createMessage(message)
@@ -149,7 +149,7 @@ class CommentControllerTest extends FunSuite with BeforeAndAfter {
       val userId = User.createUser(user)
       val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(userId.get), true, Nil)
       val streamId = Stream.createStream(stream)
-      val comment = Comment(new ObjectId, "Comment1", new Date, userId.get, user.firstName, user.lastName, 0, Nil)
+      val comment = Comment(new ObjectId, "Comment1", new Date, userId.get, user.firstName, user.lastName, 0, Nil, streamId.get)
       val commentId = Comment.createComment(comment)
       val docToCreate = Document(new ObjectId, "Himanshu'sFile.jpg", "Himanshu'sFile", "http://himanshu.ly/Himanshu'sFile.jpg", DocType.Other, userId.get, Access.PrivateToClass, new ObjectId, new Date, new Date, 0, Nil, List(commentId.get), Nil, "")
       val docId = Document.addDocument(docToCreate)
@@ -166,7 +166,7 @@ class CommentControllerTest extends FunSuite with BeforeAndAfter {
       val userId = User.createUser(user)
       val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(userId.get), true, Nil)
       val streamId = Stream.createStream(stream)
-      val comment = Comment(new ObjectId, "Comment1", new Date, userId.get, user.firstName, user.lastName, 0, Nil)
+      val comment = Comment(new ObjectId, "Comment1", new Date, userId.get, user.firstName, user.lastName, 0, Nil, streamId.get)
       val commentId = Comment.createComment(comment)
       val question = Question(new ObjectId, "How Was the Class ?", user.id, Access.Public, Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, List(commentId.get), Nil, Nil, Nil, false, None, None)
       val questionId = Question.addQuestion(question)
@@ -185,7 +185,7 @@ class CommentControllerTest extends FunSuite with BeforeAndAfter {
       val streamId = Stream.createStream(stream)
       val message = Message(new ObjectId, "some message", Option(Type.Audio), Option(Access.Public), formatter.parse("23-07-12"), userId.get, Option(streamId.get), "", "", 0, Nil, Nil, 0, Nil)
       val messageId = Message.createMessage(message)
-      val comment = Comment(new ObjectId, "Comment1", new Date, userId.get, user.firstName, user.lastName, 0, Nil)
+      val comment = Comment(new ObjectId, "Comment1", new Date, userId.get, user.firstName, user.lastName, 0, Nil, streamId.get)
       val commentId = Comment.createComment(comment)
       Message.addCommentToMessage(commentId.get, messageId.get)
       val result = route(FakeRequest(PUT, "/rockingTheComment/" + commentId.get.toString).withSession("userId" -> userId.get.toString))
@@ -202,7 +202,7 @@ class CommentControllerTest extends FunSuite with BeforeAndAfter {
       val streamId = Stream.createStream(stream)
       val message = Message(new ObjectId, "some message", Option(Type.Audio), Option(Access.Public), formatter.parse("23-07-12"), userId.get, Option(streamId.get), "", "", 0, Nil, Nil, 0, Nil)
       val messageId = Message.createMessage(message)
-      val comment = Comment(new ObjectId, "Comment1", new Date, userId.get, user.firstName, user.lastName, 0, Nil)
+      val comment = Comment(new ObjectId, "Comment1", new Date, userId.get, user.firstName, user.lastName, 0, Nil, streamId.get)
       val commentId = Comment.createComment(comment)
       Message.addCommentToMessage(commentId.get, messageId.get)
       val result = route(FakeRequest(PUT, "/remove/comment/" + messageId.get.toString + "/" + commentId.get.toString).withSession("userId" -> userId.get.toString))
@@ -218,7 +218,7 @@ class CommentControllerTest extends FunSuite with BeforeAndAfter {
       val streamId = Stream.createStream(stream)
       val message = Message(new ObjectId, "some message", Option(Type.Audio), Option(Access.Public), formatter.parse("23-07-12"), userId.get, Option(streamId.get), "", "", 0, Nil, Nil, 0, Nil)
       val messageId = Message.createMessage(message)
-      val comment = Comment(new ObjectId, "Comment1", new Date, userId.get, user.firstName, user.lastName, 0, Nil)
+      val comment = Comment(new ObjectId, "Comment1", new Date, userId.get, user.firstName, user.lastName, 0, Nil, streamId.get)
       val commentId = Comment.createComment(comment)
       Message.addCommentToMessage(commentId.get, messageId.get)
       val result = route(FakeRequest(GET, "/isARockerOf/comment/" + commentId.get.toString).withSession("userId" -> userId.get.toString))
@@ -233,7 +233,7 @@ class CommentControllerTest extends FunSuite with BeforeAndAfter {
     val streamId = Stream.createStream(stream)
     val question = Question(new ObjectId, "How Was the Class ?", user.id, Access.Public, Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil, Nil, false, None, None)
     val questionId = Question.addQuestion(question)
-    val jsonString = """{"answerText":"Good","questionId":""" + """"""" + questionId.get + """"""" + """}"""
+    val jsonString = """{"streamId": """ + """"""" + streamId.get + """"""" + """ """ + ',' + """"answerText":"Good","questionId":""" + """"""" + questionId.get + """"""" + """}"""
     val json: JsValue = play.api.libs.json.Json.parse(jsonString)
     running(FakeApplication()) {
       val result = route(
@@ -251,7 +251,7 @@ class CommentControllerTest extends FunSuite with BeforeAndAfter {
       val streamId = Stream.createStream(stream)
       val message = Message(new ObjectId, "some message", Option(Type.Audio), Option(Access.Public), formatter.parse("23-07-12"), userId.get, Option(streamId.get), "", "", 0, Nil, Nil, 0, Nil)
       val messageId = Message.createMessage(message)
-      val comment = Comment(new ObjectId, "Comment1", new Date, userId.get, user.firstName, user.lastName, 0, List(userId.get))
+      val comment = Comment(new ObjectId, "Comment1", new Date, userId.get, user.firstName, user.lastName, 0, List(userId.get), streamId.get)
       val commentId = Comment.createComment(comment)
       Message.addCommentToMessage(commentId.get, messageId.get)
       val result = route(FakeRequest(GET, "/rockersOf/comment/" + commentId.get.toString))

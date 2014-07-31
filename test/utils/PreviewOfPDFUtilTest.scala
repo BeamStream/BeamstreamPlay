@@ -14,7 +14,7 @@ class PreviewOfPDFUtilTest extends FunSuite {
 
   test("Convert PDF to Image") {
     running(FakeApplication()) {
-      val docReceived = new File("/home/himanshu/beamstream.pdf")
+      val docReceived = new File("/home/himanshu/Documents/BeamStream-Case-Study-v1.2.pdf")
       val result = PreviewOfPDFUtil.convertPdfToImage(docReceived, "Himanshu")
       assert((new AmazonUpload).isFileExists("PdfFrameHimanshu") === true)
       (new AmazonUpload).deleteFileFromAmazon("PdfFrameHimanshu")

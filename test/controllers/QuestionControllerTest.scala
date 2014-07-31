@@ -139,7 +139,7 @@ class QuestionControllerTest extends FunSuite with BeforeAndAfter {
   test("Get All Answers of a Question") {
     running(FakeApplication()) {
       val userId = User.createUser(user)
-      val comment = Comment(new ObjectId, "Good", new Date, userId.get, user.firstName, user.lastName, 0, List(userId.get))
+      val comment = Comment(new ObjectId, "Good", new Date, userId.get, user.firstName, user.lastName, 0, List(userId.get), stream.id)
       val commentId = Comment.createComment(comment)
       val question = Question(new ObjectId, "How was the Class ?", user.id, Access.Public, Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, List(commentId.get), Nil, Nil, true, None, None)
       val questionId = Question.addQuestion(question)
@@ -151,7 +151,7 @@ class QuestionControllerTest extends FunSuite with BeforeAndAfter {
   test("Get Rockers of a Question") {
     running(FakeApplication()) {
       val userId = User.createUser(user)
-      val comment = Comment(new ObjectId, "Good", new Date, userId.get, user.firstName, user.lastName, 0, List(userId.get))
+      val comment = Comment(new ObjectId, "Good", new Date, userId.get, user.firstName, user.lastName, 0, List(userId.get), stream.id)
       val commentId = Comment.createComment(comment)
       val question = Question(new ObjectId, "How was the Class ?", user.id, Access.Public, Type.Text, stream.id, "Neel", "Sachdeva", new Date, List(userId.get), Nil, List(commentId.get), Nil, Nil, true, None, None)
       val questionId = Question.addQuestion(question)

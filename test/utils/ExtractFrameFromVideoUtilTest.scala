@@ -11,7 +11,7 @@ class ExtractFrameFromVideoUtilTest extends FunSuite {
 
   test("Extract Frame from Video") {
     running(FakeApplication()) {
-      val extractedFrameFromVideo = ExtractFrameFromVideoUtil.extractFrameFromVideo("/home/himanshu/Multiple Program Analysis-N68reMzN1N8.mp4")
+      val extractedFrameFromVideo = ExtractFrameFromVideoUtil.extractFrameFromVideo("/home/himanshu/Videos/test.mp4")
       assert(extractedFrameFromVideo.getClass().toString() === "class java.io.ByteArrayInputStream")
     }
   }

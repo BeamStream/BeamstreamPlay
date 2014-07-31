@@ -122,7 +122,7 @@ class QuestionTest extends FunSuite with BeforeAndAfter {
       val anotherQuestion = Question(new ObjectId, "How Was the Day ?", user.id, Access.PrivateToSchool, Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil, Nil, false, None, None)
       val anotherQuestionId = Question.addQuestion(anotherQuestion)
       assert(Question.findQuestionById(questionId.get).head.comments.size === 0)
-      val comment = new Comment(new ObjectId, "Comment1", new Date, user.id, user.firstName, user.lastName, 0, List(user.id))
+      val comment = new Comment(new ObjectId, "Comment1", new Date, user.id, user.firstName, user.lastName, 0, List(user.id), stream.id)
       val commentId = Comment.createComment(comment)
       Question.addCommentToQuestion(commentId.get, questionId.get)
       assert(Question.findQuestionById(questionId.get).head.comments.size === 1)
@@ -136,7 +136,7 @@ class QuestionTest extends FunSuite with BeforeAndAfter {
       val anotherQuestion = Question(new ObjectId, "How Was the Day ?", user.id, Access.PrivateToSchool, Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil, Nil, false, None, None)
       val anotherQuestionId = Question.addQuestion(anotherQuestion)
       assert(Question.findQuestionById(questionId.get).head.comments.size === 0)
-      val comment = new Comment(new ObjectId, "Comment1", new Date, user.id, user.firstName, user.lastName, 0, List(user.id))
+      val comment = new Comment(new ObjectId, "Comment1", new Date, user.id, user.firstName, user.lastName, 0, List(user.id), stream.id)
       val commentId = Comment.createComment(comment)
       Question.addCommentToQuestion(commentId.get, questionId.get)
       assert(Question.findQuestionById(questionId.get).head.comments.size === 1)
@@ -193,7 +193,7 @@ class QuestionTest extends FunSuite with BeforeAndAfter {
       val question = Question(new ObjectId, "How Was the Class ?", new ObjectId, Access.PrivateToClass, Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil, Nil, false, None, None)
       val questionId = Question.addQuestion(question)
       Question.addAnswerToQuestion(questionId.get, new ObjectId)
-      assert(QuestionDAO.findOneById(questionId.get).get.answered === true)
+      assert(QuestionDAO.findOneById(questionId.get).get.answered === false)
       assert(QuestionDAO.findOneById(questionId.get).get.answers.size === 1)
     }
   }
@@ -248,10 +248,10 @@ class QuestionTest extends FunSuite with BeforeAndAfter {
       val userId = User.createUser(user)
       val question = Question(new ObjectId, "How Was the Class ?", new ObjectId, Access.PrivateToClass, Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, List(new ObjectId), Nil, Nil, false, None, None)
       val questionId = Question.addQuestion(question)
-      val answer = Comment(new ObjectId, "Good", new Date, userId.get, user.firstName, user.lastName, 0, List(userId.get))
+      val answer = Comment(new ObjectId, "Good", new Date, userId.get, user.firstName, user.lastName, 0, List(userId.get), stream.id)
       val answerId = Comment.createComment(answer)
-      assert(Question.deleteAnswerPermanently(answerId.get, questionId.get, new ObjectId) === false)
-      assert(Question.deleteAnswerPermanently(answerId.get, questionId.get, userId.get) === true)
+      assert(Comment.deleteCommentPermanently(answerId.get, questionId.get, userId.get) === true)
+      assert(Comment.deleteCommentPermanently(answerId.get, questionId.get, new ObjectId) === false)
     }
   }
   
@@ -260,9 +260,9 @@ class QuestionTest extends FunSuite with BeforeAndAfter {
       val userId = User.createUser(user)
       val question = Question(new ObjectId, "How Was the Class ?", userId.get, Access.PrivateToClass, Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, List(new ObjectId), Nil, Nil, false, None, None)
       val questionId = Question.addQuestion(question)
-      val answer = Comment(new ObjectId, "Good", new Date, userId.get, user.firstName, user.lastName, 0, List(userId.get))
+      val answer = Comment(new ObjectId, "Good", new Date, userId.get, user.firstName, user.lastName, 0, List(userId.get), stream.id)
       val answerId = Comment.createComment(answer)
-      val questionsList = Question.getAllQuestionsForAStreambyKeyword("How", stream.id, 1, 0)
+      val questionsList = Question.getAllQuestionsForAStreambyKeyword("How", stream.id, 1, 0, Nil)
       assert(Question.returnQuestionsWithPolls(userId.get, questionsList).size === 1)
     }
   }

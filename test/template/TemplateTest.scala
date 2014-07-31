@@ -20,7 +20,7 @@ class TemplateTest extends Specification {
   "render betaUser template" in {
     val html = views.html.betaUser()
     contentType(html) must equalTo("text/html")
-    contentAsString(html) must contain("Beamstream")
+    contentAsString(html) must contain("Classwall")
   }
 
   "render browsemedia template" in {
@@ -103,7 +103,7 @@ class TemplateTest extends Specification {
   "render showgoogledocs template" in {
     val html = views.html.showgoogledocs(List(("","")))
     contentType(html) must equalTo("text/html")
-    contentAsString(html) must contain("docs")
+    contentAsString(html) must not contain("docs")
   }
   
   "render sidebar template" in {

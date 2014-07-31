@@ -16,8 +16,16 @@ class GoogleDocsUploadUtilityTest extends FunSuite {
   test("Get all Documents from Google Docs") {
     running(FakeApplication()) {
       val accessToken = GoogleDocsUploadUtility.getNewAccessToken(refreshToken)
-      val allGoogleDocs = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(accessToken)
-      assert(allGoogleDocs(0)._1.getClass().toString() === "class java.lang.String")
+      val allGoogleDocs = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(accessToken, true)
+      assert(allGoogleDocs.getClass.toString() === "class java.lang.Object")
+    }
+  }
+  
+  test("Get few Documents from Google Docs") {
+    running(FakeApplication()) {
+      val accessToken = GoogleDocsUploadUtility.getNewAccessToken(refreshToken)
+      val allGoogleDocs = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(accessToken, false)
+      assert(allGoogleDocs.getClass.toString() === "class java.lang.Object")
     }
   }
   
@@ -42,7 +50,7 @@ class GoogleDocsUploadUtilityTest extends FunSuite {
     running(FakeApplication()) {
       val accessToken = GoogleDocsUploadUtility.getNewAccessToken(refreshToken)
       val newGoogleDoc = GoogleDocsUploadUtility.createANewGoogleDocument(accessToken, "application/vnd.google-apps.document")
-      val allGoogleDocs = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(accessToken)
+      val allGoogleDocs = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(accessToken, true)
       val deletedGoogleDoc = GoogleDocsUploadUtility.deleteAGoogleDocument(accessToken, allGoogleDocs(0)._2.split("/")(7))
       assert(deletedGoogleDoc === null)
     }

@@ -52,7 +52,7 @@ class GoogleDocsUploadUtilityControllerTest extends FunSuite with BeforeAndAfter
     running(FakeApplication()) {
       val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", Option("Neel"), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
       val userId = User.createUser(user)
-      val socialToken = SocialToken(new ObjectId(userId.get.toString()), tokenString, true)
+      val socialToken = SocialToken(new ObjectId(userId.get.toString()), tokenString, true, user.email)
       SocialToken.addToken(socialToken)
       val result = route(FakeRequest(GET, "googleDoc/show").withSession("userId" -> userId.get.toString()))
       assert(status(result.get) === 200)

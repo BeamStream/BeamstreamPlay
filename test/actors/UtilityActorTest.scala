@@ -39,7 +39,7 @@ class UtilityActorTest extends FunSuite with BeforeAndAfter{
     }
   }
 
-  test("Send Email after SignUp") {
+  test("Send Email after User SignsUp") {
     running(FakeApplication()) {
       val userId = User.createUser(user)
       val tokenTobeCreated = Token(new ObjectId, userId.get.toString(), TokenEmailUtil.securityToken, false)
