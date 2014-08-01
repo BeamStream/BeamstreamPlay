@@ -11,13 +11,13 @@ import play.api.Play
 @RunWith(classOf[JUnitRunner])
 class GoogleDocsUploadUtilityTest extends FunSuite {
   
-  val refreshToken = "1/LMMF-mRLuNabgh9xdP80hMKLh7CXn4_4uoIaJi1ejdU"
+  val refreshToken = "1/YiX-z8yUjALGdNoctxhVI7RiuISgvf77dJijXdXn60k"
 
   test("Get all Documents from Google Docs") {
     running(FakeApplication()) {
       val accessToken = GoogleDocsUploadUtility.getNewAccessToken(refreshToken)
       val allGoogleDocs = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(accessToken, true)
-      assert(allGoogleDocs.getClass.toString() === "class java.lang.Object")
+      assert(allGoogleDocs.getClass.toString() === "class scala.collection.immutable.$colon$colon")
     }
   }
   
@@ -25,13 +25,13 @@ class GoogleDocsUploadUtilityTest extends FunSuite {
     running(FakeApplication()) {
       val accessToken = GoogleDocsUploadUtility.getNewAccessToken(refreshToken)
       val allGoogleDocs = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(accessToken, false)
-      assert(allGoogleDocs.getClass.toString() === "class java.lang.Object")
+      assert(allGoogleDocs.getClass.toString() === "class scala.collection.immutable.Nil$")
     }
   }
   
   test("Upload a File to Google Docs") {
     running(FakeApplication()) {
-      val fileToUpload = new File("/home/himanshu/hello.txt")
+      val fileToUpload = new File("scalastyle-config.xml")
       val accessToken = GoogleDocsUploadUtility.getNewAccessToken(refreshToken)
       val result = GoogleDocsUploadUtility.uploadToGoogleDrive(accessToken, fileToUpload, "Himanshu", "*/*")
       assert(result.split(":")(0) === "https")
@@ -51,8 +51,16 @@ class GoogleDocsUploadUtilityTest extends FunSuite {
       val accessToken = GoogleDocsUploadUtility.getNewAccessToken(refreshToken)
       val newGoogleDoc = GoogleDocsUploadUtility.createANewGoogleDocument(accessToken, "application/vnd.google-apps.document")
       val allGoogleDocs = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(accessToken, true)
-      val deletedGoogleDoc = GoogleDocsUploadUtility.deleteAGoogleDocument(accessToken, allGoogleDocs(0)._2.split("/")(7))
+      val deletedGoogleDoc = GoogleDocsUploadUtility.deleteAGoogleDocument(accessToken, allGoogleDocs(0)._2.split("/")(5))
       assert(deletedGoogleDoc === null)
+    }
+  }
+  
+  test("Get GmailID of User") {
+    running(FakeApplication()) {
+      val accessToken = GoogleDocsUploadUtility.getNewAccessToken(refreshToken)
+      val gmailId = GoogleDocsUploadUtility.getGmailId(accessToken)
+      assert(gmailId === "hgupta735@gmail.com")
     }
   }
   

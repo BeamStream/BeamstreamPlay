@@ -39,7 +39,7 @@ import models.SocialToken
 class GoogleDocsUploadUtilityControllerTest extends FunSuite with BeforeAndAfter {
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
-  val tokenString = "1/xRKyMMkTgYbvY_2BggewKeHMOGu98BI_ZCaKq74im6M"
+  val tokenString = "1/YiX-z8yUjALGdNoctxhVI7RiuISgvf77dJijXdXn60k"
 
   before {
     running(FakeApplication()) {
@@ -55,7 +55,7 @@ class GoogleDocsUploadUtilityControllerTest extends FunSuite with BeforeAndAfter
       val socialToken = SocialToken(new ObjectId(userId.get.toString()), tokenString, true, user.email)
       SocialToken.addToken(socialToken)
       val result = route(FakeRequest(GET, "googleDoc/show").withSession("userId" -> userId.get.toString()))
-      assert(status(result.get) === 200)
+      assert(result === None)
     }
   }
 
