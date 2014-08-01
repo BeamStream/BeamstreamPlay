@@ -1,13 +1,11 @@
 package models
 
-import com.novus.salat._
-import com.novus.salat.annotations._
-import com.novus.salat.dao._
 import org.bson.types.ObjectId
 import utils.MongoHQConfig
 import com.mongodb.casbah.commons.MongoDBObject
-import models.mongoContext._
 import com.novus.salat.global._
+import com.novus.salat.annotations.raw.Key
+import com.novus.salat.dao.SalatDAO
 
 case class BetaUser(@Key("_id") id: ObjectId, emailId: String)
 
