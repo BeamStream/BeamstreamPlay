@@ -1,17 +1,15 @@
 package controllers
 
-import org.bson.types.ObjectId
-import play.api.mvc.Action
-import play.api.mvc.Controller
 import play.api.Logger
 import play.api.Play
-import play.api.i18n.Messages
-import twitter4j.auth.RequestToken
-import twitter4j.conf.ConfigurationBuilder
+import play.api.mvc.Action
+import play.api.mvc.AnyContent
+import play.api.mvc.Controller
 import twitter4j.Twitter
 import twitter4j.TwitterException
 import twitter4j.TwitterFactory
-import play.api.mvc.AnyContent
+import twitter4j.auth.RequestToken
+import twitter4j.conf.ConfigurationBuilder
 
 object TwitterAPIController extends Controller{
 

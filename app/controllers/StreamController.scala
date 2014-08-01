@@ -1,36 +1,24 @@
 package controllers
 
 import java.text.SimpleDateFormat
+
 import org.bson.types.ObjectId
-import models.Class
+
 import models.ClassType
-import models.Message
 import models.Stream
+import models.Token
 import models.User
+import models.UserMedia
 import net.liftweb.json.Serialization.write
+import play.api.Play
+import play.api.Routes
 import play.api.mvc.Action
+import play.api.mvc.AnyContent
 import play.api.mvc.Controller
+import play.api.mvc.Cookie
+import play.api.mvc.DiscardingCookie
 import utils.EnumerationSerializer
 import utils.ObjectIdSerializer
-import utils.OnlineUserCache
-import play.api.Routes
-import scala.concurrent.Future
-import play.api.libs.concurrent.Execution.Implicits._
-import com.mongodb.casbah.MongoConnection
-import com.mongodb.casbah.gridfs.GridFS
-import utils.PasswordHashingUtil
-import play.api.mvc.SimpleResult
-import play.api.mvc.ResponseHeader
-import play.api.libs.iteratee.Enumerator
-import models.Token
-import models.LoginResult
-import models.ResulttoSent
-import play.api.Play
-import play.api.mvc.Cookie
-import models.UserMedia
-import play.api.mvc.DiscardingCookie
-import play.api.mvc.AnyContent
-import play.api.mvc.DiscardingCookie
 
 object StreamController extends Controller {
 

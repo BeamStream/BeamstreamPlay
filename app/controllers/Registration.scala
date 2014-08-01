@@ -1,40 +1,31 @@
 package controllers
 
 import java.text.SimpleDateFormat
-import java.util.Date
 import org.bson.types.ObjectId
 import models.Degree
 import models.DegreeExpected
 import models.Graduated
-import models.RegistrationResults
 import models.Token
 import models.User
 import models.UserSchool
 import models.Year
 import net.liftweb.json.Serialization.write
-import play.api.libs.json.JsValue
 import play.api.mvc.Action
 import play.api.mvc.Controller
 import utils.ObjectIdSerializer
 import utils.OnlineUserCache
 import models.RegistrationResults
-import java.util.Calendar
-import scala.concurrent.Future
-import play.api.libs.concurrent.Execution.Implicits._
 import models.School
-import models.ResulttoSent
-import models.LoginResult
 import play.api.Play
 import play.api.mvc.Cookie
 import models.UserMedia
-import com.ning.http.client.Response
 import play.api.cache.Cache
 import play.api.Play.current
 import play.api.mvc.AnyContent
-import play.api.libs.json._
 import utils.FetchLocationUtil
 import play.api.mvc.DiscardingCookie
-import models.ResulttoSent
+import play.api.libs.json.JsValue
+import play.api.libs.json.Json
 
 object Registration extends Controller {
   implicit val formats = new net.liftweb.json.DefaultFormats {

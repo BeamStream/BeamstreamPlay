@@ -1,15 +1,17 @@
 package controllers
 
 import java.text.SimpleDateFormat
+
 import org.bson.types.ObjectId
+
 import models.School
 import models.UserSchool
 import net.liftweb.json.Serialization.write
+import play.api.Logger
 import play.api.mvc.Action
+import play.api.mvc.AnyContent
 import play.api.mvc.Controller
 import utils.ObjectIdSerializer
-import play.api.mvc.AnyContent
-import play.api.Logger
 
 object SchoolController extends Controller {
   implicit val formats = new net.liftweb.json.DefaultFormats {
