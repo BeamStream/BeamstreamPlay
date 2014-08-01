@@ -1,16 +1,12 @@
 package utils
 
 import java.awt.image.BufferedImage
-import java.io.File
-import java.io.IOException
 import javax.imageio.ImageIO
 import com.xuggle.mediatool.IMediaReader
 import com.xuggle.mediatool.MediaListenerAdapter
 import com.xuggle.mediatool.ToolFactory
 import com.xuggle.mediatool.event.IVideoPictureEvent
-import com.xuggle.xuggler.Global
 import java.io.ByteArrayOutputStream
-//import java.awt.image.DataBufferByte
 import java.io.ByteArrayInputStream
 import java.io.InputStream
 

@@ -13,10 +13,6 @@ import org.scribe.model.OAuthRequest
 import org.scribe.model.Verb
 import org.scribe.model.Response
 import play.api.libs.json.Json
-import play.api.mvc.Security
-import play.api.cache.Cache
-import play.api.Play.current
-import play.api.i18n.Messages
 
 object FacebookAPIController {
 

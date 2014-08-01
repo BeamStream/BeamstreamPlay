@@ -25,11 +25,9 @@ import utils.ExtractFrameFromVideoUtil
 import utils.ObjectIdSerializer
 import utils.PreviewOfPDFUtil
 import utils.TokenEmailUtil
-import play.Logger
 import play.api.mvc.AnyContent
 import models.SocialToken
 import utils.GoogleDocsUploadUtility
-import play.api.libs.json.Json
 
 /**
  * This controller class is used to store and retrieve all the information about documents.

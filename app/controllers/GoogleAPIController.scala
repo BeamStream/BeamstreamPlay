@@ -62,7 +62,7 @@ object GoogleAPIController extends Controller {
           }
           val accessToken = (tokenValues(0) \ "access_token").extract[String]
 //          val refreshToken = (tokenValues(2) \ "refresh_token").extract[String]
-          
+
           Ok//(views.html.stream(action))
     } catch {
       case ex: Exception =>

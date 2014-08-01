@@ -1,23 +1,14 @@
 package actors
 
-import akka.actor.Actor
-import play.api.libs.concurrent.Akka
-import play.api.Play.current
-import akka.actor.Props
-import javax.mail.internet.MimeMessage
-import utils.SendEmailUtility
 import javax.mail.internet.InternetAddress
 import javax.mail.Message
 import play.api.Play
 import play.api.i18n.Messages
-import akka.actor.PoisonPill
 import scala.concurrent.Future
 import org.bson.types.ObjectId
 import models.Token
 import utils.SendEmailUtility
 import scala.concurrent.ExecutionContext.Implicits._
-import com.novus.salat.global.ctx
-import models.mongoContext._
 import utils.EmailUtility
 
 /**
