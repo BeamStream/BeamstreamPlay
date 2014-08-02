@@ -12,26 +12,12 @@ import models.SocialToken
 import play.api.mvc.Action
 import play.api.mvc.Controller
 import utils.GoogleDocsUploadUtility
-import play.api.i18n.Messages
 import play.api.Play
-import models.Message._
-import models.Type
-import models.Access
-import models.User
-import java.util.Date
-import models.Question
-import models.Document._
-import models.DocType
 import net.liftweb.json.Serialization.{ read, write }
-import models.PreviewImage
-import utils.PasswordHashingUtil
 import play.api.mvc.AnyContent
 import play.api.Logger
-import play.api.cache.Cache
-import play.api.Play.current
 import models.Document
 import models.Message
-import utils.SendEmailUtility
 import actors.UtilityActor
 
 object GoogleDocsUploadUtilityController extends Controller {

@@ -1,13 +1,12 @@
 package controllers
+
 import play.api.mvc.Controller
 import java.text.SimpleDateFormat
 import utils.ObjectIdSerializer
 import play.api.mvc.Action
 import models.Message
 import org.bson.types.ObjectId
-import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
-import models.User
 import models.Document
 import play.api.mvc.AnyContent
 

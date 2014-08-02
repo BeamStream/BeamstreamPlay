@@ -1,6 +1,5 @@
 package controllers
 
-import scala.xml.XML
 import org.scribe.builder.ServiceBuilder
 import org.scribe.builder.api.LinkedInApi
 import org.scribe.model.OAuthRequest
@@ -12,16 +11,9 @@ import play.api.Logger
 import play.api.Play
 import play.api.mvc.Action
 import play.api.mvc.Controller
-import play.api.Play.current
 import org.scribe.model.Verb
-import play.api.cache.Cache
-import play.api.mvc.Security
 
-object LinkedInAPIController {
-
-
-
-object LinkedInController extends Controller {
+object LinkedInAPIController extends Controller {
 
   val SUCCESS = 200
   val ERROR = 400
@@ -123,8 +115,5 @@ object LinkedInController extends Controller {
         Ok(views.html.redirectmain(message, "failure"))
     }
   }*/
-
-}
-
 
 }

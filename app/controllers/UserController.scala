@@ -1,36 +1,33 @@
 package controllers
 
 import scala.collection.immutable.List
+import scala.concurrent.Future
+
 import org.bson.types.ObjectId
 import org.neo4j.graphdb.Node
+
+import models.AvailableUsers
 import models.LoginResult
 import models.OnlineUsersResult
 import models.ResulttoSent
+import models.Stream
+import models.Token
 import models.User
 import models.UserMedia
 import net.liftweb.json.Serialization.write
+import play.api.Play
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc.Action
+import play.api.mvc.AnyContent
 import play.api.mvc.Controller
+import play.api.mvc.Cookie
+import play.api.mvc.DiscardingCookie
 import utils.Neo4jFriend
 import utils.ObjectIdSerializer
+import utils.OnlineUserCache
 import utils.PasswordHashingUtil
 import utils.SendEmailUtility
 import utils.SocialGraphEmbeddedNeo4j
-import utils.OnlineUserCache
-import utils.OnlineUsers
-import models.School
-import models.Stream
-import models.AvailableUsers
-import scala.concurrent.Future
-import java.util.Calendar
-import play.api.libs.concurrent.Execution.Implicits._
-import play.api.Logger
-import models.Token
-import play.api.Play
-import play.api.mvc.Cookie
-import play.api.mvc.DiscardingCookie
-import play.api.mvc.AnyContent
-import play.api.mvc.DiscardingCookie
 
 object UserController extends Controller {
 

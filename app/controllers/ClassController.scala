@@ -1,30 +1,26 @@
 package controllers
 
-import play.api.mvc._
-import play.api._
-import play.api.data._
-import play.api.data.Forms._
-import models.Class
 import org.bson.types.ObjectId
 import models.ClassType
 import java.text.DateFormat
-import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
 import java.text.SimpleDateFormat
 import utils.EnumerationSerializer
 import utils.ObjectIdSerializer
-import models.UserSchool
 import models.User
-import models.ResulttoSent
 import models.Class
 import models.ResulttoSent
 import models.Stream
 import models.ClassResult
-import utils.OnlineUserCache
 import models.Token
-import models.LoginResult
 import models.UserMedia
 import play.api.mvc.AnyContent
+import play.api.mvc.Action
+import play.api.mvc.Controller
+import play.api.mvc.DiscardingCookie
+import play.api.mvc.Cookie
+import play.api.Play
+import play.api.Logger
 
 object ClassController extends Controller {
 

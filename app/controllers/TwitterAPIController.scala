@@ -1,16 +1,15 @@
 package controllers
 
-import org.bson.types.ObjectId
-import play.api.mvc.Action
-import play.api.mvc.Controller
 import play.api.Logger
 import play.api.Play
-import play.api.i18n.Messages
-import twitter4j.auth.RequestToken
-import twitter4j.conf.ConfigurationBuilder
+import play.api.mvc.Action
+import play.api.mvc.AnyContent
+import play.api.mvc.Controller
 import twitter4j.Twitter
 import twitter4j.TwitterException
 import twitter4j.TwitterFactory
+import twitter4j.auth.RequestToken
+import twitter4j.conf.ConfigurationBuilder
 
 object TwitterAPIController extends Controller{
 
@@ -21,7 +20,7 @@ object TwitterAPIController extends Controller{
   /**
    * Login Through Twitter
    */
-  def twitterLogin = Action { implicit request =>
+  def twitterLogin: Action[AnyContent] = Action { implicit request =>
     val cb: ConfigurationBuilder = new ConfigurationBuilder()
     val consumer_key = Play.current.configuration.getString("consumer_key").get
     val consumer_secret = Play.current.configuration.getString("consumer_secret").get
@@ -56,7 +55,7 @@ object TwitterAPIController extends Controller{
   /**
    * Twitter CallBack Request
    */
-  def twitterCallBack = Action { implicit request =>
+  def twitterCallBack: Action[AnyContent] = Action { implicit request =>
     //https://api.twitter.com/1/users/lookup.xml?user_id=702672206
     try {
       getVerifier(request.queryString) match {

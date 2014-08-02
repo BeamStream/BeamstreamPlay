@@ -1,18 +1,15 @@
 package controllers
 
 import org.bson.types.ObjectId
+
 import models.ResulttoSent
 import models.User
-import models.UserType
 import net.liftweb.json.DefaultFormats
 import net.liftweb.json.Serialization.write
-import play.api.Play
-import play.api.libs.json.Json
 import play.api.mvc.Action
-import play.api.mvc.Controller
-import utils.OnlineUserCache
-import utils.SendEmailUtility
 import play.api.mvc.AnyContent
+import play.api.mvc.Controller
+import utils.SendEmailUtility
 
 object SocialController extends Controller {
   implicit val formats = DefaultFormats

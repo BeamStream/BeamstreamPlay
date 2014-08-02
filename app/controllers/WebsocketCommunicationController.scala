@@ -5,10 +5,10 @@ import org.bson.types.ObjectId
 import models.User
 import play.api.libs.json.JsValue
 import play.api.mvc.Action
+import play.api.mvc.AnyContent
 import play.api.mvc.Controller
 import play.api.mvc.WebSocket
 import utils.WebsocketCommunication
-import play.api.mvc.AnyContent
 
 object WebsocketCommunicationController extends Controller {
 

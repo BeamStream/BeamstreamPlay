@@ -20,14 +20,10 @@ import utils.AmazonUpload
 import utils.ExtractFrameFromVideoUtil
 import utils.ObjectIdSerializer
 import utils.TokenEmailUtil
-import com.beamstream.exifRotate.ExifRotate
-import utils.OnlineUserCache
 import models.User
 import play.api.mvc.Cookie
 import models.Token
 import play.api.Play
-import play.api.cache.Cache
-import play.api.Play.current
 import play.api.mvc.AnyContent
 import play.api.mvc.DiscardingCookie
 

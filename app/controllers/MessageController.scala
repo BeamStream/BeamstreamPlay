@@ -7,7 +7,6 @@ import models.DocResulttoSent
 import models.Message
 import models.Access
 import models.Type
-import models.ResulttoSent
 import models.User
 import models.UserMedia
 import net.liftweb.json.Serialization.write
