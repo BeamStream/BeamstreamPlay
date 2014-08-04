@@ -1,12 +1,7 @@
 package utils
 
-import akka.actor._
 import scala.concurrent.duration._
 import scala.language.postfixOps
-import play.api._
-import play.api.libs.json._
-import play.api.libs.iteratee._
-import play.api.libs.concurrent._
 import akka.util.Timeout
 import akka.pattern.ask
 import play.api.Play.current
@@ -14,6 +9,11 @@ import play.api.libs.concurrent.Execution.Implicits._
 import org.bson.types.ObjectId
 import scala.concurrent.Future
 import controllers.WebsocketCommunicationController
+import akka.actor.Props
+import akka.actor.Actor
+import play.api.libs.json._
+import play.api.libs.concurrent.Akka
+import play.api.libs.iteratee._
 
 case class Join(username: String)
 case class Quit(username: String, channel: play.api.libs.iteratee.Concurrent.Channel[play.api.libs.json.JsValue])

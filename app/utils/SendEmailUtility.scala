@@ -5,9 +5,6 @@ import java.util.Properties
 import javax.mail.Session
 import javax.mail.internet.InternetAddress
 import javax.mail.Message
-import javax.mail.Transport
-import models.Token
-import org.bson.types.ObjectId
 import play.api.Play
 
 trait EmailUtility {

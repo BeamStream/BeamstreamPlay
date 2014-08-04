@@ -7,15 +7,11 @@ import com.google.api.client.http.javanet.NetHttpTransport
 import com.google.api.client.json.jackson.JacksonFactory
 import com.google.api.services.drive.Drive
 import com.google.api.services.drive.model.File
-import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.util.Date
-import com.google.api.services.drive.model.Permission
 import play.api.Logger
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
-import java.io.BufferedReader
-import java.io.InputStreamReader
+
 
 object GoogleDocsUploadUtility {
   val formatter: SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");

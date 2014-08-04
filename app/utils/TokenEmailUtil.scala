@@ -1,7 +1,5 @@
 package utils
 
-import java.security.SecureRandom
-import java.security.MessageDigest
 import java.util.UUID
 
 object TokenEmailUtil {
