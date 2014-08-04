@@ -1,16 +1,19 @@
 package models
 
-import org.bson.types.ObjectId
-import utils.MongoHQConfig
+import java.text.DateFormat
 import java.util.Date
 import java.util.regex.Pattern
-import net.liftweb.json.{ parse, DefaultFormats }
-import actors.UtilityActor
-import models.mongoContext._
-import com.novus.salat.annotations.raw.Key
-import com.novus.salat.dao.SalatDAO
+
+import org.bson.types.ObjectId
+
 import com.mongodb.casbah.commons.MongoDBObject
-import java.text.DateFormat
+import com.novus.salat.dao.SalatDAO
+import com.novus.salat.annotations.raw.Key
+
+import actors.UtilityActor
+import models.mongoContext.context
+import net.liftweb.json.DefaultFormats
+import utils.MongoHQConfig
 
 case class Class(@Key("_id") id: ObjectId,
   classCode: String,

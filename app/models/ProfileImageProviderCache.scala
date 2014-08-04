@@ -2,7 +2,6 @@ package models
 
 import org.bson.types.ObjectId
 
-
 object ProfileImageProviderCache {
 
   var profileImageMap = Map[String, String]()

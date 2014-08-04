@@ -1,18 +1,11 @@
 package models
 
-import com.novus.salat._
-import com.novus.salat.global._
-import com.novus.salat.annotations._
-import com.novus.salat.dao._
+import com.novus.salat.annotations.raw.Key
+import com.novus.salat.dao.SalatDAO
 import com.mongodb.casbah.Imports._
-import com.mongodb.casbah.MongoConnection
-import org.joda.time.DateTime
-import org.bson.types.ObjectId
 import utils.MongoHQConfig
 import java.util.Date
-import java.text.DateFormat
 import net.liftweb.json.{ parse, DefaultFormats }
-import net.liftweb.json.Serialization.{ read, write }
 import models.mongoContext._
 
 case class UserSchool(@Key("_id") id: ObjectId,

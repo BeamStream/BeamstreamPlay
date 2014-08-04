@@ -1,17 +1,16 @@
 package models
 
-import com.novus.salat.annotations._
 import org.bson.types.ObjectId
 import java.util.Date
 import com.novus.salat.dao.SalatDAO
 import utils.MongoHQConfig
-import com.novus.salat.global._
 import java.text.DateFormat
 import com.mongodb.casbah.commons.MongoDBObject
 import com.mongodb.WriteConcern
 import models.mongoContext._
 import scala.language.postfixOps
 import java.util.regex.Pattern
+import com.novus.salat.annotations.raw.Key
 
 case class Comment(@Key("_id") id: ObjectId,
   commentBody: String,

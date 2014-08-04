@@ -2,21 +2,13 @@ package models
 
 //TODO : This was with our previous architecture. To Be Removed.
 
-import com.novus.salat._
-import com.novus.salat.global._
-import com.novus.salat.annotations._
-import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
-import com.mongodb.casbah.MongoConnection
-import java.io.File
-import com.mongodb.gridfs.GridFSInputFile
-import org.bson.types.ObjectId
-import com.mongodb.Mongo
 import java.io.InputStream
 import utils.MongoHQConfig
-import com.mongodb.casbah.Imports._
 import com.mongodb.casbah.gridfs.Imports._
 import models.mongoContext._
+import com.novus.salat.annotations.raw.Key
+import com.novus.salat.dao.SalatDAO
 
 
 
