@@ -1,21 +1,13 @@
 package models
 
-import com.novus.salat._
-import com.novus.salat.global._
-import com.novus.salat.annotations._
-import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
-import com.mongodb.casbah.MongoConnection
-import org.joda.time.DateTime
-import org.bson.types.ObjectId
 import utils.MongoHQConfig
-import net.liftweb.json.{ parse, DefaultFormats }
-import net.liftweb.json.Serialization.{ read, write }
 import java.util.Date
 import java.util.regex.Pattern
-import java.net.URL
 import models.mongoContext._
 import scala.language.postfixOps
+import com.novus.salat.annotations.raw.Key
+import com.novus.salat.dao.SalatDAO
 
 /**
  * Enumeration for the Question access

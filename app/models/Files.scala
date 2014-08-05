@@ -1,10 +1,8 @@
 package models
 
-import com.mongodb.casbah.commons.MongoDBObject
 import org.bson.types.ObjectId
-import scala.collection.immutable.List
-import models.mongoContext._
-import com.novus.salat.global._
+
+import com.mongodb.casbah.commons.MongoDBObject
 
 object Files {
 

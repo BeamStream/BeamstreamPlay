@@ -1,12 +1,7 @@
 package utils
 
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileReader
-
 import scala.collection.JavaConversions.asScalaBuffer
 
-import org.apache.poi.ss.usermodel.WorkbookFactory
 import org.bson.types.ObjectId
 
 import au.com.bytecode.opencsv.CSVReader

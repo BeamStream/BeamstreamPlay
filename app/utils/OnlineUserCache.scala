@@ -1,10 +1,7 @@
 package utils
 
-import play.api.cache.Cache
-import play.api.Play.current
 import com.novus.salat.dao.SalatDAO
 import org.bson.types.ObjectId
-import com.novus.salat.global._
 import com.mongodb.casbah.commons.MongoDBObject
 import com.mongodb.WriteConcern
 import models.mongoContext._

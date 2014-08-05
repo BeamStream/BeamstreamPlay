@@ -4,8 +4,7 @@ import org.bson.types.ObjectId
 import com.mongodb.casbah.Imports.MongoDBObject
 import com.mongodb.casbah.Imports.WriteConcern
 import com.novus.salat.dao.SalatDAO
-import com.novus.salat.global.ctx
-import com.novus.salat.annotations._
+import com.novus.salat.annotations.raw.Key
 import actors.UtilityActor
 import play.api.libs.json.JsValue
 import utils.MongoHQConfig

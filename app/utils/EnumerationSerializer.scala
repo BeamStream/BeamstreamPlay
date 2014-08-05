@@ -2,20 +2,15 @@ package utils
 
 import net.liftweb.json.JsonDSL
 import net.liftweb.json.MappingException
-import net.liftweb.json.TypeInfo
 import net.liftweb.json.Formats
 import net.liftweb.json.JsonAST.JString
 import net.liftweb.json.Serialization
 import net.liftweb.json.JsonAST.JValue
 import net.liftweb.json.NoTypeHints
-import net.liftweb.json.CustomSerializer
 import net.liftweb.json.JsonAST.JObject
 import org.bson.types.ObjectId
 import net.liftweb.json.JsonAST.JField
 import net.liftweb.json.Serializer
-import net.liftweb.json.JsonAST.JInt
-import models.Degree
-import models.Year
 import net.liftweb.json.TypeInfo
 import java.text.DateFormat
 import java.util.Date

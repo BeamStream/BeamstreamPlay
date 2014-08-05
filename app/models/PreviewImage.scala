@@ -1,36 +1,13 @@
 package models
 
-import com.novus.salat._
-import com.novus.salat.global._
-import com.novus.salat.annotations._
-import com.novus.salat.dao._
-import org.bson.types.ObjectId
-import utils.MongoHQConfig
-import com.mongodb.casbah.commons.MongoDBObject
-import com.mongodb.WriteConcern
-import models.mongoContext._
-import java.net.HttpURLConnection
-import java.io.InputStream
-import java.io.OutputStream
 import java.net.URL
-import utils.PasswordHashingUtil
-import javax.net.ssl.HttpsURLConnection
-import java.io.BufferedReader
-import java.io.InputStreamReader
-import java.io.DataOutputStream
-import java.io.BufferedOutputStream
-import java.io.FileOutputStream
-import java.io.File
+
 import com.mongodb.casbah.MongoConnection
 import com.mongodb.casbah.gridfs.GridFS
-import com.mongodb.casbah.Implicits._
-import play.api.mvc.SimpleResult
-import play.api.mvc.ResponseHeader
-import play.api.libs.iteratee.Enumerator
-import play.api.mvc.Action
-import play.api.mvc.Controller
-import play.api.libs.concurrent.Execution.Implicits._
+
+import javax.net.ssl.HttpsURLConnection
 import play.api.Logger
+import play.api.mvc.Controller
 
 object PreviewImage extends Controller {
 

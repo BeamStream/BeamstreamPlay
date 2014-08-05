@@ -1,8 +1,7 @@
 package models
 
 import com.novus.salat.dao.SalatDAO
-import com.novus.salat.annotations.Key
-import com.novus.salat.global._
+import com.novus.salat.annotations.raw.Key
 import org.bson.types.ObjectId
 import utils.MongoHQConfig
 import com.mongodb.casbah.commons.MongoDBObject

@@ -1,16 +1,13 @@
 package models
 
-import com.novus.salat._
-import com.novus.salat.global._
-import com.novus.salat.annotations._
-import com.novus.salat.dao._
+import com.novus.salat.annotations.raw.Key
+import com.novus.salat.dao.SalatDAO
 import org.bson.types.ObjectId
 import utils.MongoHQConfig
 import com.mongodb.casbah.commons.MongoDBObject
 import com.mongodb.WriteConcern
 import models.mongoContext._
 import com.mongodb.casbah.Imports.WriteResult
-import com.mongodb.WriteResult
 
 case class Token(@Key("_id") id: ObjectId, userId: String, tokenString: String, used: Boolean)
 object Token {
