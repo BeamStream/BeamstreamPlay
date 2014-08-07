@@ -75,7 +75,7 @@ object UtilityActor extends EmailUtility {
     authenticatedMessageAndSession._1.setSubject("Registration Process On ClassWall");
     authenticatedMessageAndSession._1.setContent(
 
-      "You have chosen wisely... Thanks for signing up with ClassWall! <br> Click on the link belowto finish registering & get your collaboration on." +
+      "You have chosen wisely... Thanks for signing up with ClassWall! <br> Click on the link below to finish registering & get your collaboration on." +
         "<a href='" + server + "/registration?userId=" + userId + "&token=" + authToken + "'><br><br>Click to Finish Registration</a>" +
         "<br>" + "<br>" +
         "Rock College," + "<br>" + "The team @ ClassWall" + "<br>", "text/html");

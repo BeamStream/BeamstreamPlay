@@ -64,4 +64,28 @@ class GoogleDocsUploadUtilityTest extends FunSuite {
     }
   }
   
+  test("Can a User Access a Google Doc") {
+    running(FakeApplication()) {
+      val accessToken = GoogleDocsUploadUtility.getNewAccessToken(refreshToken)
+      val canAccessGoogleDoc = GoogleDocsUploadUtility.canAccessGoogleDoc(accessToken, accessToken, "")
+      assert(canAccessGoogleDoc === false)
+    }
+  }
+  
+  test("Get Title of Google Doc") {
+    running(FakeApplication()) {
+      val accessToken = GoogleDocsUploadUtility.getNewAccessToken(refreshToken)
+      val canAccessGoogleDoc = GoogleDocsUploadUtility.getGoogleDocData(accessToken, "")
+      assert(canAccessGoogleDoc !== "Exception")
+    }
+  }
+  
+  test("Find Gmail Id of Google Doc Owner") {
+    running(FakeApplication()) {
+      val accessToken = GoogleDocsUploadUtility.getNewAccessToken(refreshToken)
+      val canAccessGoogleDoc = GoogleDocsUploadUtility.findGmailIdOfDocOwner(accessToken, "")
+      assert(canAccessGoogleDoc === "")
+    }
+  }
+  
 }

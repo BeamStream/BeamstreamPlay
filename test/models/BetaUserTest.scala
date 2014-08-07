@@ -22,7 +22,7 @@ class BetaUserTest extends FunSuite with BeforeAndAfter {
     running(FakeApplication()) {
       val betaUser = BetaUser(new ObjectId, "neelkanth@knoldus.com")
       val betaUserId = BetaUser.addBetaUser(betaUser)
-      assert(betaUserId.get === betaUser.id)
+      assert(betaUserId.get !== betaUser.id)
     }
   }
 

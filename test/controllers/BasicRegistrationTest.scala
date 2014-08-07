@@ -131,9 +131,7 @@ class BasicRegistrationTest extends FunSuite with BeforeAndAfter {
     val json: JsValue = play.api.libs.json.Json.parse(jsonString)
     running(FakeApplication()) {
       val result = route(FakeRequest(POST, "/betaUser").withJsonBody(json)).get
-      result onComplete {
-        case stat => assert(stat.isSuccess === true)
-      }
+      assert(status(result) === 200)
     }
   }
 

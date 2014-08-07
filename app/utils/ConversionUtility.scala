@@ -7,8 +7,8 @@ object ConversionUtility extends App {
   /*
    * Does the encoding
    */
-  val str = ""
-  val encodedString = Hex.encodeHexString(str.getBytes("cp424"))
+  /*val str = ""
+  val encodedString = Hex.encodeHexString(str.getBytes("cp424"))*/
 
   /*
    * Decoding Part for a string

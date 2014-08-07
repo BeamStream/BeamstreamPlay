@@ -244,19 +244,19 @@ object GoogleDocsUploadUtility {
     }
   }
 
-  def isThumbnailNull(code: String, fileURL: String): Boolean = {
+  /*def isThumbnailNull(code: String, fileURL: String): Boolean = {
     try {
-      /*val service = prepareGoogleDrive(code)
+      val service = prepareGoogleDrive(code)
       val file = service.files().get(fileId).execute()
-      val url = new URL(file.getThumbnailLink())*/
+      val url = new URL(file.getThumbnailLink())
       val url = new URL(fileURL)
       val connection = url.openConnection().asInstanceOf[HttpsURLConnection]
       connection.setRequestMethod("GET")
       connection.connect()
-      /*if (connection.getContentLength() == -1) {
+      if (connection.getContentLength() == -1) {
         connection.disconnect()
         true
-      } else {*/
+      } else {
       if (connection.getContentLength() > 663) {
         connection.disconnect()
         false
@@ -270,7 +270,7 @@ object GoogleDocsUploadUtility {
         Logger.error("This error occured while Checking Preview Image of Google Docs", ex)
         true
     }
-  }
+  }*/
   def getGmailId(code: String): String = {
     try {
       val service = prepareGoogleDrive(code)
