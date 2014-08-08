@@ -44,4 +44,11 @@ class SendEmailUtilityTest extends FunSuite {
     }
   }
   
+  test("Send Google Doc Access Permission Mail") {
+    running(FakeApplication()) {
+      val invitationWithReferralSent = SendEmailUtility.sendGoogleDocAccessMail("himanshu@knoldus.com", "himanshu@knoldus.com", "", "")
+      assert(invitationWithReferralSent.toString === "()")
+    }
+  }
+  
 }

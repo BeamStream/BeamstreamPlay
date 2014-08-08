@@ -72,7 +72,7 @@ object SocialGraphEmbeddedNeo4j {
 
       tx.success()
     } finally {
-      tx.finish()
+      tx.close()
     }
   }
 
@@ -148,7 +148,7 @@ object SocialGraphEmbeddedNeo4j {
         Logger.error("This error occured while Creating a BS Node :- ", ioe)
         null
     } finally {
-      tx.finish()
+      tx.close()
     }
   }
 }

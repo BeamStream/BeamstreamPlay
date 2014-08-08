@@ -187,6 +187,24 @@ class QuestionControllerTest extends FunSuite with BeforeAndAfter {
     }
   }
   
+  test("Can Delete The Answer") {
+    running(FakeApplication()) {
+      val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "NeelS", "", Option("Neel"), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
+      val userId = User.createUser(user)
+      val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(userId.get), true, Nil)
+      val streamId = Stream.createStream(stream)
+      val question = Question(new ObjectId, "How was the Class ?", user.id, Access.Public, Type.Text, stream.id, "Neel", "Sachdeva", new Date, List(userId.get), Nil, Nil, Nil, Nil, false, None, None)
+      val questionId = Question.addQuestion(question)
+      val answer = Comment(new ObjectId, "Comment1", new Date, userId.get, user.firstName, user.lastName, 0, Nil, streamId.get)
+      val answerId = Comment.createComment(answer)
+      Question.addAnswerToQuestion(questionId.get, answerId.get)
+      val result1 = route(FakeRequest(PUT, "/can/remove/comment/" + answerId.get.toString + "/" + questionId.get.toString).withSession("userId" -> userId.get.toString))
+      assert(result1 === None)
+      val result2 = route(FakeRequest(PUT, "/can/remove/comment/" + answerId.get.toString + "/" + questionId.get.toString).withSession("userId" -> (new ObjectId).toString))
+      assert(result2 === None)
+    }
+  }
+  
   after {
     running(FakeApplication()) {
       UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
