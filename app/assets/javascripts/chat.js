@@ -73,7 +73,7 @@ function startChat(userId) {
 		// Create the message element
 		var el = $('<div class="message"><span></span><p></p></div>')
 		$("span", el).text(data.user)
-		$("p", el).text(data.message)
+		$("p", el).text(": " + data.message)
 		$(el).addClass(data.kind)
 		$("#" + oldId + " " + "div#messages").append(el)
 
@@ -188,7 +188,7 @@ function popit(userId, toWhom, name, profileImageUrl) {
 								// Create the message element
 								var el = $('<div class="message"><span></span><p></p></div>')
 								$("span", el).text(data.user)
-								$("p", el).text(data.message)
+								$("p", el).text(": " + data.message)
 								$(el).addClass(data.kind)
 								$("#" + itsId + " " + "div#messages")
 										.append(el)
