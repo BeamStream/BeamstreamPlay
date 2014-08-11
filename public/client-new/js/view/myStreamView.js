@@ -199,9 +199,7 @@ define(
 									+ view.pageNo;
 
 							view.fetch();
-							
 							$("#questionsLink").click();
-
 						},
 
 						/* Miimize left question stream */
