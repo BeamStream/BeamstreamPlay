@@ -105,7 +105,7 @@
       <div class="share-info">
       	<span class="arrow-bg"></span>
         <h5>Want to be an exclusive 1st User? </h5>
-        <h2>Share<img src="beamstream-new/homepage/img/beamstream-blue.jpg">    
+        <h2>Share<img src="/beamstream-new/images/classwall-gray-logo.svg">    
           with your connections.</h2>
       </div>
       <ul class="modal-share">
@@ -129,7 +129,7 @@
     <div class="share-content">
       <div class="share-info">
       	<span class="arrow-bg"></span>
-        <h2>Share<img src="beamstream-new/homepage/img/beamstream-blue.jpg">    
+        <h2>Share<img src="/beamstream-new/images/classwall-gray-logo.svg">    
           with your connections.</h2>
       </div>
       <ul class="modal-share">
