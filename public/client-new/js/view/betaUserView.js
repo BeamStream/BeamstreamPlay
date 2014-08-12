@@ -60,7 +60,8 @@ define(['view/formView','../../lib/bootstrap-modal'], function(FormView,Bootstra
 			else
 			{
 				localStorage["shareWidget"] = 'errorMessage';
-				$("#errorMessage").modal('show'); 
+				//$("#errorMessage").modal('show'); 
+				alert("You've been already added to the Beamstream's beta users list")
 				
 			}
 			this.data.reset({mailId : ''});
