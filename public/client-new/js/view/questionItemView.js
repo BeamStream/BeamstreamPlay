@@ -375,8 +375,9 @@ define(['view/formView',
    			 		
    			 		    /* set the Comment model values and posted to server */
    			 			var comment = new CommentModel();
+   			 		    var streamId =  $('.sortable li.active').attr('id');
    			 			comment.urlRoot = "/newComment";
-   			 			comment.save({comment : commentText, questionId :parent},{
+   			 			comment.save({comment : commentText, questionId :parent, stream_id: streamId},{
 	   			    	success : function(model, response) {
    			 				
 	   			    		$('#'+parent+'-questionComment').val('');
