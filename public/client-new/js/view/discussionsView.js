@@ -30,7 +30,6 @@ define(
 							'blur #sort_by_key': 'sortMessagesByBlur',
 							'click #discussion-file-upload li' : 'uploadFiles',
 							'click #private-to-list li' : 'selectPrivateToList',
-							/* 'keypress #msg-area' : 'postMessageOnEnterKey', */
 							'keyup #msg-area' : 'removePreview',
 							'change #upload-files-area' : 'getUploadedData',
 							'click #createPublish' : 'createpublishGoogleDoc',
@@ -62,9 +61,7 @@ define(
 							this.msgSortedType = '';
 
 							/* pagination */
-							$(window)
-									.bind(
-											'scroll',
+							$(window).bind('scroll',
 											function(ev) {
 
 												var activeTab = $(
@@ -192,7 +189,6 @@ define(
 														streamId : streamId,
 														data : data
 													}
-
 												})
 												window.location
 														.replace("/stream");
@@ -315,25 +311,51 @@ define(
 						 * show Post Button
 						 */
 						hidePostButton : function() {
-							setTimeout(function() {
-								$('#msg-area').css('padding', '5px 6px 4px 6px');
-								$('#msg-area')
-										.css('margin', '-1px 0 -5px 14px');
-								$('.ask-outer').css('height', '0px');
-								if ($('#uploded-file-area').is(':visible')) {
-									$('.ask-outer').height(
-											function(index, height) {
-												return (height + 70);
-											});
-									$('a.ask-button').css('visibility',
-											'hidden');
-								} else {
-									$('a.ask-button').css('visibility',
-											'hidden');
-								}
-
-								$('textarea#msg-area').val('');
-							}, 1000)
+							
+							var self = this;
+							
+							var messageData = $('#msg-area').val();
+							if (messageData == '') {
+											$('#msg-area').css('padding','5px 6px 4px 6px');
+											$('#msg-area').css('margin','-1px 0 -5px 14px');
+											$('.ask-outer').css('height', '0px');
+											if ($('#uploded-file-area').is(':visible')) {
+												$('.ask-outer').height(
+																function(index,height) {
+																	return (height + 70);
+																});
+													$('a.ask-button').css('visibility', 'visible');
+												
+											} else {
+												$('a.ask-button').css('visibility', 'hidden');
+											}
+											$('textarea#msg-area').val('');
+							}
+							else {
+								
+								bootbox
+								.dialog(
+										"Do you want to post the Answer?",
+										[
+												{
+													"label" : "YES",
+													"class" : "btn-primary",
+													"callback" : function() {
+														self.postMessage();
+													}
+												},
+												{
+													"label" : "NO",
+													"class" : "btn-primary",
+													"callback" : function() {
+														self.$el.find('#msg-area').css('padding','5px 6px 4px 6px').css('margin','-1px 0 -5px 14px');
+														self.$el.find('textarea#msg-area').val('');
+														self.$el.find('.ask-outer').css('height', '0px');
+														self.$el.find('a.ask-button').css('visibility', 'hidden');
+													}
+												} ]);
+							}
+							
 						},
 
 						/**
@@ -341,26 +363,44 @@ define(
 						 */
 
 						showPostButton : function() {
-							$('#discussionsView .ask-outer').height(
-									function(index, height) {
-										return (height + 70);
-									});
+							var askOuterHeight = $('#discussionsView .ask-outer').height();
+							if (askOuterHeight == '0'){
+								$('#discussionsView .ask-outer').height(
+										function(index, height) {
+											return (height + 70);
+										});
+							}
+							
+							if ($('#uploded-file-area').is(':visible')) {
+								if (askOuterHeight == '70'){
+								$('.ask-outer').height(
+												function(index,height) {
+													return (height + 70);
+												});
+								$("ul#uploded-file-area").css('height','70px');
+								}
+							}					
+							
 							$('#msg-area').css('padding', '7.5% 18% 6% 2%');
 							$('#msg-area').css('margin', '0 0 24px 22px');
-							$('a.ask-button').css('visibility', 'visible');
+							if ($('#uploded-file-area').is(':visible')) {
+								$('a.ask-button').css('visibility', 'hidden');
+							}
+							else {
+								$('a.ask-button').css('visibility', 'visible');
+							}
+							
 						},
 
 						/**
 						 * post messages
 						 */
 						postMessage : function() {
-
-							// alert("google Doc")
-
-							$('a.ask-button').css('visibility', 'hidden');
+							
+							$('#msg-area').css('padding','5px 6px 4px 6px').css('margin','-1px 0 -5px 14px');
 							$('.ask-outer').css('height', '0px');
-
-							//$('.progress-container').hide();
+							$('a.ask-button').css('visibility', 'hidden');
+							$('div.loadingImage').css('display','block');
 							$('#uploded-file-area').hide();
 							var self = this;
 							var streamId = $('.sortable li.active').attr('id');
@@ -403,20 +443,15 @@ define(
 												processData : false,
 												dataType : "json",
 												success : function(data) {
-
-													// alert(JSON.stringify(data))
 														// set progress bar as
 														// 100 %
-
 														$('#msg-area').val("");
 														$('#uploded-file')
 																.hide();
 
 														self.file = "";
 
-														$('#file-upload-loader')
-																.css("display",
-																		"none");
+														$('#file-upload-loader').css("display","none");
 
 														var datVal = formatDateVal(data.message.timeCreated);
 
@@ -461,6 +496,7 @@ define(
 																.prepend(
 																		messageItemView
 																				.render().el);
+														$('.loadingImage').css('display','none');
 
 														self.selected_medias = [];
 														$(
@@ -625,11 +661,8 @@ define(
 																{
 																	model : self.data.models[0]
 																});
-														$(
-																'#messageListView div.content')
-																.prepend(
-																		messageItemView
-																				.render().el);
+														$('#messageListView div.content').prepend(messageItemView.render().el);
+														$('.loadingImage').css('display','none');
 
 														/* share widget */
 														if (self.selected_medias.length != 0) {
@@ -651,32 +684,18 @@ define(
 														 * delete default
 														 * embedly preview
 														 */
-														$('div.selector').attr(
-																'display',
-																'none');
-														$('div.selector')
-																.parents(
-																		'form.ask-disccution')
-																.find(
-																		'input[type="hidden"].preview_input')
-																.remove();
-														$('div.selector')
-																.remove();
-														$('.preview_input')
-																.remove();
+														$('div.selector').attr('display','none');
+														$('div.selector').parents('form.ask-disccution').find('input[type="hidden"].preview_input').remove();
+														$('div.selector').remove();
+														$('.preview_input').remove();
 														$('#msg-area').val("");
-														$(
-																'#share-discussions li.active')
-																.removeClass(
-																		'active');
+														$('#share-discussions li.active').removeClass('active');
 														self.selected_medias = [];
-
 													},
-													error : function(model,
-															response) {
+													error : function(model,response)
+    													{
 														$('#msg-area').val("");
 													}
-
 												});
 
 							} else {
@@ -702,15 +721,13 @@ define(
 													messageAccess : messageAccess
 												},
 												{
-													success : function(model,
-															response) {
+													success : function(model,response) {
 
 														/*
 														 * PUBNUB -- AUTO AJAX
 														 * PUSH
 														 */
-														PUBNUB
-																.publish({
+														PUBNUB.publish({
 																	channel : "stream",
 																	message : {
 																		pagePushUid : self.pagePushUid,
@@ -725,19 +742,12 @@ define(
 																{
 																	model : self.data.models[0]
 																});
-														$(
-																'#messageListView div.content')
-																.prepend(
-																		messageItemView
-																				.render().el);
+														$('#messageListView div.content').prepend(messageItemView.render().el);
+														$('.loadingImage').css('display','none');
 
 														/* share widget */
 														if (self.selected_medias.length != 0) {
-															_
-																	.each(
-																			self.data.models[0],
-																			function(
-																					data) {
+															_.each(self.data.models[0],function(data) {
 																				showJanrainShareWidget(
 																						self.data.models[0].attributes.message.messageBody,
 																						'View my Beamstream post',
@@ -751,26 +761,14 @@ define(
 														 * delete default
 														 * embedly preview
 														 */
-														$('div.selector').attr(
-																'display',
-																'none');
-														$('div.selector')
-																.parents(
-																		'form.ask-disccution')
-																.find(
-																		'input[type="hidden"].preview_input')
-																.remove();
-														$('div.selector')
-																.remove();
-														$('.preview_input')
-																.remove();
+														$('div.selector').attr('display','none');
+														$('div.selector').parents('form.ask-disccution').find('input[type="hidden"].preview_input').remove();
+														$('div.selector').remove();
+														$('.preview_input').remove();
 														$('#msg-area').val("");
-														$(
-																'#share-discussions li.active')
-																.removeClass(
-																		'active');
+														$('#share-discussions li.active').removeClass('active');
 														self.selected_medias = [];
-
+														$('.loadingImage').css('display','none');
 													},
 													error : function(model,
 															response) {
@@ -778,31 +776,10 @@ define(
 													}
 
 												});
-
 							}
-
 						},
 
-						/**
-						 * post message on enter key
-						 */
-						/*
-						 * postMessageOnEnterKey: function(eventName){
-						 * 
-						 * var self = this;
-						 * 
-						 * if(eventName.which == 13) { self.postMessage(); }
-						 * if(eventName.which == 32){ var text =
-						 * $('#msg-area').val(); self.links =
-						 * text.match(self.urlReg);
-						 * 
-						 * if(!self.links) self.links =
-						 * text.match(self.website);
-						 * 
-						 * 
-						 * create bitly for each url in text
-						 * self.generateBitly(self.links); } },
-						 */
+					
 
 						removePreview : function(eventName) {
 							var self = this;
@@ -1198,54 +1175,48 @@ define(
 							var self = this;
 							file = e.target.files[0];
 							var reader = new FileReader();
-							/*var fileSize = Math.round(file.size/500);
-							if(fileSize < 500){
-								fileSize = 500;
-							}*/
+							/*
+							 * var fileSize = Math.round(file.size/500);
+							 * if(fileSize < 500){ fileSize = 500; }
+							 */
 
 							/* capture the file informations */
 							reader.onload = (function(f) {
 								self.file = file;
-								//self.bar = $('.bar'); // progress bar
-								//self.bar.width('');
-								//self.bar.text("");
+								// self.bar = $('.bar'); // progress bar
+								// self.bar.width('');
+								// self.bar.text("");
 								clearInterval(self.progress);
 								$('.fileUploadMsg').css('visibility', 'visible');
 								$('.fileUploadMsg').css('display', 'block');
-								$('#floatingCirclesG').css('visibility', 'visible');
-								$('#floatingCirclesG').css('display', 'block');
+								$('div#fileUploadingImage #floatingCirclesG').css('visibility', 'visible');
+								$('div#fileUploadingImage #floatingCirclesG').css('display', 'block');
 								$('#file-name').html(f.name);
 								$('#uploded-file-area').show();
-								//$('.progress-container').show();
-								$('.ask-outer').css('height', '0px');
-								
+								// $('.progress-container').show();
+								//$('.ask-outer').css('height', '0px');
 								$('.ask-outer').height(function(index, height) {
-
 									return (height + 70);
-
 								});
-
-
+								$("ul#uploded-file-area").css('height','70px');
 							})(file);
 
 							// read the file as data URL
 							reader.readAsDataURL(file);
 							
 							/* updating progress bar */
-							/*this.progress = setInterval(function() {
-								
-								var self = this.bar;
-								
-								this.bar = $('.bar');
-								var self = this.bar;
-								if (this.bar.width() >= 195) {
-									clearInterval(this.progress);
-								} else {
-									this.bar.width(this.bar.width() + 10);
-								}
-								this.bar.text(this.bar.width() / 2 + "%");
-								
-							}, fileSize);*/
+							/*
+							 * this.progress = setInterval(function() {
+							 * 
+							 * var self = this.bar;
+							 * 
+							 * this.bar = $('.bar'); var self = this.bar; if
+							 * (this.bar.width() >= 195) {
+							 * clearInterval(this.progress); } else {
+							 * this.bar.width(this.bar.width() + 10); }
+							 * this.bar.text(this.bar.width() / 2 + "%");
+							 *  }, fileSize);
+							 */
 							
 							var message = $('#msg-area').val();
 							var msgAccess = $('#private-to').attr('checked');
@@ -1279,13 +1250,11 @@ define(
 										success : function(data) {
 											$('.fileUploadMsg').css('visibility', 'hidden');
 											$('.fileUploadMsg').css('display', 'none');
-											$('#floatingCirclesG').css('visibility', 'hidden');
-											$('#floatingCirclesG').css('display', 'none');
+											$('div#fileUploadingImage #floatingCirclesG').css('visibility', 'hidden');
+											$('div#fileUploadingImage #floatingCirclesG').css('display', 'none');
 											self.docurlAmazon = data[0];
 											$('a.ask-button').css('top', '40');
 											$('a.ask-button').css('visibility', 'visible');
-								
-
 										}
 									});
 
@@ -1309,6 +1278,8 @@ define(
 										channel : "stream",
 										restore : false,
 										callback : function(message) {
+											
+											
 
 											// alert(JSON.stringify(message))
 											var streamId = $(
@@ -1344,6 +1315,8 @@ define(
 															.prepend(
 																	messageItemView
 																			.render().el);
+													$('.loadingImage').css('display','none');
+													
 												}
 											}
 
