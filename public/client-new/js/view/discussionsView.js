@@ -1,5 +1,4 @@
 
-
 define(
 		[ 'view/formView', 'view/messageListView', 'view/messageItemView',
 				'model/discussion',
@@ -12,14 +11,14 @@ define(
 			var Discussions;
 			Discussions = FormView
 					.extend({
-						objName : 'Discussion', 
-						docurlAmazon: '',
+						objName : 'Discussion',
+						docurlAmazon : '',
 						events : {
 							'click #post-button' : 'postMessage',
 							'focus #msg-area' : 'showPostButton',
 							// 'click ul#discussion-file-upload li' :
 							// 'showDocumentPostButton',
-							'blur .ask-disccution' : 'hidePostButton',
+							'mouseleave .ask-disccution' : 'hidePostButton',
 							'click #share-discussions li a' : 'actvateShareIcon',
 							'click #private-to' : 'checkPrivateAccess',
 							'click #sortBy-list' : 'sortMessages',
@@ -27,7 +26,7 @@ define(
 							'keypress #sort_by_key' : 'sortMessagesByKey',
 							'keyup #sort_by_key' : 'sortMessagesByKeyup',
 							'click form.all-search span.backToNormal' : 'clearSearchField',
-							'blur #sort_by_key': 'sortMessagesByBlur',
+							'blur #sort_by_key' : 'sortMessagesByBlur',
 							'click #discussion-file-upload li' : 'uploadFiles',
 							'click #private-to-list li' : 'selectPrivateToList',
 							'keyup #msg-area' : 'removePreview',
@@ -61,7 +60,9 @@ define(
 							this.msgSortedType = '';
 
 							/* pagination */
-							$(window).bind('scroll',
+							$(window)
+									.bind(
+											'scroll',
 											function(ev) {
 
 												var activeTab = $(
@@ -310,52 +311,93 @@ define(
 						/**
 						 * show Post Button
 						 */
-						hidePostButton : function() {
-							
+						hidePostButton : function(e) {
+
 							var self = this;
-							
+
+							var className = e.target.className;
 							var messageData = $('#msg-area').val();
-							if (messageData == '') {
-											$('#msg-area').css('padding','5px 6px 4px 6px');
-											$('#msg-area').css('margin','-1px 0 -5px 14px');
-											$('.ask-outer').css('height', '0px');
-											if ($('#uploded-file-area').is(':visible')) {
-												$('.ask-outer').height(
-																function(index,height) {
-																	return (height + 70);
-																});
-													$('a.ask-button').css('visibility', 'visible');
-												
-											} else {
-												$('a.ask-button').css('visibility', 'hidden');
-											}
-											$('textarea#msg-area').val('');
-							}
-						/*	else {
-								
-								bootbox
-								.dialog(
-										"Do you want to post the Answer?",
-										[
-												{
-													"label" : "YES",
-													"class" : "btn-primary",
-													"callback" : function() {
-														self.postMessage();
-													}
-												},
-												{
-													"label" : "NO",
-													"class" : "btn-primary",
-													"callback" : function() {
-														self.$el.find('#msg-area').css('padding','5px 6px 4px 6px').css('margin','-1px 0 -5px 14px');
-														self.$el.find('textarea#msg-area').val('');
-														self.$el.find('.ask-outer').css('height', '0px');
-														self.$el.find('a.ask-button').css('visibility', 'hidden');
-													}
-												} ]);
-							}*/
 							
+							if (className == 'question-ask-search') {
+
+								if (messageData == '') {
+									
+									$('#msg-area').css('padding',
+											'5px 6px 4px 6px');
+									$('#msg-area').css('margin',
+											'-1px 0 -5px 14px');
+									$('.ask-outer').css('height', '0px');
+									if ($('#uploded-file-area').is(':visible')) {
+										$('.ask-outer').height(
+												function(index, height) {
+													return (height + 70);
+												});
+										$('a.ask-button').css('visibility',
+												'visible');
+
+									} else {
+										$('a.ask-button').css('visibility',
+												'hidden');
+									}
+									$('textarea#msg-area').val('');
+									
+								} else {
+
+									bootbox
+											.dialog(
+													"Do you want to post the Answer?",
+													[
+															{
+																"label" : "YES",
+																"class" : "btn-primary",
+																"callback" : function() {
+																	self
+																			.postMessage();
+																}
+															},
+															{
+																"label" : "NO",
+																"class" : "btn-primary",
+																"callback" : function() {
+																	self.$el
+																			.find(
+																					'#msg-area')
+																			.css(
+																					'padding',
+																					'5px 6px 4px 6px')
+																			.css(
+																					'margin',
+																					'-1px 0 -5px 14px');
+																	self.$el
+																			.find(
+																					'textarea#msg-area')
+																			.val(
+																					'');
+																	self.$el
+																			.find(
+																					'.ask-outer')
+																			.css(
+																					'height',
+																					'0px');
+																	self.$el
+																			.find(
+																					'a.ask-button')
+																			.css(
+																					'visibility',
+																					'hidden');
+																}
+															} ]);
+								}
+
+							} else {
+
+								self
+								.postMessage();
+								
+							}
+
+							/*	*/
+
 						},
 
 						/**
@@ -363,44 +405,46 @@ define(
 						 */
 
 						showPostButton : function() {
-							var askOuterHeight = $('#discussionsView .ask-outer').height();
-							if (askOuterHeight == '0'){
+							var askOuterHeight = $(
+									'#discussionsView .ask-outer').height();
+							if (askOuterHeight == '0') {
 								$('#discussionsView .ask-outer').height(
 										function(index, height) {
 											return (height + 70);
 										});
 							}
-							
+
 							if ($('#uploded-file-area').is(':visible')) {
-								if (askOuterHeight == '70'){
-								$('.ask-outer').height(
-												function(index,height) {
-													return (height + 70);
-												});
-								$("ul#uploded-file-area").css('height','70px');
+								if (askOuterHeight == '70') {
+									$('.ask-outer').height(
+											function(index, height) {
+												return (height + 70);
+											});
+									$("ul#uploded-file-area").css('height',
+											'70px');
 								}
-							}					
-							
+							}
+
 							$('#msg-area').css('padding', '7.5% 18% 6% 2%');
 							$('#msg-area').css('margin', '0 0 24px 22px');
 							if ($('#uploded-file-area').is(':visible')) {
 								$('a.ask-button').css('visibility', 'hidden');
-							}
-							else {
+							} else {
 								$('a.ask-button').css('visibility', 'visible');
 							}
-							
+
 						},
 
 						/**
 						 * post messages
 						 */
 						postMessage : function() {
-							
-							$('#msg-area').css('padding','5px 6px 4px 6px').css('margin','-1px 0 -5px 14px');
+
+							$('#msg-area').css('padding', '5px 6px 4px 6px')
+									.css('margin', '-1px 0 -5px 14px');
 							$('.ask-outer').css('height', '0px');
 							$('a.ask-button').css('visibility', 'hidden');
-							$('div.loadingImage').css('display','block');
+							$('div.loadingImage').css('display', 'block');
 							$('#uploded-file-area').hide();
 							var self = this;
 							var streamId = $('.sortable li.active').attr('id');
@@ -443,26 +487,27 @@ define(
 												processData : false,
 												dataType : "json",
 												success : function(data) {
-														// set progress bar as
-														// 100 %
-														$('#msg-area').val("");
-														$('#uploded-file')
-																.hide();
+													// set progress bar as
+													// 100 %
+													$('#msg-area').val("");
+													$('#uploded-file').hide();
 
-														self.file = "";
+													self.file = "";
 
-														$('#file-upload-loader').css("display","none");
+													$('#file-upload-loader')
+															.css("display",
+																	"none");
 
-														var datVal = formatDateVal(data.message.timeCreated);
+													var datVal = formatDateVal(data.message.timeCreated);
 
-														var datas = {
-															"data" : data,
-															"datVal" : datVal
-														}
+													var datas = {
+														"data" : data,
+														"datVal" : datVal
+													}
 
-														// set the response data
-														// to model
-														if(self.data.models[0]) {
+													// set the response data
+													// to model
+													if (self.data.models[0]) {
 														self.data.models[0]
 																.set({
 																	message : data.message,
@@ -470,7 +515,6 @@ define(
 																	docDescription : data.docDescription,
 																	profilePic : data.profilePic
 																})
-														
 
 														/* Pubnub auto push */
 														PUBNUB
@@ -483,33 +527,33 @@ define(
 																	}
 
 																})
-														}
+													}
 
-														// show the uploaded
-														// file on message llist
-														var messageItemView = new MessageItemView(
-																{
-																	model : self.data.models[0]
-																})
-														$(
-																'#messageListView div.content')
-																.prepend(
-																		messageItemView
-																				.render().el);
-														$('.loadingImage').css('display','none');
+													// show the uploaded
+													// file on message llist
+													var messageItemView = new MessageItemView(
+															{
+																model : self.data.models[0]
+															})
+													$(
+															'#messageListView div.content')
+															.prepend(
+																	messageItemView
+																			.render().el);
+													$('.loadingImage').css(
+															'display', 'none');
 
-														self.selected_medias = [];
-														$(
-																'#share-discussions li.active')
-																.removeClass(
-																		'active');
+													self.selected_medias = [];
+													$(
+															'#share-discussions li.active')
+															.removeClass(
+																	'active');
 
-														$('a.ask-button').css(
-																'visibility',
-																'hidden');
-														$('.ask-outer')
-																.css('height',
-																		'0px');
+													$('a.ask-button').css(
+															'visibility',
+															'hidden');
+													$('.ask-outer').css(
+															'height', '0px');
 
 												}
 											});
@@ -661,8 +705,14 @@ define(
 																{
 																	model : self.data.models[0]
 																});
-														$('#messageListView div.content').prepend(messageItemView.render().el);
-														$('.loadingImage').css('display','none');
+														$(
+																'#messageListView div.content')
+																.prepend(
+																		messageItemView
+																				.render().el);
+														$('.loadingImage').css(
+																'display',
+																'none');
 
 														/* share widget */
 														if (self.selected_medias.length != 0) {
@@ -684,16 +734,28 @@ define(
 														 * delete default
 														 * embedly preview
 														 */
-														$('div.selector').attr('display','none');
-														$('div.selector').parents('form.ask-disccution').find('input[type="hidden"].preview_input').remove();
-														$('div.selector').remove();
-														$('.preview_input').remove();
+														$('div.selector').attr(
+																'display',
+																'none');
+														$('div.selector')
+																.parents(
+																		'form.ask-disccution')
+																.find(
+																		'input[type="hidden"].preview_input')
+																.remove();
+														$('div.selector')
+																.remove();
+														$('.preview_input')
+																.remove();
 														$('#msg-area').val("");
-														$('#share-discussions li.active').removeClass('active');
+														$(
+																'#share-discussions li.active')
+																.removeClass(
+																		'active');
 														self.selected_medias = [];
 													},
-													error : function(model,response)
-    													{
+													error : function(model,
+															response) {
 														$('#msg-area').val("");
 													}
 												});
@@ -721,13 +783,15 @@ define(
 													messageAccess : messageAccess
 												},
 												{
-													success : function(model,response) {
+													success : function(model,
+															response) {
 
 														/*
 														 * PUBNUB -- AUTO AJAX
 														 * PUSH
 														 */
-														PUBNUB.publish({
+														PUBNUB
+																.publish({
 																	channel : "stream",
 																	message : {
 																		pagePushUid : self.pagePushUid,
@@ -742,12 +806,22 @@ define(
 																{
 																	model : self.data.models[0]
 																});
-														$('#messageListView div.content').prepend(messageItemView.render().el);
-														$('.loadingImage').css('display','none');
+														$(
+																'#messageListView div.content')
+																.prepend(
+																		messageItemView
+																				.render().el);
+														$('.loadingImage').css(
+																'display',
+																'none');
 
 														/* share widget */
 														if (self.selected_medias.length != 0) {
-															_.each(self.data.models[0],function(data) {
+															_
+																	.each(
+																			self.data.models[0],
+																			function(
+																					data) {
 																				showJanrainShareWidget(
 																						self.data.models[0].attributes.message.messageBody,
 																						'View my Beamstream post',
@@ -761,14 +835,28 @@ define(
 														 * delete default
 														 * embedly preview
 														 */
-														$('div.selector').attr('display','none');
-														$('div.selector').parents('form.ask-disccution').find('input[type="hidden"].preview_input').remove();
-														$('div.selector').remove();
-														$('.preview_input').remove();
+														$('div.selector').attr(
+																'display',
+																'none');
+														$('div.selector')
+																.parents(
+																		'form.ask-disccution')
+																.find(
+																		'input[type="hidden"].preview_input')
+																.remove();
+														$('div.selector')
+																.remove();
+														$('.preview_input')
+																.remove();
 														$('#msg-area').val("");
-														$('#share-discussions li.active').removeClass('active');
+														$(
+																'#share-discussions li.active')
+																.removeClass(
+																		'active');
 														self.selected_medias = [];
-														$('.loadingImage').css('display','none');
+														$('.loadingImage').css(
+																'display',
+																'none');
 													},
 													error : function(model,
 															response) {
@@ -778,8 +866,6 @@ define(
 												});
 							}
 						},
-
-					
 
 						removePreview : function(eventName) {
 							var self = this;
@@ -949,61 +1035,28 @@ define(
 
 							}
 						},
-						
+
 						sortMessagesByBlur : function(eventName) {
 
 							var self = this;
 							this.pageNo = 1;
 							var streamId = $('.sortable li.active').attr('id');
 							var keyword = $('#sort_by_key').val();
-								self.msgSortedType = "keyword";
-								eventName.preventDefault();
-								if (keyword) {
-									/* render the message list */
-									view = this.getViewById('messageListView');
-									if (view) {
+							self.msgSortedType = "keyword";
+							eventName.preventDefault();
+							if (keyword) {
+								/* render the message list */
+								view = this.getViewById('messageListView');
+								if (view) {
 
-										view.data.url = "/allMessagesForAStream/"
-												+ streamId
-												+ "/"
-												+ keyword
-												+ "/"
-												+ view.messagesPerPage
-												+ "/" + view.pageNo + "/trash";
-										view.fetch();
+									view.data.url = "/allMessagesForAStream/"
+											+ streamId + "/" + keyword + "/"
+											+ view.messagesPerPage + "/"
+											+ view.pageNo + "/trash";
+									view.fetch();
 
-									}
-								} else {
-									view = this.getViewById('messageListView');
-									if (view) {
-
-										view.myStreams = this
-												.getViewById('sidebar').myStreams;
-
-										view.data.url = "/allMessagesForAStream/"
-												+ this.getViewById('sidebar').streamId
-												+ "/date/"
-												+ view.messagesPerPage
-												+ "/"
-												+ view.pageNo + "/week";
-										view.fetch();
-
-									}
 								}
-
-						},
-						
-						sortMessagesByKeyup: function(eventName) {
-							var self = this;
-							this.pageNo = 1;
-							var streamId = $('.sortable li.active').attr('id');
-							var keyword = $('#sort_by_key').val();
-							
-							$('form.all-search span.backToNormal').css('visibility','visible');
-							
-							if(keyword == "")
-								{
-								$('form.all-search span.backToNormal').css('visibility','hidden');
+							} else {
 								view = this.getViewById('messageListView');
 								if (view) {
 
@@ -1012,38 +1065,62 @@ define(
 
 									view.data.url = "/allMessagesForAStream/"
 											+ this.getViewById('sidebar').streamId
-											+ "/date/"
-											+ view.messagesPerPage
-											+ "/"
-											+ view.pageNo + "/week";
+											+ "/date/" + view.messagesPerPage
+											+ "/" + view.pageNo + "/week";
 									view.fetch();
 
 								}
-								}
+							}
+
 						},
-						
-						clearSearchField: function(eventName) {
+
+						sortMessagesByKeyup : function(eventName) {
+							var self = this;
+							this.pageNo = 1;
+							var streamId = $('.sortable li.active').attr('id');
+							var keyword = $('#sort_by_key').val();
+
+							$('form.all-search span.backToNormal').css(
+									'visibility', 'visible');
+
+							if (keyword == "") {
+								$('form.all-search span.backToNormal').css(
+										'visibility', 'hidden');
+								view = this.getViewById('messageListView');
+								if (view) {
+
+									view.myStreams = this
+											.getViewById('sidebar').myStreams;
+
+									view.data.url = "/allMessagesForAStream/"
+											+ this.getViewById('sidebar').streamId
+											+ "/date/" + view.messagesPerPage
+											+ "/" + view.pageNo + "/week";
+									view.fetch();
+
+								}
+							}
+						},
+
+						clearSearchField : function(eventName) {
 							var self = this;
 							this.pageNo = 1;
 							var streamId = $('.sortable li.active').attr('id');
 							view = this.getViewById('messageListView');
 							if (view) {
 
-								view.myStreams = this
-										.getViewById('sidebar').myStreams;
+								view.myStreams = this.getViewById('sidebar').myStreams;
 
 								view.data.url = "/allMessagesForAStream/"
 										+ this.getViewById('sidebar').streamId
-										+ "/date/"
-										+ view.messagesPerPage
-										+ "/"
+										+ "/date/" + view.messagesPerPage + "/"
 										+ view.pageNo + "/week";
 								view.fetch();
-							$('form.all-search span.backToNormal').css('visibility','hidden');
-							$('#sort_by_key').val('');
+								$('form.all-search span.backToNormal').css(
+										'visibility', 'hidden');
+								$('#sort_by_key').val('');
 							}
 						},
-
 
 						/**
 						 * sort messages within a period
@@ -1187,23 +1264,26 @@ define(
 								// self.bar.width('');
 								// self.bar.text("");
 								clearInterval(self.progress);
-								$('.fileUploadMsg').css('visibility', 'visible');
+								$('.fileUploadMsg')
+										.css('visibility', 'visible');
 								$('.fileUploadMsg').css('display', 'block');
-								$('div#fileUploadingImage #floatingCirclesG').css('visibility', 'visible');
-								$('div#fileUploadingImage #floatingCirclesG').css('display', 'block');
+								$('div#fileUploadingImage #floatingCirclesG')
+										.css('visibility', 'visible');
+								$('div#fileUploadingImage #floatingCirclesG')
+										.css('display', 'block');
 								$('#file-name').html(f.name);
 								$('#uploded-file-area').show();
 								// $('.progress-container').show();
-								//$('.ask-outer').css('height', '0px');
+								// $('.ask-outer').css('height', '0px');
 								$('.ask-outer').height(function(index, height) {
 									return (height + 70);
 								});
-								$("ul#uploded-file-area").css('height','70px');
+								$("ul#uploded-file-area").css('height', '70px');
 							})(file);
 
 							// read the file as data URL
 							reader.readAsDataURL(file);
-							
+
 							/* updating progress bar */
 							/*
 							 * this.progress = setInterval(function() {
@@ -1214,10 +1294,10 @@ define(
 							 * (this.bar.width() >= 195) {
 							 * clearInterval(this.progress); } else {
 							 * this.bar.width(this.bar.width() + 10); }
-							 * this.bar.text(this.bar.width() / 2 + "%");
-							 *  }, fileSize);
+							 * this.bar.text(this.bar.width() / 2 + "%"); },
+							 * fileSize);
 							 */
-							
+
 							var message = $('#msg-area').val();
 							var msgAccess = $('#private-to').attr('checked');
 							var privateTo = $('#select-privateTo')
@@ -1228,7 +1308,7 @@ define(
 								messageAccess = "Public";
 							}
 							var streamId = $('.sortable li.active').attr('id');
-							
+
 							var data;
 							data = new FormData();
 							data.append('docDescription', message);
@@ -1248,17 +1328,22 @@ define(
 										processData : false,
 										dataType : "json",
 										success : function(data) {
-											$('.fileUploadMsg').css('visibility', 'hidden');
-											$('.fileUploadMsg').css('display', 'none');
-											$('div#fileUploadingImage #floatingCirclesG').css('visibility', 'hidden');
-											$('div#fileUploadingImage #floatingCirclesG').css('display', 'none');
+											$('.fileUploadMsg').css(
+													'visibility', 'hidden');
+											$('.fileUploadMsg').css('display',
+													'none');
+											$(
+													'div#fileUploadingImage #floatingCirclesG')
+													.css('visibility', 'hidden');
+											$(
+													'div#fileUploadingImage #floatingCirclesG')
+													.css('display', 'none');
 											self.docurlAmazon = data[0];
 											$('a.ask-button').css('top', '40');
-											$('a.ask-button').css('visibility', 'visible');
+											$('a.ask-button').css('visibility',
+													'visible');
 										}
 									});
-
-							
 
 						},
 
@@ -1278,8 +1363,6 @@ define(
 										channel : "stream",
 										restore : false,
 										callback : function(message) {
-											
-											
 
 											// alert(JSON.stringify(message))
 											var streamId = $(
@@ -1315,8 +1398,9 @@ define(
 															.prepend(
 																	messageItemView
 																			.render().el);
-													$('.loadingImage').css('display','none');
-													
+													$('.loadingImage').css(
+															'display', 'none');
+
 												}
 											}
 
