@@ -125,8 +125,6 @@
              <div id="degreeExpected-set" class="profile-select-block" style="display: none;">
               <fieldset  class="field" >   
               <select id="degreeExpected" data-name="user.degreeExpected" name="degreeExpected" class="selectpicker-info " placeholder="Degree Expected?">
-        				<option value="Winter 2013">Winter 2013</option>
-        				<option value="Summer 2014">Summer 2014</option>
         				<option value="Winter 2014">Winter 2014</option>
         				<option value="Summer 2015">Summer 2015</option>
         				<option value="Winter 2015">Winter 2015</option>
