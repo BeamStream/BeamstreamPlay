@@ -331,7 +331,7 @@ define(
 											}
 											$('textarea#msg-area').val('');
 							}
-							else {
+						/*	else {
 								
 								bootbox
 								.dialog(
@@ -354,7 +354,7 @@ define(
 														self.$el.find('a.ask-button').css('visibility', 'hidden');
 													}
 												} ]);
-							}
+							}*/
 							
 						},
 

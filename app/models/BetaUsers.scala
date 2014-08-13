@@ -4,8 +4,9 @@ import org.bson.types.ObjectId
 
 import com.mongodb.casbah.commons.MongoDBObject
 import com.novus.salat.dao.SalatDAO
-import com.novus.salat.global.ctx
 import com.novus.salat.annotations.raw.Key
+
+import models.mongoContext.context
 
 import utils.MongoHQConfig
 

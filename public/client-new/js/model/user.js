@@ -30,7 +30,8 @@ define(['baseModel'], function(BaseModel) {
 			graduate: '',
 			location: '',
 			cellNumber: '',
-			aboutYourself: ''
+			aboutYourself: '',
+			mailId : ''
 
         },
 
