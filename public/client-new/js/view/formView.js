@@ -160,6 +160,7 @@ define(
 							var that = this, attribute;
 							var dataToSave = this.data instanceof Backbone.Collection ? this.data.models[0]
 									: this.data;
+							
 							if (!dataToSave.isValid(true))
 								return false;
 							this._onSave();
