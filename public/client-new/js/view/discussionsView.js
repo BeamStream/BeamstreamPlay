@@ -1,4 +1,3 @@
-
 define(
 		[ 'view/formView', 'view/messageListView', 'view/messageItemView',
 				'model/discussion',
@@ -13,12 +12,13 @@ define(
 					.extend({
 						objName : 'Discussion',
 						docurlAmazon : '',
+
 						events : {
-							'click #post-button' : 'postMessage',
+							'click #post-button' : 'post',
 							'focus #msg-area' : 'showPostButton',
 							// 'click ul#discussion-file-upload li' :
 							// 'showDocumentPostButton',
-							'mouseleave .ask-disccution' : 'hidePostButton',
+							'blur .ask-disccution' : 'hidePostButton',
 							'click #share-discussions li a' : 'actvateShareIcon',
 							'click #private-to' : 'checkPrivateAccess',
 							'click #sortBy-list' : 'sortMessages',
@@ -38,6 +38,7 @@ define(
 
 						messagesPerPage : 10,
 						pageNo : 1,
+						isPostClicked : false,
 
 						onAfterInit : function() {
 							var self = this;
@@ -153,6 +154,12 @@ define(
 													}
 												}
 											});
+						},
+
+						post : function() {
+
+							this.isPostClicked = true;
+
 						},
 
 						createpublishGoogleDoc : function() {
@@ -311,92 +318,110 @@ define(
 						/**
 						 * show Post Button
 						 */
-						hidePostButton : function(e) {
+						hidePostButton : function() {
 
 							var self = this;
 
-							var className = e.target.className;
 							var messageData = $('#msg-area').val();
-							
-							if (className == 'question-ask-search') {
 
-								if (messageData == '') {
-									
-									$('#msg-area').css('padding',
-											'5px 6px 4px 6px');
-									$('#msg-area').css('margin',
-											'-1px 0 -5px 14px');
-									$('.ask-outer').css('height', '0px');
-									if ($('#uploded-file-area').is(':visible')) {
-										$('.ask-outer').height(
-												function(index, height) {
-													return (height + 70);
-												});
-										$('a.ask-button').css('visibility',
-												'visible');
+							if (messageData == '') {
+								$('#msg-area')
+										.css('padding', '5px 6px 4px 6px');
+								$('#msg-area')
+										.css('margin', '-1px 0 -5px 14px');
+								$('.ask-outer').css('height', '0px');
+								if ($('#uploded-file-area').is(':visible')) {
+									$('.ask-outer').height(
+											function(index, height) {
+												return (height + 70);
+											});
+									$('a.ask-button').css('visibility',
+											'visible');
 
-									} else {
-										$('a.ask-button').css('visibility',
-												'hidden');
-									}
-									$('textarea#msg-area').val('');
-									
 								} else {
-
-									bootbox
-											.dialog(
-													"Do you want to post the Answer?",
-													[
-															{
-																"label" : "YES",
-																"class" : "btn-primary",
-																"callback" : function() {
-																	self
-																			.postMessage();
-																}
-															},
-															{
-																"label" : "NO",
-																"class" : "btn-primary",
-																"callback" : function() {
-																	self.$el
-																			.find(
-																					'#msg-area')
-																			.css(
-																					'padding',
-																					'5px 6px 4px 6px')
-																			.css(
-																					'margin',
-																					'-1px 0 -5px 14px');
-																	self.$el
-																			.find(
-																					'textarea#msg-area')
-																			.val(
-																					'');
-																	self.$el
-																			.find(
-																					'.ask-outer')
-																			.css(
-																					'height',
-																					'0px');
-																	self.$el
-																			.find(
-																					'a.ask-button')
-																			.css(
-																					'visibility',
-																					'hidden');
-																}
-															} ]);
+									$('a.ask-button').css('visibility',
+											'hidden');
 								}
-
+								$('textarea#msg-area').val('');
 							} else {
 
-								self
-								.postMessage();
-								
+								setTimeout(
+										function() {
+
+											if (self.isPostClicked) {
+
+												self.postMessage();
+												
+												self.isPostClicked = false;
+
+											} else {
+
+												bootbox
+														.dialog(
+																"Do you want to post the Answer?",
+																[
+																		{
+																			"label" : "YES",
+																			"class" : "btn-primary",
+																			"callback" : function() {
+																				self
+																						.postMessage();
+																			}
+																		},
+																		{
+																			"label" : "NO",
+																			"class" : "btn-primary",
+																			"callback" : function() {
+																				self.$el
+																						.find(
+																								'#msg-area')
+																						.css(
+																								'padding',
+																								'5px 6px 4px 6px')
+																						.css(
+																								'margin',
+																								'-1px 0 -5px 14px');
+																				self.$el
+																						.find(
+																								'textarea#msg-area')
+																						.val(
+																								'');
+																				self.$el
+																						.find(
+																								'.ask-outer')
+																						.css(
+																								'height',
+																								'0px');
+																				self.$el
+																						.find(
+																								'a.ask-button')
+																						.css(
+																								'visibility',
+																								'hidden');
+																			}
+																		} ]);
+
+											}
+
+										}, 500);
+
 							}
 
-							/*	*/
+							/*
+							 * else {
+							 * 
+							 * bootbox .dialog( "Do you want to post the
+							 * Answer?", [ { "label" : "YES", "class" :
+							 * "btn-primary", "callback" : function() {
+							 * self.postMessage(); } }, { "label" : "NO",
+							 * "class" : "btn-primary", "callback" : function() {
+							 * self.$el.find('#msg-area').css('padding','5px 6px
+							 * 4px 6px').css('margin','-1px 0 -5px 14px');
+							 * self.$el.find('textarea#msg-area').val('');
+							 * self.$el.find('.ask-outer').css('height', '0px');
+							 * self.$el.find('a.ask-button').css('visibility',
+							 * 'hidden'); } } ]); }
+							 */
 
 						},
 
@@ -1037,6 +1062,8 @@ define(
 						},
 
 						sortMessagesByBlur : function(eventName) {
+
+							alert('111')
 
 							var self = this;
 							this.pageNo = 1;
