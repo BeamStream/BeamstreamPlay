@@ -65,20 +65,20 @@ object SendEmailUtility extends EmailUtility {
         authenticatedMessageAndSession._1.setSubject("You've Created " + streamName + " Stream On Classwall")
         authenticatedMessageAndSession._1.setContent(
 
-          "Hi <b>Classwall</b> Rocker." + "<br>" + "<br>" +
-            "You've created the " + streamName + " Stream in Your Profile" + "<br>" + "<br>" +
-            "Start sharing now & be a Classwall Rocker" + "<br>" + "<br>" ++ "<br>" +
-            "Cheers," + "<br>" +
-            "The Really Nice Classwall Folks , US" + "<br>", "text/html")
+          "Hello ClassWall friend," + "<br>" + "<br>" +
+            "You've created the + " + streamName + " + " Stream in Your Profile" + "<br>" + "<br>" +
+            "Start sharing & be a Classwall devotee" + "<br>" + "<br>" ++ "<br>" +
+            "Rock College," + "<br>" +
+            "The Happiness Team @ ClassWall" + "<br>", "text/html")
       case false =>
         authenticatedMessageAndSession._1.setSubject("You've Joined " + streamName + " Stream On Classwall")
         authenticatedMessageAndSession._1.setContent(
 
-          "Hi <b>Classwall</b> Rocker." + "<br>" + "<br>" +
-            "You've Joined the " + streamName + " Stream " + "<br>" + "<br>" +
-            "Start sharing now & be a Classwall Rocker" + "<br>" + "<br>" ++ "<br>" +
-            "Cheers," + "<br>" +
-            "The Really Nice Classwall Folks , US" + "<br>", "text/html")
+          "Hello ClassWall friend," + "<br>" + "<br>" +
+            "You've Joined the + " + streamName + " + Stream " + "<br>" + "<br>" +
+            "Start sharing & be a Classwall devotee" + "<br>" + "<br>" ++ "<br>" +
+            "Rock College," + "<br>" +
+            "The Happiness Team @ ClassWall")
 
     }
 
