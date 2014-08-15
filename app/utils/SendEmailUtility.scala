@@ -81,6 +81,7 @@ object SendEmailUtility extends EmailUtility {
             "Start sharing & be a Classwall superstar" + "<br>" + "<br>" + "<br>" +
             "Rock College," + "<br>" +
             "The Happiness Team @ ClassWall" + "<br>", "text/html")
+
     }
 
     val transport = authenticatedMessageAndSession._2.getTransport("smtp");
