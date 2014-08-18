@@ -245,7 +245,7 @@ define(
 							$
 									.ajax({
 										type : 'GET',
-										url : '/twitter/login',
+										url : '/twitter/twitterLogin',
 										success : function(data) {
 											window
 													.open(data, "popupWindow",
@@ -254,7 +254,7 @@ define(
 									});
 						},
 						gplusShare : function() {
-							$
+						/*	$
 									.ajax({
 										type : 'GET',
 										url : '/twitter/login',
@@ -263,7 +263,7 @@ define(
 													.open(data, "popupWindow",
 															"width=600,height=300, top=200, left=400,scrollbars=yes");
 										}
-									});
+									});*/
 						},
 						linkedinShare : function() {
 							$

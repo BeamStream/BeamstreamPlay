@@ -1,0 +1,71 @@
+@(status:String) 
+
+@meta = {
+}
+@CSS = {
+	<link href="@routes.Assets.at("/public/stylesheets","style.css")" rel="stylesheet" type="text/css">
+    <link href="beamstream-new/homepage/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="beamstream-new/homepage/css/bootstrap-responsive.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
+    
+}
+@JS = {
+	
+  	<script src="@routes.Assets.at("/public/javascripts","BS_social.js")" type="text/javascript"></script>
+  	<!-- bootstrap dialog popups -->
+	<script src="@routes.Assets.at("/public/javascripts","lib/extralib/bootbox.min.js")" type="text/javascript"></script>
+	<!-- End -->
+<!-- TODO have to add this js file for model popups and remove it from betaUserView.js file -->
+<!--   <script src="/beamstream-new/lib/bootstrap.min.js"></script> -->
+}
+@bodyCls = {
+
+}
+@bodyModule = {}
+@bodyJS = {
+
+    <script type="text/javascript">
+		$(document).ready(function() {
+	    twitterusername="BeamStream";
+	    fburl="http://www.facebook.com/pages/BeamStream/100810133312475";
+	
+	      // Get Number of Facebook Shares
+	    $.getJSON('http://graph.facebook.com/'+fburl,
+	        function(data) {
+	        $('#facebooklikes').append(data.likes+" Likes");   
+	        });
+	
+	      // Get Number of Tweet Count
+	    $.getJSON('http://twitter.com/users/' + twitterusername + '.json?callback=?',
+	        function(data){
+	        $('#twitterfollowers').append(data.followers_count+" Followers"); 
+	        }) // end getJSON
+		})
+	</script>
+	
+	<script type="text/javascript">
+       $('div.container-fluid').first().addClass('landing-fluid');
+    </script>
+	
+}
+@sideBar = {}
+
+
+
+@main("Classwall", "Body", meta, CSS, JS, bodyModule, bodyJS){
+
+	<script type="text/javascript">
+		$(function() {
+			if ('@status' == "success")
+				{
+					close_win("http://localhost:9000/");
+				}
+			else
+				{
+					close_win("http://localhost:9000/login");
+					alert("Failure")
+				}
+		});
+	</script>
+	
+}
