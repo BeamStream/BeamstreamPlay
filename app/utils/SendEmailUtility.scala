@@ -66,8 +66,8 @@ object SendEmailUtility extends EmailUtility {
         authenticatedMessageAndSession._1.setContent(
 
           "Hello ClassWall friend," + "<br>" + "<br>" +
-            "You've created the + " + streamName + " + " Stream in Your Profile" + "<br>" + "<br>" +
-            "Start sharing & be a Classwall devotee" + "<br>" + "<br>" ++ "<br>" +
+            "You've created the " + streamName + " Stream in Your Profile" + "<br>" + "<br>" +
+            "Start sharing & be a Classwall devotee" + "<br>" + "<br>" + "<br>" +
             "Rock College," + "<br>" +
             "The Happiness Team @ ClassWall" + "<br>", "text/html")
       case false =>
@@ -75,11 +75,10 @@ object SendEmailUtility extends EmailUtility {
         authenticatedMessageAndSession._1.setContent(
 
           "Hello ClassWall friend," + "<br>" + "<br>" +
-            "You've Joined the + " + streamName + " + Stream " + "<br>" + "<br>" +
-            "Start sharing & be a Classwall devotee" + "<br>" + "<br>" ++ "<br>" +
+            "You've Joined the " + streamName + " Stream " + "<br>" + "<br>" +
+            "Start sharing & be a Classwall devotee" + "<br>" + "<br>" + "<br>" +
             "Rock College," + "<br>" +
-            "The Happiness Team @ ClassWall")
-
+            "The Happiness Team @ ClassWall" + "<br>", "text/html")
     }
 
     val transport = authenticatedMessageAndSession._2.getTransport("smtp");
