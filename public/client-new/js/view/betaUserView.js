@@ -242,7 +242,10 @@ define(
 						},
 
 						twitterShare : function() {
-							$
+							
+							window.open('/twitter/twitterLogin', "popupWindow",
+									"width=600,height=300, top=200, left=400,scrollbars=yes");
+							/*$
 									.ajax({
 										type : 'GET',
 										url : '/twitter/twitterLogin',
@@ -251,7 +254,7 @@ define(
 													.open(data, "popupWindow",
 															"width=600,height=300, top=200, left=400,scrollbars=yes");
 										}
-									});
+									});*/
 						},
 						gplusShare : function() {
 						/*	$

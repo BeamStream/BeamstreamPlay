@@ -32,7 +32,7 @@ object TwitterAPIController extends Controller{
       twitter = tf.getInstance
       val callbackURL = getContextUrl + "/twitter/callback"
       requestToken = twitter.getOAuthRequestToken(callbackURL)
-      Ok(requestToken.getAuthenticationURL)
+      Redirect(requestToken.getAuthenticationURL)
     } catch {
       case ex: TwitterException => {
         Logger.error("Error During Login Through Twitter - " + ex)
