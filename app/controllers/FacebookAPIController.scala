@@ -45,7 +45,7 @@ object FacebookAPIController extends Controller{
       } catch {
         case ex: Exception => {
           Logger.error("Error During Login Through Facebook - " + ex)
-          Ok //(views.html.redirectmain("", "failure"))
+          Ok ("Facebook")//(views.html.redirectmain("", "failure"))
         }
       }
     }
