@@ -101,7 +101,7 @@ define(
 						 */
 						shareOnRegistration : function(e) {
 							e.preventDefault();
-
+								alert('Ankit Shukla')
 							/* For social media sharing */
 							this.socialMedia = [];
 							var seletedMedia = $(e.target).parent('li').attr(
@@ -123,10 +123,10 @@ define(
 								shareMessage = "I just locked in my beta invite for BeamStream, a Social Learning Network for Colleges & Universities. It's built for college students & professors & looks amazing. I can't wait to try it! You can get on the priority beta list two! Just click http://bstre.am/k7lXGw";
 							}
 
-							showJanrainShareWidget(shareMessage,
+							/*showJanrainShareWidget(shareMessage,
 									'View my Beamstream post',
 									'http://bstre.am/k7lXGw', '',
-									this.socialMedia);
+									this.socialMedia);*/
 						},
 
 						/**
@@ -134,16 +134,38 @@ define(
 						 */
 						shareOnSocialMedia : function(e) {
 							e.preventDefault();
-
+							var self = this ;
 							/* For social media sharing */
 							this.socialMediad = [];
-							var seletedMedia = $(e.target).parent('li').attr(
-									'id');
+							var seletedMedia = $(e.target).parent('li').attr('id');
 							this.socialMediad.push(seletedMedia);
-
 							/* set share message for each providers */
 							var shareMessage = '';
 							$('#modalShare').modal('hide');
+							
+							if (seletedMedia == 'facebook') {
+								bootbox.dialog(
+										"Get on the exclusive beta list for BeamStream, a Social Learning Network for Colleges & Universities. It's built for college students & professors. It's lookin' pretty sweet so far!  http://bstre.am/k7lXGw",
+										[
+												{
+													"label" : "Share",
+													"class" : "btn-primary",
+													"callback" : function() {
+														self.facebookShare();
+													}
+												},
+												{
+													"label" : "Cancel",
+													"class" : "btn-primary",
+													"callback" : function() {
+														
+													}
+												} ]);
+								
+							}
+							
+							
+							
 							if (seletedMedia == 'twitter') {
 
 								shareMessage = "Get on the 1st user's beta list for @beamstream: @A #social #learning network built for #highered. #edtech";
@@ -155,10 +177,14 @@ define(
 								shareMessage = "Get on the exclusive beta list for BeamStream, a Social Learning Network for Colleges & Universities. It's built for college students & professors. It's lookin' pretty sweet so far! http://bstre.am/k7lXGw";
 							}
 
-							showJanrainShareWidget(shareMessage,
+							/*showJanrainShareWidget(shareMessage,
 									'View my Beamstream post',
 									'http://bstre.am/k7lXGw', '',
-									this.socialMediad);
+									this.socialMediad);*/
+						},
+						
+						facebookShare : function() {
+							alert("slflas")
 						},
 
 					})
