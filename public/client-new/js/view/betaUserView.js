@@ -101,7 +101,7 @@ define(
 						 */
 						shareOnRegistration : function(e) {
 							e.preventDefault();
-								alert('Ankit Shukla')
+							alert('Ankit Shukla')
 							/* For social media sharing */
 							this.socialMedia = [];
 							var seletedMedia = $(e.target).parent('li').attr(
@@ -123,10 +123,11 @@ define(
 								shareMessage = "I just locked in my beta invite for BeamStream, a Social Learning Network for Colleges & Universities. It's built for college students & professors & looks amazing. I can't wait to try it! You can get on the priority beta list two! Just click http://bstre.am/k7lXGw";
 							}
 
-							/*showJanrainShareWidget(shareMessage,
-									'View my Beamstream post',
-									'http://bstre.am/k7lXGw', '',
-									this.socialMedia);*/
+							/*
+							 * showJanrainShareWidget(shareMessage, 'View my
+							 * Beamstream post', 'http://bstre.am/k7lXGw', '',
+							 * this.socialMedia);
+							 */
 						},
 
 						/**
@@ -134,65 +135,147 @@ define(
 						 */
 						shareOnSocialMedia : function(e) {
 							e.preventDefault();
-							var self = this ;
+							var self = this;
 							/* For social media sharing */
 							this.socialMediad = [];
-							var seletedMedia = $(e.target).parent('li').attr('id');
+							var seletedMedia = $(e.target).parent('li').attr(
+									'id');
 							this.socialMediad.push(seletedMedia);
 							/* set share message for each providers */
 							var shareMessage = '';
 							$('#modalShare').modal('hide');
-							
+
 							if (seletedMedia == 'facebook') {
-								bootbox.dialog(
-										"Get on the exclusive beta list for BeamStream, a Social Learning Network for Colleges & Universities. It's built for college students & professors. It's lookin' pretty sweet so far!  http://bstre.am/k7lXGw",
-										[
-												{
+								bootbox
+										.dialog(
+												"Get on the exclusive beta list for BeamStream, a Social Learning Network for Colleges & Universities. It's built for college students & professors. It's lookin' pretty sweet so far!  http://bstre.am/k7lXGw",
+												[ {
 													"label" : "Share",
 													"class" : "btn-primary",
 													"callback" : function() {
 														self.facebookShare();
 													}
-												},
-												{
+												}, {
 													"label" : "Cancel",
 													"class" : "btn-primary",
 													"callback" : function() {
-														
+
 													}
 												} ]);
-								
+
+							}
+
+							else if (seletedMedia == 'twitter') {
+								bootbox.dialog(
+												"Get on the 1st user's beta list for @beamstream: @A #social #learning network built for #highered. #edtech",
+												[ {
+													"label" : "Share",
+													"class" : "btn-primary",
+													"callback" : function() {
+														self.twitterShare();
+													}
+												}, {
+													"label" : "Cancel",
+													"class" : "btn-primary",
+													"callback" : function() {
+
+													}
+												} ]);
+							}
+							else if (seletedMedia == 'gPlus') {
+								bootbox.dialog(
+										"Get on the 1st user's beta list for @beamstream: @A #social #learning network built for #highered. #edtech",
+										[ {
+											"label" : "Share",
+											"class" : "btn-primary",
+											"callback" : function() {
+												self.gplusShare();
+											}
+										}, {
+											"label" : "Cancel",
+											"class" : "btn-primary",
+											"callback" : function() {
+
+											}
+										} ]);
 							}
 							
-							
-							
-							if (seletedMedia == 'twitter') {
+							else if (seletedMedia == 'linkedin') {
+								bootbox.dialog(
+										"Get on the 1st user's beta list for @beamstream: @A #social #learning network built for #highered. #edtech",
+										[ {
+											"label" : "Share",
+											"class" : "btn-primary",
+											"callback" : function() {
+												self.linkedinShare();
+											}
+										}, {
+											"label" : "Cancel",
+											"class" : "btn-primary",
+											"callback" : function() {
 
-								shareMessage = "Get on the 1st user's beta list for @beamstream: @A #social #learning network built for #highered. #edtech";
-							} else if (seletedMedia == 'email') {
-
-								shareMessage = "Get on the exclusive beta list for BeamStream, a Social Learning Network for Colleges & Universities. It's built for college students & professors. It's lookin' pretty sweet so far! ";
+											}
+										} ]);
 							} else {
 
 								shareMessage = "Get on the exclusive beta list for BeamStream, a Social Learning Network for Colleges & Universities. It's built for college students & professors. It's lookin' pretty sweet so far! http://bstre.am/k7lXGw";
 							}
 
-							/*showJanrainShareWidget(shareMessage,
-									'View my Beamstream post',
-									'http://bstre.am/k7lXGw', '',
-									this.socialMediad);*/
+							/*
+							 * showJanrainShareWidget(shareMessage, 'View my
+							 * Beamstream post', 'http://bstre.am/k7lXGw', '',
+							 * this.socialMediad);
+							 */
 						},
-						
+
 						facebookShare : function() {
-							alert("zfgsdfgsd")
-								$.ajax({
-									type : 'GET',
-									url : '/facebook/login',
-									success : function(data) {
-											alert (data);
-											alert("sfjsdcbdsmhbcdc")
-									}
-								});
+							$
+									.ajax({
+										type : 'GET',
+										url : '/facebook/login',
+										success : function(data) {
+											window
+													.open(data, "popupWindow",
+															"width=600,height=300, top=200, left=400,scrollbars=yes");
+										}
+									});
+						},
+
+						twitterShare : function() {
+							$
+									.ajax({
+										type : 'GET',
+										url : '/twitter/login',
+										success : function(data) {
+											window
+													.open(data, "popupWindow",
+															"width=600,height=300, top=200, left=400,scrollbars=yes");
+										}
+									});
+						},
+						gplusShare : function() {
+							$
+									.ajax({
+										type : 'GET',
+										url : '/twitter/login',
+										success : function(data) {
+											window
+													.open(data, "popupWindow",
+															"width=600,height=300, top=200, left=400,scrollbars=yes");
+										}
+									});
+						},
+						linkedinShare : function() {
+							$
+									.ajax({
+										type : 'GET',
+										url : '/twitter/login',
+										success : function(data) {
+											window
+													.open(data, "popupWindow",
+															"width=600,height=300, top=200, left=400,scrollbars=yes");
+										}
+									});
 						},
 
 					})
