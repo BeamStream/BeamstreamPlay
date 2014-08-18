@@ -244,7 +244,7 @@ define(
 						twitterShare : function() {
 							
 							window.open('/twitter/twitterLogin', "popupWindow",
-									"width=600,height=300, top=200, left=400,scrollbars=yes");
+									"width=600,height=300, top=100, left=400,scrollbars=yes");
 							/*$
 									.ajax({
 										type : 'GET',
