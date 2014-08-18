@@ -44,7 +44,7 @@ object LinkedInAPIController extends Controller {
     try {
       requestToken = getOAuthService.getRequestToken
       val authUrl: String = getOAuthService.getAuthorizationUrl(requestToken)
-      Ok(authUrl)
+      Redirect(authUrl)
     } catch {
       case ex:Exception => {
         Logger.error("Error During Login Through LinkedIn - " + ex)
@@ -67,7 +67,7 @@ object LinkedInAPIController extends Controller {
               val linkedinXML = scala.xml.XML.loadString(response.getBody)
               val userEmailId = (linkedinXML \\ "email-address").text.trim
               val userNetwokId = (linkedinXML \\ "id").text.trim
-              Ok
+              Ok(views.html.redirectMain("success", server))
               /*val user = UserService.getUserByEmailId(userEmailId)
               if(user != None) {
                 Cache.set(userEmailId, user.get, 60 * 60)
@@ -76,12 +76,12 @@ object LinkedInAPIController extends Controller {
                 registerNewUser((linkedinXML \\ "first-name").text.trim, userEmailId)
                 Ok(views.html.redirectmain(userEmailId, "success")).withSession(Security.username -> userEmailId)}*/
             case _ =>
-              Ok//(views.html.redirectmain("", "failure"))
+              Ok(views.html.redirectMain("failure", server))
           }
       }
     } catch {
       case ex: Exception => {
-        Ok//(views.html.redirectmain("", "failure"))
+        Ok(views.html.redirectMain("failure", server))
       }
     }
   }

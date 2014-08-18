@@ -269,7 +269,10 @@ define(
 									});*/
 						},
 						linkedinShare : function() {
-							$
+							window.open('/linkedin/login', "popupWindow",
+							"width=600,height=300, top=100, left=400,scrollbars=yes");
+
+/*							$
 									.ajax({
 										type : 'GET',
 										url : '/twitter/login',
@@ -278,7 +281,7 @@ define(
 													.open(data, "popupWindow",
 															"width=600,height=300, top=200, left=400,scrollbars=yes");
 										}
-									});
+									});*/
 						},
 
 					})
