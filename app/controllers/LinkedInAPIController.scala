@@ -44,7 +44,7 @@ object LinkedInAPIController extends Controller {
     try {
       requestToken = getOAuthService.getRequestToken
       val authUrl: String = getOAuthService.getAuthorizationUrl(requestToken)
-      Redirect(authUrl)
+      Ok(authUrl)
     } catch {
       case ex:Exception => {
         Logger.error("Error During Login Through LinkedIn - " + ex)
