@@ -17,8 +17,8 @@ import play.api.libs.json.Json
 object FacebookAPIController extends Controller{
 
     val SUCCESS = 200
-    val apiKey: String = Play.current.configuration.getString("facebook_api_id").get
-    val apiSecret: String = Play.current.configuration.getString("facebook_api_secret").get
+    val apiKey: String = Play.current.configuration.getString("facebook_app_id").get
+    val apiSecret: String = Play.current.configuration.getString("facebook_app_secret").get
     val server = Play.current.configuration.getString("server").get
     var emptyToken: Token = _
     val currentUserId = "userId"
@@ -40,9 +40,14 @@ object FacebookAPIController extends Controller{
 
     def facebookLogin: Action[play.api.mvc.AnyContent] = Action {
       try {
+<<<<<<< HEAD
         val authorizationUrl: String = getOAuthService.getAuthorizationUrl(emptyToken);
         println(authorizationUrl)
         Ok(authorizationUrl)
+=======
+        val authorizationUrl: String = getOAuthService.getAuthorizationUrl(emptyToken)
+        Redirect(authorizationUrl)
+>>>>>>> 951eddd755b41a36750fe846fa2b6af4872223a9
       } catch {
         case ex: Exception => {
           Logger.error("Error During Login Through Facebook - " + ex)
