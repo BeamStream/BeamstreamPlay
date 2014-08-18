@@ -1,4 +1,4 @@
-@(status:String) 
+@(status:String, redirectUrl: String) 
 
 @meta = {
 }
@@ -50,11 +50,12 @@
 		$(function() {
 			if ('@status' == "success")
 				{
-					 
+					close_win('@redirectUrl');
+
 				}
 			else
 				{
-					close_win("http://localhost:9000/login");
+					close_win('@redirectUrl');
 					alert("Failure")
 				}
 		});

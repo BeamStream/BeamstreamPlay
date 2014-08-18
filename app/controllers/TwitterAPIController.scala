@@ -80,16 +80,16 @@ object TwitterAPIController extends Controller{
                   val userSession = request.session + ("userId" -> alreadyExistingUser.id.toString)
                   Ok(views.html.RedirectMain(alreadyExistingUser.id.toString, "success")).withSession(userSession)
               }*/
-          Ok(views.html.redirectMain("success"))
+          Ok(views.html.redirectMain("success", getContextUrl))
       	}
     } catch {
       case ex: TwitterException => {
         Logger.error("Error During Login Through Twitter - " + ex)
-        Ok(views.html.redirectMain("failure"))
+        Ok(views.html.redirectMain("failure", getContextUrl))
       }
       case ex: Any => {
         Logger.error("Error During Login Through Twitter - " + ex)
-        Ok(views.html.redirectMain("failure"))
+        Ok(views.html.redirectMain("failure", getContextUrl))
       }
     }
   }
