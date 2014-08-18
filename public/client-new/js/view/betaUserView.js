@@ -230,7 +230,7 @@ define(
 
 							else if (seletedMedia == 'twitter') {
 								bootbox.dialog(
-												"Get on the 1st user's beta list for @beamstream: @A #social #learning network built for #highered. #edtech",
+												"Get on the 1st user's beta list for @MyClassWall: @A #social #learning network built for #highered. #edtech  http://bstre.am/k7lXGw",
 												[ {
 													"label" : "Share",
 													"class" : "btn-primary",
@@ -265,7 +265,7 @@ define(
 							
 							else if (seletedMedia == 'linkedin') {
 								bootbox.dialog(
-										"Get on the 1st user's beta list for @beamstream: @A #social #learning network built for #highered. #edtech",
+										"Get on the exclusive beta list for BeamStream, a Social Learning Network for Colleges & Universities. It's built for college students & professors. It's lookin' pretty sweet so far! http://bstre.am/k7lXGw",
 										[ {
 											"label" : "Share",
 											"class" : "btn-primary",
