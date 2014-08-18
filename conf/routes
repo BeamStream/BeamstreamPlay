@@ -222,6 +222,11 @@ GET    /startChat/:me/:toWhom                                                   
 GET    /javascriptRoutes                                                                   controllers.StreamController.javascriptRoutes
 GET    /instantiateChat/:userId                                                            controllers.WebsocketCommunicationController.instantiateChat(userId)
 GET    /requestAccess/:docURL                                                              controllers.GoogleDocsUploadUtilityController.sendMailOnGoogleDocRequestAccess(docURL: String)
+
+#SocialNetwork API Calls
+GET    /facebook/login                                                                     controllers.FacebookAPIController.facebookLogin
+GET    /facebook/callback                                                                  controllers.FacebookAPIController.facebookCallback
+
 #Preview Image
 #GET   /image/:previewImageUrl                                                              controllers.StreamController.encryptTheUrl(previewImageUrl: String)
 #GET   /image/gridfs/:fileName                                                              controllers.StreamController.getPhoto(fileName: String)

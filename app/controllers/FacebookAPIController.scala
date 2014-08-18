@@ -14,9 +14,7 @@ import org.scribe.model.Verb
 import org.scribe.model.Response
 import play.api.libs.json.Json
 
-object FacebookAPIController {
-
-  object FacebookController extends Controller {
+object FacebookAPIController extends Controller{
 
     val SUCCESS = 200
     val apiKey: String = Play.current.configuration.getString("facebook_api_id").get
@@ -116,7 +114,5 @@ object FacebookAPIController {
         Ok(views.html.redirectmain(message, "failure"))
     }
   }*/
-
-  }
 
 }
