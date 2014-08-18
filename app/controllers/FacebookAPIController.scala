@@ -1,18 +1,19 @@
 package controllers
 
-import play.api.mvc.Controller
-import play.api.Play
-import org.scribe.oauth.OAuthService
-import org.scribe.model.Token
-import play.api.mvc.Action
 import org.scribe.builder.ServiceBuilder
 import org.scribe.builder.api.FacebookApi
-import play.api.Logger
-import org.scribe.model.Verifier
 import org.scribe.model.OAuthRequest
-import org.scribe.model.Verb
 import org.scribe.model.Response
+import org.scribe.model.Token
+import org.scribe.model.Verb
+import org.scribe.model.Verifier
+import org.scribe.oauth.OAuthService
+
+import play.api.Logger
+import play.api.Play
 import play.api.libs.json.Json
+import play.api.mvc.Action
+import play.api.mvc.Controller
 
 object FacebookAPIController extends Controller{
 

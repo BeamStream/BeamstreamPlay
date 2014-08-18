@@ -226,6 +226,10 @@ GET    /requestAccess/:docURL                                                   
 #SocialNetwork API Calls
 GET    /facebook/login                                                                     controllers.FacebookAPIController.facebookLogin
 GET    /facebook/callback                                                                  controllers.FacebookAPIController.facebookCallback
+GET    /twitter/twitterLogin          													   controllers.TwitterAPIController.twitterLogin
+GET    /twitter/callback              													   controllers.TwitterAPIController.twitterCallBack
+GET    /linkedin/login                                                                     controllers.LinkedInAPIController.linkedinLogin
+GET    /linkedin/callback                                                                  controllers.LinkedInAPIController.linkedinCallback
 
 #Preview Image
 #GET   /image/:previewImageUrl                                                              controllers.StreamController.encryptTheUrl(previewImageUrl: String)
