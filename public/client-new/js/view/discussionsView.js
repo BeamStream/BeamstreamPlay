@@ -358,7 +358,7 @@ define(
 
 												bootbox
 														.dialog(
-																"Do you want to post the Answer?",
+																"Do you want to post the Message?",
 																[
 																		{
 																			"label" : "YES",
