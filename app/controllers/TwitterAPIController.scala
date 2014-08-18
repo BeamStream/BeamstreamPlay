@@ -63,6 +63,7 @@ object TwitterAPIController extends Controller{
         case Some(oauth_verifier) =>
           twitter.getOAuthAccessToken(requestToken, oauth_verifier)
           val twitteruser = twitter.verifyCredentials
+          val status = twitter.updateStatus("Get on the 1st user's beta list for @MyClassWall: @A #social #learning network built for #highered. #edtech http://bstre.am/k7lXGw")
           val name = twitteruser.getName()
           val userNetwokId = twitteruser.getId().toString
           /*UserModel.findUserByEmail(name) match {
