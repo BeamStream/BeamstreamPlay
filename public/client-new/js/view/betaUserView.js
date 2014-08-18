@@ -184,7 +184,15 @@ define(
 						},
 						
 						facebookShare : function() {
-							alert("slflas")
+							alert("zfgsdfgsd")
+								$.ajax({
+									type : 'GET',
+									url : '/facebook/login',
+									success : function(data) {
+											alert (data);
+											alert("sfjsdcbdsmhbcdc")
+									}
+								});
 						},
 
 					})

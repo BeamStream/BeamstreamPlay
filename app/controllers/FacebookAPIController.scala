@@ -41,7 +41,8 @@ object FacebookAPIController extends Controller{
     def facebookLogin: Action[play.api.mvc.AnyContent] = Action {
       try {
         val authorizationUrl: String = getOAuthService.getAuthorizationUrl(emptyToken);
-        Redirect(authorizationUrl)
+        println(authorizationUrl)
+        Ok(authorizationUrl)
       } catch {
         case ex: Exception => {
           Logger.error("Error During Login Through Facebook - " + ex)
