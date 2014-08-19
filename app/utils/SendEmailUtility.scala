@@ -56,6 +56,7 @@ object SendEmailUtility extends EmailUtility {
    * Send Mail After Stream Creation & Joining
    */
   def mailAfterStreamCreation(emailId: String, streamName: String, newStream: Boolean) {
+<<<<<<< HEAD
      val authenticatedMessageAndSession = setEmailCredentials
      val recepientAddress = new InternetAddress(emailId)
      authenticatedMessageAndSession._1.setFrom(new InternetAddress(CLASSWALL_EMAIL, CLASSWALL_EMAIL))
@@ -86,6 +87,38 @@ object SendEmailUtility extends EmailUtility {
 
      transport.sendMessage(authenticatedMessageAndSession._1, authenticatedMessageAndSession._1.getAllRecipients)
    }
+=======
+    val authenticatedMessageAndSession = setEmailCredentials
+    val recepientAddress = new InternetAddress(emailId)
+    authenticatedMessageAndSession._1.setFrom(new InternetAddress(CLASSWALL_EMAIL, CLASSWALL_EMAIL))
+    authenticatedMessageAndSession._1.addRecipient(Message.RecipientType.TO, recepientAddress)
+    newStream match {
+      case true =>
+        authenticatedMessageAndSession._1.setSubject("You've Created " + streamName + " Stream On Classwall")
+        authenticatedMessageAndSession._1.setContent(
+
+          "Hello ClassWall friend," + "<br>" + "<br>" +
+            "You've created the " + streamName + " Stream in Your Profile" + "<br>" + "<br>" +
+            "Start sharing & be a Classwall devotee" + "<br>" + "<br>" + "<br>" +
+            "Rock College," + "<br>" +
+            "The Happiness Team @ ClassWall" + "<br>", "text/html")
+      case false =>
+        authenticatedMessageAndSession._1.setSubject("You've Joined " + streamName + " Stream On Classwall")
+        authenticatedMessageAndSession._1.setContent(
+
+          "Hello ClassWall friend," + "<br>" + "<br>" +
+            "You've Joined the " + streamName + " Stream " + "<br>" + "<br>" +
+            "Start sharing & be a Classwall devotee" + "<br>" + "<br>" + "<br>" +
+            "Rock College," + "<br>" +
+            "The Happiness Team @ ClassWall" + "<br>", "text/html")
+    }
+
+    val transport = authenticatedMessageAndSession._2.getTransport("smtp");
+    transport.connect(Play.current.configuration.getString("smtp_server_out").get, 80, Play.current.configuration.getString("email_address").get, Play.current.configuration.getString("email_password").get)
+
+    transport.sendMessage(authenticatedMessageAndSession._1, authenticatedMessageAndSession._1.getAllRecipients)
+  }
+>>>>>>> b20c3dbd1a48490aaea394660147df8c9a56dace
 
   /**
    * Notify  The User When New User Joins A Stream
