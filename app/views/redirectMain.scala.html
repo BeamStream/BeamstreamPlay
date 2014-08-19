@@ -1,0 +1,70 @@
+@(status:String, redirectUrl: String) 
+
+@meta = {
+}
+@CSS = {
+	
+    
+}
+@JS = {
+	
+}
+@bodyCls = {
+
+}
+@bodyModule = {}
+@bodyJS = {
+
+    <script type="text/javascript">
+		$(document).ready(function() {
+	    twitterusername="BeamStream";
+	    fburl="http://www.facebook.com/pages/BeamStream/100810133312475";
+	
+	      // Get Number of Facebook Shares
+	    $.getJSON('http://graph.facebook.com/'+fburl,
+	        function(data) {
+	        $('#facebooklikes').append(data.likes+" Likes");   
+	        });
+	
+	      // Get Number of Tweet Count
+	    $.getJSON('http://twitter.com/users/' + twitterusername + '.json?callback=?',
+	        function(data){
+	        $('#twitterfollowers').append(data.followers_count+" Followers"); 
+	        }) // end getJSON
+		})
+	</script>
+	
+	<script type="text/javascript">
+       $('div.container-fluid').first().addClass('landing-fluid');
+    </script>
+	
+}
+@sideBar = {}
+
+
+
+@main("Classwall", "Body", meta, CSS, JS, bodyModule, bodyJS){
+
+	<script type="text/javascript">
+	
+		function close_win(redirectUrl) {
+        window.opener.location=redirectUrl
+       	window.opener.focus();
+       	window.close();
+       }
+		
+	
+		$(function() {
+			if ('@status' == "success")
+				{
+					close_win('@redirectUrl');
+				}
+			else
+				{
+					close_win('@redirectUrl');
+					alert("Failure")
+				}
+		});
+	</script>
+	
+}

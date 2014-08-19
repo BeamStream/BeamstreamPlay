@@ -12,6 +12,10 @@ import play.api.Play
 import play.api.mvc.Action
 import play.api.mvc.Controller
 import org.scribe.model.Verb
+import scala.collection.mutable.HashMap
+import twitter4j.JSONObject
+import org.json.simple.JSONValue
+import com.sun.corba.se.spi.oa.OADefault
 
 object LinkedInAPIController extends Controller {
 
@@ -22,7 +26,7 @@ object LinkedInAPIController extends Controller {
   val server = Play.current.configuration.getString("server").get
   var requestToken: Token = _
   val currentUserId = "userId"
-  val protectedResourceUrl: String = "http://api.linkedin.com/v1/people/~:(id,first-name,last-name,email-address)";
+  val protectedResourceUrl: String = "http://api.linkedin.com/v1/people/~:(id,first-name,last-name,email-address,shares,mailbox)";
 
   /**
    * Get OAuthService Request
@@ -35,6 +39,7 @@ object LinkedInAPIController extends Controller {
       .apiSecret(apiSecret)
       .scope("r_fullprofile")
       .scope("r_emailaddress")
+      .scope("rw_nus")
       .callback(server + "/linkedin/callback")
       .build();
     service
@@ -46,29 +51,67 @@ object LinkedInAPIController extends Controller {
       val authUrl: String = getOAuthService.getAuthorizationUrl(requestToken)
       Redirect(authUrl)
     } catch {
-      case ex:Exception => {
+      case ex: Exception => {
         Logger.error("Error During Login Through LinkedIn - " + ex)
-        Ok//(views.html.redirectmain("", "failure"))
+        Ok //(views.html.redirectmain("", "failure"))
       }
     }
   }
 
   def linkedinCallback: Action[play.api.mvc.AnyContent] = Action { implicit request =>
-    try { getVerifier(request.queryString) match {
-        case None => Ok//(views.html.redirectmain("", "failure"))
+    try {
+      getVerifier(request.queryString) match {
+        case None => Ok //(views.html.redirectmain("", "failure"))
         case Some(oauth_verifier) =>
           val verifier: Verifier = new Verifier(oauth_verifier)
           val accessToken: Token = getOAuthService.getAccessToken(requestToken, verifier);
           val oAuthRequest: OAuthRequest = new OAuthRequest(Verb.GET, protectedResourceUrl)
           getOAuthService.signRequest(accessToken, oAuthRequest)
+
+          oAuthRequest.addHeader("Content-Type", "text/xml")
+
+          val message = (<?xml version='1.0' encoding='UTF-8'?>
+                        <share>
+                          <comment></comment>
+                          <content>
+                            <title>Just joined ClassWall</title>
+                            <submitted-url>http://developer.linkedin.com</submitted-url>
+                            <submitted-image-url>http://lnkd.in/Vjc5ec</submitted-image-url>
+                          </content>
+                          <visibility>
+                            <code>anyone</code>
+                          </visibility>
+                        </share>)
+
+          oAuthRequest.addPayload(message.toString)
+
+          /*oAuthRequest.addHeader("Content-Type", "application/json")
+          oAuthRequest.addHeader("x-li-format", "json")
+
+          // make the json payload using json-simple
+          val jsonMap = new HashMap[String, JSONObject]
+          jsonMap.put("comment", new JSONObject())
+
+          val contentObject = new JSONObject()
+          contentObject.put("title", "Get on the exclusive beta list for BeamStream, a Social Learning Network for Colleges & Universities. It's built for college students & professors. It's lookin' pretty sweet so far! http://bstre.am/k7lXGw")
+
+          jsonMap.put("content", contentObject)
+
+          val visibilityObject = new JSONObject()
+          visibilityObject.put("code", "anyone")
+
+          jsonMap.put("visibility", visibilityObject)
+
+          oAuthRequest.addPayload(JSONValue.toJSONString(jsonMap))*/
+          //          oAuthRequest.addPayload("Get on the exclusive beta list for BeamStream, a Social Learning Network for Colleges & Universities. It's built for college students & professors. It's lookin' pretty sweet so far! http://bstre.am/k7lXGw")
           val response: Response = oAuthRequest.send
           response.getCode match {
             case SUCCESS =>
               val linkedinXML = scala.xml.XML.loadString(response.getBody)
               val userEmailId = (linkedinXML \\ "email-address").text.trim
               val userNetwokId = (linkedinXML \\ "id").text.trim
-              Ok
-              /*val user = UserService.getUserByEmailId(userEmailId)
+              Ok(views.html.redirectMain("success", server))
+            /*val user = UserService.getUserByEmailId(userEmailId)
               if(user != None) {
                 Cache.set(userEmailId, user.get, 60 * 60)
                 Ok(views.html.redirectmain(userEmailId, "success")).withSession(Security.username -> userEmailId)
@@ -76,12 +119,12 @@ object LinkedInAPIController extends Controller {
                 registerNewUser((linkedinXML \\ "first-name").text.trim, userEmailId)
                 Ok(views.html.redirectmain(userEmailId, "success")).withSession(Security.username -> userEmailId)}*/
             case _ =>
-              Ok//(views.html.redirectmain("", "failure"))
+              Ok(views.html.redirectMain("failure", server))
           }
       }
     } catch {
       case ex: Exception => {
-        Ok//(views.html.redirectmain("", "failure"))
+        Ok(views.html.redirectMain("failure", server))
       }
     }
   }

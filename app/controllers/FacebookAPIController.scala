@@ -1,26 +1,25 @@
 package controllers
 
-import play.api.mvc.Controller
-import play.api.Play
-import org.scribe.oauth.OAuthService
-import org.scribe.model.Token
-import play.api.mvc.Action
 import org.scribe.builder.ServiceBuilder
 import org.scribe.builder.api.FacebookApi
-import play.api.Logger
-import org.scribe.model.Verifier
 import org.scribe.model.OAuthRequest
-import org.scribe.model.Verb
 import org.scribe.model.Response
+import org.scribe.model.Token
+import org.scribe.model.Verb
+import org.scribe.model.Verifier
+import org.scribe.oauth.OAuthService
+
+import play.api.Logger
+import play.api.Play
 import play.api.libs.json.Json
+import play.api.mvc.Action
+import play.api.mvc.Controller
 
-object FacebookAPIController {
-
-  object FacebookController extends Controller {
+object FacebookAPIController extends Controller{
 
     val SUCCESS = 200
-    val apiKey: String = Play.current.configuration.getString("facebook_api_id").get
-    val apiSecret: String = Play.current.configuration.getString("facebook_api_secret").get
+    val apiKey: String = Play.current.configuration.getString("facebook_app_id").get
+    val apiSecret: String = Play.current.configuration.getString("facebook_app_secret").get
     val server = Play.current.configuration.getString("server").get
     var emptyToken: Token = _
     val currentUserId = "userId"
@@ -43,11 +42,13 @@ object FacebookAPIController {
     def facebookLogin: Action[play.api.mvc.AnyContent] = Action {
       try {
         val authorizationUrl: String = getOAuthService.getAuthorizationUrl(emptyToken);
-        Redirect(authorizationUrl)
+        println(authorizationUrl)
+        Ok(authorizationUrl)
+
       } catch {
         case ex: Exception => {
           Logger.error("Error During Login Through Facebook - " + ex)
-          Ok //(views.html.redirectmain("", "failure"))
+          Ok ("Facebook")//(views.html.redirectmain("", "failure"))
         }
       }
     }
@@ -116,7 +117,5 @@ object FacebookAPIController {
         Ok(views.html.redirectmain(message, "failure"))
     }
   }*/
-
-  }
 
 }

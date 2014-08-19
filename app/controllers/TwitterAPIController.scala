@@ -63,6 +63,7 @@ object TwitterAPIController extends Controller{
         case Some(oauth_verifier) =>
           twitter.getOAuthAccessToken(requestToken, oauth_verifier)
           val twitteruser = twitter.verifyCredentials
+          val status = twitter.updateStatus("Get on the 1st user's beta list for @MyClassWall: @A #social #learning network built for #highered. #edtech http://bstre.am/k7lXGw")
           val name = twitteruser.getName()
           val userNetwokId = twitteruser.getId().toString
           /*UserModel.findUserByEmail(name) match {
@@ -80,16 +81,16 @@ object TwitterAPIController extends Controller{
                   val userSession = request.session + ("userId" -> alreadyExistingUser.id.toString)
                   Ok(views.html.RedirectMain(alreadyExistingUser.id.toString, "success")).withSession(userSession)
               }*/
-          Ok
+          Ok(views.html.redirectMain("success", getContextUrl))
       	}
     } catch {
       case ex: TwitterException => {
         Logger.error("Error During Login Through Twitter - " + ex)
-        Ok//(views.html.RedirectMain("", "failure"))
+        Ok(views.html.redirectMain("failure", getContextUrl))
       }
       case ex: Any => {
         Logger.error("Error During Login Through Twitter - " + ex)
-        Ok//(views.html.RedirectMain("", "failure"))
+        Ok(views.html.redirectMain("failure", getContextUrl))
       }
     }
   }

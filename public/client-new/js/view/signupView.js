@@ -103,7 +103,7 @@ define(['view/formView'], function(FormView){
             {
             	$('.sign-tick').hide();
             	$('.sign-close').hide();
-                alert('Signup successful \n\nPlease check your mail.');
+                alert('Signup successful \n\nPlease Check your Email for your \nSignup Confirmation Link.');
             }
             else
             {

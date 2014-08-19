@@ -19,6 +19,7 @@ libraryDependencies ++= Seq(
    "org.twitter4j"  % "twitter4j-core"          % "4.0.2",
    "org.scribe"     % "scribe"                  % "1.3.5",
    "org.neo4j"      % "neo4j-kernel"            % "2.1.3",
+   "com.googlecode.json-simple" % "json-simple" % "1.1.1",
 	jdbc,
     anorm,
     cache
