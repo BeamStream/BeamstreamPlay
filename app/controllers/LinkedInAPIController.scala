@@ -40,6 +40,7 @@ object LinkedInAPIController extends Controller {
       .scope("r_fullprofile")
       .scope("r_emailaddress")
       .scope("rw_nus")
+      .scope("w_messages")
       .callback(server + "/linkedin/callback")
       .build();
     service
