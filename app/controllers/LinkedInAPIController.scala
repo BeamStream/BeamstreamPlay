@@ -26,7 +26,7 @@ object LinkedInAPIController extends Controller {
   val server = Play.current.configuration.getString("server").get
   var requestToken: Token = _
   val currentUserId = "userId"
-  val protectedResourceUrl: String = "http://api.linkedin.com/v1/people/~:(id,first-name,last-name,email-address,shares,mailbox)";
+  val protectedResourceUrl: String = "http://api.linkedin.com/v1/people/~:(id,first-name,last-name,email-address,shares,mailbox)"
 
   /**
    * Get OAuthService Request
@@ -40,6 +40,7 @@ object LinkedInAPIController extends Controller {
       .scope("r_fullprofile")
       .scope("r_emailaddress")
       .scope("rw_nus")
+      .scope("w_messages")
       .callback(server + "/linkedin/callback")
       .build();
     service
@@ -66,9 +67,28 @@ object LinkedInAPIController extends Controller {
           val verifier: Verifier = new Verifier(oauth_verifier)
           val accessToken: Token = getOAuthService.getAccessToken(requestToken, verifier);
           val oAuthRequest: OAuthRequest = new OAuthRequest(Verb.GET, protectedResourceUrl)
+          
+          val xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?> \n" +
+                "<share> \n" +
+                "  <comment>" + "H-1B Work Visa USA - Everything you need to know - Info, Tips, Guides, Stats, News, Updates, Recommendations, Community, Jobs and much more!" +
+                "</comment> \n" +
+                "  <content> \n" +
+                "    <submitted-url>" + "http://h1b-work-visa-usa.blogspot.com" +
+                "</submitted-url> \n" +
+                "  </content> \n" +
+                "  <visibility> \n" +
+                "    <code>anyone</code> \n" +
+                "  </visibility> \n" +
+                "</share>\n"
+ 
+        //add xml payload to request
+        oAuthRequest.addPayload(xml)
+          
           getOAuthService.signRequest(accessToken, oAuthRequest)
-
+          
           oAuthRequest.addHeader("Content-Type", "text/xml")
+
+          /*oAuthRequest.addHeader("Content-Type", "text/xml")
 
           val message = (<?xml version='1.0' encoding='UTF-8'?>
                         <share>
@@ -83,7 +103,7 @@ object LinkedInAPIController extends Controller {
                           </visibility>
                         </share>)
 
-          oAuthRequest.addPayload(message.toString)
+          oAuthRequest.addPayload(message.toString)*/
 
           /*oAuthRequest.addHeader("Content-Type", "application/json")
           oAuthRequest.addHeader("x-li-format", "json")
@@ -105,6 +125,7 @@ object LinkedInAPIController extends Controller {
           oAuthRequest.addPayload(JSONValue.toJSONString(jsonMap))*/
           //          oAuthRequest.addPayload("Get on the exclusive beta list for BeamStream, a Social Learning Network for Colleges & Universities. It's built for college students & professors. It's lookin' pretty sweet so far! http://bstre.am/k7lXGw")
           val response: Response = oAuthRequest.send
+          println(response.getBody())
           response.getCode match {
             case SUCCESS =>
               val linkedinXML = scala.xml.XML.loadString(response.getBody)
@@ -137,6 +158,9 @@ object LinkedInAPIController extends Controller {
     }
   }
 
+  /**
+   * TODO Register User using his LinkedIn ID
+   */
   /*def registerNewUser(userName: String, userEmailId: String) {
     val date = new java.sql.Date(new java.util.Date().getTime())
     val password = PasswordHashing.generateRandomPassword

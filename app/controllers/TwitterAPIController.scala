@@ -11,7 +11,7 @@ import twitter4j.TwitterFactory
 import twitter4j.auth.RequestToken
 import twitter4j.conf.ConfigurationBuilder
 
-object TwitterAPIController extends Controller{
+object TwitterAPIController extends Controller {
 
   val currentUserId = "userId"
   var twitter: Twitter = null
@@ -36,16 +36,16 @@ object TwitterAPIController extends Controller{
     } catch {
       case ex: TwitterException => {
         Logger.error("Error During Login Through Twitter - " + ex)
-        Ok//(views.html.RedirectMain("", "failure"))
+        Ok(views.html.redirectMain("failure", getContextUrl))
       }
       case ex: Any => {
         Logger.error("Error During Login Through Twitter - " + ex)
-        Ok//(views.html.RedirectMain("", "failure"))
+        Ok(views.html.redirectMain("failure", getContextUrl))
       }
     }
   }
 
-   /**
+  /**
    * To get The root context from application.config
    */
   def getContextUrl: String = {
@@ -56,16 +56,22 @@ object TwitterAPIController extends Controller{
    * Twitter CallBack Request
    */
   def twitterCallBack: Action[AnyContent] = Action { implicit request =>
-    //https://api.twitter.com/1/users/lookup.xml?user_id=702672206
     try {
       getVerifier(request.queryString) match {
-        case None => Ok//(views.html.RedirectMain("", "failure"))
+        case None => Ok(views.html.redirectMain("failure", getContextUrl))
         case Some(oauth_verifier) =>
           twitter.getOAuthAccessToken(requestToken, oauth_verifier)
           val twitteruser = twitter.verifyCredentials
+          
+          //Posting message on Twitter
           val status = twitter.updateStatus("Get on the 1st user's beta list for @MyClassWall: @A #social #learning network built for #highered. #edtech http://bstre.am/k7lXGw")
+          
           val name = twitteruser.getName()
           val userNetwokId = twitteruser.getId().toString
+
+          /**
+           * TODO Register User using his Twitter ID
+           */
           /*UserModel.findUserByEmail(name) match {
                 case None =>
                   val password = EncryptionUtility.generateRandomPassword
@@ -81,8 +87,9 @@ object TwitterAPIController extends Controller{
                   val userSession = request.session + ("userId" -> alreadyExistingUser.id.toString)
                   Ok(views.html.RedirectMain(alreadyExistingUser.id.toString, "success")).withSession(userSession)
               }*/
+          
           Ok(views.html.redirectMain("success", getContextUrl))
-      	}
+      }
     } catch {
       case ex: TwitterException => {
         Logger.error("Error During Login Through Twitter - " + ex)
