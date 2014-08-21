@@ -37,10 +37,7 @@ object LinkedInAPIController extends Controller {
       .provider(classOf[LinkedInApi])
       .apiKey(apiKey)
       .apiSecret(apiSecret)
-      .scope("r_fullprofile")
-      .scope("r_emailaddress")
       .scope("rw_nus")
-      .scope("w_messages")
       .callback(server + "/linkedin/callback")
       .build();
     service
@@ -54,7 +51,7 @@ object LinkedInAPIController extends Controller {
     } catch {
       case ex: Exception => {
         Logger.error("Error During Login Through LinkedIn - " + ex)
-        Ok //(views.html.redirectmain("", "failure"))
+        Ok(views.html.redirectMain("failure", server))
       }
     }
   }
@@ -62,70 +59,33 @@ object LinkedInAPIController extends Controller {
   def linkedinCallback: Action[play.api.mvc.AnyContent] = Action { implicit request =>
     try {
       getVerifier(request.queryString) match {
-        case None => Ok //(views.html.redirectmain("", "failure"))
+        case None => Ok(views.html.redirectMain("failure", server))
         case Some(oauth_verifier) =>
           val verifier: Verifier = new Verifier(oauth_verifier)
           val accessToken: Token = getOAuthService.getAccessToken(requestToken, verifier);
-          val oAuthRequest: OAuthRequest = new OAuthRequest(Verb.GET, protectedResourceUrl)
-          
+          val oAuthRequest: OAuthRequest = new OAuthRequest(Verb.POST, "http://api.linkedin.com/v1/people/~/shares")
+
+          // Posting message on LinkedIn
+          val message = "Get on the exclusive beta list for ClassWall, a Social Learning Network for Colleges and Universities. It's built for college students and professors. It's lookin' pretty sweet so far!"
+          val url = " http://bstre.am/k7lXGw"
           val xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?> \n" +
-                "<share> \n" +
-                "  <comment>" + "H-1B Work Visa USA - Everything you need to know - Info, Tips, Guides, Stats, News, Updates, Recommendations, Community, Jobs and much more!" +
-                "</comment> \n" +
-                "  <content> \n" +
-                "    <submitted-url>" + "http://h1b-work-visa-usa.blogspot.com" +
-                "</submitted-url> \n" +
-                "  </content> \n" +
-                "  <visibility> \n" +
-                "    <code>anyone</code> \n" +
-                "  </visibility> \n" +
-                "</share>\n"
- 
-        //add xml payload to request
-        oAuthRequest.addPayload(xml)
-          
+            "<share> \n" +
+            "  <comment>" + message +
+            "</comment> \n" +
+            "  <content> \n" +
+            "    <submitted-url>" + url +
+            "</submitted-url> \n" +
+            "  </content> \n" +
+            "  <visibility> \n" +
+            "    <code>anyone</code> \n" +
+            "  </visibility> \n" +
+            "</share>\n"
+
+          //add xml payload to request
+          oAuthRequest.addPayload(xml)
           getOAuthService.signRequest(accessToken, oAuthRequest)
-          
           oAuthRequest.addHeader("Content-Type", "text/xml")
-
-          /*oAuthRequest.addHeader("Content-Type", "text/xml")
-
-          val message = (<?xml version='1.0' encoding='UTF-8'?>
-                        <share>
-                          <comment></comment>
-                          <content>
-                            <title>Just joined ClassWall</title>
-                            <submitted-url>http://developer.linkedin.com</submitted-url>
-                            <submitted-image-url>http://lnkd.in/Vjc5ec</submitted-image-url>
-                          </content>
-                          <visibility>
-                            <code>anyone</code>
-                          </visibility>
-                        </share>)
-
-          oAuthRequest.addPayload(message.toString)*/
-
-          /*oAuthRequest.addHeader("Content-Type", "application/json")
-          oAuthRequest.addHeader("x-li-format", "json")
-
-          // make the json payload using json-simple
-          val jsonMap = new HashMap[String, JSONObject]
-          jsonMap.put("comment", new JSONObject())
-
-          val contentObject = new JSONObject()
-          contentObject.put("title", "Get on the exclusive beta list for BeamStream, a Social Learning Network for Colleges & Universities. It's built for college students & professors. It's lookin' pretty sweet so far! http://bstre.am/k7lXGw")
-
-          jsonMap.put("content", contentObject)
-
-          val visibilityObject = new JSONObject()
-          visibilityObject.put("code", "anyone")
-
-          jsonMap.put("visibility", visibilityObject)
-
-          oAuthRequest.addPayload(JSONValue.toJSONString(jsonMap))*/
-          //          oAuthRequest.addPayload("Get on the exclusive beta list for BeamStream, a Social Learning Network for Colleges & Universities. It's built for college students & professors. It's lookin' pretty sweet so far! http://bstre.am/k7lXGw")
           val response: Response = oAuthRequest.send
-          println(response.getBody())
           response.getCode match {
             case SUCCESS =>
               val linkedinXML = scala.xml.XML.loadString(response.getBody)
