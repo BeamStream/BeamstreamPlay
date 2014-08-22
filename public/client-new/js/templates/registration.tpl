@@ -150,7 +150,9 @@
             <div data-date-viewmode="years"   id="datepicker" class="input-append date field">
                       <input type="text" readonly="" id="graduationDate" data-name="user.graduationDate" value="" name="graduationDate" placeholder="Graduation Date"  class="datepicker calender-box">
                          <div class="new-arrow date-arrow ">
-                          <span class="add-on"></span>
+                          <span class="add-on courseFinishDate">
+                         	 <span class="caret display-caret pull-right"></span>
+                          </span>
                         </div>
                      
                 </div>
