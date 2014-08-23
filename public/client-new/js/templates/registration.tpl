@@ -55,7 +55,7 @@
 	            </fieldset>
             {{/if}}
             
-            <div class="alert-register"><span>*Last Name will not be shown publicly</span></div>
+            <div class="alert-register"><span>*Last name will not be shown publicly</span></div>
             <fieldset class="field">  
             <input id="schoolName"  data-name="user.schoolName" name="schoolName" value=""  type="text" placeholder="School Name">
             <input type="hidden" id="associatedSchoolId" >
