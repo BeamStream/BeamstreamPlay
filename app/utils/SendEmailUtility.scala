@@ -47,7 +47,7 @@ object SendEmailUtility extends EmailUtility {
         "Password: " + password + "<br>" +
         "<br>" + "<br>" + "<br>" +
         "Cheers," + "<br>" +
-        "The Really Nice Classwall Folks , US" + "<br>"
+        "The team @ ClassWall" + "<br>"
 
     sendMessage(emailId, subject, content)
   }
@@ -98,7 +98,7 @@ object SendEmailUtility extends EmailUtility {
         firstNameOfJoiner + " " + lastNameOfJoiner + " has Joined the " + streamName + " Stream" +
         "<br>" + "<br>" +
         "Cheers," + "<br>" +
-        "The Really Nice Classwall Folks , US" + "<br>"
+        "The team @ ClassWall" + "<br>"
 
     sendMessage(emailId, subject, content)
   }
@@ -115,7 +115,7 @@ object SendEmailUtility extends EmailUtility {
         "Join and be ready to rock. " + "<a href ='" + Play.current.configuration.getString("server").get + "/classwall/index.html#emailVerification'>REGISTER HERE</a>" +
         "<br>" + "<br>" +
         "Cheers," + "<br>" +
-        "The Really Nice Classwall Folks , US" + "<br>"
+        "The team @ ClassWall" + "<br>"
 
     sendMessage(emailId, "Invitation to join Classwall", content)
   }
@@ -130,8 +130,8 @@ object SendEmailUtility extends EmailUtility {
         friendNameString + " has invited to join Classwall." + "<br>" +
         "Join and be ready to rock. " + "<a href ='" + Play.current.configuration.getString("server").get + "/signup?email=" + emailId + "&referrer=" + friendUserString + "'>REGISTER HERE</a>" +
         "<br>" + "<br>" +
-        "Cheers," + "<br>" +
-        "The Really Nice Classwall Folks , US" + "<br>"
+        "Rock College," + "<br>" +
+        "The team @ ClassWall" + "<br>"
 
     sendMessage(emailId, "Invitation to join Classwall", content)
   }
