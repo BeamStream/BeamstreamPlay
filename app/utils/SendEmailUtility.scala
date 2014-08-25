@@ -139,7 +139,6 @@ object SendEmailUtility extends EmailUtility {
         "<br>" + "<br>" +
         "Rock College," + "<br>" +
         "The Happiness Team @ ClassWall" + "<br>"
-
     sendMessage(emailId, "Invitation to join Classwall", content)
   }
 
