@@ -52,7 +52,7 @@ object FacebookAPIController extends Controller {
     } catch {
       case ex: Exception => {
         Logger.error("Error During Login Through Facebook - " + ex)
-        Ok(views.html.redirectMain("failure", server))
+        Ok(views.html.redirectMain("failure", server, "Cannot post message on Facebook"))
       }
     }
   }
@@ -60,7 +60,7 @@ object FacebookAPIController extends Controller {
   def facebookCallback: Action[play.api.mvc.AnyContent] = Action { implicit request =>
     try {
       getVerifier(request.queryString) match {
-        case None => Ok(views.html.redirectMain("failure", server))
+        case None => Ok(views.html.redirectMain("failure", server, "Cannot post message on Facebook"))
         case Some(code) =>
           val verifier: Verifier = new Verifier(code)
           val accessToken: Token = getOAuthService.getAccessToken(emptyToken, verifier)
@@ -77,15 +77,15 @@ object FacebookAPIController extends Controller {
             case SUCCESS =>
               val json = Json.parse(response.getBody)
               val userEmailId = (json \ "email").asOpt[String]
-              Ok(views.html.redirectMain("success", server))
+              Ok(views.html.redirectMain("success", server, "Thanks for sharing it with others on Facebook"))
             case _ =>
-              Ok(views.html.redirectMain("failure", server))
+              Ok(views.html.redirectMain("failure", server, "Cannot post message on Facebook"))
           }
       }
     } catch {
       case ex: Exception => {
         Logger.error("This error occurred while posting status to facebook :- " + ex)
-        Ok(views.html.redirectMain("failure", server))
+        Ok(views.html.redirectMain("failure", server, "Cannot post message on Facebook"))
       }
     }
   }

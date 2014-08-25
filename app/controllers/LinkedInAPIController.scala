@@ -20,6 +20,7 @@ import com.sun.corba.se.spi.oa.OADefault
 object LinkedInAPIController extends Controller {
 
   val SUCCESS = 200
+  val POST_SUCCESS = 201
   val ERROR = 400
   val apiKey: String = Play.current.configuration.getString("linkedin_api_key").get
   val apiSecret: String = Play.current.configuration.getString("linkedin_secret_key").get
@@ -51,7 +52,7 @@ object LinkedInAPIController extends Controller {
     } catch {
       case ex: Exception => {
         Logger.error("Error During Login Through LinkedIn - " + ex)
-        Ok(views.html.redirectMain("failure", server))
+        Ok(views.html.redirectMain("failure", server, "Cannot post message on LinkedIn"))
       }
     }
   }
@@ -59,7 +60,7 @@ object LinkedInAPIController extends Controller {
   def linkedinCallback: Action[play.api.mvc.AnyContent] = Action { implicit request =>
     try {
       getVerifier(request.queryString) match {
-        case None => Ok(views.html.redirectMain("failure", server))
+        case None => Ok(views.html.redirectMain("failure", server, "Cannot post message on LinkedIn"))
         case Some(oauth_verifier) =>
           val verifier: Verifier = new Verifier(oauth_verifier)
           val accessToken: Token = getOAuthService.getAccessToken(requestToken, verifier);
@@ -86,12 +87,15 @@ object LinkedInAPIController extends Controller {
           getOAuthService.signRequest(accessToken, oAuthRequest)
           oAuthRequest.addHeader("Content-Type", "text/xml")
           val response: Response = oAuthRequest.send
+          println(response.getCode())
           response.getCode match {
             case SUCCESS =>
               val linkedinXML = scala.xml.XML.loadString(response.getBody)
               val userEmailId = (linkedinXML \\ "email-address").text.trim
               val userNetwokId = (linkedinXML \\ "id").text.trim
-              Ok(views.html.redirectMain("success", server))
+              Ok(views.html.redirectMain("success", server, "Thanks for sharing it with others on LinkedIn"))
+            case POST_SUCCESS =>
+              Ok(views.html.redirectMain("success", server, "Thanks for sharing it with others on LinkedIn"))
             /*val user = UserService.getUserByEmailId(userEmailId)
               if(user != None) {
                 Cache.set(userEmailId, user.get, 60 * 60)
@@ -100,12 +104,12 @@ object LinkedInAPIController extends Controller {
                 registerNewUser((linkedinXML \\ "first-name").text.trim, userEmailId)
                 Ok(views.html.redirectmain(userEmailId, "success")).withSession(Security.username -> userEmailId)}*/
             case _ =>
-              Ok(views.html.redirectMain("failure", server))
+              Ok(views.html.redirectMain("failure", server, "Cannot post message on LinkedIn"))
           }
       }
     } catch {
       case ex: Exception => {
-        Ok(views.html.redirectMain("failure", server))
+        Ok(views.html.redirectMain("failure", server, "Cannot post message on LinkedIn"))
       }
     }
   }
