@@ -46,8 +46,13 @@ object SendEmailUtility extends EmailUtility {
         "Email-Id: " + emailId + "<br>" +
         "Password: " + password + "<br>" +
         "<br>" + "<br>" + "<br>" +
+<<<<<<< HEAD
         "Rock College," + "<br>" +
         "The Happiness Team @ ClassWall" + "<br>"
+=======
+        "Cheers," + "<br>" +
+        "The team @ ClassWall" + "<br>"
+>>>>>>> 0c1f4df6dfc5a43b627c7b3c950de1c5a3336891
 
     sendMessage(emailId, subject, content)
   }
@@ -97,8 +102,13 @@ object SendEmailUtility extends EmailUtility {
       "Hi <b>Classwall</b> Smarty," + "<br>" + "<br>" +
         firstNameOfJoiner + " " + lastNameOfJoiner + " has Joined the " + streamName + " Stream" +
         "<br>" + "<br>" +
+<<<<<<< HEAD
         "Rock College," + "<br>" +
         "The Happiness Team @ ClassWall" + "<br>"
+=======
+        "Cheers," + "<br>" +
+        "The team @ ClassWall" + "<br>"
+>>>>>>> 0c1f4df6dfc5a43b627c7b3c950de1c5a3336891
 
     sendMessage(emailId, subject, content)
   }
@@ -114,8 +124,13 @@ object SendEmailUtility extends EmailUtility {
         "You are invited to join ClassWall." + "<br>" +
         "Join & be ready to get your collaboration on. " + "<a href ='" + Play.current.configuration.getString("server").get + "/classwall/index.html#emailVerification'>REGISTER HERE</a>" +
         "<br>" + "<br>" +
+<<<<<<< HEAD
         "Rock College," + "<br>" +
         "The Happiness Team @ ClassWall" + "<br>"
+=======
+        "Cheers," + "<br>" +
+        "The team @ ClassWall" + "<br>"
+>>>>>>> 0c1f4df6dfc5a43b627c7b3c950de1c5a3336891
 
     sendMessage(emailId, "Invitation to join Classwall", content)
   }
@@ -131,7 +146,11 @@ object SendEmailUtility extends EmailUtility {
         "Join & be ready to get your collaboration on. " + "<a href ='" + Play.current.configuration.getString("server").get + "/signup?email=" + emailId + "&referrer=" + friendUserString + "'>REGISTER HERE</a>" +
         "<br>" + "<br>" +
         "Rock College," + "<br>" +
+<<<<<<< HEAD
         "The Happiness Team @ ClassWall" + "<br>"
+=======
+        "The team @ ClassWall" + "<br>"
+>>>>>>> 0c1f4df6dfc5a43b627c7b3c950de1c5a3336891
 
     sendMessage(emailId, "Invitation to join Classwall", content)
   }

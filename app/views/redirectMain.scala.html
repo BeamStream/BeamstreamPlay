@@ -1,4 +1,4 @@
-@(status:String, redirectUrl: String) 
+@(status:String, redirectUrl: String, response: String) 
 
 @meta = {
 }
@@ -54,13 +54,13 @@
 		$(function() {
 			if ('@status' == "success")
 				{
-				alert("Success")
+				alert("@response")
 				close_win('@redirectUrl');
 					
 				}
 			else
 				{
-				alert("Failure")
+				alert("@response")
 				close_win('@redirectUrl');
 				}
 		});

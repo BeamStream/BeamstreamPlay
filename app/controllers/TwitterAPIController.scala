@@ -36,11 +36,11 @@ object TwitterAPIController extends Controller {
     } catch {
       case ex: TwitterException => {
         Logger.error("Error During Login Through Twitter - " + ex)
-        Ok(views.html.redirectMain("failure", getContextUrl))
+        Ok(views.html.redirectMain("failure", getContextUrl, "Cannot post message on Twitter"))
       }
       case ex: Any => {
         Logger.error("Error During Login Through Twitter - " + ex)
-        Ok(views.html.redirectMain("failure", getContextUrl))
+        Ok(views.html.redirectMain("failure", getContextUrl, "Cannot post message on Twitter"))
       }
     }
   }
@@ -58,7 +58,7 @@ object TwitterAPIController extends Controller {
   def twitterCallBack: Action[AnyContent] = Action { implicit request =>
     try {
       getVerifier(request.queryString) match {
-        case None => Ok(views.html.redirectMain("failure", getContextUrl))
+        case None => Ok(views.html.redirectMain("failure", getContextUrl, "Cannot post message on Twitter"))
         case Some(oauth_verifier) =>
           twitter.getOAuthAccessToken(requestToken, oauth_verifier)
           val twitteruser = twitter.verifyCredentials
@@ -88,16 +88,16 @@ object TwitterAPIController extends Controller {
                   Ok(views.html.RedirectMain(alreadyExistingUser.id.toString, "success")).withSession(userSession)
               }*/
           
-          Ok(views.html.redirectMain("success", getContextUrl))
+          Ok(views.html.redirectMain("success", getContextUrl, "Thanks for sharing us on Twitter"))
       }
     } catch {
       case ex: TwitterException => {
         Logger.error("Error During Login Through Twitter - " + ex)
-        Ok(views.html.redirectMain("failure", getContextUrl))
+        Ok(views.html.redirectMain("failure", getContextUrl, "Cannot post message on Twitter"))
       }
       case ex: Any => {
         Logger.error("Error During Login Through Twitter - " + ex)
-        Ok(views.html.redirectMain("failure", getContextUrl))
+        Ok(views.html.redirectMain("failure", getContextUrl, "Cannot post message on Twitter"))
       }
     }
   }
