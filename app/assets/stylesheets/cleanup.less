@@ -247,7 +247,7 @@ background-clip:padding-box;
   margin-top:-200px;   /* negative half of height above */
 }
 
-.bootbox.modal.fade.in {
+.bootbox.modal.fade.in, div#selectUploadPhoto {
 	.CWpopup;
 }
 
@@ -3183,7 +3183,7 @@ text-transform:uppercase
 -webkit-border-radius:8px 8px 0 0;
 -moz-border-radius:8px 8px 0 0;
 border-radius:8px 8px 0 0;
-background:url(../../beamstream-new/images/spryte.png) -300px 0px #F80046;
+background:url(../../beamstream-new/images/spryte.png) -400px 0px #F80046;
 position:absolute;
 z-index:0;
 top:-20px;
@@ -3444,16 +3444,6 @@ font-size:11px;
 color:#9fa6aa
 }
 
-.error {
-font-size:11px;
-font-weight:normal;
-color:#f83434;
-right:70px;
-position:absolute;
-top:8px;
-line-height:20px
-}
-
 .red-star {
 color:#da1f1f;
 position:absolute;
@@ -3578,10 +3568,6 @@ border-radius:5px
 
 .registration-modal-content a:hover {
 text-decoration:none
-}
-
-#selectUploadPhoto {
-width:53%
 }
 
 #addPhoto {
@@ -10586,13 +10572,15 @@ border-top:none!important
 }
 
 .error {
-font-size:11px;
-font-weight:normal;
-color:#f83434;
-left:5px;
-position:absolute;
-top:-20px;
-line-height:20px
+	font-size: 12px;
+	font-weight: normal;
+	color: #f80046;
+	left: 5px;
+	position: absolute;
+	top: 22px;
+	margin-left: 80px;
+	line-height: 20px;
+	width: 350px;
 }
 
 .calender-box {

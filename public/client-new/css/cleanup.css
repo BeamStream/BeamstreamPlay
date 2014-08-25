@@ -3035,9 +3035,7 @@ ul.register-social li a.link-in {
 .registration-modal-content a:hover {
   text-decoration: none;
 }
-#selectUploadPhoto {
-  width: 53%;
-}
+
 #addPhoto {
   margin-right: 5%;
 }

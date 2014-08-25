@@ -41,13 +41,13 @@ object SendEmailUtility extends EmailUtility {
     val subject = "Password Recovery On ClassWall"
 
     val content =
-      "Hi <b>Classwall's</b> Rocker." + "<br>" + "<br>" +
-        "Here is your account details " + "<br>" + "<br>" +
+      "Hi <b>Classwall</b> Smarty." + "<br>" + "<br>" +
+        "Here are your account details " + "<br>" + "<br>" +
         "Email-Id: " + emailId + "<br>" +
         "Password: " + password + "<br>" +
         "<br>" + "<br>" + "<br>" +
-        "Cheers," + "<br>" +
-        "The team @ ClassWall" + "<br>"
+        "Rock College," + "<br>" +
+        "The Happiness Team @ ClassWall" + "<br>"
 
     sendMessage(emailId, subject, content)
   }
@@ -65,18 +65,18 @@ object SendEmailUtility extends EmailUtility {
         authenticatedMessageAndSession._1.setSubject("You've Created " + streamName + " Stream On Classwall")
         authenticatedMessageAndSession._1.setContent(
 
-          "Hello ClassWall friend," + "<br>" + "<br>" +
-            "You've created the " + streamName + " Stream in Your Profile" + "<br>" + "<br>" +
-            "Start sharing & be a Classwall devotee" + "<br>" + "<br>" + "<br>" +
+          "Hello ClassWall Smarty," + "<br>" + "<br>" +
+            "You've created the " + streamName + " Stream" + "<br>" + "<br>" +
+            "Start sharing & be a ClassWall superstar" + "<br>" + "<br>" + "<br>" +
             "Rock College," + "<br>" +
             "The Happiness Team @ ClassWall" + "<br>", "text/html")
       case false =>
         authenticatedMessageAndSession._1.setSubject("You've Joined " + streamName + " Stream On Classwall")
         authenticatedMessageAndSession._1.setContent(
 
-          "Hello ClassWall friend," + "<br>" + "<br>" +
+          "Hello ClassWall Smarty," + "<br>" + "<br>" +
             "You've Joined the " + streamName + " Stream " + "<br>" + "<br>" +
-            "Start sharing & be a Classwall devotee" + "<br>" + "<br>" + "<br>" +
+            "Start sharing & be a Classwall superstar" + "<br>" + "<br>" + "<br>" +
             "Rock College," + "<br>" +
             "The Happiness Team @ ClassWall" + "<br>", "text/html")
     }
@@ -94,11 +94,11 @@ object SendEmailUtility extends EmailUtility {
 
     val subject = firstNameOfJoiner + " " + lastNameOfJoiner + " has Joined the " + streamName + " Stream"
     val content =
-      "Hi <b>Classwall</b> Rocker." + "<br>" + "<br>" +
+      "Hi <b>Classwall</b> Smarty," + "<br>" + "<br>" +
         firstNameOfJoiner + " " + lastNameOfJoiner + " has Joined the " + streamName + " Stream" +
         "<br>" + "<br>" +
-        "Cheers," + "<br>" +
-        "The team @ ClassWall" + "<br>"
+        "Rock College," + "<br>" +
+        "The Happiness Team @ ClassWall" + "<br>"
 
     sendMessage(emailId, subject, content)
   }
@@ -111,11 +111,11 @@ object SendEmailUtility extends EmailUtility {
 
     val content =
       "Hello, " + "<br>" + "<br>" +
-        "You've been invited to join Classwall." + "<br>" +
-        "Join and be ready to rock. " + "<a href ='" + Play.current.configuration.getString("server").get + "/classwall/index.html#emailVerification'>REGISTER HERE</a>" +
+        "You are invited to join ClassWall." + "<br>" +
+        "Join & be ready to get your collaboration on. " + "<a href ='" + Play.current.configuration.getString("server").get + "/classwall/index.html#emailVerification'>REGISTER HERE</a>" +
         "<br>" + "<br>" +
-        "Cheers," + "<br>" +
-        "The team @ ClassWall" + "<br>"
+        "Rock College," + "<br>" +
+        "The Happiness Team @ ClassWall" + "<br>"
 
     sendMessage(emailId, "Invitation to join Classwall", content)
   }
@@ -127,11 +127,11 @@ object SendEmailUtility extends EmailUtility {
   def inviteUserToBeamstreamWithReferral(emailId: String, friendUserString: String, friendNameString: String) {
     val content =
       "Hello, " + "<br>" + "<br>" +
-        friendNameString + " has invited to join Classwall." + "<br>" +
-        "Join and be ready to rock. " + "<a href ='" + Play.current.configuration.getString("server").get + "/signup?email=" + emailId + "&referrer=" + friendUserString + "'>REGISTER HERE</a>" +
+        friendNameString + " has invited to join ClassWall." + "<br>" +
+        "Join & be ready to get your collaboration on. " + "<a href ='" + Play.current.configuration.getString("server").get + "/signup?email=" + emailId + "&referrer=" + friendUserString + "'>REGISTER HERE</a>" +
         "<br>" + "<br>" +
         "Rock College," + "<br>" +
-        "The team @ ClassWall" + "<br>"
+        "The Happiness Team @ ClassWall" + "<br>"
 
     sendMessage(emailId, "Invitation to join Classwall", content)
   }
