@@ -138,7 +138,7 @@ object SendEmailUtility extends EmailUtility {
         "Join & be ready to get your collaboration on. " + "<a href ='" + Play.current.configuration.getString("server").get + "/signup?email=" + emailId + "&referrer=" + friendUserString + "'>REGISTER HERE</a>" +
         "<br>" + "<br>" +
         "Rock College," + "<br>" +
-        "The team @ ClassWall" + "<br>"
+        "The Happiness Team @ ClassWall" + "<br>"
 
     sendMessage(emailId, "Invitation to join Classwall", content)
   }
