@@ -72,7 +72,7 @@ object UtilityActor extends EmailUtility {
     val recepientAddress = new InternetAddress(emailId)
     authenticatedMessageAndSession._1.setFrom(new InternetAddress(CLASSWALL_EMAIL, CLASSWALL_EMAIL))
     authenticatedMessageAndSession._1.addRecipient(Message.RecipientType.TO, recepientAddress);
-    authenticatedMessageAndSession._1.setSubject("Wellcome to your ClassWall Experience, click to verify your email");
+    authenticatedMessageAndSession._1.setSubject("Welcome to your ClassWall experience, click to verify your email");
     authenticatedMessageAndSession._1.setContent(
 
       "You have chosen wisely... Thanks for signing up with ClassWall! <br> Click on the link below to finish registering & get your collaboration on." +
