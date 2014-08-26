@@ -100,7 +100,7 @@ object SendEmailUtility extends EmailUtility {
         firstNameOfJoiner + " " + lastNameOfJoiner + " has Joined the " + streamName + " Stream" +
         "<br>" + "<br>" +
         "Rock College," + "<br>" +
-        "The Happiness Team @ ClassWall" + "<br>"+
+        "The Happiness Team @ ClassWall" + "<br>" +
         "Cheers," + "<br>" +
         "The team @ ClassWall" + "<br>"
 
