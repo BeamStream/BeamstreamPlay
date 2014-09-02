@@ -231,7 +231,7 @@ background-clip:padding-box;
   border-radius: 20px;
   /* box-shadow */
   font-weight: 500;
-  font-size: 145%;
+  font-size: 156%;
   color: #BBBBBB;
   width: 183px;
   height: 40px;
@@ -250,6 +250,13 @@ background-clip:padding-box;
 .bootbox.modal.fade.in, div#selectUploadPhoto {
 	.CWpopup;
 }
+
+#selectUploadPhoto .modal-body {
+}
+
+#selectUploadPhoto .modal-body .modal-footer {
+	margin: -12px 0px 18px -79px;
+} 
 
 pre {
 border:1px solid #ccc;
@@ -1685,7 +1692,7 @@ top:-25%
 
 
 .modal-footer {
-padding:14px 15px 15px;
+padding: 14px 0px 0px 0px;
 margin-bottom:0;
 text-align:right;
 background-color:#f5f5f5;
@@ -1711,7 +1718,38 @@ border-radius:0 0 6px 6px;
 -webkit-box-shadow:inset 0 1px 0 #fff;
 -moz-box-shadow:inset 0 1px 0 #fff;
 box-shadow:inset 0 1px 0 #fff;
-*zoom:1
+*zoom:1;
+width: 339px;
+margin: 14% 0% 0% -45%;
+padding: 15px 0px 0px 4px;
+}
+
+.modal-footer .btn+.btn {
+	margin-left: 28px;
+}
+
+.modal-footer a:nth-child(1) {
+	margin-left: 8px;
+	padding: 0px 80px 0px 47px;
+}
+
+.modal-footer a:nth-child(2) {
+	padding: 0px 84px 0px 39px;
+}
+
+#selectUploadPhoto .modal-body .modal-footer a:nth-child(1) {
+	margin-left: 8px;
+	padding: 0px 80px 0px 47px;
+	width: 119px !important;
+}
+
+#selectUploadPhoto .modal-body .modal-footer a:nth-child(2) {
+	padding: 0px 38px 0px 24px;
+}
+
+.modal-body {
+	margin: -15% 0% 0% -40%;
+	width: 170%;
 }
 
 .tooltip {
@@ -2949,7 +2987,7 @@ float:left
 }
 
 .register-btn:hover,
-.register-btn:focus {
+.register-btn:focus, .modal-footer a:hover, .modal-footer a:focus {
 background: @RegButtonColorHover;
 text-decoration:none;
 color:#fff
@@ -3489,9 +3527,6 @@ color:#6a2828!important
 
 .registration-modal {
 top:25%!important;
-width:50%;
-left:28%!important;
-background: #fff;
 }
 
 .registration-modal-header {
@@ -10413,27 +10448,21 @@ div.answer-description:hover .delete_answer {
 display:block
 }
 
-.bootbox a {
-display:inline-block;
-padding:0 10px;
-height:30px;
-line-height:30px;
-background:-moz-linear-gradient(#d4991c,
-#dbaa22) repeat scroll 0 0 transparent;
-border:1px solid #ff9f00;
-color:#fff;
--webkit-border-radius:5px;
--moz-border-radius:5px;
-border-radius:5px;
-}
-
-.modal-body {
-	overflow: hidden;
-}
-
-.bootbox a:hover {
-	text-decoration: none;
-	width: 52px;
+.bootbox a, .invite-green-btn  {
+	background: #9d9d9d;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	font-size: 18px;
+	color: #fff !important;
+	display: block;
+	padding: 0 60px;
+	height: 50px;
+	line-height: 42px;
+	float: left;
+	font-weight: 500;
+	width: 23px !important;
+	height: 41px;
 }
 
 .comment-ans {
@@ -10581,6 +10610,10 @@ border-top:none!important
 	margin-left: 80px;
 	line-height: 20px;
 	width: 350px;
+}
+
+#signup-form span.error {
+margin-left: 174px;
 }
 
 .calender-box {
