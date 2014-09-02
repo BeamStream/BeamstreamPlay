@@ -228,23 +228,17 @@
         </div>
         
         <!-- for  popups after Upload Photo -->
-			<div id="selectUploadPhoto"  class="modal hide fade registration-modal white-modal-block" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				  <div class="class-modal-header registration-modal-header">
-				    <h3>Are you sure you don't want add your stunning profile pic?</h3><button type="button" class="close class-modal-close" data-dismiss="modal" aria-hidden="true">Close</button>
-				  </div>
-				  <div class="modal-body">    
-				  <div class="invite-bottom-btn class-modal-bottom registration-modal-content">
- 		  			<a id="addPhoto" class="invite-green-btn class-modal-btn modal-button" href="#">Yes upload photo</a>  
- 		  			<a id="continue" class="invite-green-btn class-modal-btn startBeam-btn" href="#">Don't upload CONTINUE </a>
- 		  			</div>
-			  	</div>
-	 		</div>	
-
+			<div id="selectUploadPhoto"  class="modal hide fade registration-modal white-modal-block in bootbox modal fade in" role="dialog" aria-labelledby="myModalLabel" tabindex="-1" style="overflow:hidden;" aria-hidden="false">				
+				<div class="modal-body">You don't want to add your stunning profile pic?</div>
+							<div class="modal-footer">
+								<a id="continue" class=" invite-green-btn class-modal-btn startBeam-btn btn btn googledocclose" href="#">Skip, CONTINUE </a>
+								<a id="addPhoto" class="invite-green-btn class-modal-btn modal-button btn btn googledocclose" href="#">Yes, upload photo</a> 
+							</div>
+						</div>
            <ul class="profile-top-menu profile-white register-top-white photo-project">
               <h3> Add Photos / Projects</h3>
               <h5>Add on NExt Page</h5>
             </ul>
-
         </div>
         <div class="profile-right-container">
           <div id="step1_block" class="profile-white active-border" style="visibility:hidden;"><!--DH MAKE VISIBLE WHEN JANRAIN IS READY-->
