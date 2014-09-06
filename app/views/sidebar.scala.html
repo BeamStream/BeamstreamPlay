@@ -24,21 +24,11 @@
                
         <!--  For Online User Widget --> 
         <div  id="online"   data-model="onlineuser" data-url="/onlineUsers" data-module="view/onlineUserView" data-tpl="templates/onlineUsers.tpl">
-        	
-        	<div class="chat-box" >
-                <div class="chat-window">
-                    <div id="chat-status" class="chat-open"><span class="online-count">Online (0)</span> <span class="chat-show"></span></div>
-                    <div id="user-online" class="scroll-block chat-view">
-                        <ul >
-                       
-                        </ul>
-                    </div>
-                </div>
-            </div>       
+        	     
         </div>
 
         <div  id="deleteStreamView"   data-module="view/deleteStreamView"  >
-            <div id="deleteStream"  class="modal hide fade registration-modal white-modal-block" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div id="deleteStream"  class="modal hide fade registration-modal white-modal-block bootbox modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                   <div class="modal-header registration-modal-header">
                   <h3>Do you want to remove this stream ?</h3>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Close</button>
