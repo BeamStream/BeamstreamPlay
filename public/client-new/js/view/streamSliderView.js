@@ -213,8 +213,12 @@ define(
 											function() {
 
 												$('a.done').text('DONE');
-												$('a.done').css('background','#ffba00');
-												$('a.done').css('color','#330000');
+												$('a.done').css('background','#f80046');
+												$('a.done').css('color','#ffffff');
+												$('a.done').css('font-size','9px');
+												$('a.done').css('text-align','center');
+												$('a.done').css('line-height','28.5px');
+												$('a.done').css('font-weight','600');
 												$('a.done').attr('data-value',
 														'inActive');
 												activeStream = $(
