@@ -356,8 +356,8 @@ define(
 								}
 							}					
 							
-							$('#msg-area').css('padding', '7.5% 18% 6% 2%');
-							$('#msg-area').css('margin', '0 0 24px 22px');
+							$('#msg-area').css('padding', '0% 0% 0% 0%');
+							$('#msg-area').css('margin', '30px 0 30px 22px');
 							if ($('#uploded-file-area').is(':visible')) {
 								$('a.ask-button').css('visibility', 'hidden');
 							}
@@ -372,7 +372,8 @@ define(
 						 */
 						postMessage : function() {
 							
-							$('#msg-area').css('padding','5px 6px 4px 6px').css('margin','-1px 0 -5px 14px');
+							$('#msg-area').css('margin','-1px 0 -5px 14px');
+							$('#msg-area').css('padding','5px 6px 4px 6px');
 							$('.ask-outer').css('height', '0px');
 							$('a.ask-button').css('visibility', 'hidden');
 							$('div.loadingImage').css('display','block');
