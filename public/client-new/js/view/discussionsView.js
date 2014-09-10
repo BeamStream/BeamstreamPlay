@@ -311,9 +311,7 @@ define(
 						 * show Post Button
 						 */
 						hidePostButton : function() {
-							
 							var self = this;
-							
 							var messageData = $('#msg-area').val();
 							if (messageData == '') {
 											$('#msg-area').css('padding','5px 6px 4px 6px');
@@ -325,7 +323,6 @@ define(
 																	return (height + 70);
 																});
 													$('a.ask-button').css('visibility', 'visible');
-												
 											} else {
 												$('a.ask-button').css('visibility', 'hidden');
 											}

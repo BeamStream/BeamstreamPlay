@@ -289,8 +289,8 @@ events : {
 
 						showAskButton : function() {
 
-							$('#Q-area').css('padding', '7.5% 18% 6% 2%');
-							$('#Q-area').css('margin', '0 0 24px 22px');
+						$('#Q-area').css('padding', '0% 0% 0% 0%');
+							$('#Q-area').css('margin', '30px 0 30px 22px');
 							$('a#post-question').css('visibility', 'visible');
 							$('#questionsView .ask-outer').height(
 									function(index, height) {
@@ -302,7 +302,21 @@ events : {
 							$('textarea#Q-area').attr('placeholder',
 									'Ask your own question here...');
 							var flag = true;
-							setTimeout(function() {
+							var questionData = $('#Q-area').val();
+							if (questionData == '') {
+								if (flag == true) {
+									$('#Q-area').css('padding', '4px 6px');
+									$('#Q-area').css('margin','1px 0 -5px 14px');
+									$('a#post-question').css('visibility',
+											'hidden');
+									$('.ask-outer').css('height', '0px');
+									$('textarea#Q-area').val('');
+									$('#pollArea').slideUp(700);
+								}
+							}
+							
+							
+							/*setTimeout(function() {
 								if (flag == true) {
 									$('#Q-area').css('padding', '4px 6px');
 									$('#Q-area').css('margin',
@@ -313,7 +327,7 @@ events : {
 									$('textarea#Q-area').val('');
 									$('#pollArea').slideUp(700);
 								}
-							}, 1000);
+							}, 1000);*/
 
 							$("ul#pollArea").on(
 									"click",
@@ -771,7 +785,9 @@ $.ajax({
 						 * function for post questions
 						 */
 						postQuestion : function(eventName) {
-
+							
+						
+							
 							// upload file
 							var self = this;
 							var streamId = $('.sortable li.active').attr('id');
@@ -1004,8 +1020,15 @@ $
 							 /* setTimeout(function() {
 							  $("#discussions-link").click(); }, 125)*/
 							 
-
-					$("#discussions-link").click();
+							$('#Q-area').css('padding', '4px 6px');
+							$('#Q-area').css('margin','1px 0 -5px 14px');
+							$('a#post-question').css('visibility',
+									'hidden');
+							$('.ask-outer').css('height', '0px');
+							$('textarea#Q-area').val('');
+							$('#pollArea').slideUp(700);
+							$("#discussions-link").click();
+					
 
 						},
 
