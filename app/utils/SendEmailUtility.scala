@@ -47,7 +47,13 @@ object SendEmailUtility extends EmailUtility {
         "Password: " + password + "<br>" +
         "<br>" + "<br>" + "<br>" +
         "Rock College," + "<br>" +
+<<<<<<< HEAD
         "The Happiness Team @ ClassWall" + "<br>"
+=======
+        "The Happiness Team @ ClassWall" + "<br>" +
+        "Cheers," + "<br>" +
+        "The team @ ClassWall" + "<br>"
+>>>>>>> 040fefae06abb47d148c0de49297fae3f8cae0de
 
     sendMessage(emailId, subject, content)
   }
@@ -98,7 +104,13 @@ object SendEmailUtility extends EmailUtility {
         firstNameOfJoiner + " " + lastNameOfJoiner + " has Joined the " + streamName + " Stream" +
         "<br>" + "<br>" +
         "Rock College," + "<br>" +
+<<<<<<< HEAD
         "The Happiness Team @ ClassWall" + "<br>"
+=======
+        "The Happiness Team @ ClassWall" + "<br>" +
+        "Cheers," + "<br>" +
+        "The team @ ClassWall" + "<br>"
+>>>>>>> 040fefae06abb47d148c0de49297fae3f8cae0de
 
     sendMessage(emailId, subject, content)
   }
@@ -115,7 +127,13 @@ object SendEmailUtility extends EmailUtility {
         "Join & be ready to get your collaboration on. " + "<a href ='" + Play.current.configuration.getString("server").get + "/classwall/index.html#emailVerification'>REGISTER HERE</a>" +
         "<br>" + "<br>" +
         "Rock College," + "<br>" +
+<<<<<<< HEAD
         "The Happiness Team @ ClassWall" + "<br>"
+=======
+        "The Happiness Team @ ClassWall" + "<br>" +
+        "Cheers," + "<br>" +
+        "The team @ ClassWall" + "<br>"
+>>>>>>> 040fefae06abb47d148c0de49297fae3f8cae0de
 
     sendMessage(emailId, "Invitation to join Classwall", content)
   }

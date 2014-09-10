@@ -3749,21 +3749,33 @@ sans-serif;
 padding-right: 88px
 }
 
+
+
+
 #msg-area::-webkit-input-placeholder {
-	font-size: 97%;
+	font-size: 90%;
+	padding: 0px;
 }
 
 #msg-area:-moz-placeholder { /* Firefox 18- */
-	font-size: 97%;
+	font-size: 90%;
+	padding: 0px;
 }
 
 #msg-area::-moz-placeholder {  /* Firefox 19+ */
-	font-size: 97%;
+	font-size: 90%;
+	padding: 0px;
 }
+
 
 #msg-area:-ms-input-placeholder {  
 	font-size: 97%;
 }
+
+
+
+
+
 
 #msg-area {
 	-webkit-transition: all 100ms;
@@ -3781,35 +3793,21 @@ padding-right: 88px
 	min-height: 23px;
 	font-family: 'Roboto', sans-serif;
 	margin: -1px 0 -5px 14px;
-	padding-top: 5px;
-	
-	/* &:focus {
-		padding: 7.5% 18% 6% 2%;
-		margin: 0 0 24px 22px;
-		
-			& + a.ask-button {
-				font-size:123%;
-				color: #fff;
-				width: 63px;
-				max-width: 90%;
-				min-width: 25px;
-				height: 30px;
-				-webkit-border-radius: 5px;
-				-moz-border-radius: 5px;
-				border-radius: 5px;
-				background-color: #5199e1;
-				line-height:30px;
-				text-align: center;
-				cursor:pointer;
-				margin-top: 7px;
-				position:absolute;
-				right: 20px;
-				display: block;
-				visibility: visible;
-			}	
-		
-	} */
+	padding: 5px 6px 4px 6px;
 }
+
+
+
+@-moz-document url-prefix() { 
+  #msg-area {
+     padding: 3px 6px 5px 5px;
+	 margin: -1px 0px -5px 14px;
+	 height: 30px;
+   }
+  
+}
+
+
 
 #Q-area {
 	-webkit-transition: all 100ms;
@@ -7231,9 +7229,9 @@ overflow: hidden;
 
 .attach-drop-button {
 overflow:hidden;
-
 position:relative;
 }
+
 #upload-files2.attach-drop-bg{
 background-position: -132px -1024px;
 display: block;
@@ -7246,7 +7244,11 @@ top: 4;
 left: -3;
 }
 
-
+@-moz-document url-prefix() { 
+ #upload-files2.attach-drop-bg {
+  margin-top : -27px ;
+  }
+ }
 
 #type-status-comment {
 	display: inline-block;
