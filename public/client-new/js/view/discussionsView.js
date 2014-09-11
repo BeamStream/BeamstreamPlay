@@ -336,7 +336,9 @@ define(
 
 						showPostButton : function() {
 							var askOuterHeight = $('#discussionsView .ask-outer').height();
+							console.log(askOuterHeight)
 							if (askOuterHeight == '0'){
+								console.log("111")
 								$('#discussionsView .ask-outer').height(
 										function(index, height) {
 											return (height + 70);
@@ -761,8 +763,13 @@ define(
 
 							if ($('div.selector').is(':visible')) {
 
-								if (!link)
+								if (!link){
 									$('div.selector').remove();
+									$('#discussionsView .ask-outer').height(
+											function(index, height) {
+												return (70);
+											});
+								}
 							}
 
 							if (eventName.which == 8 || eventName.which == 46) {
@@ -779,6 +786,10 @@ define(
 												.remove();
 										$('div.selector').remove();
 										$('.preview_input').remove();
+										$('#discussionsView .ask-outer').height(
+												function(index, height) {
+													return (70);
+												});
 									}
 								} else {
 									$('div.selector').attr('display', 'none');
@@ -789,6 +800,11 @@ define(
 											.remove();
 									$('div.selector').remove();
 									$('.preview_input').remove();
+									
+									$('#discussionsView .ask-outer').height(
+											function(index, height) {
+												return (70);
+											});
 
 								}
 
