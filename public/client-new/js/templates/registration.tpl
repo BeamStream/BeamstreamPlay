@@ -231,8 +231,8 @@
 			<div id="selectUploadPhoto"  class="modal hide fade registration-modal white-modal-block in bootbox modal fade in" role="dialog" aria-labelledby="myModalLabel" tabindex="-1" style="overflow:hidden;" aria-hidden="false">				
 				<div class="modal-body">You don't want to add your stunning profile pic?</div>
 							<div class="modal-footer">
-								<a id="continue" class=" invite-green-btn class-modal-btn startBeam-btn btn btn googledocclose" href="#">Skip, CONTINUE </a>
-								<a id="addPhoto" class="invite-green-btn class-modal-btn modal-button btn btn googledocclose" href="#">Yes, upload photo</a> 
+								<a id="continue" class=" invite-green-btn class-modal-btn startBeam-btn btn btn googledocclose" href="#">Skip</a>
+								<a id="addPhoto" class="invite-green-btn class-modal-btn modal-button btn btn googledocclose" href="#">Upload Photo</a> 
 							</div>
 						</div>
            <ul class="profile-top-menu profile-white register-top-white photo-project">

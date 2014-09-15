@@ -241,7 +241,7 @@ background-clip:padding-box;
   border: 10px solid rgba(110, 201, 227, .6);
   -webkit-background-clip: padding-box; /* for Safari */
   background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
-  position:absolute; top:50%; 
+  position:absolute; 
   left:50%; 
   margin-left:-200px;   /* negative half of width above */ 
   margin-top:-200px;   /* negative half of height above */
@@ -250,14 +250,6 @@ background-clip:padding-box;
 .bootbox.modal.fade.in, #selectUploadPhoto {
 	.CWpopup;
 }
-
-div#selectUploadPhoto {
-	border: 10px solid rgba(110, 201, 227, 0.9);
-}
-
-#selectUploadPhoto .modal-body .modal-footer {
-	margin: -12px 0px 18px -79px;
-} 
 
 pre {
 border:1px solid #ccc;
@@ -1721,8 +1713,6 @@ border-radius:0 0 6px 6px;
 box-shadow:inset 0 1px 0 #fff;
 *zoom:1;
 width: 339px;
-margin: 14% 0% 0% -45%;
-padding: 15px 0px 0px 4px;
 width: 345px;
 margin: 21% 0% 0% -45%;
 padding: 28px 0px 0px 4px;
@@ -1733,30 +1723,59 @@ padding: 28px 0px 0px 4px;
 }
 
 .modal-footer a:nth-child(1) {
-	margin-left: 7px;
-	padding: 0% 14% 0% 14%;
+	margin-left: 6px;
+	padding: 0% 22% 0% 14%;
 }
 
 .modal-footer a:nth-child(2) {
-	padding: 0% 16% 0% 12%;
+	padding: 0% 24% 0% 12%;
 	margin-left: 28px;
 }
 
 #continue, #addMoreClass {
-	margin-left: 8px;
-	padding: 0px 10px 0px 19px;
-	width: 124px !important;
+	margin-left: 12px;
+	padding: 0px 10px 0px 12px;
+	width: 126px !important;
 	font-size: 80% !important;
 	font-weight: 400;
 	background-color: #EFF1F0;
 	border: solid 1px #BBBBBB;
 	color: #BBBBBB;
 	height: 39px;
+	line-height: 41px;
 }
 
 #detele-streamId, #selectNextStep .modal-footer {
 	margin-top: 22px;
 }
+
+#deleteStream  .modal-footer{
+	margin-top: 37px;
+}
+
+#deleteStream  .modal-body{
+	width: 332px;
+	margin-left: -85px;
+}
+
+.modal-footer #Ok {
+	padding-left: 17%;
+	padding-right: 20%;
+}
+
+.modal-footer #cancel {
+	padding-left: 17%;
+	padding-right: 20%;
+	margin-left: 13px;
+}
+
+#selectUploadPhoto {
+	border: 10px solid rgba(110, 201, 227, 0.9);
+}
+
+#selectUploadPhoto .modal-footer {
+	margin: 15px 0px 0px -84px;
+} 
 
 #continue:hover {
 	border: 1px solid #6a7176;
@@ -1765,7 +1784,7 @@ padding: 28px 0px 0px 4px;
 #addPhoto {
 	margin: 0px 58px 0px 8px;
 	padding: 0px 18px 0px 23px;
-	width: 112px !important;
+	width: 110px !important;
 	font-size: 80% !important;
 	font-weight: 400;
 }
@@ -1778,19 +1797,6 @@ padding: 28px 0px 0px 4px;
 #selectUploadPhoto #continue:hover {
 color: #fff;
 font-weight: 400;
-}
-
-#addMoreClass {
-	padding: 0% 4% 0% 4%;
-}
-
-#startBeam {
-	padding: 0% 4% 0% 4%;
-}
-
-.modal-body {
-	margin: -25% 0% 0% -40%;
-	width: 170%;
 }
 
 #selectNextStep .modal-body {
@@ -1798,39 +1804,14 @@ margin: -42% 0% -3% -40%;
 line-height: 26px;
 }
 
-#selectNextStep, #deleteStreamView #deleteStream {
+#deleteStreamView #deleteStream {
 border: 10px solid rgba(110, 201, 227, 0.9);
 	margin-left: 7px;
 	padding: 0% 14% 0% 14%;
 }
 
-.modal-footer a:nth-child(2) {
-	padding: 0% 16% 0% 12%;
-	margin-left: 28px;
-}
-
-#continue, #addMoreClass {
-	margin-left: 8px;
-	padding: 0px 10px 0px 19px;
-	width: 124px !important;
-	font-size: 80% !important;
-	font-weight: 400;
-	background-color: #EFF1F0;
-	border: solid 1px #BBBBBB;
-	color: #BBBBBB;
-	height: 39px;
-}
-
 #continue:hover {
 	border: 1px solid #6a7176;
-}
-
-#addPhoto {
-	margin: 0px 58px 0px 8px;
-	padding: 0px 18px 0px 23px;
-	width: 112px !important;
-	font-size: 80% !important;
-	font-weight: 400;
 }
 
 #addPhoto:hover, #continue:hover, #addMoreClass:hover, .modal-footer a:hover:nth-child(1), .modal-footer a:hover:nth-child(2) {
@@ -1848,7 +1829,13 @@ font-weight: 400;
 }
 
 #startBeam {
-	padding: 0% 4% 0% 4%;
+	padding: 0% 4% 0% 5%;
+	width: 123px !important;
+	margin-left: 17px;
+}
+
+.modal-footer #addMoreClass {
+	margin-left: 9px;
 }
 
 .modal-body {
@@ -10535,7 +10522,6 @@ display:block
 	color: #fff;
 	display: block;
 	height: 50px;
-	line-height: 42px;
 	float: left;
 	font-weight: 400;
     font-size: 93%;
