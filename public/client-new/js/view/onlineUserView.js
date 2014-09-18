@@ -117,7 +117,7 @@ define(
 																			+ '">'
 																			+ '<span>'
 																			+ model.firstName
-																			+ '</span> <span class="offline-chat">';
+																			+ '</span> <span class="online-chat">Online</span>';
 
 																	$(
 																			'#user-online ul')
