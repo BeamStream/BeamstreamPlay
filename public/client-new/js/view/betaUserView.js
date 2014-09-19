@@ -133,7 +133,7 @@ define(
 
 							else if (seletedMedia == 'twitter') {
 								bootbox.dialog(
-												"Get on the 1st user's beta list for @MyClassWall: a #social #learning network built for #highered. #edtech #edchat http://bstre.am/k7lXGw",
+												"Get on the 1st user's beta list for @MyClassWall: A #social #learning network built for #highered. #edtech #edchat http://bstre.am/k7lXGw",
 												[ {
 													"label" : "Share",
 													"class" : "btn-primary",
@@ -230,7 +230,7 @@ define(
 
 							else if (seletedMedia == 'twitter') {
 								bootbox.dialog(
-												"Get on the 1st user's beta list for @MyClassWall: a #social #learning network built for #highered. #edtech #edchat http://bstre.am/k7lXGw",
+												"Get on the 1st user's beta list for @MyClassWall: A #social #learning network built for #highered. #edtech #edchat http://bstre.am/k7lXGw",
 												[ {
 													"label" : "Share",
 													"class" : "btn-primary",
