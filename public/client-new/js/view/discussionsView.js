@@ -638,7 +638,6 @@ define(
 																});
 														$('#messageListView div.content').prepend(messageItemView.render().el);
 														$('.loadingImage').css('display','none');
-
 														/* share widget */
 														if (self.selected_medias.length != 0) {
 															_

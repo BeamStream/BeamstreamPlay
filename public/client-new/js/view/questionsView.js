@@ -750,7 +750,7 @@ $.ajax({
 						uploadFiles : function(eventName) {
 
 							eventName.preventDefault();
-							$('#upload-files-area').click();
+							$('#Q-files-area').click();
 
 						},
 
@@ -759,12 +759,111 @@ $.ajax({
 						 */
 						getUploadedData : function(e) {
 
+
+							$('a.ask-button').css('visibility', 'hidden');
 							var self = this;
+							file = e.target.files[0];
+							var reader = new FileReader();
+							/*
+							 * var fileSize = Math.round(file.size/500);
+							 * if(fileSize < 500){ fileSize = 500; }
+							 */
+
+							/* capture the file informations */
+							reader.onload = (function(f) {
+								self.file = file;
+								// self.bar = $('.bar'); // progress bar
+								// self.bar.width('');
+								// self.bar.text("");
+								clearInterval(self.progress);
+								$('.fileUploadMsg').css('visibility', 'visible');
+								$('.fileUploadMsg').css('display', 'block');
+								$('div#questionFileUploadingImage #floatingCirclesG').css('visibility', 'visible');
+								$('div#questionFileUploadingImage #floatingCirclesG').css('display', 'block');
+								$('#Q-file-name').html(f.name);
+								$('#Q-file-area').show();
+								// $('.progress-container').show();
+								//$('.ask-outer').css('height', '0px');
+								$('.ask-outer').height(function(index, height) {
+									return (height + 70);
+								});
+								$("ul#Q-file-area").css('height','70px');
+							})(file);
+
+							// read the file as data URL
+							reader.readAsDataURL(file);
+							
+							/* updating progress bar */
+							/*
+							 * this.progress = setInterval(function() {
+							 * 
+							 * var self = this.bar;
+							 * 
+							 * this.bar = $('.bar'); var self = this.bar; if
+							 * (this.bar.width() >= 195) {
+							 * clearInterval(this.progress); } else {
+							 * this.bar.width(this.bar.width() + 10); }
+							 * this.bar.text(this.bar.width() / 2 + "%");
+							 *  }, fileSize);
+							 */
+							
+							var message = $('#msg-area').val();
+							var msgAccess = $('#private-to').attr('checked');
+							var privateTo = $('#select-privateTo')
+									.attr('value');
+							if (msgAccess == "checked") {
+								messageAccess = privateTo;
+							} else {
+								messageAccess = "Public";
+							}
+							var streamId = $('.sortable li.active').attr('id');
+							
+							var data;
+							data = new FormData();
+							data.append('docDescription', question);
+							data.append('docAccess', messageAccess);
+							data.append('docData', self.file);
+							data.append('streamId', streamId);
+							data.append('uploadedFrom', "question");
+
+							/* post profile page details */
+							$
+									.ajax({
+										type : 'POST',
+										data : data,
+										url : "/uploadDocumentFromDisk",
+										cache : false,
+										contentType : false,
+										processData : false,
+										dataType : "json",
+										success : function(data) {
+											$('.fileUploadMsg').css('visibility', 'hidden');
+											$('.fileUploadMsg').css('display', 'none');
+											$('div#questionFileUploadingImage #floatingCirclesG').css('visibility', 'hidden');
+											$('div#questionFileUploadingImage #floatingCirclesG').css('display', 'none');
+											self.docurlAmazon = data[0];
+											$('a.ask-button').css('top', '40');
+											$('a.ask-button').css('visibility', 'visible');
+										}
+									});
+
+							
+
+						
+							
+							
+							
+							
+							
+							
+							//;;;;;;;;;;;;;;;;;
+							
+						/*	var self = this;
 							;
 							file = e.target.files[0];
 							var reader = new FileReader();
 
-							/* capture the file informations */
+							 capture the file informations 
 							reader.onload = (function(f) {
 								self.file = file;
 								self.bar = $('.bar'); // progress bar
@@ -777,7 +876,7 @@ $.ajax({
 							})(file);
 
 							// read the file as data URL
-							reader.readAsDataURL(file);
+							reader.readAsDataURL(file);*/
 
 						},
 
@@ -786,7 +885,12 @@ $.ajax({
 						 */
 						postQuestion : function(eventName) {
 							
-						
+							$('#msg-area').css('margin','-1px 0 -5px 14px');
+							$('#msg-area').css('padding','5px 6px 4px 6px');
+							$('.ask-outer').css('height', '0px');
+							$('a.ask-button').css('visibility', 'hidden');
+							$('div.loadingImage').css('display','block');
+							$('#Q-file-area').hide();
 							
 							// upload file
 							var self = this;
@@ -814,10 +918,10 @@ $.ajax({
 
 								/* if there is any files for uploading */
 								if (this.file) {
+									
+								/*	$('.progress-container').show();
 
-									$('.progress-container').show();
-
-									/* updating progress bar */
+									 updating progress bar 
 									this.progress = setInterval(
 											function() {
 
@@ -831,22 +935,23 @@ $.ajax({
 												this.bar.text(this.bar.width()
 														/ 2 + "%");
 
-											}, 800);
+											}, 800);*/
 
 									var data;
 									data = new FormData();
 									data.append('docDescription', question);
 									data.append('docAccess', questionAccess);
 									data.append('docData', self.file);
-data.append('streamId', streamId);
-data.append('uploadedFrom', "question");
+									data.append('streamId', streamId);
+									data.append('uploadedFrom', "question");
+									data.append('docURL', self.docurlAmazon);
 
-/* post profile page details */
-$
-.ajax({
+									/* post profile page details */
+									$
+									.ajax({
 												type : 'POST',
 												data : data,
-												url : "/uploadDocumentFromDisk",
+												url : "/postDocumentFromDisk",
 												cache : false,
 												contentType : false,
 												processData : false,
@@ -854,12 +959,6 @@ $
 												success : function(data) {
 
 													// set progress bar as 100 %
-													self.bar = $('.bar');
-
-													self.bar.width(200);
-													self.bar.text("100%");
-													clearInterval(self.progress);
-
 													$('#Q-area').val("");
 													$('#uploded-file').hide();
 
@@ -868,7 +967,7 @@ $
 													$('#file-upload-loader')
 															.css("display",
 																	"none");
-
+													
 													var datVal = formatDateVal(data.question.timeCreated);
 
 													var datas = {
@@ -876,27 +975,26 @@ $
 														"datVal" : datVal
 													}
 
-													$('.progress-container')
-															.hide();
-													$('#Q-file-area').hide();
-
-// set the response data to
-// model
-self.data.models[0]
-.set({
+													// set the response data to
+													// 	model
+													self.data.models[0]
+													.set({
 																question : data.question,
 																docName : data.docName,
 																docDescription : data.docDescription,
 																profilePic : data.profilePic
 															})
 
-													// /* Pubnub auto push */
-													// PUBNUB.publish({
-													// channel : "stream",
-													// message : { pagePushUid:
-													// self.pagePushUid
-													// ,streamId:streamId,data:self.data.models[0]}
-													// })
+													 /* Pubnub auto push */
+															
+													 PUBNUB.publish({
+													 channel : "stream",
+													 message : {
+														 pagePushUid: self.pagePushUid,
+														 streamId:streamId,
+														 data:self.data.models[0]}
+													 })
+															
 
 													var questionItemView = new QuestionItemView(
 															{
@@ -909,7 +1007,7 @@ self.data.models[0]
 																			.render().el);
 													// $('#questionStreamView
 													// div.baseview').prepend(questionItemView.render().el);
-
+													$('.loadingImage').css('display','none');
 													self.file = "";
 
 													self.selected_medias = [];
@@ -917,6 +1015,13 @@ self.data.models[0]
 															'#share-discussions li.active')
 															.removeClass(
 																	'active');
+													
+													$('a.ask-button').css(
+															'visibility',
+															'hidden');
+													$('.ask-outer')
+															.css('height',
+																	'0px');
 
 												}
 											});
@@ -1139,6 +1244,7 @@ message : {
 																.prepend(
 																		questionItemView
 																				.render().el);
+														$('.loadingImage').css('display','none');
 														// $('#questionStreamView
 														// div.baseview').prepend(questionItemView.render().el);
 
@@ -1236,6 +1342,7 @@ this.data.models[0]
 																	.prepend(
 																			questionItemView
 																					.render().el);
+															$('.loadingImage').css('display','none');
 
 															$('div.selector')
 																	.attr(

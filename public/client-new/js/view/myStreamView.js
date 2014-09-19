@@ -916,7 +916,7 @@ define(
 							/*
 							 * eventName.preventDefault(); this.options = 2;
 							 */
-							$('button#upload-files2').css('visibility','hidden');
+						//	$('button#upload-files2').css('visibility','hidden');
 							$('#pollArea').hide();
 							$('.question-button').text("ASK");
 							$('.add-poll').hide();
