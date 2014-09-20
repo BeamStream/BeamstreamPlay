@@ -1,0 +1,190 @@
+@import "/beamstream-new/css/bootstrap.original.2.3.2.css";
+@import "/beamstream-new/font-awesome/css/font-awesome.min.css";
+
+.professor-registration {
+  padding: 10px;
+  font-size: 14px;
+  h5 {
+    color: #CE9222;
+  }
+  // input style defined because bootstrap has been overwritten
+  input {
+    margin: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: solid 1px #cdd4db;
+    background: #fff;
+    height: 38px;
+    padding: 5px;
+    color: #425e71;
+    font-size: 14px;
+    font-weight: 400;
+  }
+}
+
+.class-info {
+  .time-row {
+    .time-input {
+      .days-of-week {
+        height: 40px;
+      }
+      input {
+        margin: 10px 0px;
+      }
+      select {
+        margin: 15px 5px;
+      }
+    }
+  }
+}
+
+.name-class-code {
+  .stream-name {
+    width: 65%;
+  }
+  .class-code {
+    width: 31%;
+  }
+}
+
+.class-contact {
+  float: left;
+  width: 70%;
+  color: red;
+  padding-right:20px;
+  border-right: 1px solid #ccc;
+}
+
+.contact-info {
+  padding-top: 20px;
+  clear: both;
+}
+
+.class-access {
+  margin-left: 30px;
+  vertical-align: top;
+  float: left;
+  .invite {
+    background: #808080;
+    width: 100%;
+  }
+}
+
+
+//  SYLLABUS SECTION
+
+.syllabus-info {
+  padding-top: 20px;
+  clear: both;
+  width: 100%;
+  .syllabus-header {
+    // this bar will change depending on completion of syllabus
+    .syllabusProgressBar{
+      width: 30%;
+    }
+  }
+}
+
+.accordion-group {
+  background: #EDF0F1;
+  .completed {
+    color: green;
+    float: right;
+    display: none;
+  }
+  i {
+    margin: 5px;
+  }
+}
+
+.accordion-inner {
+  height: 200px;
+  .class-intro-textarea { 
+    position: relative;
+    top: 0px;
+    right: 20px;
+    bottom: 0px;
+    left: 20px;
+    width: 90%;
+    height: 90%;
+    resize: none; 
+  }
+  .attendance-makeup-work {
+    position: relative;
+    top: 0px;
+    right: 20px;
+    bottom: 0px;
+    left: 20px;
+    width: 90%;
+    height: 90%;
+    resize: none; 
+  }
+  .icons {
+    float: right;
+  }
+  .add-graded-for {
+    position: relative;
+    bottom: 0;
+    .gradedfor {
+      width: 85%;
+    }
+  }
+}
+
+// Grades Determined
+.grades {
+  height: auto;
+  min-height: 45px;
+  overflow: auto;
+  .grade-criteria {
+    height: 62;
+    line-height: 4;
+    background: #FAFAFB;
+    border: 1px black dashed;
+    padding: 5px;
+    padding-left: 15px;
+    margin-bottom: 5px;
+    .amount {
+      float: right;
+      padding-right: 50px;
+      .percentage-display {
+        width: 48px;
+      }
+    }
+  }
+  .grade-edit {
+    width: 300px;
+  }
+}
+
+// Study Resources
+.study-resources-links {
+  height: auto;
+  input.resource-title {
+    width: 35%;
+  }
+  .resource {
+    border: 1px black dashed;
+    padding: 20px;
+    background: #FAFAFB;
+    .closeResourcePreview {
+      float: right;
+    }
+  }
+}
+
+.test-quizzes-deadlines {
+  height: auto;
+  input.resource-title {
+    width: 35%;
+  }
+  .resource {
+    border: 1px black dashed;
+    padding: 20px;
+    background: #FAFAFB;
+    .closeResourcePreview {
+      float: right;
+    }
+  }
+}
