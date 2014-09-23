@@ -26,6 +26,7 @@ import models.Token
 import play.api.Play
 import play.api.mvc.AnyContent
 import play.api.mvc.DiscardingCookie
+import com.beamstream.exifRotate.ExifRotate
 
 object MediaController extends Controller {
 
@@ -202,7 +203,7 @@ object MediaController extends Controller {
       val contentType = profileData.contentType.get
       val uniqueString = TokenEmailUtil.securityToken
       val FileObtained: File = profileData.ref.file.asInstanceOf[File]
-      //ExifRotate.correctImageRotation(FileObtained)
+      ExifRotate.correctImageRotation(FileObtained)
       val fileNameOnAmazon = uniqueString + Filename.replaceAll("\\s", "") // Security Over the images files
       (new AmazonUpload).uploadFileToAmazon(fileNameOnAmazon, FileObtained)
       (contentType.contains("image")) match {
