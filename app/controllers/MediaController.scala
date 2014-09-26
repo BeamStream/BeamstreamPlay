@@ -203,23 +203,41 @@ object MediaController extends Controller {
       val contentType = profileData.contentType.get
       val uniqueString = TokenEmailUtil.securityToken
       val FileObtained: File = profileData.ref.file.asInstanceOf[File]
-      ExifRotate.correctImageRotation(FileObtained)
-      val fileNameOnAmazon = uniqueString + Filename.replaceAll("\\s", "") // Security Over the images files
-      (new AmazonUpload).uploadFileToAmazon(fileNameOnAmazon, FileObtained)
-      (contentType.contains("image")) match {
-        case true =>
-          val imageURL = "https://s3.amazonaws.com/BeamStream/" + fileNameOnAmazon
+      try {
+        ExifRotate.correctImageRotation(FileObtained)
+        val fileNameOnAmazon = uniqueString + Filename.replaceAll("\\s", "") // Security Over the images files
+        (new AmazonUpload).uploadFileToAmazon(fileNameOnAmazon, FileObtained)
+        (contentType.contains("image")) match {
+          case true =>
+            val imageURL = "https://s3.amazonaws.com/BeamStream/" + fileNameOnAmazon
 
-          UserMedia(new ObjectId, Filename, "", new ObjectId(request.session.get("userId").get), new Date, imageURL, UserMediaType.Image, Access.Public, true, None, "", 0, Nil, Nil, 0)
+            UserMedia(new ObjectId, Filename, "", new ObjectId(request.session.get("userId").get), new Date, imageURL, UserMediaType.Image, Access.Public, true, None, "", 0, Nil, Nil, 0)
 
-        case false =>
-          val videoURL = "https://s3.amazonaws.com/BeamStream/" + fileNameOnAmazon
-          val frameOfVideo = ExtractFrameFromVideoUtil.extractFrameFromVideo(videoURL)
-          (new AmazonUpload).uploadCompressedFileToAmazon(fileNameOnAmazon + "Frame", frameOfVideo)
-          val frameURL = "https://s3.amazonaws.com/BeamStream/" + fileNameOnAmazon + "Frame"
-          UserMedia(new ObjectId, Filename, "", new ObjectId(request.session.get("userId").get), new Date, videoURL, UserMediaType.Image, Access.Public, true, None, frameURL, 0, Nil, Nil, 0)
+          case false =>
+            val videoURL = "https://s3.amazonaws.com/BeamStream/" + fileNameOnAmazon
+            val frameOfVideo = ExtractFrameFromVideoUtil.extractFrameFromVideo(videoURL)
+            (new AmazonUpload).uploadCompressedFileToAmazon(fileNameOnAmazon + "Frame", frameOfVideo)
+            val frameURL = "https://s3.amazonaws.com/BeamStream/" + fileNameOnAmazon + "Frame"
+            UserMedia(new ObjectId, Filename, "", new ObjectId(request.session.get("userId").get), new Date, videoURL, UserMediaType.Image, Access.Public, true, None, frameURL, 0, Nil, Nil, 0)
+        }
+      } catch {
+        case ex: Exception =>
+          val fileNameOnAmazon = uniqueString + Filename.replaceAll("\\s", "") // Security Over the images files
+          (new AmazonUpload).uploadFileToAmazon(fileNameOnAmazon, FileObtained)
+          (contentType.contains("image")) match {
+            case true =>
+              val imageURL = "https://s3.amazonaws.com/BeamStream/" + fileNameOnAmazon
+
+              UserMedia(new ObjectId, Filename, "", new ObjectId(request.session.get("userId").get), new Date, imageURL, UserMediaType.Image, Access.Public, true, None, "", 0, Nil, Nil, 0)
+
+            case false =>
+              val videoURL = "https://s3.amazonaws.com/BeamStream/" + fileNameOnAmazon
+              val frameOfVideo = ExtractFrameFromVideoUtil.extractFrameFromVideo(videoURL)
+              (new AmazonUpload).uploadCompressedFileToAmazon(fileNameOnAmazon + "Frame", frameOfVideo)
+              val frameURL = "https://s3.amazonaws.com/BeamStream/" + fileNameOnAmazon + "Frame"
+              UserMedia(new ObjectId, Filename, "", new ObjectId(request.session.get("userId").get), new Date, videoURL, UserMediaType.Image, Access.Public, true, None, frameURL, 0, Nil, Nil, 0)
+          }
       }
-
     }.get
 
     UserMedia.saveMediaForUser(media)
