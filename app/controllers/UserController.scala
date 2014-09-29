@@ -279,8 +279,12 @@ object UserController extends Controller {
               case false =>
                 (profilePic(0).mediaUrl) match {
                   case "" =>
-                    Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, None, Option(hasClasses), server))).as("application/json").withSession(userSession).withCookies(Cookie("Beamstream", user.id.toString() + " stream", Option(864000000)))
-                  case _ => Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, Option(profilePic.head.mediaUrl), Option(hasClasses), server))).as("application/json").withSession(userSession).withCookies(Cookie("Beamstream", user.id.toString() + " stream", Option(864000000)))
+                    Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, None,
+                      Option(hasClasses), server))).as("application/json").withSession(userSession)
+                      .withCookies(Cookie("Beamstream", user.id.toString() + " stream", Option(864000000)))
+                  case _ => Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser,
+                    Option(profilePic.head.mediaUrl), Option(hasClasses), server))).as("application/json")
+                    .withSession(userSession).withCookies(Cookie("Beamstream", user.id.toString() + " stream", Option(864000000)))
                 }
 
             }
