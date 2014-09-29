@@ -42,8 +42,10 @@ object BasicRegistration extends Controller {
             val userId = cookie.value.split(" ")(0)
             val userFound = User.getUserProfile(new ObjectId(userId))
             cookie.value.split(" ")(1) match {
-              case "class" => Redirect("/class").withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
-              case "stream" => Redirect("/stream").withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " stream", Option(864000)))
+              case "class" => Redirect("/class").withSession("userId" -> userId)
+                .withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
+              case "stream" => Redirect("/stream").withSession("userId" -> userId)
+                .withCookies(Cookie("Beamstream", userId.toString() + " stream", Option(864000)))
               case "registration" =>
                 val tokenFound = Token.findTokenByUserId(userId)
                 userFound match {
@@ -54,8 +56,10 @@ object BasicRegistration extends Controller {
                       case _ =>
                         val userMedia = UserMedia.findUserMediaByUserId(new ObjectId(userId))
                         userMedia.isEmpty match {
-                          case true => Redirect(server + "/registration?userId=" + userId + "&token=" + tokenFound(0).tokenString).withSession("token" -> tokenFound(0).tokenString).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
-                          case false => Redirect("/class").withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
+                          case true => Redirect(server + "/registration?userId=" + userId + "&token=" + tokenFound(0).tokenString).withSession("token" -> tokenFound(0).tokenString)
+                            .withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
+                          case false => Redirect("/class").withSession("userId" -> userId)
+                            .withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
                         }
                     }
                   case None => Redirect("/login").withNewSession.discardingCookies(DiscardingCookie("Beamstream"))
@@ -99,7 +103,8 @@ object BasicRegistration extends Controller {
           case _ =>
             (encryptedPassword == encryptedConfirmPassword) match {
               case true =>
-                val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, "", "", "", Option(encryptedPassword), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
+                val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, "", "", "",
+                  Option(encryptedPassword), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
                 val IdOfUserCreted = User.createUser(userToCreate)
                 val createdUser = User.getUserProfile(IdOfUserCreted.get)
                 UtilityActor.sendMailAfterUserSignsUp(IdOfUserCreted.get.toString, TokenEmailUtil.securityToken, emailId)
