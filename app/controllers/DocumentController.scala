@@ -93,12 +93,16 @@ object DocumentController extends Controller {
         val description = data("description").toList.head
         val post = data("postToFileMedia").toList.head.toBoolean
         val streamId = data("streamId").toList.head
-        val documentToCreate = new Document(new ObjectId, docName, description, docUrl, DocType.GoogleDocs, new ObjectId(userId), Access.PrivateToClass, new ObjectId(streamId), new Date, new Date, 0, Nil, Nil, Nil, "", 0, post, fileId)
+        val documentToCreate = new Document(new ObjectId, docName, description, docUrl,
+          DocType.GoogleDocs, new ObjectId(userId), Access.PrivateToClass, new ObjectId(streamId), new Date, new Date, 0,
+          Nil, Nil, Nil, "", 0, post, fileId)
         val docId = Document.addDocument(documentToCreate)
         val user = User.getUserProfile(new ObjectId(userId))
 
         //Create A Message As Well To Display The Doc Creation In Stream
-        val message = Message(new ObjectId, docUrl, Option(Type.Document), Option(Access.PrivateToClass), new Date, new ObjectId(userId), Option(new ObjectId(streamId)), user.get.firstName, user.get.lastName, 0, Nil, Nil, 0, Nil, "", Option(docId), docName)
+        val message = Message(new ObjectId, docUrl, Option(Type.Document), Option(Access.PrivateToClass),
+          new Date, new ObjectId(userId), Option(new ObjectId(streamId)), user.get.firstName, user.get.lastName, 0, Nil, Nil,
+          0, Nil, "", Option(docId), docName)
         val messageId = Message.createMessage(message)
         val resultToSend = DocResulttoSent(Option(message), None, docName, description, false, false, None, None, None, List())
         //Making Google Doc Public to Class

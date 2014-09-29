@@ -87,7 +87,6 @@ object LinkedInAPIController extends Controller {
           getOAuthService.signRequest(accessToken, oAuthRequest)
           oAuthRequest.addHeader("Content-Type", "text/xml")
           val response: Response = oAuthRequest.send
-          println(response.getCode())
           response.getCode match {
             case SUCCESS =>
               val linkedinXML = scala.xml.XML.loadString(response.getBody)
