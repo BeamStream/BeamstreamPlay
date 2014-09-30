@@ -211,14 +211,16 @@ object MediaController extends Controller {
         case true =>
           val imageURL = "https://s3.amazonaws.com/BeamStream/" + fileNameOnAmazon
 
-          UserMedia(new ObjectId, Filename, "", new ObjectId(request.session.get("userId").get), new Date, imageURL, UserMediaType.Image, Access.Public, true, None, "", 0, Nil, Nil, 0)
+          UserMedia(new ObjectId, Filename, "", new ObjectId(request.session.get("userId").get), new Date, imageURL,
+            UserMediaType.Image, Access.Public, true, None, "", 0, Nil, Nil, 0)
 
         case false =>
           val videoURL = "https://s3.amazonaws.com/BeamStream/" + fileNameOnAmazon
           val frameOfVideo = ExtractFrameFromVideoUtil.extractFrameFromVideo(videoURL)
           (new AmazonUpload).uploadCompressedFileToAmazon(fileNameOnAmazon + "Frame", frameOfVideo)
           val frameURL = "https://s3.amazonaws.com/BeamStream/" + fileNameOnAmazon + "Frame"
-          UserMedia(new ObjectId, Filename, "", new ObjectId(request.session.get("userId").get), new Date, videoURL, UserMediaType.Image, Access.Public, true, None, frameURL, 0, Nil, Nil, 0)
+          UserMedia(new ObjectId, Filename, "", new ObjectId(request.session.get("userId").get), new Date, videoURL,
+            UserMediaType.Image, Access.Public, true, None, frameURL, 0, Nil, Nil, 0)
       }
     }.get
 
@@ -264,25 +266,31 @@ object MediaController extends Controller {
             val userId = cookie.value.split(" ")(0)
             val userFound = User.getUserProfile(new ObjectId(userId))
             cookie.value.split(" ")(1) match {
-              case "class" => Redirect("/class").withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
-              case "stream" => Redirect("/stream").withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " stream", Option(864000)))
+              case "class" => Redirect("/class").withSession("userId" -> userId)
+                .withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
+              case "stream" => Redirect("/stream").withSession("userId" -> userId)
+                .withCookies(Cookie("Beamstream", userId.toString() + " stream", Option(864000)))
               case "registration" =>
                 val tokenFound = Token.findTokenByUserId(userId)
                 userFound match {
                   case Some(user) =>
                     val server = Play.current.configuration.getString("server").get
                     user.firstName match {
-                      case "" => Redirect(server + "/registration?userId=" + userId + "&token=" + tokenFound(0).tokenString).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000))) //Ok(write(LoginResult(ResulttoSent("Success", tokenFound(0).tokenString), userFound, None, Option(false), server))).as("application/json").withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
+                      case "" => Redirect(server + "/registration?userId=" + userId + "&token=" + tokenFound(0).tokenString)
+                        .withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
                       case _ =>
                         val userMedia = UserMedia.findUserMediaByUserId(new ObjectId(userId))
                         userMedia.isEmpty match {
-                          case true => Redirect(server + "/registration?userId=" + userId + "&token=" + tokenFound(0).tokenString).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000))) //Ok(write(LoginResult(ResulttoSent("Success", tokenFound(0).tokenString), userFound, None, Option(false), server))).as("application/json").withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
-                          case false => Redirect("/class").withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
+                          case true => Redirect(server + "/registration?userId=" + userId + "&token=" + tokenFound(0).tokenString)
+                            .withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
+                          case false => Redirect("/class").withSession("userId" -> userId)
+                            .withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
                         }
                     }
                   case None => Redirect("/login").withNewSession.discardingCookies(DiscardingCookie("Beamstream"))
                 }
-              case _ => Redirect("/" + cookie.value.split(" ")(1)).withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " " + cookie.value.split(" ")(1), Option(864000)))
+              case _ => Redirect("/" + cookie.value.split(" ")(1)).withSession("userId" -> userId)
+                .withCookies(Cookie("Beamstream", userId.toString() + " " + cookie.value.split(" ")(1), Option(864000)))
             }
         }
     }
@@ -335,8 +343,10 @@ object MediaController extends Controller {
       case None => Ok(write(List(MediaResults(recentImage, recentVideo, recentDoc, recentGoogleDoc, recentAudio, recentPDF, recentPPT)))).as("application/json")
       case Some(recentImageExists) =>
         recentImageExists.mediaUrl match {
-          case "" => Ok(write(List(MediaResults(None, recentVideo, recentDoc, recentGoogleDoc, recentAudio, recentPDF, recentPPT)))).as("application/json")
-          case _ => Ok(write(List(MediaResults(recentImage, recentVideo, recentDoc, recentGoogleDoc, recentAudio, recentPDF, recentPPT)))).as("application/json")
+          case "" => Ok(write(List(MediaResults(None, recentVideo, recentDoc, recentGoogleDoc, recentAudio, recentPDF, recentPPT))))
+            .as("application/json")
+          case _ => Ok(write(List(MediaResults(recentImage, recentVideo, recentDoc, recentGoogleDoc, recentAudio, recentPDF, recentPPT))))
+            .as("application/json")
         }
     }
   }
@@ -352,7 +362,8 @@ object MediaController extends Controller {
 
   def uploadDefaultMedia: Action[AnyContent] = Action { implicit request =>
 
-    val media = UserMedia(new ObjectId, "", "", new ObjectId(request.session.get("userId").get), new Date, "", UserMediaType.Image, Access.Public, true, None, "", 0, Nil, Nil, 0)
+    val media = UserMedia(new ObjectId, "", "", new ObjectId(request.session.get("userId").get), new Date, "",
+      UserMediaType.Image, Access.Public, true, None, "", 0, Nil, Nil, 0)
     UserMedia.saveMediaForUser(media)
     Ok(write(media)).as("application/json")
 

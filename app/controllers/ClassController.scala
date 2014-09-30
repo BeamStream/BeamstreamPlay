@@ -101,13 +101,13 @@ object ClassController extends Controller {
               case false =>
                 val userData = User.getUserProfile(new ObjectId(userId))
                 userData.get.firstName match {
-                  case "" => Redirect(server + "/registration?userId=" + userId + "&token=" + tokenFound(0).tokenString).withSession("token" -> tokenFound(0).tokenString).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
-                  //Ok(write(LoginResult(ResulttoSent("Success", tokenFound(0).tokenString), userData, None, Option(false), server))).as("application/json").withCookies(Cookie("Beamstream",userId.toString()+" registration", Option(864000)))
+                  case "" => Redirect(server + "/registration?userId=" + userId + "&token=" + tokenFound(0).tokenString)
+                    .withSession("token" -> tokenFound(0).tokenString).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
                   case _ =>
                     val userMedia = UserMedia.findUserMediaByUserId(new ObjectId(userId))
                     userMedia.isEmpty match {
-                      case true => Redirect(server + "/registration?userId=" + userId + "&token=" + tokenFound(0).tokenString).withSession("token" -> tokenFound(0).tokenString).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
-                      //Ok(write(LoginResult(ResulttoSent("Success", tokenFound(0).tokenString), userData, None, Option(false), server))).as("application/json").withCookies(Cookie("Beamstream",userId.toString()+" registration", Option(864000)))
+                      case true => Redirect(server + "/registration?userId=" + userId + "&token=" + tokenFound(0).tokenString)
+                        .withSession("token" -> tokenFound(0).tokenString).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
                       case false => Ok(views.html.classpage()).withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
                     }
                 }
@@ -121,19 +121,24 @@ object ClassController extends Controller {
             val userId = cookie.value.split(" ")(0)
             val userFound = User.getUserProfile(new ObjectId(userId))
             cookie.value.split(" ")(1) match {
-              case "class" => Redirect("/class").withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
-              case "stream" => Redirect("/stream").withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " stream", Option(864000)))
+              case "class" => Redirect("/class").withSession("userId" -> userId)
+                .withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
+              case "stream" => Redirect("/stream").withSession("userId" -> userId)
+                .withCookies(Cookie("Beamstream", userId.toString() + " stream", Option(864000)))
               case "registration" =>
                 val tokenFound = Token.findTokenByUserId(userId)
                 userFound match {
                   case Some(user) =>
                     user.firstName match {
-                      case "" => Redirect(server + "/registration?userId=" + userId + "&token=" + tokenFound(0).tokenString).withSession("token" -> tokenFound(0).tokenString).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
+                      case "" => Redirect(server + "/registration?userId=" + userId + "&token=" + tokenFound(0).tokenString).withSession("token" -> tokenFound(0).tokenString)
+                        .withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
                       case _ =>
                         val userMedia = UserMedia.findUserMediaByUserId(new ObjectId(userId))
                         userMedia.isEmpty match {
-                          case true => Redirect(server + "/registration?userId=" + userId + "&token=" + tokenFound(0).tokenString).withSession("token" -> tokenFound(0).tokenString).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
-                          case false => Redirect("/class").withSession("userId" -> userId).withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
+                          case true => Redirect(server + "/registration?userId=" + userId + "&token=" + tokenFound(0).tokenString)
+                            .withSession("token" -> tokenFound(0).tokenString).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
+                          case false => Redirect("/class").withSession("userId" -> userId)
+                            .withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
                         }
                     }
                   case None => Redirect("/login").withNewSession.discardingCookies(DiscardingCookie("Beamstream"))

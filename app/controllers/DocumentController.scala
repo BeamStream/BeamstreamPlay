@@ -53,15 +53,12 @@ object DocumentController extends Controller {
     val userId = new ObjectId(request.session.get("userId").get)
     val streamId = (documentJson \ "streamId").as[String]
     val date = new Date
-    val documentToCreate = new Document(new ObjectId, name, description, url, DocType.withName(docType), userId, Access.Public, new ObjectId(streamId), date, date, 0, Nil, Nil, Nil, "", 0)
     val docId = Document.addDocument(documentToCreate)
     val user = User.getUserProfile(userId)
     //Create A Message As Well To Display The Doc Creation In Stream
-    val message = Message(new ObjectId, url, Option(Type.Document), Option(Access.Public), date, userId, Option(new ObjectId(streamId)), user.get.firstName, user.get.lastName, 0, Nil, Nil, 0, Nil, None, Option(docId))
     val messageId = Message.createMessage(message)
     val messageObtained = Message.findMessageById(messageId.get)
     val profilePicForUser = UserMedia.getProfilePicUrlString(messageObtained.get.userId)
-    val docResults = DocResulttoSent(Option(messageObtained.get), None, name, description, false, false, Option(profilePicForUser), None, Option(false), User.giveMeTheRockers(messageObtained.get.rockers))
     Ok(write(docResults)).as("application/json")
 
   }*/
@@ -202,10 +199,8 @@ object DocumentController extends Controller {
             case true => List(Option(docURL), true)
             //TODO remove before pushing to Production
             /*if (isImage) {
-              val uploadResults = saveImageFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, uploadedFrom)
               List(Option(uploadResults), isFileUploaded)
             } else if (isVideo) {
-              val uploadResults = saveVideoFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom, uploadedFrom)
               if (uploadResults.message == None && uploadResults.question == None)
                 List(Option("Failure"), false)
               else
@@ -213,10 +208,8 @@ object DocumentController extends Controller {
             } else {
               if (isPdf) {
                 val previewImageUrl = PreviewOfPDFUtil.convertPdfToImage(documentReceived, docNameOnAmazom)
-                val uploadResults = savePdfFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom, previewImageUrl, uploadedFrom)
                 List(Option(uploadResults), isFileUploaded)
               } else {
-                val uploadResults = saveOtherDOcFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom, uploadedFrom)
                 List(Option(uploadResults), isFileUploaded)
               }
             }*/
@@ -258,7 +251,8 @@ object DocumentController extends Controller {
             val uploadResults = saveImageFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, uploadedFrom)
             Option(uploadResults)
           } else if (isVideo) {
-            val uploadResults = saveVideoFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom, uploadedFrom)
+            val uploadResults = saveVideoFromMainStream(documentName, docDescription, userId, docURL, docAccess,
+              new ObjectId(streamId), user.get, docNameOnAmazom, uploadedFrom)
             if (uploadResults.message == None && uploadResults.question == None) {
               Option("Failure")
             } else {
@@ -267,10 +261,12 @@ object DocumentController extends Controller {
           } else {
             if (isPdf) {
               val previewImageUrl = PreviewOfPDFUtil.convertPdfToImage(documentReceived, docNameOnAmazom)
-              val uploadResults = savePdfFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom, previewImageUrl, uploadedFrom)
+              val uploadResults = savePdfFromMainStream(documentName, docDescription, userId, docURL, docAccess,
+                new ObjectId(streamId), user.get, docNameOnAmazom, previewImageUrl, uploadedFrom)
               Option(uploadResults)
             } else {
-              val uploadResults = saveOtherDOcFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom, uploadedFrom)
+              val uploadResults = saveOtherDOcFromMainStream(documentName, docDescription, userId, docURL, docAccess,
+                new ObjectId(streamId), user.get, docNameOnAmazom, uploadedFrom)
               Option(uploadResults)
             }
           }
@@ -341,19 +337,24 @@ object DocumentController extends Controller {
    * Save Image
    */
   private def saveImageFromMainStream(documentName: String, docDescription: String, userId: ObjectId, docURL: String, docAccess: String, streamId: ObjectId, user: User, uploadedFrom: String) = {
-    val media = new UserMedia(new ObjectId, documentName, docDescription, userId, new Date, docURL, UserMediaType.Image, Access.PrivateToClass, false, Option(streamId), "", 0, Nil, Nil, 0)
+    val media = new UserMedia(new ObjectId, documentName, docDescription, userId, new Date, docURL, UserMediaType.Image,
+      Access.PrivateToClass, false, Option(streamId), "", 0, Nil, Nil, 0)
     val mediaId = UserMedia.saveMediaForUser(media)
     //Create A Message As Well To Display The Doc Creation In Stream
     val profilePic = UserMedia.getProfilePicUrlString(userId)
     (uploadedFrom == "discussion") match {
       case true =>
-        val message = Message(new ObjectId, docURL, Option(Type.Image), Option(Access.PrivateToClass), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, Nil, Nil, 0, Nil, docURL, Option(mediaId.get))
+        val message = Message(new ObjectId, docURL, Option(Type.Image), Option(Access.PrivateToClass), new Date, userId,
+          Option(streamId), user.firstName, user.lastName, 0, Nil, Nil, 0, Nil, docURL, Option(mediaId.get))
         val messageId = Message.createMessage(message)
-        DocResulttoSent(Option(message), None, documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(message.rockers))
+        DocResulttoSent(Option(message), None, documentName, docDescription, false, false, Option(profilePic), None,
+          Option(false), User.giveMeTheRockers(message.rockers))
       case false =>
-        val question = Question(new ObjectId, docURL, userId, Access.PrivateToClass, Type.Image, streamId, user.firstName, user.lastName, new Date, Nil, Nil, Nil, Nil, Nil, false, Option(docURL), Option(mediaId.get))
+        val question = Question(new ObjectId, docURL, userId, Access.PrivateToClass, Type.Image, streamId, user.firstName,
+          user.lastName, new Date, Nil, Nil, Nil, Nil, Nil, false, Option(docURL), Option(mediaId.get))
         Question.addQuestion(question)
-        DocResulttoSent(None, Option(question), documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(question.rockers))
+        DocResulttoSent(None, Option(question), documentName, docDescription, false, false, Option(profilePic), None,
+          Option(false), User.giveMeTheRockers(question.rockers))
     }
 
   }
@@ -367,18 +368,23 @@ object DocumentController extends Controller {
     val isCompressedFileUploaded = (new AmazonUpload).uploadCompressedFileToAmazon(docNameOnAmazon + "Frame", frameOfVideo)
     if (isCompressedFileUploaded) {
       val videoFrameURL = "https://s3.amazonaws.com/BeamStream/" + docNameOnAmazon + "Frame"
-      val media = UserMedia(new ObjectId, documentName, docDescription, userId, new Date, docURL, UserMediaType.Video, Access.PrivateToClass, false, Option(streamId), videoFrameURL, 0, Nil, Nil)
+      val media = UserMedia(new ObjectId, documentName, docDescription, userId, new Date, docURL, UserMediaType.Video,
+        Access.PrivateToClass, false, Option(streamId), videoFrameURL, 0, Nil, Nil)
       val mediaId = UserMedia.saveMediaForUser(media)
       val profilePic = UserMedia.getProfilePicUrlString(userId)
       (uploadedFrom == "discussion") match {
         case true =>
-          val message = Message(new ObjectId, docURL, Option(Type.Video), Option(Access.PrivateToClass), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, Nil, Nil, 0, Nil, videoFrameURL, Option(mediaId.get))
+          val message = Message(new ObjectId, docURL, Option(Type.Video), Option(Access.PrivateToClass), new Date, userId,
+            Option(streamId), user.firstName, user.lastName, 0, Nil, Nil, 0, Nil, videoFrameURL, Option(mediaId.get))
           val messageId = Message.createMessage(message)
-          DocResulttoSent(Option(message), None, documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(message.rockers))
+          DocResulttoSent(Option(message), None, documentName, docDescription, false, false, Option(profilePic), None,
+            Option(false), User.giveMeTheRockers(message.rockers))
         case false =>
-          val question = Question(new ObjectId, docURL, userId, Access.PrivateToClass, Type.Video, streamId, user.firstName, user.lastName, new Date, Nil, Nil, Nil, Nil, Nil, false, Option(videoFrameURL), Option(mediaId.get))
+          val question = Question(new ObjectId, docURL, userId, Access.PrivateToClass, Type.Video, streamId, user.firstName,
+            user.lastName, new Date, Nil, Nil, Nil, Nil, Nil, false, Option(videoFrameURL), Option(mediaId.get))
           Question.addQuestion(question)
-          DocResulttoSent(None, Option(question), documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(question.rockers))
+          DocResulttoSent(None, Option(question), documentName, docDescription, false, false, Option(profilePic), None,
+            Option(false), User.giveMeTheRockers(question.rockers))
       }
     } else { DocResulttoSent(None, None, "", "", false, false, None, None, Option(false), List()) }
   }
@@ -393,13 +399,17 @@ object DocumentController extends Controller {
     val profilePic = UserMedia.getProfilePicUrlString(userId)
     (uploadedFrom == "discussion") match {
       case true =>
-        val message = Message(new ObjectId, docURL, Option(Type.Document), Option(Access.PrivateToClass), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, Nil, Nil, 0, Nil, previewImageUrl, Option(documentId))
+        val message = Message(new ObjectId, docURL, Option(Type.Document), Option(Access.PrivateToClass), new Date, userId,
+          Option(streamId), user.firstName, user.lastName, 0, Nil, Nil, 0, Nil, previewImageUrl, Option(documentId))
         val messageId = Message.createMessage(message)
-        DocResulttoSent(Option(message), None, documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(message.rockers))
+        DocResulttoSent(Option(message), None, documentName, docDescription, false, false, Option(profilePic), None,
+          Option(false), User.giveMeTheRockers(message.rockers))
       case false =>
-        val question = Question(new ObjectId, docURL, userId, Access.PrivateToClass, Type.Document, streamId, user.firstName, user.lastName, new Date, Nil, Nil, Nil, Nil, Nil, false, Option(previewImageUrl), Option(documentId))
+        val question = Question(new ObjectId, docURL, userId, Access.PrivateToClass, Type.Document, streamId, user.firstName,
+          user.lastName, new Date, Nil, Nil, Nil, Nil, Nil, false, Option(previewImageUrl), Option(documentId))
         Question.addQuestion(question)
-        DocResulttoSent(None, Option(question), documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(question.rockers))
+        DocResulttoSent(None, Option(question), documentName, docDescription, false, false, Option(profilePic), None,
+          Option(false), User.giveMeTheRockers(question.rockers))
     }
   }
   /**
@@ -412,13 +422,17 @@ object DocumentController extends Controller {
     val profilePic = UserMedia.getProfilePicUrlString(userId)
     (uploadedFrom == "discussion") match {
       case true =>
-        val message = Message(new ObjectId, docURL, Option(Type.Document), Option(Access.PrivateToClass), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, Nil, Nil, 0, Nil, "", Option(documentId))
+        val message = Message(new ObjectId, docURL, Option(Type.Document), Option(Access.PrivateToClass), new Date, userId,
+          Option(streamId), user.firstName, user.lastName, 0, Nil, Nil, 0, Nil, "", Option(documentId))
         val messageId = Message.createMessage(message)
-        DocResulttoSent(Option(message), None, documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(message.rockers))
+        DocResulttoSent(Option(message), None, documentName, docDescription, false, false, Option(profilePic), None,
+          Option(false), User.giveMeTheRockers(message.rockers))
       case false =>
-        val question = Question(new ObjectId, docURL, userId, Access.PrivateToClass, Type.Document, streamId, user.firstName, user.lastName, new Date, Nil, Nil, Nil, Nil, Nil, false, None, Option(documentId))
+        val question = Question(new ObjectId, docURL, userId, Access.PrivateToClass, Type.Document, streamId, user.firstName,
+          user.lastName, new Date, Nil, Nil, Nil, Nil, Nil, false, None, Option(documentId))
         Question.addQuestion(question)
-        DocResulttoSent(None, Option(question), documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(question.rockers))
+        DocResulttoSent(None, Option(question), documentName, docDescription, false, false, Option(profilePic), None,
+          Option(false), User.giveMeTheRockers(question.rockers))
     }
   }
 
