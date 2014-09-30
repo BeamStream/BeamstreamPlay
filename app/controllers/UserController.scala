@@ -38,6 +38,8 @@ object UserController extends Controller {
    * Reducing active user on sign Out
    */
 
+  val NULL = null
+
   def signOut: Action[AnyContent] = Action { implicit request =>
     val userId_session = request.session.get("userId")
     val userId_cookies = request.cookies.get("Beamstream")
@@ -169,10 +171,10 @@ object UserController extends Controller {
 
   def testNeo4jAddFriends: Action[AnyContent] = Action { implicit request =>
     var node: Node = SocialGraphEmbeddedNeo4j.findOrCreateBSNode(50, "Dirk", "Nowitzki")
-    var node1: Neo4jFriend = new Neo4jFriend("hotpotato1", "forum1", 51, null, null)
-    var node2: Neo4jFriend = new Neo4jFriend("hotpotato2", "forum2", 52, null, null)
-    var node3: Neo4jFriend = new Neo4jFriend("hotpotato3", "forum3", 53, null, null)
-    var node4: Neo4jFriend = new Neo4jFriend("hotpotato4", "forum4", 54, null, null)
+    var node1: Neo4jFriend = new Neo4jFriend("hotpotato1", "forum1", 51, NULL, NULL)
+    var node2: Neo4jFriend = new Neo4jFriend("hotpotato2", "forum2", 52, NULL, NULL)
+    var node3: Neo4jFriend = new Neo4jFriend("hotpotato3", "forum3", 53, NULL, NULL)
+    var node4: Neo4jFriend = new Neo4jFriend("hotpotato4", "forum4", 54, NULL, NULL)
     val friends = Array(node1, node2, node3, node4)
     val worked = this.addFriendNeo4j(friends, 50)
     print("addFriends successful: " + worked + "\n")
@@ -197,7 +199,7 @@ object UserController extends Controller {
    */
   def addFriendNeo4j(friends: Array[Neo4jFriend], userId: Long): Boolean = {
     var node: Node = SocialGraphEmbeddedNeo4j.findBSNode(userId)
-    if (node == null) {
+    if (node == NULL) {
       Ok(write(new ResulttoSent("Failure", "Parent user does not exist in friends database")))
       true
     }
@@ -277,8 +279,12 @@ object UserController extends Controller {
               case false =>
                 (profilePic(0).mediaUrl) match {
                   case "" =>
-                    Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, None, Option(hasClasses), server))).as("application/json").withSession(userSession).withCookies(Cookie("Beamstream", user.id.toString() + " stream", Option(864000000)))
-                  case _ => Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, Option(profilePic.head.mediaUrl), Option(hasClasses), server))).as("application/json").withSession(userSession).withCookies(Cookie("Beamstream", user.id.toString() + " stream", Option(864000000)))
+                    Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, None,
+                      Option(hasClasses), server))).as("application/json").withSession(userSession)
+                      .withCookies(Cookie("Beamstream", user.id.toString() + " stream", Option(864000000)))
+                  case _ => Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser,
+                    Option(profilePic.head.mediaUrl), Option(hasClasses), server))).as("application/json")
+                    .withSession(userSession).withCookies(Cookie("Beamstream", user.id.toString() + " stream", Option(864000000)))
                 }
 
             }
