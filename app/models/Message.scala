@@ -129,7 +129,8 @@ object Message { //extends CommentConsumer {
 
       case true =>
         // Unrocking a message
-        MessageDAO.update(MongoDBObject("_id" -> messageId), SelectedmessagetoRock.copy(rockers = (SelectedmessagetoRock.rockers filterNot (List(userId) contains))), false, false, new WriteConcern)
+        MessageDAO.update(MongoDBObject("_id" -> messageId),
+          SelectedmessagetoRock.copy(rockers = (SelectedmessagetoRock.rockers filterNot (List(userId) contains))), false, false, new WriteConcern)
         val updatedMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
         MessageDAO.update(MongoDBObject("_id" -> messageId), updatedMessage.copy(rocks = (updatedMessage.rocks - 1)), false, false, new WriteConcern)
         val finalMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
@@ -137,7 +138,8 @@ object Message { //extends CommentConsumer {
 
       case false =>
         //Rocking a message
-        MessageDAO.update(MongoDBObject("_id" -> messageId), SelectedmessagetoRock.copy(rockers = (SelectedmessagetoRock.rockers ++ List(userId))), false, false, new WriteConcern)
+        MessageDAO.update(MongoDBObject("_id" -> messageId),
+          SelectedmessagetoRock.copy(rockers = (SelectedmessagetoRock.rockers ++ List(userId))), false, false, new WriteConcern)
         val updatedMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
         MessageDAO.update(MongoDBObject("_id" -> messageId), updatedMessage.copy(rocks = (updatedMessage.rocks + 1)), false, false, new WriteConcern)
         val finalMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
@@ -154,7 +156,12 @@ object Message { //extends CommentConsumer {
    */
 
   def getAllMessagesForAStreamSortedbyRocks(streamId: ObjectId, pageNumber: Int, messagesPerPage: Int): List[Message] = {
-    MessageDAO.find(MongoDBObject("streamId" -> streamId)).sort(orderBy = MongoDBObject("rocks" -> -1, "timeCreated" -> -1)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
+    MessageDAO
+      .find(MongoDBObject("streamId" -> streamId))
+      .sort(orderBy = MongoDBObject("rocks" -> -1, "timeCreated" -> -1))
+      .skip((pageNumber - 1) * messagesPerPage)
+      .limit(messagesPerPage)
+      .toList
   }
 
   /**
@@ -165,18 +172,22 @@ object Message { //extends CommentConsumer {
    */
   def getAllMessagesForAKeyword(keyword: String, streamId: ObjectId, pageNumber: Int, messagesPerPage: Int, commentIds: List[ObjectId]): List[Message] = {
     val keyWordregExp = Pattern.compile(keyword, Pattern.CASE_INSENSITIVE) //(""".*""" + keyword + """.*""").r
-    val keywordMessages = MessageDAO.find(MongoDBObject("$or" -> (MongoDBObject("messageBody" -> keyWordregExp), MongoDBObject("messageGoogleDocTitle" -> keyWordregExp)), "streamId" -> streamId)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
+    val keywordMessages = MessageDAO
+      .find(MongoDBObject("$or" -> (MongoDBObject("messageBody" -> keyWordregExp), MongoDBObject("messageGoogleDocTitle" -> keyWordregExp)), "streamId" -> streamId))
+      .skip((pageNumber - 1) * messagesPerPage)
+      .limit(messagesPerPage)
+      .toList
     val commentMessages = commentIds map {
       commentId =>
-        MessageDAO.find(MongoDBObject("comments" -> commentId,"streamId" -> streamId))
-        .skip((pageNumber - 1) * messagesPerPage)
-        .limit(messagesPerPage)
-        .toList
+        MessageDAO.find(MongoDBObject("comments" -> commentId, "streamId" -> streamId))
+          .skip((pageNumber - 1) * messagesPerPage)
+          .limit(messagesPerPage)
+          .toList
     }
-    if(commentMessages.length >= 1)
-    	(commentMessages(0) ++ keywordMessages).distinct
+    if (commentMessages.length >= 1)
+      (commentMessages(0) ++ keywordMessages).distinct
     else
-    	  keywordMessages
+      keywordMessages
   }
 
   /**
@@ -187,7 +198,11 @@ object Message { //extends CommentConsumer {
    */
 
   def getAllMessagesForAStreamWithPagination(streamId: ObjectId, pageNumber: Int, messagesPerPage: Int): List[Message] = {
-    MessageDAO.find(MongoDBObject("streamId" -> streamId)).sort(orderBy = MongoDBObject("timeCreated" -> -1)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
+    MessageDAO.find(MongoDBObject("streamId" -> streamId))
+      .sort(orderBy = MongoDBObject("timeCreated" -> -1))
+      .skip((pageNumber - 1) * messagesPerPage)
+      .limit(messagesPerPage)
+      .toList
   }
 
   /**
@@ -205,7 +220,8 @@ object Message { //extends CommentConsumer {
 
       case true =>
         // Unfollow a message
-        MessageDAO.update(MongoDBObject("_id" -> messageId), SelectedmessagetoRock.copy(followers = (SelectedmessagetoRock.followers filterNot (List(userId) contains))), false, false, new WriteConcern)
+        MessageDAO.update(MongoDBObject("_id" -> messageId),
+          SelectedmessagetoRock.copy(followers = (SelectedmessagetoRock.followers filterNot (List(userId) contains))), false, false, new WriteConcern)
         val updatedMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
         MessageDAO.update(MongoDBObject("_id" -> messageId), updatedMessage.copy(follows = (updatedMessage.follows - 1)), false, false, new WriteConcern)
         val finalMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
@@ -213,7 +229,8 @@ object Message { //extends CommentConsumer {
 
       case false =>
         // Follow a message
-        MessageDAO.update(MongoDBObject("_id" -> messageId), SelectedmessagetoRock.copy(followers = (SelectedmessagetoRock.followers ++ List(userId))), false, false, new WriteConcern)
+        MessageDAO.update(MongoDBObject("_id" -> messageId),
+          SelectedmessagetoRock.copy(followers = (SelectedmessagetoRock.followers ++ List(userId))), false, false, new WriteConcern)
         val updatedMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
         MessageDAO.update(MongoDBObject("_id" -> messageId), updatedMessage.copy(follows = (updatedMessage.follows + 1)), false, false, new WriteConcern)
         val finalMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
@@ -277,7 +294,8 @@ object Message { //extends CommentConsumer {
    */
   def removeCommentFromMessage(commentId: ObjectId, messageId: ObjectId): WriteResult = {
     val message = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
-    MessageDAO.update(MongoDBObject("_id" -> messageId), message.copy(comments = (message.comments filterNot (List(commentId)contains))), false, false, new WriteConcern)
+    MessageDAO.update(MongoDBObject("_id" -> messageId),
+      message.copy(comments = (message.comments filterNot (List(commentId)contains))), false, false, new WriteConcern)
   }
 
   /**
@@ -338,23 +356,23 @@ object Message { //extends CommentConsumer {
                   case true =>
                     val userMedia = UserMedia.findMediaById(message.docIdIfAny.get)
                     (userMedia != None) match {
-                      case true => DocResulttoSent(Option(message), None, userMedia.get.name, userMedia.get.description, isRocked, isFollowed, Option(profilePicForUser), Option(comments), Option(followerOfMessagePoster), User.giveMeTheRockers(message.rockers))
                       case false =>
                         val document = Document.findDocumentById(message.docIdIfAny.get)
-                        DocResulttoSent(Option(message), None, document.get.documentName, document.get.documentDescription, isRocked, isFollowed, Option(profilePicForUser), Option(comments), Option(followerOfMessagePoster), User.giveMeTheRockers(message.rockers))
                     }
-                  case false => DocResulttoSent(Option(message), None, "", "", isRocked, isFollowed, Option(profilePicForUser), Option(comments), Option(followerOfMessagePoster), User.giveMeTheRockers(message.rockers))
                 }*/
         (message.docIdIfAny != None) match {
           case true =>
             val userMedia = UserMedia.findMediaById(message.docIdIfAny.get)
             (userMedia != None) match {
-              case true => DocResulttoSent(Option(message), None, userMedia.get.name, userMedia.get.description, isRocked, isFollowed, Option(profilePicForUser), Option(message.comments.length), None, Nil) // H12, User.giveMeTheRockers(message.rockers))
+              case true => DocResulttoSent(Option(message), None, userMedia.get.name, userMedia.get.description, isRocked,
+                isFollowed, Option(profilePicForUser), Option(message.comments.length), None, Nil)
               case false =>
                 val document = Document.findDocumentById(message.docIdIfAny.get)
-                DocResulttoSent(Option(message), None, document.get.documentName, document.get.documentDescription, isRocked, isFollowed, Option(profilePicForUser), Option(message.comments.length), None, Nil) //H12, User.giveMeTheRockers(message.rockers))
+                DocResulttoSent(Option(message), None, document.get.documentName, document.get.documentDescription, isRocked,
+                  isFollowed, Option(profilePicForUser), Option(message.comments.length), None, Nil)
             }
-          case false => DocResulttoSent(Option(message), None, "", "", isRocked, isFollowed, Option(profilePicForUser), Option(message.comments.length), None, Nil) //H12, User.giveMeTheRockers(message.rockers))
+          case false => DocResulttoSent(Option(message), None, "", "", isRocked, isFollowed, Option(profilePicForUser),
+            Option(message.comments.length), None, Nil)
         }
     }
     docResultToSend
@@ -366,7 +384,8 @@ object Message { //extends CommentConsumer {
         val message = MessageDAO.find(MongoDBObject("docIdIfAny" -> documentId)).toList
         message.isEmpty match {
           case false =>
-            MessageDAO.update(MongoDBObject("docIdIfAny" -> documentId), message(0).copy(anyPreviewImageUrl = newAnyPreviewImageUrl), false, false, new WriteConcern)
+            MessageDAO.update(MongoDBObject("docIdIfAny" -> documentId),
+              message(0).copy(anyPreviewImageUrl = newAnyPreviewImageUrl), false, false, new WriteConcern)
           case true =>
         }
     }
@@ -389,7 +408,8 @@ object Message { //extends CommentConsumer {
       case documentId =>
         val message = MessageDAO.find(MongoDBObject("docIdIfAny" -> documentId)).toList
         message.isEmpty match {
-          case false => MessageDAO.update(MongoDBObject("docIdIfAny" -> documentId), message(0).copy(messageGoogleDocTitle = newName), false, false, new WriteConcern)
+          case false => MessageDAO.update(MongoDBObject("docIdIfAny" -> documentId),
+            message(0).copy(messageGoogleDocTitle = newName), false, false, new WriteConcern)
           case true =>
         }
     }
