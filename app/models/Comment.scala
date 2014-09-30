@@ -53,7 +53,7 @@ object Comment {
   def findAnswerById(answerId: ObjectId): Option[Comment] = {
     CommentDAO.findOneById(answerId)
   }
-  
+
   /**
    * Rocking the comment
    */
@@ -128,7 +128,7 @@ object Comment {
   def deleteCommentPermanently(commentId: ObjectId, messageOrQuestionId: ObjectId, userId: ObjectId): Boolean = {
     val commentToBeremoved = CommentDAO.findOneById(commentId)
     commentToBeremoved match {
-      case Some(comment) => 
+      case Some(comment) =>
         CommentDAO.remove(comment)
         true
       case None => false
@@ -144,7 +144,7 @@ object Comment {
     val comment = CommentDAO.find(MongoDBObject("_id" -> commentId)).toList(0)
     comment.rockers.contains(userId)
   }
-  
+
   def getAllCommentsForAKeyword(keyword: String, streamId: ObjectId): List[Comment] = {
     val keyWordregExp = Pattern.compile(keyword, Pattern.CASE_INSENSITIVE) //(""".*""" + keyword + """.*""").r
     CommentDAO.find(MongoDBObject("commentBody" -> keyWordregExp, "streamId" -> streamId)).toList

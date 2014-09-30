@@ -81,7 +81,8 @@ object QuestionController extends Controller {
       case false => ""
     }
 
-    Ok(write(QuestionWithPoll(questionObtained.get, false, false, false, Option(profilePicForUser), None, None, pollsOfquestionObtained))).as("application/json")
+    Ok(write(QuestionWithPoll(questionObtained.get, false, false, false, Option(profilePicForUser), None, None,
+      pollsOfquestionObtained))).as("application/json")
   }
 
   /**
@@ -222,7 +223,8 @@ object QuestionController extends Controller {
           case true => Nil
         }
 */
-        QuestionWithPoll(questionObtained, isRocked, isFollowed, false, Option(profilePicForUser), Option(questionObtained.comments.length), Option(questionObtained.answers.length), pollsOfquestionObtained)
+        QuestionWithPoll(questionObtained, isRocked, isFollowed, false, Option(profilePicForUser),
+          Option(questionObtained.comments.length), Option(questionObtained.answers.length), pollsOfquestionObtained)
 
     }
 

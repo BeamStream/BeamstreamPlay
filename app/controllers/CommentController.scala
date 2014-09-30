@@ -198,7 +198,7 @@ object CommentController extends Controller {
                         }
                     }
                 }
-                case None => Ok("false")
+              case None => Ok("false")
             }
           case None => Ok("false")
         }
@@ -210,7 +210,8 @@ object CommentController extends Controller {
    */
 
   def deleteTheComment(commentId: String, messageOrQuestionId: String): Action[AnyContent] = Action { implicit request =>
-    val deletedTheCommnet = Comment.deleteCommentPermanently(new ObjectId(commentId), new ObjectId(messageOrQuestionId), new ObjectId(request.session.get("userId").get))
+    val deletedTheCommnet = Comment.deleteCommentPermanently(new ObjectId(commentId), new ObjectId(messageOrQuestionId),
+      new ObjectId(request.session.get("userId").get))
     deletedTheCommnet match {
       case true =>
         val message = Message.findMessageById(new ObjectId(messageOrQuestionId))
