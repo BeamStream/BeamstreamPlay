@@ -68,11 +68,13 @@ object Question {
     val questionToRock = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
     questionToRock.rockers.contains(userId) match {
       case true =>
-        QuestionDAO.update(MongoDBObject("_id" -> questionId), questionToRock.copy(rockers = (questionToRock.rockers filterNot (List(userId) contains))), false, false, new WriteConcern)
+        QuestionDAO.update(MongoDBObject("_id" -> questionId),
+          questionToRock.copy(rockers = (questionToRock.rockers filterNot (List(userId) contains))), false, false, new WriteConcern)
         val updatedQuestion = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
         updatedQuestion.rockers.size
       case false =>
-        QuestionDAO.update(MongoDBObject("_id" -> questionId), questionToRock.copy(rockers = (questionToRock.rockers ++ List(userId))), false, false, new WriteConcern)
+        QuestionDAO.update(MongoDBObject("_id" -> questionId),
+          questionToRock.copy(rockers = (questionToRock.rockers ++ List(userId))), false, false, new WriteConcern)
         val updatedQuestion = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
         updatedQuestion.rockers.size
     }
@@ -119,7 +121,8 @@ object Question {
    */
   def addAnswerToQuestion(questionId: ObjectId, answerId: ObjectId) {
     val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
-    QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(answers = (question.answers ++ List(answerId)) /*, answered = true*/ ), false, false, new WriteConcern)
+    QuestionDAO.update(MongoDBObject("_id" -> questionId),
+      question.copy(answers = (question.answers ++ List(answerId)) /*, answered = true*/ ), false, false, new WriteConcern)
   }
 
   /**
@@ -127,7 +130,12 @@ object Question {
    */
 
   def getAllQuestionForAStreamWithPagination(streamId: ObjectId, pageNumber: Int, questionPerPage: Int): List[Question] = {
-    QuestionDAO.find(MongoDBObject("streamId" -> streamId)).sort(orderBy = MongoDBObject("creationDate" -> -1)).skip((pageNumber - 1) * questionPerPage).limit(questionPerPage).toList
+    QuestionDAO
+      .find(MongoDBObject("streamId" -> streamId))
+      .sort(orderBy = MongoDBObject("creationDate" -> -1))
+      .skip((pageNumber - 1) * questionPerPage)
+      .limit(questionPerPage)
+      .toList
   }
 
   /**
@@ -135,7 +143,12 @@ object Question {
    */
 
   def getAllQuestionsForAStreamSortedbyRocks(streamId: ObjectId, pageNumber: Int, messagesPerPage: Int): List[Question] = {
-    QuestionDAO.find(MongoDBObject("streamId" -> streamId)).sort(orderBy = MongoDBObject("rockers" -> -1, "timeCreated" -> -1)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
+    QuestionDAO
+      .find(MongoDBObject("streamId" -> streamId))
+      .sort(orderBy = MongoDBObject("rockers" -> -1, "timeCreated" -> -1))
+      .skip((pageNumber - 1) * messagesPerPage)
+      .limit(messagesPerPage)
+      .toList
   }
 
   /**
@@ -144,9 +157,19 @@ object Question {
   def getAllAnsweredQuestionsForAStream(streamId: ObjectId, pageNumber: Int, messagesPerPage: Int, answerStatus: String): List[Question] = {
     (answerStatus == "answered") match {
       case true =>
-        QuestionDAO.find(MongoDBObject("streamId" -> streamId, "answered" -> true)).sort(orderBy = MongoDBObject("timeCreated" -> -1)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
+        QuestionDAO
+          .find(MongoDBObject("streamId" -> streamId, "answered" -> true))
+          .sort(orderBy = MongoDBObject("timeCreated" -> -1))
+          .skip((pageNumber - 1) * messagesPerPage)
+          .limit(messagesPerPage)
+          .toList
       case false =>
-        QuestionDAO.find(MongoDBObject("streamId" -> streamId, "answered" -> false)).sort(orderBy = MongoDBObject("timeCreated" -> -1)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
+        QuestionDAO
+          .find(MongoDBObject("streamId" -> streamId, "answered" -> false))
+          .sort(orderBy = MongoDBObject("timeCreated" -> -1))
+          .skip((pageNumber - 1) * messagesPerPage)
+          .limit(messagesPerPage)
+          .toList
     }
   }
 
@@ -208,11 +231,13 @@ object Question {
     val questionToFollow = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
     (questionToFollow.followers.contains(userIdOfFollower)) match {
       case true =>
-        QuestionDAO.update(MongoDBObject("_id" -> questionId), questionToFollow.copy(followers = (questionToFollow.followers filterNot (List(userIdOfFollower) contains))), false, false, new WriteConcern)
+        QuestionDAO.update(MongoDBObject("_id" -> questionId),
+          questionToFollow.copy(followers = (questionToFollow.followers filterNot (List(userIdOfFollower) contains))), false, false, new WriteConcern)
         val updatedQuestionWithAddedIdOfFollower = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
         updatedQuestionWithAddedIdOfFollower.followers.size
       case false =>
-        QuestionDAO.update(MongoDBObject("_id" -> questionId), questionToFollow.copy(followers = (questionToFollow.followers ++ List(userIdOfFollower))), false, false, new WriteConcern)
+        QuestionDAO.update(MongoDBObject("_id" -> questionId),
+          questionToFollow.copy(followers = (questionToFollow.followers ++ List(userIdOfFollower))), false, false, new WriteConcern)
         val updatedQuestionWithAddedIdOfFollower = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
         updatedQuestionWithAddedIdOfFollower.followers.size
     }
@@ -231,14 +256,16 @@ object Question {
    */
   def removeCommentFromQuestion(commentId: ObjectId, questionId: ObjectId): WriteResult = {
     val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
-    QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(comments = (question.comments filterNot (List(commentId)contains))), false, false, new WriteConcern)
+    QuestionDAO.update(MongoDBObject("_id" -> questionId),
+      question.copy(comments = (question.comments filterNot (List(commentId)contains))), false, false, new WriteConcern)
   }
   /**
    * Remove Answer from Question
    */
   def removeAnswerFromQuestion(answerId: ObjectId, questionId: ObjectId): WriteResult = {
     val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
-    QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(answers = (question.answers filterNot (List(answerId)contains))), false, false, new WriteConcern)
+    QuestionDAO.update(MongoDBObject("_id" -> questionId),
+      question.copy(answers = (question.answers filterNot (List(answerId)contains))), false, false, new WriteConcern)
   }
 
   /**
@@ -255,7 +282,11 @@ object Question {
   def getAllQuestionsForAStreambyKeyword(keyword: String, streamId: ObjectId, pageNumber: Int, questionsPerPage: Int, answerIds: List[ObjectId]): List[Question] = {
     //    val keyWordregExp = (""".*""" + keyword + """.*""").r
     val keyWordregExp = Pattern.compile(keyword, Pattern.CASE_INSENSITIVE)
-    val keywordQuestions = QuestionDAO.find(MongoDBObject("questionBody" -> keyWordregExp, "streamId" -> streamId)).skip((pageNumber - 1) * questionsPerPage).limit(questionsPerPage).toList
+    val keywordQuestions = QuestionDAO
+      .find(MongoDBObject("questionBody" -> keyWordregExp, "streamId" -> streamId))
+      .skip((pageNumber - 1) * questionsPerPage)
+      .limit(questionsPerPage)
+      .toList
     val answerQuestions = answerIds map {
       answerId =>
         QuestionDAO.find(MongoDBObject("answers" -> answerId, "streamId" -> streamId))
@@ -308,7 +339,8 @@ object Question {
         val isFollowed = Question.isAFollower(question.id, userId)
         val isFollowerOfQuestionPoster = User.isAFollower(question.userId, userId)
 
-        QuestionWithPoll(question, isRocked, isFollowed, isFollowerOfQuestionPoster, Option(profilePicForUser), Option(question.comments.length), Option(question.answers.length), pollsOfquestionObtained)
+        QuestionWithPoll(question, isRocked, isFollowed, isFollowerOfQuestionPoster, Option(profilePicForUser),
+          Option(question.comments.length), Option(question.answers.length), pollsOfquestionObtained)
     }
 
   }
