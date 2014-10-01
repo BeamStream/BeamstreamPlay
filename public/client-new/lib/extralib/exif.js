@@ -325,9 +325,9 @@ function getImageData(oImg, fncCallback)
 function findEXIFinJPEG(oFile) {
 	var aMarkers = [];
 
-	if (oFile.getByteAt(0) != 0xFF || oFile.getByteAt(1) != 0xD8) {
+	/*if (oFile.getByteAt(0) != 0xFF || oFile.getByteAt(1) != 0xD8) {
 		return false; // not a valid jpeg
-	}
+	}*/
 
 	var iOffset = 2;
 	var iLength = oFile.getLength();
