@@ -49,10 +49,6 @@ object SendEmailUtility extends EmailUtility {
         "Rock College," + "<br>" +
         "The Happiness Team @ ClassWall" + "<br>"
 
-        "The Happiness Team @ ClassWall" + "<br>" +
-        "Cheers," + "<br>" +
-        "The team @ ClassWall" + "<br>"
-
     sendMessage(emailId, subject, content)
   }
 
@@ -104,9 +100,6 @@ object SendEmailUtility extends EmailUtility {
         "<br>" + "<br>" +
         "Rock College," + "<br>" +
         "The Happiness Team @ ClassWall" + "<br>"
-        "The Happiness Team @ ClassWall" + "<br>" +
-        "Cheers," + "<br>" +
-        "The team @ ClassWall" + "<br>"
 
     sendMessage(emailId, subject, content)
   }
@@ -124,10 +117,6 @@ object SendEmailUtility extends EmailUtility {
         "<br>" + "<br>" +
         "Rock College," + "<br>" +
         "The Happiness Team @ ClassWall" + "<br>"
-        "The Happiness Team @ ClassWall" + "<br>" +
-        "Cheers," + "<br>" +
-        "The team @ ClassWall" + "<br>"
-
     sendMessage(emailId, "Invitation to join Classwall", content)
   }
 

@@ -7,7 +7,11 @@ flash:play.api.mvc.Flash, request: RequestHeader)
 <!-- embedly preview js -->
     <link rel="stylesheet" href="/beamstream-new/css/extracss/embedly-preview.css" type="text/css" />
 <!-- Include professorRegistration.css that is created automatically  -->
+<<<<<<< HEAD
 <link rel="stylesheet" href="/assets/stylesheets/professorRegistration.css" type="text/css" />
+=======
+<link rel="stylesheet" href="@routes.Assets.at("/public/stylesheets","professorRegistration.css")" type="text/css" />
+>>>>>>> e6f32038c7fa4d530fb56cff219c4fbf2e6bc0ff
 <!-- question feed stylesheet -->
 	<link href="@routes.Assets.at("/public/stylesheets","questionStreamStyle.css")" rel="stylesheet" type="text/css" />
 <!--  prettyPhoto -->
@@ -235,6 +239,9 @@ ul li#showSubList:hover ul {
 </style>
 
 @main("My Stream", "Body", meta, CSS, JS, bodyModule, bodyJS, sideBar, header, footer){
+
+<!--<div id="professorRegistration" data-model="question" data-module="view/professorRegistrationView" data-url="/"
+		data-tpl="templates/professorRegistration.tpl" class="right-container"></div>-->
 
  <div id="MyStream" data-module="view/myStreamView">
 	<div class="right-container">

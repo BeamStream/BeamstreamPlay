@@ -34,13 +34,17 @@ object GoogleDocsUploadUtilityController extends Controller {
     val tokenInfo = SocialToken.findSocialTokenObject(new ObjectId(userId.getOrElse((new ObjectId).toString())))
     tokenInfo match {
       case None =>
-        val urlToRedirect = new GoogleBrowserClientRequestUrl(GoogleClientId, redirectURI, Arrays.asList("https://www.googleapis.com/auth/plus.login", "https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()
+        val urlToRedirect = new GoogleBrowserClientRequestUrl(GoogleClientId, redirectURI,
+          Arrays.asList("https://www.googleapis.com/auth/plus.login", "https://www.googleapis.com/auth/drive"))
+          .set("access_type", "offline").set("response_type", "code").build()
         Ok(urlToRedirect).withSession(request.session + ("action" -> action))
       case Some(tokenInfo) =>
         val newAccessToken = GoogleDocsUploadUtility.getNewAccessToken(tokenInfo.refreshToken)
         if (newAccessToken == "Not Found") {
           SocialToken.deleteSocialToken(tokenInfo.id)
-          val urlToRedirect = new GoogleBrowserClientRequestUrl(GoogleClientId, redirectURI, Arrays.asList("https://www.googleapis.com/auth/plus.login", "https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()
+          val urlToRedirect = new GoogleBrowserClientRequestUrl(GoogleClientId, redirectURI,
+            Arrays.asList("https://www.googleapis.com/auth/plus.login", "https://www.googleapis.com/auth/drive"))
+            .set("access_type", "offline").set("response_type", "code").build()
           Ok(urlToRedirect).withSession(request.session + ("action" -> action))
         } else {
           if (tokenInfo.tokenFlag) {
@@ -130,20 +134,20 @@ object GoogleDocsUploadUtilityController extends Controller {
               /*val googleDocId = Document.findDocumentByURL(action.split(" ")(1))
               googleDocId match {
                case None => Ok("Failure")*/
-//               case Some(fileId) =>
-              if(action.length() > 44) {
+              //               case Some(fileId) =>
+              if (action.length() > 44) {
                 val fileId = action.split(" ")(1)
                 val docName = GoogleDocsUploadUtility.getGoogleDocData(newAccessToken, fileId)
                 val updateDocument = Document.updateTitle(fileId, docName)
                 val updateMessage = Message.updateMessageGoogleDocTitle(updateDocument, docName)
                 Ok("Success")
-              }
-              else{
+              } else {
                 Ok("Failure")
               }
-//              }
+              //              }
             } else {
-              val urlToRedirect = new GoogleBrowserClientRequestUrl(GoogleClientId, redirectURI, Arrays.asList("https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()
+              val urlToRedirect = new GoogleBrowserClientRequestUrl(GoogleClientId, redirectURI,
+                Arrays.asList("https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()
               Ok(urlToRedirect).withSession(request.session + ("action" -> action))
             }
           }
@@ -166,7 +170,8 @@ object GoogleDocsUploadUtilityController extends Controller {
       con.setRequestProperty("User-Agent", USER_AGENT);
       con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
-      val urlParameters = "code=" + code + "&client_id=" + GoogleClientId + "&client_secret=" + GoogleClientSecret + "&redirect_uri=" + redirectURI + "&grant_type=authorization_code&Content-Type=application/x-www-form-urlencoded";
+      val urlParameters = "code=" + code + "&client_id=" + GoogleClientId + "&client_secret=" + GoogleClientSecret +
+        "&redirect_uri=" + redirectURI + "&grant_type=authorization_code&Content-Type=application/x-www-form-urlencoded";
       con.setDoOutput(true)
       val wr = new DataOutputStream(con.getOutputStream)
       wr.writeBytes(urlParameters)

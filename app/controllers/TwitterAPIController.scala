@@ -62,10 +62,10 @@ object TwitterAPIController extends Controller {
         case Some(oauth_verifier) =>
           twitter.getOAuthAccessToken(requestToken, oauth_verifier)
           val twitteruser = twitter.verifyCredentials
-          
+
           //Posting message on Twitter
           val status = twitter.updateStatus("Get on the 1st user's beta list for @MyClassWall: A #social #learning network built for #highered. #edtech http://bstre.am/k7lXGw")
-          
+
           val name = twitteruser.getName()
           val userNetwokId = twitteruser.getId().toString
 
@@ -87,7 +87,7 @@ object TwitterAPIController extends Controller {
                   val userSession = request.session + ("userId" -> alreadyExistingUser.id.toString)
                   Ok(views.html.RedirectMain(alreadyExistingUser.id.toString, "success")).withSession(userSession)
               }*/
-          
+
           Ok(views.html.redirectMain("success", getContextUrl, "Thanks for sharing us on Twitter"))
       }
     } catch {
