@@ -184,10 +184,11 @@ object Message { //extends CommentConsumer {
           .limit(messagesPerPage)
           .toList
     }
-    if (commentMessages.length >= 1)
+    if (commentMessages.length >= 1) {
       (commentMessages(0) ++ keywordMessages).distinct
-    else
+    } else {
       keywordMessages
+    }
   }
 
   /**
