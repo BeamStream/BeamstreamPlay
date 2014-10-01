@@ -144,11 +144,13 @@ object StreamController extends Controller {
                     val server = Play.current.configuration.getString("server").get
                     user.firstName match {
                       case "" => Redirect(server + "/registration?userId=" + userId + "&token=" + tokenFound(0).tokenString)
-                        .withSession("token" -> tokenFound(0).tokenString).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000))) //Ok(write(LoginResult(ResulttoSent("Success", tokenFound(0).tokenString), userFound, None, Option(false), server))).as("application/json").withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
+                        .withSession("token" -> tokenFound(0).tokenString)
+                        .withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
                       case _ =>
                         val userMedia = UserMedia.findUserMediaByUserId(new ObjectId(userId))
                         userMedia.isEmpty match {
-                          case true => Redirect(server + "/registration?userId=" + userId + "&token=" + tokenFound(0).tokenString).withSession("token" -> tokenFound(0).tokenString)
+                          case true => Redirect(server + "/registration?userId=" + userId + "&token=" + tokenFound(0).tokenString)
+                            .withSession("token" -> tokenFound(0).tokenString)
                             .withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
                           case false => Redirect("/class").withSession("userId" -> userId)
                             .withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))

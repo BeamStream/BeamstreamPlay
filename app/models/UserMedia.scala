@@ -96,9 +96,9 @@ object UserMedia extends RockConsumer {
   }
 
   /**
- * Get All videos for a user
- * Purpose : Show all Videos for a user
- */
+   * Get All videos for a user
+   * Purpose : Show all Videos for a user
+   */
   def allVideosForAuser(userId: ObjectId): List[UserMedia] = {
     UserMediaDAO.find(MongoDBObject("userId" -> userId, "contentType" -> "Video")).toList
   }
@@ -115,7 +115,8 @@ object UserMedia extends RockConsumer {
     val AlluserMedia = getAllMediaForAUser(userId)
     AlluserMedia map {
       case media =>
-        val updatedMedia = new UserMedia(media.id, media.name, media.description, media.userId, media.dateCreated, media.mediaUrl, media.contentType, media.access, false, media.streamId, media.frameURL, 0, List(), media.comments)
+        val updatedMedia = new UserMedia(media.id, media.name, media.description, media.userId, media.dateCreated,
+          media.mediaUrl, media.contentType, media.access, false, media.streamId, media.frameURL, 0, List(), media.comments)
         UserMediaDAO.update(MongoDBObject("_id" -> media.id), updatedMedia, false, false, new WriteConcern)
     }
   }
@@ -138,7 +139,8 @@ object UserMedia extends RockConsumer {
     userMedia.rockers.contains(userId) match {
 
       case true =>
-        UserMediaDAO.update(MongoDBObject("_id" -> userMediaId), userMedia.copy(rockers = (userMedia.rockers filterNot (List(userId) contains))), false, false, new WriteConcern)
+        UserMediaDAO.update(MongoDBObject("_id" -> userMediaId),
+          userMedia.copy(rockers = (userMedia.rockers filterNot (List(userId) contains))), false, false, new WriteConcern)
         val updatedUserMedia = UserMediaDAO.find(MongoDBObject("_id" -> userMediaId)).toList(0)
         UserMediaDAO.update(MongoDBObject("_id" -> userMediaId), updatedUserMedia.copy(rocks = (updatedUserMedia.rocks - 1)), false, false, new WriteConcern)
         val updatedUserMedia1 = UserMediaDAO.find(MongoDBObject("_id" -> userMediaId)).toList(0)
@@ -182,7 +184,12 @@ object UserMedia extends RockConsumer {
    * Recent Profile pic of user
    */
   def recentProfilePicForAUser(userId: ObjectId): Option[UserMedia] = {
-    val profilePic = UserMediaDAO.find(MongoDBObject("userId" -> userId, "contentType" -> "Image")).sort(orderBy = MongoDBObject("dateCreated" -> -1)).limit(2).toList
+    val profilePic =
+      UserMediaDAO
+        .find(MongoDBObject("userId" -> userId, "contentType" -> "Image"))
+        .sort(orderBy = MongoDBObject("dateCreated" -> -1))
+        .limit(2)
+        .toList
     profilePic.isEmpty match {
       case true => None
       case false => Option(profilePic.head)
@@ -194,7 +201,12 @@ object UserMedia extends RockConsumer {
    * Recent Profile video of user
    */
   def recentProfileVideoForAUser(userId: ObjectId): Option[UserMedia] = {
-    val profilePic = UserMediaDAO.find(MongoDBObject("userId" -> userId, "contentType" -> "Video")).sort(orderBy = MongoDBObject("dateCreated" -> -1)).limit(2).toList
+    val profilePic =
+      UserMediaDAO
+        .find(MongoDBObject("userId" -> userId, "contentType" -> "Video"))
+        .sort(orderBy = MongoDBObject("dateCreated" -> -1))
+        .limit(2)
+        .toList
     profilePic.isEmpty match {
       case true => None
       case false => Option(profilePic.head)

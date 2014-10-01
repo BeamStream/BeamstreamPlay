@@ -53,7 +53,7 @@ object Comment {
   def findAnswerById(answerId: ObjectId): Option[Comment] = {
     CommentDAO.findOneById(answerId)
   }
-  
+
   /**
    * Rocking the comment
    */
@@ -65,14 +65,16 @@ object Comment {
 
       case true =>
         // Unrocking a message
-        CommentDAO.update(MongoDBObject("_id" -> commentId), commentToRock.copy(rockers = (commentToRock.rockers filterNot (List(userId) contains))), false, false, new WriteConcern)
+        CommentDAO.update(MongoDBObject("_id" -> commentId),
+          commentToRock.copy(rockers = (commentToRock.rockers filterNot (List(userId) contains))), false, false, new WriteConcern)
         val updatedComment = CommentDAO.find(MongoDBObject("_id" -> commentId)).toList(0)
         CommentDAO.update(MongoDBObject("_id" -> commentId), updatedComment.copy(rocks = (updatedComment.rocks - 1)), false, false, new WriteConcern)
         val finalComment = CommentDAO.find(MongoDBObject("_id" -> commentId)).toList(0)
         finalComment.rocks
       case false =>
         //Rocking a message
-        CommentDAO.update(MongoDBObject("_id" -> commentId), commentToRock.copy(rockers = (commentToRock.rockers ++ List(userId))), false, false, new WriteConcern)
+        CommentDAO.update(MongoDBObject("_id" -> commentId),
+          commentToRock.copy(rockers = (commentToRock.rockers ++ List(userId))), false, false, new WriteConcern)
         val updatedComment = CommentDAO.find(MongoDBObject("_id" -> commentId)).toList(0)
         CommentDAO.update(MongoDBObject("_id" -> commentId), updatedComment.copy(rocks = (updatedComment.rocks + 1)), false, false, new WriteConcern)
         val finalComment = CommentDAO.find(MongoDBObject("_id" -> commentId)).toList(0)
@@ -128,7 +130,7 @@ object Comment {
   def deleteCommentPermanently(commentId: ObjectId, messageOrQuestionId: ObjectId, userId: ObjectId): Boolean = {
     val commentToBeremoved = CommentDAO.findOneById(commentId)
     commentToBeremoved match {
-      case Some(comment) => 
+      case Some(comment) =>
         CommentDAO.remove(comment)
         true
       case None => false
@@ -144,11 +146,10 @@ object Comment {
     val comment = CommentDAO.find(MongoDBObject("_id" -> commentId)).toList(0)
     comment.rockers.contains(userId)
   }
-  
+
   def getAllCommentsForAKeyword(keyword: String, streamId: ObjectId): List[Comment] = {
     val keyWordregExp = Pattern.compile(keyword, Pattern.CASE_INSENSITIVE) //(""".*""" + keyword + """.*""").r
     CommentDAO.find(MongoDBObject("commentBody" -> keyWordregExp, "streamId" -> streamId)).toList
-    //    val messageGoogleDocTitleResult = MessageDAO.find(MongoDBObject("streamId" -> streamId, "messageGoogleDocTitle" -> keyWordregExp)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
   }
 
 }
