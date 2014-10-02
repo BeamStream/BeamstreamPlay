@@ -12,7 +12,6 @@ import play.api.Logger
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
 
-
 object GoogleDocsUploadUtility {
   val formatter: SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -123,17 +122,17 @@ object GoogleDocsUploadUtility {
       fileData.length match {
         case 9 =>
           val fileId = fileData(7)*/
-          val permission = serviceOfOwner.permissions().list(fileId).execute()
-          if (permission.getItems()(0).getType() == "anyone")
-            true
-          else {
-            val fileFound = serviceOfRequester.files().get(fileId).execute()
-            fileFound.getUserPermission().toString().isDefinedAt(0) match {
-              case true => true
-              case false => false
-            }
-          }
-        /*case 7 =>
+      val permission = serviceOfOwner.permissions().list(fileId).execute()
+      if (permission.getItems()(0).getType() == "anyone") {
+        true
+      } else {
+        val fileFound = serviceOfRequester.files().get(fileId).execute()
+        fileFound.getUserPermission().toString().isDefinedAt(0) match {
+          case true => true
+          case false => false
+        }
+      }
+      /*case 7 =>
           val fileId = fileData(5)
           val permission = serviceOfOwner.permissions().list(fileId).execute()
           if (permission.getItems()(0).getType() == "anyone")
@@ -298,10 +297,10 @@ object GoogleDocsUploadUtility {
       fileData.length match {
         case 9 =>
           val fileId = fileData(7)*/
-          val fileFound = serviceOfOwner.files().get(fileId).execute()
-          val gmailIdOfDocOwner = fileFound.getOwners()(0).get("emailAddress").toString()
-          gmailIdOfDocOwner
-        /*case 7 =>
+      val fileFound = serviceOfOwner.files().get(fileId).execute()
+      val gmailIdOfDocOwner = fileFound.getOwners()(0).get("emailAddress").toString()
+      gmailIdOfDocOwner
+      /*case 7 =>
           val fileId = fileData(5)
           val fileFound = serviceOfOwner.files().get(fileId).execute()
           val gmailIdOfDocOwner = fileFound.getOwners()(0).get("emailAddress").toString()

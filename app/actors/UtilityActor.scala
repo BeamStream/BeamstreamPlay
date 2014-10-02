@@ -47,10 +47,11 @@ object UtilityActor extends EmailUtility {
   def sendMail(emailId: String, subject: String, content: String, fromAddress: String): Unit = {
     val authenticatedMessageAndSession = setEmailCredentials
     val recipientAddress = new InternetAddress(emailId)
-    if (fromAddress != null)
+    if (fromAddress != null) {
       authenticatedMessageAndSession._1.setFrom(new InternetAddress(fromAddress, fromAddress))
-    else
+    } else {
       authenticatedMessageAndSession._1.setFrom(new InternetAddress(CLASSWALL_EMAIL, CLASSWALL_EMAIL))
+    }
     authenticatedMessageAndSession._1.addRecipient(Message.RecipientType.TO, recipientAddress);
     authenticatedMessageAndSession._1.setSubject(subject);
     authenticatedMessageAndSession._1.setContent(content, "text/html");

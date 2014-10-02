@@ -16,7 +16,8 @@ define(
 		[ 'view/formView', '../../lib/bootstrap.min',
 				'../../lib/bootstrap-select', '../../lib/bootstrap-modal',
 				'../../lib/jquery.meio.mask', '../../lib/bootstrap-datepicker',
-				'text!templates/registration.tpl', ],
+				'text!templates/registration.tpl', '../../lib/extralib/exif', 
+				'../../lib/extralib/binaryajax'],
 		function(FormView, Bootstrap, BootstrapSelect, BootstrapModal,
 				MaskedInput, Datepicker, RegistrationTpl) {
 			var RegistrationView;
@@ -417,9 +418,21 @@ define(
 										'File type not allowed !!');
 								self.profile = '';
 							} else {
-
+								//alert("All info about this file: " + ImageInfo.getAllFields(file).toSource());
+								//alert(file.getAsBinary());
+								//var exif = EXIF.readFromBinaryFile(new BinaryFile(reader.readAsBinaryString(file)));
+								//alert(exif);
+								//reader.onloadend = function() {
+								//var binaryData = new BinaryFile(this.result);
+								//alert(JSON.stringify(binaryData));
+      								//  var exif = EXIF.readFromBinaryFile(file);
+        
+       								  //alert(exif);
+    							//};
 								/* capture the file informations */
 								reader.onload = (function(f) {
+								//var exif = EXIF.readFromBinaryFile(new BinaryFile(this.result));
+						        //alert(exif);
 
 									self.profile = file;
 									return function(e) {
