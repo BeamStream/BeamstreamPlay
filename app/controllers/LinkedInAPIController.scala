@@ -12,10 +12,6 @@ import play.api.Play
 import play.api.mvc.Action
 import play.api.mvc.Controller
 import org.scribe.model.Verb
-import scala.collection.mutable.HashMap
-import twitter4j.JSONObject
-import org.json.simple.JSONValue
-import com.sun.corba.se.spi.oa.OADefault
 
 object LinkedInAPIController extends Controller {
 
@@ -34,14 +30,13 @@ object LinkedInAPIController extends Controller {
    */
 
   def getOAuthService: OAuthService = {
-    val service: OAuthService = new ServiceBuilder()
+    new ServiceBuilder()
       .provider(classOf[LinkedInApi])
       .apiKey(apiKey)
       .apiSecret(apiSecret)
       .scope("rw_nus")
       .callback(server + "/linkedin/callback")
       .build();
-    service
   }
 
   def linkedinLogin: Action[play.api.mvc.AnyContent] = Action {
