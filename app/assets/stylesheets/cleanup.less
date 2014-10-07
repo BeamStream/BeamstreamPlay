@@ -3784,12 +3784,30 @@ display:block;
 margin-top: -15px;
 }
 
+
 #expanded-questions-sort {
+
+a#discussions-link {
+	font-weight: 600;
+	text-decoration: underline !important;
+}
+
+#discussions-link:before {
+margin: 7px -2px 0 0;
+border-color: rgba(205, 212, 219, 0) #cdd4db rgba(205, 212, 219, 0) rgba(205, 212, 219, 0);
+border-width: 16px;
+margin-top: -26px;
+}
+
+#questions-sort-container {
 	background-color: @LightBlue;
 	padding: 5px 0px 1px 0px;
 	margin: -7px 15% 20px 0px;
 	border-radius: 5px 5px 0px 0px;
 	height: 37px;
+	height: 39px;
+	margin-right: 30%;
+	max-width: 62%;
 }
 
 #expanded-questions-sort h5 {
@@ -3799,7 +3817,7 @@ margin-top: -15px;
 
 #expanded-questions-sort span {
 	border-top: 7px solid #ffffff;
-	
+	float: left;
 }
 
 #expanded-questions-sort #sortBy-select, #expanded-questions-sort #sortBy-select .main-stream-dropdown {
@@ -3833,6 +3851,43 @@ margin-top: -15px;
 #questions-sort-container {
 	
 }
+	float: left;
+}
+
+#expanded-questions-sort .all-search {
+	margin-left: 77%;
+}
+
+input#sort_by_key_questions {
+	margin-right: 0px;
+	height: 34;
+}
+
+#expanded-questions-sort span.caret.settings-caret.main-stream-dropdown {
+	color: white;
+	position: relative;
+	top: -4;
+	border-left: 7px solid transparent;
+	border-right: 7px solid transparent;
+	border-top: 7px solid #ffffff;
+}
+
+#expanded-questions-sort #stream-date-sort, #expanded-questions-sort #rock-sort {
+	border: solid 1px white;
+	border-radius: 2px;
+	width: 113px;
+	position: relative;
+	top: 1;
+}
+
+#expanded-questions-sort #rock-sort {
+	margin-left: 15%;
+}
+
+#expanded-questions-sort #stream-date-sort {
+	margin-left: 5%;
+}
+
 .question-sort h5 {
 color:#616161;
 float:left;
@@ -3855,9 +3910,6 @@ sans-serif;
 padding-right: 88px
 }
 
-
-
-
 #msg-area::-webkit-input-placeholder {
 	font-size: 90%;
 	padding: 0px;
@@ -3873,15 +3925,9 @@ padding-right: 88px
 	padding: 0px;
 }
 
-
 #msg-area:-ms-input-placeholder {  
 	font-size: 97%;
 }
-
-
-
-
-
 
 #msg-area {
 	-webkit-transition: all 100ms;
@@ -3912,8 +3958,6 @@ padding-right: 88px
    }
   
 }
-
-
 
 #Q-area {
 	-webkit-transition: all 100ms;
