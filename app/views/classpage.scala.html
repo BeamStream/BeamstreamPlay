@@ -47,123 +47,75 @@ header, footer){
 <div id="class-page" data-module="view/classPageView">
 	<div id="classView" data-model="class">
 		<div class="right-container">
-			<div id="class-red-border"
-				class="classic-information-block class-border">
+			<div id="class-red-border" class="classic-information-block class-border">
 				<div id="class-form" class="classic-information-left">
 					<h5>Class Information</h5>
-
-
-					<div
-						class=" invite-select invite-grade-select field school_field class_field">
+						<div class=" invite-select invite-grade-select field school_field class_field">
 						<!-- <select id="schoolId" data-name="class.schoolId" name="schoolId"  class="selectpicker-info " style="display: none;"> -->
-
 						<!-- </select> -->
-
-
-						<select id="schoolId" data-name="class.schoolId" name="schoolId"
-							class="selectpicker-info " style="display: none;">
-
-						</select>
-
-						<div id="add-new-school" class="new-school-field"
-							style="display: none;">
-							<input id="schoolName" name="schoolName" type="text"
-								placeholder="Enter new school" class="newclass"> <input
-								type="hidden" id="associatedSchoolId">
+							<select id="schoolId" data-name="class.schoolId" name="schoolId" class="selectpicker-info " style="display: none;">
+							</select>
+							<div id="add-new-school" class="new-school-field" style="display: none;">
+								<input id="schoolName" name="schoolName" type="text" placeholder="Enter new school" class="newclass"> 
+								<input type="hidden" id="associatedSchoolId">
+							</div>
 						</div>
-
-					</div>
-
-
-
-					<fieldset class="field">
-						<input id="classCode" data-name="class.classCode" name="classCode"
-							type="text" placeholder="Class Code" name="" class="small-text ">
+						<fieldset class="field">
+							<input id="classCode" data-name="class.classCode" name="classCode" type="text" placeholder="Class Code" name="" class="small-text ">
 					</fieldset>
 					<fieldset class="field">
 						<input id="className" data-name="class.className" name="className"
 							type="text" placeholder="Enter the name of your class"
 							class="big-text">
 					</fieldset>
-
 					<div class="field">
-						<input id="classTime" data-name="class.classTime" name="classTime"
-							type="text" placeholder="Class Time" class="time-text">
-
-						<div class="field time_select class_field field">
-							<select id="time" class="selectpicker-info " name="time"
-								style="display: none;">
-								<option selected="selected" value="AM">AM</option>
-								<option value="PM">PM</option>
-
-							</select>
-						</div>
-
-
-
-						<!--   <div class="invite-calender field">  
+						<input id="classTime" data-name="class.classTime" name="classTime" type="text" placeholder="Class Time" class="time-text">
+							<div class="field time_select class_field field">
+								<select id="time" class="selectpicker-info " name="time" style="display: none;">
+									<option selected="selected" value="AM">AM</option>
+									<option value="PM">PM</option>
+								</select>
+							</div>
+						<!--<div class="invite-calender field">  
                   <input id="startingDate" data-name="class.startingDate" value="" name="startingDate"  class="datepicker calender-box" type="text" placeholder="Class start date" />
- 
  				 <div class="new-arrow date-arrow ">
           <span><img src="/beamstream-new/images/white-arrow.png" width="15" height="8"></span>
         </div>
               </div> -->
-
-						<div data-date-viewmode="years" id="datepicker"
-							class="input-append date invite-calender field">
-							<input type="text" readonly="" id="startingDate"
-								data-name="class.startingDate" value="" name="startingDate"
-								placeholder="Class start date" class="datepicker calender-box">
-							<div class="new-arrow date-arrow ">
-								<span class="add-on"></span>
+							<div data-date-viewmode="years" id="datepicker" class="input-append date invite-calender field">
+								<input type="text" readonly="" id="startingDate" data-name="class.startingDate" value="" name="startingDate" placeholder="Class start date" 								class="datepicker calender-box">
+									<div class="new-arrow date-arrow ">
+										<span class="add-on"></span>
+									</div>
 							</div>
-
+							<div class="invite-small-last semester-select-block field class_field">
+								<select id="classType" data-name="class.classType" name="classType" class="selectpicker-info" style="display: none;">
+									<option value="semester">Semester</option>
+									<option value="quarter">Quarter</option>
+								</select>
 						</div>
-
-
-
-						<div
-							class="invite-small-last semester-select-block field class_field">
-
-							<select id="classType" data-name="class.classType"
-								name="classType" class="selectpicker-info "
-								style="display: none;">
-								<option value="semester">Semester</option>
-								<option value="quarter">Quarter</option>
-							</select>
-						</div>
-
 					</div>
-
 					<div class="invite-bottom-btn">
-
-						<a id="add_classmates" href="#" class="invite-orange-btn addmore"
-							data-toggle="modal"><span></span><span class="text">Add
-								More Classmates</span></a> <a href="#" class="invite-orange-btn"><span></span><span
-							class="text">Invite Educator To Class</span></a></a> <a href="#"
-							id="createOrJoinStream" class="invite-green-btn">Create/Join
-							Stream</a>
-
-
-
+						<a id="add_classmates" href="#" class="invite-orange-btn addmore" data-toggle="modal"><span></span><span class="text">Add More Classmates</span></a> 
+						<a href="#" class="invite-orange-btn"><span></span>
+							<span class="text">Invite Educator To Class</span>
+						</a>
+						<a href="#" id="createOrJoinStream" class="invite-green-btn">Create/Join Stream</a>
 					</div>
-
 				</div>
 				<div class="classic-information-right">
 					<h5>Class access</h5>
-					<ul class="access-menu">
-						<li><a href="#" class="open-online">Open Online Class</a></li>
-						<li><a href="#" class="invite-only"> Invite Only</a></li>
-						<li><a href="#" class="users-request">Users Requests</a>
-							<div class="orange-tick">
-								<img src="/beamstream-new/images/orange-tick.png">
-							</div></li>
-					</ul>
+						<ul class="access-menu">
+							<li><a href="#" class="open-online">Open Online Class</a></li>
+							<li><a href="#" class="invite-only"> Invite Only</a></li>
+							<li><a href="#" class="users-request">Users Requests</a>
+								<div class="orange-tick">
+									<img src="/beamstream-new/images/orange-tick.png">
+								</div>
+							</li>
+						</ul>
 				</div>
-
 			</div>
-
-
 			<!-- for  popups after Create stream -->
 
 			<div id="selectNextStep" class="modal hide fade registration-modal white-modal-block bootbox modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
