@@ -4,24 +4,29 @@
       <div class="class-info">
         <h5>CLASS INFO</h5>
         <form id="class-info">
-          <div class="school-name-row row-fluid">
-            <!-- <div class="span12"> -->
-              <input type="text" placeholder="School Name" class="span12 school-name" name="school-name">
-            <!-- </div> -->
-          </div>
-          <div class="name-class-code row-fluid">
-            <input type="text" placeholder="Stream Name" class="span8 stream-name" name="streamName">
-            <input type="text" placeholder="Class Code" class="span4 class-code" name="classCode">
-          </div>
-          <div class="time-row row-fluid">
-            <!-- <table>
-              <tr>
-                <td> -->
-                  <div class="time-input span4">
-                    <input type="text" placeholder="Class Time" name="classTime">
-                  </div>
-                <!-- </td>
-                <td> -->
+          <div class="school-name-row row-fluid invite-select school_field">
+					  <!-- <div class="span12"> -->
+							<select id="schoolId" data-name="class.schoolId" name="schoolId" class="selectpicker-info" class="span12 school-name" name="school-name" style="display: 										none;">
+							</select>
+							<div id="add-new-school" class="new-school-field" style="display: none;">
+								<input type="text" id="schoolName" name="schoolName" placeholder="Enter new school" class="newclass"> 
+								<input type="hidden" id="associatedSchoolId">
+							</div>
+					  <!-- </div> -->
+				  </div>
+					<fieldset class="field name-class-code row-fluid">
+					  <input type="text" placeholder="Stream Name" class="span8 stream-name big-text" id="className" data-name="class.className" name="className" placeholder="Enter the name of your class">
+					  <input type="text" placeholder="Class Code" class="span4 class-code" name="classCode" id="classCode" data-name="class.classCode" name="" class="small-text">
+					</fieldset>
+					<div class="time-row row-fluid">
+					 <!-- <table>
+					    <tr>
+					      <td> -->
+					        <div class="time-input span4 field">
+					          <input type="text" id="classTime" data-name="class.classTime" name="classTime" placeholder="Class Time" class="time-text">
+					        </div>
+					      <!-- </td>
+					      <td> -->
                   <div class="span4">
                     <!-- <span>Class <br>Days:</span> -->
                     <input type="hidden" name="daysofWeek" value"">
@@ -37,17 +42,44 @@
                       </div>
                     </div>
                   </div>
-                <!-- </td>
-                <td> -->
-                  <div class="time-input">
-                    <select name="termTimeFrame" class="span4">
-                      <option>Semester</option>
-                      <option>Quarter</option>
-                    </select>
-                  </div>
-                <!-- </td>
-              </tr>
-            </table> -->
+																	<!-- Calendar UI from previous registration. Can be deleted once new registration is hooked up 10/12/14
+
+																	<div data-date-viewmode="years" id="datepicker" class="input-append date invite-calender field">
+																		<input type="text" readonly="" id="startingDate" data-name="class.startingDate" value="" name="startingDate" placeholder="Class start date" class="datepicker calender-box">
+																		<div class="new-arrow date-arrow ">
+																			<span class="add-on"></span>
+																		</div>
+																	</div>
+																		-->
+											      <!-- </td>
+											      <td> -->
+						                  <div class="time-input">
+						                    <select name="termTimeFrame" class="span4">
+						                      <option>Semester</option>
+						                      <option>Quarter</option>
+						                    </select>
+						                  </div>
+															<!-- OLD Semester Block old registration UI
+										            <div class="invite-small-last semester-select-block field class_field">
+										 							<select id="classType" data-name="class.classType" name="classType" class="selectpicker-info " style="display: none;">
+										 								<option value="semester">Semester</option>
+										 								<option value="quarter">Quarter</option>
+										 							</select>
+										 							<div class="btn-group bootstrap-select selectpicker-info">
+										 								<button class="btn dropdown-toggle clearfix register-select invite-selecter" data-toggle="dropdown" id="classType"><span class="filter-option pull-left" style="max-width: 50px;">Semester</span> <span class="caret display-caret pull-right"></span>
+										 								</button>
+										 								<div class="dropdown-menu" role="menu">
+										 									<ul>
+										 										<li rel="0"><a tabindex="-1" href="#">Semester</a></li>
+										 										<li rel="1"><a tabindex="-1" href="#">Quarter</a></li>
+										 									</ul>
+										 								</div>
+										 							</div>
+										 						</div>
+																>
+											      </td>
+											    </tr>
+											 </table> -->
           </div>
         </div>
         <div class="contact-info">
@@ -76,9 +108,8 @@
           <input type="radio" name="class-access" value="request">
           User's Request
         </label>
-        <p><button class="btn btn-small btn-inverse invite">+ Invite Others</button></p>
-        <p><button class="btn btn-large btn-success submit" type="submit">Create Stream</button></p>
-
+			  <p><button class="btn btn-small btn-inverse invite" id="add_classmates" href="#" data-toggle="modal"><span></span>+ Invite Others</button></p>
+				<p><button class="btn btn-large btn-success submit" href="#" id="createOrJoinStream" type="submit">Create Stream</button></p>
       </div>
     </div>
   </div>
