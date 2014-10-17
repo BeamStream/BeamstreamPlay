@@ -3,8 +3,6 @@
 
 <div class="left-menu">
 	<div id="add-edit-class">
-		<div id="add-class-stream">ADD</div>
-		<div id="edit-class-stream">EDIT</div>
 	</div>
 	<div class="display-stream">
 		<div class="btn-group stream-dropdown">
@@ -37,7 +35,7 @@
         
         
         <div class="display-scroller">
-            <div class="arrow-block"><span class="caret arrow-up" id="nav-arrow-up"></span></div>
+					
                 <div class="scroll-menu scroller">
                 
                     <ul id="sortable4" class="connected sortable list">  
