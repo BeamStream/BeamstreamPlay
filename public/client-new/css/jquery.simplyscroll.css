@@ -277,6 +277,9 @@ Note all DIVs are generated and should not be hard-coded
 		z-index: 1;
 }
 
+.simply-scroll-forward.simply-scroll-btn.simply-scroll-btn-down.disabled {
+margin-top: 40px;
+
 .vert .simply-scroll-btn-down.disabled {
 }
 
