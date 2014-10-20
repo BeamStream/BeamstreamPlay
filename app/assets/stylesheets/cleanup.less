@@ -3055,10 +3055,13 @@ width:100%
 padding-right:8px
 }
 
+/* LESS Global Styles*/
 @Gray: #9d9d9d;
 @DarkGray: #858585;
-@LightBlue: #00b7e1; 
+@LighterLightBlue: #7bcfe7; 
+@LightBlue: #00B7E1;
 @DarkBlue: #21A1BF;
+@Orange: #ffba00;
 
 @ButtonColor: @Gray;
 @SecondaryButtonColor: @LightBlue;
@@ -5378,7 +5381,6 @@ button.btn.display-dropdown {
 }
 
 .straem-block a:hover {
-	background: #ffba00;
 }
 
 
@@ -5637,7 +5639,7 @@ color: #fff;
 }
 
 .sortable li.active a {
-color: #5199e0!important;
+color: @LightBlue !important;
 }
 
 .red-active {
@@ -6576,6 +6578,10 @@ background:url(../../beamstream-new/images/invite-drop-arrow.png) center 15px no
 	width: 12.5%;
 }
 
+div#stream-date-sort {
+visibility: hidden;
+}
+
 .normal-dropdown {
 -webkit-box-shadow:0 2px 5px 0 #c9c9c9 inset;
 -moz-box-shadow:0 2px 5px 0 #c9c9c9 inset;
@@ -7113,7 +7119,7 @@ margin-right:10px
 }
 
 .follow-names span {
-color:#5299bd;
+	color: @LighterLightBlue;
 }
 
 .ask-comment .follow-button {
@@ -7339,7 +7345,7 @@ form.question-ask.ask-disccution {
 .formview .ask-content .ask-info .ask-comment {
 	margin-top: -1px;
 	padding-right: 5%;
-	padding-bottom: 2px;
+	padding-bottom: 6px;
 }
 
 .ask-comment:hover .delete_msg,
@@ -8895,7 +8901,8 @@ display: inline-block;
 }
 
 .grey-buttons span {
-color:#2596dd
+	color: @LighterLightBlue;
+	font-weight: 600;
 }
 
 .grey-buttons:hover,
@@ -9472,7 +9479,7 @@ background:url(../../beamstream-new/images/spryte.png) -54px -1379px no-repeat;
 }
 
 .sortable li.active span {
-	background-color: #00b7e1;
+	background-color: @LightBlue;
 	background-position: -29px -59px;
 	color: #fff;
 }
@@ -10773,13 +10780,17 @@ padding-right:10px
 }
 
 ul.follow-name-left li a {
-color: #ff9f00;
+color: @Orange;
 text-decoration:underline;
 font-weight: 500;
 }
 
 ul.follow-name-left li:nth-child(2) {
-	margin-left: 5%;
+	margin: 1%;
+}
+
+ul.follow-name-left li:nth-child(3) {
+	margin: 2px 0px 0px 13px;
 }
 
 ul.follow-name-left li a:hover {
@@ -10836,22 +10847,23 @@ background-position:-589px -447px
 
 ul.follow-name-left li a.uprocks-message,
 ul.follow-name-left li a.downrocks-message {
-color:#5299bd;
-display:block;
-font-weight:bold;
-width:25px;
-height:30px;
-text-align:center
+	color: @LighterLightBlue ;
+	display: block;
+	font-weight :bold;
+	width: 39px;
+	height: 38px;
+	text-align: center;
+	text-decoration: none;
 }
 
 ul.follow-name-left li a.uprocks-message {
-background-position:-949px -447px;
-margin-right:1px
+	background-position: -318px -3px;
+	margin: -1px 0px 0px -5px;
 }
 
 ul.follow-name-left li a.downrocks-message {
-background-position:-949px -447px;
-margin-left:1px
+	background-position: -265px -3px;
+	margin: -1px 0px 0px -5px;
 }
 
 ul.follow-name-left li a.rocks-message span,
@@ -10871,6 +10883,13 @@ ul.follow-name-left.rocks-small {
 color:#5299bd
 }
 
+a.uprocks-message span, a.downrocks-message span {
+	position: relative;
+	top: 3;
+	left: 4px;
+	font-weight: 600 !important;
+}
+
 ul.follow-name-left.rocks-small a {
 color:#5299bd;
 background:url(../../beamstream-new/images/rocks-icon-arrow-small.png) left 5px no-repeat;
@@ -10885,21 +10904,24 @@ background:url(../../beamstream-new/images/rocks-icon-arrow-small-a.png) left 5p
 }
 
 ul.follow-name-left li a.uprocks-message:hover {
-background:url(../../beamstream-new/images/spryte.png) -994px -447px;
-color:#5299bd;
-display:block;
-font-weight:bold;
-width:25px;
-text-align:center
+background:url(../../beamstream-new/images/spryte.png) -381px -3px;
+	color: @LighterLightBlue;
+	display: block;
+	font-weight: 600;
+	width: 39px;
+	height: 38px;
+	text-align: center;
 }
 
 ul.follow-name-left li a.downrocks-message:hover {
-background:url(../../beamstream-new/images/spryte.png) -1034px -447px;
-color:#5299bd;
-display:block;
-font-weight:bold;
-width:25px;
-text-align:center
+background:url(../../beamstream-new/images/spryte.png) -202px -3px;
+	color: @LighterLightBlue;
+	display: block;
+	font-weight: 600;
+	width: 39px;
+	height: 38px;
+	text-align: center;
+	margin-left: -5px;
 }
 
 .white-modal-block,
@@ -11310,7 +11332,7 @@ margin: 30px 8px 8px 0px;}
 }
 
 #number-new-questions-container {
-	background-color: #00b7e1;
+	background-color: @LightBlue;
 	width: 49px;
 	height: 42px;
 	position: relative;
