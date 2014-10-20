@@ -1,9 +1,20 @@
 // the line below messes up the main stream view
 
+/* LESS Global Styles*/
+/* LESS Global Styles*/
+@Gray: #9d9d9d;
+@DarkGray: #858585;
+@LighterLightBlue: #7bcfe7; 
+@LightBlue: #00B7E1;
+@DarkBlue: #21A1BF;
+@Orange: #ffba00;
 
-#topheader
+@ButtonColor: @Gray;
+@SecondaryButtonColor: @LightBlue;
+@SecondaryButtonColorHover: @DarkBlue;
+@RegButtonColorHover: @DarkGray;
 
-{
+#topheader  {
 padding-right:19px;
 }
 
@@ -100,8 +111,8 @@ padding-right:19px;
 	margin-top: 7px;
 	margin-right: 20px;
 	float: right;
-	font-size: 11px;
-	color: #ff9f00;
+	font-size: 12px;
+	color: @Orange;
 	text-decoration: underline;
 }
 .rock-icon {
@@ -159,7 +170,7 @@ padding-right:19px;
 		-webkit-border-radius: 5px 5px 0 0/4px 4px 0 0;
 			-moz-border-radius: 5px 5px 0 0/4px 4px 0 0;
 				border-radius: 5px 5px 0 0/4px 4px 0 0;
-	background-color: #00b7e1;
+	background-color: @LightBlue;
 	background-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.05), rgba(255, 255, 255, 0.05));
 	background-image: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0.05), rgba(255, 255, 255, 0.05));
 	background-image: -o-linear-gradient(bottom, rgba(0, 0, 0, 0.05), rgba(255, 255, 255, 0.05));
@@ -323,6 +334,38 @@ width:150px;
 			background-image: -o-linear-gradient(bottom, rgba(0,0,0,.1), rgba(255,255,255,.1));
 			background-image: linear-gradient(to top, rgba(0,0,0,.1), rgba(255,255,255,.1));
 }
+
+.filters li:hover {
+  border-top: 1px solid #305f77;
+  border-right: 1px solid #305f77;
+  border-left: 1px solid #305f77;
+  background: #5199e1;
+  background: -moz-linear-gradient(90deg, #5199e1 36%, #3d81a4 78%);
+  background: -webkit-linear-gradient(90deg, #5199e1 36%, #3d81a4 78%);
+  background: -o-linear-gradient(90deg, #5199e1 36%, #3d81a4 78%);
+  background: -ms-linear-gradient(90deg, #5199e1 36%, #3d81a4 78%);
+  background: linear-gradient(180deg, #5199e1 36%, #3d81a4 78%);
+}
+.filters li {
+  display: inline-block;
+  float: left;
+  padding-top: 4px;
+  width: 83px;
+  height: 28px;
+  text-align: center;
+  border-top: 1px solid #63a2c3;
+  border-right: 1px solid #63a2c3;
+  border-left: 1px solid transparent;
+  cursor: pointer;
+  background-color: @LightBlue;
+}
+.filters li a {
+  text-decoration: none;
+  color: #ffffff;
+  line-height: 20px;
+  font-weight: 200;
+  font-size: 12px;
+}
 .popout:hover {
     width: 18px;
     height: 18px;
@@ -358,13 +401,14 @@ width:150px;
 	margin-left: 10%;
 	top: -9;
 	position: relative;
+	visibility: hidden;
 }
 .profile-picture {
-    border-radius: 5px;
     max-width: 41px;
     height: auto;
     display: inline-block;
     float: left;
+		border: solid 1px rgba(0, 0, 0, 0.2);
 }
 .question-post {
     padding-top: 15px;
@@ -375,7 +419,6 @@ width:150px;
     border-left: 1px solid #cfd3d7;
 	//	height: 35%;
 		overflow: hidden;
-	padding-bottom:8px;
 }
 .questions-scrollbar::-webkit-scrollbar {
     width: 10px;
@@ -484,7 +527,7 @@ width:150px;
     margin: 7px 7px 0 -6;
     float: right;
     font-size: 12px;
-    color: #ff9f00;
+    color: @Orange;
 		text-decoration: underline;
 }
 .username:hover {
@@ -498,7 +541,7 @@ width:150px;
 	font-weight: 500;
 	float: left;
 	margin: -4px 0 0 8px;
-	color: #5299bd;
+	color: @LighterLightBlue;
 }
 .confused {
     display: inline-block;
@@ -588,7 +631,8 @@ width:150px;
     margin: 7px 7px 7px 2px;
     display: inline;
     font-size: 11px;
-    color: #5299bd;
+		font-weight: 600;
+    color: @LighterLightBlue;
 }
 .perfect-bg {
     width: 63px;
@@ -623,22 +667,22 @@ width:150px;
    text-align:center;
    width:50%;
    float:left;
-   color: #5299bd;
-   font-weight: 500;
+   color: @LighterLightBlue;
+   font-weight: 600;
 	 margin-left: 23px;
 	 margin-top: -7;
-	 text-decoration: underline;
+	 text-decoration: none;
 }
 
 .comment-amount{
 	text-align: center;
 	width: 50%;
 	float: left;
-	color: #5299bd;
-	font-weight: 500;
+	color: @LighterLightBlue;
+	font-weight: 600;
 	margin-left: 79px;
 	margin-top: -20px;
-	text-decoration: underline;
+	text-decoration: none;
 }
 
 .already-rocked {
