@@ -211,7 +211,7 @@
 
                         </li>
                       <li>
-                        <a class="rocks-question" href="#">Rock</a>
+                        <a class="rocks-question" href="#">Nice!</a>
                       </li>
                       
                       <li><a href="#" class="add-answer"> Answer</a></li>                      
