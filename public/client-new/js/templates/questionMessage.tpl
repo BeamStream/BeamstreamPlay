@@ -211,12 +211,12 @@
 
                         </li>
                       <li>
-                        <a class="rocks-question" href="#">Nice!</a>
+                        <a class="rocks-question" href="#">+ Nice!</a>
                       </li>
                       
-                      <li><a href="#" class="add-answer"> Answer</a></li>                      
+                      <li><a href="#" class="add-answer">+ Answer</a></li>                      
                       
-                      <li><a href="#" class="add-comment" > Comment</a></li>
+                      <li><a href="#" class="add-comment" >+ Comment</a></li>
                       
                       
                       <!--li><a class="comment-icon" href="#"></a></li-->
