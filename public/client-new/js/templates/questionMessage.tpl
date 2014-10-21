@@ -229,12 +229,12 @@
 
                     <div id="{{data.question.id.id}}-addComments" class="follow-comment" style="display:none;">
                      <textarea id="{{data.question.id.id}}-questionComment" class="add-question-comment" placeholder="Add Comments.."  onblur="this.placeholder = 'Add Comments..'" onfocus="this.placeholder = ''" placeholder="" cols="" rows="" style="overflow:hidden"></textarea>
-                    <div class="message-comment-button" id="question-comment-post-button">Post</div>
+                    <div class="message-comment-button" id="question-comment-post-button">POST</div>
                     </div>
                     
                     <div id="{{data.question.id.id}}-addAnswer" class="follow-comment" style="display:none;">
                     <textarea id="{{data.question.id.id}}-questionsAnswer" class="add-question-answer" placeholder="Add Answers.."  onblur="this.placeholder = 'Add Answers..'" onfocus="this.placeholder = ''" placeholder="" cols="" rows="" style="overflow:hidden"></textarea>
-                    <div class="message-comment-button" id="question-answer-post-button">Post</div>
+                    <div class="message-comment-button" id="question-answer-post-button">POST</div>
                     </div>  
                     
         			{{#ifequal loggedUserId data.question.userId.id }}
