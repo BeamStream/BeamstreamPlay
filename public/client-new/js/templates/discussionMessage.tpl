@@ -212,7 +212,7 @@
                   </div>
                   <div id="{{data.message.id.id}}-addComments" class="follow-comment">
 					<textarea id="{{data.message.id.id}}-msgComment" class="add-message-comment" rows="" cols="" placeholder="Add Comments.." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Add Comments..'" style="overflow:hidden"></textarea>
-					<div class="message-comment-button" id="message-comment-post-button">Post</div>
+					<div class="message-comment-button" id="message-comment-post-button">POST</div>
 				 </div>
 				 {{#ifequal loggedUserId data.message.userId.id }}
 					<a id="{{data.message.id.id}}" href="#" data-original-title="Delete" href="#" class="delete_post drag-rectangle" ></a>
