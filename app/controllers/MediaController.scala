@@ -27,7 +27,6 @@ import play.api.Play
 import play.api.mvc.AnyContent
 import play.api.mvc.DiscardingCookie
 import utils.RotateImageUtil
-//import com.beamstream.exifRotate.ExifRotate
 
 object MediaController extends Controller {
 

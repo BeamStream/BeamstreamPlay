@@ -21,6 +21,7 @@ libraryDependencies ++= Seq(
    "org.neo4j"      % "neo4j-kernel"            % "2.1.3",
    "com.googlecode.json-simple" % "json-simple" % "1.1.1",
    "com.restfb"     % "restfb"                  % "1.6.14",
+   "com.adobe.xmp"  % "xmpcore"                 % "5.1.1",
 	jdbc,
     anorm,
     cache
