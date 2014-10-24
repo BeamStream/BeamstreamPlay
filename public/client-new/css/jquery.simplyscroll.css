@@ -105,11 +105,11 @@ Note all DIVs are generated and should not be hard-coded
 
 .simply-scroll-btn-up {
 		right: 6px;
-		top: 6px;
 		display:block;
 		overflow:hidden;
 		background-position: -120px -34px;
-		top:-18px !important; left:21px;
+		top:-87px !important; 
+		left:21px;
 		background-color:#F5F6F8;	
 		border-bottom:1px solid #c0c3c6;
 		border-left:1px solid #c0c3c6
@@ -258,7 +258,6 @@ Note all DIVs are generated and should not be hard-coded
 		overflow:hidden;
 		height:18px; 
 		width: 100%;
-		border-top: 1px solid #b1b3b6;
 		border-top-left-radius: 12px;
 }
 
@@ -277,6 +276,9 @@ Note all DIVs are generated and should not be hard-coded
 		border-bottom: 1px solid rgb(195, 198, 207);
 		z-index: 1;
 }
+
+.simply-scroll-forward.simply-scroll-btn.simply-scroll-btn-down.disabled {
+margin-top: 40px;
 
 .vert .simply-scroll-btn-down.disabled {
 }

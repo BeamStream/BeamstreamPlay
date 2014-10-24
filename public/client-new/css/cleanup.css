@@ -8719,43 +8719,7 @@ ul.follow-name-left li a.downrocks-message:hover {
   max-width: 52.5%;
   padding: .5% 2% 1% 7.5%;
 }
-.flipques li {
-  margin-left: 10px;
-  list-style: none;
-}
-.flipques li a {
-	color: rgba(248, 0, 70, .7);
-	font-weight: 600;
-  background: none;
-  text-decoration: underline;
-  margin-left: 28px;
-}
-.flipques ul .dropdown-menu {
-  border-radius: 6px;
-}
-.flipques .nav-tabs > .active > a {
-  background: none;
-  color: #555;
-}
-.flipques .nav-tabs > .active > a:hover {
-  background: none;
-  color: #555;
-  cursor: pointer;
-}
-.flipques .dropdown-menu > .active > a {
-  background: none;
-  color: #555;
-}
-.flipques .caret {
-  border-top: 4px solid #bf462e;
-  border-right: 4px solid transparent;
-  border-left: 4px solid transparent;
-}
-.flipques .nav-tabs .active .dropdown-toggle .caret {
-  border-top: 4px solid #555;
-  border-right: 4px solid transparent;
-  border-left: 4px solid transparent;
-}
+
 /* Question flip style in stream   */
 #top-left-gdocs {
   display: none;
