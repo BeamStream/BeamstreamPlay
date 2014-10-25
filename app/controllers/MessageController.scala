@@ -34,7 +34,10 @@ object MessageController extends Controller {
     //    val messageAccess = (messageListJsonMap \ "messageAccess").as[String]
     val messageBody = (messageListJsonMap \ "message").as[String]
     val messagePoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
-    val messageToCreate = new Message(new ObjectId, messageBody, Option(Type.Text), Option(Access.PrivateToClass), new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)), messagePoster.get.firstName, messagePoster.get.lastName, 0, Nil, Nil, 0, Nil, "")
+    val messageToCreate =
+      new Message(new ObjectId, messageBody, Option(Type.Text),
+        Option(Access.PrivateToClass), new Date, new ObjectId(request.session.get("userId").get),
+        Option(new ObjectId(streamId)), messagePoster.get.firstName, messagePoster.get.lastName, 0, Nil, Nil, 0, Nil, "")
     val messageId = Message.createMessage(messageToCreate)
     val messageObtained = Message.findMessageById(messageId.get)
     val userMedia = UserMedia.getProfilePicForAUser(messageObtained.get.userId)
@@ -143,28 +146,28 @@ object MessageController extends Controller {
   /**
    * All messages for a stream sorted by date & rock along with the limits
    */
-  def allMessagesForAStream(streamId: String, sortBy: String, messagesPerPage: Int, pageNo: Int, period: String): Action[AnyContent] = Action { implicit request =>
-    if(streamId.length() == 24) {
-      val allMessagesForAStream = (sortBy == "date") match {
-        case true => Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
-        case false => (sortBy == "rock") match {
-          case true => Message.getAllMessagesForAStreamSortedbyRocks(new ObjectId(streamId), pageNo, messagesPerPage)
-          case false =>
-            val comments = Comment.getAllCommentsForAKeyword(sortBy, new ObjectId(streamId))
-            val commentIds = comments map {c => c.id}
-            Message.getAllMessagesForAKeyword(sortBy, new ObjectId(streamId), pageNo, messagesPerPage, commentIds)
+  def allMessagesForAStream(streamId: String, sortBy: String, messagesPerPage: Int, pageNo: Int, period: String): Action[AnyContent] =
+    Action { implicit request =>
+      if (streamId.length() == 24) {
+        val allMessagesForAStream = (sortBy == "date") match {
+          case true => Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
+          case false => (sortBy == "rock") match {
+            case true => Message.getAllMessagesForAStreamSortedbyRocks(new ObjectId(streamId), pageNo, messagesPerPage)
+            case false =>
+              val comments = Comment.getAllCommentsForAKeyword(sortBy, new ObjectId(streamId))
+              val commentIds = comments map { c => c.id }
+              Message.getAllMessagesForAKeyword(sortBy, new ObjectId(streamId), pageNo, messagesPerPage, commentIds)
+          }
         }
-      }
-      (allMessagesForAStream.isEmpty) match {
-        case true => Ok(write(ResulttoSent("Failure", "No More Data"))).as("application/json")
-        case false =>
-          val userId = request.session.get("userId").get
-          val messagesWithDescription = Message.messagesAlongWithDocDescription(allMessagesForAStream, new ObjectId(userId))
-          Ok(write(messagesWithDescription)).as("application/json")
+        (allMessagesForAStream.isEmpty) match {
+          case true => Ok(write(ResulttoSent("Failure", "No More Data"))).as("application/json")
+          case false =>
+            val userId = request.session.get("userId").get
+            val messagesWithDescription = Message.messagesAlongWithDocDescription(allMessagesForAStream, new ObjectId(userId))
+            Ok(write(messagesWithDescription)).as("application/json")
+        }
+      } else {
+        Ok(write(ResulttoSent("Failure", "No More Data"))).as("application/json")
       }
     }
-    else{
-      Ok(write(ResulttoSent("Failure", "No More Data"))).as("application/json")
-    }
-  }
 }

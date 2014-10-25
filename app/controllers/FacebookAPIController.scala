@@ -67,9 +67,12 @@ object FacebookAPIController extends Controller {
           val oAuthRequest: OAuthRequest = new OAuthRequest(Verb.GET, protectedResourceUrl)
 
           // Posting message on Facebook
-          val message = "Get on the exclusive beta list for ClassWall, a Social Learning Network for Colleges & Universities. It's built for college students & professors. It's lookin' pretty sweet so far!"
+          val message = "Get on the exclusive beta list for ClassWall, a Social Learning Network for Colleges " +
+            "& Universities. It's built for college students & professors. It's lookin' pretty sweet so far!"
           val facebookClient = new DefaultFacebookClient(accessToken.getToken())
-          val publishMessageResponse = facebookClient.publish("me/feed", classOf[FacebookType], Parameter.`with`("message", message + " http://bstre.am/k7lXGw"))
+          val publishMessageResponse =
+            facebookClient
+              .publish("me/feed", classOf[FacebookType], Parameter.`with`("message", message + " http://bstre.am/k7lXGw"))
 
           getOAuthService.signRequest(accessToken, oAuthRequest)
           val response: Response = oAuthRequest.send

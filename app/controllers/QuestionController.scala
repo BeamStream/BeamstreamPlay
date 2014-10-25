@@ -253,13 +253,14 @@ object QuestionController extends Controller {
   /**
    * Get All Answered Or UnAnswered Question For A Stream
    */
-  def getAllAnswerdQuestionForAStream(streamId: String, messagesPerPage: Int, pageNo: Int, answerStatus: String): Action[AnyContent] = Action { implicit request =>
-    val userId = new ObjectId(request.session.get("userId").get)
-    val allAnsweredOrUnAnsweredQuestionsForAStream = Question.getAllAnsweredQuestionsForAStream(new ObjectId(streamId), messagesPerPage, pageNo, answerStatus)
-    val questionsObtainedWithOtherInformation = questionWithOtherInformation(allAnsweredOrUnAnsweredQuestionsForAStream, userId)
-    val allQuestionForAStreamJson = write(questionsObtainedWithOtherInformation)
-    Ok(allQuestionForAStreamJson).as("application/json")
-  }
+  def getAllAnswerdQuestionForAStream(streamId: String, messagesPerPage: Int, pageNo: Int, answerStatus: String): Action[AnyContent] =
+    Action { implicit request =>
+      val userId = new ObjectId(request.session.get("userId").get)
+      val allAnsweredOrUnAnsweredQuestionsForAStream = Question.getAllAnsweredQuestionsForAStream(new ObjectId(streamId), messagesPerPage, pageNo, answerStatus)
+      val questionsObtainedWithOtherInformation = questionWithOtherInformation(allAnsweredOrUnAnsweredQuestionsForAStream, userId)
+      val allQuestionForAStreamJson = write(questionsObtainedWithOtherInformation)
+      Ok(allQuestionForAStreamJson).as("application/json")
+    }
 
   /**
    * All Answer of a Question
