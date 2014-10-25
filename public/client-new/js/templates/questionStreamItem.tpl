@@ -54,8 +54,8 @@
         <div id="{{question.id.id}}-rockicon" class="rock-icon"></div>
         {{/if}}
         <div class="rock-ammount" id="{{question.id.id}}-totalrocksidebar"><span>{{question.rockers.length}}</span></div>
-        <div class="qs-comment-link">Comment</div>
-        <div class="qs-answer-link">Answer</div>
+        <div class="qs-comment-link">+ Comment</div>
+        <div class="qs-answer-link">+ Answer</div>
         <div class="question-stats" id="{{question.id.id}}">
         <div  id="{{question.id.id}}-totalanswersidebar" class="answer-amount">{{question.answers.length}}</div>
         <div id="{{question.id.id}}-totalcommentsidebar" class="comment-amount">{{question.comments.length}}</div>
