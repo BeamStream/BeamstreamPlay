@@ -49,7 +49,7 @@
 						{{/each}}   
                     </ul>
                 </div>
-                <div class="arrow-block arrow-block-down">
+                <div class="arrow-block arrow-block-down" style="display:none;">
                 	<span class="caret arrow-down" id="nav-arrow-down"></span>
                 </div>
             </div>
