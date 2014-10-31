@@ -47,7 +47,7 @@ header, footer){
 					        <h5>CLASS INFO</h5>
 					        <form id="class-info">
 					          <div class="school-name-row row-fluid invite-select school_field">
-									<select id="schoolId" data-name="class.schoolId" name="schoolId" class="selectpicker-info" class="span12 school-name" name="school-name" style="display: 										none;">
+									<select id="schoolId" data-name="class.schoolId" name="schoolId" class="selectpicker-info" class="span12 school-name" name="school-name" style="display:none;">
 									</select>
 									<div id="add-new-school" class="new-school-field" style="display: none;">
 										<input type="text" id="schoolName" name="schoolName" placeholder="Enter new school" class="newclass"> 
@@ -60,8 +60,8 @@ header, footer){
 							  </fieldset>
 							  <div class="time-row row-fluid">
 							        <div class="bootstrap-timepicker pull-left span4">
-							            <input class="timepicker" id="newClassTime" placeholder="hh:mm AM" type="text" class="input-small" style="height: 30px;width: 83%;">
-							            <i class="icon-time" style="color: #00b7e1;font-size: 18px;position: absolute;top: 17px;right: 30px;font-weight: normal;"></i>
+							            <input class="timepicker input-small" id="newClassTime" placeholder="hh:mm AM" type="text">
+							            <i class="icon-time"></i>
 							        </div>
 									<div class="field">
 										  <div data-date-viewmode="years" id="datepicker" class="input-append date invite-calender field" style="display:none;">
@@ -72,7 +72,7 @@ header, footer){
 										  </div>
 										  <div class="span4" style="margin-left: 0px;"> 
 									         <input type="hidden" name="daysofWeek" value"">
-									          <div class="btn-toolbar time-input" style="margin-top:7px;" name="days">
+									          <div class="btn-toolbar time-input" name="days">
 									            <div class="btn-group">
 									              <button class="btn btn-small days-of-week" name="Sunday">S</button>
 									              <button class="btn btn-small days-of-week" name="Monday">M</button>
@@ -85,7 +85,7 @@ header, footer){
 									          </div>
 								       	 </div>
 						                 <div class="time-input span4">
-						                    <select name="termTimeFrame" style="min-height: 40px;margin: 7px 0px;">
+						                    <select name="termTimeFrame">
 						                      <option>Semester</option>
 						                      <option>Quarter</option>
 						                    </select>
