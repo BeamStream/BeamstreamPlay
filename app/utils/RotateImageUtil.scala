@@ -10,7 +10,7 @@ object RotateImageUtil {
     try {
       ExifRotate.correctImageRotation(imgFile)
     } catch {
-      case ex: Exception => Logger.warn("Image has undefined Source" + ex.getMessage())
+      case ex: Exception => Logger.info("Image has undefined Source" + ex.getMessage())
     }
   }
 

@@ -22,9 +22,7 @@ object GoogleAPIController extends Controller {
   val GoogleClientSecret = Play.current.configuration.getString("GoogleClientSecret").get
 
   def authenticateToGoogle: Action[AnyContent] = Action { implicit request =>
-    val urlToRedirect = new GoogleBrowserClientRequestUrl(GoogleClientId, redirectURI,
-      Arrays.asList("https://www.googleapis.com/auth/plus.login")).set("access_type", "online")
-      .set("response_type", "code").build()
+    val urlToRedirect = new GoogleBrowserClientRequestUrl(GoogleClientId, redirectURI, Arrays.asList("https://www.googleapis.com/auth/plus.login")).set("access_type", "online").set("response_type", "code").build()
     Ok(urlToRedirect).withSession(request.session)
   }
 
@@ -42,31 +40,30 @@ object GoogleAPIController extends Controller {
       con.setRequestProperty("User-Agent", USER_AGENT);
       con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
-      val urlParameters = "code=" + code + "&client_id=" + GoogleClientId + "&client_secret=" + GoogleClientSecret +
-        "&redirect_uri=" + redirectURI + "&grant_type=authorization_code&Content-Type=application/x-www-form-urlencoded"
+      val urlParameters = "code=" + code + "&client_id=" + GoogleClientId + "&client_secret=" + GoogleClientSecret + "&redirect_uri=" + redirectURI + "&grant_type=authorization_code&Content-Type=application/x-www-form-urlencoded";
       con.setDoOutput(true)
       val wr = new DataOutputStream(con.getOutputStream)
       wr.writeBytes(urlParameters)
       wr.flush
       wr.close
-      val in = new BufferedReader(
-        new InputStreamReader(con.getInputStream))
-      val response = new StringBuffer
+          val in = new BufferedReader(
+            new InputStreamReader(con.getInputStream))
+          val response = new StringBuffer
 
-      while (in.readLine != null) {
-        response.append(in.readLine)
-      }
-      in.close
-      val nullExpr = "null".r
-      val dataString = nullExpr.replaceAllIn(response.toString, "")
-      val dataList = dataString.split(",").toList
-      val tokenValues = dataList map {
-        case info => net.liftweb.json.parse("{" + info + "}")
-      }
-      val accessToken = (tokenValues(0) \ "access_token").extract[String]
-      //          val refreshToken = (tokenValues(2) \ "refresh_token").extract[String]
+          while (in.readLine != null) {
+            response.append(in.readLine)
+          }
+          in.close
+          val nullExpr = "null".r
+          val dataString = nullExpr.replaceAllIn(response.toString, "")
+          val dataList = dataString.split(",").toList
+          val tokenValues = dataList map {
+            case info => net.liftweb.json.parse("{" + info + "}")
+          }
+          val accessToken = (tokenValues(0) \ "access_token").extract[String]
+//          val refreshToken = (tokenValues(2) \ "refresh_token").extract[String]
 
-      Ok //(views.html.stream(action))
+          Ok//(views.html.stream(action))
     } catch {
       case ex: Exception =>
         Logger.error("This error occurred while Authenticating Google Drive :- ", ex)
