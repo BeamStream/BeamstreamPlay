@@ -259,6 +259,7 @@ Note all DIVs are generated and should not be hard-coded
 		height:18px; 
 		width: 100%;
 		border-top-left-radius: 12px;
+		visibility: hidden;
 }
 
 .vert .simply-scroll-btn-up.disabled {
@@ -275,6 +276,7 @@ Note all DIVs are generated and should not be hard-coded
 		border-bottom-left-radius: 12px;
 		border-bottom: 1px solid rgb(195, 198, 207);
 		z-index: 1;
+		visibility: hidden;
 }
 
 .simply-scroll-forward.simply-scroll-btn.simply-scroll-btn-down.disabled {
