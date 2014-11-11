@@ -5,20 +5,27 @@
 @CSS = {
 
 	 <link href="@routes.Assets.at("/public/stylesheets","datepicker.css")" rel="stylesheet" type="text/css" />
-	 <link href="/beamstream-new/css/style-timepicker.css" rel="stylesheet" type="text/css" />
+<!-- <link href="/beamstream-new/css/bootstrap-responsive.css" rel="stylesheet" type="text/css" />  -->
+<!-- <link href="/beamstream-new/css/bootstrap.css" rel="stylesheet" type="text/css" />  -->
+<!-- <link href="/beamstream-new/less/cleanup.less" rel="stylesheet/less" type="text/css" />  -->
+<!-- <link href="/sylesheets/professorRegistration.less" rel="stylesheet/less" type="text/css" />  -->
+<!-- <link rel="stylesheet" href="/beamstream-new/css/jquery.simplyscroll.css" media="all" type="text/css">  -->
 	 <link href='https://fonts.googleapis.com/css?family=Covered+By+Your+Grace' rel='stylesheet' type='text/css'>
-		
+
 } 
 
 @JS = {
-	<script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","lib/jquery.mCustomScrollbar.js")"></script> 
+	<script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","lib/bootstrap.min.js")"></script>
+	<script type="text/javascript" src="@routes.Assets.at("/public/javascripts","lib/bootstrap-datepicker.js")"></script>
+	<script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","lib/jquery-1.js")"></script>
+	<script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","jquery.js")"></script>
 	<script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","lib/jquery.mCustomScrollbar.js")"></script>
 	<script type="text/javascript" src="@routes.Assets.at("/public/javascripts","lib/css3-mediaqueries.js")"></script>
 	<script type="text/javascript" src="@routes.Assets.at("/public/javascripts","lib/jquery.simplyscroll.js")"></script>
 	<script type="text/javascript" src="@routes.Assets.at("/public/javascripts","lib/jquery.mousewheel.min.js")"></script>
 	<script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","lib/bootstrap-select.js")"></script>
-	
-	
+	<script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","lib/bootstrap.js")"></script>
+	<!--<script src="/beamstream-new/lib/less-1.4.1.js" type="text/javascript"></script>-->
 } 
 
 @bodyCls = {} 
@@ -41,67 +48,105 @@ header, footer){
 	<div id="classView" data-model="class">
 		<div class="right-container">
 			<div class="professor-registration class-red-border class-border">
-				  <div class="class-info-access">
-				    <div class="class-contact">
-				      <div class="class-info class-form">
-					        <h5>CLASS INFO</h5>
-					        <form id="class-info">
-					          <div class="school-name-row row-fluid invite-select school_field">
-									<select id="schoolId" data-name="class.schoolId" name="schoolId" class="selectpicker-info" class="span12 school-name" name="school-name" style="display:none;">
-									</select>
-									<div id="add-new-school" class="new-school-field" style="display: none;">
-										<input type="text" id="schoolName" name="schoolName" placeholder="Enter new school" class="newclass"> 
-										<input type="hidden" id="associatedSchoolId">
-									</div>
+			  <div class="class-info-access">
+			    <div class="class-contact">
+			      <div class="class-info class-form">
+			        <h5>CLASS INFO</h5>
+			        <form id="class-info">
+			          <div class="school-name-row row-fluid invite-select school_field">
+								  <!-- <div class="span12"> -->
+										<select id="schoolId" data-name="class.schoolId" name="schoolId" class="selectpicker-info" class="span12 school-name" name="school-name" style="display: 										none;">
+										</select>
+										<div id="add-new-school" class="new-school-field" style="display: none;">
+											<input type="text" id="schoolName" name="schoolName" placeholder="Enter new school" class="newclass"> 
+											<input type="hidden" id="associatedSchoolId">
+										</div>
+								  <!-- </div> -->
 							  </div>
-							  <fieldset class="field name-class-code row-fluid">
-							     <input type="text" placeholder="Stream Name" class="span8 stream-name big-text" id="className" data-name="class.className" name="className" placeholder="Enter the name of your class">
-							     <input type="text" placeholder="Class Code" class="span4 class-code" name="classCode" id="classCode" data-name="class.classCode" name="" class="small-text">
-							  </fieldset>
-							  <div class="time-row row-fluid">
-							        <div class="bootstrap-timepicker pull-left span4">
-							            <input class="timepicker" id="newClassTime" placeholder="hh:mm AM" type="text">
-							            <i class="icon-time"></i>
-							        </div>
-									<div class="field">
-										  <div data-date-viewmode="years" id="datepicker" class="input-append date invite-calender field" style="display:none;">
-												<input type="text" readonly="" id="startingDate" data-name="class.startingDate" value="" name="startingDate" placeholder="Class start date" class="datepicker calender-box">
-												<div class="new-arrow date-arrow ">
-													<span class="add-on"></span>
-												</div>
-										  </div>
-										  <div class="span4" style="margin-left: 0px;"> 
-									         <input type="hidden" name="daysofWeek" value"">
-									          <div class="btn-toolbar time-input" name="days">
-									            <div class="btn-group">
-									              <button class="btn btn-small days-of-week" name="Sunday">S</button>
-									              <button class="btn btn-small days-of-week" name="Monday">M</button>
-									              <button class="btn btn-small days-of-week" name="Tuesday">T</button>
-									              <button class="btn btn-small days-of-week" name="Wednesday">W</button>
-									              <button class="btn btn-small days-of-week" name="Thursday">T</button>
-									              <button class="btn btn-small days-of-week" name="Friday">F</button>
-									              <button class="btn btn-small days-of-week" name="Saturday">S</button>
-									            </div>
-									          </div>
-								       	 </div>
-						                 <div class="time-input span4">
-						                    <select name="termTimeFrame">
-						                      <option>Semester</option>
-						                      <option>Quarter</option>
-						                    </select>
-						                </div>
-								   </div>
+								<fieldset class="field name-class-code row-fluid">
+								  <input type="text" placeholder="Stream Name" class="span8 stream-name big-text" id="className" data-name="class.className" name="className" placeholder="Enter the name of your class">
+								  <input type="text" placeholder="Class Code" class="span4 class-code" name="classCode" id="classCode" data-name="class.classCode" name="" class="small-text">
+								</fieldset>
+								<div class="time-row row-fluid">
+								 <!-- <table>
+								    <tr>
+								      <td> -->
+								        <div class="time-input span4 field">
+								          <input type="text" id="classTime" data-name="class.classTime" name="classTime" placeholder="Class Time" class="time-text">
+								        </div>
+								      <!-- </td>
+								      <td> -->
+								        <div class="span4">
+								          <!-- <span>Class <br>Days:</span> -->
+								          <input type="hidden" name="daysofWeek" value"">
+								          <div class="btn-toolbar time-input" style="margin: 10;" name="days">
+								            <div class="btn-group">
+								              <button class="btn btn-small days-of-week" name="Sunday">S</button>
+								              <button class="btn btn-small days-of-week" name="Monday">M</button>
+								              <button class="btn btn-small days-of-week" name="Tuesday">T</button>
+								              <button class="btn btn-small days-of-week" name="Wednesday">W</button>
+								              <button class="btn btn-small days-of-week" name="Thursday">T</button>
+								              <button class="btn btn-small days-of-week" name="Friday">F</button>
+								              <button class="btn btn-small days-of-week" name="Saturday">S</button>
+								            </div>
+								          </div>
+								        </div>
+														<!-- Calendar UI from previous registration. Can be deleted once new registration is hooked up 10/12/14
+
+														<div data-date-viewmode="years" id="datepicker" class="input-append date invite-calender field">
+															<input type="text" readonly="" id="startingDate" data-name="class.startingDate" value="" name="startingDate" placeholder="Class start date" class="datepicker calender-box">
+															<div class="new-arrow date-arrow ">
+																<span class="add-on"></span>
+															</div>
+														</div>
+															-->
+								      <!-- </td>
+								      <td> -->
+			                  <div class="time-input">
+			                    <select name="termTimeFrame" class="span4">
+			                      <option>Semester</option>
+			                      <option>Quarter</option>
+			                    </select>
+			                  </div>
+												<!-- OLD Semester Block old registration UI
+							            <div class="invite-small-last semester-select-block field class_field">
+							 							<select id="classType" data-name="class.classType" name="classType" class="selectpicker-info " style="display: none;">
+							 								<option value="semester">Semester</option>
+							 								<option value="quarter">Quarter</option>
+							 							</select>
+							 							<div class="btn-group bootstrap-select selectpicker-info">
+							 								<button class="btn dropdown-toggle clearfix register-select invite-selecter" data-toggle="dropdown" id="classType"><span class="filter-option pull-left" style="max-width: 50px;">Semester</span> <span class="caret display-caret pull-right"></span>
+							 								</button>
+							 								<div class="dropdown-menu" role="menu">
+							 									<ul>
+							 										<li rel="0"><a tabindex="-1" href="#">Semester</a></li>
+							 										<li rel="1"><a tabindex="-1" href="#">Quarter</a></li>
+							 									</ul>
+							 								</div>
+							 							</div>
+							 						</div>
+													>
+								      </td>
+								    </tr>
+								 </table> -->
 							</div>
-					  </div>
-			    </div>
-			    <div class="class-access">
-					<h5>CLASS ACCESS</h5>
-					<label><input type="radio" name="class-access" value="open">Open Online Class</label>
-					<label> <input type="radio" name="class-access" value="invite">Invite Only </label>
-					<label> <input type="radio" name="class-access" value="request">User's Request</label>
-				    <p><button class="btn btn-small btn-inverse invite" id="add_classmates" href="#" data-toggle="modal"><span></span>+ Invite Others</button></p>
-					<p><button class="btn btn-large btn-success submit" href="#" id="createOrJoinStream" type="submit">Create Stream</button></p>
-				</div>
+						</div>
+				  </div>
+					<div class="class-access">
+					  <h5>CLASS ACCESS</h5>
+							<label>
+						    <input type="radio" name="class-access" value="open">Open Online Class
+							</label>
+							<label>
+							  <input type="radio" name="class-access" value="invite">Invite Only
+						  </label>
+							<label>
+							  <input type="radio" name="class-access" value="request">User's Request
+							</label>
+							  <p><button class="btn btn-small btn-inverse invite" id="add_classmates" href="#" data-toggle="modal"><span></span>+ Invite Others</button></p>
+								<p><button class="btn btn-large btn-success submit" href="#" id="createOrJoinStream" type="submit">Create Stream</button></p>
+				  </div>
+		    </div>
 			</div>
 				           
 			<!-- for  popups after Create stream -->
@@ -114,6 +159,12 @@ header, footer){
 					<a id="startBeam" class="btn btn invite-green-btn" href="#">Use ClassWall</a>
 				</div>
 			</div>
+			
+
+
+
+
+
 
 			<div id="friend-list-modal" class="modal hide fade invite-pop-up"
 				tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -176,11 +227,11 @@ header, footer){
 											<li><a href="#" class="google"> <span> <img
 														width="33" height="34"
 														src="/beamstream-new/images/google-plus-icon.png">
-												</span> <span class="shadow">Google+</span></a></li>
+												</span> <span class="shadow">Google</span></a></li>
 											<li><a href="#" class="link-in"> <span> <img
 														width="33" height="34"
 														src="/beamstream-new/images/in-icon.png">
-												</span> <span class="shadow">LinkedIn</span></a></li>
+												</span> <span class="shadow">Link In</span></a></li>
 										</ul>
 									</div>
 								</div>
@@ -239,7 +290,7 @@ header, footer){
 																		Kay </span></a>
 																<div class="scroll-tick">
 																	<img src="/beamstream-new/images/green-tick.png"
-																		width="19setDefaultNewTime" height="15">
+																		width="19" height="15">
 																</div></li>
 															<li><a href="#" class="social-scroll-icon-message">Message</a><a
 																href="#" class="social-scroll-icon-facebook">Facebook</a>
@@ -559,6 +610,4 @@ header, footer){
 				};
 			setTimeout("preventBack()", 0);
 			}
-</script>
-
-						
+						</script>

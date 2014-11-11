@@ -62,8 +62,7 @@ object LinkedInAPIController extends Controller {
           val oAuthRequest: OAuthRequest = new OAuthRequest(Verb.POST, "http://api.linkedin.com/v1/people/~/shares")
 
           // Posting message on LinkedIn
-          val message = "Get on the exclusive beta list for ClassWall, a Social Learning Network for Colleges " +
-            "and Universities. It's built for college students and professors. It's lookin' pretty sweet so far!"
+          val message = "Get on the exclusive beta list for ClassWall, a Social Learning Network for Colleges and Universities. It's built for college students and professors. It's lookin' pretty sweet so far!"
           val url = " http://bstre.am/k7lXGw"
           val xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?> \n" +
             "<share> \n" +

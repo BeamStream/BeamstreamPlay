@@ -16,7 +16,9 @@
 define(
 		[ 'view/formView', 'view/streamSliderView',
 				'../../lib/bootstrap-select', '../../lib/bootstrap-datepicker',
-				'../../lib/jquery.meio.mask', 'model/userSchool','../../lib/script-timepicker'
+				// '../../lib/bootstrap-modal',
+				'../../lib/jquery.meio.mask', 'model/userSchool'
+
 		],
 		function(FormView, StreamSliderView, BootstrapSelect, Datepicker,
 				MaskedInput, userSchool) {
@@ -36,7 +38,7 @@ define(
 							'click #addMoreClass' : 'addMoreClasses',
 							'click #startBeam' : 'startBeamstream',
 							'focus #classTime' : 'setDefaultTime',
-							'focus #newClassTime' : 'setDefaultNewTime',
+
 							'click #add-school' : 'addOrEdiSchool',
 							'click div.school_field ul li' : 'hideAddNewSchoolField',
 							'keyup #schoolName' : 'populateSchools',
@@ -110,14 +112,7 @@ define(
 
 							this.setupPushConnection();
 						},
-						
 
-						setDefaultNewTime : function(eventName){
-							/*alert("jcshdbjs")*/
-							$('.timepicker').timepicker();
-						},
-					
-						
 						scroll : function(eventName) {
 
 							$("#user-online1").mCustomScrollbar({
