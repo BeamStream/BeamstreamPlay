@@ -78,6 +78,7 @@ define(
 						 * @TODO JanRain Sign up
 						 */
 						displayPage : function(callback) {
+							
 
 							// get user informations from Social site ( janRain
 							// sign up case )
