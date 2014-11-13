@@ -22,13 +22,13 @@ define(['pageView', 'view/streamSliderView', 'view/classView'],
 	ClassPageView = PageView.extend({
 		objName: 'ClassPageView',
 		events:{
-			
 		},
 		init: function(){
 			this.addView(new StreamSliderView({el: '#sidebar'}));
 			this.addView(new ClassView({el: $('#classView')}));
 		},
 		
+	
 		
 		
 	})

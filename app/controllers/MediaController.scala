@@ -27,6 +27,7 @@ import play.api.Play
 import play.api.mvc.AnyContent
 import play.api.mvc.DiscardingCookie
 import utils.RotateImageUtil
+//import com.beamstream.exifRotate.ExifRotate
 
 object MediaController extends Controller {
 
@@ -91,9 +92,7 @@ object MediaController extends Controller {
    * if (imageFileInputStream != null) {
    * (new AmazonUpload).uploadCompressedFileToAmazon(imageNameOnAmazon, imageFileInputStream, totalFileSize, true, request.session.get("userId").get)
    * val imageURL = "https://s3.amazonaws.com/BeamStream/" + imageNameOnAmazon
-   * val media = new UserMedia(new ObjectId, imageNameToStore, "", new ObjectId(request.session.get("userId").get),
-   *  new Date, imageURL, UserMediaType.Image, Access.Public, imageStatus, "", 0, Nil, Nil)
-   *
+   * val media = new UserMedia(new ObjectId, imageNameToStore, "", new ObjectId(request.session.get("userId").get), new Date, imageURL, UserMediaType.Image, Access.Public, imageStatus, "", 0, Nil, Nil)
    * UserMedia.saveMediaForUser(media)
    * ProfileImageProviderCache.setImage(media.userId.toString, media.mediaUrl)
    * }
@@ -104,9 +103,7 @@ object MediaController extends Controller {
    * val frameOfVideo = ExtractFrameFromVideo.extractFrameFromVideo(videoURL)
    * (new AmazonUpload).uploadCompressedFileToAmazon(videoFileNameOnnAmazon + "Frame", frameOfVideo, totalFileSize, false, request.session.get("userId").get)
    * val videoFrameURL = "https://s3.amazonaws.com/BeamStream/" + videoFileNameOnnAmazon + "Frame"
-   * val media = new UserMedia(new ObjectId, videoNameToStore, "", new ObjectId(request.session.get("userId").get), new Date, videoURL,
-   *  UserMediaType.Video, Access.Public, videoStatus, videoFrameURL, 0, Nil, Nil)
-   *
+   * val media = new UserMedia(new ObjectId, videoNameToStore, "", new ObjectId(request.session.get("userId").get), new Date, videoURL, UserMediaType.Video, Access.Public, videoStatus, videoFrameURL, 0, Nil, Nil)
    * UserMedia.saveMediaForUser(media)
    *
    * }
