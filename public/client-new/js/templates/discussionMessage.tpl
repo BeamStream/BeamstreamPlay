@@ -199,7 +199,7 @@
                         		<span>{{data.message.rocks}}</span>
                         	</a>
                     	</li>
-                      <li><a class="rock-message clickElement" href="#">+ Nice!</a></li>
+                      <li><a id="{{data.message.id.id}}-Nice" class="rock-message" clickElement" href="#" >{{#ifequal data.rocked false}} + Nice! {{else}} - Nice! {{/ifequal}}</a></li>
                       <li ><a class="add-comment clickElement" href="#">+ Comment</a></li>  
 					  <!--li><a class="comment-icon" href="#"></a></li-->                 
                      </ul>

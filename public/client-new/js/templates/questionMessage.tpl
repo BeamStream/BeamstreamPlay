@@ -210,9 +210,8 @@
                           <span>{{data.question.rockers.length}}</span></a>
 
                         </li>
-                      <li>
-                        <a class="rocks-question" href="#">+ Nice!</a>
-                      </li>
+                      
+                       <li><a id="{{data.question.id.id}}-Nice" class="rocks-question" clickElement" href="#" >{{#ifequal data.rocked false}} + Nice! {{else}} - Nice! {{/ifequal}}</a></li>
                       
                       <li><a href="#" class="add-answer">+ Answer</a></li>                      
                       

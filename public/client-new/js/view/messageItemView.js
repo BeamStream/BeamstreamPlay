@@ -464,73 +464,43 @@ define(
 							eventName.preventDefault();
 							var self = this;
 							var element = eventName.target.parentElement;
-							var messageId = $(element).parents(
-									'div.follow-container').attr('id');
+							var messageId = $(element).parents('div.follow-container').attr('id');
 							var streamId = $('.sortable li.active').attr('id');
 
 							// set values to model for rocking the message
 							var Discussion = new DiscussionModel();
 							Discussion.urlRoot = "/rockedIt";
-							Discussion
-									.save(
+							Discussion.save(
 											{
 												id : messageId
 											},
 											{
-												success : function(model,
-														response) {
+												success : function(model,response) {
 
 													/*
 													 * show/hide the rock and
 													 * unrock symbols
 													 */
-													if ($(
-															'#'
-																	+ messageId
-																	+ '-msgRockCount')
-															.hasClass(
-																	'downrocks-message')) {
-														$(
-																'#'
-																		+ messageId
-																		+ '-msgRockCount')
-																.removeClass(
-																		'downrocks-message');
-														$(
-																'#'
-																		+ messageId
-																		+ '-msgRockCount')
-																.addClass(
-																		'uprocks-message');
+													if ($('#'+ messageId+ '-msgRockCount').hasClass('downrocks-message')) 
+														{
+															$('#'+ messageId+ '-msgRockCount').removeClass('downrocks-message');
+															$('#'+ messageId+ '-msgRockCount').addClass('uprocks-message');
+															$('a#'+ messageId+ '-Nice').html("+ Nice!");
+															
 													} else {
-														$(
-																'#'
-																		+ messageId
-																		+ '-msgRockCount')
-																.removeClass(
-																		'uprocks-message');
-														$(
-																'#'
-																		+ messageId
-																		+ '-msgRockCount')
-																.addClass(
-																		'downrocks-message');
+														$('#'+ messageId+ '-msgRockCount').removeClass('uprocks-message');
+														$('#'+ messageId+ '-msgRockCount').addClass('downrocks-message');
+														$('a#'+ messageId+ '-Nice').html("- Nice!");
 													}
 
 													// display the count in icon
-													$(
-															'#'
-																	+ messageId
-																	+ '-msgRockCount')
-															.find('span').html(
-																	response);
+													$('#'+ messageId+ '-msgRockCount').find('span').html(response);
 
 													/*
 													 * ajax auto push for
 													 * message rock
 													 */
-													PUBNUB
-															.publish({
+													PUBNUB.publish({
 																channel : "msgRock",
 																message : {
 																	pagePushUid : self.pagePushUid,
@@ -540,20 +510,13 @@ define(
 																}
 															})
 
-													if ($(
-															'#rockedIt-'
-																	+ messageId)
-															.hasClass('active')) {
-														self.getRockers(
-																eventName,
-																messageId);
+													if ($('#rockedIt-'+ messageId).hasClass('active')) {
+														self.getRockers(eventName,messageId);
 													}
-
 												},
 												error : function(model,
 														response) {
 												}
-
 											});
 						},
 

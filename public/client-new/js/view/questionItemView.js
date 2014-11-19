@@ -668,11 +668,13 @@ showAllAnswerList: function(eventName){
 	            	{
 	            		$('#'+questionId+'-qstRockCount').removeClass('downrocks-message');
 	            		$('#'+questionId+'-qstRockCount').addClass('uprocks-message');
+	            		$('a#'+ questionId+ '-Nice').html("+ Nice!");
 	            	}
 	            	else
 	            	{
 	            		$('#'+questionId+'-qstRockCount').removeClass('uprocks-message');
 	            		$('#'+questionId+'-qstRockCount').addClass('downrocks-message');
+	            		$('a#'+ questionId+ '-Nice').html("- Nice!");
 	            	}
 	            	
 	            	
