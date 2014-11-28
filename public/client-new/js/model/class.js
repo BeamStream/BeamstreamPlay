@@ -25,7 +25,7 @@ define(['baseModel'], function(BaseModel) {
 			classCode: '',
 			className: '',
 			classTime: '',
-			startingDate: '',
+			startingDate: '10/10/2014',
 			classType:'semester'
 		},
 		
@@ -42,10 +42,6 @@ define(['baseModel'], function(BaseModel) {
 			},
 			classTime: {
 				required: true,
-				pattern: 'time'
-			},
-			startingDate: {
-				required: true
 			}
 		}
 

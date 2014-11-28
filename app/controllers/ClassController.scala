@@ -21,6 +21,7 @@ import play.api.mvc.DiscardingCookie
 import play.api.mvc.Cookie
 import play.api.Play
 import play.api.Logger
+import java.util.Date
 
 object ClassController extends Controller {
 
@@ -184,7 +185,13 @@ object ClassController extends Controller {
         case Some(userId) =>
           id match {
             case None =>
-              val classCreated = net.liftweb.json.parse(request.body.asJson.get.toString).extract[Class]
+              val schoolId=(jsonReceived \ "schoolId").as[String]
+              val classCode=(jsonReceived \ "classCode").as[String]
+              val className=(jsonReceived \ "className").as[String]
+              val classTime=(jsonReceived \ "classTime").as[String]
+              val classType=(jsonReceived \ "classType").as[String]
+              val classCreated=new Class(new ObjectId,classCode,className,ClassType.withName(classType),classTime,new Date(),new ObjectId(schoolId),List())
+              //val classCreated = net.liftweb.json.parse(request.body.asJson.get.toString).extract[Class]
               val streamIdReturned = Class.createClass(classCreated, new ObjectId(userId))
               val stream = Stream.findStreamById(streamIdReturned)
               Ok(write(ClassResult(stream.get, ResulttoSent("Success", "Class Created Successfully")))).as("application/json")

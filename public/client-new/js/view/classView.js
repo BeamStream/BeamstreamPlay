@@ -617,9 +617,10 @@ define(
 							});
 
 							this.data.url = "/class";
-							if ($('#classTime').val()) {
-								var classTime = $('#classTime').val()
-										+ $('#time').val();
+							
+							if ($('#newClassTime').val()) {
+								var classTime = $('#newClassTime').val();
+										
 								this.data.models[0].set({
 									'classTime' : classTime
 								});
@@ -631,7 +632,6 @@ define(
 						 * class form success and redirect to stream page
 						 */
 						success : function(model, data) {
-
 							var self = this;
 							if (data.resultToSend.status == "Success") {
 								$("#selectNextStep").modal('show');
