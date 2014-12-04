@@ -45,7 +45,7 @@ header, footer){
 				    <div class="class-contact">
 				      <div class="class-info class-form">
 					        <h5>CLASS INFO</h5>
-					        <form id="class-info">
+					        <form id="class-info" method="post" action="@routes.ClassController.createClass">
 					          <div class="school-name-row row-fluid invite-select school_field">
 									<select id="schoolId" data-name="class.schoolId" name="schoolId" class="selectpicker-info" class="span12 school-name" name="school-name" style="display:none;">
 									</select>
@@ -93,6 +93,7 @@ header, footer){
 						                </div>
 								   </div>
 							</div>
+							</form>
 					  </div>
 			    </div>
 			    <div class="class-access">
