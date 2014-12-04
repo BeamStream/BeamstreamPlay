@@ -27,10 +27,6 @@ define(['pageView', 'view/streamSliderView', 'view/classView'],
 			this.addView(new StreamSliderView({el: '#sidebar'}));
 			this.addView(new ClassView({el: $('#classView')}));
 		},
-		
-	
-		
-		
 	})
 	return ClassPageView;
 });

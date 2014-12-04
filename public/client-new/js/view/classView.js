@@ -41,7 +41,8 @@ define(
 							'click div.school_field ul li' : 'hideAddNewSchoolField',
 							'keyup #schoolName' : 'populateSchools',
 							'focusin #schoolName' : 'populateSchools',
-							'click #add_classmates' : 'showFriends'
+							'click #add_classmates' : 'showFriends',
+							'click .days-of-week' : 'xyz'
 						},
 
 						init : function() {
@@ -472,8 +473,7 @@ define(
 							/* post the text that we type to get matched classes */
 							if (text != '' && selectedSchoolId != '') {
 
-								$
-										.ajax({
+								$.ajax({
 											type : 'POST',
 											url : '/autoPopulateClassesbyCode',
 											data : {
@@ -485,8 +485,7 @@ define(
 												var codes = '';
 												var allClassInfo = datas;
 												self.classCodes = [];
-												_
-														.each(
+												_.each(
 																datas,
 																function(data) {
 																	/*
@@ -538,12 +537,8 @@ define(
 																					'classCode' : ui.item.data.classToReturn.classCode
 																				});
 
-																		self
-																				.displayFiledsForCode(
-																						id,
-																						ui.item.data);
-
-																	}
+																		self.displayFiledsForCode(id,ui.item.data);
+																		}
 																});
 											}
 										});
@@ -727,6 +722,11 @@ define(
 							});*/
 
 							window.location = "/stream";
+						},
+						
+						xyz : function(e) {
+							var clickedDays = $(e.target).attr('id');
+							$("div#classDays #" + clickedDays).toggleClass( "activedays" );
 						},
 
 						/**
