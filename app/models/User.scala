@@ -230,9 +230,11 @@ object User {
    * find the user for Authentication by email and password (RA)
    *
    */
-  def findUser(userEmailorName: String, password: String): Option[User] = {
-    val authenticatedUserviaEmail = UserDAO.find(MongoDBObject("email" -> userEmailorName, "password" -> password, "socialNetwork" -> None))
-    val authenticatedUserviaName = UserDAO.find(MongoDBObject("userName" -> userEmailorName, "password" -> password, "socialNetwork" -> None))
+  def findUser(userEmailorName: String, password: String,iam:String): Option[User] = {
+    
+    val usertype=UserType.apply(iam.toInt).toString()
+    val authenticatedUserviaEmail = UserDAO.find(MongoDBObject("email" -> userEmailorName, "password" -> password,"userType"->usertype, "socialNetwork" -> None))
+    val authenticatedUserviaName = UserDAO.find(MongoDBObject("userName" -> userEmailorName, "password" -> password,"userType"->usertype, "socialNetwork" -> None))
 
     (authenticatedUserviaEmail.isEmpty && authenticatedUserviaName.isEmpty) match {
       case true => // No user

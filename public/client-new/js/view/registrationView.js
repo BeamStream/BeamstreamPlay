@@ -64,7 +64,7 @@ define(
 								 url : "/isUserNameAvailable",
 								 dataType : "json",
 							     contentType : "application/json",
-								 data : JSON.stringify({
+								 data : JSON.stringify({ 
 									 username : username,
 									 }),
 									 
