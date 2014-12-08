@@ -25,6 +25,7 @@ define(['baseModel'], function(BaseModel) {
 			classCode: '',
 			className: '',
 			classTime: '',
+			weekdays : '',
 			startingDate: '10/10/2014',
 			classType:'semester'
 		},
