@@ -41,7 +41,8 @@ define(
 							'click div.school_field ul li' : 'hideAddNewSchoolField',
 							'keyup #schoolName' : 'populateSchools',
 							'focusin #schoolName' : 'populateSchools',
-							'click #add_classmates' : 'showFriends'
+							'click #add_classmates' : 'showFriends',
+							'click .days-of-week' : 'selectdaysofweek'
 						},
 
 						init : function() {
@@ -472,8 +473,7 @@ define(
 							/* post the text that we type to get matched classes */
 							if (text != '' && selectedSchoolId != '') {
 
-								$
-										.ajax({
+								$.ajax({
 											type : 'POST',
 											url : '/autoPopulateClassesbyCode',
 											data : {
@@ -485,8 +485,7 @@ define(
 												var codes = '';
 												var allClassInfo = datas;
 												self.classCodes = [];
-												_
-														.each(
+												_.each(
 																datas,
 																function(data) {
 																	/*
@@ -538,12 +537,8 @@ define(
 																					'classCode' : ui.item.data.classToReturn.classCode
 																				});
 
-																		self
-																				.displayFiledsForCode(
-																						id,
-																						ui.item.data);
-
-																	}
+																		self.displayFiledsForCode(id,ui.item.data);
+																		}
 																});
 											}
 										});
@@ -554,20 +549,15 @@ define(
 						 */
 						displayFieldsForName : function(id, data) {
 							$('#classCode').val(data.classToReturn.classCode);
-							$('#startingDate').val(
-									data.classToReturn.startingDate);
+							$('#startingDate').val(data.classToReturn.startingDate);
 							$('#classType').val(data.classToReturn.classTime);
-							$('#classTime').val(
-									data.classToReturn.classTime.substr(0, 5));
-							$('#time span.filter-option').text(
-									data.classToReturn.classTime.substr(5, 7));
+							$('#newClassTime').val(data.classToReturn.classTime.substr(0, 5));
+							$('#time span.filter-option').text(data.classToReturn.classTime.substr(5, 7));
 
 							if (data.classToReturn.classType == "quarter") {
-								$('#classType span.filter-option').text(
-										"Quarter");
+								$('#classType span.filter-option').text("Quarter");
 							} else {
-								$('#classType span.filter-option').text(
-										"Semester");
+								$('#classType span.filter-option').text("Semester");
 							}
 						},
 
@@ -576,20 +566,14 @@ define(
 						 */
 						displayFiledsForCode : function(id, data) {
 							$('#className').val(data.classToReturn.className);
-							$('#startingDate').val(
-									data.classToReturn.startingDate);
+							$('#startingDate').val(data.classToReturn.startingDate);
 							$('#classType').val(data.classToReturn.classTime);
-							$('#classTime').val(
-									data.classToReturn.classTime.substr(0, 5));
-							$('#time span.filter-option').text(
-									data.classToReturn.classTime.substr(5, 7));
-
+							$('#newClassTime').val(data.classToReturn.classTime.substr(0, 5));
+							$('#time span.filter-option').text(data.classToReturn.classTime.substr(5, 7));
 							if (data.classToReturn.classType == "quarter") {
-								$('#classType span.filter-option').text(
-										"Quarter");
+								$('#classType span.filter-option').text("Quarter");
 							} else {
-								$('#classType span.filter-option').text(
-										"Semester");
+								$('#classType span.filter-option').text("Semester");
 							}
 						},
 
@@ -600,8 +584,7 @@ define(
 							this.classNames = [];
 							$('#className').val("");
 							$('#classCode').val("");
-							$('#classTime span.filter-option').text(
-									"Class Time");
+							$('#classTime span.filter-option').text("Class Time");
 							$('#classType span.filter-option').text("Semester");
 						},
 
@@ -616,15 +599,34 @@ define(
 								'schoolId' : $('#associatedSchoolId').val()
 							});
 
-							this.data.url = "/class";
-							
 							if ($('#newClassTime').val()) {
 								var classTime = $('#newClassTime').val();
-										
 								this.data.models[0].set({
 									'classTime' : classTime
 								});
 							}
+							
+							
+							
+							//var lngt = $("div.days-of-week").length;
+							
+							var arrclickedDays=[];
+							$("div.days-of-week").each(function(index){
+								
+								var a = $(this).attr("class")
+								if(a=="btn btn-small days-of-week activedays"){
+									var clickedDays =$(this).attr('id');
+									arrclickedDays.push(clickedDays);
+								}
+								console.log("start")
+								console.log(a)
+							});
+							console.log(arrclickedDays)
+							this.data.models[0].set({
+								'weekdays' :arrclickedDays
+							});
+							
+							this.data.url = "/class";
 							this.saveForm();
 						},
 
@@ -670,11 +672,8 @@ define(
 							this.data.models[0].removeAttr('message');
 							this.data.models[0].removeAttr('status');
 
-							$('#class-form').find(
-									"input[type=text], input[type=password]")
-									.val("");
-							$('#classTime span.filter-option').text(
-									"Class Time");
+							$('#class-form').find("input[type=text], input[type=password]").val("");
+							$('#classTime span.filter-option').text("Class Time");
 							$('#classType span.filter-option').text("Semester");
 
 							/* set default model values */
@@ -683,7 +682,7 @@ define(
 								classCode : '',
 								className : '',
 								classTime : '',
-								startingDate : '',
+								//startingDate : '',
 								classType : 'semester'
 							});
 							$('span.error').remove();
@@ -727,6 +726,13 @@ define(
 							});*/
 
 							window.location = "/stream";
+						},
+						
+						selectdaysofweek : function(e) {
+							var clickedDays = $(e.target).attr('id');
+							$("div#classDays #" + clickedDays).toggleClass( "activedays" );
+							//var a = $("div#classDays div.days-of-week").length;
+												
 						},
 
 						/**

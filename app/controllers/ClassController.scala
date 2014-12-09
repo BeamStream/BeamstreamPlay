@@ -22,6 +22,8 @@ import play.api.mvc.Cookie
 import play.api.Play
 import play.api.Logger
 import java.util.Date
+import scala.collection.mutable.ListBuffer
+import play.api.libs.json._
 
 object ClassController extends Controller {
 
@@ -177,7 +179,7 @@ object ClassController extends Controller {
    */
   def createClass: Action[AnyContent] = Action { implicit request =>
     try {
-      val jsonReceived = request.body.asJson.get
+      val jsonReceived =request.body.asJson.get
       val id = (jsonReceived \ "id").asOpt[String]
       val userIdFound = request.session.get("userId")
       userIdFound match {
@@ -190,7 +192,7 @@ object ClassController extends Controller {
               val className=(jsonReceived \ "className").as[String]
               val classTime=(jsonReceived \ "classTime").as[String]
               val classType=(jsonReceived \ "classType").as[String]
-              val weekdays=List("S","M")
+              val weekdays=(jsonReceived \ "weekdays").as[List[String]]
               val classCreated=new Class(new ObjectId,classCode,className,ClassType.withName(classType),classTime,new Date(),new ObjectId(schoolId),weekdays,List())
               //val classCreated = net.liftweb.json.parse(request.body.asJson.get.toString).extract[Class]
               val streamIdReturned = Class.createClass(classCreated, new ObjectId(userId))

@@ -22,7 +22,7 @@ case class Class(@Key("_id") id: ObjectId,
   classTime: String,
   startingDate: Date,
   schoolId: ObjectId,
-  weekdays:List[String]=List(),
+  weekdays:List[String],
   streams: List[ObjectId])
 
 object Class {
