@@ -623,7 +623,7 @@ define(
 							});
 							console.log(arrclickedDays)
 							this.data.models[0].set({
-								'weekdays' :arrclickedDays
+								'weekDays' :arrclickedDays
 							});
 							
 							this.data.url = "/class";

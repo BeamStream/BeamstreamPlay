@@ -192,8 +192,8 @@ object ClassController extends Controller {
               val className=(jsonReceived \ "className").as[String]
               val classTime=(jsonReceived \ "classTime").as[String]
               val classType=(jsonReceived \ "classType").as[String]
-              val weekdays=(jsonReceived \ "weekdays").as[List[String]]
-              val classCreated=new Class(new ObjectId,classCode,className,ClassType.withName(classType),classTime,new Date(),new ObjectId(schoolId),weekdays,List())
+              val weekDays=(jsonReceived \ "weekDays").as[List[String]]
+              val classCreated=new Class(new ObjectId,classCode,className,ClassType.withName(classType),classTime,new Date(),new ObjectId(schoolId),weekDays,List())
               //val classCreated = net.liftweb.json.parse(request.body.asJson.get.toString).extract[Class]
               val streamIdReturned = Class.createClass(classCreated, new ObjectId(userId))
               val stream = Stream.findStreamById(streamIdReturned)
