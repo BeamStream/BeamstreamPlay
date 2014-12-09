@@ -27,7 +27,7 @@ define(['baseModel'], function(BaseModel) {
 			classTime: '',
 			startingDate: '',
 			weekDays :'',
-			classType:''
+			classType:'semester'
 		},
 		
 		
@@ -42,7 +42,7 @@ define(['baseModel'], function(BaseModel) {
 				required: true
 			},
 			classTime: {
-				required: true,
+				required: true
 			}
 		}
 
