@@ -682,8 +682,9 @@ define(
 								classCode : '',
 								className : '',
 								classTime : '',
-								//startingDate : '',
-								classType : 'semester'
+								startingDate : '',
+								weekDays :'',
+								classType:''
 							});
 							$('span.error').remove();
 							$.ajax({
