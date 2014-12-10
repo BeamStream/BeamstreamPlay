@@ -1,4 +1,4 @@
-@(tokenFlag: Boolean = false) 
+@(tokenFlag: Boolean = false,iam:String="false") 
 
 @meta = {} 
 
@@ -44,6 +44,7 @@ header, footer){
 				  <div class="class-info-access">
 				    <div class="class-contact">
 				      <div class="class-info class-form">
+				      @iam
 					        <h5>CLASS INFO</h5>
 					        <form id="class-info" method="post" action="@routes.ClassController.createClass">
 					          <div class="school-name-row row-fluid invite-select school_field">

@@ -97,12 +97,14 @@ object ClassController extends Controller {
     (request.session.get("userId")) match {
       case Some(userId) =>
         val tokenFound = Token.findTokenByUserId(userId)
+        val userData = User.getUserProfile(new ObjectId(userId))
+        val iam=userData.get.userType 
         tokenFound.isEmpty match {
           case false =>
             tokenFound(0).used match {
-              case true => Ok(views.html.classpage(true)).withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
-              case false =>
-                val userData = User.getUserProfile(new ObjectId(userId))
+              case true => Ok(views.html.classpage(true,iam.toString())).withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
+              case false => 
+                
                 userData.get.firstName match {
                   case "" => Redirect(server + "/registration?userId=" + userId + "&token=" + tokenFound(0).tokenString)
                     .withSession("token" -> tokenFound(0).tokenString).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
@@ -111,7 +113,7 @@ object ClassController extends Controller {
                     userMedia.isEmpty match {
                       case true => Redirect(server + "/registration?userId=" + userId + "&token=" + tokenFound(0).tokenString)
                         .withSession("token" -> tokenFound(0).tokenString).withCookies(Cookie("Beamstream", userId.toString() + " registration", Option(864000)))
-                      case false => Ok(views.html.classpage()).withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
+                      case false => Ok(views.html.classpage(false,iam.toString())).withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
                     }
                 }
             }
