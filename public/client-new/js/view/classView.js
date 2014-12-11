@@ -577,11 +577,10 @@ define(
 							$('#classType').val(data.classToReturn.classTime);
 							$('#newClassTime').val(data.classToReturn.classTime.substr(0, 5));
 							$('#time span.filter-option').text(data.classToReturn.classTime.substr(5, 7));
-
 							if (data.classToReturn.classType == "quarter") {
-								$('#classType span.filter-option').text("Quarter");
+								$('#classType option').text("Quarter");
 							} else {
-								$('#classType span.filter-option').text("Semester");
+								$('#classType option').text("Semester");
 							}
 						},
 
@@ -619,9 +618,9 @@ define(
 							$('#newClassTime').val(data.classToReturn.classTime.substr(0, 5));
 							$('#time span.filter-option').text(data.classToReturn.classTime.substr(5, 7));
 							if (data.classToReturn.classType == "quarter") {
-								$('#classType span.filter-option').text("Quarter");
+								$('#classType option').text("Quarter");
 							} else {
-								$('#classType span.filter-option').text("Semester");
+								$('#classType option').text("Semester");
 							}
 						},
 
@@ -632,8 +631,8 @@ define(
 							this.classNames = [];
 							$('#className').val("");
 							$('#classCode').val("");
-							$('#classTime span.filter-option').text("Class Time");
-							$('#classType span.filter-option').text("Semester");
+							$('#newClassTime').val("");
+							$('#classType option').text("Semester");
 						},
 
 						/**
