@@ -548,6 +548,30 @@ define(
 						 * display all other fields of selected class
 						 */
 						displayFieldsForName : function(id, data) {
+							var weekdayslength=data.classToReturn.weekDays.length
+							for(var i=0;i<weekdayslength;i++) {
+        						if(data.classToReturn.weekDays[i]==0){
+        							$("div#classDays #" + 0).toggleClass( "activedays" );
+        						}
+        						if(data.classToReturn.weekDays[i]==1){
+        							$("div#classDays #" + 1).toggleClass( "activedays" );
+        						}
+        						if(data.classToReturn.weekDays[i]==2){
+        							$("div#classDays #" + 2).toggleClass( "activedays" );
+        						}
+        						if(data.classToReturn.weekDays[i]==3){
+        							$("div#classDays #" + 3).toggleClass( "activedays" );
+        						}
+        						if(data.classToReturn.weekDays[i]==4){
+        							$("div#classDays #" + 4).toggleClass( "activedays" );
+        						}
+        						if(data.classToReturn.weekDays[i]==5){
+        							$("div#classDays #" + 5).toggleClass( "activedays" );
+        						}
+        						if(data.classToReturn.weekDays[i]==6){
+        							$("div#classDays #" + 6).toggleClass( "activedays" );
+        						}
+    						}
 							$('#classCode').val(data.classToReturn.classCode);
 							$('#startingDate').val(data.classToReturn.startingDate);
 							$('#classType').val(data.classToReturn.classTime);
@@ -565,6 +589,30 @@ define(
 						 * display all other fields of selected class code
 						 */
 						displayFiledsForCode : function(id, data) {
+							var weekdayslength=data.classToReturn.weekDays.length
+							for(var i=0;i<weekdayslength;i++) {
+        						if(data.classToReturn.weekDays[i]==0){
+        							$("div#classDays #" + 0).toggleClass( "activedays" );
+        						}
+        						if(data.classToReturn.weekDays[i]==1){
+        							$("div#classDays #" + 1).toggleClass( "activedays" );
+        						}
+        						if(data.classToReturn.weekDays[i]==2){
+        							$("div#classDays #" + 2).toggleClass( "activedays" );
+        						}
+        						if(data.classToReturn.weekDays[i]==3){
+        							$("div#classDays #" + 3).toggleClass( "activedays" );
+        						}
+        						if(data.classToReturn.weekDays[i]==4){
+        							$("div#classDays #" + 4).toggleClass( "activedays" );
+        						}
+        						if(data.classToReturn.weekDays[i]==5){
+        							$("div#classDays #" + 5).toggleClass( "activedays" );
+        						}
+        						if(data.classToReturn.weekDays[i]==6){
+        							$("div#classDays #" + 6).toggleClass( "activedays" );
+        						}
+    						}
 							$('#className').val(data.classToReturn.className);
 							$('#startingDate').val(data.classToReturn.startingDate);
 							$('#classType').val(data.classToReturn.classTime);
