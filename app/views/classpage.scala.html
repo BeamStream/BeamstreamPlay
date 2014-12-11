@@ -44,7 +44,6 @@ header, footer){
 				  <div class="class-info-access">
 				    <div class="class-contact">
 				      <div class="class-info class-form">
-				      @iam
 					        <h5>CLASS INFO</h5>
 					        <form id="class-info" method="post" action="@routes.ClassController.createClass">
 					          <div class="school-name-row row-fluid invite-select school_field">
@@ -95,6 +94,20 @@ header, footer){
 								   </div>
 							</div>
 							</form>
+							@if(iam=="Student"){
+							<div class="contact-info">
+				          <h5>CONTACT INFO</h5>
+				          <div class="email-phone-row row-fluid">
+				            <input id="contactemail" type="text" placeholder="Email" class="professor-email span8" name="contactemail">
+				            <input id="contactcellNumber" data-name="user.cellNumber" name="contactcellNumber" type="text" placeholder="(999) 999-9999" class="professor-phone span4">
+				          </div>
+				          <div class="office-hour-row row-fluid">
+				            <input id="contactofficeHours" type="text" placeholder="Office Hours" class="office-hours span6" name="contactofficeHours">
+				            <input id="contactdays" type="text" placeholder="Mon-Fri" class="weekdays span6" name="contactdays">
+				          </div>
+				        </div>
+				      </div>
+				      }
 					  </div>
 			    </div>
 			    <div class="class-access">
