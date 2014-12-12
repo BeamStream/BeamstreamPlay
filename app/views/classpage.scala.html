@@ -1,580 +1,584 @@
 @(tokenFlag: Boolean = false,iam:String="false") 
-
 @meta = {} 
-
 @CSS = {
-
-	 <link href="@routes.Assets.at("/public/stylesheets","datepicker.css")" rel="stylesheet" type="text/css" />
-	 <link href="/beamstream-new/css/style-timepicker.css" rel="stylesheet" type="text/css" />
-	 <link href='https://fonts.googleapis.com/css?family=Covered+By+Your+Grace' rel='stylesheet' type='text/css'>
-		
+<link href="@routes.Assets.at("/public/stylesheets","datepicker.css")" rel="stylesheet" type="text/css" />
+<link href="/beamstream-new/css/style-timepicker.css" rel="stylesheet" type="text/css" />
+<link href='https://fonts.googleapis.com/css?family=Covered+By+Your+Grace' rel='stylesheet' type='text/css'>
 } 
-
 @JS = {
-	<script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","lib/jquery.mCustomScrollbar.js")"></script> 
-	<script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","lib/jquery.mCustomScrollbar.js")"></script>
-	<script type="text/javascript" src="@routes.Assets.at("/public/javascripts","lib/css3-mediaqueries.js")"></script>
-	<script type="text/javascript" src="@routes.Assets.at("/public/javascripts","lib/jquery.simplyscroll.js")"></script>
-	<script type="text/javascript" src="@routes.Assets.at("/public/javascripts","lib/jquery.mousewheel.min.js")"></script>
-	<script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","lib/bootstrap-select.js")"></script>
-	
-	
+<script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","lib/jquery.mCustomScrollbar.js")"></script> 
+<script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","lib/jquery.mCustomScrollbar.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("/public/javascripts","lib/css3-mediaqueries.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("/public/javascripts","lib/jquery.simplyscroll.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("/public/javascripts","lib/jquery.mousewheel.min.js")"></script>
+<script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","lib/bootstrap-select.js")"></script>
 } 
-
 @bodyCls = {} 
-
 @bodyModule = {} 
-
 @bodyJS = {
-	<!-- <script type="text/JavaScript" src="/beamstream-new/lib/bootstrap-select.js"></script> -->
+<!-- <script type="text/JavaScript" src="/beamstream-new/lib/bootstrap-select.js"></script> -->
 } 
-
 @sideBar = { @views.html.sidebar.render } 
-
 @header = { @views.html.header.render } 
-
 @footer = { @views.html.footer.render }
-
 @main("Class ", "Body", meta, CSS, JS, bodyModule, bodyJS, sideBar,
 header, footer){
 <div id="class-page" data-module="view/classPageView">
-	<div id="classView" data-model="class">
-		<div class="right-container">
-			<div class="professor-registration class-red-border class-border">
-				  <div class="class-info-access">
-				    <div class="class-contact">
-				      <div class="class-info class-form">
-					        <h5>CLASS INFO</h5>
-					        <form id="class-info" method="post" action="@routes.ClassController.createClass">
-					          <div class="school-name-row row-fluid invite-select school_field">
-									<select id="schoolId" data-name="class.schoolId" name="schoolId" class="selectpicker-info" class="span12 school-name" name="school-name" style="display:none;">
-									</select>
-									<div id="add-new-school" class="new-school-field" style="display: none;">
-										<input type="text" id="schoolName" name="schoolName" placeholder="Enter new school" class="newclass"> 
-										<input type="hidden" id="associatedSchoolId">
-									</div>
-							  </div>
-							  <fieldset class="field name-class-code row-fluid">
-							     <input type="text" placeholder="Stream Name" class="span8 stream-name big-text" id="className" data-name="class.className" name="className" placeholder="Enter the name of your class">
-							     <input type="text" placeholder="Class Code" class="span4 class-code" name="classCode" id="classCode" data-name="class.classCode" name="" class="small-text">
-							  </fieldset>
-							  <div class="time-row row-fluid">
-							        <div class="bootstrap-timepicker pull-left span4">
-							            <input class="timepicker" id="newClassTime" placeholder="hh:mm AM" type="text">
-							            <i class="icon-time"></i>
-							        </div>
-									<div class="field">
-										  <div data-date-viewmode="years" id="datepicker" class="input-append date invite-calender field" style="display:none;">
-												<input type="text" readonly="" id="startingDate" data-name="class.startingDate" value="" name="startingDate" placeholder="Class start date" class="datepicker calender-box">
-												<div class="new-arrow date-arrow ">
-													<span class="add-on"></span>
-												</div>
-										  </div>
-										  <div class="span4" style="margin-left: 0px;"> 
-									         <input type="hidden" name="daysofWeek" value"">
-									          <div class="btn-toolbar time-input" name="days">
-									            <div id="classDays" class="btn-group">
-									            
-									              <div id="0" class="btn btn-small days-of-week" name="Sunday">S</div>
-									              <div id="1" class="btn btn-small days-of-week" name="Monday">M</div>
-									              <div id="2" class="btn btn-small days-of-week" name="Tuesday">T</div>
-									              <div id="3" class="btn btn-small days-of-week" name="Wednesday">W</div>
-									              <div id="4" class="btn btn-small days-of-week" name="Thursday">T</div>
-									              <div id="5" class="btn btn-small days-of-week" name="Friday">F</div>
-									              <div id="6" class="btn btn-small days-of-week" name="Saturday">S</div>
-									            </div>
-									          </div>
-								       	 </div>
-						                 <div class="time-input span4">
-						                    <select name="classType" id="classType">
-						                      <option value="semester">Semester</option>
-						                      <option value="quarter">Quarter</option>
-						                    </select>
-						                </div>
-								   </div>
-							</div>
-							</form>
-							@if(iam=="Student"){
-							<div class="contact-info">
-				          <h5>CONTACT INFO</h5>
-				          <div class="email-phone-row row-fluid">
-				            <input id="contactemail" type="text" placeholder="Email" class="professor-email span8" name="contactemail">
-				            <input id="contactcellNumber" data-name="user.cellNumber" name="contactcellNumber" type="text" placeholder="(999) 999-9999" class="professor-phone span4">
-				          </div>
-				          <div class="office-hour-row row-fluid">
-				            <input id="contactofficeHours" type="text" placeholder="Office Hours" class="office-hours span6" name="contactofficeHours">
-				            <input id="contactdays" type="text" placeholder="Mon-Fri" class="weekdays span6" name="contactdays">
-				          </div>
-				        </div>
-				      </div>
-				      }
-					  </div>
-			    </div>
-			    <div class="class-access">
-					<h5>CLASS ACCESS</h5>
-					<label><input type="radio" name="class-access" value="open">Open Online Class</label>
-					<label> <input type="radio" name="class-access" value="invite">Invite Only </label>
-					<label> <input type="radio" name="class-access" value="request">User's Request</label>
-				    <p><button class="btn btn-small btn-inverse invite" id="add_classmates" href="#" data-toggle="modal"><span></span>+ Invite Others</button></p>
-					<p><button class="btn btn-large btn-success submit" href="#" id="createOrJoinStream" type="submit">Create Stream</button></p>
-				</div>
-			</div>
-				           
-			<!-- for  popups after Create stream -->
-
-			<div id="selectNextStep" class="modal hide fade registration-modal white-modal-block bootbox modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-body">Add Another Class<br>or<br>Use ClassWall Now?
-			</div>
-				<div class="modal-footer">
-					<a id="addMoreClass" class="btn btn invite-green-btn" href="#">+ Add Classes</a> 
-					<a id="startBeam" class="btn btn invite-green-btn" href="#">Use ClassWall</a>
-				</div>
-			</div>
-
-			<div id="friend-list-modal" class="modal hide fade invite-pop-up"
-				tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-				aria-hidden="true">
-				<div class=" pop-close">
-					<button class="close" aria-hidden="true" data-dismiss="modal"
-						type="button">
-						Close <img width="22" height="22"
-							src="/beamstream-new/images/close-pop.png">
-					</button>
-				</div>
-				<div class="invite-pop-outer">
-					<div class="invite-pop-info">
-						<div class="pop-up-header">
-							<h3>Invite your people to BeamStream</h3>
-						</div>
-						<div class="pop-up-container">
-
-							<div class="pop-info-block">
-								<div class="pop-up-container-left">
-									<div class="pop-email-box">
-
-										<div class="invite-small-last  invite-mail">
-
-											<select class="selectpicker-info " style="display: none;">
-												<option value="semester">Invite By Mail</option>
-
-											</select>
-										</div>
-
-
-										<input type="text" name="" placeholder="Email Address">
-										<a href="#"> Send from your email client</a>
-										<ul class="email-social-icons">
-											<li class="yahoo"><a href="#">Yahoo</a></li>
-											<li class="google-plus"><a href="#">Yahoo</a></li>
-											<li class="msn"><a href="#">Yahoo</a></li>
-											<li class="other"><a href="#">Yahoo</a></li>
-											<li class="other1"><a href="#">Yahoo</a></li>
-											<li class="other2"><a href="#">Yahoo</a></li>
-											<span> Import contacts from services above.</span>
-										</ul>
-									</div>
-									<div class="pop-other-accounts">
-										<h3>Connect other accounts</h3>
-										<ul class="register-social">
-											<li>
-												<div class="tick-register"></div> <a href="#"
-												class="facebook"> <span> <img width="33"
-														height="34"
-														src="/beamstream-new/images/face-book-icon.png">
-												</span> <span class="shadow">Facebook</span></a>
-											</li>
-											<li>
-												<div class="tick-register"></div> <a href="#"
-												class="twitter"> <span> <img width="33"
-														height="34" src="/beamstream-new/images/twitter-icon.png">
-												</span> <span class="shadow">Twitter</span></a>
-											</li>
-											<li><a href="#" class="google"> <span> <img
-														width="33" height="34"
-														src="/beamstream-new/images/google-plus-icon.png">
-												</span> <span class="shadow">Google+</span></a></li>
-											<li><a href="#" class="link-in"> <span> <img
-														width="33" height="34"
-														src="/beamstream-new/images/in-icon.png">
-												</span> <span class="shadow">LinkedIn</span></a></li>
-										</ul>
-									</div>
-								</div>
-
-								<div class="pop-up-container-right">
-									<h4>
-										1,289 All My Friends <span>(by connected accounts)</span>
-									</h4>
-									<div class="stream-wrapper pop-chat-block">
-										<div class="search-all-freinds">
-											<input type="text" name="" placeholder="Search all friends ">
-											<div class="btn-group invite-dropdown-outer pop-select-right">
-												<button
-													class="btn normal-dropdown invite-drop show-all-pop-up">Show
-													All</button>
-												<button class="btn blue-button invite-drop"
-													data-toggle="dropdown">
-													<span class="caret sort-caret"></span>
-												</button>
-												<ul class="dropdown-menu display-sub">
-													<li><a href="#">Products</a></li>
-													<li><a href="#">Products</a></li>
-													<li><a href="#">Products </a></li>
-												</ul>
-											</div>
-										</div>
-										<div class="pop-up-scroll-block">
-											<div id="user-online1"
-												class="scroll-block scroll-chat-view scroll-block-popup">
-												<a href="#" class="scroll-select-all">Select All</a>
-												<div class="invite-scroller-block">
-													<div class="pop-up-scroll-container pop-scroll-left">
-														<ul>
-															<li><a href="#" class="social-scroll-icon-message">Message</a><a
-																href="#" class="social-scroll-icon-facebook">Facebook</a>
-																<a href="#"><img width="30" height="28"
-																	src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
-																		Kay </span></a>
-																<div class="scroll-tick">
-																	<img src="/beamstream-new/images/green-tick.png"
-																		width="19" height="15">
-																</div></li>
-															<li><a href="#" class="social-scroll-icon-message">Message</a><a
-																href="#" class="social-scroll-icon-facebook">Facebook</a>
-																<a href="#"><img width="30" height="28"
-																	src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
-																		Kay </span></a>
-																<div class="scroll-tick">
-																	<img src="/beamstream-new/images/green-tick.png"
-																		width="19" height="15">
-																</div></li>
-															<li><a href="#"
-																class="social-scroll-icon-message-single">Message</a><a
-																href="#"><img width="30" height="28"
-																	src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
-																		Kay </span></a>
-																<div class="scroll-tick">
-																	<img src="/beamstream-new/images/green-tick.png"
-																		width="19setDefaultNewTime" height="15">
-																</div></li>
-															<li><a href="#" class="social-scroll-icon-message">Message</a><a
-																href="#" class="social-scroll-icon-facebook">Facebook</a>
-																<a href="#"><img width="30" height="28"
-																	src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
-																		Kay </span></a>
-																<div class="scroll-tick">
-																	<img src="/beamstream-new/images/green-tick.png"
-																		width="19" height="15">
-																</div></li>
-															<li><a href="#" class="social-scroll-icon-message">Message</a><a
-																href="#" class="social-scroll-icon-facebook">Facebook</a>
-																<a href="#"><img width="30" height="28"
-																	src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
-																		Kay </span></a>
-																<div class="scroll-tick">
-																	<img src="/beamstream-new/images/green-tick.png"
-																		width="19" height="15">
-																</div></li>
-															<li><a href="#" class="social-scroll-icon-message">Message</a><a
-																href="#" class="social-scroll-icon-facebook">Facebook</a>
-																<a href="#"><img width="30" height="28"
-																	src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
-																		Kay </span></a>
-																<div class="scroll-tick">
-																	<img src="/beamstream-new/images/green-tick.png"
-																		width="19" height="15">
-																</div></li>
-															<li><a href="#" class="social-scroll-icon-message">Message</a><a
-																href="#" class="social-scroll-icon-facebook">Facebook</a>
-																<a href="#"><img width="30" height="28"
-																	src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
-																		Kay </span></a>
-																<div class="scroll-tick">
-																	<img src="/beamstream-new/images/green-tick.png"
-																		width="19" height="15">
-																</div></li>
-															<li><a href="#" class="social-scroll-icon-message">Message</a><a
-																href="#" class="social-scroll-icon-facebook">Facebook</a>
-																<a href="#"><img width="30" height="28"
-																	src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
-																		Kay </span></a>
-																<div class="scroll-tick">
-																	<img src="/beamstream-new/images/green-tick.png"
-																		width="19" height="15">
-																</div></li>
-															<li><a href="#" class="social-scroll-icon-message">Message</a><a
-																href="#" class="social-scroll-icon-facebook">Facebook</a>
-																<a href="#"><img width="30" height="28"
-																	src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
-																		Kay </span></a>
-																<div class="scroll-tick">
-																	<img src="/beamstream-new/images/green-tick.png"
-																		width="19" height="15">
-																</div></li>
-															<li><a href="#" class="social-scroll-icon-message">Message</a><a
-																href="#" class="social-scroll-icon-facebook">Facebook</a>
-																<a href="#"><img width="30" height="28"
-																	src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
-																		Kay </span></a>
-																<div class="scroll-tick">
-																	<img src="/beamstream-new/images/green-tick.png"
-																		width="19" height="15">
-																</div></li>
-															<li><a href="#" class="social-scroll-icon-message">Message</a><a
-																href="#" class="social-scroll-icon-facebook">Facebook</a>
-																<a href="#"><img width="30" height="28"
-																	src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
-																		Kay </span></a>
-																<div class="scroll-tick">
-																	<img src="/beamstream-new/images/green-tick.png"
-																		width="19" height="15">
-																</div></li>
-															<li><a href="#" class="social-scroll-icon-message">Message</a><a
-																href="#" class="social-scroll-icon-facebook">Facebook</a>
-																<a href="#"><img width="30" height="28"
-																	src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
-																		Kay </span></a>
-																<div class="scroll-tick">
-																	<img src="/beamstream-new/images/green-tick.png"
-																		width="19" height="15">
-																</div></li>
-															<li><a href="#" class="social-scroll-icon-message">Message</a><a
-																href="#" class="social-scroll-icon-facebook">Facebook</a>
-																<a href="#"><img width="30" height="28"
-																	src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
-																		Kay </span></a>
-																<div class="scroll-tick">
-																	<img src="/beamstream-new/images/green-tick.png"
-																		width="19" height="15">
-																</div></li>
-															<li><a href="#" class="social-scroll-icon-message">Message</a><a
-																href="#" class="social-scroll-icon-facebook">Facebook</a>
-																<a href="#"><img width="30" height="28"
-																	src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
-																		Kay </span></a>
-																<div class="scroll-tick">
-																	<img src="/beamstream-new/images/green-tick.png"
-																		width="19" height="15">
-																</div></li>
-														</ul>
-													</div>
-
-													<div class="pop-up-scroll-container pop-scroll-right">
-														<ul>
-															<li><a href="#" class="social-scroll-icon-message">Message</a><a
-																href="#" class="social-scroll-icon-facebook">Facebook</a>
-																<a href="#"><img width="30" height="28"
-																	src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
-																		Kay </span></a>
-																<div class="scroll-tick">
-																	<img src="/beamstream-new/images/green-tick.png"
-																		width="19" height="15">
-																</div></li>
-															<li><a href="#" class="social-scroll-icon-message">Message</a><a
-																href="#" class="social-scroll-icon-facebook">Facebook</a>
-																<a href="#"><img width="30" height="28"
-																	src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
-																		Kay </span></a>
-																<div class="scroll-tick">
-																	<img src="/beamstream-new/images/green-tick.png"
-																		width="19" height="15">
-																</div></li>
-															<li><a href="#"
-																class="social-scroll-icon-message-single">Message</a><a
-																href="#"><img width="30" height="28"
-																	src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
-																		Kay </span></a>
-																<div class="scroll-tick">
-																	<img src="/beamstream-new/images/green-tick.png"
-																		width="19" height="15">
-																</div></li>
-															<li><a href="#" class="social-scroll-icon-message">Message</a><a
-																href="#" class="social-scroll-icon-facebook">Facebook</a>
-																<a href="#"><img width="30" height="28"
-																	src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
-																		Kay </span></a>
-																<div class="scroll-tick">
-																	<img src="/beamstream-new/images/green-tick.png"
-																		width="19" height="15">
-																</div></li>
-															<li><a href="#" class="social-scroll-icon-message">Message</a><a
-																href="#" class="social-scroll-icon-facebook">Facebook</a>
-																<a href="#"><img width="30" height="28"
-																	src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
-																		Kay </span></a>
-																<div class="scroll-tick">
-																	<img src="/beamstream-new/images/green-tick.png"
-																		width="19" height="15">
-																</div></li>
-															<li><a href="#" class="social-scroll-icon-message">Message</a><a
-																href="#" class="social-scroll-icon-facebook">Facebook</a>
-																<a href="#"><img width="30" height="28"
-																	src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
-																		Kay </span></a>
-																<div class="scroll-tick">
-																	<img src="/beamstream-new/images/green-tick.png"
-																		width="19" height="15">
-																</div></li>
-															<li><a href="#" class="social-scroll-icon-message">Message</a><a
-																href="#" class="social-scroll-icon-facebook">Facebook</a>
-																<a href="#"><img width="30" height="28"
-																	src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
-																		Kay </span></a>
-																<div class="scroll-tick">
-																	<img src="/beamstream-new/images/green-tick.png"
-																		width="19" height="15">
-																</div></li>
-															<li><a href="#" class="social-scroll-icon-message">Message</a><a
-																href="#" class="social-scroll-icon-facebook">Facebook</a>
-																<a href="#"><img width="30" height="28"
-																	src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
-																		Kay </span></a>
-																<div class="scroll-tick">
-																	<img src="/beamstream-new/images/green-tick.png"
-																		width="19" height="15">
-																</div></li>
-															<li><a href="#" class="social-scroll-icon-message">Message</a><a
-																href="#" class="social-scroll-icon-facebook">Facebook</a>
-																<a href="#"><img width="30" height="28"
-																	src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
-																		Kay </span></a>
-																<div class="scroll-tick">
-																	<img src="/beamstream-new/images/green-tick.png"
-																		width="19" height="15">
-																</div></li>
-															<li><a href="#" class="social-scroll-icon-message">Message</a><a
-																href="#" class="social-scroll-icon-facebook">Facebook</a>
-																<a href="#"><img width="30" height="28"
-																	src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
-																		Kay </span></a>
-																<div class="scroll-tick">
-																	<img src="/beamstream-new/images/green-tick.png"
-																		width="19" height="15">
-																</div></li>
-															<li><a href="#" class="social-scroll-icon-message">Message</a><a
-																href="#" class="social-scroll-icon-facebook">Facebook</a>
-																<a href="#"><img width="30" height="28"
-																	src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
-																		Kay </span></a>
-																<div class="scroll-tick">
-																	<img src="/beamstream-new/images/green-tick.png"
-																		width="19" height="15">
-																</div></li>
-															<li><a href="#" class="social-scroll-icon-message">Message</a><a
-																href="#" class="social-scroll-icon-facebook">Facebook</a>
-																<a href="#"><img width="30" height="28"
-																	src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
-																		Kay </span></a>
-																<div class="scroll-tick">
-																	<img src="/beamstream-new/images/green-tick.png"
-																		width="19" height="15">
-																</div></li>
-															<li><a href="#" class="social-scroll-icon-message">Message</a><a
-																href="#" class="social-scroll-icon-facebook">Facebook</a>
-																<a href="#"><img width="30" height="28"
-																	src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
-																		Kay </span></a>
-																<div class="scroll-tick">
-																	<img src="/beamstream-new/images/green-tick.png"
-																		width="19" height="15">
-																</div></li>
-															<li><a href="#" class="social-scroll-icon-message">Message</a><a
-																href="#" class="social-scroll-icon-facebook">Facebook</a>
-																<a href="#"><img width="30" height="28"
-																	src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
-																		Kay </span></a>
-																<div class="scroll-tick">
-																	<img src="/beamstream-new/images/green-tick.png"
-																		width="19" height="15">
-																</div></li>
-														</ul>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-
-							</div>
-
-							<div class="pop-bottom">
-								<div class="pop-bottom">
-									<a href="#">Cancel</a> <a href="#" class="send-invites">Send
-										Invites</a>
-								</div>
-							</div>
-							<divclass"clear">
-						</div>
-					</div>
-					<div class="clear"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
+   <div id="classView" data-model="class">
+      <div class="right-container">
+         <div class="professor-registration class-red-border class-border">
+         <form id="class-info" method="post" action="@routes.ClassController.createClass">
+            <div class="class-info-access">
+               <div class="class-contact">
+                  <div class="class-info class-form">
+                     <h5>CLASS INFO</h5>
+                        <div class="school-name-row row-fluid invite-select school_field">
+                           <select id="schoolId" data-name="class.schoolId" name="schoolId" class="selectpicker-info" class="span12 school-name" name="school-name" style="display:none;">
+                           </select>
+                           <div id="add-new-school" class="new-school-field" style="display: none;">
+                              <input type="text" id="schoolName" name="schoolName" placeholder="Enter new school" class="newclass"> 
+                              <input type="hidden" id="associatedSchoolId">
+                           </div>
+                        </div>
+                        <fieldset class="field name-class-code row-fluid">
+                           <input type="text" placeholder="Stream Name" class="span8 stream-name big-text" id="className" data-name="class.className" name="className" placeholder="Enter the name of your class">
+                           <input type="text" placeholder="Class Code" class="span4 class-code" name="classCode" id="classCode" data-name="class.classCode" name="" class="small-text">
+                        </fieldset>
+                        <div class="time-row row-fluid">
+                           <div class="bootstrap-timepicker pull-left span4">
+                              <input class="timepicker" id="newClassTime" placeholder="hh:mm AM" type="text">
+                              <i class="icon-time"></i>
+                           </div>
+                           <div class="field">
+                              <div data-date-viewmode="years" id="datepicker" class="input-append date invite-calender field" style="display:none;">
+                                 <input type="text" readonly="" id="startingDate" data-name="class.startingDate" value="" name="startingDate" placeholder="Class start date" class="datepicker calender-box">
+                                 <div class="new-arrow date-arrow ">
+                                    <span class="add-on"></span>
+                                 </div>
+                              </div>
+                              <div class="span4" style="margin-left: 0px;">
+                                 <input type="hidden" name="daysofWeek" value"">
+                                 <div class="btn-toolbar time-input" name="days">
+                                    <div id="classDays" class="btn-group">
+                                       <div id="0" class="btn btn-small days-of-week" name="Sunday">S</div>
+                                       <div id="1" class="btn btn-small days-of-week" name="Monday">M</div>
+                                       <div id="2" class="btn btn-small days-of-week" name="Tuesday">T</div>
+                                       <div id="3" class="btn btn-small days-of-week" name="Wednesday">W</div>
+                                       <div id="4" class="btn btn-small days-of-week" name="Thursday">T</div>
+                                       <div id="5" class="btn btn-small days-of-week" name="Friday">F</div>
+                                       <div id="6" class="btn btn-small days-of-week" name="Saturday">S</div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="time-input span4">
+                                 <select name="classType" id="classType">
+                                    <option value="semester">Semester</option>
+                                    <option value="quarter">Quarter</option>
+                                 </select>
+                              </div>
+                           </div>
+                        </div>
+                        @professorclasspage(iam)
+                  </div>
+               </div>
+               <div class="class-access">
+                  <h5>CLASS ACCESS</h5>
+                  <label><input type="radio" name="class-access" value="open">Open Online Class</label>
+                  <label> <input type="radio" name="class-access" value="invite">Invite Only </label>
+                  <label> <input type="radio" name="class-access" value="request">User's Request</label>
+                  <p><button class="btn btn-small btn-inverse invite" id="add_classmates" href="#" data-toggle="modal"><span></span>+ Invite Others</button></p>
+                  <p><button class="btn btn-large btn-success submit" href="#" id="createOrJoinStream" type="submit">Create Stream</button></p>
+               </div>
+            </div>
+            </form>
+            <!-- for  popups after Create stream -->
+            <div id="selectNextStep" class="modal hide fade registration-modal white-modal-block bootbox modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+               <div class="modal-body">Add Another Class<br>or<br>Use ClassWall Now?
+               </div>
+               <div class="modal-footer">
+                  <a id="addMoreClass" class="btn btn invite-green-btn" href="#">+ Add Classes</a> 
+                  <a id="startBeam" class="btn btn invite-green-btn" href="#">Use ClassWall</a>
+               </div>
+            </div>
+            <div id="friend-list-modal" class="modal hide fade invite-pop-up"
+               tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+               aria-hidden="true">
+               <div class=" pop-close">
+                  <button class="close" aria-hidden="true" data-dismiss="modal"
+                     type="button">
+                  Close <img width="22" height="22"
+                     src="/beamstream-new/images/close-pop.png">
+                  </button>
+               </div>
+               <div class="invite-pop-outer">
+                  <div class="invite-pop-info">
+                     <div class="pop-up-header">
+                        <h3>Invite your people to BeamStream</h3>
+                     </div>
+                     <div class="pop-up-container">
+                        <div class="pop-info-block">
+                           <div class="pop-up-container-left">
+                              <div class="pop-email-box">
+                                 <div class="invite-small-last  invite-mail">
+                                    <select class="selectpicker-info " style="display: none;">
+                                       <option value="semester">Invite By Mail</option>
+                                    </select>
+                                 </div>
+                                 <input type="text" name="" placeholder="Email Address">
+                                 <a href="#"> Send from your email client</a>
+                                 <ul class="email-social-icons">
+                                    <li class="yahoo"><a href="#">Yahoo</a></li>
+                                    <li class="google-plus"><a href="#">Yahoo</a></li>
+                                    <li class="msn"><a href="#">Yahoo</a></li>
+                                    <li class="other"><a href="#">Yahoo</a></li>
+                                    <li class="other1"><a href="#">Yahoo</a></li>
+                                    <li class="other2"><a href="#">Yahoo</a></li>
+                                    <span> Import contacts from services above.</span>
+                                 </ul>
+                              </div>
+                              <div class="pop-other-accounts">
+                                 <h3>Connect other accounts</h3>
+                                 <ul class="register-social">
+                                    <li>
+                                       <div class="tick-register"></div>
+                                       <a href="#"
+                                          class="facebook"> <span> <img width="33"
+                                          height="34"
+                                          src="/beamstream-new/images/face-book-icon.png">
+                                       </span> <span class="shadow">Facebook</span></a>
+                                    </li>
+                                    <li>
+                                       <div class="tick-register"></div>
+                                       <a href="#"
+                                          class="twitter"> <span> <img width="33"
+                                          height="34" src="/beamstream-new/images/twitter-icon.png">
+                                       </span> <span class="shadow">Twitter</span></a>
+                                    </li>
+                                    <li><a href="#" class="google"> <span> <img
+                                       width="33" height="34"
+                                       src="/beamstream-new/images/google-plus-icon.png">
+                                       </span> <span class="shadow">Google+</span></a>
+                                    </li>
+                                    <li><a href="#" class="link-in"> <span> <img
+                                       width="33" height="34"
+                                       src="/beamstream-new/images/in-icon.png">
+                                       </span> <span class="shadow">LinkedIn</span></a>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </div>
+                           <div class="pop-up-container-right">
+                              <h4>
+                                 1,289 All My Friends <span>(by connected accounts)</span>
+                              </h4>
+                              <div class="stream-wrapper pop-chat-block">
+                                 <div class="search-all-freinds">
+                                    <input type="text" name="" placeholder="Search all friends ">
+                                    <div class="btn-group invite-dropdown-outer pop-select-right">
+                                       <button
+                                          class="btn normal-dropdown invite-drop show-all-pop-up">Show
+                                       All</button>
+                                       <button class="btn blue-button invite-drop"
+                                          data-toggle="dropdown">
+                                       <span class="caret sort-caret"></span>
+                                       </button>
+                                       <ul class="dropdown-menu display-sub">
+                                          <li><a href="#">Products</a></li>
+                                          <li><a href="#">Products</a></li>
+                                          <li><a href="#">Products </a></li>
+                                       </ul>
+                                    </div>
+                                 </div>
+                                 <div class="pop-up-scroll-block">
+                                    <div id="user-online1"
+                                       class="scroll-block scroll-chat-view scroll-block-popup">
+                                       <a href="#" class="scroll-select-all">Select All</a>
+                                       <div class="invite-scroller-block">
+                                          <div class="pop-up-scroll-container pop-scroll-left">
+                                             <ul>
+                                                <li>
+                                                   <a href="#" class="social-scroll-icon-message">Message</a><a
+                                                      href="#" class="social-scroll-icon-facebook">Facebook</a>
+                                                   <a href="#"><img width="30" height="28"
+                                                      src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
+                                                   Kay </span></a>
+                                                   <div class="scroll-tick">
+                                                      <img src="/beamstream-new/images/green-tick.png"
+                                                         width="19" height="15">
+                                                   </div>
+                                                </li>
+                                                <li>
+                                                   <a href="#" class="social-scroll-icon-message">Message</a><a
+                                                      href="#" class="social-scroll-icon-facebook">Facebook</a>
+                                                   <a href="#"><img width="30" height="28"
+                                                      src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
+                                                   Kay </span></a>
+                                                   <div class="scroll-tick">
+                                                      <img src="/beamstream-new/images/green-tick.png"
+                                                         width="19" height="15">
+                                                   </div>
+                                                </li>
+                                                <li>
+                                                   <a href="#"
+                                                      class="social-scroll-icon-message-single">Message</a><a
+                                                      href="#"><img width="30" height="28"
+                                                      src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
+                                                   Kay </span></a>
+                                                   <div class="scroll-tick">
+                                                      <img src="/beamstream-new/images/green-tick.png"
+                                                         width="19setDefaultNewTime" height="15">
+                                                   </div>
+                                                </li>
+                                                <li>
+                                                   <a href="#" class="social-scroll-icon-message">Message</a><a
+                                                      href="#" class="social-scroll-icon-facebook">Facebook</a>
+                                                   <a href="#"><img width="30" height="28"
+                                                      src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
+                                                   Kay </span></a>
+                                                   <div class="scroll-tick">
+                                                      <img src="/beamstream-new/images/green-tick.png"
+                                                         width="19" height="15">
+                                                   </div>
+                                                </li>
+                                                <li>
+                                                   <a href="#" class="social-scroll-icon-message">Message</a><a
+                                                      href="#" class="social-scroll-icon-facebook">Facebook</a>
+                                                   <a href="#"><img width="30" height="28"
+                                                      src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
+                                                   Kay </span></a>
+                                                   <div class="scroll-tick">
+                                                      <img src="/beamstream-new/images/green-tick.png"
+                                                         width="19" height="15">
+                                                   </div>
+                                                </li>
+                                                <li>
+                                                   <a href="#" class="social-scroll-icon-message">Message</a><a
+                                                      href="#" class="social-scroll-icon-facebook">Facebook</a>
+                                                   <a href="#"><img width="30" height="28"
+                                                      src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
+                                                   Kay </span></a>
+                                                   <div class="scroll-tick">
+                                                      <img src="/beamstream-new/images/green-tick.png"
+                                                         width="19" height="15">
+                                                   </div>
+                                                </li>
+                                                <li>
+                                                   <a href="#" class="social-scroll-icon-message">Message</a><a
+                                                      href="#" class="social-scroll-icon-facebook">Facebook</a>
+                                                   <a href="#"><img width="30" height="28"
+                                                      src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
+                                                   Kay </span></a>
+                                                   <div class="scroll-tick">
+                                                      <img src="/beamstream-new/images/green-tick.png"
+                                                         width="19" height="15">
+                                                   </div>
+                                                </li>
+                                                <li>
+                                                   <a href="#" class="social-scroll-icon-message">Message</a><a
+                                                      href="#" class="social-scroll-icon-facebook">Facebook</a>
+                                                   <a href="#"><img width="30" height="28"
+                                                      src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
+                                                   Kay </span></a>
+                                                   <div class="scroll-tick">
+                                                      <img src="/beamstream-new/images/green-tick.png"
+                                                         width="19" height="15">
+                                                   </div>
+                                                </li>
+                                                <li>
+                                                   <a href="#" class="social-scroll-icon-message">Message</a><a
+                                                      href="#" class="social-scroll-icon-facebook">Facebook</a>
+                                                   <a href="#"><img width="30" height="28"
+                                                      src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
+                                                   Kay </span></a>
+                                                   <div class="scroll-tick">
+                                                      <img src="/beamstream-new/images/green-tick.png"
+                                                         width="19" height="15">
+                                                   </div>
+                                                </li>
+                                                <li>
+                                                   <a href="#" class="social-scroll-icon-message">Message</a><a
+                                                      href="#" class="social-scroll-icon-facebook">Facebook</a>
+                                                   <a href="#"><img width="30" height="28"
+                                                      src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
+                                                   Kay </span></a>
+                                                   <div class="scroll-tick">
+                                                      <img src="/beamstream-new/images/green-tick.png"
+                                                         width="19" height="15">
+                                                   </div>
+                                                </li>
+                                                <li>
+                                                   <a href="#" class="social-scroll-icon-message">Message</a><a
+                                                      href="#" class="social-scroll-icon-facebook">Facebook</a>
+                                                   <a href="#"><img width="30" height="28"
+                                                      src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
+                                                   Kay </span></a>
+                                                   <div class="scroll-tick">
+                                                      <img src="/beamstream-new/images/green-tick.png"
+                                                         width="19" height="15">
+                                                   </div>
+                                                </li>
+                                                <li>
+                                                   <a href="#" class="social-scroll-icon-message">Message</a><a
+                                                      href="#" class="social-scroll-icon-facebook">Facebook</a>
+                                                   <a href="#"><img width="30" height="28"
+                                                      src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
+                                                   Kay </span></a>
+                                                   <div class="scroll-tick">
+                                                      <img src="/beamstream-new/images/green-tick.png"
+                                                         width="19" height="15">
+                                                   </div>
+                                                </li>
+                                                <li>
+                                                   <a href="#" class="social-scroll-icon-message">Message</a><a
+                                                      href="#" class="social-scroll-icon-facebook">Facebook</a>
+                                                   <a href="#"><img width="30" height="28"
+                                                      src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
+                                                   Kay </span></a>
+                                                   <div class="scroll-tick">
+                                                      <img src="/beamstream-new/images/green-tick.png"
+                                                         width="19" height="15">
+                                                   </div>
+                                                </li>
+                                                <li>
+                                                   <a href="#" class="social-scroll-icon-message">Message</a><a
+                                                      href="#" class="social-scroll-icon-facebook">Facebook</a>
+                                                   <a href="#"><img width="30" height="28"
+                                                      src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
+                                                   Kay </span></a>
+                                                   <div class="scroll-tick">
+                                                      <img src="/beamstream-new/images/green-tick.png"
+                                                         width="19" height="15">
+                                                   </div>
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          <div class="pop-up-scroll-container pop-scroll-right">
+                                             <ul>
+                                                <li>
+                                                   <a href="#" class="social-scroll-icon-message">Message</a><a
+                                                      href="#" class="social-scroll-icon-facebook">Facebook</a>
+                                                   <a href="#"><img width="30" height="28"
+                                                      src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
+                                                   Kay </span></a>
+                                                   <div class="scroll-tick">
+                                                      <img src="/beamstream-new/images/green-tick.png"
+                                                         width="19" height="15">
+                                                   </div>
+                                                </li>
+                                                <li>
+                                                   <a href="#" class="social-scroll-icon-message">Message</a><a
+                                                      href="#" class="social-scroll-icon-facebook">Facebook</a>
+                                                   <a href="#"><img width="30" height="28"
+                                                      src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
+                                                   Kay </span></a>
+                                                   <div class="scroll-tick">
+                                                      <img src="/beamstream-new/images/green-tick.png"
+                                                         width="19" height="15">
+                                                   </div>
+                                                </li>
+                                                <li>
+                                                   <a href="#"
+                                                      class="social-scroll-icon-message-single">Message</a><a
+                                                      href="#"><img width="30" height="28"
+                                                      src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
+                                                   Kay </span></a>
+                                                   <div class="scroll-tick">
+                                                      <img src="/beamstream-new/images/green-tick.png"
+                                                         width="19" height="15">
+                                                   </div>
+                                                </li>
+                                                <li>
+                                                   <a href="#" class="social-scroll-icon-message">Message</a><a
+                                                      href="#" class="social-scroll-icon-facebook">Facebook</a>
+                                                   <a href="#"><img width="30" height="28"
+                                                      src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
+                                                   Kay </span></a>
+                                                   <div class="scroll-tick">
+                                                      <img src="/beamstream-new/images/green-tick.png"
+                                                         width="19" height="15">
+                                                   </div>
+                                                </li>
+                                                <li>
+                                                   <a href="#" class="social-scroll-icon-message">Message</a><a
+                                                      href="#" class="social-scroll-icon-facebook">Facebook</a>
+                                                   <a href="#"><img width="30" height="28"
+                                                      src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
+                                                   Kay </span></a>
+                                                   <div class="scroll-tick">
+                                                      <img src="/beamstream-new/images/green-tick.png"
+                                                         width="19" height="15">
+                                                   </div>
+                                                </li>
+                                                <li>
+                                                   <a href="#" class="social-scroll-icon-message">Message</a><a
+                                                      href="#" class="social-scroll-icon-facebook">Facebook</a>
+                                                   <a href="#"><img width="30" height="28"
+                                                      src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
+                                                   Kay </span></a>
+                                                   <div class="scroll-tick">
+                                                      <img src="/beamstream-new/images/green-tick.png"
+                                                         width="19" height="15">
+                                                   </div>
+                                                </li>
+                                                <li>
+                                                   <a href="#" class="social-scroll-icon-message">Message</a><a
+                                                      href="#" class="social-scroll-icon-facebook">Facebook</a>
+                                                   <a href="#"><img width="30" height="28"
+                                                      src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
+                                                   Kay </span></a>
+                                                   <div class="scroll-tick">
+                                                      <img src="/beamstream-new/images/green-tick.png"
+                                                         width="19" height="15">
+                                                   </div>
+                                                </li>
+                                                <li>
+                                                   <a href="#" class="social-scroll-icon-message">Message</a><a
+                                                      href="#" class="social-scroll-icon-facebook">Facebook</a>
+                                                   <a href="#"><img width="30" height="28"
+                                                      src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
+                                                   Kay </span></a>
+                                                   <div class="scroll-tick">
+                                                      <img src="/beamstream-new/images/green-tick.png"
+                                                         width="19" height="15">
+                                                   </div>
+                                                </li>
+                                                <li>
+                                                   <a href="#" class="social-scroll-icon-message">Message</a><a
+                                                      href="#" class="social-scroll-icon-facebook">Facebook</a>
+                                                   <a href="#"><img width="30" height="28"
+                                                      src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
+                                                   Kay </span></a>
+                                                   <div class="scroll-tick">
+                                                      <img src="/beamstream-new/images/green-tick.png"
+                                                         width="19" height="15">
+                                                   </div>
+                                                </li>
+                                                <li>
+                                                   <a href="#" class="social-scroll-icon-message">Message</a><a
+                                                      href="#" class="social-scroll-icon-facebook">Facebook</a>
+                                                   <a href="#"><img width="30" height="28"
+                                                      src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
+                                                   Kay </span></a>
+                                                   <div class="scroll-tick">
+                                                      <img src="/beamstream-new/images/green-tick.png"
+                                                         width="19" height="15">
+                                                   </div>
+                                                </li>
+                                                <li>
+                                                   <a href="#" class="social-scroll-icon-message">Message</a><a
+                                                      href="#" class="social-scroll-icon-facebook">Facebook</a>
+                                                   <a href="#"><img width="30" height="28"
+                                                      src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
+                                                   Kay </span></a>
+                                                   <div class="scroll-tick">
+                                                      <img src="/beamstream-new/images/green-tick.png"
+                                                         width="19" height="15">
+                                                   </div>
+                                                </li>
+                                                <li>
+                                                   <a href="#" class="social-scroll-icon-message">Message</a><a
+                                                      href="#" class="social-scroll-icon-facebook">Facebook</a>
+                                                   <a href="#"><img width="30" height="28"
+                                                      src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
+                                                   Kay </span></a>
+                                                   <div class="scroll-tick">
+                                                      <img src="/beamstream-new/images/green-tick.png"
+                                                         width="19" height="15">
+                                                   </div>
+                                                </li>
+                                                <li>
+                                                   <a href="#" class="social-scroll-icon-message">Message</a><a
+                                                      href="#" class="social-scroll-icon-facebook">Facebook</a>
+                                                   <a href="#"><img width="30" height="28"
+                                                      src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
+                                                   Kay </span></a>
+                                                   <div class="scroll-tick">
+                                                      <img src="/beamstream-new/images/green-tick.png"
+                                                         width="19" height="15">
+                                                   </div>
+                                                </li>
+                                                <li>
+                                                   <a href="#" class="social-scroll-icon-message">Message</a><a
+                                                      href="#" class="social-scroll-icon-facebook">Facebook</a>
+                                                   <a href="#"><img width="30" height="28"
+                                                      src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina
+                                                   Kay </span></a>
+                                                   <div class="scroll-tick">
+                                                      <img src="/beamstream-new/images/green-tick.png"
+                                                         width="19" height="15">
+                                                   </div>
+                                                </li>
+                                             </ul>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="pop-bottom">
+                           <div class="pop-bottom">
+                              <a href="#">Cancel</a> <a href="#" class="send-invites">Send
+                              Invites</a>
+                           </div>
+                        </div>
+                        <divclass"clear">
+                     </div>
+                  </div>
+                  <div class="clear"></div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
 </div>
-
-</div>
-
-
 <!---- for new school popups----->
 <div id="addSchoolView" data-model="school"
-	data-module="view/addNewSchoolView">
-	<div id="newSchoolModal"
-		class="modal hide fade registration-modal white-modal-block"
-		tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-		aria-hidden="true">
-		<div class="modal-header registration-modal-header">
-			<h3>Add my school to Beamstream</h3>
-			<button type="button" class="close" data-dismiss="modal"
-				aria-hidden="true">Close</button>
-		</div>
-		<div class="modal-body registration-modal-content">
-			<div id="newSchoolForm" class="share-content">
-
-				<fieldset class="field" style="position: relative">
-					<h1>
-						<label for="school-name" name="my-school">Name of your
-							school </label>
-					</h1>
-					<input id="new-school" data-name="school.schoolName"
-						name="schoolName" type="text" placeholder="School Name"> <input
-						type="hidden" value="school-name" id="parent-Id">
-				</fieldset>
-				<br> <br>
-
-
-				<fieldset class="field" style="position: relative">
-					<h1>
-						<label for="website" name="website">School website <span
-							class="star"> </span></label>
-					</h1>
-					<input id="schoolWebsite" type="text"
-						data-name="school.schoolWebsite" name="schoolWebsite"
-						placeholder="School website">
-				</fieldset>
-
-				<br> <br> <a id="addSchool"
-					class="btn btn-primary pull-left " href="#">Add My School</a>
-
-			</div>
-		</div>
-	</div>
+   data-module="view/addNewSchoolView">
+   <div id="newSchoolModal"
+      class="modal hide fade registration-modal white-modal-block"
+      tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+      aria-hidden="true">
+      <div class="modal-header registration-modal-header">
+         <h3>Add my school to Beamstream</h3>
+         <button type="button" class="close" data-dismiss="modal"
+            aria-hidden="true">Close</button>
+      </div>
+      <div class="modal-body registration-modal-content">
+         <div id="newSchoolForm" class="share-content">
+            <fieldset class="field" style="position: relative">
+               <h1>
+                  <label for="school-name" name="my-school">Name of your
+                  school </label>
+               </h1>
+               <input id="new-school" data-name="school.schoolName"
+                  name="schoolName" type="text" placeholder="School Name"> <input
+                  type="hidden" value="school-name" id="parent-Id">
+            </fieldset>
+            <br> <br>
+            <fieldset class="field" style="position: relative">
+               <h1>
+                  <label for="website" name="website">School website <span
+                     class="star"> </span></label>
+               </h1>
+               <input id="schoolWebsite" type="text"
+                  data-name="school.schoolWebsite" name="schoolWebsite"
+                  placeholder="School website">
+            </fieldset>
+            <br> <br> <a id="addSchool"
+               class="btn btn-primary pull-left " href="#">Add My School</a>
+         </div>
+      </div>
+   </div>
 </div>
-
-
 }
-
 <!-- Disable Back Button -->
 <script type="text/javascript">
-      if(@tokenFlag == true){
-				window.history.forward();
-				window.onunload = function() {
-				null;
-				};
-			setTimeout("preventBack()", 0);
-			}
+   if(@tokenFlag == true){
+   window.history.forward();
+   window.onunload = function() {
+   null;
+   };
+   setTimeout("preventBack()", 0);
+   }
 </script>
-
-						
