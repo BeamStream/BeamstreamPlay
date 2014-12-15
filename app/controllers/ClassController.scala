@@ -1,7 +1,7 @@
 package controllers
 
 import org.bson.types.ObjectId
-import models.ClassType
+
 import java.text.DateFormat
 import net.liftweb.json.Serialization.{ read, write }
 import java.text.SimpleDateFormat
@@ -9,6 +9,10 @@ import utils.EnumerationSerializer
 import utils.ObjectIdSerializer
 import models.User
 import models.Class
+import models.ClassType
+import models.User
+import models.UserType
+import models.ProfessorClassInfo
 import models.ResulttoSent
 import models.Stream
 import models.ClassResult
@@ -182,6 +186,7 @@ object ClassController extends Controller {
   def createClass: Action[AnyContent] = Action { implicit request =>
     try {
       val jsonReceived =request.body.asJson.get
+      println("jsonReceived~~~~~~~~~~~~"+jsonReceived)
       val id = (jsonReceived \ "id").asOpt[String]
       val userIdFound = request.session.get("userId")
       userIdFound match {
@@ -195,9 +200,28 @@ object ClassController extends Controller {
               val classTime=(jsonReceived \ "classTime").as[String]
               val classType=(jsonReceived \ "classType").as[String]
               val weekDays=(jsonReceived \ "weekDays").as[List[String]]
-              val classCreated=new Class(new ObjectId,classCode,className,ClassType.withName(classType),classTime,new Date(),new ObjectId(schoolId),weekDays,List())
+              val classCreated=new Class(new ObjectId,classCode,className,ClassType.withName(classType),classTime,new Date(),new ObjectId(schoolId),weekDays,List(),List())
               //val classCreated = net.liftweb.json.parse(request.body.asJson.get.toString).extract[Class]
-              val streamIdReturned = Class.createClass(classCreated, new ObjectId(userId))
+              val streamIdReturned = Class.createClass(classCreated, new ObjectId(userId)) 
+              //check if user is Professional
+              val userdetails=User.findUserByObjectId(new ObjectId(userId))
+              val usertype=userdetails.get.userType.toString() 
+              if(usertype==UserType.apply(2.toInt).toString()){
+                val contactEmail=(jsonReceived \ "contactEmail").as[String]
+                val contactCellNumber=(jsonReceived \ "contactcellNumber").as[String]
+                val contactOfficeHours=(jsonReceived \ "contactofficeHours").as[String]
+                val contactDays=(jsonReceived \ "contactdays").as[String]
+                val classInfo=(jsonReceived \ "classInfo").as[String]
+                val grade=(jsonReceived \ "grade").as[String]
+                val studyResource=(jsonReceived \ "studyResource").as[List[String]]
+                val test=(jsonReceived \ "test").as[List[String]]
+                val attendance=(jsonReceived \ "attendance").as[String]
+                val professorclassInfoCreated=new ProfessorClassInfo(new ObjectId,contactEmail,contactCellNumber,contactOfficeHours,contactDays,classInfo,grade,studyResource,test,attendance)
+                val professorclassInfoId=ProfessorClassInfo.createProfessorClass(professorclassInfoCreated)
+                val classDetails=Class.findClassByStreamId(streamIdReturned)
+                val classId=classDetails.get.id 
+                //ProfessorClassInfo.attachProfessorClassIdToClass(professorclassInfoId,classId)
+              }
               val stream = Stream.findStreamById(streamIdReturned)
               Ok(write(ClassResult(stream.get, ResulttoSent("Success", "Class Created Successfully")))).as("application/json")
             case Some(id) =>

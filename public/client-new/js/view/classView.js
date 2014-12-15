@@ -673,6 +673,23 @@ define(
 								'weekDays' :arrclickedDays
 							});
 							
+							// Contact Info for professor
+							this.data.models[0].set({
+								'contactEmail' : $('#contactemail').val(),
+								'contactcellNumber': $('#contactcellNumber').val(),
+								'contactofficeHours': $('#contactofficeHours').val(),
+								'contactdays': $('#contactdays').val(),
+							});
+							
+							// Syllabus Info for professor
+							this.data.models[0].set({
+								'classInfo' : $('#classAccess').val(),
+								'grade': $('#gradedfor').val(),
+								'studyResource': [$('#resourcetitle').val(),$('#resourcelink').val()],
+								'test': [$('#testresourcetitle').val(),$('#assignment option').val(),$('#testdate').val()],
+								'attendance':$('#attendance').val()
+							});
+							
 							this.data.url = "/class";
 							this.saveForm();
 						},

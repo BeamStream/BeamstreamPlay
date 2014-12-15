@@ -23,7 +23,8 @@ case class Class(@Key("_id") id: ObjectId,
   startingDate: Date,
   schoolId: ObjectId,
   weekDays:List[String],
-  streams: List[ObjectId])
+  streams: List[ObjectId],
+  professorClassInfoId:List[ObjectId])
 
 object Class {
 
@@ -53,6 +54,16 @@ object Class {
 
   def findClasssById(classId: ObjectId): Option[Class] = {
     val classFound = ClassDAO.find(MongoDBObject("_id" -> classId)).toList
+    (classFound.isEmpty.equals(false)) match {
+      case true => Option(classFound.head)
+      case false => None
+    }
+  }
+  /*
+   * find class by streamId
+   */
+  def findClassByStreamId(streamId: ObjectId): Option[Class] = {
+    val classFound = ClassDAO.find(MongoDBObject("streams" ->streamId)).toList
     (classFound.isEmpty.equals(false)) match {
       case true => Option(classFound.head)
       case false => None

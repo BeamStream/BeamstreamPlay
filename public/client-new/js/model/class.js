@@ -27,7 +27,16 @@ define(['baseModel'], function(BaseModel) {
 			classTime: '',
 			startingDate: '',
 			weekDays :'',
-			classType:'semester'
+			classType:'semester',
+			contactEmail:'',
+			contactcellNumber:'',
+			contactofficeHours:'',
+			contactdays:'',
+			classInfo:'',
+			grade:'',
+			studyResource:'',
+			test:'',
+			attendance:''
 		},
 		
 		
