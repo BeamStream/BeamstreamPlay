@@ -186,7 +186,6 @@ object ClassController extends Controller {
   def createClass: Action[AnyContent] = Action { implicit request =>
     try {
       val jsonReceived =request.body.asJson.get
-      println("jsonReceived~~~~~~~~~~~~"+jsonReceived)
       val id = (jsonReceived \ "id").asOpt[String]
       val userIdFound = request.session.get("userId")
       userIdFound match {
@@ -220,7 +219,7 @@ object ClassController extends Controller {
                 val professorclassInfoId=ProfessorClassInfo.createProfessorClass(professorclassInfoCreated)
                 val classDetails=Class.findClassByStreamId(streamIdReturned)
                 val classId=classDetails.get.id 
-                //ProfessorClassInfo.attachProfessorClassIdToClass(professorclassInfoId,classId)
+                ProfessorClassInfo.attachProfessorClassIdToClass(professorclassInfoId,classId)
               }
               val stream = Stream.findStreamById(streamIdReturned)
               Ok(write(ClassResult(stream.get, ResulttoSent("Success", "Class Created Successfully")))).as("application/json")
