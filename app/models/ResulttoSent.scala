@@ -14,8 +14,7 @@ case class ResulttoSent(status: String,
   message: String)
 
 //Resultant Class Details
-case class ClassWithNoOfUsers(usersMap: Map[String, Int],
-  classToReturn: Class)
+case class ClassWithNoOfUsers(usersMap: Map[String, Int],classToReturn: Class,professorClassToReturn:ProfessorClassInfo)
 
 case class OptionOfQuestion(@Key("_id") id: ObjectId,
   name: String,

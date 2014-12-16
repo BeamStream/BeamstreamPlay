@@ -116,9 +116,17 @@ object Class {
   private def classWithNoOfUsers(classes: List[Class]): List[ClassWithNoOfUsers] = {
     classes map {
       eachClass =>
+        val professorClassInfoId=eachClass.professorClassInfoId.headOption.getOrElse("")
+        val professorInfo=ProfessorClassInfoDAO.find(MongoDBObject("_id" ->professorClassInfoId)).toList
+        val defaultprofessorInfo=new ProfessorClassInfo(new ObjectId,"false","false","false","false","false","false",List(),List(),"false")
+        val professorClassInfo=professorInfo.isEmpty match{
+          case true => defaultprofessorInfo
+          case false => val proInfo=professorInfo.headOption.getOrElse(defaultprofessorInfo)
+          				proInfo
+        }
         val stream = Stream.findStreamById(eachClass.streams(0))
         val mapOfUsersAttendingTheClassSeparatedbyCatagory = User.countRolesOfAUser(stream.get.usersOfStream)
-        ClassWithNoOfUsers(mapOfUsersAttendingTheClassSeparatedbyCatagory, eachClass)
+        ClassWithNoOfUsers(mapOfUsersAttendingTheClassSeparatedbyCatagory, eachClass,professorClassInfo)
     }
   }
 
@@ -129,7 +137,6 @@ object Class {
   def findClassByName(name: String, schoolId: ObjectId): List[ClassWithNoOfUsers] = {
     val namePattern = Pattern.compile(name, Pattern.CASE_INSENSITIVE)
     val classesFound = ClassDAO.find(MongoDBObject("schoolId" -> schoolId, "className" -> namePattern)).toList
-
     classesFound.isEmpty match {
       case true =>
         val mixNamePattern = Pattern.compile(name, Pattern.CASE_INSENSITIVE)
