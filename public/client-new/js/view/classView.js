@@ -647,6 +647,33 @@ define(
 							} else {
 								$('#classType option').text("Semester");
 							}
+							
+							/*
+							* for professorsclass Info
+							*/
+							if(data.professorClassToReturn.contactEmail!="false"){
+								$('#contactemail').val(data.professorClassToReturn.contactEmail);
+								$('#contactcellNumber').val(data.professorClassToReturn.contactCellNumber);
+								$('#contactofficeHours').val(data.professorClassToReturn.contactOfficeHours);
+								$('#contactdays').val(data.professorClassToReturn.contactDays);
+								$('#contactdays').val(data.professorClassToReturn.contactDays);
+								$('#classAccess').val(data.professorClassToReturn.classInfo);
+								$('#gradedfor').val(data.professorClassToReturn.grade);
+								$('#gradedfor').val(data.professorClassToReturn.grade);
+								$('#resourcetitle').val(data.professorClassToReturn.studyResource[0]);
+								$('#resourcelink').val(data.professorClassToReturn.studyResource[1]);
+								
+								$('#testresourcetitle').val(data.professorClassToReturn.test[0]);
+								if (data.professorClassToReturn.test[1] == "test") {
+									$('#assignment option').text("Test");
+								} else if(data.professorClassToReturn.test[1] == "quiz") {
+									$('#assignment option').text("Quiz");
+								}else{
+									$('#assignment option').text("Assignments");
+								}
+								$('#testdate').val(data.professorClassToReturn.test[2]);
+								$('#attendance').val(data.professorClassToReturn.attendance);
+							}
 						},
 
 						/**
