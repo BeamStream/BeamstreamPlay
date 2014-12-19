@@ -185,8 +185,13 @@ object StreamController extends Controller {
     }
   }
 */
-  def confirmStreamJoining=Action{implicit request =>
-    Ok
+  def confirmStreamJoining : Action[AnyContent]=Action{implicit request =>
+    val creatorOfStream=request.queryString("creatorOfStream").toList(0)
+    val userIdToJoin=request.queryString("userIdToJoin").toList(0)
+    val streamId=request.queryString("streamId").toList(0)
+    val classId=request.queryString("classId").toList(0)
+    println("classId~~~~~~~~~~~~"+classId)
+    Ok("confirmStreamJoining")
   }
   def getStreamData(streamId: String): Action[AnyContent] = Action { implicit request =>
     if (streamId.length() <= 24) {

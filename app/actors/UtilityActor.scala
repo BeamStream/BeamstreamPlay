@@ -114,7 +114,7 @@ object UtilityActor extends EmailUtility {
   /*
    *  send mail on stream joining
    */
-  def sendConfirmationMailOnStreamJoining(creatorOfStream:String,mailofcreatorOfStream:String,userIdToJOing:String,streamId:String,streamname:String,classId:String){
-	  Future { SendEmailUtility.sendConfirmationMailOnStreamJoining(creatorOfStream,mailofcreatorOfStream,userIdToJOing,streamId,streamname,classId) }
+  def sendConfirmationMailOnStreamJoining(creatorOfStream:String,mailofcreatorOfStream:String,userIdToJoin:String,streamId:String,streamname:String,classId:String){
+	  Future { SendEmailUtility.sendConfirmationMailOnStreamJoining(creatorOfStream,mailofcreatorOfStream,userIdToJoin,streamId,streamname,classId) }
   }
 }

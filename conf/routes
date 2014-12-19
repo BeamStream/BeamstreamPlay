@@ -169,14 +169,14 @@ PUT    /rockedIt/:messageId                                                     
 
 # Social
 POST   /social/social_authentication                                                       controllers.SocialController.signUpViaSocialSites
-#POST     /social/social_login                                                    controllers.SocialController.logInViaSocialSites
+#POST     /social/social_login                                                             controllers.SocialController.logInViaSocialSites
 GET    /social/contacts                                                                    controllers.SocialController.getContacts
 POST   /social/invite/friends                                                              controllers.SocialController.inviteFriends
 
 #Stream
 GET    /stream                                                                             controllers.StreamController.renderStreamPage
 GET    /allStreamsForAUser                                                                 controllers.StreamController.getAllStreamForAUser
-GET    /confirmStreamJoining                                                               controllers.StreamController.confirmStreamJoining
+GET    /confirmStreamJoining          														controllers.StreamController.confirmStreamJoining
 
 
 #Files & Media
