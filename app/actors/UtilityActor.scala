@@ -110,5 +110,11 @@ object UtilityActor extends EmailUtility {
   def requestAccessMail(emailIdOfDocOwner: String, emailIdOfRequester: String, docURL: String, docName: String) {
     Future { SendEmailUtility.sendGoogleDocAccessMail(emailIdOfDocOwner, emailIdOfRequester, docURL, docName) }
   }
-
+  
+  /*
+   *  send mail on stream joining
+   */
+  def sendConfirmationMailOnStreamJoining(creatorOfStream:String,mailofcreatorOfStream:String,userIdToJOing:String,streamId:String,streamname:String,classId:String){
+	  Future { SendEmailUtility.sendConfirmationMailOnStreamJoining(creatorOfStream,mailofcreatorOfStream,userIdToJOing,streamId,streamname,classId) }
+  }
 }

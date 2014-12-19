@@ -82,19 +82,26 @@ object Stream {
   /**
    * join stream (V)
    */
-  def joinStream(streamId: ObjectId, userId: ObjectId): ResulttoSent = {
+  def joinStream(streamId: ObjectId, userId: ObjectId,isJoinStream:Boolean): ResulttoSent = {
     val stream = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
     stream.usersOfStream.contains(userId) match {
       case false =>
-        StreamDAO.update(MongoDBObject("_id" -> streamId), stream.copy(usersOfStream = (stream.usersOfStream ++ List(userId))), false, false, new WriteConcern)
-        val user = User.getUserProfile(userId)
-        UtilityActor.sendEmailAfterStreamCreation(user.get.email, stream.streamName, false)
-        UtilityActor.sendEmailAfterStreamCreationToNotifyOtherUsers(streamId, userId)
-        ResulttoSent("Success", "Joined Stream Successfully")
+         isJoinStream match{
+           case true=>
+		        StreamDAO.update(MongoDBObject("_id" -> streamId), stream.copy(usersOfStream = (stream.usersOfStream ++ List(userId))), false, false, new WriteConcern)
+		        val user = User.getUserProfile(userId)
+		        UtilityActor.sendEmailAfterStreamCreation(user.get.email, stream.streamName, false)
+		        UtilityActor.sendEmailAfterStreamCreationToNotifyOtherUsers(streamId, userId)
+		        ResulttoSent("Success", "Joined Stream Successfully")
+           case false => ResulttoSent("Failure", "You have sent your request for joining stream.Stream will be display in stream list when confirmed")
+         }
       case true => ResulttoSent("Failure", "You've already joined the stream")
     }
 
   }
+  
+  
+  
 
   /**
    * join stream (RA)

@@ -176,6 +176,7 @@ POST   /social/invite/friends                                                   
 #Stream
 GET    /stream                                                                             controllers.StreamController.renderStreamPage
 GET    /allStreamsForAUser                                                                 controllers.StreamController.getAllStreamForAUser
+GET    /confirmStreamJoining                                                               controllers.StreamController.confirmStreamJoining
 
 
 #Files & Media

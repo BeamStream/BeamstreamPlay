@@ -185,7 +185,9 @@ object StreamController extends Controller {
     }
   }
 */
-
+  def confirmStreamJoining=Action{implicit request =>
+    Ok
+  }
   def getStreamData(streamId: String): Action[AnyContent] = Action { implicit request =>
     if (streamId.length() <= 24) {
       val streamfound = Stream.findStreamById(new ObjectId(streamId))

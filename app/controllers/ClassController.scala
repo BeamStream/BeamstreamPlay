@@ -1,7 +1,6 @@
 package controllers
 
 import org.bson.types.ObjectId
-
 import java.text.DateFormat
 import net.liftweb.json.Serialization.{ read, write }
 import java.text.SimpleDateFormat
@@ -28,6 +27,7 @@ import play.api.Logger
 import java.util.Date
 import scala.collection.mutable.ListBuffer
 import play.api.libs.json._
+import actors.UtilityActor
 
 object ClassController extends Controller {
 
@@ -181,7 +181,7 @@ object ClassController extends Controller {
   }
 */
   /**
-   * Create Class (V)
+   * Create/Join Class (V)
    */
   def createClass: Action[AnyContent] = Action { implicit request =>
     try {
@@ -223,12 +223,27 @@ object ClassController extends Controller {
               }
               val stream = Stream.findStreamById(streamIdReturned)
               Ok(write(ClassResult(stream.get, ResulttoSent("Success", "Class Created Successfully")))).as("application/json")
-            case Some(id) =>
-              val classesobtained = Class.findClasssById(new ObjectId(id))
-              val resultToSend = Stream.joinStream(classesobtained.get.streams(0), new ObjectId(userId))
-              if (resultToSend.status == "Success") User.addClassToUser(new ObjectId(userId), List(new ObjectId(id)))
-              val stream = Stream.findStreamById(classesobtained.get.streams(0))
-              Ok(write(ClassResult(stream.get, resultToSend))).as("application/json")
+            case Some(classId) =>
+              val classesobtained = Class.findClasssById(new ObjectId(classId))
+              val streamId=classesobtained.get.streams(0)
+              val stream = Stream.findStreamById(streamId)
+              val streamname=stream.get.streamName 
+              val creatorOfStream=stream.get.creatorOfStream
+              val userdetailsofstreamcreator=User.findUserByObjectId(creatorOfStream)
+              val mailofcreatorOfStream=userdetailsofstreamcreator.get.email 
+              val usertypeofcreatorOfStream=userdetailsofstreamcreator.get.userType.toString()
+              val findusertype=UserType.apply(2).toString()
+              usertypeofcreatorOfStream.equals(findusertype) match {
+                // send confirmation mail to professor on stream joining
+              case true => 
+                	val resultToSend = Stream.joinStream(streamId, new ObjectId(userId),false)
+                	UtilityActor.sendConfirmationMailOnStreamJoining(creatorOfStream.toString(),mailofcreatorOfStream,userId,streamId.toString(),streamname,classId)
+                	Ok(write(ClassResult(stream.get, resultToSend))).as("application/json")
+              case false => 
+                  val resultToSend = Stream.joinStream(classesobtained.get.streams(0), new ObjectId(userId),true)
+                  if (resultToSend.status == "Success") User.addClassToUser(new ObjectId(userId), List(new ObjectId(classId)))
+                  Ok(write(ClassResult(stream.get, resultToSend))).as("application/json")
+              }
           }
       }
     } catch {

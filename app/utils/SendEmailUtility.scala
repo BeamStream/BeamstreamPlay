@@ -168,6 +168,21 @@ object SendEmailUtility extends EmailUtility {
     transport.connect(Play.current.configuration.getString("smtp_server_out").get, 80, Play.current.configuration.getString("email_address").get, Play.current.configuration.getString("email_password").get)
     transport.sendMessage(authenticatedMessageAndSession._1, authenticatedMessageAndSession._1.getAllRecipients)
   }
+  
+   /*
+   *  send confirmation mail on stream joining
+   */
+  def sendConfirmationMailOnStreamJoining(creatorOfStream:String,mailofcreatorOfStream:String,userIdToJOing:String,streamId:String,streamname:String,classId:String){
+	  val content =
+        "Hello ClassWall Smarty,"+
+        " One ClassWall ClassWall want to join" +streamname +"<br>"+
+        "Confirm join by clicking on below link"+
+        "<a href ='" + Play.current.configuration.getString("server").get + "/confirm?creatorOfStream=" + creatorOfStream + "&userIdToJOing=" + userIdToJOing + "streamId="+streamId + "classId="+classId + "'>CONFIRM HERE</a>" +
+        "<br>" + "<br>" +
+        "The Happiness Team @ ClassWall" + "<br>"
+        val subject="Confirm user to join stream/class"
+      sendMessage(mailofcreatorOfStream,subject, content)
+  }
 
 }
 
