@@ -190,8 +190,9 @@ object StreamController extends Controller {
     val userIdToJoin=request.queryString("userIdToJoin").toList(0)
     val streamId=request.queryString("streamId").toList(0)
     val classId=request.queryString("classId").toList(0)
-    println("classId~~~~~~~~~~~~"+classId)
-    Ok("confirmStreamJoining")
+    val resultToSend =Stream.joinStream(new ObjectId(streamId), new ObjectId(userIdToJoin),true)
+    if (resultToSend.status == "Success") User.addClassToUser(new ObjectId(userIdToJoin), List(new ObjectId(classId)))
+    Redirect("/stream").withSession("userId" -> creatorOfStream)
   }
   def getStreamData(streamId: String): Action[AnyContent] = Action { implicit request =>
     if (streamId.length() <= 24) {

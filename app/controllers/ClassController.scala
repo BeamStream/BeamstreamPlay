@@ -240,7 +240,7 @@ object ClassController extends Controller {
                 	UtilityActor.sendConfirmationMailOnStreamJoining(creatorOfStream.toString(),mailofcreatorOfStream,userId,streamId.toString(),streamname,classId)
                 	Ok(write(ClassResult(stream.get, resultToSend))).as("application/json")
               case false => 
-                  val resultToSend = Stream.joinStream(classesobtained.get.streams(0), new ObjectId(userId),true)
+                  val resultToSend = Stream.joinStream(streamId, new ObjectId(userId),true)
                   if (resultToSend.status == "Success") User.addClassToUser(new ObjectId(userId), List(new ObjectId(classId)))
                   Ok(write(ClassResult(stream.get, resultToSend))).as("application/json")
               }
