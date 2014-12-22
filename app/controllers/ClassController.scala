@@ -237,7 +237,9 @@ object ClassController extends Controller {
                 // send confirmation mail to professor on stream joining
               case true => 
                 	val resultToSend = Stream.joinStream(streamId, new ObjectId(userId),false)
-                	UtilityActor.sendConfirmationMailOnStreamJoining(creatorOfStream.toString(),mailofcreatorOfStream,userId,streamId.toString(),streamname,classId)
+                	if (resultToSend.status == "sentmail"){
+                	  UtilityActor.sendConfirmationMailOnStreamJoining(creatorOfStream.toString(),mailofcreatorOfStream,userId,streamId.toString(),streamname,classId)
+                	}
                 	Ok(write(ClassResult(stream.get, resultToSend))).as("application/json")
               case false => 
                   val resultToSend = Stream.joinStream(streamId, new ObjectId(userId),true)
