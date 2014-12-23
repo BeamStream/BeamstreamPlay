@@ -575,11 +575,13 @@ define(
 							$('#classType').val(data.classToReturn.classTime);
 							$('#newClassTime').val(data.classToReturn.classTime.substr(0, 5));
 							$('#time span.filter-option').text(data.classToReturn.classTime.substr(5, 7));
-							if (data.classToReturn.classType == "quarter") {
+							/* if (data.classToReturn.classType == "quarter") {
 								$('#classType option').text("Quarter");
 							} else {
 								$('#classType option').text("Semester");
-							}
+							} */
+							
+							$('#classType').val(data.classToReturn.classType);
 							
 							/*
 							* for professorsclass Info
@@ -597,13 +599,9 @@ define(
 								$('#resourcelink').val(data.professorClassToReturn.studyResource[1]);
 								
 								$('#testresourcetitle').val(data.professorClassToReturn.test[0]);
-								if (data.professorClassToReturn.test[1] == "test") {
-									$('#assignment option').text("Test");
-								} else if(data.professorClassToReturn.test[1] == "quiz") {
-									$('#assignment option').text("Quiz");
-								}else{
-									$('#assignment option').text("Assignments");
-								}
+								
+								$('#assignment').val(data.professorClassToReturn.test[1]);
+								
 								$('#testdate').val(data.professorClassToReturn.test[2]);
 								$('#attendance').val(data.professorClassToReturn.attendance);
 							}
@@ -642,11 +640,8 @@ define(
 							$('#classType').val(data.classToReturn.classTime);
 							$('#newClassTime').val(data.classToReturn.classTime.substr(0, 5));
 							$('#time span.filter-option').text(data.classToReturn.classTime.substr(5, 7));
-							if (data.classToReturn.classType == "quarter") {
-								$('#classType option').text("Quarter");
-							} else {
-								$('#classType option').text("Semester");
-							}
+							
+							$('#classType').val(data.classToReturn.classType);
 							
 							/*
 							* for professorsclass Info
@@ -664,13 +659,9 @@ define(
 								$('#resourcelink').val(data.professorClassToReturn.studyResource[1]);
 								
 								$('#testresourcetitle').val(data.professorClassToReturn.test[0]);
-								if (data.professorClassToReturn.test[1] == "test") {
-									$('#assignment option').text("Test");
-								} else if(data.professorClassToReturn.test[1] == "quiz") {
-									$('#assignment option').text("Quiz");
-								}else{
-									$('#assignment option').text("Assignments");
-								}
+								
+								$('#assignment').val(data.professorClassToReturn.test[1]);
+								
 								$('#testdate').val(data.professorClassToReturn.test[2]);
 								$('#attendance').val(data.professorClassToReturn.attendance);
 							}
@@ -738,7 +729,7 @@ define(
 								'classInfo' : $('#classAccess').val(),
 								'grade': $('#gradedfor').val(),
 								'studyResource': [$('#resourcetitle').val(),$('#resourcelink').val()],
-								'test': [$('#testresourcetitle').val(),$('#assignment option').val(),$('#testdate').val()],
+								'test': [$('#testresourcetitle').val(),$('#assignment').val(),$('#testdate').val()],
 								'attendance':$('#attendance').val()
 							});
 							
