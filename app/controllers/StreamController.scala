@@ -192,8 +192,12 @@ object StreamController extends Controller {
     val classId=request.queryString("classId").toList(0)
     val resultToSend =Stream.joinStream(new ObjectId(streamId), new ObjectId(userIdToJoin),true)
     if (resultToSend.status == "Success") User.addClassToUser(new ObjectId(userIdToJoin), List(new ObjectId(classId)))
-    Redirect("/stream").withSession("userId" -> creatorOfStream)
+    (request.session.get("userId")) match {
+      case Some(userId) => Redirect("/stream").withSession("userId" -> userId)
+      case None => Redirect("/login").withNewSession.discardingCookies(DiscardingCookie("Beamstream"))
+    } 
   }
+  
   def getStreamData(streamId: String): Action[AnyContent] = Action { implicit request =>
     if (streamId.length() <= 24) {
       val streamfound = Stream.findStreamById(new ObjectId(streamId))
