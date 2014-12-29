@@ -52,27 +52,6 @@ define(['baseModel'], function(BaseModel) {
 			},
 			classTime: {
 				required: true
-			},
-			contactemail: {	
-				required: true
-			},
-			contactcellNumber: {	
-				required: true
-			},
-			contactofficeHours: {	
-				required: true
-			},
-			contactdays: {	
-				required: true
-			},
-			classAccess: {	
-				required: true
-			},
-			gradedfor: {	
-				required: true
-			},
-			attendance: {	
-				required: true
 			}
 		}
 
