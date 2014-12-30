@@ -33,14 +33,12 @@
          </div>
          <!--<div class="span3 offset3">
             SYLLABUS <span class="percentageComplete">30</span>% COMPLETE
-         </div>
-         <div class="progress span3">
+            </div>
+            <div class="progress span3">
             <div class="bar syllabusProgressBar"></div>
-         </div>-->
+            </div>-->
       </div>
-      
       <script type="text/JavaScript" src="/beamstream-new/js/libs/jquery/jquery-1.11.1.min.js"></script> 
-      
       <div class="accordion-group">
          <div class="accordion-heading">
             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
@@ -55,11 +53,10 @@
                <!--<div class="icons">
                   <i class="icon-pencil icon-large"></i> 
                   <i class="icon-remove icon-large"></i>
-               </div>-->
+                  </div>-->
             </div>
          </div>
       </div>
-      
       <div class="accordion-group">
          <div class="accordion-heading">
             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
@@ -89,16 +86,51 @@
             <div class="accordion-inner study-resources-links">
                <div class="study-resources">
                   <form>
-                     <input class="resource-title" type="text" placeholder="Resource Title" name="resourcetitle" id="resourcetitle"> <span class="add-link"><i class="icon-link icon-large"></i>Add Link</span> <span class="add-attachemnt"><i class="icon-paper-clip icon-large"></i>Add Attachment</span>
-                     <button class="btn btn-inverse add-resource" type="submit">ADD</button>
+                     <input class="resource-title" type="text" placeholder="Resource Title" name="resourcetitle" id="resourcetitle">
+                     <span class="add-link"><i class="icon-link icon-large"></i>Add Link</span> 
+                     <span class="add-attachemnt" id="add-attachment"><i class="icon-paper-clip icon-large"></i>Add Attachment</span>
+                     <!--<button class="btn btn-inverse add-resource" type="submit">ADD</button>-->
                   </form>
+        
+                  <ul id="uploded-file-area" class="answer">
+									<li id="file-name"></li>
+									<li>
+										<div class="progress-container">
+											<div class="progress progress-striped active" style="display:none;">
+												<div class="bar"></div>
+												
+											</div>
+										<div id="fileUploadingImage">
+											<div id="floatingCirclesG" class="floatingCirclesG-files">
+												<div class="f_circleG" id="frotateG_01"></div>
+												<div class="f_circleG" id="frotateG_02"></div>
+												<div class="f_circleG" id="frotateG_03"></div>
+												<div class="f_circleG" id="frotateG_04"></div>
+												<div class="f_circleG" id="frotateG_05"></div>
+												<div class="f_circleG" id="frotateG_06"></div>
+												<div class="f_circleG" id="frotateG_07"></div>
+												<div class="f_circleG" id="frotateG_08"></div>
+											</div>
+										</div>
+										</div>
+									</li>
+									<div class="fileUploadMsg" style="float:right;margin-top:-41px;margin-right: 10px;">File Uploading.... Please wait.</div>
+								</ul>
+                  <div class="embed-info">
+                     <div class="upload-conatiner">
+                        <h5>Select an image or video file on your computer.</h5>
+                        <input type="file" id="upload-files-area"
+                           name="add-attachment">
+                     </div>
+                  </div>
+                  
                   <div id="dialog-modal" title="Add a Link">
                      <p>Insert link here and press space for preview:</p>
                      <form>
                         <input id="resourcelink" type="text" name="resourcelink"/>
                         <!-- Placeholder that tells Preview where to put the selector-->
                         <div class="selector-wrapper"></div>
-                        <p><button class="btn btn-large btn-success addResourceLinkToSyllabus" type="submit">Add Resource Link</button></p>
+                        <!--<p><button class="btn btn-large btn-success addResourceLinkToSyllabus" type="submit">Add Resource Link</button></p>-->
                      </form>
                   </div>
                </div>
@@ -142,7 +174,7 @@
                <!--	<div class="icons">
                   <i class="icon-pencil icon-large"></i> 
                   <i class="icon-remove icon-large"></i>
-               </div>-->
+                  </div>-->
                </form>
             </div>
          </div>
@@ -150,3 +182,4 @@
    </div>
 </div>
 }
+
