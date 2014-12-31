@@ -759,6 +759,215 @@ define(
 								});
 								this.data.models[0].removeAttr('stream');
 								this.data.models[0].removeAttr('resultToSend');
+								/* add attachment in userMedia for professor class*/
+								$('#msg-area').css('margin','-1px 0 -5px 14px');
+							$('#msg-area').css('padding','5px 6px 4px 6px');
+							$('.ask-outer').css('height', '0px');
+							$('a.ask-button').css('visibility', 'hidden');
+							$('div.loadingImage').css('display','block');
+							$('#uploded-file-area').hide();
+							var self = this;
+							var streamId = data.stream.id.id;
+							var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
+							var message = $('#msg-area').val();
+							// if(message){
+							// get message access private ? / public ?
+							var messageAccess, googleDoc = false;
+							var msgAccess = $('#private-to').attr('checked');
+							var privateTo = $('#select-privateTo')
+									.attr('value');
+							if (msgAccess == "checked") {	
+								messageAccess = privateTo;
+							} else {
+								messageAccess = "Public";
+							}
+
+							var trueUrl = '';
+							if (streamId) {
+
+								/* if there is any files for uploading */
+								if (this.file) {
+
+									var data;
+									data = new FormData();
+									data.append('docDescription', message);
+									data.append('docAccess', messageAccess);
+									data.append('docData', self.file);
+									data.append('streamId', streamId);
+									data.append('uploadedFrom', "discussion");
+									data.append('docURL', self.docurlAmazon);
+									/* post profile page details */
+									$
+											.ajax({
+												type : 'POST',
+												data : data,
+												url : "/postDocumentFromDisk",
+												cache : false,
+												contentType : false,
+												processData : false,
+												dataType : "json",
+												success : function(data) {
+														// set progress bar as
+														// 100 %
+														$('#msg-area').val("");
+														$('#uploded-file')
+																.hide();
+
+														self.file = "";
+
+														$('#file-upload-loader').css("display","none");
+
+														var datVal = formatDateVal(data.message.timeCreated);
+
+														var datas = {
+															"data" : data,
+															"datVal" : datVal
+														}
+
+														// set the response data
+														// to model
+														if(self.data.models[0]) {
+														self.data.models[0]
+																.set({
+																	message : data.message,
+																	docName : data.docName,
+																	docDescription : data.docDescription,
+																	profilePic : data.profilePic
+																})
+														
+
+														/* Pubnub auto push */
+														PUBNUB
+																.publish({
+																	channel : "stream",
+																	message : {
+																		pagePushUid : self.pagePushUid,
+																		streamId : streamId,
+																		data : self.data.models[0],
+																	}
+
+																})
+														}
+
+														// show the uploaded
+														// file on message llist
+														var messageItemView = new MessageItemView(
+																{
+																	model : self.data.models[0]
+																})
+														$(
+																'#messageListView div.content')
+																.prepend(
+																		messageItemView
+																				.render().el);
+														$('.loadingImage').css('display','none');
+
+														self.selected_medias = [];
+														$(
+																'#share-discussions li.active')
+																.removeClass(
+																		'active');
+
+														$('a.ask-button').css(
+																'visibility',
+																'hidden');
+														$('.ask-outer')
+																.css('height',
+																		'0px');
+
+												}
+											});
+
+								} else {
+
+									if (message.match(/^[\s]*$/))
+										return;
+
+									// find link part from the message
+									message = $.trim(message);
+									var link = message.match(self.urlReg);
+
+									if (!link)
+										link = message.match(self.website);
+
+									if (link) {
+										if (!self.urlRegex2.test(link[0])) {
+											urlLink = "http://" + link[0];
+										} else {
+											urlLink = link[0];
+										}
+
+										var msgBody = message, link = msgBody
+												.match(self.urlReg);
+
+										if (!link)
+											link = msgBody.match(self.website);
+
+										var msgUrl = msgBody.replace(
+												self.urlRegex1, function(
+														msgUrlw) {
+													trueurl = msgUrlw;
+													return msgUrlw;
+												});
+
+										// To check whether it is google docs or
+										// not
+										if (!urlLink
+												.match(/^(https:\/\/docs.google.com\/)/)) {
+											// check the url is already in bitly
+											// state or not
+											if (!urlLink
+													.match(/^(http:\/\/bstre.am\/)/)) {
+												/* post url information */
+												$
+														.ajax({
+															type : 'POST',
+															url : 'bitly',
+															data : {
+																link : urlLink
+															},
+															dataType : "json",
+															success : function(
+																	data) {
+																message = message
+																		.replace(
+																				link[0],
+																				data.data.url);
+																self
+																		.postMessageToServer(
+																				message,
+																				streamId,
+																				messageAccess,
+																				googleDoc);
+															}
+														});
+											} else {
+												self.postMessageToServer(
+														message, streamId,
+														messageAccess,
+														googleDoc);
+											}
+										} // doc
+										else // case: for doc upload
+										{
+											googleDoc = true;
+											self.postMessageToServer(message,
+													streamId, messageAccess,
+													googleDoc);
+										}
+									}
+									// case: link is not present in message
+									else {
+										self.postMessageToServer(message,
+												streamId, messageAccess,
+												googleDoc);
+									}
+
+								}
+
+							}
+							// }
+								/*end attachment
 
 								/*
 								 * PUBNUB auto push for updating the no.of users
@@ -943,7 +1152,7 @@ define(
 							var msgAccess = $('#private-to').attr('checked');
 							var privateTo = $('#select-privateTo')
 									.attr('value');
-							if (msgAccess == "checked") {
+							if (msgAccess == "checked") {	
 								messageAccess = privateTo;
 							} else {
 								messageAccess = "Public";
