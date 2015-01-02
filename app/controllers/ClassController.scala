@@ -233,8 +233,10 @@ object ClassController extends Controller {
               val mailofcreatorOfStream=userdetailsofstreamcreator.get.email 
               val usertypeofcreatorOfStream=userdetailsofstreamcreator.get.userType.toString()
               val findusertype=UserType.apply(2).toString()
-              usertypeofcreatorOfStream.equals(findusertype) match {
-                // send confirmation mail to professor on stream joining
+              val userdetails=User.findUserByObjectId(new ObjectId(userId))
+              val loggedinusertype=userdetails.get.userType.toString() 
+              usertypeofcreatorOfStream.equals(findusertype) && loggedinusertype.equals(UserType.apply(0).toString()) match {
+                // send confirmation mail to professor when student join professor stream
               case true => 
                 	val resultToSend = Stream.joinStream(streamId, new ObjectId(userId),false)
                 	if (resultToSend.status == "sentmail"){
