@@ -19,13 +19,11 @@ import play.api.mvc.SimpleResult
 import utils.ReadingSpreadsheetUtil
 import java.io.InputStream
 import org.bson.types.ObjectId
-import utils.MongoHQConfig._
 
 object Global extends GlobalSettings {
 
   override def onStart(app: Application) {
     try {
-      mongoDB.dropDatabase()
       val filePath = Global.getClass().getClassLoader().getResourceAsStream("ListofSchools.csv")
       SchoolDAO.insert(new School(new ObjectId, "", ""))
       if (School.getAllSchools.length < 7487) {
