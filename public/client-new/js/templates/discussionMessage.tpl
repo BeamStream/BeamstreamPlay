@@ -85,12 +85,12 @@
 			  <div id="document-{{data.message.docIdIfAny.id}}"  class="modal hide fade white-modal-block doc-modal" tabindex="-1"
 			   role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="box-shadow:none !important;border:none !important">
 			
-				<div id="googleDocPopupCloseBtn" class="close-icon close" aria-hidden="true" data-dismiss="modal" style="margin: 20px 0px 0px 0px;">
+				<div id="googleDocPopupCloseBtn" class="close-icon close" aria-hidden="true" data-dismiss="modal" style="margin: -26px 0px 0px 0px;">
 						<img width="22" height="22" src="/beamstream-new/images/close-pop.png">
 					</div>
 					
 				
-				<div class="modal-header" style="background:#fff;margin-top: 45px;">
+				<div class="modal-header" style="background:#fff">
 				
 						  		<input type="button" onclick="download()">
       							<div class="downloadbutton"><button class="btn btn-mini download" type="button">Download</button>
