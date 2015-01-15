@@ -47,7 +47,8 @@ define(
 							'change #upload-files-area' : 'getUploadedData',
 							'click #post-button' : 'postMessage',
 							'click #add-syllabus-attachment' : 'uploadSyllabusFiles',
-							'change #upload-syllabus-files-area' : 'getSyllabusUploadedData'
+							'change #upload-syllabus-files-area' : 'getSyllabusUploadedData',
+							'keypress #resourcelink' : 'addresourselinkpreview'
 						},
 
 						init : function() {
@@ -65,6 +66,12 @@ define(
 						onAfterInit : function() {
 							this.data.reset();
 							this.scroll();
+							
+							this.urlRegex1 = /(https?:\/\/[^\s]+)/g;
+							this.urlRegex = /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i;
+							this.urlRegex2 = /^((http|https|ftp):\/\/)/;
+							this.urlReg = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+							this.website = /(([\w]+:)?\/\/)?(([\d\w]|%[a-fA-f\d]{2,2})+(:([\d\w]|%[a-fA-f\d]{2,2})+)?@)?([\d\w][-\d\w]{0,253}[\d\w]\.)+[\w]{2,4}(:[\d]+)?(\/([-+_~.\d\w]|%[a-fA-f\d]{2,2})*)*(\?(&amp;?([-+_~.\d\w]|%[a-fA-f\d]{2,2})=?)*)?(#([-+_~.\d\w]|%[a-fA-f\d]{2,2})*)?$/;
 
 							/*
 							 * fetch userSchool model to get all schools of a
@@ -1339,6 +1346,102 @@ define(
 
 							
 
+						},
+						/*
+						* Add resourcelink preview
+						 */
+						addresourselinkpreview : function(e) {
+							var code=e.which;
+							if(code == 32){
+							var self = this;
+							var streamId = $('.sortable li.active').attr('id');
+							var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
+							var message = $('#resourcelink').val();
+							var messageAccess, googleDoc = false;
+							var msgAccess = $('#private-to').attr('checked');
+							var privateTo = $('#select-privateTo').attr('value');
+							if (msgAccess == "checked") {
+								messageAccess = privateTo;
+							} else {
+								messageAccess = "Public";
+							}
+							var trueUrl = '';
+							if (streamId) {
+								if (message.match(/^[\s]*$/)){
+									return;
+								}
+								message = $.trim(message);
+								var link = message.match(self.urlReg);
+								if (!link)
+									link = message.match(self.website);
+								if (link) {
+									if (!self.urlRegex2.test(link[0])) {
+										urlLink = "http://" + link[0];
+									} else {
+										urlLink = link[0];
+									}
+									var msgBody = message, link = msgBody.match(self.urlReg);
+
+									if (!link)
+										link = msgBody.match(self.website);
+
+									var msgUrl = msgBody.replace(
+											self.urlRegex1, function(msgUrlw) {
+												trueurl = msgUrlw;
+												return msgUrlw;
+											});
+									if (!urlLink.match(/^(https:\/\/docs.google.com\/)/)) {
+										// check the url is already in bitly
+										// state or not
+										if (!urlLink.match(/^(http:\/\/bstre.am\/)/)) {
+											$.ajax({
+														type : 'POST',
+														url : '/bitly',
+														data : {
+															link : urlLink
+														},
+														dataType : "json",
+														success : function(data) {
+															message = message.replace(link[0],data.data.url);
+															self.AddLinkPreview(message,streamId,messageAccess,googleDoc);
+														}
+													});
+										} else {
+											self.AddLinkPreview(message, streamId,messageAccess,googleDoc);
+										}
+									} // doc
+									else // case: for doc upload
+									{
+										googleDoc = true;
+										self.AddLinkPreview(message,streamId, messageAccess,googleDoc);
+									}
+									
+								}
+								// case: link is not present in message
+								else {
+									self.AddLinkPreview(message,streamId, messageAccess,googleDoc);
+								}
+							}
+							}
+						},
+						
+						/**
+						 * set message data to model and posted to server
+						 */
+						AddLinkPreview : function(message, streamId,messageAccess, googleDoc) {
+							var html="<p><a target=\"_blank\" href=\"http://bstre.am/NtILUJ\">http://bstre.am/NtILUJ</a><div class=\"embed\"><a href=\"http://bstre.am/NtILUJ\">Google</a><a href=\"http://www.google.com\" class=\"provider\">Google</a><div class=\"description\">Search the world's information, including webpages, images, videos and more. Google has many special features to help you find exactly what you're looking for.</div></div></p>"
+							$('.selector-wrapper').html(html);
+							$.ajax({
+								type : 'POST',
+								data : message,
+								url : "/linkPreview",
+								success: function(data) {
+					                alert(data);
+					              },
+					              error: function(){
+					                alert("error");
+					              }
+							});
 						},
 						
 
