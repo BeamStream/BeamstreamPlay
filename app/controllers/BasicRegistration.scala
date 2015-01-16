@@ -26,6 +26,7 @@ object BasicRegistration extends Controller {
     override def dateFormatter: SimpleDateFormat = new SimpleDateFormat("dd/MM/yyyy")
   } + new ObjectIdSerializer
 
+  
   /**
    * ***************************************************** Re architecture ******************************
    */
