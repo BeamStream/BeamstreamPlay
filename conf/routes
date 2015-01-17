@@ -242,9 +242,12 @@ GET    /linkedin/callback                                                       
 #Basic Registration
 #POST     /verifyToken                                                            controllers.BasicRegistration.basicRegistration
 
-#POST 	/getAllMessagesForAStreambyKeyword         	controllers.MessageController.getAllMessagesForAStreambyKeyword
-#POST 	/allPublicMessagesFromAllStreamsForAUser    controllers.StreamController.allPublicMessagesFromAllStreamsForAUser
+#POST 	/getAllMessagesForAStreambyKeyword         									controllers.MessageController.getAllMessagesForAStreambyKeyword
+#POST 	/allPublicMessagesFromAllStreamsForAUser    								controllers.StreamController.allPublicMessagesFromAllStreamsForAUser
 
 #GET      /document/:documentId                                                   controllers.DocumentController.getDocument(documentId:String)
 
 #POST 	/getMediafromPost 							                          controllers.MediaController.getMedia
+
+#Link Preview
+POST    /linkPreview                                                          controllers.LinkPreviewController.linkPreview

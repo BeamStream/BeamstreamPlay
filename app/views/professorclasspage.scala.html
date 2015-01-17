@@ -74,6 +74,56 @@
             </div>
          </div>
       </div>
+      
+      <div class="accordion-group">
+         <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseSyllabus">
+            + Syllabus
+            <span class="completed">&#10003;
+            Completed</span>
+            </a>
+         </div>
+         <div id="collapseSyllabus" class="accordion-body collapse">
+            <div class="accordion-inner grades">
+               <div class="add-graded-for">
+                  <span class="add-syllabus-attachemnt" id="add-syllabus-attachment"><i class="icon-paper-clip icon-large"></i>Add Attachment</span>
+               </div>
+            </div>
+            <!-- start uploading area -->
+                  <ul id="uploded-syllabus-file-area" class="answer">
+									<li id="syllabus-file-name"></li>
+									<li>
+										<div class="progress-container">
+											<div class="progress progress-striped active" style="display:none;">
+												<div class="bar"></div>
+											</div>
+										<div id="SyllabusFileUploadingImage">
+											<div id="floatingCirclesG" class="floatingCirclesG-files">
+												<div class="f_circleG" id="frotateG_01"></div>
+												<div class="f_circleG" id="frotateG_02"></div>
+												<div class="f_circleG" id="frotateG_03"></div>
+												<div class="f_circleG" id="frotateG_04"></div>
+												<div class="f_circleG" id="frotateG_05"></div>
+												<div class="f_circleG" id="frotateG_06"></div>
+												<div class="f_circleG" id="frotateG_07"></div>
+												<div class="f_circleG" id="frotateG_08"></div>
+											</div>
+										</div>
+										</div>
+									</li>
+									<div class="syllabusFileUploadMsg" style="float:right;margin-top:-41px;margin-right: 10px;">File Uploading.... Please wait.</div>
+								</ul>
+                  <div class="embed-info">
+                     <div class="upload-conatiner">
+                        <h5>Select an image or video file on your computer.</h5>
+                        <input type="file" id="upload-syllabus-files-area"
+                           name="add-syllabus-attachment">
+                     </div>
+                  </div>
+                  <!-- end uploading area -->
+         </div>
+      </div>
+      
       <div class="accordion-group">
          <div class="accordion-heading">
             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
@@ -126,12 +176,30 @@
                   
                   <div id="dialog-modal" title="Add a Link">
                      <p>Insert link here and press space for preview:</p>
-                     <form>
-                        <input id="resourcelink" type="text" name="resourcelink"/>
+                        <input id="resourcelink" type="text" name="resourcelink" placeholder="http://www.xyz.com"/>
                         <!-- Placeholder that tells Preview where to put the selector-->
-                        <div class="selector-wrapper"></div>
+                        
+                         <ul id="link-preview-area" class="answer">
+							<li>
+								<div id="LinkPreview">
+									<div id="floatingCirclesG" class="floatingCirclesG-files">
+										<div class="f_circleG" id="frotateG_01"></div>
+										<div class="f_circleG" id="frotateG_02"></div>
+										<div class="f_circleG" id="frotateG_03"></div>
+										<div class="f_circleG" id="frotateG_04"></div>
+										<div class="f_circleG" id="frotateG_05"></div>
+										<div class="f_circleG" id="frotateG_06"></div>
+										<div class="f_circleG" id="frotateG_07"></div>
+										<div class="f_circleG" id="frotateG_08"></div>
+									</div>
+								</div>
+								</div>
+							</li>
+						</ul>
+                        
+                        
+                        <div id="selector-wrapper"></div>
                         <!--<p><button class="btn btn-large btn-success addResourceLinkToSyllabus" type="submit">Add Resource Link</button></p>-->
-                     </form>
                   </div>
                </div>
             </div>

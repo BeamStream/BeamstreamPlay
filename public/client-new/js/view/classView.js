@@ -45,7 +45,10 @@ define(
 							'click .days-of-week' : 'selectdaysofweek',
 							'click #add-attachment' : 'uploadFiles',
 							'change #upload-files-area' : 'getUploadedData',
-							'click #post-button' : 'postMessage'
+							'click #post-button' : 'postMessage',
+							'click #add-syllabus-attachment' : 'uploadSyllabusFiles',
+							'change #upload-syllabus-files-area' : 'getSyllabusUploadedData',
+							'keypress #resourcelink' : 'AddLinkPreview'
 						},
 
 						init : function() {
@@ -63,6 +66,12 @@ define(
 						onAfterInit : function() {
 							this.data.reset();
 							this.scroll();
+							
+							this.urlRegex1 = /(https?:\/\/[^\s]+)/g;
+							this.urlRegex = /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i;
+							this.urlRegex2 = /^((http|https|ftp):\/\/)/;
+							this.urlReg = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+							this.website = /(([\w]+:)?\/\/)?(([\d\w]|%[a-fA-f\d]{2,2})+(:([\d\w]|%[a-fA-f\d]{2,2})+)?@)?([\d\w][-\d\w]{0,253}[\d\w]\.)+[\w]{2,4}(:[\d]+)?(\/([-+_~.\d\w]|%[a-fA-f\d]{2,2})*)*(\?(&amp;?([-+_~.\d\w]|%[a-fA-f\d]{2,2})=?)*)?(#([-+_~.\d\w]|%[a-fA-f\d]{2,2})*)?$/;
 
 							/*
 							 * fetch userSchool model to get all schools of a
@@ -761,7 +770,7 @@ define(
 								this.data.models[0].removeAttr('resultToSend');
 								
 								/* 
-								*add attachment in userMedia for professor class
+								*add attachment(Study Resorces Attachment) in userMedia for professor class
 								*/
 							$('#msg-area').css('margin','-1px 0 -5px 14px');
 							$('#msg-area').css('padding','5px 6px 4px 6px');
@@ -790,7 +799,6 @@ define(
 
 								/* if there is any files for uploading */
 								if (this.file) {
-
 									var attachdata;
 									attachdata = new FormData();
 									attachdata.append('docDescription', message);
@@ -1265,6 +1273,117 @@ define(
 
 						},
 						
+						
+						uploadSyllabusFiles : function(eventName) {
+							eventName.preventDefault();
+							$('#upload-syllabus-files-area').click();
+				
+						},
+						/**
+						 * get syllabus files data to be upload
+						 */
+						getSyllabusUploadedData : function(e) {
+							var self = this;
+							file = e.target.files[0];
+							var reader = new FileReader();
+							
+							reader.onload = (function(f) {
+								self.file = file;
+								
+								clearInterval(self.progress);
+								$('.syllabusFileUploadMsg').css('visibility', 'visible');
+								$('.syllabusFileUploadMsg').css('display', 'block');
+								$('div#SyllabusFileUploadingImage #floatingCirclesG').css('visibility', 'visible');
+								$('div#SyllabusFileUploadingImage #floatingCirclesG').css('display', 'block');
+								$('#syllabus-file-name').html(f.name);
+								$('#uploded-syllabus-file-area').show();
+								
+								$('.ask-outer').height(function(index, height) {
+									return (height + 70);
+								});
+								$("ul#uploded-syllabus-file-area").css('height','70px');
+							})(file);
+
+							reader.readAsDataURL(file);
+							
+							var message = $('#msg-area').val();
+							var msgAccess = $('#private-to').attr('checked');
+							var privateTo = $('#select-privateTo')
+									.attr('value');
+							if (msgAccess == "checked") {
+								messageAccess = privateTo;
+							} else {
+								messageAccess = "Public";
+							}
+							var streamId = $('.sortable li.active').attr('id');
+							
+							var data;
+							data = new FormData();
+							data.append('docDescription', message);
+							data.append('docAccess', messageAccess);
+							data.append('docData', self.file);
+							data.append('streamId', streamId);
+							data.append('uploadedFrom', "discussion");
+
+							/* post profile page details */
+							$
+									.ajax({
+										type : 'POST',
+										data : data,
+										url : "/uploadDocumentFromDisk",
+										cache : false,
+										contentType : false,
+										processData : false,
+										dataType : "json",
+										success : function(data) {
+											$('.syllabusFileUploadMsg').css('visibility', 'hidden');
+											$('.syllabusFileUploadMsg').css('display', 'none');
+											$('div#SyllabusFileUploadingImage #floatingCirclesG').css('visibility', 'hidden');
+											$('div#SyllabusFileUploadingImage #floatingCirclesG').css('display', 'none');
+											self.docurlAmazon = data[0];
+										}
+									});
+
+							
+
+						},
+						
+						
+						/**
+						 * set message data to model and posted to server
+						 */
+						AddLinkPreview : function(e) {
+							var code=e.which;
+							if(code == 32){
+							$('div#LinkPreview #floatingCirclesG').css('visibility', 'visible');
+							$('div#LinkPreview #floatingCirclesG').css('display', 'block');
+							$('#link-preview-area').show();
+							var link=$("#resourcelink").val();
+							$.ajax({
+								type : 'POST',
+								url : "/linkPreview",
+								data : {
+									link : link
+								},
+								dataType : "json",
+								success: function(data) {
+									$('#link-preview-area').hide();
+									$('div#LinkPreview #floatingCirclesG').css('visibility', 'hidden');
+									$('div#LinkPreview #floatingCirclesG').css('display', 'none');
+									
+									$('#selector-wrapper').html(data.responseText);
+									
+					              },
+					              error: function(data){
+					            	  $('#link-preview-area').hide();
+					            	  $('div#LinkPreview #floatingCirclesG').css('visibility', 'hidden');
+									  $('div#LinkPreview #floatingCirclesG').css('display', 'none');
+									  
+									  $('#selector-wrapper').html(data.responseText);
+					              }
+							});
+							}
+						},
 						
 
 						/**
