@@ -85,12 +85,12 @@
 			  <div id="document-{{data.message.docIdIfAny.id}}"  class="modal hide fade white-modal-block doc-modal" tabindex="-1"
 			   role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="box-shadow:none !important;border:none !important">
 			
-				<div id="googleDocPopupCloseBtn" class="close-icon close" aria-hidden="true" data-dismiss="modal" style="margin: 20px 0px 0px 0px;">
+				<div id="googleDocPopupCloseBtn" class="close-icon close" aria-hidden="true" data-dismiss="modal" style="margin: -26px 0px 0px 0px;">
 						<img width="22" height="22" src="/beamstream-new/images/close-pop.png">
 					</div>
 					
 				
-				<div class="modal-header" style="background:#fff;margin-top: 45px;">
+				<div class="modal-header" style="background:#fff">
 				
 						  		<input type="button" onclick="download()">
       							<div class="downloadbutton"><button class="btn btn-mini download" type="button">Download</button>
@@ -204,8 +204,8 @@
 					  <!--li><a class="comment-icon" href="#"></a></li-->                 
                      </ul>
 	                   <div class="follow-names" id="username-message-date">
-	                   	<ul class="follow-name-left ">
-	                    	<li><span id="{{data.message.userId.id}}" >@{{data.message.firstNameofMsgPoster}} {{data.message.lastNameofMsgPoster}} </span> -  {{data.message.timeCreated}}  -  {{data.message.messageAccess.name}}</li>
+	                   	<ul class="follow-name-left">
+	                    	<li id="message-stamp"><span id="{{data.message.userId.id}}" >@{{data.message.firstNameofMsgPoster}} {{data.message.lastNameofMsgPoster}} </span> -  {{data.message.timeCreated}}  -  {{data.message.messageAccess.name}}</li>
 	                   	</ul>
 										 </div>
                      <a id="" href="#" class="delete_msg drag-rectangle" data-original-title="Flag this" style="visibility:hidden;"></a>
