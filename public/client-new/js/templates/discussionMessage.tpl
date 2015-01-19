@@ -204,8 +204,8 @@
 					  <!--li><a class="comment-icon" href="#"></a></li-->                 
                      </ul>
 	                   <div class="follow-names" id="username-message-date">
-	                   	<ul class="follow-name-left ">
-	                    	<li><span id="{{data.message.userId.id}}" >@{{data.message.firstNameofMsgPoster}} {{data.message.lastNameofMsgPoster}} </span> -  {{data.message.timeCreated}}  -  {{data.message.messageAccess.name}}</li>
+	                   	<ul class="follow-name-left">
+	                    	<li id="message-stamp"><span id="{{data.message.userId.id}}" >@{{data.message.firstNameofMsgPoster}} {{data.message.lastNameofMsgPoster}} </span> -  {{data.message.timeCreated}}  -  {{data.message.messageAccess.name}}</li>
 	                   	</ul>
 										 </div>
                      <a id="" href="#" class="delete_msg drag-rectangle" data-original-title="Flag this" style="visibility:hidden;"></a>
