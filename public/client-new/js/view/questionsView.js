@@ -362,9 +362,9 @@ events : {
 													.each(
 															models,
 															function(model) {
-var questionModel = new QuestionModel();
-questionModel
-.set({
+																	var questionModel = new QuestionModel();
+																	questionModel
+																	.set({
 																			question : model.question,
 																			comments : model.comments,
 																			followed : model.followed,
@@ -573,9 +573,9 @@ questionModel
 										.match(/^(https:\/\/docs.google.com\/)/)) {
 									/* don't create bitly for shortened url */
 									if (!urlLink
-.match(/^(http:\/\/bstre.am\/)/)) {
-/* create bitly */
-$.ajax({
+										.match(/^(http:\/\/bstre.am\/)/)) {
+										/* create bitly */
+										$.ajax({
 											type : 'POST',
 											url : "bitly",
 											data : {
@@ -600,7 +600,6 @@ $.ajax({
 											// rendering to the feed.
 											submit : function(e, data) {
 												e.preventDefault();
-
 											}
 										}
 
@@ -631,11 +630,9 @@ $.ajax({
 								view.fetch();
 
 							}
-
 							$('#sortQuestionBy-select').text(
 									$(eventName.target).text());
 							$('#sortQuestionBy-select').attr('value', sortKey);
-
 						},
 
 						/**
@@ -884,7 +881,6 @@ $.ajax({
 						 * function for post questions
 						 */
 						postQuestion : function(eventName) {
-							
 							$('#msg-area').css('margin','-1px 0 -5px 14px');
 							$('#msg-area').css('padding','5px 6px 4px 6px');
 							$('.ask-outer').css('height', '0px');
@@ -1069,10 +1065,10 @@ $.ajax({
 											// state or
 											// not
 											if (!urlLink
-.match(/^(http:\/\/bstre.am\/)/)) {
-/* post url information */
-$
-.ajax({
+													.match(/^(http:\/\/bstre.am\/)/)) {
+													/* post url information */
+													$
+													.ajax({
 															type : 'POST',
 															url : 'bitly',
 															data : {
@@ -1132,9 +1128,14 @@ $
 							$('.ask-outer').css('height', '0px');
 							$('textarea#Q-area').val('');
 							$('#pollArea').slideUp(700);
-							$("#discussions-link").click();
-					
-
+							//var questionstreamvisible = $("#questionStreamView").css("opacity");
+							if ( questionstreamvisible != 0 ) {
+								$("#discussions-link").click();
+							}
+							/*else
+								{
+								
+								}*/
 						},
 
 						/**
