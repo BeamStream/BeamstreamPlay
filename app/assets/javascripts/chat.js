@@ -1,5 +1,5 @@
 function startChat(userId) {
-	var oldChatSocket = new WebSocket('ws://localhost:9000/chat') 
+	var oldChatSocket = new WebSocket('ws://classwall.herokuapp.com/chat') 
 	var oldId = randomString(8);
 	$(".chatbox_own")
 			.append(
