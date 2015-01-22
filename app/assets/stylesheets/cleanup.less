@@ -3778,12 +3778,10 @@ display:block;
 margin-top: -15px;
 }
 
-
-#expanded-questions-sort {
-
 a#discussions-link {
 	font-weight: 600;
-	text-decoration: underline !important;
+	text-decoration: none;
+	color: @LightBlue;
 }
 
 #back-discussions-arrow {
@@ -3809,6 +3807,7 @@ a#discussions-link {
 #expanded-questions-sort h5 {
 	color: #ffffff;
 	font-size: 98%;
+	float: left;
 }
 
 #expanded-questions-sort span {
@@ -3830,7 +3829,7 @@ a#discussions-link {
 	background: url(/beamstream-new/images/spryte.png) no-repeat;
 	background-position: -64px -1434px;
 	height: 26px;
-	margin: -3px 0px 0px -27px;
+	margin: -1px 0px 0px -27px;
 	width: 22px;
 	border: 0px;
 }
@@ -3838,18 +3837,13 @@ a#discussions-link {
 #expanded-questions-icon {
 	height: 21px;
 	width: 20px; 
+	float: left;
 	background-position: -250px -970px !important;
 	text-align: center;
 	position: relative;
 	display: inline-block;
+	margin: 3px 0px 0px 17px;
 	}
-
-#questions-sort-container {
-	
-}
-	float: left;
-	margin: 5px 3px 0px 28px;
-}
 
 #expanded-questions-sort .all-search {
 	margin-left: 77%;
@@ -3858,6 +3852,7 @@ a#discussions-link {
 input#sort_by_key_questions {
 	margin-right: 0px;
 	height: 34;
+	position: relative;
 }
 
 #expanded-questions-sort span.caret.settings-caret.main-stream-dropdown {
@@ -3874,7 +3869,6 @@ input#sort_by_key_questions {
 	border-radius: 2px;
 	width: 113px;
 	position: relative;
-	top: 1;
 }
 
 #expanded-questions-sort #rock-sort {
@@ -3884,6 +3878,7 @@ input#sort_by_key_questions {
 #expanded-questions-sort #stream-date-sort {
 	margin-left: 5%;
 }
+
 #this-week-dropdown {
 	margin-left: 12%;
 }
@@ -5207,7 +5202,7 @@ margin:0 0 20px
 	border-bottom: 0px;
 	background: #fff;
 	padding: 5px;
-	height: 5px%;
+	height: 10.5%;
 }
 
 .chat-view ul li:hover,
