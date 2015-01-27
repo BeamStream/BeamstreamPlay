@@ -959,18 +959,50 @@ ul li#showSubList:hover ul {
 		<div id="document-"  class="modal hide fade white-modal-block doc-modal" tabindex="-1"
 			   role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="box-shadow:none !important;border:none !important">
 			
-				<div id="googleDocPopupCloseBtn" class="close-icon close" aria-hidden="true"
+			<div class="heading">
+			   <div class="close">
+			      <div class="close-icon close" id="googleDocPopupCloseBtn" aria-hidden="true" data-dismiss="modal">
+			         <img src="/beamstream-new/images/close-pop.png" height="22" width="22">
+			      </div>
+			   </div>
+			</div>
+						
+			
+			<div class="header">
+			   <div class="labelcreatedoc">
+			      <div id="create-google-doc-popup"></div>
+			      <div id="create-google-doc-type">#</div>
+			   </div>
+			   <div class="file-status">
+			      <div class="view-container">
+			         <img src="/beamstream-new/img/views.jpg" class="views-icon">
+			         <div class="views">0</div>
+			      </div>
+			      <div class="rocks-container">
+			         <img src="/beamstream-new/img/rocks.jpg" class="rocks-icon">
+			         <div class="rocks">0</div>
+			      </div>
+			      <div class="comments-container">
+			         <img src="/beamstream-new/img/comments.jpg" class="comments-icon">
+			         <div class="comments">0</div>
+			      </div>
+			   </div>
+			</div>
+
+			
+			
+				<!-- <div id="googleDocPopupCloseBtn" class="close-icon close" aria-hidden="true"
 						data-dismiss="modal" style="margin: 20px 0px 0px 0px;">
 						<img width="22" height="22"
 							src="/beamstream-new/images/close-pop.png">
-					</div>	
+					</div>	-->
 					
 				
 				<div class="modal-header" style="background:#fff;bak">
 				
 						  		<input type="button" onclick="download()">
       							<div class="downloadbutton">
-      							<button class="btn btn-mini download" type="button">Download</button>
+      							<a href="" target="_blank"><button class="btn btn-mini download" type="button">Download</button></a>
       							 <div id="current-date-googleDoc"></div>
       							</div>
      							 <h3></h3>
@@ -978,8 +1010,8 @@ ul li#showSubList:hover ul {
 							</div>
 							<div class="modal-body" style="overflow:scroll;background:#fff;"> 
 
-							<h4></h4>
-								<input type="hidden" id="dwnload-url" value="" >
+							<!-- <h4></h4>
+								<input type="hidden" id="dwnload-url" value="" > -->
 						  		<p>
 								  	<iframe id ="iframe-" src="" scrolling="NO"  width="963" height="500" style="border: none">
 										<p>Your browser does not support iframes.</p>
@@ -1509,6 +1541,7 @@ ul li#showSubList:hover ul {
 						success : function(data) {
 							if (data == true) {
 						    $('#iframe-').attr('src', docUrl);
+						    $('.downloadbutton a').attr('href',docUrl)
 							$('#document-').modal("show");
 							} else {
 							  bootbox.dialog("Do you want to Request Access?", [
