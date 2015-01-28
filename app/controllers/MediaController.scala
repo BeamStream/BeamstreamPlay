@@ -204,7 +204,7 @@ object MediaController extends Controller {
       val contentType = profileData.contentType.get
       val uniqueString = TokenEmailUtil.securityToken
       val FileObtained: File = profileData.ref.file.asInstanceOf[File]
-      RotateImageUtil.rotatingImage(FileObtained)
+      //RotateImageUtil.rotatingImage(FileObtained)
       val fileNameOnAmazon = uniqueString + Filename.replaceAll("\\s", "") // Security Over the images files
       (new AmazonUpload).uploadFileToAmazon(fileNameOnAmazon, FileObtained)
       (contentType.contains("image")) match {
