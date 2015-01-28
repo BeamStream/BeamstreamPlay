@@ -302,7 +302,6 @@ ul li#showSubList:hover ul {
 			<!--   to get all messages of a stream - How to make call like  data-url="/allMessagesForAStream/streamId/pageLimit/pageNo" dynamically ?  -->
 			<div class="tab-pane active" id="discussionsView"
 				data-model="discussion">
-
 				<div class="ask-outer" id="main-text-input-wrapper">
 					<div class="ask-content">
 						<div class="follw-left">
@@ -355,8 +354,6 @@ ul li#showSubList:hover ul {
 											<li><input type="text" placeholder="+Add a new category"></li>
 										</ul>
 									</div>
-
-
 									<div id="upload-files1" class="btn-group attach-drop "
 										style="display: none;">
 										<button id="upload-files2"
@@ -401,76 +398,54 @@ ul li#showSubList:hover ul {
 											name="upload-files-area">
 									</div>
 								</div>
-
-
-
-								<!-- <ul id="uploded-file-area" class="answer">
-									<li id="file-name"></li> name="upload-files-area"> -->
 							</div>
 						</div>
-						<!-- <div id="file-upload-loader"></div> -->
-
 					</div>
-
 				</div>
 
-
-				<div class="question-sort">
-					<h5>SORT BY</h5>
-					<div class="btn-group dropdown-outer" id="rock-sort">
-						<button class="btn seetings-toggle sort-toogle  sort-toogle-none"
-							id="sortBy-select" value="date">Most Recent</button>
-						<button class="btn dropdown-toggle seetings-toggle"
-							data-toggle="dropdown">
-							<span class="caret settings-caret main-stream-dropdown"></span>
-						</button>
-						<ul class="dropdown-menu rate-sub" id="sortBy-list">
-							<li><a href="#" name="most-recent" value="date">Most
-									Recent</a></li>
-							<li><a href="#" name="highest-rated" value="rock">Highest
-									Rated</a></li>
-							<!-- >li><a href="#" name="most-shared" >Most Shared </a></li-->
-						</ul>
-					</div>
-					<div class="btn-group dropdown-outer" id="stream-date-sort">
-						<button class="btn seetings-toggle sort-toogle  sort-toogle-none"
-							id="date-sort-select" value="week">This Week</button>
-						<button class="btn dropdown-toggle seetings-toggle"
-							data-toggle="dropdown">
-							<span class="caret settings-caret main-stream-dropdown"></span>
-						</button>
-						<ul class="dropdown-menu rate-sub" id="date-sort-list">
-							<li><a href="#" value="day">Today</a></li>
-							<li><a href="#" value="week">This Week</a></li>
-							<li><a href="#" value="month">This Month </a></li>
-							<li><a href="#" value="all">All Dates </a></li>
-						</ul>
-					</div>
-					
+				<div id="discussion-sort-form-container">
+						<div class="question-sort">
+							<h5>SORT BY</h5>
+							<div class="btn-group dropdown-outer" id="rock-sort">
+								<button class="btn seetings-toggle sort-toogle  sort-toogle-none"
+									id="sortBy-select" value="date">Most Recent</button>
+								<button class="btn dropdown-toggle seetings-toggle"
+									data-toggle="dropdown">
+									<span class="caret settings-caret main-stream-dropdown"></span>
+								</button>
+								<ul class="dropdown-menu rate-sub" id="sortBy-list">
+									<li><a href="#" name="most-recent" value="date">Most
+											Recent</a></li>
+									<li><a href="#" name="highest-rated" value="rock">Highest
+											Rated</a></li>
+									<!-- >li><a href="#" name="most-shared" >Most Shared </a></li-->
+								</ul>
+							</div>
+							<div class="btn-group dropdown-outer" id="stream-date-sort">
+								<button class="btn seetings-toggle sort-toogle  sort-toogle-none"
+									id="date-sort-select" value="week">This Week</button>
+								<button class="btn dropdown-toggle seetings-toggle"
+									data-toggle="dropdown">
+									<span class="caret settings-caret main-stream-dropdown"></span>
+								</button>
+								<ul class="dropdown-menu rate-sub" id="date-sort-list">
+									<li><a href="#" value="day">Today</a></li>
+									<li><a href="#" value="week">This Week</a></li>
+									<li><a href="#" value="month">This Month </a></li>
+									<li><a href="#" value="all">All Dates </a></li>
+								</ul>
+							</div>
+							<form class="all-search" action="">
+								<span></span> 
+								<span class="backToNormal"> </span>
+								<input type="text" id="sort_by_key"
+									class="quest-search" placeholder="Search Discussions" autocomplete="off">
+							</form>
+						</div>
+				</div>
 				
-					<form class="all-search" action="">
-						<span></span> 
-						<span class="backToNormal"> </span>
-						<input type="text" id="sort_by_key"
-							class="quest-search" placeholder="Search Discussions" autocomplete="off">
-						
-					</form>
-				</div>
-
-				<!-- <div id="messageListView" data-model="discussion"
-                                        data-module="view/messageListView" data-url="/"
-                                        data-tpl="templates/discussionMessage.tpl"></div>
-
-                                <div id="discussion-pagination" class="page-loader">
-                                        <img src="/beamstream-new/images/loading-bars.gif" alt="">
-                                </div> -->
-                                
-                                
-                                
-                                <!--                                    -->
-		<!-- Modal for create google doc starts -->
-		<!--                                    -->
-
+				
+<!-- Modal for create google doc starts -->
 		<div id="creategoogledoc"
 			class="modal hide fade invite-pop-up-googledoc"
 			aria-labelledby="myModalLabel" aria-hidden="true">
@@ -708,8 +683,9 @@ ul li#showSubList:hover ul {
 
 			</div>
 
-			<div class="tab-pane " id="questionsView" data-model="question">
 
+<!-- Question  Tab --> 
+			<div class="tab-pane " id="questionsView" data-model="question">
 				<div class="ask-outer" id="main-text-input-wrapper" style="height:0px;">
 					<div class="ask-content">
 						<div class="follw-left">
@@ -747,10 +723,6 @@ ul li#showSubList:hover ul {
 										</ul>
 									</div>
 								</form>
-							
-
-
-
 								<ul id="pollArea" class="answer">
 									<li><input name="Answer Is Yes" type="text" id="option1"
 										placeholder="Add 1st Poll Option" class="polloptionarea"></li>
@@ -763,10 +735,8 @@ ul li#showSubList:hover ul {
 									<li>
 										<div class="progress-container" >
 											<div class="progress progress-striped active" style="display: none;">
-												
-											</div>
-
-                                                                                   <div id="questionFileUploadingImage">
+										</div>
+                                        <div id="questionFileUploadingImage">
 											<div id="floatingCirclesG" class="floatingCirclesG-files">
 												<div class="f_circleG" id="frotateG_01"></div>
 												<div class="f_circleG" id="frotateG_02"></div>
@@ -780,9 +750,9 @@ ul li#showSubList:hover ul {
 										</div>
 										</div>
 									</li>
-<div class="fileUploadMsg" style="float:right;margin-top:-41px;margin-right: 10px;">File Uploading.... Please wait.</div>
+								<div class="fileUploadMsg" style="float:right;margin-top:-41px;margin-right: 10px;">File Uploading.... Please wait.</div>
 								</ul>
-<div class="embed-info">
+								<div class="embed-info">
 									<div class="upload-conatiner">
 										<h5>Select an image or video file on your computer.</h5>
 										<input type="file" id="Q-files-area"
@@ -813,7 +783,6 @@ ul li#showSubList:hover ul {
 							</div>
 
 							<div class="ask-iconinfo">
-
 								<label class="checkbox private-chaeck" style="display: none">
 									<input id="Q-private-to" type="checkbox" checked="checked">
 									Private to:
@@ -849,72 +818,96 @@ ul li#showSubList:hover ul {
 					</div>
 					<div class="clear"></div>
 				</div>
-				<div id="questions-sort-container">
-				<div id="expanded-questions-sort">
-					<div id="expanded-questions-icon"></div>
-					<h5>'s</h5>
-					<div class="btn-group dropdown-outer" id="rock-sort">
-						<button class="btn seetings-toggle sort-toogle  sort-toogle-none"
-							id="sortBy-select" value="date">Most Recent</button>
-						<button class="btn dropdown-toggle seetings-toggle"
-							data-toggle="dropdown">
-							<span class="caret settings-caret main-stream-dropdown"></span>
-						</button>
-						<ul class="dropdown-menu rate-sub" id="sortBy-list">
-							<li><a href="#" name="most-recent" value="date">Most
-									Recent</a></li>
-							<li><a href="#" name="highest-rated" value="rock">Highest
-									Rated</a></li>
-							<!-- >li><a href="#" name="most-shared" >Most Shared </a></li-->
-						</ul>
-					</div>
-					<div class="btn-group dropdown-outer" id="stream-date-sort">
-						<button class="btn seetings-toggle sort-toogle  sort-toogle-none"
-							id="date-sort-select" value="week">This Week</button>
-						<button class="btn dropdown-toggle seetings-toggle"
-							data-toggle="dropdown" id="this-week-dropdown">
-							<span class="caret settings-caret main-stream-dropdown"></span>
-						</button>
-						<ul class="dropdown-menu rate-sub" id="date-sort-list">
-							<li><a href="#" value="day">Today</a></li>
-							<li><a href="#" value="week">This Week</a></li>
-							<li><a href="#" value="month">This Month </a></li>
-							<li><a href="#" value="all">All Dates </a></li>
-						</ul>
-					</div>
-					<form class="all-search" action="">
-						<span></span> 
-						<span class="backToNormal"> </span> <input type="text" id="sort_by_key_questions"
-							class="quest-search" placeholder="Search Questions">
-					</form>
+				
+				<div id="discussion-sort-form-container" style="display:none;">
+						<div class="question-sort">
+							<h5>SORT BY</h5>
+							<div class="btn-group dropdown-outer" id="rock-sort">
+								<button class="btn seetings-toggle sort-toogle  sort-toogle-none"
+									id="sortBy-select" value="date">Most Recent</button>
+								<button class="btn dropdown-toggle seetings-toggle"
+									data-toggle="dropdown">
+									<span class="caret settings-caret main-stream-dropdown"></span>
+								</button>
+								<ul class="dropdown-menu rate-sub" id="sortBy-list">
+									<li><a href="#" name="most-recent" value="date">Most
+											Recent</a></li>
+									<li><a href="#" name="highest-rated" value="rock">Highest
+											Rated</a></li>
+									<!-- >li><a href="#" name="most-shared" >Most Shared </a></li-->
+								</ul>
+							</div>
+							<div class="btn-group dropdown-outer" id="stream-date-sort">
+								<button class="btn seetings-toggle sort-toogle  sort-toogle-none"
+									id="date-sort-select" value="week">This Week</button>
+								<button class="btn dropdown-toggle seetings-toggle"
+									data-toggle="dropdown">
+									<span class="caret settings-caret main-stream-dropdown"></span>
+								</button>
+								<ul class="dropdown-menu rate-sub" id="date-sort-list">
+									<li><a href="#" value="day">Today</a></li>
+									<li><a href="#" value="week">This Week</a></li>
+									<li><a href="#" value="month">This Month </a></li>
+									<li><a href="#" value="all">All Dates </a></li>
+								</ul>
+							</div>
+							<form class="all-search" action="">
+								<span></span> 
+								<span class="backToNormal"> </span>
+								<input type="text" id="sort_by_key"
+									class="quest-search" placeholder="Search Discussions" autocomplete="off">
+							</form>
+						</div>
 				</div>
+				
+				
+				<div id="questions-sort-container">
+					<div id="expanded-questions-sort">
+						<div id="expanded-questions-icon"></div>
+						<h5>'s</h5>
+						<div class="btn-group dropdown-outer" id="rock-sort">
+							<button class="btn seetings-toggle sort-toogle  sort-toogle-none"
+								id="sortBy-select" value="date">Most Recent</button>
+							<button class="btn dropdown-toggle seetings-toggle"
+								data-toggle="dropdown">
+								<span class="caret settings-caret main-stream-dropdown"></span>
+							</button>
+							<ul class="dropdown-menu rate-sub" id="sortBy-list">
+								<li><a href="#" name="most-recent" value="date">Most
+										Recent</a></li>
+								<li><a href="#" name="highest-rated" value="rock">Highest
+										Rated</a></li>
+								<!-- >li><a href="#" name="most-shared" >Most Shared </a></li-->
+							</ul>
+						</div>
+						<div class="btn-group dropdown-outer" id="stream-date-sort">
+							<button class="btn seetings-toggle sort-toogle  sort-toogle-none"
+								id="date-sort-select" value="week">This Week</button>
+							<button class="btn dropdown-toggle seetings-toggle"
+								data-toggle="dropdown" id="this-week-dropdown">
+								<span class="caret settings-caret main-stream-dropdown"></span>
+							</button>
+							<ul class="dropdown-menu rate-sub" id="date-sort-list">
+								<li><a href="#" value="day">Today</a></li>
+								<li><a href="#" value="week">This Week</a></li>
+								<li><a href="#" value="month">This Month </a></li>
+								<li><a href="#" value="all">All Dates </a></li>
+							</ul>
+						</div>
+						<form class="all-search" action="">
+							<span></span> 
+							<span class="backToNormal"> </span> <input type="text" id="sort_by_key_questions"
+								class="quest-search" placeholder="Search Questions">
+						</form>
+					</div>
+				</div>
+				
 			</div>
-				<!-- <div id="questionListView" data-model="question"
-													data-module="view/questionListView" data-url="/"
-														data-tpl="templates/questionMessage.tpl"></div>
-
-								    		<div id="question-pagination" class="page-loader"
-																style="display: none;">
-													<img src="/beamstream-new/images/loading-bars.gif" alt="">
-									</div> -->
-
-
-
-
-
-
-
-			</div>
-
-
-
-
+	
 			<div id="messageListView" data-model="discussion"
 				data-module="view/messageListView" data-url="/"
 				data-tpl="templates/discussionMessage.tpl"></div>
-
-
-
+	
 			<div id="questionListView" data-model="question"
 				data-module="view/questionListView" data-url="/"
 				data-tpl="templates/questionMessage.tpl"></div>

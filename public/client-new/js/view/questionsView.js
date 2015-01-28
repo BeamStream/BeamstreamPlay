@@ -1128,14 +1128,10 @@ events : {
 							$('.ask-outer').css('height', '0px');
 							$('textarea#Q-area').val('');
 							$('#pollArea').slideUp(700);
-							//var questionstreamvisible = $("#questionStreamView").css("opacity");
+							var questionstreamvisible = $("#questionStreamView").css("opacity");
 							if ( questionstreamvisible != 0 ) {
 								$("#discussions-link").click();
 							}
-							/*else
-								{
-								
-								}*/
 						},
 
 						/**
