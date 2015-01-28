@@ -39,6 +39,7 @@ define(
 						},
 						messagesPerPage : 10,
 						pageNo : 1,
+						flagsort : 0,
 						init : function() {
 							
 							var fullDate = new Date();
@@ -51,6 +52,7 @@ define(
 							var currentStreamView = new StreamSliderView({
 								el : $('#sidebar')
 							})
+							
 							this.addView(currentStreamView);
 
 							this.addView(new DiscussionsView({
@@ -96,8 +98,6 @@ define(
 										type: 'GET',	           
 							            url: "/noOfUnansweredQuestions/"+evt.streamId,
 							            success: function(data){
-							            	
-							            	
 							            	$("#number-new-questions").text	(data.count);
 							            }
 										
@@ -152,89 +152,59 @@ define(
 						
 
 						popout : function() {
-								
+							this.flagsort = 1;
 							$('#discussions-link').css('display', 'block');
 							$('#discussions-link').css('padding', '0');
-							$('#discussions-link').css('text-decoration',
-								'none');
+							$('#discussions-link').css('text-decoration','none');
 							$('#flipQuestion').css('display', 'none');
 							$('#questions-icon').css('display', 'none');
 							$("#messageListView").hide();
 							$("#questionListView").css("display", "block");
 							$("#questionListView").css("visibility", "visible");
-
-							/*$('#discussions-link').css('display', 'block');
-							$('#discussions-link').css('padding', '0');
-							$('#discussions-link').css('text-decoration',
-									'none');
-							$('#flipQuestion').css('display', 'none');
-							$('#questions-icon').css('display', 'none');*/
-
 							$("#questionStreamView").animate({
-								//"margin-right" : '+=254',
 								"padding-right":"500px",
 								"opacity":'0',
 								"z-index":"-100"
-									
 							}, 1000);
 							$("#sidequestionexpand").animate({
 								"margin-right" : '+=254',
 									"opacity":'0',
 									"z-index":"-100"
-										
 							}, 1000);
-					
-											
+							
+							$("div#discussion-sort-form-container").css("display","none");
+							$("div#questions-sort-container").css("display","block");
 							
 							$('#topheader').css('padding-right', '0');
-							$('.header-profile').css('margin',
-									'-5px 267px -17px 0px');
+							$('.header-profile').css('margin','-5px 267px -17px 0px');
 
 							view = this.getViewById('questionListView');
 							view.myStreams = this.getViewById('sidebar').myStreams;
-							//view.myStreams = this.getViewById('sidebar').myStreams;
 							view.data.url = "/getAllQuestionsForAStream/"
 									+ this.getViewById('sidebar').streamId
 									+ "/date/" + view.messagesPerPage + "/"
 									+ view.pageNo;
-
 							view.fetch();
+							
 							$("#questionsLink").click();
+							
 						},
 
 						/* Miimize left question stream */
 						minimize : function() {
-
 							$("#questionStreamView").animate({
 								"margin-right" : '-=254'
 							}, 1000);
 							$("#sidequestionexpand").animate({
 								"margin-right" : '-=254'
 							}, 1000);
-
 							$("#messageListView").show();
 							$("#questionListView").css("display", "none");
-
 							$("#questionListView").css("visibility", "hidden");
-							/* $("#questionStreamView").hide(); */
-							/* $("#questionStreamView").css("visibility","hidden"); */
-							/*
-							 * $( "#questionStreamView" ).animate({ width: "0%",
-							 * opacity: 0, visibility:"hidden", display:"none" },
-							 * 1500 );
-							 */
-
-							// $( "#questionStreamView" ).toggle("slide", {
-							// direction: "right" }, 2000);
-							// $(".body").css("padding-right","0");
 							$(".chatbox").css("right", "40");
-							// $("#topheader").css("padding-right","0");
-
 							$("#sidequestionexpand").css("opacity", "1");
-
 							$('#topheader').css('padding-right', '0');
-							$('.header-profile').css('margin',
-									'-5px 267px -17px 0px');
+							$('.header-profile').css('margin','-5px 267px -17px 0px');
 						},
 
 						afterUpload : function(event) {
@@ -242,114 +212,76 @@ define(
 						},
 
 						fliptoQuestion : function() {
-							//$('#discussions-link').css('display', 'block');
-							//$('#discussions-link').css('padding', '0');
-							//$('#discussions-link').css('text-decoration',
-								//	'none');
-							//$('#flipQuestion').css('display', 'none');
-							//$('#questions-icon').css('display', 'none');
+							if ( this.flagsort == 0 ) 
+								{
+									$("div#discussion-sort-form-container").css("display","block")
+									$("div#questions-sort-container").css("display","none")
+									this.flagsort = 0;
+								}
+							else
+								{
+									$("div#discussion-sort-form-container").css("display","none")
+									$("div#questions-sort-container").css("display","block")
+									this.flagsort = 0;
+								}
 						},
 
 						fliptoDiscussion : function() {
-							//if (position <= "254px") {
-							
-							
-							var position = $("#sidequestionexpand").css(
-							"right");
-							
+							$("div#discussion-sort-form-container").css("display","block")
+							var position = $("#sidequestionexpand").css("right");
 							if (position <= "253px") {
-								
 								$("#questionStreamView").animate({
 									"padding-right" : '5px',
 									"z-index":"100"
 								}, 1000).animate({
 									"opacity" : '1px',
-									
 								}, 1000);
 								
-							$("#sidequestionexpand").animate({
-								"z-index":"100"
-							}, 1000).animate({
-								"opacity" : '1px',
-								
-							}, 1000);
-							}
-						var positionAfter = $("#sidequestionexpand").css("margin-right");
-					
-						if (positionAfter <= "254px")
-							{
-							$("#questionStreamView").animate({
-								"opacity" : '1px',
-								
-							}, 1000).animate({
-								"padding-right" : '5px',
-								"z-index":"100"
-							}, 1000);
-							$("#sidequestionexpand").css("margin-right","0px")
 								$("#sidequestionexpand").animate({
-								
 									"z-index":"100"
 								}, 1000).animate({
-									"opacity" : '1',
-									
+									"opacity" : '1px',
 								}, 1000);
 							}
+							var positionAfter = $("#sidequestionexpand").css("margin-right");
+						
+							if (positionAfter <= "254px")
+								{
+									$("#questionStreamView").animate({
+										"opacity" : '1px',
+									}, 1000).animate({
+										"padding-right" : '5px',
+										"z-index":"100"
+									}, 1000);
+									$("#sidequestionexpand").css("margin-right","0px")
+										$("#sidequestionexpand").animate({
+											"z-index":"100"
+										}, 1000).animate({
+											"opacity" : '1',
+										}, 1000);
+								}
 
-						//}
 							$('button#upload-files2').css('visibility','visible');
 							$('#discussions-link').css('display', 'none');
-							$('#flipQuestion').css('padding',
-									'0px 0px 0px 12px');
+							$('#flipQuestion').css('padding','0px 0px 0px 12px');
 							$('#questions-icon').css('margin-top', '-2px');
 							$('#flipQuestion').css('display', 'block');
 							$('#questions-icon').css('display', 'block');
 							$("#messageListView").show();
 							$("#questionListView").css("display", "none");
-							//var position = $("#sidequestionexpand").css(
-								//	"margin-right");
-							
-							// $( "#questionStreamView"
-							// ).animate({"margin-right": '+=300'}, 1000);
-							// $("#sidequestionexpand").animate({"margin-right":
-							// '+=300'}, 1000);
 						},
 
 						/* Expand Side Question Stream */
 
 						restoretonormal : function() {
-							/*
-							$("#messageListView").show();
-							$("#questionListView").css("display", "none");*/
-							
 							$('#discussions-link').css('display', 'none');
-							$('#flipQuestion').css('padding',
-									'0px 0px 0px 12px');
+							$('#flipQuestion').css('padding', '0px 0px 0px 12px');
 							$('#questions-icon').css('margin-top', '-2px');
 							$('#flipQuestion').css('display', 'block');
 							$('#questions-icon').css('display', 'block');
 							$("#messageListView").show();
 							$("#questionListView").css("display", "none");
-
-							/* $("#questionListView").css("visibility","hidden"); */
-
-							/* $("#questionStreamView").hide(); */
-							/* $("#questionStreamView").css("visibility","hidden"); */
-							/*
-							 * $( "#questionStreamView" ).animate({ width:
-							 * "300", opacity: 1, visibility:"visible",
-							 * display:"block" }, 1500 );
-							 */
-							/*
-							 * $("#questionStreamView").show();
-							 * $(".body").css("padding-right", "280");
-							 * $(".chatbox").css("right", "40");
-							 * $("#topheader").css("padding-right", "19");
-							 * $("#sidequestionexpand").css("opacity","1");
-							 * $("#sidequestionexpand").css("right", "318");
-							 */
-							// $( "#questionStreamView").show();
-							var position = $("#sidequestionexpand").css(
-									"margin-right");
+							var position = $("#sidequestionexpand").css("margin-right");
 							if (position <= "-254px") {
 								$("#questionStreamView").animate({
 									"margin-right" : '+=254'
@@ -357,12 +289,8 @@ define(
 								$("#sidequestionexpand").animate({
 									"margin-right" : '+=254'
 								}, 1000);
-								// $("#sidequestionexpand").animate({"margin-right":
-								// '+=254'});
-								// $("#sidequestionexpand").css("margin-right","0px");
 								$('#topheader').css('padding-right', '19px');
-								$('.header-profile').css('margin',
-										'-5px 248px -17px 0px');
+								$('.header-profile').css('margin','-5px 248px -17px 0px');
 							}
 						},
 
@@ -374,12 +302,8 @@ define(
 						},
 
 						showsidebar : function(e) {
-							
-							
-							$("#showAndPublishForm ").find("#docName")
-									.attr("value",$(e.currentTarget).data("id"));
-							$("#showAndPublishForm ").find("#docUrl")
-									.attr("value",$(e.currentTarget).data("name"));
+							$("#showAndPublishForm ").find("#docName").attr("value",$(e.currentTarget).data("id"));
+							$("#showAndPublishForm ").find("#docUrl").attr("value",$(e.currentTarget).data("name"));
 							$(".showgoogledocsSidebar").show();
 							$("#showgoogledoc.modal").css("margin", "3% 0 0 4%");
 						},
@@ -905,10 +829,8 @@ define(
 
 							$('.question-button').text("ADD");
 							$('.add-poll').hide();
-
 							$('textarea#Q-area').addClass('showpolloption');
-							$('textarea#Q-area').attr('placeholder',
-									'Click here to add a poll ....');
+							$('textarea#Q-area').attr('placeholder', 'Click here to add a poll ....');
 
 						},
 
