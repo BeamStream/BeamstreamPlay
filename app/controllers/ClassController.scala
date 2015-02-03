@@ -205,7 +205,7 @@ object ClassController extends Controller {
               //check if user is Professional
               val userdetails=User.findUserByObjectId(new ObjectId(userId))
               val usertype=userdetails.get.userType.toString() 
-              if(usertype==UserType.apply(2.toInt).toString()){
+              if(usertype==UserType.apply(1.toInt).toString()){
                 val contactEmail=(jsonReceived \ "contactEmail").as[String]
                 val contactCellNumber=(jsonReceived \ "contactcellNumber").as[String]
                 val contactOfficeHours=(jsonReceived \ "contactofficeHours").as[String]
@@ -232,7 +232,7 @@ object ClassController extends Controller {
               val userdetailsofstreamcreator=User.findUserByObjectId(creatorOfStream)
               val mailofcreatorOfStream=userdetailsofstreamcreator.get.email 
               val usertypeofcreatorOfStream=userdetailsofstreamcreator.get.userType.toString()
-              val findusertype=UserType.apply(2).toString()
+              val findusertype=UserType.apply(1).toString()
               val userdetails=User.findUserByObjectId(new ObjectId(userId))
               val loggedinusertype=userdetails.get.userType.toString() 
               usertypeofcreatorOfStream.equals(findusertype) && loggedinusertype.equals(UserType.apply(0).toString()) match {
