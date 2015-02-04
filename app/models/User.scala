@@ -269,8 +269,8 @@ object User {
 object UserType extends Enumeration {
   val Student = Value(0, "Student")
   val Educator = Value(1, "Educator")
-  val Professional = Value(2, "Professional")
-  val TeachersAssistant = Value(3, "TeachersAssistant")
+  val TeachersAssistant = Value(2, "TeachersAssistant")
+  val Professional = Value(3, "Professional")
 }
 
 object UserDAO extends SalatDAO[User, ObjectId](collection = MongoHQConfig.mongoDB("user"))
