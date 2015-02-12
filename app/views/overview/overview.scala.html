@@ -1,4 +1,4 @@
-@(message: String)
+@(message: String)(implicit request:RequestHeader)
 @meta = {}
 @CSS = {}
 @JS = {}
@@ -6,7 +6,7 @@
 @bodyModule = {}
 @bodyJS = {}
 @sideBar = {
-  @views.html.sidebar.render
+  @views.html.sidebar(" ")
 }
 @header = {
   @views.html.header.render

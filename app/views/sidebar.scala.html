@@ -1,4 +1,4 @@
-
+@(title:String)(implicit request:RequestHeader)
 
 <link href="/beamstream-new/css/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="/beamstream-new/css/jquery.simplyscroll.css" media="all" type="text/css">
@@ -13,15 +13,14 @@
 <script src="/beamstream-new/lib/extralib/bootbox.min.js"></script>
 <!-- End -->
 
-
 <div class="left-container">
     <aside>
     	 <!--  For left side stream list --> 
-        <div  id="sidebar"   data-model="stream" data-url="/allStreamsForAUser"   data-module="view/streamSliderView" data-tpl="templates/streamSlider.tpl">
-
-            
-
-		</div>       
+    	 @if(request.uri=="/class"){
+          <div  id="sidebar"   data-model="stream" data-url="/allStreamsForAUser"   data-module="view/streamSliderView" data-tpl=""></div>    
+		}else{
+		  <div  id="sidebar"   data-model="stream" data-url="/allStreamsForAUser"   data-module="view/streamSliderView" data-tpl="templates/streamSlider.tpl"></div>    
+		}   
                
         <!--  For Online User Widget --> 
 				<div  id="online"   data-model="onlineuser" data-url="/onlineUsers" data-module="view/onlineUserView" data-tpl="templates/onlineUsers.tpl">

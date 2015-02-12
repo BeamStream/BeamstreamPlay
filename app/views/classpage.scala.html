@@ -1,4 +1,4 @@
-@(tokenFlag: Boolean = false,iam:String="false") 
+@(tokenFlag: Boolean = false,iam:String="false")(implicit request:RequestHeader)
 @meta = {} 
 @CSS = {
 <link href="@routes.Assets.at("/public/stylesheets","datepicker.css")" rel="stylesheet" type="text/css" />
@@ -18,7 +18,7 @@
 @bodyJS = {
 <!-- <script type="text/JavaScript" src="/beamstream-new/lib/bootstrap-select.js"></script> -->
 } 
-@sideBar = { @views.html.sidebar.render } 
+@sideBar = { @views.html.sidebar(" ") } 
 @header = { @views.html.header.render } 
 @footer = { @views.html.footer.render }
 @main("Class ", "Body", meta, CSS, JS, bodyModule, bodyJS, sideBar,
