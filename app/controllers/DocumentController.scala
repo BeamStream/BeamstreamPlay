@@ -270,6 +270,40 @@ object DocumentController extends Controller {
               Option(uploadResults)
             }
           }
+          
+          
+        }.get
+    }
+    Ok(write(resultToSend)).as("application/json")
+  }
+  
+  
+  def postSyllabusFromDisk: Action[play.api.mvc.MultipartFormData[play.api.libs.Files.TemporaryFile]] = Action(parse.multipartFormData) { request =>
+    val documentJsonMap = request.body.asFormUrlEncoded.toMap
+    val streamId = documentJsonMap("streamId").toList(0)
+    val docDescription = documentJsonMap("docDescription").toList(0)
+    val uploadedFrom = documentJsonMap("uploadedFrom").toList(0)
+    val docURL = documentJsonMap("docURL").toList(0)
+    val resultToSend = (request.body.file("docData").isEmpty) match {
+    
+      case true => None
+      case false =>
+        // Fetch the image stream and details
+        request.body.file("docData").map { docData =>
+          val documentName = docData.filename
+          val contentType = docData.contentType.get
+          val isImage = contentType.contains("image")
+          val isVideo = contentType.contains("video")
+          val isPdf = contentType.contains("pdf")
+          val docAccess = documentJsonMap("docAccess").toList(0)
+          val documentReceived: File = docData.ref.file.asInstanceOf[File]
+          val docUniqueKey = TokenEmailUtil.securityToken
+          val docNameOnAmazom = (docUniqueKey + documentName).replaceAll("\\s", "")
+          val userId = new ObjectId(request.session.get("userId").get)
+          val user = User.getUserProfile(userId)
+          val media=UserMedia(new ObjectId, documentName, "", userId, new Date, docURL,
+            UserMediaType.Image, Access.PrivateToClass, false, None, "", 0, Nil, Nil, 0)
+            UserMedia.saveMediaForUser(media)
         }.get
     }
     Ok(write(resultToSend)).as("application/json")

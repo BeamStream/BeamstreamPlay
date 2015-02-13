@@ -812,7 +812,7 @@ define(
 											.ajax({
 												type : 'POST',
 												data : attachdata,
-												url : "/postDocumentFromDisk",
+												url : "/postSyllabusFromDisk",
 												cache : false,
 												contentType : false,
 												processData : false,
