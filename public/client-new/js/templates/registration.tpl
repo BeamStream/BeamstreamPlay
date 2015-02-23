@@ -26,8 +26,8 @@
               <select id="role" data-name="user.role" name="role" class="selectpicker-info" style="display: none;" placeholder="Student">
                 <option value="Student">Student</option>
                 <option value="Educator">Educator</option>
-                <option value="Professional">Professional</option>
-                <option value="Other">Other</option>
+                <option value="Professional">Teaching Assistant</option>
+                <!--<option value="Other">Other</option>-->
               </select>
               <span class="red-star select-star">*</span>
               </fieldset>

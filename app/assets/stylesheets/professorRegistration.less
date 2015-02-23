@@ -1,10 +1,24 @@
 @import "/beamstream-new/font-awesome/css/font-awesome.min.css";
 
+/* LESS Global Styles*/
+@Gray: #9d9d9d;
+@DarkGray: #858585;
+@LighterLightBlue: #7bcfe7; 
+@LightBlue: #00B7E1;
+@DarkBlue: #21A1BF;
+@Orange: #FF7F00;
+@SoftRed: #F74272;
+
+@ButtonColor: @Gray;
+@SecondaryButtonColor: @LightBlue;
+@SecondaryButtonColorHover: @DarkBlue;
+@RegButtonColorHover: @DarkGray;
+
 .professor-registration {
   padding: 10px;
   font-size: 14px;
   h5 {
-    color: #CE9222;
+    color: @LightBlue;
   }
   // input style defined because bootstrap has been overwritten
   input {
@@ -20,6 +34,14 @@
     font-size: 14px;
     font-weight: 400;
   }
+}
+
+.professor-registration h5 {
+	color: @Orange;
+}
+
+.accordion-heading .accordion-toggle {
+	color: @LightBlue;
 }
 
 .class-info {
