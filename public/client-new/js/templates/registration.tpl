@@ -56,6 +56,9 @@
             {{/if}}
             
             <div class="alert-register"><span>*Last name will not be shown publicly</span></div>
+             <div class="field">
+             <textarea id="aboutYourself" data-name="user.aboutYourself" value="" name="aboutYourself"  name="aboutYourself" cols="" rows="" placeholder="Tell us a little about yourself."></textarea>
+            </div>
             <fieldset class="field">  
             <input id="schoolName"  data-name="user.schoolName" name="schoolName" value=""  type="text" placeholder="School Name">
             <input type="hidden" id="associatedSchoolId" >
@@ -68,10 +71,6 @@
             <input id="major"  data-name="user.major" name="major" value=""  type="text" placeholder="Major " >
              <span class="red-star">*</span>
             </fieldset>
-             <div class="field">
-             <textarea id="aboutYourself" data-name="user.aboutYourself" value="" name="aboutYourself"  name="aboutYourself" cols="" rows="" placeholder="Tell us a little about yourself."></textarea>
-            </div>
-            
             <div class="profile-select-block">
               <fieldset class="field">  
               <select id="gradeLevel" data-name="user.gradeLevel" name="gradeLevel" class="selectpicker-info " style="display: none;" placeholder="Grade Level?">
