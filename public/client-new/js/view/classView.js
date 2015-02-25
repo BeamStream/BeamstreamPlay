@@ -48,7 +48,9 @@ define(
 							'click #post-button' : 'postMessage',
 							'click #add-syllabus-attachment' : 'uploadSyllabusFiles',
 							'change #upload-syllabus-files-area' : 'getSyllabusUploadedData',
-							'keypress #resourcelink' : 'AddLinkPreview'
+							'keypress #resourcelink' : 'AddLinkPreview',
+							'keypress #contactcellNumber' : 'ContactcellNumber',
+							'keypress #contactemail' : 'Contactemail'
 						},
 
 						init : function() {
@@ -1385,6 +1387,23 @@ define(
 							}
 						},
 						
+						
+						ContactcellNumber : function(e) {
+							$("#contactcellNumber").setMask('(999) 999-9999');
+						},
+						
+						Contactemail : function(e){
+							$( "body" ).mouseup(function() {
+								var emailID = $("#contactemail").val();
+								var pattern = new RegExp(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/);
+						        var status = pattern.test(emailID);
+								if(status){
+									$("#email-error").html(' ');
+								}else{
+									$("#email-error").html('<span >* Please enter valid emailId</span>');
+								}
+							});
+						},
 
 						/**
 						 * PUBNUB real time push

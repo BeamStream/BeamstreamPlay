@@ -2,13 +2,14 @@
 @if(iam!="Student"){
 <div class="contact-info">
    <h5>CONTACT INFO</h5>
+   <div id="email-error"></div>
    <div class="email-phone-row row-fluid">
-      <input id="contactemail" type="text" placeholder="Email" class="professor-email span8" name="contactemail">
-      <input id="contactcellNumber" data-name="user.cellNumber" name="contactcellNumber" type="text" placeholder="(999) 999-9999" class="professor-phone span4">
+      <input id="contactemail" type="text" placeholder="Email"  name="contactemail" class="office-hours span6">
+      <input id="contactofficeHours" type="text" placeholder="Office Hours"  name="contactofficeHours" class="office-hours span6">
    </div>
    <div class="office-hour-row row-fluid">
-      <input id="contactofficeHours" type="text" placeholder="Office Hours" class="office-hours span6" name="contactofficeHours">
-      <input id="contactdays" type="text" placeholder="Mon-Fri" class="weekdays span6" name="contactdays">
+      <input id="contactdays" type="text" placeholder="Mon-Fri"  name="contactdays" class="office-hours span6">
+      <input id="contactcellNumber"  name="contactcellNumber" type="text" placeholder="(999) 999-9999" class="office-hours span6" >
    </div>
 </div>
 <script type="text/JavaScript" src="/beamstream-new/js/professorClassPageToogle.js"></script>
