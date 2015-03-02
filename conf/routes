@@ -249,6 +249,3 @@ GET    /linkedin/callback                                                       
 #GET      /document/:documentId                                                   controllers.DocumentController.getDocument(documentId:String)
 
 #POST 	/getMediafromPost 							                          controllers.MediaController.getMedia
-
-#Link Preview
-POST    /linkPreview                                                          controllers.LinkPreviewController.linkPreview
