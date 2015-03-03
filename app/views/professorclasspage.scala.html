@@ -2,63 +2,17 @@
 @if(iam!="Student"){
 <div class="contact-info">
    <h5>CONTACT INFO</h5>
+   <div id="email-error"></div>
    <div class="email-phone-row row-fluid">
-      <input id="contactemail" type="text" placeholder="Email" class="professor-email span8" name="contactemail">
-      <input id="contactcellNumber" data-name="user.cellNumber" name="contactcellNumber" type="text" placeholder="(999) 999-9999" class="professor-phone span4">
+      <input id="contactemail" type="text" placeholder="Email"  name="contactemail" class="office-hours span6">
+      <input id="contactofficeHours" type="text" placeholder="Office Hours"  name="contactofficeHours" class="office-hours span6">
    </div>
    <div class="office-hour-row row-fluid">
-      <input id="contactofficeHours" type="text" placeholder="Office Hours" class="office-hours span6" name="contactofficeHours">
-      <input id="contactdays" type="text" placeholder="Mon-Fri" class="weekdays span6" name="contactdays">
+      <input id="contactdays" type="text" placeholder="Mon-Fri"  name="contactdays" class="office-hours span6">
+      <input id="contactcellNumber"  name="contactcellNumber" type="text" placeholder="(999) 999-9999" class="office-hours span6" >
    </div>
 </div>
-<!-- <script>
-   $(function() {
-     $( "#dialog-modal" ).dialog({
-       autoOpen: false,
-       modal: true,
-       width: 700,
-       height: 400,
-       draggable: false,
-       resizable: false,
-       create: function (event) { $(event.target).parent().css({'position':'fixed','margin-left':'25%'});}
-     });
-     $( "#datepicker" ).datepicker();
-   });
-</script>
-<script type="text/JavaScript" src="/beamstream-new/js/libs/jquery/jquery-1.11.1.min.js"></script> -->
-
-<script>
-$(document).ready(function(){
-    $("#collapseOneHeading").click(function(){
-        $("#classAccess").toggle();
-    });
-
-    $("#collapseTwoHeading").click(function(){
-        $("#gradedfor").toggle();
-    });
-
-    $("#collapseSyllabusHeading").click(function(){
-        $("#add-syllabus-attachment").toggle();
-    });
-
-    $("#collapseThreeHeading").click(function(){
-        $("#resourcetitle").toggle();
-        $("#add-attachment").toggle();
-        $("#resourcelink").toggle();
-        $("#insterlinkTitle").toggle();
-    });
-
-    $("#collapseFourHeading").click(function(){
-    	$("#testresourcetitle").toggle();
-        $("#assignment").toggle();
-        $("#testdate").toggle();
-    });   
-
-    $("#collapseFiveHeading").click(function(){
-    	$("#attendance").toggle();
-    });  
-});
-</script>
+<script type="text/JavaScript" src="/beamstream-new/js/professorClassPageToogle.js"></script>
 <style>
 .professor-registration textarea {
     margin: 5px;
@@ -202,7 +156,7 @@ $(document).ready(function(){
                   
                   <div id="dialog-modal" title="Add a Link">
                      <p id="insterlinkTitle" style="display:none;">Insert link here and press space for preview:</p>
-                        <input id="resourcelink" type="text" name="resourcelink" placeholder="http://www.xyz.com" style="display:none;"/>
+                        <input id="resourcelink" type="text" name="resourcelink" placeholder="Type link here ..." style="display:none;"/>
                          <ul id="link-preview-area" class="answer">
 							<li>
 								<div id="LinkPreview">

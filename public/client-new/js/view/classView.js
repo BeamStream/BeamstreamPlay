@@ -48,7 +48,9 @@ define(
 							'click #post-button' : 'postMessage',
 							'click #add-syllabus-attachment' : 'uploadSyllabusFiles',
 							'change #upload-syllabus-files-area' : 'getSyllabusUploadedData',
-							'keypress #resourcelink' : 'AddLinkPreview'
+							'keypress #resourcelink' : 'AddLinkPreview',
+							'keypress #contactcellNumber' : 'ContactcellNumber',
+							'keypress #contactemail' : 'Contactemail'
 						},
 
 						init : function() {
@@ -1360,31 +1362,56 @@ define(
 							$('#link-preview-area').show();
 							var link=$("#resourcelink").val();
 							$.ajax({
-								type : 'POST',
-								url : "/linkPreview",
-								data : {
-									link : link
-								},
+								type : 'GET',
+								url : "http://api.embed.ly/1/oembed?url="+link+"",
 								dataType : "json",
 								success: function(data) {
+									console.log(data);
 									$('#link-preview-area').hide();
 									$('div#LinkPreview #floatingCirclesG').css('visibility', 'hidden');
 									$('div#LinkPreview #floatingCirclesG').css('display', 'none');
 									
-									$('#selector-wrapper').html(data.responseText);
-									
+									if(data.thumbnail_url){
+										var sendData =   "<div class=\"embed\">" +
+										"<div><img src=\""+data.thumbnail_url+"\" class=\"thumb\" style=\"max-width: 100%;max-height:100px\"></div>" +
+										"<div><a href=\""+data.url+"\" target=\"_blank\">"+data.title+"</a></div>" +
+										"<div class=\"preview-description\">"+data.description+"</div> " +
+										"<div><a href=\""+data.url+"\" class=\"provider\" target=\"_blank\">"+data.url+"</a></div></div>";
+									}else{
+										var sendData =   "<div class=\"embed\">" +
+										"<div><a href=\""+data.url+"\" target=\"_blank\">"+data.title+"</a></div>" +
+										"<div class=\"preview-description\">"+data.description+"</div> " +
+										"<div><a href=\""+data.url+"\" class=\"provider\" target=\"_blank\">"+data.url+"</a></div></div>";	
+									}
+									$('#selector-wrapper').html(sendData);
 					              },
 					              error: function(data){
 					            	  $('#link-preview-area').hide();
 					            	  $('div#LinkPreview #floatingCirclesG').css('visibility', 'hidden');
 									  $('div#LinkPreview #floatingCirclesG').css('display', 'none');
-									  
-									  $('#selector-wrapper').html(data.responseText);
+									  $('#selector-wrapper').html(" ");
 					              }
 							});
 							}
 						},
 						
+						
+						ContactcellNumber : function(e) {
+							$("#contactcellNumber").setMask('(999) 999-9999');
+						},
+						
+						Contactemail : function(e){
+							$( "body" ).mouseup(function() {
+								var emailID = $("#contactemail").val();
+								var pattern = new RegExp(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/);
+						        var status = pattern.test(emailID);
+								if(status){
+									$("#email-error").html(' ');
+								}else{
+									$("#email-error").html('<span >* Please enter valid emailId</span>');
+								}
+							});
+						},
 
 						/**
 						 * PUBNUB real time push

@@ -25,7 +25,7 @@
 header, footer){
 <div id="class-page" data-module="view/classPageView">
    <div id="classView" data-model="class">
-      <div class="right-container">
+      <div class="right-container" @if(request.uri=="/class"){ style="width:100%"}>
          <div class="professor-registration class-red-border class-border">
          <form id="class-info" method="post" action="@routes.ClassController.createClass">
             <div class="class-info-access">
