@@ -1389,6 +1389,7 @@ define(
 					            	  $('#link-preview-area').hide();
 					            	  $('div#LinkPreview #floatingCirclesG').css('visibility', 'hidden');
 									  $('div#LinkPreview #floatingCirclesG').css('display', 'none');
+									  $('#selector-wrapper').html(" ");
 					              }
 							});
 							}
