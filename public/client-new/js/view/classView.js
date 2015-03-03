@@ -1371,12 +1371,18 @@ define(
 									$('div#LinkPreview #floatingCirclesG').css('visibility', 'hidden');
 									$('div#LinkPreview #floatingCirclesG').css('display', 'none');
 									
-									var sendData =   "<div class=\"embed\">" +
-									"<div><img src=\""+data.thumbnail_url+"\" class=\"thumb\" style=\"max-width: 100%;max-height:100px\"></div>" +
-									"<div><a href=\""+data.url+"\" target=\"_blank\">"+data.title+"</a></div>" +
-									"<div class=\"preview-description\">"+data.description+"</div> " +
-									"<div><a href=\""+data.url+"\" class=\"provider\" target=\"_blank\">"+data.url+"</a></div></div>";
-									
+									if(data.thumbnail_url){
+										var sendData =   "<div class=\"embed\">" +
+										"<div><img src=\""+data.thumbnail_url+"\" class=\"thumb\" style=\"max-width: 100%;max-height:100px\"></div>" +
+										"<div><a href=\""+data.url+"\" target=\"_blank\">"+data.title+"</a></div>" +
+										"<div class=\"preview-description\">"+data.description+"</div> " +
+										"<div><a href=\""+data.url+"\" class=\"provider\" target=\"_blank\">"+data.url+"</a></div></div>";
+									}else{
+										var sendData =   "<div class=\"embed\">" +
+										"<div><a href=\""+data.url+"\" target=\"_blank\">"+data.title+"</a></div>" +
+										"<div class=\"preview-description\">"+data.description+"</div> " +
+										"<div><a href=\""+data.url+"\" class=\"provider\" target=\"_blank\">"+data.url+"</a></div></div>";	
+									}
 									$('#selector-wrapper').html(sendData);
 					              },
 					              error: function(data){
