@@ -50,7 +50,8 @@ define(
 							'change #upload-syllabus-files-area' : 'getSyllabusUploadedData',
 							'keypress #resourcelink' : 'AddLinkPreview',
 							'keypress #contactcellNumber' : 'ContactcellNumber',
-							'keypress #contactemail' : 'Contactemail'
+							'keypress #contactemail' : 'Contactemail',
+							'click .professor-days-of-week' : 'selectcontactdays'
 						},
 
 						init : function() {
@@ -1411,6 +1412,11 @@ define(
 									$("#email-error").html('<span >* Please enter valid emailId</span>');
 								}
 							});
+						},
+						
+						selectcontactdays : function(e) {
+							var clickedDays = $(e.target).attr('id');
+							$(".p" + clickedDays).toggleClass( "activedays" );
 						},
 
 						/**
