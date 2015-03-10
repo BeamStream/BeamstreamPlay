@@ -742,14 +742,6 @@ filter:alpha(opacity=40);
   text-shadow: none;
   vertical-align: middle;
   cursor: pointer;
-  background-color: #f5f5f5;
-  *background-color: #e6e6e6;
-  background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
-  background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
-  background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
-  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
-  background-repeat: repeat-x;
   border: none;
   *border: 0;
   border-color: #e6e6e6 #e6e6e6 #bfbfbf;
@@ -3322,7 +3314,7 @@ text-transform:uppercase
 -webkit-border-radius:8px 8px 0 0;
 -moz-border-radius:8px 8px 0 0;
 border-radius:8px 8px 0 0;
-background:url(../../beamstream-new/images/spryte.png) 384px 0px #F80046;
+background-color: @SoftRed;
 position:absolute;
 z-index:0;
 top:-20px;
@@ -3607,8 +3599,8 @@ text-shadow:none
 }
 
 .disable-step {
-background:#D22556!important;
-color:#6a2828!important
+background: @SoftRed !important;
+color: #6a2828 !important
 }
 
 .registration-modal {
@@ -4649,12 +4641,12 @@ padding-top:10px
 }
 
 ul.profile-top-menu h5 {
-text-align:center;
-font-size:11px;
-color:#cea94a;
-font-weight:500;
-text-transform:uppercase;
-padding-bottom:10px
+	text-align: center;
+	font-size: 11px;
+	color: @Orange;
+	font-weight: 500;
+	text-transform: uppercase;
+	padding-bottom: 10px
 }
 
 ul.profile-top-menu a {
@@ -4827,10 +4819,6 @@ font-size:11px;
 font-weight:500;
 float:left;
 padding-left:10px
-}
-
-.active-border {
-box-shadow:0 0 0 1px #d33a3a
 }
 
 .social-close {
@@ -6329,10 +6317,6 @@ margin:0 auto;
 float:none!important
 }
 
-.active-border {
-box-shadow:0 0 0 1px #d33a3a
-}
-
 .invite-dropdown-outer {
 float:left;
 padding:0 5% 0 0;
@@ -6452,9 +6436,10 @@ font-size:9px;
 font-weight:700
 }
 
-#createOrJoinStream.btn-large {
-	/*color: #ffffff;*/
+#createOrJoinStream.btn-large.btn-success {
+	color: #ffffff;
 	background-color: @LightBlue;
+	background-image: none;
 }
 
 button#schoolId {
@@ -8447,15 +8432,6 @@ line-height:20px;
 padding-top:10px
 }
 
-ul.profile-top-menu h5 {
-text-align:center;
-font-size:11px;
-color:#cea94a;
-font-weight:500;
-text-transform:uppercase;
-padding-bottom:10px
-}
-
 ul.profile-top-menu a {
 color:#fff;
 display:inline-block;
@@ -8620,7 +8596,7 @@ padding-left:10px
 }
 
 .active-border {
-box-shadow:0 0 0 1px #F80046;
+box-shadow:0 0 0 1px @SoftRed;
 }
 
 .social-close {
