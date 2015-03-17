@@ -41,8 +41,7 @@ requirejs.config({
 			deps : [ 'jquery' ]
 		},
 		'jqueryUI' : {
-			deps : [ 'jquery' ],
-			exports: "$"
+			deps : [ 'jquery' ]
 		}
 	}
 
