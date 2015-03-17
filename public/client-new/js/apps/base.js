@@ -1,7 +1,7 @@
 define([
     'console',
 	'moduleActivator',
-//	'jquery',
+	'jquery',
 	'jqueryUI',
 	'underscore',
 	'handlebars',
