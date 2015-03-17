@@ -82,8 +82,10 @@ define(
 
 							// get user informations from Social site ( janRain
 							// sign up case )
-							var userInfo = jQuery.parseJSON($('#registration')
-									.attr('data-value'));
+							if( $('#registration').attr('data-value') !== ""){
+								var userInfo = jQuery.parseJSON($('#registration')
+										.attr('data-value'));
+							}
 							var compiledTemplate = Handlebars
 									.compile(RegistrationTpl);
 
@@ -172,53 +174,58 @@ define(
 										type : 'GET',
 										url : '/findUserData',
 										success : function(data) {
-											if (data.data.username == undefined) {
-												$('#location').val(
-														data.data.location);
-											} else {
-												$('#username').val(
-														data.data.username);
-												$('#firstName').val(
-														data.data.firstName);
-												$('#lastName').val(
-														data.data.lastName);
-												$('#schoolName').val(
-														data.data.schoolName);
-												$('#major')
-														.val(data.data.major);
-												$('#aboutYourself')
-														.val(
-																data.data.aboutYourself);
-												var gradeLvl = data.data.gradeLevel;
-												$('[name=gradeLevel] option')
-														.filter(
-																function() {
-																	return ($(
-																			this)
-																			.text() == gradeLvl);
-																}).prop(
-																'selected',
-																true);
-												var degreePgrm = data.data.degreeProgram;
-												$('[name=degreeProgram] option')
-														.filter(
-																function() {
-																	return ($(
-																			this)
-																			.text() == degreePgrm);
-																}).prop(
-																'selected',
-																true);
-												$('#location').val(
-														data.data.location);
-												$('#cellNumber').val(
-														data.data.cellNumber);
-												$('#associatedSchoolId')
-														.val(
-																data.data.associatedSchoolId);
-												$('#myUserId').val(
-														data.data.userId);
+											if(data.data){
+												if (data.data.username == undefined) {
+													$('#location').val(
+															data.data.location);
+												} else {
+													$('#username').val(
+															data.data.username);
+													$('#firstName').val(
+															data.data.firstName);
+													$('#lastName').val(
+															data.data.lastName);
+													$('#schoolName').val(
+															data.data.schoolName);
+													$('#major')
+															.val(data.data.major);
+													$('#aboutYourself')
+															.val(
+																	data.data.aboutYourself);
+													var gradeLvl = data.data.gradeLevel;
+													$('[name=gradeLevel] option')
+															.filter(
+																	function() {
+																		return ($(
+																				this)
+																				.text() == gradeLvl);
+																	}).prop(
+																	'selected',
+																	true);
+													var degreePgrm = data.data.degreeProgram;
+													$('[name=degreeProgram] option')
+															.filter(
+																	function() {
+																		return ($(
+																				this)
+																				.text() == degreePgrm);
+																	}).prop(
+																	'selected',
+																	true);
+													$('#location').val(
+															data.data.location);
+													$('#cellNumber').val(
+															data.data.cellNumber);
+													$('#associatedSchoolId')
+															.val(
+																	data.data.associatedSchoolId);
+													$('#myUserId').val(
+															data.data.userId);
+												}
 											}
+										},
+										error: function(err){
+											console.log('ajax err', err)
 										}
 									});
 						},
