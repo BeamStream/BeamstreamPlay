@@ -2,8 +2,8 @@ requirejs.config({
 	waitSeconds : 500,
 	paths : {
 		moduleActivator : 'apps/common/module-activator',
-	//	jquery : '/beamstream-new/lib/jquery-1.9.1.min',
-		backbone : 'libs/backbone/backbone.0.9.2',
+		jquery : '/beamstream-new/lib/jquery-1.9.1',
+		backbone : 'libs/backbone/backbone.1.1.2',
 		console : 'libs/console/ba-debug.min',
 		underscore : 'libs/underscore/underscore-min.1.4.2',
 		handlebars : 'libs/handlebars/handlebars',
@@ -22,8 +22,11 @@ requirejs.config({
 	},
 	shim : {
 		'backbone' : {
-			deps : [ 'underscore','json2', 'jqueryUI' ],
+			deps : [ 'underscore','json2', 'jquery' ],
 			exports : 'Backbone'
+		},
+		underscore: {
+		    exports: "_"
 		},
 		'baseView' : {
 			deps : [ 'backbone', 'container' ]
@@ -38,7 +41,8 @@ requirejs.config({
 			deps : [ 'jquery' ]
 		},
 		'jqueryUI' : {
-			deps : [ 'jquery' ]
+			deps : [ 'jquery' ],
+			exports: "$"
 		}
 	}
 
