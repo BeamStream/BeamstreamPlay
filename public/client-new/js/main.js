@@ -2,7 +2,7 @@ requirejs.config({
 	waitSeconds : 500,
 	paths : {
 		moduleActivator : 'apps/common/module-activator',
-		jquery : '/beamstream-new/lib/jquery-1.9.1.min',
+		jquery : '/beamstream-new/lib/jquery-1',
 		backbone : 'libs/backbone/backbone.1.1.2',
 		console : 'libs/console/ba-debug.min',
 		underscore : 'libs/underscore/underscore-min.1.4.2',
