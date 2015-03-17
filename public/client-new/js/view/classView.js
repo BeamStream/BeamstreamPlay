@@ -770,133 +770,132 @@ define(
 								});
 								this.data.models[0].removeAttr('stream');
 								this.data.models[0].removeAttr('resultToSend');
-								
 								/* 
 								*add attachment(Study Resorces Attachment) in userMedia for professor class
 								*/
-							$('#msg-area').css('margin','-1px 0 -5px 14px');
-							$('#msg-area').css('padding','5px 6px 4px 6px');
-							$('.ask-outer').css('height', '0px');
-							$('a.ask-button').css('visibility', 'hidden');
-							$('div.loadingImage').css('display','block');
-							$('#uploded-file-area').hide();
-							var self = this;
-							var streamId = data.stream.id.id;
-							var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
-							var message = $('#msg-area').val();
-							// if(message){
-							// get message access private ? / public ?
-							var messageAccess, googleDoc = false;
-							var msgAccess = $('#private-to').attr('checked');
-							var privateTo = $('#select-privateTo')
-									.attr('value');
-							if (msgAccess == "checked") {	
-								messageAccess = privateTo;
-							} else {
-								messageAccess = "Public";
-							}
+								$('#msg-area').css('margin','-1px 0 -5px 14px');
+								$('#msg-area').css('padding','5px 6px 4px 6px');
+								$('.ask-outer').css('height', '0px');
+								$('a.ask-button').css('visibility', 'hidden');
+								$('div.loadingImage').css('display','block');
+								$('#uploded-file-area').hide();
+								var self = this;
+								var streamId = data.stream.id.id;
+								var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
+								var message = $('#msg-area').val();
+								// if(message){
+								// get message access private ? / public ?
+								var messageAccess, googleDoc = false;
+								var msgAccess = $('#private-to').attr('checked');
+								var privateTo = $('#select-privateTo')
+										.attr('value');
+								if (msgAccess == "checked") {	
+									messageAccess = privateTo;
+								} else {
+									messageAccess = "Public";
+								}
 
-							var trueUrl = '';
-							if (streamId) {
+								var trueUrl = '';
+								if (streamId) {
 
-								/* if there is any files for uploading */
-								if (this.file) {
-									var attachdata;
-									attachdata = new FormData();
-									attachdata.append('docDescription', message);
-									attachdata.append('docAccess', messageAccess);
-									attachdata.append('docData', self.file);
-									attachdata.append('streamId', streamId);
-									attachdata.append('uploadedFrom', "discussion");
-									attachdata.append('docURL', self.docurlAmazon);
-									/* post profile page details */
-									$
-											.ajax({
-												type : 'POST',
-												data : attachdata,
-												url : "/postSyllabusFromDisk",
-												cache : false,
-												contentType : false,
-												processData : false,
-												dataType : "json",
-												success : function(attachdata) {
-														// set progress bar as
-														// 100 %
-														$('#msg-area').val("");
-														$('#uploded-file')
-																.hide();
+									/* if there is any files for uploading */
+									if (this.file) {
+										var attachdata;
+										attachdata = new FormData();
+										attachdata.append('docDescription', message);
+										attachdata.append('docAccess', messageAccess);
+										attachdata.append('docData', self.file);
+										attachdata.append('streamId', streamId);
+										attachdata.append('uploadedFrom', "discussion");
+										attachdata.append('docURL', self.docurlAmazon);
+										/* post profile page details */
+										$
+												.ajax({
+													type : 'POST',
+													data : attachdata,
+													url : "/postSyllabusFromDisk",
+													cache : false,
+													contentType : false,
+													processData : false,
+													dataType : "json",
+													success : function(attachdata) {
+															// set progress bar as
+															// 100 %
+															$('#msg-area').val("");
+															$('#uploded-file')
+																	.hide();
 
-														self.file = "";
+															self.file = "";
 
-														$('#file-upload-loader').css("display","none");
+															$('#file-upload-loader').css("display","none");
 
-														var datVal = formatDateVal(data.message.timeCreated);
+															var datVal = formatDateVal(data.message.timeCreated);
 
-														var datas = {
-															"data" : attachdata,
-															"datVal" : datVal
-														}
+															var datas = {
+																"data" : attachdata,
+																"datVal" : datVal
+															}
 
-														// set the response data
-														// to model
-														if(self.attachdata.models[0]) {
-														self.attachdata.models[0]
-																.set({
-																	message : attachdata.message,
-																	docName : attachdata.docName,
-																	docDescription : attachdata.docDescription,
-																	profilePic : attachdata.profilePic
-																})
-														
+															// set the response data
+															// to model
+															if(self.attachdata.models[0]) {
+															self.attachdata.models[0]
+																	.set({
+																		message : attachdata.message,
+																		docName : attachdata.docName,
+																		docDescription : attachdata.docDescription,
+																		profilePic : attachdata.profilePic
+																	})
+															
 
-														/* Pubnub auto push */
-														PUBNUB
-																.publish({
-																	channel : "stream",
-																	message : {
-																		pagePushUid : self.pagePushUid,
-																		streamId : streamId,
-																		data : self.attachdata.models[0],
-																	}
+															/* Pubnub auto push */
+															PUBNUB
+																	.publish({
+																		channel : "stream",
+																		message : {
+																			pagePushUid : self.pagePushUid,
+																			streamId : streamId,
+																			data : self.attachdata.models[0],
+																		}
 
-																})
-														}
+																	})
+															}
 
-														// show the uploaded
-														// file on message llist
-														var messageItemView = new MessageItemView(
-																{
-																	model : self.attachdata.models[0]
-																})
-														$(
-																'#messageListView div.content')
-																.prepend(
-																		messageItemView
-																				.render().el);
-														$('.loadingImage').css('display','none');
+															// show the uploaded
+															// file on message llist
+															var messageItemView = new MessageItemView(
+																	{
+																		model : self.attachdata.models[0]
+																	})
+															$(
+																	'#messageListView div.content')
+																	.prepend(
+																			messageItemView
+																					.render().el);
+															$('.loadingImage').css('display','none');
 
-														self.selected_medias = [];
-														$(
-																'#share-discussions li.active')
-																.removeClass(
-																		'active');
+															self.selected_medias = [];
+															$(
+																	'#share-discussions li.active')
+																	.removeClass(
+																			'active');
 
-														$('a.ask-button').css(
-																'visibility',
-																'hidden');
-														$('.ask-outer')
-																.css('height',
-																		'0px');
+															$('a.ask-button').css(
+																	'visibility',
+																	'hidden');
+															$('.ask-outer')
+																	.css('height',
+																			'0px');
 
-												}
-											});
+													}
+												});
 
-								} 
+									} 
 
-							}
-							/*
-							*end attachment
-							*/
+								}
+								/*
+								*end attachment
+								*/
 
 								/*
 								 * PUBNUB auto push for updating the no.of users

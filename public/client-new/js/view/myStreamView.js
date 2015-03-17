@@ -52,7 +52,6 @@ define(
 							var currentStreamView = new StreamSliderView({
 								el : $('#sidebar')
 							})
-							
 							this.addView(currentStreamView);
 
 							this.addView(new DiscussionsView({
@@ -85,10 +84,8 @@ define(
 							this.addView(currentQuestionStream);
 							
 						
-							
 							// on streamId change, notify the questionStream
-							currentStreamView.on('change:streamId', function(
-									evt) {
+							currentStreamView.on('change:streamId', function(evt) {
 								currentQuestionStream.model.setQuestionStreamId(evt.streamId);						
 								
 								if(evt.streamId !== null && evt.streamId !== "remove-button")
@@ -104,9 +101,7 @@ define(
 									});
 									
 									}
-
 							});
-							
 							
 							
 							
