@@ -8,19 +8,14 @@ $(document).ready(function(){
         var isVisibleOneHeading = $( "#classAccess" ).is( ":visible" );
 		if(isVisibleOneHeading){
 			$("#classAccess").focus();
-	        //$("body").click(function(event) {
+	        $("#classAccess").blur(function(event) {
 	        	var data=$("#classAccess").val();
 	        	 if(data){
 	        		 $("#classAccess").attr("style", "display: inline-block;");
 	        	 }else{
-	        		 setTimeout(function () {
-	        			 var datalater=$("#classAccess").val();
-	        			 if(!datalater){
-		        			 $("#classAccess").fadeToggle();
-	        			 }
-	        		 }, 10000);
+	        		 $("#classAccess").attr("style", "display: none;");
 	        	 }
-	    	 //});	
+	    	 });	
 		}
     });
 
@@ -29,19 +24,14 @@ $(document).ready(function(){
         var isVisibleTwoHeading = $( "#gradedfor" ).is( ":visible" );
 		if(isVisibleTwoHeading){
 			$("#gradedfor").focus();
-	        //$("body").click(function(event) {
+	        $("#gradedfor").blur(function(event) {
 	        	var gradedfordata=$("#gradedfor").val();
 	        	 if(gradedfordata){
 	        		 $("#gradedfor").attr("style", "display: inline-block;");
 	        	 }else{
-	        		 setTimeout(function () {
-	        			 var gradedfordatalater=$("#gradedfor").val();
-	        			 if(!gradedfordatalater){
-		        			 $("#gradedfor").fadeToggle();
-	        			 }
-	        		 }, 10000);
+	        		 $("#gradedfor").attr("style", "display: none;");
 	        	 }
-	    	// });
+	    	});
 		}
     });
 
@@ -72,29 +62,61 @@ $(document).ready(function(){
         $("#insterlinkTitle").toggle();
         var isVisibleThreeHeading = $("#resourcetitle").is( ":visible" );
         if(isVisibleThreeHeading){
-	        //$("body").click(function(event) {
-	        	var dataAddAttachment=$("#file-name").text();
-	        	var dataresourcetitle=$("#resourcetitle").val();
-	        	var dataresourcelink=$("#resourcelink").val();
-	        	 if(dataAddAttachment || dataresourcetitle || dataresourcelink){
-	        		 $("#resourcetitle").attr("style", "display: inline-block;");
-	        		 $("#add-attachment").attr("style", "display: inline-block;");
-	        		 $("#resourcelink").attr("style", "display: inline-block;");
-	        		 $("#insterlinkTitle").attr("style", "display: inline-block;");
-	        	 }else{
-	        		 setTimeout(function () {
-	        			 var dataAddAttachmentLater=$("#file-name").text();
-	     	        	 var dataresourcetitleLater=$("#resourcetitle").val();
-	     	        	 var dataresourcelinkLater=$("#resourcelink").val();
-	        			 if(!dataAddAttachmentLater && !dataresourcetitleLater && !dataresourcelinkLater){
-		        			 $("#resourcetitle").fadeToggle();
-			        		 $("#add-attachment").fadeToggle();
-			        		 $("#resourcelink").fadeToggle();
-			        		 $("#insterlinkTitle").fadeToggle();
-	        			 }
-	        		 }, 10000);
-	        	 }
-	    	// });
+        	 $("#resourcetitle").focus();
+	        $("#resourcetitle").blur(function(event) {
+	        	setTimeout(function() {
+				  var focused =$("#resourcelink").is(":focus");
+				  if(!focused){
+					  var dataAddAttachment=$("#file-name").text();
+			        	var dataresourcetitle=$("#resourcetitle").val();
+			        	var dataresourcelink=$("#resourcelink").val();
+			        	 if(dataAddAttachment || dataresourcetitle || dataresourcelink){
+			        		 $("#resourcetitle").attr("style", "display: inline-block;");
+			        		 $("#add-attachment").attr("style", "display: inline-block;");
+			        		 $("#resourcelink").attr("style", "display: inline-block;");
+			        		 $("#insterlinkTitle").attr("style", "display: inline-block;");
+			        		 
+			        	 }else{
+			        		 
+			        		 $("#resourcetitle").attr("style", "display: none;");
+			        		 $("#add-attachment").attr("style", "display: none;");
+			        		 $("#resourcelink").attr("style", "display: none;");
+			        		 $("#insterlinkTitle").attr("style", "display: none;");
+			        	 }
+				  }
+	        	}, 10);
+	        	
+	        	
+	    	 });
+	        
+	        
+	        $("#resourcelink").blur(function(event) {
+	        	setTimeout(function() {
+				  var focused =$("#resourcetitle").is(":focus");
+				  if(!focused){
+					  var dataAddAttachment=$("#file-name").text();
+			        	var dataresourcetitle=$("#resourcetitle").val();
+			        	var dataresourcelink=$("#resourcelink").val();
+			        	 if(dataAddAttachment || dataresourcetitle || dataresourcelink){
+			        		 $("#resourcetitle").attr("style", "display: inline-block;");
+			        		 $("#add-attachment").attr("style", "display: inline-block;");
+			        		 $("#resourcelink").attr("style", "display: inline-block;");
+			        		 $("#insterlinkTitle").attr("style", "display: inline-block;");
+			        		 
+			        	 }else{
+			        		 
+			        		 $("#resourcetitle").attr("style", "display: none;");
+			        		 $("#add-attachment").attr("style", "display: none;");
+			        		 $("#resourcelink").attr("style", "display: none;");
+			        		 $("#insterlinkTitle").attr("style", "display: none;");
+			        	 }
+				  }
+	        				  
+	        	}, 10);
+	        	
+	        	
+	    	 });
+	        
 		}
     });
 
@@ -105,47 +127,76 @@ $(document).ready(function(){
 
         var isVisibleFourHeading = $("#testresourcetitle").is( ":visible" );
         if(isVisibleFourHeading){
-	        //$("body").click(function(event) {
-	        	var datatestresourcetitle=$("#testresourcetitle").val();
-	        	var datatestdate=$("#testdate").val();
-	        	 if(datatestresourcetitle || datatestdate){
-	        		 $("#testresourcetitle").attr("style", "display: inline-block;");
-	        		 $("#assignment").attr("style", "display: inline-block;");
-	        		 $("#testdate").attr("style", "display: inline-block;");
-	        	 }else{
-	        		 setTimeout(function () {
-	     	        	 var datatestresourcetitleLater=$("#testresourcetitle").val();
-	     	        	 var datatestdateLater=$("#testdate").val();
-	        			 if(!datatestresourcetitleLater && !datatestdateLater){
-		        			 $("#testresourcetitle").fadeToggle();
-			        		 $("#assignment").fadeToggle();
-			        		 $("#testdate").fadeToggle();
-	        			 }
-	        		 }, 10000);
-	        	 }
-	    	// });
+        	$("#testresourcetitle").focus();
+	        $("#testresourcetitle").blur(function(event) {
+	        	setTimeout(function() {
+					  var focused =$("#testdate").is(":focus");
+					  if(!focused){
+						  var datatestresourcetitle=$("#testresourcetitle").val();
+				        	var datatestdate=$("#testdate").val();
+				        	 if(datatestresourcetitle || datatestdate){
+				        		 $("#testresourcetitle").attr("style", "display: inline-block;");
+				        		 $("#assignment").attr("style", "display: inline-block;");
+				        		 $("#testdate").attr("style", "display: inline-block;");
+				        	 }else{
+				        		 $("#testresourcetitle").attr("style", "display: none;");
+				        		 $("#assignment").attr("style", "display: none;");
+				        		 $("#testdate").attr("style", "display: none;");
+				        	 }
+					  }
+					  
+					  
+					  /*var Isvalue = $("#assignment").val();
+					  if(Isvalue){
+						  	$("#testresourcetitle").attr("style", "display: inline-block;");
+			        		$("#assignment").attr("style", "display: inline-block;");
+			        		$("#testdate").attr("style", "display: inline-block;");
+						  var isSelected = $("#assignment").is(":selected");
+						   if(isSelected){
+							  	console.log("selected");
+						   }
+					  }*/
+					  
+		        				  
+		        }, 10);
+	    	 });
+	        
+	        $("#testdate").blur(function(event) {
+	        	setTimeout(function() {
+					  var focused =$("#testresourcetitle").is(":focus");
+					  if(!focused){
+						  var datatestresourcetitle=$("#testresourcetitle").val();
+				        	var datatestdate=$("#testdate").val();
+				        	 if(datatestresourcetitle || datatestdate){
+				        		 $("#testresourcetitle").attr("style", "display: inline-block;");
+				        		 $("#assignment").attr("style", "display: inline-block;");
+				        		 $("#testdate").attr("style", "display: inline-block;");
+				        	 }else{
+				        		 $("#testresourcetitle").attr("style", "display: none;");
+				        		 $("#assignment").attr("style", "display: none;");
+				        		 $("#testdate").attr("style", "display: none;");
+				        	 }
+					  }
+		        				  
+		        }, 10);
+	    	 });
 		}
 		
     });   
 
     $("#collapseFiveHeading").click(function(){
     	$("#attendance").toggle();
-
     	var isVisibleFiveHeading = $( "#attendance" ).is( ":visible" );
 		if(isVisibleFiveHeading){
-	        //$("body").click(function(event) {
+			$("#attendance").focus();
+	        $("#attendance").blur(function(event) {
 	        	var dataattendance=$("#attendance").val();
 	        	 if(dataattendance){
 	        		 $("#attendance").attr("style", "display: inline-block;");
 	        	 }else{
-	        		 setTimeout(function () {
-	        			 var dataattendanceLater=$("#attendance").val();
-	        			 if(!dataattendanceLater){
-		        			 $("#attendance").fadeToggle();
-	        			 }
-	        		 }, 10000);
+	        		 $("#attendance").attr("style", "display: none;");
 	        	 }
-	    	 //});
+	    	 });
 		}
     	
     });  
