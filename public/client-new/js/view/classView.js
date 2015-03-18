@@ -59,7 +59,8 @@ define(
 							'click #collapseFourHeading' : 'collapseFourHeadingFunc',
 							'click #collapseFiveHeading' : 'collapseFiveHeadingFunc',
 							'focus #contactofficeHours' : 'contactofficeHoursSetTime',
-							'click #Hidepreview'  : 'HidepreviewFunc'
+							'click #Hidepreview'  : 'HidepreviewFunc',
+							'focusin #testdate'   : 'TestDate'
 						},
 
 						init : function() {
@@ -1619,6 +1620,10 @@ define(
 						
 						HidepreviewFunc : function(e){
 							$(".embed").hide();
+						},
+						
+						TestDate : function(e){
+							 $( "#testdate" ).datepicker();
 						},
 
 						/**
