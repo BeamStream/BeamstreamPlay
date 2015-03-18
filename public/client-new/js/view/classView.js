@@ -51,7 +51,15 @@ define(
 							'keypress #resourcelink' : 'AddLinkPreview',
 							'keypress #contactcellNumber' : 'ContactcellNumber',
 							'keypress #contactemail' : 'Contactemail',
-							'click .professor-days-of-week' : 'selectcontactdays'
+							'click .professor-days-of-week' : 'selectcontactdays',
+							'click #collapseOneHeading' : 'collapseOneHeadingFunc',
+							'click #collapseTwoHeading' : 'collapseTwoHeadingFunc',
+							'click #collapseSyllabusHeading' : 'collapseSyllabusHeadingFunc',
+							'click #collapseThreeHeading' : 'collapseThreeHeadingFunc',
+							'click #collapseFourHeading' : 'collapseFourHeadingFunc',
+							'click #collapseFiveHeading' : 'collapseFiveHeadingFunc',
+							'focus #contactofficeHours' : 'contactofficeHoursSetTime',
+							'click #Hidepreview'  : 'HidepreviewFunc'
 						},
 
 						init : function() {
@@ -1278,6 +1286,7 @@ define(
 						
 						
 						uploadSyllabusFiles : function(eventName) {
+							
 							eventName.preventDefault();
 							$('#upload-syllabus-files-area').click();
 				
@@ -1374,16 +1383,19 @@ define(
 									
 									if(data.thumbnail_url){
 										var sendData =   "<div class=\"embed\">" +
+										"<div class=\"action\" ><a href=\"javascript:void(0)\" id=\"Hidepreview\" class=\"nothumb\" style=\" float:right;display:none;\">✕</a></div>"+
 										"<div><img src=\""+data.thumbnail_url+"\" class=\"thumb\" style=\"max-width: 100%;max-height:100px\"></div>" +
 										"<div><a href=\""+data.url+"\" target=\"_blank\">"+data.title+"</a></div>" +
 										"<div class=\"preview-description\">"+data.description+"</div> " +
-										"<div><a href=\""+data.url+"\" class=\"provider\" target=\"_blank\">"+data.url+"</a></div></div>";
+										"<div><a href=\""+data.url+"\" class=\"provider\" target=\"_blank\">"+data.url+"</a></div></div>";	
 									}else{
 										var sendData =   "<div class=\"embed\">" +
+										"<div class=\"action\" ><a href=\"javascript:void(0)\" id=\"Hidepreview\" class=\"nothumb\" style=\" float:right;display:none;\">✕</a></div>"+
 										"<div><a href=\""+data.url+"\" target=\"_blank\">"+data.title+"</a></div>" +
 										"<div class=\"preview-description\">"+data.description+"</div> " +
-										"<div><a href=\""+data.url+"\" class=\"provider\" target=\"_blank\">"+data.url+"</a></div></div>";	
+										"<div><a href=\""+data.url+"\" class=\"provider\" target=\"_blank\">"+data.url+"</a></div></div>" ;	
 									}
+									
 									$('#selector-wrapper').html(sendData);
 					              },
 					              error: function(data){
@@ -1417,6 +1429,196 @@ define(
 						selectcontactdays : function(e) {
 							var clickedDays = $(e.target).attr('id');
 							$(".p" + clickedDays).toggleClass( "activedays" );
+						},
+						
+						collapseOneHeadingFunc : function(e){
+							$("#classAccess").show();
+					        var isVisibleOneHeading = $( "#classAccess" ).is( ":visible" );
+							if(isVisibleOneHeading){
+								$("#classAccess").focus();
+						        $("#classAccess").blur(function(event) {
+						        	var data=$("#classAccess").val();
+						        	 if(!data){
+						        		
+						        		 $("#classAccess").attr("style", "display: none;");
+						        	 }
+						    	 });	
+							}
+						},
+						
+						collapseTwoHeadingFunc : function(e){
+							$("#gradedfor").show();
+					        var isVisibleTwoHeading = $("#gradedfor").is( ":visible" );
+							if(isVisibleTwoHeading){
+								$("#gradedfor").focus();
+						        $("#gradedfor").blur(function(event) {
+						        	var gradedfordata=$("#gradedfor").val();
+						        	 if(!gradedfordata){
+						        		 $("#gradedfor").attr("style", "display: none;");
+						        	 }
+						    	});
+							}
+						},
+						
+						collapseSyllabusHeadingFunc : function(e){
+							$("#add-syllabus-attachment").toggle();
+							
+							/*var isVisibleSyllabusHeading = $( "#add-syllabus-attachment" ).is( ":visible" );
+							if(isVisibleSyllabusHeading){
+						        //$("body").click(function(event) {
+						        	var dataAttachment=$("#syllabus-file-name").text();
+						        	 if(dataAttachment){
+						        		 $("#add-syllabus-attachment").attr("style", "display: inline-block;");
+						        	 }else{
+						        		 setTimeout(function () {
+						        			 var dataAttachmentLater=$("#syllabus-file-name").text();
+						        			 if(!dataAttachmentLater){
+							        			 $("#add-syllabus-attachment").fadeToggle();
+						        			 }
+						        		 }, 10000);
+						        	 }
+						    	 //});
+							}*/
+						},
+						
+						collapseThreeHeadingFunc : function(e){
+							$("#resourcetitle").show();
+					        $("#add-attachment").show();
+					        $("#resourcelink").show();
+					        $("#insterlinkTitle").show();
+					        var isVisibleThreeHeading = $("#resourcetitle").is( ":visible" );
+					        if(isVisibleThreeHeading){
+					        	 $("#resourcetitle").focus();
+						        $("#resourcetitle").blur(function(event) {
+						        	setTimeout(function() {
+									  var focused =$("#resourcelink").is(":focus");
+									  if(!focused){
+										  var dataAddAttachment=$("#file-name").text();
+								        	var dataresourcetitle=$("#resourcetitle").val();
+								        	var dataresourcelink=$("#resourcelink").val();
+								        	 if(dataAddAttachment || dataresourcetitle || dataresourcelink){
+								        		 $("#resourcetitle").attr("style", "display: inline-block;");
+								        		 $("#add-attachment").attr("style", "display: inline-block;");
+								        		 $("#resourcelink").attr("style", "display: inline-block;");
+								        		 $("#insterlinkTitle").attr("style", "display: inline-block;");
+								        		 
+								        	 }else{
+								        		 
+								        		 $("#resourcetitle").attr("style", "display: none;");
+								        		 $("#add-attachment").attr("style", "display: none;");
+								        		 $("#resourcelink").attr("style", "display: none;");
+								        		 $("#insterlinkTitle").attr("style", "display: none;");
+								        	 }
+									  }
+						        	}, 10);
+						        	
+						        	
+						    	 });
+						        
+						        
+						        $("#resourcelink").blur(function(event) {
+						        	setTimeout(function() {
+									  var focused =$("#resourcetitle").is(":focus");
+									  if(!focused){
+										  var dataAddAttachment=$("#file-name").text();
+								        	var dataresourcetitle=$("#resourcetitle").val();
+								        	var dataresourcelink=$("#resourcelink").val();
+								        	 if(dataAddAttachment || dataresourcetitle || dataresourcelink){
+								        		 $("#resourcetitle").attr("style", "display: inline-block;");
+								        		 $("#add-attachment").attr("style", "display: inline-block;");
+								        		 $("#resourcelink").attr("style", "display: inline-block;");
+								        		 $("#insterlinkTitle").attr("style", "display: inline-block;");
+								        		 
+								        	 }else{
+								        		 
+								        		 $("#resourcetitle").attr("style", "display: none;");
+								        		 $("#add-attachment").attr("style", "display: none;");
+								        		 $("#resourcelink").attr("style", "display: none;");
+								        		 $("#insterlinkTitle").attr("style", "display: none;");
+								        	 }
+									  }
+						        				  
+						        	}, 10);
+						        	
+						        	
+						    	 });
+						        
+							}
+						},
+						
+						collapseFourHeadingFunc : function(e){
+							$("#testresourcetitle").toggle();
+					        $("#assignment").toggle();
+					        $("#testdate").toggle();
+
+					        var isVisibleFourHeading = $("#testresourcetitle").is( ":visible" );
+					        if(isVisibleFourHeading){
+					        	$("#testresourcetitle").focus();
+						        $("#testresourcetitle").blur(function(event) {
+						        	setTimeout(function() {
+										  var focused =$("#testdate").is(":focus");
+										  if(!focused){
+											  var datatestresourcetitle=$("#testresourcetitle").val();
+									        	var datatestdate=$("#testdate").val();
+									        	 if(datatestresourcetitle || datatestdate){
+									        		 $("#testresourcetitle").attr("style", "display: inline-block;");
+									        		 $("#assignment").attr("style", "display: inline-block;");
+									        		 $("#testdate").attr("style", "display: inline-block;");
+									        	 }else{
+									        		 $("#testresourcetitle").attr("style", "display: none;");
+									        		 $("#assignment").attr("style", "display: none;");
+									        		 $("#testdate").attr("style", "display: none;");
+									        	 }
+										  }
+										  
+							        				  
+							        }, 10);
+						    	 });
+						        
+						        $("#testdate").blur(function(event) {
+						        	setTimeout(function() {
+										  var focused =$("#testresourcetitle").is(":focus");
+										  if(!focused){
+											  var datatestresourcetitle=$("#testresourcetitle").val();
+									        	var datatestdate=$("#testdate").val();
+									        	 if(datatestresourcetitle || datatestdate){
+									        		 $("#testresourcetitle").attr("style", "display: inline-block;");
+									        		 $("#assignment").attr("style", "display: inline-block;");
+									        		 $("#testdate").attr("style", "display: inline-block;");
+									        	 }else{
+									        		 $("#testresourcetitle").attr("style", "display: none;");
+									        		 $("#assignment").attr("style", "display: none;");
+									        		 $("#testdate").attr("style", "display: none;");
+									        	 }
+										  }
+							        				  
+							        }, 10);
+						    	 });
+							}
+						},
+						
+						collapseFiveHeadingFunc : function(e){
+							$("#attendance").toggle();
+					    	var isVisibleFiveHeading = $( "#attendance" ).is( ":visible" );
+							if(isVisibleFiveHeading){
+								$("#attendance").focus();
+						        $("#attendance").blur(function(event) {
+						        	var dataattendance=$("#attendance").val();
+						        	 if(dataattendance){
+						        		 $("#attendance").attr("style", "display: inline-block;");
+						        	 }else{
+						        		 $("#attendance").attr("style", "display: none;");
+						        	 }
+						    	 });
+							}
+						},
+						
+						contactofficeHoursSetTime : function(e){
+							$('#contactofficeHours').timepicker();
+						},
+						
+						HidepreviewFunc : function(e){
+							$(".embed").hide();
 						},
 
 						/**
