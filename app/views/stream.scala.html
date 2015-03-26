@@ -4,32 +4,18 @@ flash:play.api.mvc.Flash, request: RequestHeader)
 @meta = {} 
 
 @CSS = {
-<!-- embedly preview js -->
     <link rel="stylesheet" href="/beamstream-new/css/extracss/embedly-preview.css" type="text/css" />
-<!-- Include professorRegistration.css that is created automatically  -->
-<link rel="stylesheet" href="@routes.Assets.at("/public/stylesheets","professorRegistration.css")" type="text/css" />
-<!-- question feed stylesheet -->
+	<link rel="stylesheet" href="@routes.Assets.at("/public/stylesheets","professorRegistration.css")" type="text/css" />
 	<link href="@routes.Assets.at("/public/stylesheets","questionStreamStyle.css")" rel="stylesheet" type="text/css" />
-<!--  prettyPhoto -->
     <link rel="stylesheet" href="/beamstream-new/css/extracss/prettyPhoto.css" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
 	<link href="@routes.Assets.at("/public/stylesheets","lessgoogledocs/main.css")" rel="stylesheet" type="text/css" />
 	<link href="@routes.Assets.at("/public/stylesheets","lessgoogledocs/main-creatgdocs.css")" rel="stylesheet" type="text/css" />
 	<link href="@routes.Assets.at("/public/stylesheets","lessgoogledocs/chat.css")" rel="stylesheet" type="text/css" />
-<!--  <link rel="stylesheet" href="/beamstream-new/css/cssgoogledocs/normalize.css"> -->
-
-
-<!-- <link rel="stylesheet" href="/beamstream-new/css/cssgoogledocs/main.css">
-        <link rel="stylesheet" href="/beamstream-new/css/cssgoogledocs/header.css">
-        <link rel="stylesheet" href="/beamstream-new/css/cssgoogledocs/content.css">
-        <link rel="stylesheet" href="/beamstream-new/css/cssgoogledocs/sidebar.css">
- -->
 } 
 
 @JS = {
 <script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","lib/bootstrap-dropdownhover.js")"></script>
 <script src="@routes.Assets.at("/public/javascripts","BS_social.js")" type="text/javascript"></script>
-
-<!-- Random Id Generation -->
 
 <script type='text/javascript'>
 	function randomString(length) {
@@ -49,20 +35,8 @@ flash:play.api.mvc.Flash, request: RequestHeader)
 
 	var div = randomString(8);
 </script>
-<!-- Random Id Generation -->
-
-<!-- bootstrap dialog popups -->
 <script src="@routes.Assets.at("/public/javascripts","lib/extralib/bootbox.min.js")" type="text/javascript"></script>
-<!-- End -->
-
-<!-- for making pie charts -->
 <script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","lib/extralib/raphael.js")"></script>
-<!-- end -->
-
-
-<!--  prettyPhoto js -->
-<!-- <script src="/beamstream-new/lib/extralib/jquery.prettyPhoto.js" type="text/javascript" -->
-<!--         charset="utf-8"></script> -->
 } 
 
 @bodyCls = {} 
@@ -674,13 +648,7 @@ ul li#showSubList:hover ul {
 
 
 		</div>
-		<!-- Modal for access google doc ends-->
-		
-		
-		
-		<!-- Modal for create google doc ends-->
                                 
-
 			</div>
 
 
@@ -982,14 +950,6 @@ ul li#showSubList:hover ul {
 			   </div>
 			</div>
 
-			
-			
-				<!-- <div id="googleDocPopupCloseBtn" class="close-icon close" aria-hidden="true"
-						data-dismiss="modal" style="margin: 20px 0px 0px 0px;">
-						<img width="22" height="22"
-							src="/beamstream-new/images/close-pop.png">
-					</div>	-->
-					
 				
 				<div class="modal-header" style="background:#fff;bak">
 				
@@ -1012,27 +972,6 @@ ul li#showSubList:hover ul {
 								</p>	
 							</div>
 						</div>
-            <!-- Google Doc Popup modal ends -->
-
-
-
-		
-
-
-
-
-
-
-
-
-
-
-
-		
-
-		<!--                                    -->
-		<!-- Modal for upload google doc starts -->
-		<!--                                    -->
 
 		<div id="uploadgoogledoc"
 			class="modal hide fade invite-pop-up-googledoc" role="dialog"
@@ -1109,10 +1048,7 @@ ul li#showSubList:hover ul {
 		</div>
 
 
-		<div id="questionStreamView">
-		
-		
-		</div>
+		<div id="questionStreamView"></div>
 
 
 <div id="sidequestionexpand">

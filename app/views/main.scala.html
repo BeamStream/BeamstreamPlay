@@ -11,14 +11,9 @@
   <head>
     <title>@title</title>
     @meta
-    
     @CSS
-		<link rel="shortcut icon" href="/beamstream-new/images/favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="/beamstream-new/images/favicon.ico" type="image/x-icon"/>
    
-  <!--   <script type="text/javascript" src="/beamstream-new/js/libs/backbone/backbone-validator.js"></script> 
-     <script type="text/javascript" src="/beamstream-new/js/model/baseModel.js"></script>
-     <script type="text/javascript" src="/beamstream-new/js/model/user.js"></script>
-     <script type="text/javascript" src="/beamstream-new/js/model/userLogin.js"></script> -->
      <script type="text/javascript" src='@routes.StreamController.javascriptRoutes()'></script>
 	 <script type="text/JavaScript" src="/beamstream-new/js/apps/common/modernizr-2.6.1.min.js"></script> 
 
@@ -30,97 +25,40 @@
 	 
 
 <!-- Online User's call -->
-
-
-
-
-
-
-
-	<script>
-		var __content = {};
-	</script>
     <script>
-					//    $(document).bind('mobileinit', function() {
-					//             $.support.touchOverflow = true;
-					//            $.mobile.touchOverflowEnabled = true;
-					// });
+		var __content = {};
+		try {
+			localStorage.test = 2;// try to use localStorage      
+		} catch (e) {//there was an error so...
+			alert('You are in Private Mode\nPlease deactivate Private Mode and reload the page.');
+		}
+		/* for beta user share popups */
+		localStorage["shareWidget"] = '';
 
-					try {
-						localStorage.test = 2;// try to use localStorage      
-					} catch (e) {//there was an error so...
-						alert('You are in Private Mode\nPlease deactivate Private Mode and reload the page.');
-					}
-					/* for beta user share popups */
-					localStorage["shareWidget"] = '';
+		/*  Method to format date and returns */
+		function formatDateVal(dateVal) {
+			var m_names = new Array("January", "February", "March",
+					"April", "May", "June", "July", "August",
+					"September", "October", "November", "December");
+			var d = new Date(dateVal);
+			var curr_date = d.getDate();
+			var curr_month = d.getMonth() + 1; //Months are zero based
+			var curr_year = d.getFullYear();
+			return curr_date + " " + m_names[d.getMonth()] + ", "
+					+ curr_year;
+		}
 
-					/*  Method to format date and returns */
-					function formatDateVal(dateVal) {
-						var m_names = new Array("January", "February", "March",
-								"April", "May", "June", "July", "August",
-								"September", "October", "November", "December");
-						var d = new Date(dateVal);
-						var curr_date = d.getDate();
-						var curr_month = d.getMonth() + 1; //Months are zero based
-						var curr_year = d.getFullYear();
-						return curr_date + " " + m_names[d.getMonth()] + ", "
-								+ curr_year;
-					}
+		/* render addnew school popup */
+		function populateAddNewSchool(parentId, schoolName) {
 
-					/* render addnew school popup */
-					function populateAddNewSchool(parentId, schoolName) {
+			$('#newSchoolModal').modal("show");
+			// shows the entered school name on registration page in a add new school popup
+			$('#new-school').attr('value', schoolName);
 
-						$('#newSchoolModal').modal("show");
-						// shows the entered school name on registration page in a add new school popup
-						$('#new-school').attr('value', schoolName);
-
-					}
-				</script>
-				
-				
-				
-
-
-	   
-    <!--  <script type="text/javascript">
-					var _gaq = _gaq || [];
-					var pluginUrl = '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
-					_gaq.push([ '_require', 'inpage_linkid', pluginUrl ]);
-					_gaq.push([ '_setAccount', 'UA-18936722-1' ]);
-					_gaq.push([ '_trackPageview' ]);
-
-					(function() {
-						var ga = document.createElement('script');
-						ga.type = 'text/javascript';
-						ga.async = true;
-						ga.src = ('https:' == document.location.protocol ? 'https://ssl'
-								: 'http://www')
-								+ '.google-analytics.com/ga.js';
-						var s = document.getElementsByTagName('script')[0];
-						s.parentNode.insertBefore(ga, s);
-					})();
-				</script>  -->
-	
-
+		}
+	</script>
     @JS
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-	<!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <!-- Disable Back Button -->
-      <!--<script type="text/javascript">
-							function preventBack() {
-								window.history.forward();
-							}
-							window.onunload = function() {
-								null;
-							};
-							setTimeout("preventBack()", 0);
-						</script>-->
-    
     <!-- Online User's call -->
-
 <script type="text/javascript">
 	function notifyOnline() {
 		$.ajax({
@@ -133,15 +71,10 @@
 	setInterval(notifyOnline, 5000); // you could choose not to continue on failure...
 </script>
 <!-- Online User's call -->
-    
   </head>
- 
   <body class="@bodyClass" @bodyModule>
-  
-
     <div id="container">
         @header
-        
          <div id="body-container" class="container-fluid ">
     	 <div class="main-container"> 
 	        @sideBar
@@ -149,56 +82,14 @@
 	        @footer
         </div>
 	    </div>
-	    
     </div>
      <!-- FOR PubNub -->
      <div pub-key="pub-a8c5db9f-8482-4092-b9e4-44fda38a9d51"
 		sub-key="sub-315698a6-0b22-11e2-80cd-aba6e1687b8d" ssl="off"
 		origin="pubsub.pubnub.com" id="pubnub">
 	</div>
-
-
-<script src="@routes.Assets.at("/public/javascripts","pubnub.js")"></script>   
-
-<!-- <script src="https://pubnub.a.ssl.fastly.net/pubnub-3.5.48.min.js"></script>    -->
-
-
+	<script src="@routes.Assets.at("/public/javascripts","pubnub.js")"></script>   
     <script data-main="/beamstream-new/js/main" src="/beamstream-new/js/libs/require/require.2.1.2.min.js"></script>
-    
-
     @bodyJS
-
-<!-- Google Analytics -->    
- <!--  <script>
- 
-  (function(i,s,o,g,r,a,m){
-	  i['GoogleAnalyticsObject']=r;  // Acts as a pointer to support renaming.
-
-	// Creates an initial ga() function.  The queued commands will be executed once analytics.js loads.
-	  i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)
-  },
-
-  //Sets the time (as an integer) this tag was executed.  Used for timing hits.
-  i[r].l=1*new Date();
-
-  //Insert the script tag asynchronously.  Inserts above current tag to prevent blocking in
-  // addition to using the async attribute.
-  a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];
-  a.async=1;
-  a.src=g;
-  m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-52493473-1', 'auto');  // Creates the tracker with default parameters.
-  ga('send', 'pageview');                 // Sends a pageview hit.
-  ga('set', 'anonymizeIp', true);         // Anonymize IP of all hits.
-
- </script> --> 
-<!-- End Google Analytics -->
-    
-
   </body>
-  
 </html>
