@@ -44,20 +44,14 @@ define(
 							'change #degreeProgram' : 'addOtherDegree',
 							'change #graduate' : 'showGraduateType',
 							'click #cancle_registration' : 'cancelRegistration',
-							'blur #username':'usernamecheck',
-
+							'blur #username':'usernamecheck'
 						},
 
 						onAfterInit : function() {
-
 							this.data.reset();
 							this.profile = null;
 						},
-
-						
-						
 						usernamecheck : function(e){
-							
 							var username = $("#username").val();
 							$.ajax ({
 								 type : 'POST',
@@ -78,156 +72,58 @@ define(
 						 * @TODO JanRain Sign up
 						 */
 						displayPage : function(callback) {
-							
-
 							// get user informations from Social site ( janRain
 							// sign up case )
 							if( $('#registration').attr('data-value') !== ""){
-								var userInfo = jQuery.parseJSON($('#registration')
-										.attr('data-value'));
+								var userInfo = jQuery.parseJSON($('#registration').attr('data-value'));
 							}
-							var compiledTemplate = Handlebars
-									.compile(RegistrationTpl);
-
+							var compiledTemplate = Handlebars.compile(RegistrationTpl);
 							// DH Remove commented code when ready //
-							this.$(".content")
-									.html(compiledTemplate(this.data));
+							this.$(".content").html(compiledTemplate(this.data));
 							this.temp_photo = '/beamstream-new/images/step-one-pic.png';
 							this.enableStepTwo();
 							$("#cellNumber").setMask('(999) 999-9999');
-							// Remove up to here. Uncomment below this line //
-
-							/*
-							 * if(userInfo == null){ // signup via email
-							 * 
-							 * this.$(".content").html(
-							 * compiledTemplate(this.data));
-							 * this.temp_photo='/beamstream-new/images/step-one-pic.png'; }
-							 * else{ //signup via janRain if (userInfo.stat ==
-							 * "ok") {
-							 * 
-							 * var firstName = '', lastName ='', location ='',
-							 * email='' ;
-							 * this.temp_photo='/beamstream-new/images/step-one-pic.png';
-							 * firstName = userInfo.profile.name.givenName;
-							 * lastName = userInfo.profile.name.familyName;
-							 * 
-							 * this.data.models[0].set({'firstName':firstName ,
-							 * 'lastName': lastName});
-							 * 
-							 * if (userInfo.profile.providerName == "Twitter"){
-							 * 
-							 * var formattedName =
-							 * userInfo.profile.name.formatted; var parts =
-							 * formattedName.split(' '); if(parts.length > 1 ) {
-							 * firstName =
-							 * formattedName.substr(0,formattedName.indexOf('
-							 * ')); lastName =
-							 * formattedName.substr(formattedName.indexOf('
-							 * ')+1); } if(parts.length == 1) { firstName =
-							 * userInfo.profile.name.formatted; lastName =''; }
-							 * 
-							 * if(userInfo.profile.address === undefined){ }
-							 * else{ location =
-							 * userInfo.profile.address.formatted; }
-							 * this.temp_photo = userInfo.profile.photo; } else
-							 * if(userInfo.profile.providerName == "Facebook"){
-							 * 
-							 * if(userInfo.profile.address === undefined){ }
-							 * else{ location =
-							 * userInfo.profile.address.formatted; } email =
-							 * userInfo.profile.email; this.temp_photo =
-							 * userInfo.profile.photo; } else if
-							 * (userInfo.profile.providerName == "LinkedIn") {
-							 * 
-							 * email = userInfo.profile.email; this.temp_photo =
-							 * userInfo.profile.photo; } else if
-							 * (userInfo.profile.providerName == "Google") {
-							 * 
-							 * email = userInfo.profile.email; this.temp_photo =
-							 * userInfo.profile.photo; } else{ }
-							 * 
-							 * userInfo = { "status" : "true" , "firstName" :
-							 * firstName,"lastName": lastName,"location":
-							 * location, "email": email ,"photo":
-							 * this.temp_photo};
-							 * 
-							 * this.data.models[0].set({'firstName':firstName ,
-							 * 'lastName': lastName , 'location': location
-							 * ,'mailId': email}); this.$(".content").html(
-							 * compiledTemplate(userInfo)); } }
-							 */
-
 						},
 
 						onAfterRender : function() {
-
 							/* set style for select boxes */
 							$('.selectpicker-info').selectpicker({
 								style : 'register-select'
 							});
-
 							$('#datepicker').datepicker();
-
-							$
-									.ajax({
-										type : 'GET',
-										url : '/findUserData',
-										success : function(data) {
-											if(data.data){
-												if (data.data.username == undefined) {
-													$('#location').val(
-															data.data.location);
-												} else {
-													$('#username').val(
-															data.data.username);
-													$('#firstName').val(
-															data.data.firstName);
-													$('#lastName').val(
-															data.data.lastName);
-													$('#schoolName').val(
-															data.data.schoolName);
-													$('#major')
-															.val(data.data.major);
-													$('#aboutYourself')
-															.val(
-																	data.data.aboutYourself);
-													var gradeLvl = data.data.gradeLevel;
-													$('[name=gradeLevel] option')
-															.filter(
-																	function() {
-																		return ($(
-																				this)
-																				.text() == gradeLvl);
-																	}).prop(
-																	'selected',
-																	true);
-													var degreePgrm = data.data.degreeProgram;
-													$('[name=degreeProgram] option')
-															.filter(
-																	function() {
-																		return ($(
-																				this)
-																				.text() == degreePgrm);
-																	}).prop(
-																	'selected',
-																	true);
-													$('#location').val(
-															data.data.location);
-													$('#cellNumber').val(
-															data.data.cellNumber);
-													$('#associatedSchoolId')
-															.val(
-																	data.data.associatedSchoolId);
-													$('#myUserId').val(
-															data.data.userId);
-												}
-											}
-										},
-										error: function(err){
-											console.log('ajax err', err)
+							$.ajax({
+								type : 'GET',
+								url : '/findUserData',
+								success : function(data) {
+									if(data.data){
+										if (data.data.username == undefined) {
+											$('#location').val(data.data.location);
+										} else {
+											$('#username').val(data.data.username);
+											$('#firstName').val(data.data.firstName);
+											$('#lastName').val(data.data.lastName);
+											$('#schoolName').val(data.data.schoolName);
+											$('#major').val(data.data.major);
+											$('#aboutYourself').val(data.data.aboutYourself);
+											var gradeLvl = data.data.gradeLevel;
+											$('[name=gradeLevel] option').filter(function() {
+												return ($(this).text() == gradeLvl);
+											}).prop('selected',true);
+											var degreePgrm = data.data.degreeProgram;
+											$('[name=degreeProgram] option').filter(function() {
+												return ($(this).text() == degreePgrm);
+											}).prop('selected',true);
+											$('#location').val(data.data.location);
+											$('#cellNumber').val(data.data.cellNumber);
+											$('#associatedSchoolId').val(data.data.associatedSchoolId);
+											$('#myUserId').val(data.data.userId);
 										}
-									});
+									}
+								},
+								error: function(err){
+									console.log('ajax err', err)
+								}
+							});
 						},
 
 						/**
@@ -245,14 +141,12 @@ define(
 						 * activate step 3 registration block
 						 */
 						enableStepThree : function() {
-
 							$('#step_2').hide(500);
 							$('#step2_block').removeClass('active-border');
 							if (this.temp_photo === "/beamstream-new/images/step-one-pic1.png") {
 
 								this.temp_photo = '/beamstream-new/images/upload-photo.png';
 							}
-
 							var upload_block = '<div id="step3_block" class="round-block upload-photo step-3-photo">'
 									+ '<a class="browse" href="#"><img src="'
 									+ this.temp_photo
@@ -615,13 +509,8 @@ define(
 							var text = $('#' + id).val();
 							var self = this;
 							this.status = false;
-							if (text) {
 								$('.loading').css("display", "block");
 								var newSchool = text;
-
-								/*
-								 * post the text that we type to get matched school
-								 */
 								$.ajax({
 										type : 'POST',
 										url : "/getAllSchoolsForAutopopulate",
@@ -630,9 +519,7 @@ define(
 										},
 										dataType : "json",
 										success : function(datas) {
-											console.log(datas);
 											var codes = '';
-
 											var allSchoolInfo = datas;
 											var schoolNames = [];
 											_.each(datas,function(data) {
@@ -647,9 +534,7 @@ define(
 												source : schoolNames,
 												select : function(event,ui) {
 													var text = ui.item.value;
-													/*
-													 * set the  school details to modal
-													 */
+													// set the  school details to modal
 													if (ui.item.value) {
 														$('#associatedSchoolId').attr('value',ui.item.id);
 													}
@@ -658,8 +543,6 @@ define(
 											$('.loading').css("display","none");
 										}
 								});
-							}
-
 						},
 
 						/**
