@@ -620,76 +620,44 @@ define(
 								var newSchool = text;
 
 								/*
-								 * post the text that we type to get matched
-								 * school
+								 * post the text that we type to get matched school
 								 */
-								$
-										.ajax({
-											type : 'POST',
-											url : "/getAllSchoolsForAutopopulate",
-											data : {
-												data : text,
-											},
-											dataType : "json",
-											success : function(datas) {
+								$.ajax({
+										type : 'POST',
+										url : "/getAllSchoolsForAutopopulate",
+										data : {
+											data : text,
+										},
+										dataType : "json",
+										success : function(datas) {
+											console.log(datas);
+											var codes = '';
 
-												var codes = '';
-
-												var allSchoolInfo = datas;
-												var schoolNames = [];
-												_
-														.each(
-																datas,
-																function(data) {
-
-																	schoolNames
-																			.push({
-																				label : data.schoolName,
-																				value : data.schoolName,
-																				id : data.id.id
-																			});
-
-																});
-
-												// set auto populate schools
-												$('#' + id)
-														.autocomplete(
-																{
-																	source : schoolNames,
-																	select : function(
-																			event,
-																			ui) {
-																		var text = ui.item.value;
-
-																		/*
-																		 * set
-																		 * the
-																		 * school
-																		 * details
-																		 * to
-																		 * modal
-																		 */
-																		if (ui.item.value) {
-																			$(
-																					'#associatedSchoolId')
-																					.attr(
-																							'value',
-																							ui.item.id);
-																			// self.data.models[0].set({'schoolName'
-																			// :
-																			// ui.item.value
-																			// ,
-																			// 'associatedSchoolId'
-																			// :ui.item.id}
-																			// );
-																		}
-																	}
-																});
-												$('.loading').css("display",
-														"none");
-
-											}
-										});
+											var allSchoolInfo = datas;
+											var schoolNames = [];
+											_.each(datas,function(data) {
+												schoolNames.push({
+													label : data.schoolName,
+													value : data.schoolName,
+													id : data.id.id
+												});
+											});
+											// set auto populate schools
+											$('#' + id).autocomplete({
+												source : schoolNames,
+												select : function(event,ui) {
+													var text = ui.item.value;
+													/*
+													 * set the  school details to modal
+													 */
+													if (ui.item.value) {
+														$('#associatedSchoolId').attr('value',ui.item.id);
+													}
+												}
+											});
+											$('.loading').css("display","none");
+										}
+								});
 							}
 
 						},
