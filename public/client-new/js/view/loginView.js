@@ -26,7 +26,10 @@ define(
 							'click #login' : 'login',
 							'keyup #password' : 'loginOnEnterKeyPress',
 							'click .register-cancel' : 'clearAllFields',
-							'blur .home_reg' : 'validationsymbol'
+							//'blur .home_reg' : 'validationsymbol'
+							
+							'blur #mailid' : 'validateMailID',
+							'blur #password' : 'validatePassword'
 						},
 
 						onAfterInit : function() {
@@ -53,6 +56,32 @@ define(
 							} else if ($(e.currentTarget).val()) {
 								$(e.currentTarget).parent('fieldset').find('div.sign-tick').hide();
 								$(e.currentTarget).parent('fieldset').find('div.sign-close').show();
+							}
+						},
+						
+						validateMailID : function(e){
+							var emailID = $("#mailid").val();
+							var pattern = new RegExp(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/);
+					        var status = pattern.test(emailID);
+							if(status && emailID){
+								$("#email-sign-tick").show();
+								$("#email-sign-close").hide();
+							}else{
+								$("#email-sign-close").show();
+								$("#email-sign-tick").hide();
+							}
+						},
+						
+						
+						validatePassword : function(e){
+							var password = $("#password").val();
+							var Len =password.length;
+							if(Len > 5){
+								$("#password-sign-tick").show();
+								$("#password-sign-close").hide();
+							}else{
+								$("#password-sign-tick").hide();
+								$("#password-sign-close").show();
 							}
 						},
 
