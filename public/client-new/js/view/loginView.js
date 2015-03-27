@@ -31,7 +31,6 @@ define(
 
 						onAfterInit : function() {
 							this.data.reset();
-
 							localStorage["logged"] = '';
 							$('.sign-tick').hide();
 							$('.sign-close').hide();
@@ -39,29 +38,21 @@ define(
 							$('#password').prop('disabled', false);
 							$('#mailid1').prop('disabled', false);
 							$('#password1').prop('disabled', false);
-							$('div.container-fluid').last().addClass(
-									'signup-container');
-
+							$('div.container-fluid').last().addClass('signup-container');
 						},
 
 						/**
 						 * tick and cross mark handling
 						 */
 						validationsymbol : function(e) {
-
-							var target = $(e.currentTarget).parent('fieldset')
-									.find('div.field-error');
+							var target = $(e.currentTarget).parent('fieldset').find('div.field-error');
 							if (target.length == 0 && $(e.currentTarget).val()) {
-								$(e.currentTarget).parent('fieldset').find(
-										'div.sign-close').hide();
-								$(e.currentTarget).parent('fieldset').find(
-										'div.sign-tick').show();
+								$(e.currentTarget).parent('fieldset').find('div.sign-close').hide();
+								$(e.currentTarget).parent('fieldset').find('div.sign-tick').show();
 
 							} else if ($(e.currentTarget).val()) {
-								$(e.currentTarget).parent('fieldset').find(
-										'div.sign-tick').hide();
-								$(e.currentTarget).parent('fieldset').find(
-										'div.sign-close').show();
+								$(e.currentTarget).parent('fieldset').find('div.sign-tick').hide();
+								$(e.currentTarget).parent('fieldset').find('div.sign-close').show();
 							}
 						},
 
