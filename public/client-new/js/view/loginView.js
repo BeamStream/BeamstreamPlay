@@ -26,8 +26,6 @@ define(
 							'click #login' : 'login',
 							'keyup #password' : 'loginOnEnterKeyPress',
 							'click .register-cancel' : 'clearAllFields',
-							//'blur .home_reg' : 'validationsymbol'
-							
 							'blur #mailid' : 'validateMailID',
 							'blur #password' : 'validatePassword'
 						},
@@ -44,44 +42,34 @@ define(
 							$('div.container-fluid').last().addClass('signup-container');
 						},
 
-						/**
-						 * tick and cross mark handling
-						 */
-						validationsymbol : function(e) {
-							var target = $(e.currentTarget).parent('fieldset').find('div.field-error');
-							if (target.length == 0 && $(e.currentTarget).val()) {
-								$(e.currentTarget).parent('fieldset').find('div.sign-close').hide();
-								$(e.currentTarget).parent('fieldset').find('div.sign-tick').show();
-
-							} else if ($(e.currentTarget).val()) {
-								$(e.currentTarget).parent('fieldset').find('div.sign-tick').hide();
-								$(e.currentTarget).parent('fieldset').find('div.sign-close').show();
-							}
-						},
 						
 						validateMailID : function(e){
 							var emailID = $("#mailid").val();
 							var pattern = new RegExp(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/);
 					        var status = pattern.test(emailID);
-							if(status && emailID){
-								$("#email-sign-tick").show();
-								$("#email-sign-close").hide();
-							}else{
-								$("#email-sign-close").show();
-								$("#email-sign-tick").hide();
-							}
+					        if(emailID.length != 0){
+								if(status){
+									$("#email-sign-tick").show();
+									$("#email-sign-close").hide();
+								}else{
+									$("#email-sign-close").show();
+									$("#email-sign-tick").hide();
+								}
+					        }
 						},
 						
 						
 						validatePassword : function(e){
 							var password = $("#password").val();
 							var Len =password.length;
-							if(Len > 5){
-								$("#password-sign-tick").show();
-								$("#password-sign-close").hide();
-							}else{
-								$("#password-sign-tick").hide();
-								$("#password-sign-close").show();
+							if(Len != 0){
+								if(Len > 5){
+									$("#password-sign-tick").show();
+									$("#password-sign-close").hide();
+								}else{
+									$("#password-sign-tick").hide();
+									$("#password-sign-close").show();
+								}
 							}
 						},
 
@@ -124,16 +112,6 @@ define(
 
 									localStorage["loggedUserId"] = data.user.id.id;
 
-									/* PUBNUB -- AUTO AJAX PUSH */
-									/*
-									 * PUBNUB.publish({ channel : "onlineUsers",
-									 * message : {
-									 * pagePushUid:self.pagePushUid,userInfo:data} })
-									 */
-									/*
-									 * redirect to class page if the user has no
-									 * stream
-									 */
 
 									if (data.hasClasses == true) {
 										window.location = "/stream";
@@ -205,22 +183,6 @@ define(
 								channel : "onlineUsers",
 								restore : false,
 								callback : function(message) {
-									// if(message.pagePushUid !=
-									// self.pagePushUid)
-									// {
-									// console.log(45);
-									// console.log($('#onlinechatbox'));
-									// var template = '<li> <a href="#">'
-									// +'<img width="30" height="28"
-									// src="'+message.userInfo.profileImageUrl+'">'
-									// +'<span>'+message.userInfo.user.firstName+'</span>
-									// <span
-									// class="offline-chat">'
-									// +'<img width="12" height="13"
-									// src="img/online-icon.png"></span></a>
-									// </li>';
-									// $('#onlinechatbox').append('<p>call ho
-									// gyi</p>');
 								}
 
 							})

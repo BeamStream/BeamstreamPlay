@@ -70,15 +70,19 @@
                 <form id="signup-form" action="" method="get">
                   <fieldset class="message field">
                     <input class="home_reg" data-name="user.mailId"  name="mailId" type="text"  placeholder="Email" id="mailid" disabled>
-                    <div class="sign-tick" style="display:none;"></div><div class="sign-close" style="display:none;"></div>
+                     <div class="sign-tick" id="email-sign-tick" style="display:none;"></div>
+					 <div class="sign-close" id="email-sign-close" style="display:none;"></div>
                   </fieldset>
                   <fieldset class="password field">
                     <input class="home_reg" data-name="user.password" name="password" type="password" placeholder="Password" id="password" disabled>
-                    <div class="sign-tick" style="display:none;"></div><div class="sign-close" style="display:none;"></div>
+                    <div class="sign-tick" id="password-sign-tick" style="display:none;"></div>
+					<div class="sign-close" id="password-sign-close" style="display:none;"></div>
                   </fieldset>
                   <fieldset class="password field">
                     <input class="home_reg" data-name="user.confirmPassword" name="confirmPassword"  type="password" placeholder="Confirm Password " id="confirmPassword" disabled>
-                    <div class="sign-tick" style="display:none;"></div><div class="sign-close" style="display:none;"></div>
+                    <div class="sign-tick" id="confirmPassword-sign-tick" style="display:none;"></div>
+					<div class="sign-close" id="confirmPassword-sign-close" style="display:none;"></div>
+					<div class="field-error" style="display:none;" id="field-error"><span class="error">* Both password should be match</span></div>
                   </fieldset>
                 </form>
                 <div class="register-menu-block"> <a href="#" id="registeration" class="register-btn"><span></span>Sign Up Now</a><a href="#" class="register-cancel">Cancel</a> </div>

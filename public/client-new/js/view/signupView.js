@@ -27,8 +27,9 @@ define(['view/formView'], function(FormView){
             'click .lastblock a' : 'socialMediaSignup',
             'keypress #password' : 'clearConfirmPasswordField',
             'click .register-cancel' : 'clearAllFields',
-            'blur .home_reg' : 'validationsymbol',
             'blur #mailid':'chekemail',
+            'blur #password' : 'validatePassword',
+            'blur #confirmPassword' : 'validateConfirmPassword'
 		},
 
 		onAfterInit: function(){	
@@ -42,46 +43,86 @@ define(['view/formView'], function(FormView){
             
         },
         
-        validationsymbol : function(e){
-        	
-        	var target = $(e.currentTarget).parent('fieldset').find('div.field-error');        	
-        	if(target.length == 0 && $(e.currentTarget).val()){
-        		$(e.currentTarget).parent('fieldset').find('div.sign-close').hide();
-        		$(e.currentTarget).parent('fieldset').find('div.sign-tick').show();
-        		
-        	}else if($(e.currentTarget).val()){
-        		$(e.currentTarget).parent('fieldset').find('div.sign-tick').hide();
-        		$(e.currentTarget).parent('fieldset').find('div.sign-close').show();
-        	}
-        },
-              
         
         chekemail: function(e){
         	
-        	 var self = this;
-				  var mailId = $("input#mailid").val();
-				  var iam = "8080";
-				  var password = '12345a';
-				  var confirmPassword = '12345a';
-				 $.ajax ({
-					 type : 'POST',
-					 url : "/signup",
-					 dataType : "json",
-				     contentType : "application/json",
-					 data : JSON.stringify({
-						 mailId : mailId,
-						 iam : iam,
-						 password : password,
-						 confirmPassword : confirmPassword,
-						 }),
-						 
-					 success : function(data){
-						 if(data.status == "Failure")
-						 alert(data.message);
-					 }
-				 });
-			 
+        	var emailID = $("#mailid").val();
+        	if(emailID.length != 0){
+				var pattern = new RegExp(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/);
+		        var checkStatus = pattern.test(emailID);
+				if(checkStatus && emailID){
+					$("#email-sign-tick").show();
+					$("#email-sign-close").hide();
+					
+					
+					var self = this;
+					  var mailId = $("input#mailid").val();
+					  var iam = "8080";
+					  var password = '12345a';
+					  var confirmPassword = '12345a';
+					 $.ajax ({
+						 type : 'POST',
+						 url : "/signup",
+						 dataType : "json",
+					     contentType : "application/json",
+						 data : JSON.stringify({
+							 mailId : mailId,
+							 iam : iam,
+							 password : password,
+							 confirmPassword : confirmPassword,
+							 }),
+							 
+						 success : function(data){
+							 if(data.status == "Failure")
+							 alert(data.message);
+						 }
+					 });
+					
+					
+				}else{
+					$("#email-sign-close").show();
+					$("#email-sign-tick").hide();
+				}
+        	}
         },
+        
+        
+        validatePassword : function(e){
+			var password = $("#password").val();
+			var Len =password.length;
+			if(Len != 0){
+				if(Len > 5){
+					$("#password-sign-tick").show();
+					$("#password-sign-close").hide();
+				}else{
+					$("#password-sign-tick").hide();
+					$("#password-sign-close").show();
+				}
+			}
+		},
+		
+		validateConfirmPassword : function(e){
+			var confirmpassword = $("#confirmPassword").val();
+			var password = $("#password").val();
+			var Len =confirmpassword.length;
+			if(Len != 0){
+				if(Len > 5){
+					$("#confirmPassword-sign-tick").show();
+					$("#confirmPassword-sign-close").hide(); 
+					if(password != confirmpassword){
+						$("#field-error").show();
+						$("#confirmPassword-sign-tick").hide();
+						$("#confirmPassword-sign-close").show();
+					}else{
+						$("#field-error").hide();
+					}
+				}else{
+					$("#confirmPassword-sign-tick").hide();
+					$("#confirmPassword-sign-close").show();
+				}
+			}
+		},
+		
         
         /**
         * @TODO  user registration 
