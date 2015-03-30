@@ -377,7 +377,6 @@ define(
 						 * auto populate class names - matching a class name
 						 */
 						populateClassNames : function(eventName) {
-
 							var self = this;
 							var text = $('#className').val();
 							var selectedSchoolId = $('#schoolId').val();
@@ -388,90 +387,65 @@ define(
 							if (text != '' && selectedSchoolId != '') {
 
 								/*
-								 * post the text that we type to get matched
-								 * school
+								 * post the text that we type to get matched  school
 								 */
-								$
-										.ajax({
-											type : 'POST',
-											url : "/autoPopulateClassesbyName",
-											data : {
-												data : text,
-												schoolId : selectedSchoolId
-											},
-											dataType : "json",
-											success : function(datas) {
-												var codes = '';
-												var allClassInfo = datas;
-												self.classNames = [];
-												_
-														.each(
-																datas,
-																function(data) {
+								$.ajax({
+										type : 'POST',
+										url : "/autoPopulateClassesbyName",
+										data : {
+											data : text,
+											schoolId : selectedSchoolId
+										},
+										dataType : "json",
+										success : function(datas) {
+											var codes = '';
+											var allClassInfo = datas;
+											self.classNames = [];
+											_.each(datas,function(data) {
 
-																	/*
-																	 * for auto
-																	 * populate
-																	 */
-																	self.classNames
-																			.push({
-																				label : data.classToReturn.className,
-																				value : data.classToReturn.className,
-																				id : data.classToReturn.id.id,
-																				info : data.usersMap.Student
-																						+ " Students,"
-																						+ data.usersMap.Educator
-																						+ " Educators,"
-																						+ data.usersMap.Professional
-																						+ " Professionals ",
-																				data : data
+												/*
+												 * for auto  populate
+												 */
+												self.classNames.push({
+													label : data.classToReturn.className,
+													value : data.classToReturn.className,
+													id : data.classToReturn.id.id,
+													info : data.usersMap.Student
+															+ " Students,"
+															+ data.usersMap.Educator
+															+ " Educators,"
+															+ data.usersMap.Professional
+															+ " Professionals ",
+													data : data
+												});
 
-																			});
+											});
 
-																});
+											if (self.classNames.length == 0)
+												return;
 
-												if (self.classNames.length == 0)
-													return;
+											// set auto populate schools
+											$('#className').autocomplete({
+												source : self.classNames,
+												select : function(event,ui) {
+													var text = ui.item.value;
+													var id = ui.item.id
+													$('#createOrJoinStream').text("Join Stream");
 
-												// set auto populate schools
-												$('#className')
-														.autocomplete(
-																{
-																	source : self.classNames,
-																	select : function(
-																			event,
-																			ui) {
-																		var text = ui.item.value;
-																		var id = ui.item.id
-
-																		$(
-																				'#createOrJoinStream')
-																				.text(
-																						"Join Stream");
-
-																		/*
-																		 * set
-																		 * the
-																		 * school
-																		 * details
-																		 * to
-																		 * modal
-																		 */
-																		self.data.models[0]
-																				.set({
-																					'id' : ui.item.id,
-																					'className' : ui.item.value,
-																					'classTime' : ui.item.data.classToReturn.classTime,
-																					'startingDate' : ui.item.data.classToReturn.startingDate,
-																					'classType' : ui.item.data.classToReturn.classType,
-																					'classCode' : ui.item.data.classToReturn.classCode
-																				});
-																		self
-																				.displayFieldsForName(
-																						id,
-																						ui.item.data);
-																	}
-																});
+													/*
+													 * set  the school  details  to  modal
+													 */
+													self.data.models[0].set({
+														'id' : ui.item.id,
+														'className' : ui.item.value,
+														'classTime' : ui.item.data.classToReturn.classTime,
+														'startingDate' : ui.item.data.classToReturn.startingDate,
+														'classType' : ui.item.data.classToReturn.classType,
+														'classCode' : ui.item.data.classToReturn.classCode
+													});
+													self.displayFieldsForName(id,ui.item.data);
+												}
+											});
 											}
 										});
 							}
@@ -507,63 +481,47 @@ define(
 												var codes = '';
 												var allClassInfo = datas;
 												self.classCodes = [];
-												_.each(
-																datas,
-																function(data) {
-																	/*
-																	 * for auto
-																	 * populate
-																	 */
-																	self.classCodes
-																			.push({
-																				label : data.classToReturn.classCode,
-																				value : data.classToReturn.classCode,
-																				id : data.classToReturn.id.id,
-																				data : data
-																			});
+												_.each(datas,function(data) {
+													/*
+													 * for auto populate
+													 */
+													self.classCodes.push({
+														label : data.classToReturn.classCode,
+														value : data.classToReturn.classCode,
+														id : data.classToReturn.id.id,
+														data : data
+													});
 
-																});
+												});
 
 												if (self.classCodes.length == 0)
 													return;
 
 												// set auto populate
 												// functionality for class code
-												$('#classCode')
-														.autocomplete(
-																{
-																	source : self.classCodes,
-																	select : function(
-																			event,
-																			ui) {
-
-																		var id = ui.item.id;
-																		$(
-																				'#createOrJoinStream')
-																				.text(
-																						"Joins Stream");
-																		/*
-																		 * set
-																		 * the
-																		 * details
-																		 * to
-																		 * modal
-																		 */
-																		self.data.models[0]
-																				.set({
-																					'id' : ui.item.id,
-																					'className' : ui.item.value,
-																					'classTime' : ui.item.data.classToReturn.classTime,
-																					'startingDate' : ui.item.data.classToReturn.startingDate,
-																					'classType' : ui.item.data.classToReturn.classType,
-																					'classCode' : ui.item.data.classToReturn.classCode
-																				});
-
-																		self.displayFiledsForCode(id,ui.item.data);
-																		}
-																});
+												$('#classCode').autocomplete({
+													source : self.classCodes,
+													select : function(event,ui) {
+	
+														var id = ui.item.id;
+														$('#createOrJoinStream').text("Joins Stream");
+														/*
+														 * set  the school  details  to  modal
+														 */
+														self.data.models[0].set({
+															'id' : ui.item.id,
+															'className' : ui.item.value,
+															'classTime' : ui.item.data.classToReturn.classTime,
+															'startingDate' : ui.item.data.classToReturn.startingDate,
+															'classType' : ui.item.data.classToReturn.classType,
+															'classCode' : ui.item.data.classToReturn.classCode
+														});
+	
+														self.displayFiledsForCode(id,ui.item.data);
+														}
+											});
 											}
-										});
+								});
 							}
 						},
 						/**
