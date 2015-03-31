@@ -60,9 +60,11 @@ define(
 							'click #collapseFiveHeading' : 'collapseFiveHeadingFunc',
 							'focus #contactofficeHours' : 'contactofficeHoursSetTime',
 							'click #Hidepreview'  : 'HidepreviewFunc',
+							'click #studyResourceAttachment' : 'HidestudyResourceAttachment',
+							'click #syllabusAttachment' : 'HidesyllabusAttachment',
 							'focusin #testdate'   : 'TestDate'
 						},
-
+						
 						init : function() {
 							this.addView(new StreamSliderView({
 								el : '#sidebar'
@@ -944,7 +946,12 @@ define(
 								$('.fileUploadMsg').css('display', 'block');
 								$('div#fileUploadingImage #floatingCirclesG').css('visibility', 'visible');
 								$('div#fileUploadingImage #floatingCirclesG').css('display', 'block');
-								$('#file-name').html(f.name);
+								
+								var studyAttachment = "<div class=\"embed\" style=\"height:30px;\">"+
+													"<span>"+f.name+"</span>"+
+													"<span class=\"action\"><a href=\"javascript:void(0)\" id=\"studyResourceAttachment\" class=\"nothumb\" style=\"float:right;display:none;\">✕</a></span>"+
+													"</div>";	
+								$('#file-name').html(studyAttachment);
 								$('#uploded-file-area').show();
 								
 								$('.ask-outer').height(function(index, height) {
@@ -1183,7 +1190,11 @@ define(
 								$('.syllabusFileUploadMsg').css('display', 'block');
 								$('div#SyllabusFileUploadingImage #floatingCirclesG').css('visibility', 'visible');
 								$('div#SyllabusFileUploadingImage #floatingCirclesG').css('display', 'block');
-								$('#syllabus-file-name').html(f.name);
+								var syllabusAttachment = "<div class=\"embed\" style=\"height:30px;\">"+
+								"<span>"+f.name+"</span>"+
+								"<span class=\"action\"><a href=\"javascript:void(0)\" id=\"syllabusAttachment\" class=\"nothumb\" style=\"float:right;display:none;\">✕</a></span>"+
+								"</div>";	
+								$('#syllabus-file-name').html(syllabusAttachment);
 								$('#uploded-syllabus-file-area').show();
 								
 								$('.ask-outer').height(function(index, height) {
@@ -1496,6 +1507,15 @@ define(
 						HidepreviewFunc : function(e){
 							$(".embed").hide();
 						},
+						
+						HidestudyResourceAttachment : function(e){
+							$("#file-name").html("");
+						},
+						
+						HidesyllabusAttachment : function(e){
+							$("#syllabus-file-name").html("");
+						},
+						
 						
 						TestDate : function(e){
 							 $( "#testdate" ).datepicker();
