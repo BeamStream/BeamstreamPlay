@@ -1169,9 +1169,8 @@ events : {
 						/**
 						 * POST question details to server
 						 */
-						postQuestionToServer : function(question, streamId,
-								questionAccess, googleDoc) {
-
+						postQuestionToServer : function(question, streamId,questionAccess, googleDoc) {
+							
 							var self = this;
 							this.data.models[0] = new QuestionModel();
 
@@ -1181,121 +1180,86 @@ events : {
 								this.data.models[0].removeAttr('question');
 								this.data.models[0].removeAttr('profilePic');
 								this.data.models[0].removeAttr('followed');
-								this.data.models[0]
-										.removeAttr('followerOfMessagePoster');
+								this.data.models[0].removeAttr('followerOfMessagePoster');
 								this.data.models[0].removeAttr('rocked');
-
-								this.data.models[0]
-										.removeAttr('questionAccess');
-
+								this.data.models[0].removeAttr('questionAccess');
 								this.data.models.url = "/newDocument";
 
 								// set values to model
-								this.data.models[0]
-										.save(
-												{
-													streamId : streamId,
-													docName : question,
-													docAccess : questionAccess,
-													docURL : question,
-													docType : 'GoogleDocs',
-													docDescription : ''
-},
-{
-													success : function(model,
-															response) {
+								this.data.models[0].save(
+									{
+										streamId : streamId,
+										docName : question,
+										docAccess : questionAccess,
+										docURL : question,
+										docType : 'GoogleDocs',
+										docDescription : ''
+									},
+									{
+										success : function(model,response) {
 
-														/*
-														 * PUBNUB -- AUTO AJAX
-														 * PUSH
-														 */
-PUBNUB
-.publish({
-																	channel : "questionsMainStream",
-message : {
-																		pagePushUid : self.pagePushUid,
-																		streamId : streamId,
-																		data : response
-																	}
-																})
-														/*
-														 * PUBNUB -- AUTO AJAX
-														 * PUSH
-														 */
-PUBNUB
-.publish({
-																	channel : "questionsSideStream",
-message : {
-																		pagePushUid : self.pagePushUid,
-																		streamId : streamId,
-																		data : response
-																	}
-																})
+											/*
+											 * PUBNUB -- AUTO AJAX
+											 * PUSH
+											 */
+											PUBNUB.publish({channel : "questionsMainStream",message : {
+												pagePushUid : self.pagePushUid,
+												streamId : streamId,
+												data : response
+												}
+											})
+											/*
+											 * PUBNUB -- AUTO AJAX
+											 * PUSH
+											 */
+											PUBNUB.publish({channel : "questionsSideStream",message : {
+												pagePushUid : self.pagePushUid,
+												streamId : streamId,
+												data : response
+												}
+											})
 
-														var questionItemView = new QuestionItemView(
-																{
-																	model : self.data.models[0]
-																});
-														$(
-																'#questionListView div.content')
-																.prepend(
-																		questionItemView
-																				.render().el);
-														$('.loadingImage').css('display','none');
-														// $('#questionStreamView
-														// div.baseview').prepend(questionItemView.render().el);
+											var questionItemView = new QuestionItemView({
+												model : self.data.models[0]
+											});
+											$('#questionListView div.content').prepend(questionItemView.render().el);
+											$('.loadingImage').css('display','none');
 
-														/* share widget */
-														if (self.selected_medias.length != 0) {
-															_
-																	.each(
-																			self.data.models[0],
-																			function(
-																					data) {
-																				showJanrainShareWidget(
-																						self.data.models[0].attributes.question.questionBody,
-																						'View my Beamstream post',
-																						'http://beamstream.com',
-																						self.data.models[0].attributes.question.questionBody,
-																						self.selected_medias);
-																			});
-														}
-
-														/*
-														 * delete default
-														 * embedly preview
-														 */
-														$('div.selector').attr(
-																'display',
-																'none');
-														$('div.selector')
-																.parents(
-																		'form.ask-disccution')
-																.find(
-																		'input[type="hidden"].preview_input')
-																.remove();
-														$('div.selector')
-																.remove();
-														$('.preview_input')
-																.remove();
-														$('#Q-area').val("");
-														$(
-																'#share-discussions li.active')
-																.removeClass(
-																		'active');
-														self.selected_medias = [];
-
-													},
-													error : function(model,
-															response) {
-														$('#msg-area').val("");
-													}
-
+											/* share widget */
+											if (self.selected_medias.length != 0) {
+												_.each(self.data.models[0],function(data) {
+													showJanrainShareWidget(
+															self.data.models[0].attributes.question.questionBody,
+															'View my Beamstream post',
+															'http://beamstream.com',
+															self.data.models[0].attributes.question.questionBody,
+															self.selected_medias
+													 );
 												});
+											}
+
+											/*
+											 * delete default
+											 * embedly preview
+											 */
+											$('div.selector').attr('display','none');
+											$('div.selector').parents('form.ask-disccution').find('input[type="hidden"].preview_input').remove();
+											$('div.selector').remove();
+											$('.preview_input').remove();
+											$('#Q-area').val("");
+											$('#share-discussions li.active').removeClass('active');
+											self.selected_medias = [];
+
+										},
+										error : function(model,response) {
+											$('#msg-area').val("");
+										}
+
+								});
 							}
 
 							else {
-
+								console.log("new question");
 								self.color = 0;
 								var pollOptions = '';
 
@@ -1304,255 +1268,153 @@ message : {
 									$('#option' + i).val('');
 								}
 
-								pollOptions = pollOptions.substring(0,
-										pollOptions.length - 1);
+								pollOptions = pollOptions.substring(0,pollOptions.length - 1);
 
 								this.data.models[0].url = "/question";
 								if (pollOptions == '') {
 
 									var Question = new QuestionModel()
-									this.data.models[0]
-											.removeAttr('pollOptions');
-this.data.models[0]
-.save(
-{
-														streamId : streamId,
-														questionBody : question,
-														questionAccess : questionAccess
-},
+									this.data.models[0].removeAttr('pollOptions');
+									this.data.models[0].save(
+									{
+										streamId : streamId,
+										questionBody : question,
+										questionAccess : questionAccess
+									},
+
+									{
+										success : function(model, response) {
+
+											// show the posted
+											// message on feed
+											var questionItemView = new QuestionItemView({
+												model : self.data.models[0]
+											});
+											$('#questionListView div.content').prepend(questionItemView.render().el);
+											$('.loadingImage').css('display','none');
+											$('div.selector').attr('display','none');
+											$('div.selector').parents('form.ask-disccution').find('input[type="hidden"].preview_input').remove();
+											$('div.selector').remove();
+											$('.preview_input').remove();
+											$('#Q-area').val("");
+											$('#share-discussions li.active').removeClass('active');
+											$('#pollArea').slideUp(700);
+											$('.drag-rectangle').tooltip();
+											self.options = 0;
+										/*
+										 * PUBNUB -- AUTO AJAX PUSH
+										 */
 
 
+											PUBNUB.publish({channel : "questionsMainStream",message : {
+													pagePushUid : self.pagePushUid,
+													streamId : streamId,
+													data : response
+												}
+											})
 
+											/*
+											 * PUBNUB -- AUTO AJAX PUSH
+											 */
 
-{
-														success : function(
-																model, response) {
+											PUBNUB.publish({channel : "questionsSideStream",message : {
+													pagePushUid : self.pagePushUid,
+													streamId : streamId,
+													data : response
+												}
+											})
 
-															// show the posted
-															// message on feed
-															var questionItemView = new QuestionItemView(
-																	{
-																		model : self.data.models[0]
-																	});
-															$(
-																	'#questionListView div.content')
-																	.prepend(
-																			questionItemView
-																					.render().el);
-															$('.loadingImage').css('display','none');
+											/* share widget */
+											if (self.selected_medias.length != 0) {
+												_.each(self.data.models[0],function(data) {
+													showJanrainShareWidget(
+															self.data.models[0].attributes.question.questionBody,
+															'View my Beamstream post',
+															'http://beamstream.com',
+															self.data.models[0].attributes.question.questionBody,
+															self.selected_medias
+													);
+												});
+											}
 
-															$('div.selector')
-																	.attr(
-																			'display',
-																			'none');
+											self.selected_medias = [];
+									},
 
-															$('div.selector')
-																	.parents(
-																			'form.ask-disccution')
-																	.find(
-																			'input[type="hidden"].preview_input')
-																	.remove();
+									error : function(model,response) {
+										$('#Q-area').val("");
+										$('#pollArea').slideUp(700);
+									}
 
-															$('div.selector')
-																	.remove();
-
-															$('.preview_input')
-																	.remove();
-
-															$('#Q-area')
-																	.val("");
-
-															$(
-																	'#share-discussions li.active')
-																	.removeClass(
-																			'active');
-
-															$('#pollArea')
-																	.slideUp(
-																			700);
-
-															$('.drag-rectangle')
-																	.tooltip();
-
-															self.options = 0;
-															/*
-															 * PUBNUB -- AUTO
-															 * AJAX PUSH
-															 */
-
-
-PUBNUB
-.publish({
-																		channel : "questionsMainStream",
-message : {
-																			pagePushUid : self.pagePushUid,
-																			streamId : streamId,
-																			data : response
-																		}
-																	})
-
-															/*
-															 * PUBNUB -- AUTO
-															 * AJAX PUSH
-															 */
-
-
-
-
-PUBNUB
-.publish({
-																		channel : "questionsSideStream",
-message : {
-																			pagePushUid : self.pagePushUid,
-																			streamId : streamId,
-																			data : response
-																		}
-																	})
-
-															/* share widget */
-															if (self.selected_medias.length != 0) {
-																_
-																		.each(
-																				self.data.models[0],
-																				function(
-																						data) {
-																					showJanrainShareWidget(
-																							self.data.models[0].attributes.question.questionBody,
-																							'View my Beamstream post',
-																							'http://beamstream.com',
-																							self.data.models[0].attributes.question.questionBody,
-																							self.selected_medias);
-																				});
-															}
-
-															self.selected_medias = [];
-														},
-
-														error : function(model,
-																response) {
-															$('#Q-area')
-																	.val("");
-															$('#pollArea')
-																	.slideUp(
-																			700);
-														}
-
-													});
+								}
+								);
 
 								}
 
 								else {
+									// set values to model
+									this.data.models[0].save(
+											{
+												streamId : streamId,
+												questionBody : question,
+												questionAccess : questionAccess,
+												pollOptions : pollOptions
+											},
+											{
+												success : function(model, response) {
 
-
-
-// set values to model
-this.data.models[0]
-.save(
-{
-														streamId : streamId,
-														questionBody : question,
-														questionAccess : questionAccess,
-														pollOptions : pollOptions
-},
-{
-														success : function(
-																model, response) {
-
-															/*
-															 * PUBNUB -- AUTO
-															 * AJAX PUSH
-															 */
-PUBNUB
-.publish({
-																		channel : "questionsMainStream",
-message : {
-																			pagePushUid : self.pagePushUid,
-																			streamId : streamId,
-																			data : response
-																		}
-																	})
-															/*
-															 * PUBNUB -- AUTO
-															 * AJAX PUSH
-															 */
-PUBNUB
-.publish({
-																		channel : "questionsSideStream",
-message : {
-																			pagePushUid : self.pagePushUid,
-																			streamId : streamId,
-																			data : response
-																		}
-																	})
+												/*
+												 * PUBNUB -- AUTO  AJAX PUSH
+												 */
+													PUBNUB.publish({channel : "questionsMainStream",message : {
+															pagePushUid : self.pagePushUid,
+															streamId : streamId,
+															data : response
+														}
+													})
+												/*
+												 * PUBNUB -- AUTO  AJAX PUSH
+												 */
+													PUBNUB.publish({channel : "questionsSideStream",message : {
+															pagePushUid : self.pagePushUid,
+															streamId : streamId,
+															data : response
+														}
+													})
 															// show the posted
 															// message on feed
-															var questionItemView = new QuestionItemView(
-																	{
-																		model : self.data.models[0]
-																	});
-															$(
-																	'#questionListView div.content')
-																	.prepend(
-																			questionItemView
-																					.render().el);
-															// $('#questionStreamView
-															// div.baseview').prepend(questionItemView.render().el);
-															/* share widget */
-															if (self.selected_medias.length != 0) {
-																_
-																		.each(
-																				self.data.models[0],
-																				function(
-																						data) {
-																					showJanrainShareWidget(
-																							self.data.models[0].attributes.question.questionBody,
-																							'View my Beamstream post',
-																							'http://beamstream.com',
-																							self.data.models[0].attributes.question.questionBody,
-																							self.selected_medias);
-																				});
-															}
-
-															$('div.selector')
-																	.attr(
-																			'display',
-																			'none');
-															$('div.selector')
-																	.parents(
-																			'form.ask-disccution')
-																	.find(
-																			'input[type="hidden"].preview_input')
-																	.remove();
-															$('div.selector')
-																	.remove();
-															$('.preview_input')
-																	.remove();
-															$('#Q-area')
-																	.val("");
-															$(
-																	'#share-discussions li.active')
-																	.removeClass(
-																			'active');
-															self.options = 0;
-															$('.drag-rectangle')
-																	.tooltip();
-															$('#pollArea')
-																	.slideUp(
-																			700);
-															self.selected_medias = [];
-
-														},
-														error : function(model,
-																response) {
-															$('#Q-area')
-																	.val("");
-															$('#pollArea')
-																	.slideUp(
-																			700);
-														}
-
+													var questionItemView = new QuestionItemView({
+														model : self.data.models[0]
 													});
-								}
+													$('#questionListView div.content').prepend(questionItemView.render().el);
+													/* share widget */
+													if (self.selected_medias.length != 0) {
+														_.each(self.data.models[0],function(data) {showJanrainShareWidget(
+															self.data.models[0].attributes.question.questionBody,
+															'View my Beamstream post',
+															'http://beamstream.com',
+															self.data.models[0].attributes.question.questionBody,
+															self.selected_medias);
+														});
+													}
+													$('.loadingImage').css('display','none');
+													$('div.selector').attr('display','none');
+													$('div.selector').parents('form.ask-disccution').find('input[type="hidden"].preview_input').remove();
+													$('div.selector').remove();
+													$('.preview_input').remove();
+													$('#Q-area').val("");
+													$('#share-discussions li.active').removeClass('active');
+													self.options = 0;
+													$('.drag-rectangle').tooltip();
+													$('#pollArea').slideUp(700);
+													self.selected_medias = [];
+
+													},
+													error : function(model,response) {
+														$('#Q-area').val("");
+														$('#pollArea').slideUp(700);
+													}
+										});
+									}
 							}
 
 						},
