@@ -1258,7 +1258,7 @@ define(
 									$('div#LinkPreview #floatingCirclesG').css('display', 'none');
 									
 									if(data.thumbnail_url){
-										var sendData =   "<div class=\"embed\">" +
+										var sendData =   "<div class=\"embed\" style=\"width:95%;margin-left:6px;\">" +
 										"<div class=\"action\" ><a href=\"javascript:void(0)\" id=\"Hidepreview\" class=\"nothumb\" style=\" float:right;display:none;\">✕</a></div>"+
 										"<div><img src=\""+data.thumbnail_url+"\" class=\"thumb\" style=\"max-width: 100%;max-height:100px\"></div>" +
 										"<div><a href=\""+data.url+"\" target=\"_blank\">"+data.title+"</a></div>" +
