@@ -777,87 +777,69 @@ define(
 										attachdata.append('uploadedFrom', "discussion");
 										attachdata.append('docURL', self.docurlAmazon);
 										/* post profile page details */
-										$
-												.ajax({
-													type : 'POST',
-													data : attachdata,
-													url : "/postSyllabusFromDisk",
-													cache : false,
-													contentType : false,
-													processData : false,
-													dataType : "json",
-													success : function(attachdata) {
-															// set progress bar as
-															// 100 %
-															$('#msg-area').val("");
-															$('#uploded-file')
-																	.hide();
+										$.ajax({
+												type : 'POST',
+												data : attachdata,
+												url : "/postSyllabusFromDisk",
+												cache : false,
+												contentType : false,
+												processData : false,
+												dataType : "json",
+												success : function(attachdata) {
+														// set progress bar as
+														// 100 %
+														$('#msg-area').val("");
+														$('#uploded-file').hide();
 
-															self.file = "";
+														self.file = "";
 
-															$('#file-upload-loader').css("display","none");
+														$('#file-upload-loader').css("display","none");
 
-															var datVal = formatDateVal(data.message.timeCreated);
+														var datVal = formatDateVal(data.message.timeCreated);
 
-															var datas = {
-																"data" : attachdata,
-																"datVal" : datVal
-															}
+														var datas = {
+															"data" : attachdata,
+															"datVal" : datVal
+														}
 
-															// set the response data
-															// to model
-															if(self.attachdata.models[0]) {
-															self.attachdata.models[0]
-																	.set({
-																		message : attachdata.message,
-																		docName : attachdata.docName,
-																		docDescription : attachdata.docDescription,
-																		profilePic : attachdata.profilePic
-																	})
+														// set the response data
+														// to model
+														if(self.attachdata.models[0]) {
+															self.attachdata.models[0].set({
+																message : attachdata.message,
+																docName : attachdata.docName,
+																docDescription : attachdata.docDescription,
+																profilePic : attachdata.profilePic
+															})
 															
 
 															/* Pubnub auto push */
-															PUBNUB
-																	.publish({
-																		channel : "stream",
-																		message : {
-																			pagePushUid : self.pagePushUid,
-																			streamId : streamId,
-																			data : self.attachdata.models[0],
-																		}
+															PUBNUB.publish({
+																channel : "stream",
+																message : {
+																	pagePushUid : self.pagePushUid,
+																	streamId : streamId,
+																	data : self.attachdata.models[0],
+																}
 
-																	})
-															}
+															})
+														}
 
-															// show the uploaded
-															// file on message llist
-															var messageItemView = new MessageItemView(
-																	{
-																		model : self.attachdata.models[0]
-																	})
-															$(
-																	'#messageListView div.content')
-																	.prepend(
-																			messageItemView
-																					.render().el);
-															$('.loadingImage').css('display','none');
+														// show the uploaded
+														// file on message llist
+														var messageItemView = new MessageItemView({
+															model : self.attachdata.models[0]
+														})
+														$('#messageListView div.content').prepend(messageItemView.render().el);
+														$('.loadingImage').css('display','none');
 
-															self.selected_medias = [];
-															$(
-																	'#share-discussions li.active')
-																	.removeClass(
-																			'active');
+														self.selected_medias = [];
+														$('#share-discussions li.active').removeClass('active');
 
-															$('a.ask-button').css(
-																	'visibility',
-																	'hidden');
-															$('.ask-outer')
-																	.css('height',
-																			'0px');
-
-													}
-												});
-
+														$('a.ask-button').css('visibility','hidden');
+														$('.ask-outer').css('height','0px');
+												}
+										});
 									} 
 
 								}
@@ -881,6 +863,7 @@ define(
 
 							} else {
 								alert(data.resultToSend.message);
+								location.reload();
 							}
 
 							/* clear all form fields */
@@ -906,7 +889,6 @@ define(
 								type : 'GET',
 								url : "/registrationComplete"
 							});
-//							window.location = "/stream";
 						},
 
 						serverError : function(model, data) {
@@ -925,10 +907,6 @@ define(
 						addMoreClasses : function(e) {
 							e.preventDefault();
 							$("#selectNextStep").modal('hide');
-							/*
-							 * $.ajax({ type : 'GET', url :
-							 * "/registrationComplete" });
-							 */
 						},
 
 						/**
@@ -936,26 +914,17 @@ define(
 						 */
 						startBeamstream : function(e) {
 							e.preventDefault();
-							/*$.ajax({
-								type : 'GET',
-								url : "/registrationComplete"
-							});*/
-
 							window.location = "/stream";
 						},
 						
 						selectdaysofweek : function(e) {
 							var clickedDays = $(e.target).attr('id');
 							$("div#classDays #" + clickedDays).toggleClass( "activedays" );
-							//var a = $("div#classDays div.days-of-week").length;
-												
 						},
 						
 						uploadFiles : function(eventName) {
-
 							eventName.preventDefault();
 							$('#upload-files-area').click();
-				
 						},
 						
 						/**
@@ -1006,32 +975,27 @@ define(
 							data.append('uploadedFrom', "discussion");
 
 							/* post profile page details */
-							$
-									.ajax({
-										type : 'POST',
-										data : data,
-										url : "/uploadDocumentFromDisk",
-										cache : false,
-										contentType : false,
-										processData : false,
-										dataType : "json",
-										success : function(data) {
-											$('.fileUploadMsg').css('visibility', 'hidden');
-											$('.fileUploadMsg').css('display', 'none');
-											$('div#fileUploadingImage #floatingCirclesG').css('visibility', 'hidden');
-											$('div#fileUploadingImage #floatingCirclesG').css('display', 'none');
-											self.docurlAmazon = data[0];
-										}
-									});
-
-							
-
+							$.ajax({
+								type : 'POST',
+								data : data,
+								url : "/uploadDocumentFromDisk",
+								cache : false,
+								contentType : false,
+								processData : false,
+								dataType : "json",
+								success : function(data) {
+									$('.fileUploadMsg').css('visibility', 'hidden');
+									$('.fileUploadMsg').css('display', 'none');
+									$('div#fileUploadingImage #floatingCirclesG').css('visibility', 'hidden');
+									$('div#fileUploadingImage #floatingCirclesG').css('display', 'none');
+									self.docurlAmazon = data[0];
+								}
+							});
 						},
 						/**
 						 * post messages
 						 */
 						postMessage : function() {
-							
 							$('#msg-area').css('margin','-1px 0 -5px 14px');
 							$('#msg-area').css('padding','5px 6px 4px 6px');
 							$('.ask-outer').css('height', '0px');
@@ -1056,10 +1020,8 @@ define(
 
 							var trueUrl = '';
 							if (streamId) {
-
 								/* if there is any files for uploading */
 								if (this.file) {
-
 									var data;
 									data = new FormData();
 									data.append('docDescription', message);
@@ -1069,92 +1031,62 @@ define(
 									data.append('uploadedFrom', "discussion");
 									data.append('docURL', self.docurlAmazon);
 									/* post profile page details */
-									$
-											.ajax({
-												type : 'POST',
-												data : data,
-												url : "/postDocumentFromDisk",
-												cache : false,
-												contentType : false,
-												processData : false,
-												dataType : "json",
-												success : function(data) {
-														// set progress bar as
-														// 100 %
-														$('#msg-area').val("");
-														$('#uploded-file')
-																.hide();
-
-														self.file = "";
-
-														$('#file-upload-loader').css("display","none");
-
-														var datVal = formatDateVal(data.message.timeCreated);
-
-														var datas = {
-															"data" : data,
-															"datVal" : datVal
-														}
-
-														// set the response data
-														// to model
-														if(self.data.models[0]) {
-														self.data.models[0]
-																.set({
-																	message : data.message,
-																	docName : data.docName,
-																	docDescription : data.docDescription,
-																	profilePic : data.profilePic
-																})
-														
-
-														/* Pubnub auto push */
-														PUBNUB
-																.publish({
-																	channel : "stream",
-																	message : {
-																		pagePushUid : self.pagePushUid,
-																		streamId : streamId,
-																		data : self.data.models[0],
-																	}
-
-																})
-														}
-
-														// show the uploaded
-														// file on message llist
-														var messageItemView = new MessageItemView(
-																{
-																	model : self.data.models[0]
-																})
-														$(
-																'#messageListView div.content')
-																.prepend(
-																		messageItemView
-																				.render().el);
-														$('.loadingImage').css('display','none');
-
-														self.selected_medias = [];
-														$(
-																'#share-discussions li.active')
-																.removeClass(
-																		'active');
-
-														$('a.ask-button').css(
-																'visibility',
-																'hidden');
-														$('.ask-outer')
-																.css('height',
-																		'0px');
-
+									$.ajax({
+										type : 'POST',
+										data : data,
+										url : "/postDocumentFromDisk",
+										cache : false,
+										contentType : false,
+										processData : false,
+										dataType : "json",
+										success : function(data) {
+												$('#msg-area').val("");
+												$('#uploded-file').hide();
+												self.file = "";
+												$('#file-upload-loader').css("display","none");
+												var datVal = formatDateVal(data.message.timeCreated);
+												var datas = {
+													"data" : data,
+													"datVal" : datVal
 												}
-											});
+												// set the response data to model
+												if(self.data.models[0]) {
+													self.data.models[0].set({
+														message : data.message,
+														docName : data.docName,
+														docDescription : data.docDescription,
+														profilePic : data.profilePic
+													})
+													/* Pubnub auto push */
+													PUBNUB.publish({
+														channel : "stream",
+														message : {
+															pagePushUid : self.pagePushUid,
+															streamId : streamId,
+															data : self.data.models[0],
+														}
+	
+													})
+												}
+
+												// show the uploaded
+												// file on message llist
+												var messageItemView = new MessageItemView({
+													model : self.data.models[0]
+												})
+												$('#messageListView div.content').prepend(messageItemView.render().el);
+												$('.loadingImage').css('display','none');
+												self.selected_medias = [];
+												$('#share-discussions li.active').removeClass('active');
+												$('a.ask-button').css('visibility','hidden');
+												$('.ask-outer').css('height','0px');
+										}
+									});
 
 								} else {
 
 									if (message.match(/^[\s]*$/))
 										return;
-
 									// find link part from the message
 									message = $.trim(message);
 									var link = message.match(self.urlReg);
@@ -1169,77 +1101,63 @@ define(
 											urlLink = link[0];
 										}
 
-										var msgBody = message, link = msgBody
-												.match(self.urlReg);
+										var msgBody = message, link = msgBody.match(self.urlReg);
 
 										if (!link)
 											link = msgBody.match(self.website);
 
 										var msgUrl = msgBody.replace(
-												self.urlRegex1, function(
-														msgUrlw) {
-													trueurl = msgUrlw;
-													return msgUrlw;
-												});
+											self.urlRegex1, function(msgUrlw) {
+												trueurl = msgUrlw;
+												return msgUrlw;
+										});
 
 										// To check whether it is google docs or
 										// not
-										if (!urlLink
-												.match(/^(https:\/\/docs.google.com\/)/)) {
+										if (!urlLink.match(/^(https:\/\/docs.google.com\/)/)) {
 											// check the url is already in bitly
 											// state or not
-											if (!urlLink
-													.match(/^(http:\/\/bstre.am\/)/)) {
+											if (!urlLink.match(/^(http:\/\/bstre.am\/)/)) {
 												/* post url information */
-												$
-														.ajax({
-															type : 'POST',
-															url : 'bitly',
-															data : {
-																link : urlLink
-															},
-															dataType : "json",
-															success : function(
-																	data) {
-																message = message
-																		.replace(
-																				link[0],
-																				data.data.url);
-																self
-																		.postMessageToServer(
-																				message,
-																				streamId,
-																				messageAccess,
-																				googleDoc);
-															}
-														});
+												$.ajax({
+													type : 'POST',
+													url : 'bitly',
+													data : {
+														link : urlLink
+													},
+													dataType : "json",
+													success : function(data) {
+														message = message.replace(link[0],data.data.url);
+														self.postMessageToServer(
+															message,
+															streamId,
+															messageAccess,
+															googleDoc
+														);
+													}
+												});
 											} else {
 												self.postMessageToServer(
 														message, streamId,
 														messageAccess,
-														googleDoc);
+														googleDoc
+												);
 											}
 										} // doc
 										else // case: for doc upload
 										{
 											googleDoc = true;
-											self.postMessageToServer(message,
-													streamId, messageAccess,
-													googleDoc);
+											self.postMessageToServer(message,streamId, messageAccess,googleDoc);
 										}
 									}
 									// case: link is not present in message
 									else {
-										self.postMessageToServer(message,
-												streamId, messageAccess,
-												googleDoc);
+										self.postMessageToServer(message,streamId, messageAccess,googleDoc);
 									}
 
 								}
 
 							}
-							// }
-
 						},
 						
 						
