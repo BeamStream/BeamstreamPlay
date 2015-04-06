@@ -79,7 +79,7 @@ define(
 						login : function(e) {
 							e.preventDefault();
 							this.data.url = "/login";
-							this.data.models[0].set('iam',$("#usertype").val());
+							//this.data.models[0].set('iam',$("#usertype").val());
 							this.saveForm();
 
 						},

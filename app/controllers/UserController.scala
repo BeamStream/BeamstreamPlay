@@ -250,11 +250,10 @@ object UserController extends Controller {
    */
   def findUser: Action[AnyContent] = Action { implicit request =>
     val jsonReceived = request.body.asJson.get
-    val iam=(jsonReceived \ "iam").as[String]
     val userEmailorName = (jsonReceived \ "mailId").as[String]
     val userPassword = (jsonReceived \ "password").as[String]
     val encryptedPassword = (new PasswordHashingUtil).encryptThePassword(userPassword)
-    val authenticatedUser = User.findUser(userEmailorName, encryptedPassword,iam)
+    val authenticatedUser = User.findUser(userEmailorName, encryptedPassword)
 
     authenticatedUser match {
       case Some(user) =>
