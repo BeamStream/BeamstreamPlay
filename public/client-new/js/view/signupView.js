@@ -53,6 +53,7 @@ define(['view/formView'], function(FormView){
 				if(checkStatus && emailID){
 					$("#email-sign-tick").show();
 					$("#email-sign-close").hide();
+					$("#mailError").hide();
 					
 					
 					var self = this;
@@ -81,6 +82,7 @@ define(['view/formView'], function(FormView){
 					
 				}else{
 					$("#email-sign-close").show();
+					$("#mailError").show();
 					$("#email-sign-tick").hide();
 				}
         	}
@@ -94,9 +96,11 @@ define(['view/formView'], function(FormView){
 				if(Len > 5){
 					$("#password-sign-tick").show();
 					$("#password-sign-close").hide();
+					$("#passwordError").hide();
 				}else{
 					$("#password-sign-tick").hide();
 					$("#password-sign-close").show();
+					$("#passwordError").show();
 				}
 			}
 		},
@@ -109,16 +113,20 @@ define(['view/formView'], function(FormView){
 				if(Len > 5){
 					$("#confirmPassword-sign-tick").show();
 					$("#confirmPassword-sign-close").hide(); 
+					$("#confirmpasswordError").hide(); 
 					if(password != confirmpassword){
 						$("#field-error").show();
+						$("#confirmpasswordError").hide();
 						$("#confirmPassword-sign-tick").hide();
 						$("#confirmPassword-sign-close").show();
+						 
 					}else{
 						$("#field-error").hide();
 					}
 				}else{
 					$("#confirmPassword-sign-tick").hide();
 					$("#confirmPassword-sign-close").show();
+					$("#confirmpasswordError").show(); 
 				}
 			}
 		},
