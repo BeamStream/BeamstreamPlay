@@ -53,21 +53,24 @@ define(
 						},
 						usernamecheck : function(e){
 							var username = $("#username").val();
-							$.ajax ({
-								 type : 'POST',
-								 url : "/isUserNameAvailable",
-								 dataType : "json",
-							     contentType : "application/json",
-								 data : JSON.stringify({ 
-									 username : username,
-									 }),
-									 
-								 success : function(data){
-									 if(data == false)
-									 alert("Username already taken");
-								 }
-							 });
-							},
+							if(username){
+								$.ajax ({
+									 type : 'POST',
+									 url : "/isUserNameAvailable",
+									 dataType : "json",
+								     contentType : "application/json",
+									 data : JSON.stringify({ 
+										 username : username,
+										 }),
+										 
+									 success : function(data){
+										 if(data == false){
+											 alert("Username already taken");
+										 }
+									 }
+								 });
+							}
+						},
 						/**
 						 * @TODO JanRain Sign up
 						 */
