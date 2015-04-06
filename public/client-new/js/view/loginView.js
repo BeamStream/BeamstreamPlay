@@ -50,9 +50,11 @@ define(
 					        if(emailID.length != 0){
 								if(status){
 									$("#email-sign-tick").show();
+									$("#mailError").hide();
 									$("#email-sign-close").hide();
 								}else{
 									$("#email-sign-close").show();
+									$("#mailError").show();
 									$("#email-sign-tick").hide();
 								}
 					        }
@@ -66,9 +68,11 @@ define(
 								if(Len > 5){
 									$("#password-sign-tick").show();
 									$("#password-sign-close").hide();
+									$("#passwordError").hide();
 								}else{
 									$("#password-sign-tick").hide();
 									$("#password-sign-close").show();
+									$("#passwordError").show();
 								}
 							}
 						},
@@ -79,7 +83,6 @@ define(
 						login : function(e) {
 							e.preventDefault();
 							this.data.url = "/login";
-							//this.data.models[0].set('iam',$("#usertype").val());
 							this.saveForm();
 
 						},
