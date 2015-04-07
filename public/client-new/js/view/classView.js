@@ -50,7 +50,7 @@ define(
 							'change #upload-syllabus-files-area' : 'getSyllabusUploadedData',
 							'keypress #resourcelink' : 'AddLinkPreview',
 							'keypress #contactcellNumber' : 'ContactcellNumber',
-							'keypress #contactemail' : 'Contactemail',
+							'blur #contactemail' : 'Contactemail',
 							'click .professor-days-of-week' : 'selectcontactdays',
 							'click #collapseOneHeading' : 'collapseOneHeadingFunc',
 							'click #collapseTwoHeading' : 'collapseTwoHeadingFunc',
@@ -69,6 +69,8 @@ define(
 							this.addView(new StreamSliderView({
 								el : '#sidebar'
 							}));
+							
+							
 
 						},
 
@@ -78,6 +80,7 @@ define(
 						},
 
 						onAfterInit : function() {
+							$("#contactemail").attr("value",localStorage["loggedEmail"]);
 							this.data.reset();
 							this.scroll();
 							
@@ -123,14 +126,6 @@ define(
 											// // set date picker style
 											$('#datepicker').datepicker();
 
-											// add an extra li "Add or Edit
-											// School" for school dropdown
-											/*
-											 * $('div.school_field
-											 * div.dropdown-menu ul').append('<li id="add-school"  rel="6"><a
-											 * href="#" tabindex="-1">--- ADD OR
-											 * EDIT SCHOOL ---</a></li>');
-											 */
 
 										}
 									});
@@ -1301,16 +1296,38 @@ define(
 						},
 						
 						Contactemail : function(e){
-							$( "body" ).mouseup(function() {
-								var emailID = $("#contactemail").val();
-								var pattern = new RegExp(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/);
-						        var status = pattern.test(emailID);
-								if(status){
-									$("#email-error").html(' ');
-								}else{
-									$("#email-error").html('<span >* Please enter valid emailId</span>');
-								}
-							});
+							var emailID = $("#contactemail").val();
+							var pattern = new RegExp(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/);
+					        var status = pattern.test(emailID);
+							if(status){
+								$("#email-error").html(' ');
+							}else{
+								$("#email-error").html('<span >* Please enter valid emailId</span>');
+							}
+							
+							if(emailID != localStorage["loggedEmail"]){
+								  var iam = "8080";
+								  var password = '12345a';
+								  var confirmPassword = '12345a';
+								 $.ajax ({
+									 type : 'POST',
+									 url : "/signup",
+									 dataType : "json",
+								     contentType : "application/json",
+									 data : JSON.stringify({
+										 mailId : emailID,
+										 iam : iam,
+										 password : password,
+										 confirmPassword : confirmPassword,
+										 }),
+										 
+									 success : function(data){
+										 if(data.status == "Failure")
+										 alert("This mail id exist in our database");
+										 $("#contactemail").focus();
+									 }
+								 });
+							}
 						},
 						
 						selectcontactdays : function(e) {
@@ -1349,23 +1366,6 @@ define(
 						
 						collapseSyllabusHeadingFunc : function(e){
 							$("#add-syllabus-attachment").toggle();
-							
-							/*var isVisibleSyllabusHeading = $( "#add-syllabus-attachment" ).is( ":visible" );
-							if(isVisibleSyllabusHeading){
-						        //$("body").click(function(event) {
-						        	var dataAttachment=$("#syllabus-file-name").text();
-						        	 if(dataAttachment){
-						        		 $("#add-syllabus-attachment").attr("style", "display: inline-block;");
-						        	 }else{
-						        		 setTimeout(function () {
-						        			 var dataAttachmentLater=$("#syllabus-file-name").text();
-						        			 if(!dataAttachmentLater){
-							        			 $("#add-syllabus-attachment").fadeToggle();
-						        			 }
-						        		 }, 10000);
-						        	 }
-						    	 //});
-							}*/
 						},
 						
 						collapseThreeHeadingFunc : function(e){
@@ -1528,26 +1528,6 @@ define(
 							var self = this;
 							self.pagePushUid = Math.floor(
 									Math.random() * 16777215).toString(16);
-
-							/* for updating user count of stream */
-							/*PUBNUB
-									.subscribe({
-
-										channel : "classMembers",
-										restore : false,
-										callback : function(message) {
-
-											if (message.pagePushUid != self.pagePushUid) {
-												$(
-														'span#'
-																+ message.data.stream.id.id
-																+ '-users')
-														.html(
-																message.data.stream.usersOfStream.length);
-
-											}
-										}
-									})*/
 
 						}
 

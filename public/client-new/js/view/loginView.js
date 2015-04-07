@@ -114,12 +114,13 @@ define(
 										localStorage["loggedUserProfileUrl"] = '/beamstream-new/images/profile-upload.png';
 
 									localStorage["loggedUserId"] = data.user.id.id;
-
+									localStorage["loggedEmail"] = data.user.email;
 
 									if (data.hasClasses == true) {
 										window.location = "/stream";
-									} else
+									} else{
 										window.location = "/class";
+									}
 								}
 							} else {
 								alert(data.result.message);

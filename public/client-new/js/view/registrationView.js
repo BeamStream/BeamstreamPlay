@@ -249,6 +249,7 @@ define(
 									&& data != "Please select an existing school or create your own one") {
 								// set the logged users Id
 								localStorage["loggedUserId"] = data.user.id.id;
+								localStorage["loggedEmail"] = data.user.email;
 								this.data.models[0].set({
 									'id' : data.user.id.id
 								});
