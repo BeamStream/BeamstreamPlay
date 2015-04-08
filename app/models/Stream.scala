@@ -93,7 +93,7 @@ object Stream {
 		        UtilityActor.sendEmailAfterStreamCreation(user.get.email, stream.streamName, false)
 		        UtilityActor.sendEmailAfterStreamCreationToNotifyOtherUsers(streamId, userId)
 		        ResulttoSent("Success", "Joined Stream Successfully")
-           case false => ResulttoSent("sentmail", "You have sent your request for joining stream.Stream will be display in stream list when confirmed")
+           case false => ResulttoSent("sentmail", "Your educator will give you access as soon as they see your request")
          }
       case true => ResulttoSent("Failure", "You've already joined the stream")
     }

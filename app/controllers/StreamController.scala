@@ -164,38 +164,29 @@ object StreamController extends Controller {
         }
     }
   }
-  /*    OnlineUserCache.returnOnlineUsers.isEmpty match {
-      case false =>
-        OnlineUserCache.returnOnlineUsers(0).onlineUsers.isEmpty match {
-          case true => Ok(views.html.login())
-          case false =>
-            val userID = request.session.get("userId")
-            userID match {
-              case Some(id) =>
-                val loggedInUser = User.getUserProfile(new ObjectId(id))
-                loggedInUser.get.classes.isEmpty match {
-                  case true => Ok(views.html.classpage())
-                  case false => Ok(views.html.stream("ok"))
-                }
-              case None => Redirect("/login")
-            }
-        }
-      case true =>
-        Redirect("/signOut")
-    }
-  }
-*/
-  def confirmStreamJoining : Action[AnyContent]=Action{implicit request =>
+ 
+  def confirmation : Action[AnyContent]=Action{implicit request =>
     val creatorOfStream=request.queryString("creatorOfStream").toList(0)
     val userIdToJoin=request.queryString("userIdToJoin").toList(0)
     val streamId=request.queryString("streamId").toList(0)
     val classId=request.queryString("classId").toList(0)
     val resultToSend =Stream.joinStream(new ObjectId(streamId), new ObjectId(userIdToJoin),true)
-    if (resultToSend.status == "Success") User.addClassToUser(new ObjectId(userIdToJoin), List(new ObjectId(classId)))
+    if (resultToSend.status == "Success") {
+      User.addClassToUser(new ObjectId(userIdToJoin), List(new ObjectId(classId)))
+    }
     (request.session.get("userId")) match {
       case Some(userId) => Redirect("/stream").withSession("userId" -> userId)
+                          .withCookies(Cookie("Beamstream", userId.toString() + " stream", Option(864000)))
       case None => Redirect("/login").withNewSession.discardingCookies(DiscardingCookie("Beamstream"))
     } 
+  }
+  
+  def confirmStreamJoining : Action[AnyContent]=Action{implicit request =>
+    val creatorOfStream=request.queryString("creatorOfStream").toList(0)
+    val userIdToJoin=request.queryString("userIdToJoin").toList(0)
+    val streamId=request.queryString("streamId").toList(0)
+    val classId=request.queryString("classId").toList(0)
+    Ok(views.html.confirmation(creatorOfStream,userIdToJoin,streamId,classId))
   }
   
   def getStreamData(streamId: String): Action[AnyContent] = Action { implicit request =>
