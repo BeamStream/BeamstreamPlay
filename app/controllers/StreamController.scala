@@ -166,7 +166,6 @@ object StreamController extends Controller {
   }
  
   def confirmation : Action[AnyContent]=Action{implicit request =>
-    val creatorOfStream=request.queryString("creatorOfStream").toList(0)
     val userIdToJoin=request.queryString("userIdToJoin").toList(0)
     val streamId=request.queryString("streamId").toList(0)
     val classId=request.queryString("classId").toList(0)
@@ -182,11 +181,12 @@ object StreamController extends Controller {
   }
   
   def confirmStreamJoining : Action[AnyContent]=Action{implicit request =>
-    val creatorOfStream=request.queryString("creatorOfStream").toList(0)
     val userIdToJoin=request.queryString("userIdToJoin").toList(0)
     val streamId=request.queryString("streamId").toList(0)
     val classId=request.queryString("classId").toList(0)
-    Ok(views.html.confirmation(creatorOfStream,userIdToJoin,streamId,classId))
+    val fullName=request.queryString("fullName").toList(0)
+    val mediaUrl=request.queryString("mediaUrl").toList(0)
+    Ok(views.html.confirmation(userIdToJoin,streamId,classId,fullName,mediaUrl))
   }
   
   def getStreamData(streamId: String): Action[AnyContent] = Action { implicit request =>

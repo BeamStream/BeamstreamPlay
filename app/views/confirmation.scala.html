@@ -1,4 +1,4 @@
-@(creatorOfStream : String , userIdToJoin : String , streamId : String ,classId : String)
+@(userIdToJoin : String , streamId : String ,classId : String,fullName : String,mediaUrl : String)
 @import play.api.i18n.Messages 
 @meta = {} 
 @CSS = { 
@@ -102,11 +102,16 @@
 <div class='popup'>
 	<div class='cnt223'>
 		<div class="buttton">
-			<center><img src="http://www.lawyersweekly.com.au/images/LW_Media_Library/594partner-profile-pic-An.jpg" width="100px" height="100px"/></center>
+		@if(mediaUrl ==""){
+			<center><img src='/beamstream-new/images/profile-upload.png' width="100px" height="100px"/></center>
+		}else{
+			<center><img src='@mediaUrl' width="100px" height="100px"/></center>
+		}
+			
 		</div>
-		<div class="buttton"><center><strong>XYZ</strong></center></div>
+		<div class="buttton"><center><strong>@fullName</strong></center></div>
 		<div class="buttton">
-			 <a href='confirmation?creatorOfStream=@creatorOfStream.concat("&").concat("userIdToJoin=").concat(userIdToJoin).concat("&").concat("streamId=").concat(streamId).concat("&").concat("classId=").concat(classId)'>
+			 <a href='confirmation?userIdToJoin=@userIdToJoin.concat("&").concat("streamId=").concat(streamId).concat("&").concat("classId=").concat(classId)'>
 			 	<button type="button" class="btn btn-success">Accept</button>
 			 </a>
 			 <a href="/login" style="float:right;"><button type="button" class="btn btn-danger">Decline</button></a>

@@ -205,6 +205,7 @@ object ClassController extends Controller {
               //check if user is Professional
               val userdetails=User.findUserByObjectId(new ObjectId(userId))
               val usertype=userdetails.get.userType.toString() 
+              
               if(usertype==UserType.apply(1.toInt).toString()){
                 val contactEmail=(jsonReceived \ "contactEmail").as[String]
                 val contactCellNumber=(jsonReceived \ "contactcellNumber").as[String]
@@ -235,12 +236,19 @@ object ClassController extends Controller {
               val findusertype=UserType.apply(1).toString()
               val userdetails=User.findUserByObjectId(new ObjectId(userId))
               val loggedinusertype=userdetails.get.userType.toString() 
+              val firstName=userdetails.get.firstName.toString()
+              val lastName=userdetails.get.lastName.toString()
+              val fullName = firstName.capitalize.concat(" ").concat(lastName.capitalize)
+              
+              val userMedialDetails = UserMedia.findUserMediaByUserId(new ObjectId(userId))
+              val mediaUrl = userMedialDetails.head.mediaUrl
+             
               usertypeofcreatorOfStream.equals(findusertype) && loggedinusertype.equals(UserType.apply(0).toString()) match {
                 // send confirmation mail to professor when student join professor stream
               case true => 
                 	val resultToSend = Stream.joinStream(streamId, new ObjectId(userId),false)
                 	if (resultToSend.status == "sentmail"){
-                	  UtilityActor.sendConfirmationMailOnStreamJoining(creatorOfStream.toString(),mailofcreatorOfStream,userId,streamId.toString(),streamname,classId)
+                	  UtilityActor.sendConfirmationMailOnStreamJoining(mailofcreatorOfStream,userId,streamId.toString(),streamname,classId,fullName,mediaUrl)
                 	}
                 	Ok(write(ClassResult(stream.get, resultToSend))).as("application/json")
               case false => 

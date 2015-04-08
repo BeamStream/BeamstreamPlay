@@ -172,12 +172,12 @@ object SendEmailUtility extends EmailUtility {
    /*
    *  send confirmation mail on stream joining
    */
-  def sendConfirmationMailOnStreamJoining(creatorOfStream:String,mailofcreatorOfStream:String,userIdToJoin:String,streamId:String,streamname:String,classId:String){
+  def sendConfirmationMailOnStreamJoining(mailofcreatorOfStream:String,userIdToJoin:String,streamId:String,streamname:String,classId:String,fullName:String,mediaUrl:String){
 	  val content =
         "Hello ClassWall Smarty,"+
         " One ClassWall ClassWall want to join" +streamname +"<br>"+
         "Confirm join by clicking on below link"+
-        "<a href ='" + Play.current.configuration.getString("server").get + "/confirmStreamJoining?creatorOfStream=" + creatorOfStream + "&userIdToJoin=" + userIdToJoin + "&streamId="+streamId + "&classId="+classId + "'>CONFIRM HERE</a>" +
+        "<a href ='" + Play.current.configuration.getString("server").get + "/confirmStreamJoining?userIdToJoin=" + userIdToJoin  + "&streamId="+streamId + "&classId="+classId + "&fullName="+fullName + "&mediaUrl="+mediaUrl +"'>CONFIRM HERE</a>" +
         "<br>" + "<br>" +
         "The Happiness Team @ ClassWall" + "<br>"
         val subject="Confirm user to join stream/class"
