@@ -232,8 +232,6 @@ define(
 								'lastName' : $('#lastName').val(),
 								'major' : $('#major').val(),
 								'aboutYourself' : $('#aboutYourself').val(),
-								// 'gradeLevel' : $('#gradeLevel').val(),
-								// 'degreeProgram' : $('#degreeProgram').val(),
 								'location' : $('#location').val(),
 								'cellNumber' : $('#cellNumber').val(),
 							});
@@ -324,22 +322,8 @@ define(
 										'File type not allowed !!');
 								self.profile = '';
 							} else {
-								//alert("All info about this file: " + ImageInfo.getAllFields(file).toSource());
-								//alert(file.getAsBinary());
-								//var exif = EXIF.readFromBinaryFile(new BinaryFile(reader.readAsBinaryString(file)));
-								//alert(exif);
-								//reader.onloadend = function() {
-								//var binaryData = new BinaryFile(this.result);
-								//alert(JSON.stringify(binaryData));
-      								//  var exif = EXIF.readFromBinaryFile(file);
-        
-       								  //alert(exif);
-    							//};
 								/* capture the file informations */
 								reader.onload = (function(f) {
-								//var exif = EXIF.readFromBinaryFile(new BinaryFile(this.result));
-						        //alert(exif);
-
 									self.profile = file;
 									return function(e) {
 										$('#profile-error').html('');
@@ -360,82 +344,41 @@ define(
 
 									};
 								})(file);
-
-								// read the image file as data URL
 								reader.readAsDataURL(file);
 							}
 						},
 
 						continuestep3 : function(e) {
-
 							e.preventDefault();
-							var self = this;
-							var fileSize = 0;
-							/* post the image / video data as mutiform data */
-							if(this.profile != null) {
-							    fileSize = this.profile.size/1000;
-							}
-							if(fileSize < 500) {
-								fileSize = 500;
-							}
 							if (this.profile) {
-								$('.progress-container').show();
-
-								/* updating progress bar */
-								this.progress = setInterval(function() {
-
-									this.bar = $('.bar');
-									if (this.bar.width() == 200) {
-										clearInterval(this.progress);
-									} else {
-										this.bar.width(this.bar.width() + 8);
-									}
-									this.bar.text(this.bar.width() / 2 + "%");
-
-								}, fileSize);
-
+								$("#floatingCirclesG").css("display", "block");
 								var data;
 								data = new FormData();
 								data.append('profileData', this.profile);
-								$
-										.ajax({
-											type : 'POST',
-											data : data,
-											url : "/media",
-											// cache : false,
-											contentType : false,
-											processData : false,
-											success : function(data) {
+								$.ajax({
+									type : 'POST',
+									data : data,
+									url : "/media",
+									contentType : false,
+									processData : false,
+									success : function(data) {
+										if (data.id) {
 
-												// set progress bar as 100 %
-												self.bar = $('.bar');
-												self.bar.width(200);
-												self.bar.text("100%");
-												clearInterval(self.progress);
+											if (data.frameURL)
+												localStorage["loggedUserProfileUrl"] = data.frameURL;
+											else
+												localStorage["loggedUserProfileUrl"] = data.mediaUrl;
 
-												// @TODO redirect to class page
-												// on upload success from
-												// UI side
-												if (data.id) {
-													$('.profile-loading').css(
-															"display", "block");
-													// set the logged users Id
+											if (!data.frameURL
+													&& !data.mediaUrl)
+												localStorage["loggedUserProfileUrl"] = '/beamstream-new/images/profile-upload.png';
+											window.location = "/class";
+										} else {
+											alert(data.message);
+										}
 
-													if (data.frameURL)
-														localStorage["loggedUserProfileUrl"] = data.frameURL;
-													else
-														localStorage["loggedUserProfileUrl"] = data.mediaUrl;
-
-													if (!data.frameURL
-															&& !data.mediaUrl)
-														localStorage["loggedUserProfileUrl"] = '/beamstream-new/images/profile-upload.png';
-													window.location = "/class";
-												} else {
-													alert(data.message);
-												}
-
-											}
-										});
+									}
+							});
 							} else {
 
 								$('#addPhoto').click();
@@ -451,7 +394,6 @@ define(
 							$.ajax({
 								type : 'GET',
 								url : "/defaultMedia",
-								// cache : false,
 								contentType : false,
 								processData : false
 							});
@@ -461,11 +403,6 @@ define(
 						noprofilepic : function(e) {
 							e.preventDefault();
 							$("#selectUploadPhoto").modal('hide');
-							/*
-							 * $.ajax({ type : 'GET', url : "/defaultMedia",
-							 * cache : false, contentType : false, processData :
-							 * false });
-							 */
 							localStorage["loggedUserProfileUrl"] = '/beamstream-new/images/profile-upload.png';
 							window.location = "/class";
 						},
@@ -495,8 +432,6 @@ define(
 						 */
 						connectMedia : function(e) {
 							e.preventDefault();
-
-							/* activate selected medias */
 							if ($(e.target).parents('li').hasClass('active')) {
 								$(e.target).parents('li').removeClass('active');
 							} else {

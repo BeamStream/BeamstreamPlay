@@ -158,13 +158,6 @@
                 <span class="red-star select-star">*</span>
              </fieldset>    
             
-
-
-         
-            
-            
-            
-            
             <fieldset class="field location-block">
             <input id="location" data-name="user.location" name="location" value="{{location}}" type="text" placeholder="Location" class="location-note">
             <span class="red-star select-star">*</span>
@@ -222,6 +215,18 @@
           {{/if}}
         </div>
       </div>
+      
+		<div id="floatingCirclesG"  style="margin-top:-100px;margin-left:310px;display:none;">
+			<div class="f_circleG" id="frotateG_01"></div>
+			<div class="f_circleG" id="frotateG_02"></div>
+			<div class="f_circleG" id="frotateG_03"></div>
+			<div class="f_circleG" id="frotateG_04"></div>
+			<div class="f_circleG" id="frotateG_05"></div>
+			<div class="f_circleG" id="frotateG_06"></div>
+			<div class="f_circleG" id="frotateG_07"></div>
+			<div class="f_circleG" id="frotateG_08"></div>
+		</div>
+      
     </div>
  
         </div>
