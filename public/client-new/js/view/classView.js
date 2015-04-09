@@ -28,7 +28,6 @@ define(
 						schools : '',
 						events : {
 							'keyup #className' : 'populateClassNames',
-							'focusin #className' : 'populateClassNames',
 							'click #createOrJoinStream' : 'createOrJoinStream',
 							'click .access-menu li' : 'activateClassAccess',
 							'change #schoolId' : 'clearAllClasses',
@@ -379,6 +378,26 @@ define(
 							var selectedSchoolId = $('#schoolId').val();
 							self.data.models[0].removeAttr('id');
 							$('#createOrJoinStream').text("Create Stream");
+							
+							/*
+							 * Reset the field on backspace or delete key
+							 */
+							var code=eventName.which;
+							if(code==8 || code==46){
+								$("#classCode").val("");
+								$("#newClassTime").val("");
+								$("div#classDays #" + 0).removeClass( "activedays" );
+								$("div#classDays #" + 1).removeClass( "activedays" );
+								$("div#classDays #" + 2).removeClass( "activedays" );
+								$("div#classDays #" + 3).removeClass( "activedays" );
+								$("div#classDays #" + 4).removeClass( "activedays" );
+								$("div#classDays #" + 5).removeClass( "activedays" );
+								$("div#classDays #" + 6).removeClass( "activedays" );
+								$('#classType').val("");
+								$('#contactemail').val("");
+								$('#contactcellNumber').val("");
+								$('#contactofficeHours').val("");
+							}
 
 							/* call auto populate only when class name is there */
 							if (text != '' && selectedSchoolId != '') {
@@ -462,6 +481,27 @@ define(
 							var selectedSchoolId = $('#schoolId').val();
 							self.data.models[0].removeAttr('id');
 							$('#createOrJoinStream').text("Create Stream");
+							
+							/*
+							 * Reset the field on backspace or delete key
+							 */
+							var code=eventName.which;
+							if(code==8 || code==46){
+								$("#className").val("");
+								$("#newClassTime").val("");
+								$("div#classDays #" + 0).removeClass( "activedays" );
+								$("div#classDays #" + 1).removeClass( "activedays" );
+								$("div#classDays #" + 2).removeClass( "activedays" );
+								$("div#classDays #" + 3).removeClass( "activedays" );
+								$("div#classDays #" + 4).removeClass( "activedays" );
+								$("div#classDays #" + 5).removeClass( "activedays" );
+								$("div#classDays #" + 6).removeClass( "activedays" );
+								$('#classType').val("");
+								$('#contactemail').val("");
+								$('#contactcellNumber').val("");
+								$('#contactofficeHours').val("");
+							}
+							
 
 							/* post the text that we type to get matched classes */
 							if (text != '' && selectedSchoolId != '') {
@@ -554,36 +594,14 @@ define(
 							$('#classType').val(data.classToReturn.classTime);
 							$('#newClassTime').val(data.classToReturn.classTime.substr(0, 5));
 							$('#time span.filter-option').text(data.classToReturn.classTime.substr(5, 7));
-							/* if (data.classToReturn.classType == "quarter") {
-								$('#classType option').text("Quarter");
-							} else {
-								$('#classType option').text("Semester");
-							} */
-							
 							$('#classType').val(data.classToReturn.classType);
 							
 							/*
 							* for professorsclass Info
 							*/
-							if(data.professorClassToReturn.contactEmail!="false"){
-								$('#contactemail').val(data.professorClassToReturn.contactEmail);
-								$('#contactcellNumber').val(data.professorClassToReturn.contactCellNumber);
-								$('#contactofficeHours').val(data.professorClassToReturn.contactOfficeHours);
-								$('#contactdays').val(data.professorClassToReturn.contactDays);
-								$('#contactdays').val(data.professorClassToReturn.contactDays);
-								$('#classAccess').val(data.professorClassToReturn.classInfo);
-								$('#gradedfor').val(data.professorClassToReturn.grade);
-								$('#gradedfor').val(data.professorClassToReturn.grade);
-								$('#resourcetitle').val(data.professorClassToReturn.studyResource[0]);
-								$('#resourcelink').val(data.professorClassToReturn.studyResource[1]);
-								
-								$('#testresourcetitle').val(data.professorClassToReturn.test[0]);
-								
-								$('#assignment').val(data.professorClassToReturn.test[1]);
-								
-								$('#testdate').val(data.professorClassToReturn.test[2]);
-								$('#attendance').val(data.professorClassToReturn.attendance);
-							}
+							$('#contactemail').val(data.professorClassToReturn.contactEmail);
+							$('#contactcellNumber').val(data.professorClassToReturn.contactCellNumber);
+							$('#contactofficeHours').val(data.professorClassToReturn.contactOfficeHours);
 						},
 
 						/**
@@ -625,25 +643,9 @@ define(
 							/*
 							* for professorsclass Info
 							*/
-							if(data.professorClassToReturn.contactEmail!="false"){
-								$('#contactemail').val(data.professorClassToReturn.contactEmail);
-								$('#contactcellNumber').val(data.professorClassToReturn.contactCellNumber);
-								$('#contactofficeHours').val(data.professorClassToReturn.contactOfficeHours);
-								$('#contactdays').val(data.professorClassToReturn.contactDays);
-								$('#contactdays').val(data.professorClassToReturn.contactDays);
-								$('#classAccess').val(data.professorClassToReturn.classInfo);
-								$('#gradedfor').val(data.professorClassToReturn.grade);
-								$('#gradedfor').val(data.professorClassToReturn.grade);
-								$('#resourcetitle').val(data.professorClassToReturn.studyResource[0]);
-								$('#resourcelink').val(data.professorClassToReturn.studyResource[1]);
-								
-								$('#testresourcetitle').val(data.professorClassToReturn.test[0]);
-								
-								$('#assignment').val(data.professorClassToReturn.test[1]);
-								
-								$('#testdate').val(data.professorClassToReturn.test[2]);
-								$('#attendance').val(data.professorClassToReturn.attendance);
-							}
+							$('#contactemail').val(data.professorClassToReturn.contactEmail);
+							$('#contactcellNumber').val(data.professorClassToReturn.contactCellNumber);
+							$('#contactofficeHours').val(data.professorClassToReturn.contactOfficeHours);
 						},
 
 						/**
@@ -860,7 +862,20 @@ define(
 
 							} else {
 								alert(data.resultToSend.message);
-								location.reload();
+								$("#className").val("");
+								$("#classCode").val("");
+								$("#newClassTime").val("");
+								$("div#classDays #" + 0).removeClass( "activedays" );
+								$("div#classDays #" + 1).removeClass( "activedays" );
+								$("div#classDays #" + 2).removeClass( "activedays" );
+								$("div#classDays #" + 3).removeClass( "activedays" );
+								$("div#classDays #" + 4).removeClass( "activedays" );
+								$("div#classDays #" + 5).removeClass( "activedays" );
+								$("div#classDays #" + 6).removeClass( "activedays" );
+								$('#classType').val("");
+								$('#contactcellNumber').val("");
+								$('#contactofficeHours').val("");
+								$("#createOrJoinStream").val("Create Stream");
 							}
 
 							/* clear all form fields */
@@ -1322,9 +1337,10 @@ define(
 										 }),
 										 
 									 success : function(data){
-										 if(data.status == "Failure")
-										 alert("This mail id exist in our database");
-										 $("#contactemail").focus();
+										 if(data.status == "Failure"){
+											 alert("This mail id exist in our database");
+											 $("#contactemail").focus();
+										 }
 									 }
 								 });
 							}
