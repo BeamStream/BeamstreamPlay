@@ -664,6 +664,7 @@ define(
 						 */
 						createOrJoinStream : function(e) {
 							e.preventDefault();
+							
 							// this.data.models[0].set({'schoolId' :
 							// $('#schoolId').val()});
 							this.data.models[0].set({
@@ -723,7 +724,10 @@ define(
 						 */
 						success : function(model, data) {
 							var self = this;
+							$("#floatingCirclesG").show();
 							if (data.resultToSend.status == "Success") {
+								
+								$("#floatingCirclesG").hide();
 								$("#selectNextStep").modal('show');
 
 								/* update stream list when we add/join a stream */
