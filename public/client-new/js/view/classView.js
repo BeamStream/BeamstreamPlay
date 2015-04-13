@@ -865,6 +865,7 @@ define(
 								}
 
 							} else {
+								$("#floatingCirclesG").hide();
 								alert(data.resultToSend.message);
 								$("#className").val("");
 								$("#classCode").val("");
