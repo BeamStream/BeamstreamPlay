@@ -948,6 +948,12 @@ define(
 						 * get files data to be upload
 						 */
 						getUploadedData : function(e) {
+							
+							 $("#resourcetitle").attr("style", "display: inline-block;");
+			        		 $("#add-attachment").attr("style", "display: inline-block;");
+			        		 $("#resourcelink").attr("style", "display: inline-block;");
+			        		 $("#insterlinkTitle").attr("style", "display: inline-block;");
+							
 							$('a.ask-button').css('visibility', 'hidden');
 							var self = this;
 							file = e.target.files[0];
@@ -1418,7 +1424,7 @@ define(
 								        		 $("#insterlinkTitle").attr("style", "display: none;");
 								        	 }
 									  }
-						        	}, 10);
+						        	}, 200);
 						        	
 						        	
 						    	 });
@@ -1446,7 +1452,7 @@ define(
 								        	 }
 									  }
 						        				  
-						        	}, 10);
+						        	}, 200);
 						        	
 						        	
 						    	 });
