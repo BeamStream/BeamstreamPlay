@@ -1474,7 +1474,8 @@ define(
 										  if(!focused){
 											  var datatestresourcetitle=$("#testresourcetitle").val();
 									        	var datatestdate=$("#testdate").val();
-									        	 if(datatestresourcetitle || datatestdate){
+									        	var assignment=$("#assignment").val();
+									        	 if(datatestresourcetitle || datatestdate || assignment){
 									        		 $("#testresourcetitle").attr("style", "display: inline-block;");
 									        		 $("#assignment").attr("style", "display: inline-block;");
 									        		 $("#testdate").attr("style", "display: inline-block;");
@@ -1486,7 +1487,7 @@ define(
 										  }
 										  
 							        				  
-							        }, 10);
+							        }, 1000);
 						    	 });
 						        
 						        $("#testdate").blur(function(event) {
@@ -1495,7 +1496,8 @@ define(
 										  if(!focused){
 											  var datatestresourcetitle=$("#testresourcetitle").val();
 									        	var datatestdate=$("#testdate").val();
-									        	 if(datatestresourcetitle || datatestdate){
+									        	var assignment=$("#assignment").val();
+									        	 if(datatestresourcetitle || datatestdate || assignment){
 									        		 $("#testresourcetitle").attr("style", "display: inline-block;");
 									        		 $("#assignment").attr("style", "display: inline-block;");
 									        		 $("#testdate").attr("style", "display: inline-block;");
@@ -1506,7 +1508,7 @@ define(
 									        	 }
 										  }
 							        				  
-							        }, 10);
+							        }, 1000);
 						    	 });
 							}
 						},
