@@ -96,9 +96,8 @@
          </div>
                   <span class="add-syllabus-attachemnt" id="add-syllabus-attachment" style="display:none;"><i class="icon-paper-clip icon-large"></i>Add Attachment</span>
             <!-- start uploading area -->
-                  <ul id="uploded-syllabus-file-area" class="answer">
-									<li id="syllabus-file-name"></li>
-									<li>
+                  <div id="uploded-syllabus-file-area" class="answer" style="display:none;">
+									
 										<div class="progress-container">
 											<div class="progress progress-striped active" style="display:none;">
 												<div class="bar"></div>
@@ -116,9 +115,8 @@
 											</div>
 										</div>
 										</div>
-									</li>
 									<div class="syllabusFileUploadMsg" style="float:right;margin-top:-41px;margin-right: 10px;">File Uploading.... Please wait.</div>
-								</ul>
+								</div>
                   <div class="embed-info">
                      <div class="upload-conatiner">
                         <h5>Select an image or video file on your computer.</h5>
@@ -127,6 +125,7 @@
                      </div>
                   </div>
                   <!-- end uploading area -->
+                  <div id="syllabus-file-name"></div>
       </div>
       
       
@@ -143,10 +142,9 @@
          <input class="resource-title" type="text" placeholder="Resource Title" name="resourcetitle" id="resourcetitle" style="display:none;">
          <span class="add-attachemnt" id="add-attachment" style="display:none;"><i class="icon-paper-clip icon-large" ></i>Add Attachment</span>
         
-                  <ul id="uploded-file-area" class="answer">
+                  <div id="uploded-file-area" class="answer" style="display:none;">
 					
-					<li id="file-name"></li>
-					<li>
+					
 						<div class="progress-container">
 							<div class="progress progress-striped active" style="display:none;">
 								<div class="bar"></div>
@@ -164,9 +162,8 @@
 								</div>
 							</div>
 						</div>
-					 </li>
 				 	<div class="fileUploadMsg" style="float:right;margin-top:-41px;margin-right: 10px;">File Uploading.... Please wait.</div>
-				</ul>
+				</div>
                   <div class="embed-info">
                      <div class="upload-conatiner">
                         <h5>Select an image or video file on your computer.</h5>
@@ -174,6 +171,8 @@
                            name="add-attachment">
                      </div>
                   </div>
+                  
+                  <div id="file-name"></div>
                   
                   <div id="dialog-modal" title="Add a Link">
                      <p id="insterlinkTitle" style="display:none;">Insert link here and press space for preview:</p>

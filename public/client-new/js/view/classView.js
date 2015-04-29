@@ -968,11 +968,11 @@ define(
 								$('div#fileUploadingImage #floatingCirclesG').css('visibility', 'visible');
 								$('div#fileUploadingImage #floatingCirclesG').css('display', 'block');
 								
-								var studyAttachment = "<div class=\"embed\" style=\"height:30px;\">"+
+								/*var studyAttachment = "<div class=\"embed\" style=\"height:30px;\">"+
 													"<span>"+f.name+"</span>"+
 													"<span class=\"action\"><a href=\"javascript:void(0)\" id=\"studyResourceAttachment\" class=\"nothumb\" style=\"float:right;display:none;\">✕</a></span>"+
 													"</div>";	
-								$('#file-name').html(studyAttachment);
+								$('#file-name').html(studyAttachment);*/
 								$('#uploded-file-area').show();
 								
 								$('.ask-outer').height(function(index, height) {
@@ -1012,6 +1012,18 @@ define(
 								processData : false,
 								dataType : "json",
 								success : function(data) {
+									
+									
+									
+									var studyAttachment =   "<div class=\"embed\" style=\"width:95%;margin-left:6px;\">" +
+									"<div class=\"action\" ><a href=\"javascript:void(0)\" id=\"studyResourceAttachment\" class=\"nothumb\" style=\" float:right;display:none;\">✕</a></div>"+
+									"<div><img src=\""+data[0]+"\" class=\"thumb\" style=\"max-width: 100%;max-height:180px\"></div>" +
+									"</div>";	
+									
+
+									$('#file-name').html(studyAttachment);
+									
+									
 									$('.fileUploadMsg').css('visibility', 'hidden');
 									$('.fileUploadMsg').css('display', 'none');
 									$('div#fileUploadingImage #floatingCirclesG').css('visibility', 'hidden');
@@ -1211,11 +1223,11 @@ define(
 								$('.syllabusFileUploadMsg').css('display', 'block');
 								$('div#SyllabusFileUploadingImage #floatingCirclesG').css('visibility', 'visible');
 								$('div#SyllabusFileUploadingImage #floatingCirclesG').css('display', 'block');
-								var syllabusAttachment = "<div class=\"embed\" style=\"height:30px;\">"+
+								/*var syllabusAttachment = "<div class=\"embed\" style=\"height:30px;\">"+
 								"<span>"+f.name+"</span>"+
 								"<span class=\"action\"><a href=\"javascript:void(0)\" id=\"syllabusAttachment\" class=\"nothumb\" style=\"float:right;display:none;\">✕</a></span>"+
 								"</div>";	
-								$('#syllabus-file-name').html(syllabusAttachment);
+								$('#syllabus-file-name').html(syllabusAttachment);*/
 								$('#uploded-syllabus-file-area').show();
 								
 								$('.ask-outer').height(function(index, height) {
@@ -1256,6 +1268,15 @@ define(
 										processData : false,
 										dataType : "json",
 										success : function(data) {
+											
+											var syllabusAttachment =   "<div class=\"embed\" style=\"width:95%;margin-left:6px;\">" +
+											"<div class=\"action\" ><a href=\"javascript:void(0)\" id=\"syllabusAttachment\" class=\"nothumb\" style=\" float:right;display:none;\">✕</a></div>"+
+											"<div><img src=\""+data[0]+"\" class=\"thumb\" style=\"max-width: 100%;max-height:180px\"></div>" +
+											"</div>";	
+											
+											$('#syllabus-file-name').html(syllabusAttachment);
+											
+											
 											$('.syllabusFileUploadMsg').css('visibility', 'hidden');
 											$('.syllabusFileUploadMsg').css('display', 'none');
 											$('div#SyllabusFileUploadingImage #floatingCirclesG').css('visibility', 'hidden');
@@ -1290,14 +1311,14 @@ define(
 									$('div#LinkPreview #floatingCirclesG').css('display', 'none');
 									
 									if(data.thumbnail_url){
-										var sendData =   "<div class=\"embed\" style=\"width:95%;margin-left:6px;\">" +
+										var sendData =   "<div class=\"embed\" id=\"linkpreview\" style=\"width:95%;margin-left:6px;\">" +
 										"<div class=\"action\" ><a href=\"javascript:void(0)\" id=\"Hidepreview\" class=\"nothumb\" style=\" float:right;display:none;\">✕</a></div>"+
 										"<div><img src=\""+data.thumbnail_url+"\" class=\"thumb\" style=\"max-width: 100%;max-height:100px\"></div>" +
 										"<div><a href=\""+data.url+"\" target=\"_blank\">"+data.title+"</a></div>" +
 										"<div class=\"preview-description\">"+data.description+"</div> " +
 										"<div><a href=\""+data.url+"\" class=\"provider\" target=\"_blank\">"+data.url+"</a></div></div>";	
 									}else{
-										var sendData =   "<div class=\"embed\">" +
+										var sendData =   "<div class=\"embed\" id=\"linkpreview\">" +
 										"<div class=\"action\" ><a href=\"javascript:void(0)\" id=\"Hidepreview\" class=\"nothumb\" style=\" float:right;display:none;\">✕</a></div>"+
 										"<div><a href=\""+data.url+"\" target=\"_blank\">"+data.title+"</a></div>" +
 										"<div class=\"preview-description\">"+data.description+"</div> " +
@@ -1534,7 +1555,7 @@ define(
 						},
 						
 						HidepreviewFunc : function(e){
-							$(".embed").hide();
+							$("#linkpreview").hide();
 						},
 						
 						HidestudyResourceAttachment : function(e){
