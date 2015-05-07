@@ -148,41 +148,7 @@ object Registration extends Controller {
             }
           case true => Redirect("/login").withNewSession.discardingCookies(DiscardingCookie("Beamstream"))
         }
-      /*    (request.session.get("userId") == None) match {
-
-      case true =>
-
-        val token = request.queryString("token").toList(0)
-        val userId = request.queryString("userId").toList(0)
-        val tokenReceived = Token.findToken(token)
-        (tokenReceived.isEmpty) match {
-          case false =>
-            if (tokenReceived.head.userId == userId && tokenReceived.head.tokenString == token) {
-              (tokenReceived.head.used == false) match {
-                case true => Ok(views.html.registration(userId, None)).withSession("token" -> token)
-                case false => Ok("This user has already been registered. Please login with your username and password or register using a new email address.")
-              }
-            } else {
-              Redirect("/login")
-            }
-          case true =>
-            Ok("Token not found")
-        }
-      case false =>
-        val token = request.queryString("token").toList(0)
-        val userId = request.queryString("userId").toList(0)
-        val tokenReceived = Token.findToken(token)
-        val userFound = User.getUserProfile(new ObjectId(request.session.get("userId").get))
-        userFound match {
-          case Some(user) => user.classes.isEmpty match {
-            case true => Redirect("/class")
-            case false => Redirect("/stream")
-          }
-          case None =>
-            Redirect("/signOut")
-        }
-    }
-*/ }
+       }
   }
 
   /**
