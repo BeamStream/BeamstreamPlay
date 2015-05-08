@@ -17,8 +17,6 @@ define(
 						events : {
 							'click #post-button' : 'postMessage',
 							'focus #msg-area' : 'showPostButton',
-							// 'click ul#discussion-file-upload li' :
-							// 'showDocumentPostButton',
 							'blur .ask-disccution' : 'hidePostButton',
 							'click #share-discussions li a' : 'actvateShareIcon',
 							'click #private-to' : 'checkPrivateAccess',
@@ -44,8 +42,7 @@ define(
 							var self = this;
 							this.data.reset();
 							this.selected_medias = [];
-							$('#main-photo').attr('src',
-									localStorage["loggedUserProfileUrl"]);
+							$('#main-photo').attr('src',localStorage["loggedUserProfileUrl"]);
 
 							this.urlRegex1 = /(https?:\/\/[^\s]+)/g;
 							this.urlRegex = /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i;
@@ -53,9 +50,6 @@ define(
 							this.urlReg = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
 							this.website = /(([\w]+:)?\/\/)?(([\d\w]|%[a-fA-f\d]{2,2})+(:([\d\w]|%[a-fA-f\d]{2,2})+)?@)?([\d\w][-\d\w]{0,253}[\d\w]\.)+[\w]{2,4}(:[\d]+)?(\/([-+_~.\d\w]|%[a-fA-f\d]{2,2})*)*(\?(&amp;?([-+_~.\d\w]|%[a-fA-f\d]{2,2})=?)*)?(#([-+_~.\d\w]|%[a-fA-f\d]{2,2})*)?$/;
 
-							// this.urlRegex2 = /^((http|https|ftp):\/\/)/,
-							// this.urlRegex =
-							// /(http\:\/\/|https\:\/\/)?([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-\./]*$/i;
 							this.file = '';
 							this.setupPushConnection();
 							this.msgSortedType = '';
@@ -85,9 +79,6 @@ define(
 																		'div.content');
 														if (t.length != 0) {
 
-															// var msgSortedType
-															// =
-															// $('#sortBy-select').attr('value');
 															$(
 																	'#discussion-pagination')
 																	.show();
@@ -373,7 +364,6 @@ define(
 							
 							$('#msg-area').css('margin','-1px 0 -5px 14px');
 							$('#msg-area').css('padding','5px 6px 4px 6px');
-							$('.ask-outer').css('height', '0px');
 							$('a.ask-button').css('visibility', 'hidden');
 							$('div.loadingImage').css('display','block');
 							$('#uploded-file-area').hide();
@@ -381,12 +371,9 @@ define(
 							var streamId = $('.sortable li.active').attr('id');
 							var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
 							var message = $('#msg-area').val();
-							// if(message){
-							// get message access private ? / public ?
 							var messageAccess, googleDoc = false;
 							var msgAccess = $('#private-to').attr('checked');
-							var privateTo = $('#select-privateTo')
-									.attr('value');
+							var privateTo = $('#select-privateTo').attr('value');
 							if (msgAccess == "checked") {
 								messageAccess = privateTo;
 							} else {
@@ -395,10 +382,7 @@ define(
 
 							var trueUrl = '';
 							if (streamId) {
-
-								/* if there is any files for uploading */
 								if (this.file) {
-
 									var data;
 									data = new FormData();
 									data.append('docDescription', message);
@@ -407,87 +391,66 @@ define(
 									data.append('streamId', streamId);
 									data.append('uploadedFrom', "discussion");
 									data.append('docURL', self.docurlAmazon);
-									/* post profile page details */
-									$
-											.ajax({
-												type : 'POST',
-												data : data,
-												url : "/postDocumentFromDisk",
-												cache : false,
-												contentType : false,
-												processData : false,
-												dataType : "json",
-												success : function(data) {
-														// set progress bar as
-														// 100 %
-														$('#msg-area').val("");
-														$('#uploded-file')
-																.hide();
+									$.ajax({
+										type : 'POST',
+										data : data,
+										url : "/postDocumentFromDisk",
+										cache : false,
+										contentType : false,
+										processData : false,
+										dataType : "json",
+										success : function(data) {
+											$('#msg-area').val("");
+											$('#uploded-file').hide();
 
-														self.file = "";
+											self.file = "";
 
-														$('#file-upload-loader').css("display","none");
+											$('#file-upload-loader').css("display","none");
 
-														var datVal = formatDateVal(data.message.timeCreated);
+											var datVal = formatDateVal(data.message.timeCreated);
 
-														var datas = {
-															"data" : data,
-															"datVal" : datVal
-														}
+											var datas = {
+												"data" : data,
+												"datVal" : datVal
+											}
 
-														// set the response data
-														// to model
-														if(self.data.models[0]) {
-														self.data.models[0]
-																.set({
-																	message : data.message,
-																	docName : data.docName,
-																	docDescription : data.docDescription,
-																	profilePic : data.profilePic
-																})
-														
+											// set the response data
+											// to model
+											if(self.data.models[0]) {
+												self.data.models[0].set({
+													message : data.message,
+													docName : data.docName,
+													docDescription : data.docDescription,
+													profilePic : data.profilePic
+												})
+												
+	
+												/* Pubnub auto push */
+												PUBNUB.publish({
+													channel : "stream",
+													message : {
+														pagePushUid : self.pagePushUid,
+														streamId : streamId,
+														data : self.data.models[0],
+													}
+	
+												})
+											}
 
-														/* Pubnub auto push */
-														PUBNUB
-																.publish({
-																	channel : "stream",
-																	message : {
-																		pagePushUid : self.pagePushUid,
-																		streamId : streamId,
-																		data : self.data.models[0],
-																	}
-
-																})
-														}
-
-														// show the uploaded
-														// file on message llist
-														var messageItemView = new MessageItemView(
-																{
-																	model : self.data.models[0]
-																})
-														$(
-																'#messageListView div.content')
-																.prepend(
-																		messageItemView
-																				.render().el);
-														$('.loadingImage').css('display','none');
-
-														self.selected_medias = [];
-														$(
-																'#share-discussions li.active')
-																.removeClass(
-																		'active');
-
-														$('a.ask-button').css(
-																'visibility',
-																'hidden');
-														$('.ask-outer')
-																.css('height',
-																		'0px');
-
-												}
-											});
+											// show the uploaded
+											// file on message llist
+											var messageItemView = new MessageItemView({
+												model : self.data.models[0]
+											})
+											$('#messageListView div.content').prepend(messageItemView.render().el);
+											$('.loadingImage').css('display','none');
+											self.selected_medias = [];
+											$('#share-discussions li.active').removeClass('active');
+											$('a.ask-button').css('visibility','hidden');
+											$('.ask-outer').css('height','0px');
+												
+										}
+								});
 
 								} else {
 
@@ -530,28 +493,19 @@ define(
 											if (!urlLink
 													.match(/^(http:\/\/bstre.am\/)/)) {
 												/* post url information */
-												$
-														.ajax({
-															type : 'POST',
-															url : 'bitly',
-															data : {
-																link : urlLink
-															},
-															dataType : "json",
-															success : function(
-																	data) {
-																message = message
-																		.replace(
-																				link[0],
-																				data.data.url);
-																self
-																		.postMessageToServer(
-																				message,
-																				streamId,
-																				messageAccess,
-																				googleDoc);
-															}
-														});
+												$.ajax({
+													type : 'POST',
+													url : 'bitly',
+													data : {
+														link : urlLink
+													},
+													dataType : "json",
+													success : function(data) {
+														message = message.replace(link[0],data.data.url);
+														self.postMessageToServer(message,streamId,messageAccess,googleDoc);
+														$('.ask-outer').css('height', '0px');
+													}
+												});
 											} else {
 												self.postMessageToServer(
 														message, streamId,
@@ -584,16 +538,14 @@ define(
 						/**
 						 * set message data to model and posted to server
 						 */
-						postMessageToServer : function(message, streamId,
-								messageAccess, googleDoc) {
+						postMessageToServer : function(message, streamId,messageAccess, googleDoc) {
 							var self = this;
 							if (googleDoc == true) {
 
 								this.data.models[0].removeAttr('message');
 								this.data.models[0].removeAttr('profilePic');
 								this.data.models[0].removeAttr('followed');
-								this.data.models[0]
-										.removeAttr('followerOfMessagePoster');
+								this.data.models[0].removeAttr('followerOfMessagePoster');
 								this.data.models[0].removeAttr('rocked');
 
 								this.data.models[0].removeAttr('messageAccess');

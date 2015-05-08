@@ -90,20 +90,14 @@ define(
 							var trueurl = '';
 							var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
 
-							// get the model attributes
 							var model = this.model.attributes;
 							var contentType = '';
 							var msgBody = model.message.messageBody;
 							var previewImageUrl = model.message.anyPreviewImageUrl
 							var docId = model.message.docIdIfAny
-							// alert(JSON.stringify(model.message));
 							var messageAccess = model.message.messageAccess.name
 							var streamId = model.message.streamId.id
-							// alert(model.message.streamId.id);
-							// var streamCreatorId = {
-							/*
-							 * function() { var streamdata; if (true) {
-							 */
+							
 
 							if (messageAccess == "PrivateToClass") {
 								model.message.messageAccess.name = "Private to Class"
