@@ -484,15 +484,9 @@ define(
 													return msgUrlw;
 												});
 
-										// To check whether it is google docs or
-										// not
 										if (!urlLink
 												.match(/^(https:\/\/docs.google.com\/)/)) {
-											// check the url is already in bitly
-											// state or not
-											if (!urlLink
-													.match(/^(http:\/\/bstre.am\/)/)) {
-												/* post url information */
+											if (!urlLink.match(/^(http:\/\/bstre.am\/)/)) {
 												$.ajax({
 													type : 'POST',
 													url : 'bitly',
@@ -507,31 +501,26 @@ define(
 													}
 												});
 											} else {
-												self.postMessageToServer(
-														message, streamId,
-														messageAccess,
-														googleDoc);
+												self.postMessageToServer(message, streamId,messageAccess,googleDoc);
+												$('.ask-outer').css('height', '0px');
 											}
 										} // doc
 										else // case: for doc upload
 										{
 											googleDoc = true;
-											self.postMessageToServer(message,
-													streamId, messageAccess,
-													googleDoc);
+											self.postMessageToServer(message,streamId, messageAccess,googleDoc);
+											$('.ask-outer').css('height', '0px');
 										}
 									}
 									// case: link is not present in message
 									else {
-										self.postMessageToServer(message,
-												streamId, messageAccess,
-												googleDoc);
+										self.postMessageToServer(message,streamId, messageAccess,googleDoc);
+										$('.ask-outer').css('height', '0px');
 									}
 
 								}
 
 							}
-							// }
 
 						},
 
