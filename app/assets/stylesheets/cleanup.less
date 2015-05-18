@@ -3055,7 +3055,7 @@ padding-right:8px
 /* LESS Global Styles*/
 @Gray: #9d9d9d;
 @DarkGray: #858585;
-@LighterLightBlue: #7bcfe7; 
+@LighterLightBlue: #50CFFA; 
 @LightBlue: #00B7E1;
 @DarkBlue: #21A1BF;
 @Orange: #FF7F00;
@@ -3301,10 +3301,6 @@ endColorstr='#0988c6',
 GradientType=0)
 }
 
-.add-skills {
-padding:27% 0
-}
-
 .add-skills h3 {
 color:#c5cdd2;
 font-size:18px;
@@ -3343,12 +3339,19 @@ z-index:9999
 }
 
 .step-box2 {
--webkit-border-radius:0 8px 8px 0;
--moz-border-radius:0 8px 8px 0;
-border-radius:0 8px 8px 0;
-position:relative;
-z-index:9999
-}
+	-webkit-border-radius: 0 3px 3px 0;
+	-moz-border-radius: 0 3px 3px 0;
+	border-radius: 0 3px 3px 0;
+	position: relative;
+	z-index: 9999;
+	height: 107px;
+ 	width: 38%;
+ 	position: relative;
+ 	left: 0%;
+ 	top: 30px;
+ 	padding: 2%;
+	background-color: @LighterLightBlue;
+ }
 
 .step-box h3,
 .step-box h4 {
@@ -3372,25 +3375,22 @@ padding-bottom:2px
 }
 
 .step-box a {
--webkit-border-radius:3px;
--moz-border-radius:3px;
-border-radius:3px;
-font-size:12px;
-line-height:28px;
-height:30px;
-display:inline-block;
-float:left;
-margin-left:0;
-margin-right:1%;
-width:47%;
-text-align:center;
-font-weight:500;
-background:#fff;
-color:#6a2828;
-border-top:solid 1px #7a2222;
-border-bottom:solid 1px #e66e6e;
-border-left:solid 1px #a12c2c;
-border-right:solid 1px #9f2c2c
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	font-size: 17px;
+	line-height: 28px;
+	height: 37px;
+	line-height: 37px;
+	display: inline-block;
+	float: left;
+	margin-left: 0;
+	margin-right: 1%;
+	width: 47%;
+	text-align: center;
+	font-weight: 500;
+	background: #fff;
+	color: @Gray;
 }
 
 .step-box a:hover {
@@ -3398,6 +3398,10 @@ background:#fff;
 color:#df3d3d;
 border:solid 1px #fff;
 text-decoration:none
+}
+
+.btn-group>.btn:first-child {
+	height: 46px!important;
 }
 
 .upload-photo {
@@ -3441,18 +3445,18 @@ position:relative
 }
 
 .registration-info input {
--webkit-border-radius:5px;
--moz-border-radius:5px;
-border-radius:5px;
-height:37px;
-background:#fff;
-padding:0 5%;
-border:solid 1px #cdd4db;
-width:90%;
-margin:0 0 8px 0;
-color:#425e71;
-font-size:15px;
-font-weight:400
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	height: 46px;
+	background: #fff;
+	padding: 0 5%;
+	border: solid 1px #cdd4db;
+	width: 90%;
+	margin: 0 0 8px 0;
+	color: #425e71;
+	font-size: 15px;
+	font-weight: 400;
 }
 
 select#degreeProgram , select#gradeLevel{
@@ -3567,10 +3571,10 @@ display:inline-block
 }
 
 .alert-register span {
-background:url(../../beamstream-new/images/alert.png) right no-repeat;
-padding:0 15px 0 0;
-font-size:11px;
-color:#9fa6aa
+	background:url(../../beamstream-new/images/alert.png) right no-repeat;
+	padding:0 15px 0 0;
+	font-size:11px;
+	color: #ffffff;
 }
 
 .red-star {
@@ -3612,12 +3616,14 @@ text-shadow:none
 }
 
 .disable-step {
-background: @SoftRed !important;
-color: #6a2828 !important
+	background: @LightBlue !important;
+	color: #ffffff !important;
+	font-weight: 300 !important;
+	font-size: 18px !important;
 }
 
 .registration-modal {
-top:25%!important;
+	top: 25%!important;
 }
 
 .registration-modal-header .close {
@@ -4301,12 +4307,14 @@ width:70%!important
 }
 
 .profile-white {
-background:none repeat scroll 0 0 #fff;
-border-radius:5px 5px 5px 5px!important;
-box-shadow:0 0 0 1px #cdd4db;
-list-style:none outside none;
-margin:0 0 60px;
-padding:5%
+	background:	none repeat scroll 0 0 #fff;
+	border-radius:	0px 3px 3px 0px!important;
+	box-shadow:	0 0 0 1px #cdd4db;
+	list-style:	none outside none;
+	margin:	0 0 60px;
+	padding: 5%;
+	background-color: @LighterLightBlue;
+	
 }
 
 .follow-david {
@@ -4642,6 +4650,16 @@ margin:0 auto!important;
 background:#fff;
 padding:8px 0;
 text-align:center
+}
+
+.coming-soon-reg {
+  list-style: none;
+  width: 100%;
+  margin: 0 auto!important;
+  background: #fff;
+  padding: 8px 0;
+  text-align: center;
+	box-shadow: 0 0 0 1px #cdd4db;
 }
 
 ul.profile-top-menu h3 {
@@ -8094,15 +8112,6 @@ padding:0 0 15px;
 width:70%!important
 }
 
-.profile-white {
-background:none repeat scroll 0 0 #fff;
-border-radius:5px 5px 5px 5px!important;
-box-shadow:0 0 0 1px #cdd4db;
-list-style:none outside none;
-margin:0 0 60px;
-padding:5%
-}
-
 .follow-david {
 background:-moz-linear-gradient(#336437,
 #438348) repeat scroll 0 0 transparent!important;
@@ -8606,10 +8615,6 @@ font-size:11px;
 font-weight:500;
 float:left;
 padding-left:10px
-}
-
-.active-border {
-box-shadow:0 0 0 1px @SoftRed;
 }
 
 .social-close {

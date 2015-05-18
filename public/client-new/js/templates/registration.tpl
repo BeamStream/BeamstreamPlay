@@ -173,7 +173,7 @@
           <div class="middle-container">
 
 <ul class="profile-top-menu profile-white register-top-white">
-            <h3> Add Personality</h3>
+            <h3>Personality</h3>
             <h5>Coming Soon</h5>
           </ul>
 
@@ -187,7 +187,7 @@
               </div>
               
               <div id="step_2" style="display:none;" class="step-box step-box1 step-box2 step-two">
-	              <h3>Step 2 of 3 </h3>
+	              <h3>Step 1 of 3 </h3>
 	              <h4>Basic Profile Section</h4>
 		          <a id="step2-reset" class="disable-step" href="#">Reset</a> 
 		          <a id="done_step2" href="#">Continue</a> 
@@ -239,8 +239,8 @@
 							</div>
 						</div>
            <ul class="profile-top-menu profile-white register-top-white photo-project">
-              <h3> Add Photos / Projects</h3>
-              <h5>Add on NExt Page</h5>
+              <h3>Photos & Projects</h3>
+              <h5>Coming Soon</h5>
             </ul>
         </div>
         <div class="profile-right-container">
@@ -262,9 +262,9 @@
             </ul>
             <div class="clear"></div>
           </div>
-          <div class="profile-white">
+          <div class="coming-soon-reg">
             <div class="add-skills">
-              <h3> Add Interests / Skills</h3>
+              <h3> Interests & Skills</h3>
               <h5>Coming Soon</h5>
             </div>
           </div>
