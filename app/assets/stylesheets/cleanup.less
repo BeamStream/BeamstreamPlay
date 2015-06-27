@@ -2737,13 +2737,14 @@ padding:0 0 12px 0
 }
 
 ul.signup-register {
-list-style:none;
-display:block;
-overflow:hidden;
-margin:0 auto;
-float:left;
-width:90%;
-margin-top:20px;
+	list-style: none;
+	display: block;
+	overflow: hidden;
+	margin: 0 auto;
+	float: left;
+	width: 90%;
+	margin-top: 20px;
+	padding: 0 5% 5% 5%;
 }
 
 ul.signup-register h5 {
@@ -2755,9 +2756,10 @@ margin:0
 }
 
 ul.signup-register li {
-float:left;
-border-right:solid 1px #d9dee1;
-position:relative
+	float:left;
+	border-right:solid 1px #d9dee1;
+	position:relative;
+	width: 56% !important;
 }
 
 ul.signup-register li fieldset {
@@ -2789,8 +2791,9 @@ width:88%
 }
 
 ul.signup-register li.lastblock {
-border-right:0;
-float:right
+	border-right: 0;
+	float: right;
+	width: 35% !important;
 }
 
 ul.signup-register li.lastblock a {
@@ -3320,22 +3323,27 @@ text-transform:uppercase
 }
 
 .step-box {
--webkit-border-radius:8px 8px 0 0;
--moz-border-radius:8px 8px 0 0;
-border-radius:8px 8px 0 0;
-background-color: @SoftRed;
-position:absolute;
-z-index:0;
-top:-20px;
-padding:2%
+	-webkit-border-radius: 8px 8px 0 0;
+	-moz-border-radius: 8px 8px 0 0;
+	border-radius: 3px 3px 0 0;
+	background-color: @LighterLightBlue;
+	position: absolute;
+	z-index: 0;
+	top: -20px;
+	padding: 2%
 }
 
 .step-box1 {
--webkit-border-radius:8px 0 0 8px;
--moz-border-radius:8px 0 0 8px;
-border-radius:8px 0 0 8px;
-position:relative;
-z-index:9999
+	-webkit-border-radius: 8px 0 0 8px;
+	-moz-border-radius: 8px 0 0 8px;
+	border-radius: 8px 0 0 8px;
+	position: relative;
+	z-index: 9999;
+	height: 107px;
+	width: 45%;
+	left: 51%;
+	top: 30px;
+	padding: 2%;
 }
 
 .step-box2 {
@@ -3348,7 +3356,7 @@ z-index:9999
  	width: 38%;
  	position: relative;
  	left: 0%;
- 	top: 30px;
+ 	top: 360px;
  	padding: 2%;
 	background-color: @LighterLightBlue;
  }
@@ -3400,8 +3408,13 @@ border:solid 1px #fff;
 text-decoration:none
 }
 
+#step_3 {
+  width: 44%; 
+  left: 26%; 
+  height: 240px !important;
+}
+
 .btn-group>.btn:first-child {
-	height: 46px!important;
 }
 
 .upload-photo {
@@ -3410,11 +3423,26 @@ margin:0 auto
 }
 
 .upload-photo a {
-display:block;
-margin:0 auto;
-background-size:100%;
-position:relative;
-top:-39px
+	display:block;
+	margin:0 auto;
+	background-size:100%;
+	position:relative;
+	top:-39px;
+  width:350px;
+  height:350px;
+ }
+
+.upload-photo a img {
+  border-radius: 100% 100% 100% 100%;
+  height: 100%;
+  width: 100%;
+}
+
+.profile-center-container, .user-center-container {
+	background-position: center 21% !important;
+	background-image: url(../../beamstream-new/images/prifile-graph.png);
+	background-repeat: no-repeat;
+	height: 570px;
 }
 
 .upload-photo a:hover {
@@ -3448,7 +3476,7 @@ position:relative
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
-	height: 46px;
+	height: 46px !important;
 	background: #fff;
 	padding: 0 5%;
 	border: solid 1px #cdd4db;
@@ -3457,6 +3485,8 @@ position:relative
 	color: #425e71;
 	font-size: 15px;
 	font-weight: 400;
+
+  
 }
 
 select#degreeProgram , select#gradeLevel{
@@ -4061,8 +4091,10 @@ padding:50px 0 0 0
 }
 
 .profile-left-container {
-float:left;
-position:relative
+	float: left;
+	position: relative;
+	width: 23%;
+
 }
 
 .profile-main-photo a {
@@ -4444,19 +4476,13 @@ background:url(../../beamstream-new/images/spryte.png) -56px -835px
 background:url(../../beamstream-new/images/spryte.png) -82px -835px
 }
 
-.profile-center-container,
-.user-center-container {
-background-image:url(../../beamstream-new/images/prifile-graph.png);
-background-repeat:no-repeat;
-height:570px
-}
-
 .user-center-container {
 background-position:center 18%
 }
 
 .profile-right-container {
-float:left
+	float: left;
+	width: 26%;
 }
 
 .follow-david {
@@ -4504,11 +4530,11 @@ width:100%
 }
 
 
-.profile-select-block .btn 
-{
-width:100%;
-height:40px;
-border:1px solid #cdd4db;
+.profile-select-block .btn {
+	width: 100%;
+	height: 40px;
+	box-shadow: none;
+	background-image: none;
 }
 
 ul.feed-info {
@@ -4654,12 +4680,14 @@ text-align:center
 
 .coming-soon-reg {
   list-style: none;
-  width: 100%;
+  width: 91%;
   margin: 0 auto!important;
   background: #fff;
   padding: 8px 0;
   text-align: center;
 	box-shadow: 0 0 0 1px #cdd4db;
+  position: relative;
+  bottom: 82px;
 }
 
 ul.profile-top-menu h3 {
@@ -4688,12 +4716,6 @@ padding:0 2% 0 2%
 
 ul.profile-top-menu a:hover {
 text-decoration:none
-}
-
-ul.profile-top-menu a span {
-color:#3a5263;
-font-size:13px;
-font-weight:700
 }
 
 .profile-round-btn {
@@ -8056,15 +8078,6 @@ width:75%;
 left:33%
 }
 
-.profile-wrapper {
-padding:50px 0 0 0
-}
-
-.profile-left-container {
-float:left;
-position:relative
-}
-
 #main-photo {
 	margin: 21px 0 0 -6px;
 }
@@ -8239,19 +8252,8 @@ background:url(../../beamstream-new/images/spryte.png) -56px -835px
 background:url(../../beamstream-new/images/spryte.png) -82px -835px
 }
 
-.profile-center-container,
-.user-center-container {
-background-image:url(../../beamstream-new/images/prifile-graph.png);
-background-repeat:no-repeat;
-height:570px
-}
-
 .user-center-container {
 background-position:center 18%
-}
-
-.profile-right-container {
-float:left
 }
 
 .follow-david {
@@ -8290,18 +8292,6 @@ text-transform:uppercase
 .follow-david:hover {
 color:#fff;
 text-decoration:none
-}
-
-.profile-select-block {
-display:block;
-position:relative;
-width:100%
-}
-.profile-select-block .btn 
-{
-width:100%;
-height:40px;
-border:1px solid #cdd4db;
 }
 
 ul.feed-info {
@@ -8436,34 +8426,6 @@ background:url(../../beamstream-new/images/rock-icon.png) left no-repeat;
 padding-left:19px
 }
 
-ul.profile-top-menu {
-list-style:none;
-width:70%;
-margin:0 auto!important;
-background:#fff;
-padding:8px 0;
-text-align:center
-}
-
-ul.profile-top-menu h3 {
-text-align:center;
-font-size:19px;
-color:#c5cdd2;
-font-weight:400;
-line-height:20px;
-padding-top:10px
-}
-
-ul.profile-top-menu a {
-color:#fff;
-display:inline-block;
-padding:0 2% 0 2%
-}
-
-ul.profile-top-menu a:hover {
-text-decoration:none
-}
-
 ul.profile-top-menu a span {
 color:#3a5263;
 font-size:13px;
@@ -8591,30 +8553,6 @@ background:red;
 right:11px;
 top:7px;
 z-index:9999
-}
-
-.req-field {
-position:absolute;
-left:10px;
-top:-25px
-}
-
-.req-field span {
-color:#da1f1f;
-font-size:23px;
-font-weight:500;
-float:left
-}
-
-.req-field h6 {
-color:#9fa6aa;
-text-transform:uppercase;
-text-align:center;
-font-weight:normal;
-font-size:11px;
-font-weight:500;
-float:left;
-padding-left:10px
 }
 
 .social-close {
@@ -10551,9 +10489,10 @@ color:#fff
 }
 
 .middle-container {
-display:block;
-float:left;
-padding:0 0 100px 0
+	display: block;
+	float: left;
+	padding: 0 0 100px 0;
+	width: 51%;
 }
 
 .show-more-block a {
