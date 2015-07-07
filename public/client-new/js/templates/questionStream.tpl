@@ -4,7 +4,7 @@
         <div class="popout"></div>
         <form class="question-form" >
             <input class="question-submit" type="submit" value="" />
-            <input class="question-txt-input" id="search-questions" type="text" name="query" placeholder="Search Questions" />
+            <input class="question-txt-input" id="search-questions" type="text" name="query" placeholder="QUESTIONS" />
         </form>
         <div class="minimize"></div>
     </div>
