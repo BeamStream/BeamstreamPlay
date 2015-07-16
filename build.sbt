@@ -24,10 +24,12 @@ libraryDependencies ++= Seq(
 	jdbc,
     anorm,
     cache,
-    "com.sksamuel.scrimage" %% "scrimage-core" % "1.4.2",
-    "com.sksamuel.scrimage" %% "scrimage-canvas" % "1.4.2",
-    "com.sksamuel.scrimage" %% "scrimage-filters" % "1.4.2"
-)   
+    "com.sksamuel.scrimage" %% "scrimage-core" % "2.0.1",
+    "com.sksamuel.scrimage" %% "scrimage-io" % "2.0.1",
+    "com.sksamuel.scrimage" %% "scrimage-filters" % "2.0.1",
+    "com.drewnoakes" % "metadata-extractor" % "2.6.2"
+) 
+
  
 
  

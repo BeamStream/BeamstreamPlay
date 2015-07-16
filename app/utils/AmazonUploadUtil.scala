@@ -8,46 +8,17 @@ import play.api.Play
 import java.io.InputStream
 import com.amazonaws.services.s3.model.ObjectMetadata
 import play.api.Logger
+import javax.imageio.ImageIO
+import java.io.FileInputStream
+import java.io.ByteArrayOutputStream
+import com.sksamuel.scrimage._
+import com.sksamuel.scrimage.ImageMetadata
+import utils.Constants._
 
 object AmazonUploadUtil {
-  //
-  //  var totalFileSize: Double = 0
-  //  var totalByteRead: Double = 0
-  //  var percentage: Int = 0
-  //  def setTotalFileSize(fileSize: Double) {
-  //    totalFileSize += fileSize
-  //  }
+
 }
 class AmazonUpload {
-
-  /* var totalByteRead: Double = 0
-    var percentage: Int = 0
-
-      def uploadCompressedFileToAmazon(profilePicName: String, profilePic: InputStream, totalFileSize: Double, flag: Boolean, userId: String) {
-        val bucketName = "BeamStream"
-        val s3Client = fetchS3Client
-        val putObjectRequest = new PutObjectRequest(bucketName, profilePicName, profilePic, new ObjectMetadata)
-        if (flag) updateProgressStatus(putObjectRequest, totalFileSize, userId)
-
-        s3Client.putObject(putObjectRequest)
-      }
-
-    private def updateProgressStatus(putObjectRequest: PutObjectRequest, totalFileSize: Double, userId: String) = {
-
-      putObjectRequest.setProgressListener(new ProgressListener {
-        @Override
-        def progressChanged(progressEvent: ProgressEvent) {
-          totalByteRead += progressEvent.getBytesTransfered
-          percentage = ((totalByteRead / totalFileSize) * 100).toInt
-          //Setting the progress status
-          ProgressBar.setProgressBar(userId, percentage)
-          if (progressEvent.getEventCode == ProgressEvent.COMPLETED_EVENT_CODE) {
-          }
-        }
-
-      });
-
-    }*/
 
   private def fetchS3Client = {
     val AWS_ACCESS_KEY_RAW = Play.current.configuration.getString("A_A_K").get
@@ -60,21 +31,79 @@ class AmazonUpload {
 
   /**
    * Upload File To Amazon
-   * param profilePicName is the name of file
-   * param profilePic is the file to be uploaded
+   * param fileName is the name of file
+   * param filePic is the file to be uploaded
    */
-  def uploadFileToAmazon(profilePicName: String, profilePic: File): Boolean = {
+  def uploadFileToAmazon(fileName: String, filePic: File): Boolean = {
     val bucketName = "BeamStream"
     val s3Client = fetchS3Client
     try {
-
-      s3Client.putObject(bucketName, profilePicName, profilePic)
+      s3Client.putObject(bucketName, fileName, filePic)
       true
     } catch {
       case ex: Exception =>
         Logger.error("This error occurred while Uploading a File to Amazon :- ", ex)
         false
     }
+  }
+
+  
+   /**
+   * Upload File To Amazon
+   * param profilePicName is the name of file
+   * param profilePic is the file to be uploaded
+   */
+  
+  def uploadProfilePicToAmazon(profilePicName: String, profilePic: File): Boolean = {
+    val bucketName = "BeamStream"
+    val s3Client = fetchS3Client
+    try {
+
+      val inputStream = new FileInputStream(profilePic)
+      
+      // header profile pic upload 
+      
+      val headerSize = Constants.HEADER_SIZE
+      val uploadFile = scaledProfileImage(inputStream, headerSize("width"), headerSize("height"))
+      s3Client.putObject(bucketName, profilePicName, uploadFile)
+      
+      /*
+       *  Chat Size image
+       */
+        
+      val chatSize = Constants.CHAT_SIZE
+      val chatName = Constants.CHAT_SIZE
+      val uploadChatFile = scaledProfileImage(inputStream, chatSize("width"), chatSize("height"))
+      val combinechatName = s"$chatName".concat(profilePicName)
+      s3Client.putObject(bucketName,combinechatName , uploadChatFile)
+
+      true
+    } catch {
+      case ex: Exception =>
+        Logger.error("This error occurred while Uploading profile pic to Amazon :- ", ex)
+        false
+    }
+  }
+
+  /**
+   * Create a new Image from an input stream. This is intended to create
+   * an image from an image format eg PNG, not from a stream of pixels.
+   * This method will also attach metadata if available.
+   *
+   * @param in the stream to read the bytes from
+   * @return a new Image
+   */
+
+  private def scaledProfileImage(inputStream: FileInputStream, width: Int, height: Int): File = {
+    val processedImage = Image(inputStream)
+    
+    println("processedImage~~~~~~~~~~~~"+processedImage)
+
+    val autoCropImage = processedImage.scale(0.5).fit(width, height)
+
+    val result = autoCropImage.output(new File("/home/malti/Desktop/1.png")) // use implicit writer
+    
+    result
   }
 
   def uploadCompressedFileToAmazon(profilePicName: String, profilePic: InputStream): Boolean = {
