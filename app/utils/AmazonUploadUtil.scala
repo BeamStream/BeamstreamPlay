@@ -49,7 +49,7 @@ class AmazonUpload {
 
   
    /**
-   * Upload File To Amazon
+   * Upload profilePicName To Amazon
    * param profilePicName is the name of file
    * param profilePic is the file to be uploaded
    */
@@ -58,24 +58,38 @@ class AmazonUpload {
     val bucketName = "BeamStream"
     val s3Client = fetchS3Client
     try {
-
+      
       val inputStream = new FileInputStream(profilePic)
       
-      // header profile pic upload 
+      val scaleImage = scaledImage(inputStream)
+      
+      /**
+       * Upload original uploaded image
+       */
+      
+      val originalUploadFile = fitProfileImage(scaleImage, 500, 500)
+      s3Client.putObject(bucketName, profilePicName , originalUploadFile)
+      
+      
+      /**
+       *  Header Size image
+       */
       
       val headerSize = Constants.HEADER_SIZE
-      val uploadFile = scaledProfileImage(inputStream, headerSize("width"), headerSize("height"))
-      s3Client.putObject(bucketName, profilePicName, uploadFile)
+      val headerName = Constants.HEADER_NAME
+      val combineHeaderName = s"$headerName".concat(profilePicName)
+      val uploadFile = fitProfileImage(scaleImage, headerSize("width"), headerSize("height"))
+      s3Client.putObject(bucketName, combineHeaderName, uploadFile)
       
       /*
        *  Chat Size image
        */
         
       val chatSize = Constants.CHAT_SIZE
-      val chatName = Constants.CHAT_SIZE
-      val uploadChatFile = scaledProfileImage(inputStream, chatSize("width"), chatSize("height"))
-      val combinechatName = s"$chatName".concat(profilePicName)
-      s3Client.putObject(bucketName,combinechatName , uploadChatFile)
+      val chatName = Constants.CHAT_NAME
+      val uploadChatFile = fitProfileImage(scaleImage, chatSize("width"), chatSize("height"))
+      val combineChatName = s"$chatName".concat(profilePicName)
+      s3Client.putObject(bucketName, combineChatName , uploadChatFile)
 
       true
     } catch {
@@ -93,13 +107,16 @@ class AmazonUpload {
    * @param in the stream to read the bytes from
    * @return a new Image
    */
-
-  private def scaledProfileImage(inputStream: FileInputStream, width: Int, height: Int): File = {
+  
+  
+  private def scaledImage(inputStream: FileInputStream):Image ={
     val processedImage = Image(inputStream)
-    
-    println("processedImage~~~~~~~~~~~~"+processedImage)
+    processedImage.autocrop(Color.White).scale(0.5).pad(0)
+  }
 
-    val autoCropImage = processedImage.scale(0.5).fit(width, height)
+  private def fitProfileImage(fitImage: Image, width: Int, height: Int): File = {
+    
+    val autoCropImage = fitImage.autocrop(Color.White).fit(width, height)
 
     val result = autoCropImage.output(new File("/home/malti/Desktop/1.png")) // use implicit writer
     

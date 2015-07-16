@@ -8,6 +8,7 @@ object Constants {
    * List(width , height)
    */
    val HEADER_SIZE = Map("width" -> 41, "height" -> 41)
+   val HEADER_NAME = "header_"
    
    /**
     * Chat profile pic size
