@@ -28,8 +28,12 @@ define(['view/formView'], function(FormView){
 
 		onAfterInit: function(){	
             this.data.reset();
-             
-            $('#right-top-photo').attr('src',localStorage["loggedUserProfileUrl"]);
+            
+            var LoggedProUrl = localStorage["loggedUserProfileUrl"]
+            
+            var profileName = LoggedProUrl.substring(LoggedProUrl.indexOf('BeamStream/') +11);
+            
+            $('#right-top-photo').attr('src','https://s3.amazonaws.com/BeamStream/header_'+profileName);
         },
         
         /**
@@ -39,11 +43,7 @@ define(['view/formView'], function(FormView){
 			 
 			 eventName.preventDefault();
 		
-			 /* PUBNUB -- AUTO AJAX PUSH */
-			 /*PUBNUB.publish({
-			 channel : "offlineuser",
-			 message : { pagePushUid: self.pagePushUid}
-			 }) */
+			
 			 
 			 /* expires the user session  */
 			 $.ajax({

@@ -72,15 +72,20 @@ define(
 											if (model.profileImageUrl) {
 
 												profileImageUrl = model.profileImageUrl;
+												
+												var profileName = profileImageUrl.substring(profileImageUrl.indexOf('BeamStream/') +11);
+												
+												var profileImageUrlNew = "https://s3.amazonaws.com/BeamStream/chat_"+profileName
+												
 
 											} else {
 
-												profileImageUrl = '/beamstream-new/images/profile-upload.png';
+												profileImageUrlNew = '/beamstream-new/images/profile-upload.png';
 											}
 
 											if (model.id.id == localStorage["loggedUserId"] ) {
 												var template = '<li id="me" class="online active"><a href="#" class="active"><img src="'
-														+ profileImageUrl
+														+ profileImageUrlNew
 														+ '" width="30" height="28"> '
 														+ '<span>Me</span> <span class="online-chat">Online</span></a></li>';
 
@@ -96,8 +101,7 @@ define(
 														+ '","'
 														+ model.firstName
 														+ '")> '
-														+ '<img width="30" height="28" src="'
-														+ profileImageUrl
+														+ profileImageUrlNew
 														+ '">'
 														+ '<span>'
 														+ model.firstName
