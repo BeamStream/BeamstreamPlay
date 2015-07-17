@@ -117,15 +117,11 @@ class AmazonUpload {
   private def fitProfileImage(fitImage: Image, width: Int, height: Int): File = {
     
     val autoCropImage = fitImage.fit(width, height).autocrop(Color.White)
-    
-    val path = getCurrentDirectory
 
     val result = autoCropImage.output(new File("/tmp/1.png")) // use implicit writer
     
     result
   }
-  
-  private def getCurrentDirectory = new java.io.File( "." ).getCanonicalPath
 
   def uploadCompressedFileToAmazon(profilePicName: String, profilePic: InputStream): Boolean = {
     val bucketName = "BeamStream"
