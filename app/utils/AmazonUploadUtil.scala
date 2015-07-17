@@ -111,12 +111,12 @@ class AmazonUpload {
   
   private def scaledImage(inputStream: FileInputStream):Image ={
     val processedImage = Image(inputStream)
-    processedImage.autocrop(Color.White).scale(0.5).pad(0)
+    processedImage.autocrop(Color.White).scale(0.5)
   }
 
   private def fitProfileImage(fitImage: Image, width: Int, height: Int): File = {
     
-    val autoCropImage = fitImage.autocrop(Color.White).fit(width, height).autocrop(Color.White)
+    val autoCropImage = fitImage.fit(width, height).autocrop(Color.White)
     
     val path = getCurrentDirectory
 
