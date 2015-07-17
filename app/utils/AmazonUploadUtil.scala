@@ -120,7 +120,7 @@ class AmazonUpload {
     
     val path = getCurrentDirectory
 
-    val result = autoCropImage.output(new File("/home/malti/Desktop/1.png")) // use implicit writer
+    val result = autoCropImage.output(new File("/tmp/1.png")) // use implicit writer
     
     result
   }
