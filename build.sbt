@@ -27,7 +27,8 @@ libraryDependencies ++= Seq(
     "com.sksamuel.scrimage" %% "scrimage-core" % "2.0.1",
     "com.sksamuel.scrimage" %% "scrimage-io" % "2.0.1",
     "com.sksamuel.scrimage" %% "scrimage-filters" % "2.0.1",
-    "com.drewnoakes" % "metadata-extractor" % "2.6.2"
+    "com.drewnoakes" % "metadata-extractor" % "2.6.2",
+    "org.apache.xmlgraphics" % "batik-codec" % "1.7"
 ) 
 
  
