@@ -1219,15 +1219,9 @@ define(
 								self.file = file;
 								
 								clearInterval(self.progress);
-								$('.syllabusFileUploadMsg').css('visibility', 'visible');
-								$('.syllabusFileUploadMsg').css('display', 'block');
-								$('div#SyllabusFileUploadingImage #floatingCirclesG').css('visibility', 'visible');
-								$('div#SyllabusFileUploadingImage #floatingCirclesG').css('display', 'block');
-								/*var syllabusAttachment = "<div class=\"embed\" style=\"height:30px;\">"+
-								"<span>"+f.name+"</span>"+
-								"<span class=\"action\"><a href=\"javascript:void(0)\" id=\"syllabusAttachment\" class=\"nothumb\" style=\"float:right;display:none;\">✕</a></span>"+
-								"</div>";	
-								$('#syllabus-file-name').html(syllabusAttachment);*/
+								
+								$("#SyllabusFileUploadingImage").modal('show');
+								
 								$('#uploded-syllabus-file-area').show();
 								
 								$('.ask-outer').height(function(index, height) {
@@ -1275,12 +1269,7 @@ define(
 											"</div>";	
 											
 											$('#syllabus-file-name').html(syllabusAttachment);
-											
-											
-											$('.syllabusFileUploadMsg').css('visibility', 'hidden');
-											$('.syllabusFileUploadMsg').css('display', 'none');
-											$('div#SyllabusFileUploadingImage #floatingCirclesG').css('visibility', 'hidden');
-											$('div#SyllabusFileUploadingImage #floatingCirclesG').css('display', 'none');
+											$("#SyllabusFileUploadingImage").modal('hide');
 											self.docurlAmazon = data[0];
 										}
 									});

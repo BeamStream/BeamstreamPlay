@@ -95,28 +95,11 @@
             </a>
          </div>
                   <span class="add-syllabus-attachemnt" id="add-syllabus-attachment" style="display:none;"><i class="icon-paper-clip icon-large"></i>Add Attachment</span>
-            <!-- start uploading area -->
-                  <div id="uploded-syllabus-file-area" class="answer" style="display:none;">
-									
-										<div class="progress-container">
-											<div class="progress progress-striped active" style="display:none;">
-												<div class="bar"></div>
-											</div>
-										<div id="SyllabusFileUploadingImage">
-											<div id="floatingCirclesG" class="floatingCirclesG-files">
-												<div class="f_circleG" id="frotateG_01"></div>
-												<div class="f_circleG" id="frotateG_02"></div>
-												<div class="f_circleG" id="frotateG_03"></div>
-												<div class="f_circleG" id="frotateG_04"></div>
-												<div class="f_circleG" id="frotateG_05"></div>
-												<div class="f_circleG" id="frotateG_06"></div>
-												<div class="f_circleG" id="frotateG_07"></div>
-												<div class="f_circleG" id="frotateG_08"></div>
-											</div>
-										</div>
-										</div>
-									<div class="syllabusFileUploadMsg" style="float:right;margin-top:-41px;margin-right: 10px;">File Uploading.... Please wait.</div>
-								</div>
+            <!-- start loader -->
+				<div data-backdrop="static" data-keyboard="false" id="SyllabusFileUploadingImage" class="modal hide fade registration-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<img src="../../beamstream-new/img/loader.gif" width="100" height="100"/>
+     			</div>
+           	<!-- end loader -->							
                   <div class="embed-info">
                      <div class="upload-conatiner">
                         <h5>Select an image or video file on your computer.</h5>
