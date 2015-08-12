@@ -351,7 +351,7 @@ define(
 						continuestep3 : function(e) {
 							e.preventDefault();
 							if (this.profile) {
-								$("#floatingCirclesG").css("display", "block");
+								$("#browseImageUploader").modal("show");
 								var data;
 								data = new FormData();
 								data.append('profileData', this.profile);
