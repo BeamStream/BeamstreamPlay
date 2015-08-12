@@ -724,10 +724,10 @@ define(
 						 */
 						success : function(model, data) {
 							var self = this;
-							$("#floatingCirclesG").show();
+							$("#floatingCirclesG").modal('show');
 							if (data.resultToSend.status == "Success") {
 								
-								$("#floatingCirclesG").hide();
+								$("#floatingCirclesG").modal('hide');
 								$("#selectNextStep").modal('show');
 
 								/* update stream list when we add/join a stream */
@@ -963,18 +963,8 @@ define(
 								self.file = file;
 								
 								clearInterval(self.progress);
-								$('.fileUploadMsg').css('visibility', 'visible');
-								$('.fileUploadMsg').css('display', 'block');
-								$('div#fileUploadingImage #floatingCirclesG').css('visibility', 'visible');
-								$('div#fileUploadingImage #floatingCirclesG').css('display', 'block');
-								
-								/*var studyAttachment = "<div class=\"embed\" style=\"height:30px;\">"+
-													"<span>"+f.name+"</span>"+
-													"<span class=\"action\"><a href=\"javascript:void(0)\" id=\"studyResourceAttachment\" class=\"nothumb\" style=\"float:right;display:none;\">✕</a></span>"+
-													"</div>";	
-								$('#file-name').html(studyAttachment);*/
 								$('#uploded-file-area').show();
-								
+								$("#fileUploadingImage").modal('show');
 								$('.ask-outer').height(function(index, height) {
 									return (height + 70);
 								});
@@ -1012,22 +1002,12 @@ define(
 								processData : false,
 								dataType : "json",
 								success : function(data) {
-									
-									
-									
 									var studyAttachment =   "<div class=\"embed\" style=\"width:95%;margin-left:6px;\">" +
 									"<div class=\"action\" ><a href=\"javascript:void(0)\" id=\"studyResourceAttachment\" class=\"nothumb\" style=\" float:right;display:none;\">✕</a></div>"+
 									"<div><img src=\""+data[0]+"\" class=\"thumb\" style=\"max-width: 100%;max-height:180px\"></div>" +
 									"</div>";	
-									
-
 									$('#file-name').html(studyAttachment);
-									
-									
-									$('.fileUploadMsg').css('visibility', 'hidden');
-									$('.fileUploadMsg').css('display', 'none');
-									$('div#fileUploadingImage #floatingCirclesG').css('visibility', 'hidden');
-									$('div#fileUploadingImage #floatingCirclesG').css('display', 'none');
+									$("#fileUploadingImage").modal('hide');
 									self.docurlAmazon = data[0];
 								}
 							});
