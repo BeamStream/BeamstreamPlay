@@ -1271,7 +1271,7 @@ define(
 							var link=$("#resourcelink").val();
 							$.ajax({
 								type : 'GET',
-								url : "http://api.embed.ly/1/oembed?key=dbd968c0661a4611a2ac023461076bd6&url="+link+"",
+								url : "http://api.embed.ly/1/oembed?key=4d205b6a796b11e1871a4040d3dc5c07&url="+link+"",
 								dataType : "json",
 								success: function(data) {
 									console.log(data);
