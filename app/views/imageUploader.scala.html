@@ -1,0 +1,161 @@
+@(title: String)
+<html>
+	<head>
+		<title>@title</title>
+		<style>
+		#canvas, #canvasImg{
+	border: 5px solid #ddd;
+	border-radius:50%;
+}
+#imageLoader {
+    display: block !important;
+    height: 50px !important;
+    overflow: hidden !important;
+}
+#zoom{
+	margin: 10px;	
+}
+#rotateLeft, #rotateRight, #export{
+	height: 50px !important;
+}
+		</style>
+		
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>		
+	</head>
+	<body>
+		<canvas id="canvas" width="300" height="300"></canvas>
+		<img id="canvasImg" src="../../beamstream-new/img//avatar.png" width="300" height="300" alt="No image"></br>
+		<input id="imageLoader" type="file"  accept="image/*">
+		<input id="zoom" type="range" min="20" max="100" step="1" value="20"><br>
+		<input id="rotateLeft" type="button" value="Rotate Left">
+		<input id="rotateRight" type="button" value="Rotate Right">
+		<input id="export" type="button" value="Export">
+		<script>
+		
+		var imageLoader = document.getElementById('imageLoader');
+    	imageLoader.addEventListener('change', handleImage, false);
+	var canvas = document.getElementById('canvas');
+	var ctx = canvas.getContext('2d');
+	var MAX_HEIGHT = 300;
+	var imgWidth = imgHeight = 0;
+	var rotation = 0;
+	var startPositionX=startPositionY=CurrentposX=CurrentposY=0;
+	var deltaX = deltaY = 0;
+	var drag = false;
+	var zoomLevel=20;
+	var img = new Image();
+	var x=y=0;
+	function handleImage(e){			//upload image
+	    var reader = new FileReader();
+	    reader.onload = function(event){
+	        img.onload = function(){
+	        	imgWidth = img.width;
+	        	imgHeight = img.height;
+	        	if(imgWidth > imgHeight){
+	        		imgWidth *= MAX_HEIGHT/imgHeight; 
+	        		imgHeight = MAX_HEIGHT;
+	        	}
+	        	else{
+	        		imgHeight *= MAX_HEIGHT/imgWidth;
+	        		imgWidth = MAX_HEIGHT;
+	        	}
+	            ctx.clearRect(0,0,MAX_HEIGHT,MAX_HEIGHT)
+	            CurrentposX = CurrentposY =0;
+	            ctx.drawImage(img,CurrentposX,CurrentposY,imgWidth,imgHeight);
+	            $('#zoom').val(20);
+	        }
+	        img.src = event.target.result;
+	    }
+	    reader.readAsDataURL(e.target.files[0]);
+	    ctx.setTransform(1, 0, 0, 1, 0, 0);
+	    rotation = 0;
+	}
+	var rotateRight = function(e){				//Rotate image to right
+		ctx.clearRect(0,0,MAX_HEIGHT,MAX_HEIGHT);
+		ctx.translate(MAX_HEIGHT,0);
+		rotation++;
+		ctx.rotate(Math.PI/2);
+        ctx.drawImage(img,CurrentposX,CurrentposY,zoomLevel/20*imgWidth,zoomLevel/20*imgHeight);
+        ctx.translate(0,0);
+        if(rotation > 3){
+        	rotation = 4%rotation;
+        }
+	}
+	var rotateLeft = function(e){				//Rotate image to left
+		ctx.clearRect(0,0,MAX_HEIGHT,MAX_HEIGHT);
+		ctx.translate(0,MAX_HEIGHT);
+		ctx.rotate(-Math.PI/2);
+		rotation--;
+        ctx.drawImage(img,CurrentposX,CurrentposY,zoomLevel/20*imgWidth,zoomLevel/20*imgHeight);
+        ctx.translate(0,0);
+        if(rotation < 0){
+        	rotation = 3;
+        }
+	}
+	var exportImage = function(){				//export image
+		var dataURL = canvas.toDataURL();
+		document.getElementById('canvasImg').src = dataURL;
+		
+	}
+	function mouseDown(e){
+		drag = true;
+		startPositionX=e.offsetX;
+		startPositionY=e.offsetY;
+	}
+	function mouseUp(e){
+		drag = false;
+		CurrentposX += deltaX;
+		CurrentposY += deltaY;
+	}
+	function mouseLeave(e){
+		if(drag){
+			drag = false;
+			CurrentposX += deltaX;
+			CurrentposY += deltaY;
+		}
+	}
+	var dragPicture = function(e){
+		if(drag){
+			if(rotation == 3){
+				deltaY = e.offsetX-startPositionX;
+				deltaX = startPositionY-e.offsetY;
+				ctx.clearRect(0,0,MAX_HEIGHT,MAX_HEIGHT)
+	            ctx.drawImage(img,CurrentposX+deltaX,CurrentposY+deltaY,zoomLevel/20*imgWidth,zoomLevel/20*imgHeight);
+			}
+			if(rotation == 2){
+				deltaX = startPositionX-e.offsetX;
+				deltaY = startPositionY-e.offsetY;
+				ctx.clearRect(0,0,MAX_HEIGHT,MAX_HEIGHT)
+	            ctx.drawImage(img,CurrentposX+deltaX,CurrentposY+deltaY,zoomLevel/20*imgWidth,zoomLevel/20*imgHeight);
+			}
+			if(rotation == 1){
+				deltaX = e.offsetY-startPositionY;
+				deltaY = startPositionX-e.offsetX;
+				ctx.clearRect(0,0,MAX_HEIGHT,MAX_HEIGHT)
+	            ctx.drawImage(img,CurrentposX+deltaX,CurrentposY+deltaY,zoomLevel/20*imgWidth,zoomLevel/20*imgHeight);
+			}
+			if(rotation == 0){
+				deltaX = e.offsetX-startPositionX;
+				deltaY = e.offsetY-startPositionY;
+				ctx.clearRect(0,0,MAX_HEIGHT,MAX_HEIGHT)
+	            ctx.drawImage(img,CurrentposX+deltaX,CurrentposY+deltaY,zoomLevel/20*imgWidth,zoomLevel/20*imgHeight);
+			}
+		}
+	}
+	function zoomImage(){
+		zoomLevel =parseInt(this.value);
+		ctx.clearRect(0,0,(this.value)+imgWidth,(this.value)+imgHeight);
+		ctx.drawImage(img,CurrentposX,CurrentposY,zoomLevel/20*imgWidth,zoomLevel/20*imgHeight);
+	}
+	$("#rotateRight").on('click',rotateRight);
+	$("#rotateLeft").on('click',rotateLeft);
+	$("#export").on('click',exportImage);
+	$("#zoom").on("input", zoomImage);
+	$('#canvas').on('mousedown',mouseDown)
+	$('#canvas').on('mousemove',dragPicture);
+	$('#canvas').on('mouseup',mouseUp);
+	$('#canvas').on('mouseleave',mouseLeave);
+		
+		</script>
+	</body>
+</html>

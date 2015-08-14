@@ -45,6 +45,10 @@ object JoinBeamStream extends Controller {
     }
 
   }
+  
+  def imageUploader: Action[AnyContent] = Action { implicit request =>
+    Ok(views.html.imageUploader("Image Uploader"))
+  }
 
   /**
    *  Beta Users Registration(T)
