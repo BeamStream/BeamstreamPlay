@@ -1000,10 +1000,26 @@ define(
 								processData : false,
 								dataType : "json",
 								success : function(data) {
-									var studyAttachment =   "<div class=\"embed\" style=\"width:95%;margin-left:6px;\">" +
-									"<div class=\"action\" ><a href=\"javascript:void(0)\" id=\"studyResourceAttachment\" class=\"nothumb\" style=\" float:right;display:none;\">✕</a></div>"+
-									"<div><img src=\""+data[0]+"\" class=\"thumb\" style=\"max-width: 100%;max-height:180px\"></div>" +
-									"</div>";	
+									
+									var str = data[0];
+									var restStr = str.substring(0, str.lastIndexOf(".") + 1);
+									var lastStr = str.substring(str.lastIndexOf(".") + 1, str.length);
+									var validFileType = ["jpg","png","bmp","gif","jpeg"];
+									var containType = $.inArray(lastStr, validFileType );
+									
+									if(containType=="-1"){
+										var studyAttachment =   "<div class=\"embed\" style=\"width:95%;margin-left:6px;\">" +
+										"<div class=\"action\" ><a href=\"javascript:void(0)\" id=\"studyResourceAttachment\" class=\"nothumb\" style=\" float:right;display:none;\">✕</a></div>"+
+										"<div><img src=\"/beamstream-new/images/textimage.png\" class=\"thumb\" style=\"max-width: 100%;max-height:180px\"></div>" +
+										"</div>";	
+										
+									}else{
+										var studyAttachment =   "<div class=\"embed\" style=\"width:95%;margin-left:6px;\">" +
+										"<div class=\"action\" ><a href=\"javascript:void(0)\" id=\"studyResourceAttachment\" class=\"nothumb\" style=\" float:right;display:none;\">✕</a></div>"+
+										"<div><img src=\""+data[0]+"\" class=\"thumb\" style=\"max-width: 100%;max-height:180px\"></div>" +
+										"</div>";	
+									}
+									
 									$('#file-name').html(studyAttachment);
 									$("#fileUploadingImage").modal('hide');
 									self.docurlAmazon = data[0];
@@ -1241,10 +1257,29 @@ define(
 										dataType : "json",
 										success : function(data) {
 											
-											var syllabusAttachment =   "<div class=\"embed\" style=\"width:95%;margin-left:6px;\">" +
-											"<div class=\"action\" ><a href=\"javascript:void(0)\" id=\"syllabusAttachment\" class=\"nothumb\" style=\" float:right;display:none;\">✕</a></div>"+
-											"<div><img src=\""+data[0]+"\" class=\"thumb\" style=\"max-width: 100%;max-height:180px\"></div>" +
-											"</div>";	
+											var str = data[0];
+											var restStr = str.substring(0, str.lastIndexOf(".") + 1);
+											var lastStr = str.substring(str.lastIndexOf(".") + 1, str.length);
+											var validFileType = ["jpg","png","bmp","gif","jpeg"];
+											var containType = $.inArray(lastStr, validFileType );
+											
+										    console.log("COnd:::::::::::"+$.inArray(lastStr, validFileType ));
+											
+											if(containType=="-1"){
+												
+												var syllabusAttachment =   "<div class=\"embed\" style=\"width:95%;margin-left:6px;\">" +
+												"<div class=\"action\" ><a href=\"javascript:void(0)\" id=\"syllabusAttachment\" class=\"nothumb\" style=\" float:right;display:none;\">✕</a></div>"+
+												"<div><img src=\"/beamstream-new/images/textimage.png\" class=\"thumb\" style=\"max-width: 100%;max-height:180px\"></div>" +
+												"</div>";
+												
+											}else{
+												
+												var syllabusAttachment =   "<div class=\"embed\" style=\"width:95%;margin-left:6px;\">" +
+												"<div class=\"action\" ><a href=\"javascript:void(0)\" id=\"syllabusAttachment\" class=\"nothumb\" style=\" float:right;display:none;\">✕</a></div>"+
+												"<div><img src=\""+data[0]+"\" class=\"thumb\" style=\"max-width: 100%;max-height:180px\"></div>" +
+												"</div>";
+												
+											}
 											
 											$('#syllabus-file-name').html(syllabusAttachment);
 											$("#SyllabusFileUploadingImage").modal('hide');
