@@ -724,10 +724,10 @@ define(
 						 */
 						success : function(model, data) {
 							var self = this;
-							$("#floatingCirclesG").modal('show');
+							$("#createJoinStream").modal('show');
 							if (data.resultToSend.status == "Success") {
-								
-								$("#floatingCirclesG").modal('hide');
+								console.log("success");
+								$("#createJoinStream").modal('hide');
 								$("#selectNextStep").modal('show');
 
 								/* update stream list when we add/join a stream */
@@ -865,7 +865,7 @@ define(
 								}
 
 							} else {
-								$("#floatingCirclesG").hide();
+								$("#createJoinStream").modal('hide');
 								alert(data.resultToSend.message);
 								$("#className").val("");
 								$("#classCode").val("");
@@ -880,7 +880,7 @@ define(
 								$('#classType').val("");
 								$('#contactcellNumber').val("");
 								$('#contactofficeHours').val("");
-								$("#createOrJoinStream").val("Create Stream");
+								$("#createOrJoinStream").text("Create Stream");
 							}
 
 							/* clear all form fields */
@@ -1432,7 +1432,7 @@ define(
 								        		 $("#add-attachment").attr("style", "display: inline-block;");
 								        		 $("#resourcelink").attr("style", "display: inline-block;");
 								        		 $("#insterlinkTitle").attr("style", "display: inline-block;");
-								        		 
+								        		 $("#selector-wrapper").html("");
 								        	 }else{
 								        		 
 								        		 $("#resourcetitle").attr("style", "display: none;");
