@@ -664,7 +664,7 @@ define(
 						 */
 						createOrJoinStream : function(e) {
 							e.preventDefault();
-							
+							$("#createJoinStream").modal('show');
 							// this.data.models[0].set({'schoolId' :
 							// $('#schoolId').val()});
 							this.data.models[0].set({
@@ -724,9 +724,7 @@ define(
 						 */
 						success : function(model, data) {
 							var self = this;
-							$("#createJoinStream").modal('show');
 							if (data.resultToSend.status == "Success") {
-								console.log("success");
 								$("#createJoinStream").modal('hide');
 								$("#selectNextStep").modal('show');
 
