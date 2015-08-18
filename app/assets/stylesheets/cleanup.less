@@ -4345,7 +4345,11 @@ width:70%!important
 	margin:	0 0 60px;
 	padding: 5%;
 	background-color: @LighterLightBlue;
-	
+}
+
+button#gradeLevel, #degreeProgram, #graduate, #degreeExpected {
+	background-color: #ffffff;
+	height: 46px !important;
 }
 
 .follow-david {
@@ -6394,26 +6398,6 @@ float:left;
 z-index:0
 }
 
-.new-arrow {
-background:#529abe;
-background:-webkit-gradient(linear,left bottom,left top,color-stop(0,#529abe),color-stop(1,#3e79a9));
-background:-ms-linear-gradient(bottom,#529abe,#3e79a9);
-background:-moz-linear-gradient(center bottom,#529abe 0,#3e79a9 100%);
-background:-o-linear-gradient(#3e79a9,#529abe);
-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#3e79a9',endColorstr='#529abe',GradientType=0);
--webkit-border-radius:0 4px 4px 0;
--moz-border-radius:0 4px 4px 0;
-border-radius:0 4px 4px 0;
-display:block;
-float:right;
-height:37px;
-margin:0;
-position:absolute;
-right:0;
-top:0;
-width:44px
-}
-
 .input-append .add-on,
 .input-prepend .add-on {
 background-color:none!important;
@@ -6437,7 +6421,6 @@ z-index:10;
 	height: 29px !important;
 	padding: 4px 0px !important;
 	background : #fff !important;
-	border : 1px solid #cdd4db !important;
 	border-left : none !important;
 }
 
@@ -10684,9 +10667,14 @@ position:absolute
 }
 
 #startingDate,
-.new-arrow {
-cursor:pointer;
+	.new-arrow {
+	cursor:pointer;
+	margin: -56px 0 0 252px;
+	height: 0px;
+}
 
+span.add-on.courseFinishDate {
+	margin-top: 1px;
 }
 
 #startingDate{z-index:0}
