@@ -137,13 +137,15 @@ define(['view/formView'], function(FormView){
 			var systemCode = $("#systemCode").val();
 			var length = systemCode.length;
 			if(length>5){
-				$("#systemCode-sign-tick").show();
-				$("#systemCode-sign-close").hide();
-				$("#systemCodeError").hide();
-			}else{
-				$("#systemCode-sign-close").show();
-				$("#systemCode-sign-tick").hide();
-				$("#systemCodeError").show();
+				if(length != 0){
+					$("#systemCode-sign-tick").show();
+					$("#systemCode-sign-close").hide();
+					$("#systemCodeError").hide();
+				}else{
+					$("#systemCode-sign-close").show();
+					$("#systemCode-sign-tick").hide();
+					$("#systemCodeError").show();
+				}
 			}
 		},
 		
