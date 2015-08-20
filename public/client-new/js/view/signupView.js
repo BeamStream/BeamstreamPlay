@@ -29,7 +29,8 @@ define(['view/formView'], function(FormView){
             'click .register-cancel' : 'clearAllFields',
             'blur #mailid':'chekemail',
             'blur #password' : 'validatePassword',
-            'blur #confirmPassword' : 'validateConfirmPassword'
+            'blur #confirmPassword' : 'validateConfirmPassword',
+            'blur #systemCode' : 'checkSystemCode'
 		},
 
 		onAfterInit: function(){	
@@ -128,6 +129,21 @@ define(['view/formView'], function(FormView){
 					$("#confirmPassword-sign-close").show();
 					$("#confirmpasswordError").show(); 
 				}
+			}
+		},
+		
+		checkSystemCode : function(e){
+			
+			var systemCode = $("#systemCode").val();
+			var length = systemCode.length;
+			if(length>5){
+				$("#systemCode-sign-tick").show();
+				$("#systemCode-sign-close").hide();
+				$("#systemCodeError").hide();
+			}else{
+				$("#systemCode-sign-close").show();
+				$("#systemCode-sign-tick").hide();
+				$("#systemCodeError").show();
 			}
 		},
 		

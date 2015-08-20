@@ -664,7 +664,7 @@ define(
 						 */
 						createOrJoinStream : function(e) {
 							e.preventDefault();
-							$("#createJoinStream").modal('show');
+							
 							// this.data.models[0].set({'schoolId' :
 							// $('#schoolId').val()});
 							this.data.models[0].set({
@@ -724,6 +724,7 @@ define(
 						 */
 						success : function(model, data) {
 							var self = this;
+							$("#createJoinStream").modal('show');
 							if (data.resultToSend.status == "Success") {
 								$("#createJoinStream").modal('hide');
 								$("#selectNextStep").modal('show');
@@ -1297,7 +1298,7 @@ define(
 						 */
 						AddLinkPreview : function(e) {
 							var code=e.which;
-							if(code == 32){
+							if(code == 32 || code == 9){
 							$('div#LinkPreview #floatingCirclesG').css('visibility', 'visible');
 							$('div#LinkPreview #floatingCirclesG').css('display', 'block');
 							$('#link-preview-area').show();

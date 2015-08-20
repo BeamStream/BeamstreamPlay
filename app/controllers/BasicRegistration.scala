@@ -88,6 +88,8 @@ object BasicRegistration extends Controller {
 
   def signUpUser: Action[AnyContent] = Action { implicit request =>
     val userInfoJsonMap = request.body.asJson.get
+    
+    println("userInfoJsonMap::::::"+userInfoJsonMap)
 
     val iam = (userInfoJsonMap \ "iam").as[String]
     val emailId = (userInfoJsonMap \ "mailId").as[String]
@@ -96,7 +98,11 @@ object BasicRegistration extends Controller {
     val encryptedPassword = (new PasswordHashingUtil).encryptThePassword(password)
     val encryptedConfirmPassword = (new PasswordHashingUtil).encryptThePassword(confirmPassword)
     val canUserRegister = User.canUserRegisterWithThisEmail(emailId)
-
+    val systemCode = (userInfoJsonMap \ "systemCode").as[String]
+    
+    println("systemCode:::::::::::::::"+systemCode);
+    
+    
     canUserRegister match {
       case true =>
         iam match {
@@ -105,7 +111,7 @@ object BasicRegistration extends Controller {
             (encryptedPassword == encryptedConfirmPassword) match {
               case true =>
                 val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, "", "", "",
-                  Option(encryptedPassword), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
+                  Option(encryptedPassword),Option(systemCode), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
                 val IdOfUserCreted = User.createUser(userToCreate)
                 val createdUser = User.getUserProfile(IdOfUserCreted.get)
                 UtilityActor.sendMailAfterUserSignsUp(IdOfUserCreted.get.toString, TokenEmailUtil.securityToken, emailId)
