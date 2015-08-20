@@ -354,8 +354,9 @@ define(
 								
 								$('#step3_block .browse').html('<canvas id="canvas" width="300" height="300"></canvas>');
 								
-								var sendData ="<input id=\"zoomIn\" type=\"button\" value=\"Zoom In\">" +
-								"<input id=\"zoomOut\" type=\"button\" value=\"Zoom Out\">" +
+								var sendData ="<img id=\"zoomIn\" src=\"../../beamstream-new/img/ZommIn.png\" alt=\"zoomIn\" width=\"50px\" height=\"50px\">" +
+								"<img id=\"zoomOut\" src=\"../../beamstream-new/img/zoomOut.png\" alt=\"zoomOut\" width=\"50px\" height=\"50px\">" +
+								
 								"<img id=\"rotateLeft\" src=\"../../beamstream-new/img/object_rotate_left.png\" alt=\"RotateLeft\" width=\"50px\" height=\"50px\">" +	
 								"<img id=\"rotateRight\" src=\"../../beamstream-new/img/object_rotate_right.png\" alt=\"RotateRight\" width=\"50px\" height=\"50px\">";
 								
@@ -385,6 +386,8 @@ define(
 									            ctx.clearRect(0,0,MAX_HEIGHT,MAX_HEIGHT)
 									            CurrentposX = CurrentposY =0;
 									            ctx.drawImage(img,CurrentposX,CurrentposY,imgWidth,imgHeight);
+									            $('#zoom').val(20);
+									            zoomLevel=20;
 									        }
 									        img.src = event.target.result;
 										self.name = f.name;
