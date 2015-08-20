@@ -204,11 +204,12 @@
 
 
 
-    <input type="file" id="uploadProfilePic" name="uploadProfilePic"  style="display:none;"> 
+    	<input type="file" id="uploadProfilePic" name="uploadProfilePic"  style="display:none;"> 
       <div id="upload-step">
         <div id="step3_block" class="round-block upload-photo step-one-photo"> 
           {{#if photo}}
-          <a > <img src="{{photo}}" width="148" height="37" id="profile-photo"></a> 	             
+          <a > <img src="{{photo}}" width="148" height="37" id="profile-photo"></a> 
+                    
           {{else}}	             
           <a > <img src="/beamstream-new/images/step-one-pic.png" width="148" height="37" id="profile-photo"></a>
           {{/if}}
@@ -219,6 +220,10 @@
         </div>
         
         <!-- for  popups after Upload Photo -->
+        
+        
+        
+        
 			<div id="selectUploadPhoto"  class="modal hide fade registration-modal white-modal-block in bootbox modal fade in" role="dialog" aria-labelledby="myModalLabel" tabindex="-1" style="overflow:hidden;" aria-hidden="false">				
 				<div class="modal-body">You don't want to add your stunning profile pic?</div>
 							<div class="modal-footer">
@@ -226,7 +231,11 @@
 								<a id="addPhoto" class="invite-green-btn class-modal-btn modal-button btn btn googledocclose" href="#">Upload Photo</a> 
 							</div>
 						</div>
-           <ul class="profile-top-menu profile-white register-top-white photo-project">
+			           <ul class="profile-top-menu profile-white register-top-white photo-project">
+			             <div id="photoUploader">  </div>	
+            			</ul>
+            			<br/>
+            <ul class="profile-top-menu profile-white register-top-white photo-project">
               <h3>Photos & Projects</h3>
               <h5>Coming Soon</h5>
             </ul>

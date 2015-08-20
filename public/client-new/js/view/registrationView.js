@@ -21,6 +21,21 @@ define(
 		function(FormView, Bootstrap, BootstrapSelect, BootstrapModal,
 				MaskedInput, Datepicker, RegistrationTpl) {
 			var RegistrationView;
+			
+			/*
+			 * Set Global variable 
+			 * For profile image tool
+			 */
+			var MAX_HEIGHT = 300;
+			var imgWidth = imgHeight = 0;
+			var rotation = 0;
+			var startPositionX=startPositionY=CurrentposX=CurrentposY=0;
+			var deltaX = deltaY = 0;
+			var drag = false;
+			var zoomLevel=20;
+			var img = new Image();
+			var x=y=0;
+			
 			RegistrationView = FormView
 					.extend({
 						objName : 'RegistrationView',
@@ -34,6 +49,18 @@ define(
 							'click #step2_back' : 'backtostep1',
 							'click .browse' : 'continuestep3',
 							'change #uploadProfilePic' : 'changeProfile',
+							
+							'click #rotateRight' : 'rotateRight',
+							'click #rotateLeft' : 'rotateLeft',
+							'click #zoomIn' : 'zoomIn',
+							'click #zoomOut' : 'zoomOut',
+							'mousedown #canvas' : 'mouseDown',
+							'mousemove #canvas' : 'dragPicture',
+							'mouseup #canvas' : 'mouseUp',
+							'mouseleave #canvas' : 'mouseLeave',
+							
+							
+							
 							'click #skip_step3' : 'completeRegistration',
 							'click #addPhoto' : 'uploadProfilePic',
 							'click #continue' : 'noprofilepic',
@@ -151,16 +178,16 @@ define(
 								this.temp_photo = '/beamstream-new/images/upload-photo.png';
 							}
 							var upload_block = '<div id="step3_block" class="round-block upload-photo step-3-photo">'
-									+ '<a class="browse" href="#"><img src="'
-									+ this.temp_photo
-									+ '" width="148" height="37" id="profile-photo"> </a>'
-									+ '<div class="progress-container" style="position:relative; top:-35px; left:240px; padding:5px; display:none;">'
-									+ '<div class="progress progress-striped active reg-upload">'
-									+ '<div class="bar" style="width: 0%;"></div>'
-									+ '</div>'
-									+ '</div>'
-									+ '<div id="profile-error" ></div>'
-									+ '</div>';
+								+ '<a class="browse" href="#"><img src="'
+								+ this.temp_photo
+								+ '" width="148" height="37" id="profile-photo"> </a>'
+								+ '<div class="progress-container" style="position:relative; top:-35px; left:240px; padding:5px; display:none;">'
+								+ '<div class="progress progress-striped active reg-upload">'
+								+ '<div class="bar" style="width: 0%;"></div>'
+								+ '</div>'
+								+ '</div>'
+								+ '<div id="profile-error" ></div>'
+								+ '</div>';
 							$('#upload-step').html(upload_block);
 							$('#step_3').show(500);
 
@@ -310,7 +337,9 @@ define(
 							var file = e.target.files[0];
 							this.temp_photo = '';
 							var reader = new FileReader();
-
+							
+							console.log("file::::::::::::::::"+file);
+							
 							/* Only process image files. */
 							if (!file.type.match('image.*')
 									&& !file.type.match('video.*')) {
@@ -322,24 +351,42 @@ define(
 										'File type not allowed !!');
 								self.profile = '';
 							} else {
+								
+								$('#step3_block .browse').html('<canvas id="canvas" width="300" height="300"></canvas>');
+								
+								var sendData ="<input id=\"zoomIn\" type=\"button\" value=\"Zoom In\">" +
+								"<input id=\"zoomOut\" type=\"button\" value=\"Zoom Out\">" +
+								"<img id=\"rotateLeft\" src=\"../../beamstream-new/img/object_rotate_left.png\" alt=\"RotateLeft\" width=\"50px\" height=\"50px\">" +	
+								"<img id=\"rotateRight\" src=\"../../beamstream-new/img/object_rotate_right.png\" alt=\"RotateRight\" width=\"50px\" height=\"50px\">";
+								
+								$("#photoUploader").html(sendData);
+								
+								var canvas = document.getElementById('canvas');
+								var ctx = canvas.getContext('2d');
+								
+								
 								/* capture the file informations */
 								reader.onload = (function(f) {
 									self.profile = file;
 									return function(e) {
-										$('#profile-error').html('');
-										// show the selected photo
-										if (file.type.match('image.*')) {
-											self.temp_photo = e.target.result;
-											$('#profile-photo').attr("src",
-													e.target.result);
-										}
-										// show a default profile image
-										if (file.type.match('video.*')) {
-											$('#profile-photo')
-													.attr("src",
-															"/beamstream-new/images/no-video.png");
-										}
-
+										 img.onload = function(){
+									        	imgWidth = img.width;
+									        	imgHeight = img.height;
+									        	if(imgWidth > imgHeight){
+									        		console.log("width is higher");
+									        		imgWidth *= MAX_HEIGHT/imgHeight; 
+									        		imgHeight = MAX_HEIGHT;
+									        	}
+									        	else{
+									        		console.log("height is higher");
+									        		imgHeight *= MAX_HEIGHT/imgWidth;
+									        		imgWidth = MAX_HEIGHT;
+									        	}
+									            ctx.clearRect(0,0,MAX_HEIGHT,MAX_HEIGHT)
+									            CurrentposX = CurrentposY =0;
+									            ctx.drawImage(img,CurrentposX,CurrentposY,imgWidth,imgHeight);
+									        }
+									        img.src = event.target.result;
 										self.name = f.name;
 
 									};
@@ -347,14 +394,128 @@ define(
 								reader.readAsDataURL(file);
 							}
 						},
+						
+						rotateRight: function(e){
+							var canvas = document.getElementById('canvas');
+							var ctx = canvas.getContext('2d');
+							ctx.clearRect(0,0,MAX_HEIGHT,MAX_HEIGHT);
+							ctx.translate(MAX_HEIGHT,0);
+							rotation++;
+							ctx.rotate(Math.PI/2);
+				            ctx.drawImage(img,CurrentposX,CurrentposY,zoomLevel/20*imgWidth,zoomLevel/20*imgHeight);
+				            ctx.translate(0,0);
+				            if(rotation > 3){
+				            	rotation = 4%rotation;
+				            }
+				            
+						},
+						rotateLeft : function(e){				//Rotate image to left
+							var canvas = document.getElementById('canvas');
+							var ctx = canvas.getContext('2d');
+							ctx.clearRect(0,0,MAX_HEIGHT,MAX_HEIGHT);
+							ctx.translate(0,MAX_HEIGHT);
+							ctx.rotate(-Math.PI/2);
+							rotation--;
+				            ctx.drawImage(img,CurrentposX,CurrentposY,zoomLevel/20*imgWidth,zoomLevel/20*imgHeight);
+				            ctx.translate(0,0);
+				            if(rotation < 0){
+				            	rotation = 3;
+				            }
+						},
+						
+						
+						
+						
+						mouseDown : function(e){
+							drag = true;
+							startPositionX=e.offsetX;
+							startPositionY=e.offsetY;
+						},
+						mouseUp : function(e){
+							drag = false;
+							CurrentposX += deltaX;
+							CurrentposY += deltaY;
+						},
+						mouseLeave: function(e){
+							if(drag){
+								drag = false;
+								CurrentposX += deltaX;
+								CurrentposY += deltaY;
+							}
+						},
+						dragPicture : function(e){
+							var canvas = document.getElementById('canvas');
+							var ctx = canvas.getContext('2d');
+							if(drag){
+								if(rotation == 3){
+									deltaY = e.offsetX-startPositionX;
+									deltaX = startPositionY-e.offsetY;
+									ctx.clearRect(0,0,MAX_HEIGHT,MAX_HEIGHT)
+						            ctx.drawImage(img,CurrentposX+deltaX,CurrentposY+deltaY,zoomLevel/20*imgWidth,zoomLevel/20*imgHeight);
+								}
+								if(rotation == 2){
+									deltaX = startPositionX-e.offsetX;
+									deltaY = startPositionY-e.offsetY;
+									ctx.clearRect(0,0,MAX_HEIGHT,MAX_HEIGHT)
+						            ctx.drawImage(img,CurrentposX+deltaX,CurrentposY+deltaY,zoomLevel/20*imgWidth,zoomLevel/20*imgHeight);
+								}
+								if(rotation == 1){
+									console.log(rotation);
+									deltaX = e.offsetY-startPositionY;
+									deltaY = startPositionX-e.offsetX;
+									ctx.clearRect(0,0,MAX_HEIGHT,MAX_HEIGHT)
+						            ctx.drawImage(img,CurrentposX+deltaX,CurrentposY+deltaY,zoomLevel/20*imgWidth,zoomLevel/20*imgHeight);
+								}
+								if(rotation == 0){
+									deltaX = e.offsetX-startPositionX;
+									deltaY = e.offsetY-startPositionY;
+									ctx.clearRect(0,0,MAX_HEIGHT,MAX_HEIGHT)
+						            ctx.drawImage(img,CurrentposX+deltaX,CurrentposY+deltaY,zoomLevel/20*imgWidth,zoomLevel/20*imgHeight);
+								}
+							}
+						},
+						
+						
+						
+						zoomIn: function(e){
+							var canvas = document.getElementById('canvas');
+							var ctx = canvas.getContext('2d');
+							if(zoomLevel>=20){
+								zoomLevel++;
+								ctx.clearRect(0,0,(zoomLevel)+imgWidth,(zoomLevel)+imgHeight);
+								ctx.drawImage(img,CurrentposX,CurrentposY,zoomLevel/20*imgWidth,zoomLevel/20*imgHeight);
+							}
+						},
+						zoomOut : function(e){
+							var canvas = document.getElementById('canvas');
+							var ctx = canvas.getContext('2d');
+							if(zoomLevel>20){
+								zoomLevel--;
+								ctx.clearRect(0,0,(zoomLevel)+imgWidth,(zoomLevel)+imgHeight);
+								ctx.drawImage(img,CurrentposX,CurrentposY,zoomLevel/20*imgWidth,zoomLevel/20*imgHeight);			
+							}
+						},
+						
+						
 
 						continuestep3 : function(e) {
 							e.preventDefault();
 							if (this.profile) {
+								
+								var canvas = document.getElementById('canvas');
+								var ctx = canvas.getContext('2d');
+								var dataURL = canvas.toDataURL();
+								var blobBin = atob(dataURL.split(',')[1]);
+								var array = [];
+								for(var i = 0; i < blobBin.length; i++) {
+								    array.push(blobBin.charCodeAt(i));
+								}
+								var file=new Blob([new Uint8Array(array)], {type: 'image/png'});
+								var data = new FormData();
+								
 								$("#browseImageUploader").modal("show");
-								var data;
-								data = new FormData();
-								data.append('profileData', this.profile);
+								
+								data.append('profileData', file);
 								$.ajax({
 									type : 'POST',
 									data : data,

@@ -200,7 +200,13 @@ object MediaController extends Controller {
   def uploadMediaToAmazon: Action[play.api.mvc.MultipartFormData[play.api.libs.Files.TemporaryFile]] = Action(parse.multipartFormData) { implicit request =>
 
     val media = request.body.file("profileData").map { profileData =>
+      
+      println("profileData:::::::::::::::::"+profileData)
+      
       val Filename = profileData.filename
+      
+      println("Filename::::::::::"+Filename)
+      
       val contentType = profileData.contentType.get
       val uniqueString = TokenEmailUtil.securityToken
       val FileObtained: File = profileData.ref.file.asInstanceOf[File]
