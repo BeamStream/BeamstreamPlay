@@ -110,6 +110,12 @@ define(['view/formView'], function(FormView){
 			var confirmpassword = $("#confirmPassword").val();
 			var password = $("#password").val();
 			var Len =confirmpassword.length;
+			
+			$("#field-error").hide();
+			$("#confirmpasswordError").hide();
+			$("#confirmPassword-sign-tick").hide();
+			$("#confirmPassword-sign-close").hide();
+			
 			if(Len != 0){
 				if(Len > 5){
 					$("#confirmPassword-sign-tick").show();
