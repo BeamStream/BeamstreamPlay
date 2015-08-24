@@ -62,6 +62,7 @@ define(['view/formView'], function(FormView){
 					  var iam = "8080";
 					  var password = '12345a';
 					  var confirmPassword = '12345a';
+					  var systemCode ='12345678';
 					 $.ajax ({
 						 type : 'POST',
 						 url : "/signup",
@@ -72,6 +73,7 @@ define(['view/formView'], function(FormView){
 							 iam : iam,
 							 password : password,
 							 confirmPassword : confirmPassword,
+							 systemCode : systemCode
 							 }),
 							 
 						 success : function(data){

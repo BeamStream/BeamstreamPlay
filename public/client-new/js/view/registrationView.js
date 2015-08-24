@@ -71,7 +71,13 @@ define(
 							'change #degreeProgram' : 'addOtherDegree',
 							'change #graduate' : 'showGraduateType',
 							'click #cancle_registration' : 'cancelRegistration',
-							'blur #username':'usernamecheck'
+							'blur #username':'usernamecheck',
+							'keyup #username':'removeErrorInUsername',
+							'keyup #firstName' : 'removeErrorInFirstName',
+							'keyup #lastName' : 'removeErrorInLastName',
+							'keyup #major' : 'removeErrorInMajor',
+							'change #gradeLevel' : 'removeErrorInGradeLevel'
+								
 						},
 
 						onAfterInit : function() {
@@ -98,6 +104,56 @@ define(
 								 });
 							}
 						},
+						
+						removeErrorInUsername : function(e){
+							if ($(document).find(".username-error").length != 0) 
+							{ 
+								var username = $("#username").val();
+								if(username!=''){
+									$(".username-error").remove();
+								}
+							}
+						},
+						
+						removeErrorInFirstName : function(e){
+							if ($(document).find(".firstName-error").length != 0) 
+							{ 
+								var firstName = $("#firstName").val();
+								if(firstName!=''){
+									$(".firstName-error").remove();
+								}
+							}
+						},
+						
+						removeErrorInLastName : function(e){
+							if ($(document).find(".lastName-error").length != 0) 
+							{ 
+								var lastName = $("#lastName").val();
+								if(lastName!=''){
+									$(".lastName-error").remove();
+								}
+							}
+						},
+						
+						removeErrorInMajor :function(e){
+							if ($(document).find(".major-error").length != 0) 
+							{ 
+								var major = $("#major").val();
+								if(major!=''){
+									$(".major-error").remove();
+								}
+							}
+						},
+						
+						removeErrorInGradeLevel : function(e){
+							if ($(document).find(".gradeLevel-error").length != 0) 
+							{ 
+								$(".gradeLevel-error").remove();
+							}
+						},
+						
+						
+						
 						/**
 						 * @TODO JanRain Sign up
 						 */
@@ -353,6 +409,7 @@ define(
 							} else {
 								
 								$('#step3_block .browse').html('<canvas id="canvas" width="300" height="300"></canvas>');
+								$('#step3_block a').removeClass('browse');
 								
 								var sendData ="<img id=\"zoomIn\" src=\"../../beamstream-new/img/ZommIn.png\" alt=\"zoomIn\" width=\"50px\" height=\"50px\">" +
 								"<img id=\"zoomOut\" src=\"../../beamstream-new/img/zoomOut.png\" alt=\"zoomOut\" width=\"50px\" height=\"50px\">" +
@@ -608,6 +665,12 @@ define(
 						 * auto populate school
 						 */
 						populateSchools : function(eventName) {
+							
+							if ($(document).find(".schoolName-error").length != 0) 
+							{ 
+									$(".schoolName-error").remove();
+							}
+							
 							var id = eventName.target.id;
 							var text = $('#' + id).val();
 							var self = this;
@@ -653,7 +716,13 @@ define(
 						 * 'Other' from Degre Program
 						 */
 						addOtherDegree : function(eventName) {
-
+							
+							
+							if ($(document).find(".degreeProgram-error").length != 0) 
+							{ 
+								$(".degreeProgram-error").remove();
+							}
+							
 							var id = eventName.target.id;
 							if ($('#' + id).val() == "Other") {
 								$('#otherDegree').show();
@@ -668,6 +737,12 @@ define(
 						 * to display 'degree expected' or 'date' field
 						 */
 						showGraduateType : function(eventName) {
+							
+							if ($(document).find(".graduate-error").length != 0) 
+							{ 
+								$(".graduate-error").remove();
+							}
+							
 							var id = eventName.target.id;
 							var dat = '#' + id;
 							// var self =
