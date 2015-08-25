@@ -229,14 +229,9 @@ define(
 						enableStepThree : function() {
 							$('#step_2').hide(500);
 							$('#step2_block').removeClass('active-border');
-							if (this.temp_photo === "/beamstream-new/images/step-one-pic1.png") {
-
-								this.temp_photo = '/beamstream-new/images/upload-photo.png';
-							}
+							
 							var upload_block = '<div id="step3_block" class="round-block upload-photo step-3-photo">'
-								+ '<a class="browse" href="#"><img src="'
-								+ this.temp_photo
-								+ '" width="148" height="37" id="profile-photo"> </a>'
+								+ '<a class="browse" href="#"><img src="/beamstream-new/images/step-one-pic.png" width="148" height="37" id="profile-photo"> </a>'
 								+ '<div class="progress-container" style="position:relative; top:-35px; left:240px; padding:5px; display:none;">'
 								+ '<div class="progress progress-striped active reg-upload">'
 								+ '<div class="bar" style="width: 0%;"></div>'
@@ -393,9 +388,6 @@ define(
 							var file = e.target.files[0];
 							this.temp_photo = '';
 							var reader = new FileReader();
-							
-							console.log("file::::::::::::::::"+file);
-							
 							/* Only process image files. */
 							if (!file.type.match('image.*')
 									&& !file.type.match('video.*')) {
@@ -634,13 +626,11 @@ define(
 						 */
 
 						backtostep2 : function(e) {
-
 							e.preventDefault();
+							this.profile='';
 							$('#step_3').hide(500);
 							var upload_block = '<div id="step3_block" class="round-block upload-photo step-one-photo">'
-									+ '<a ><img src="'
-									+ this.temp_photo
-									+ '" width="148" height="37" id="profile-photo">'
+									+ '<a ><img src="/beamstream-new/images/step-one-pic.png" width="148" height="37" id="profile-photo">'
 									+ ' </a> </div>';
 							$('#upload-step').html(upload_block);
 							$('#step2_block').addClass('active-border');
