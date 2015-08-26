@@ -187,9 +187,8 @@ flash:play.api.mvc.Flash, request: RequestHeader)
 
 } 
 
-@sideBar = { @views.html.sidebar(" ") } @header = {
-
-@views.html.header.render } 
+@sideBar = { @views.html.sidebar(" ") } 
+@header = {  @views.html.header.render } 
 
 @footer = { @views.html.footer.render }
 
@@ -209,9 +208,6 @@ ul li#showSubList:hover ul {
 </style>
 
 @main("My Stream", "Body", meta, CSS, JS, bodyModule, bodyJS, sideBar, header, footer){
-
-<!--<div id="professorRegistration" data-model="question" data-module="view/professorRegistrationView" data-url="/"
-		data-tpl="templates/professorRegistration.tpl" class="right-container"></div>-->
  <div id="MyStream" data-module="view/myStreamView">
 	<div class="right-container">
 		<div class="stream-header">

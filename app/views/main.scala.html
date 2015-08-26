@@ -7,89 +7,85 @@
 <!--[if IE 9 ]>    <html lang="en" class="ie9 no-js"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!-->
 <html lang="en" class="no-js">
-<!--<![endif]-->
-  <head>
-    <title>@title</title>
-    @meta
-    @CSS
-	<link rel="shortcut icon" href="/beamstream-new/images/favicon.ico" type="image/x-icon"/>
-   
-     <script type="text/javascript" src='@routes.StreamController.javascriptRoutes()'></script>
-	 <script type="text/JavaScript" src="/beamstream-new/js/apps/common/modernizr-2.6.1.min.js"></script> 
-
-   	 <script type="text/JavaScript" src="/beamstream-new/js/libs/jquery/jquery-1.11.1.min.js"></script> 
-	 <script type="text/JavaScript" src="/beamstream-new/js/libs/jquery/jquery-migrate-1.2.1.min.js"></script> 
-
-	 <script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","lib/bootstrap.min.js")"></script>
-	 <script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","chat.js")" type="text/javascript"></script>
-	 
-
-<!-- Online User's call -->
-    <script>
-		var __content = {};
-		try {
-			localStorage.test = 2;// try to use localStorage      
-		} catch (e) {//there was an error so...
-			alert('You are in Private Mode\nPlease deactivate Private Mode and reload the page.');
-		}
-		/* for beta user share popups */
-		localStorage["shareWidget"] = '';
-
-		/*  Method to format date and returns */
-		function formatDateVal(dateVal) {
-			var m_names = new Array("January", "February", "March",
-					"April", "May", "June", "July", "August",
-					"September", "October", "November", "December");
-			var d = new Date(dateVal);
-			var curr_date = d.getDate();
-			var curr_month = d.getMonth() + 1; //Months are zero based
-			var curr_year = d.getFullYear();
-			return curr_date + " " + m_names[d.getMonth()] + ", "
-					+ curr_year;
-		}
-
-		/* render addnew school popup */
-		function populateAddNewSchool(parentId, schoolName) {
-
-			$('#newSchoolModal').modal("show");
-			// shows the entered school name on registration page in a add new school popup
-			$('#new-school').attr('value', schoolName);
-
-		}
-	</script>
-    @JS
-    <!-- Online User's call -->
-<script type="text/javascript">
-	function notifyOnline() {
-		$.ajax({
-			url : '/active',
-			success : function(data) {
-				// do something with the return value here if you like
-			}
-		});
-	}
-	setInterval(notifyOnline, 5000); // you could choose not to continue on failure...
-</script>
-<!-- Online User's call -->
-  </head>
-  <body class="@bodyClass" @bodyModule>
-    <div id="container">
-        @header
+   <!--<![endif]-->
+   <head>
+      <title>@title</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      @meta
+      @CSS
+      <link rel="shortcut icon" href="/beamstream-new/images/favicon.ico" type="image/x-icon"/>
+      <script type="text/javascript" src='@routes.StreamController.javascriptRoutes()'></script>
+      <script type="text/JavaScript" src="/beamstream-new/js/apps/common/modernizr-2.6.1.min.js"></script> 
+      <script type="text/JavaScript" src="/beamstream-new/js/libs/jquery/jquery-1.11.1.min.js"></script> 
+      <script type="text/JavaScript" src="/beamstream-new/js/libs/jquery/jquery-migrate-1.2.1.min.js"></script> 
+      <script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","lib/bootstrap.min.js")"></script>
+      <script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","chat.js")" type="text/javascript"></script>
+      <!-- Online User's call -->
+      <script>
+         var __content = {};
+         try {
+         	localStorage.test = 2;// try to use localStorage      
+         } catch (e) {//there was an error so...
+         	alert('You are in Private Mode\nPlease deactivate Private Mode and reload the page.');
+         }
+         /* for beta user share popups */
+         localStorage["shareWidget"] = '';
+         
+         /*  Method to format date and returns */
+         function formatDateVal(dateVal) {
+         	var m_names = new Array("January", "February", "March",
+         			"April", "May", "June", "July", "August",
+         			"September", "October", "November", "December");
+         	var d = new Date(dateVal);
+         	var curr_date = d.getDate();
+         	var curr_month = d.getMonth() + 1; //Months are zero based
+         	var curr_year = d.getFullYear();
+         	return curr_date + " " + m_names[d.getMonth()] + ", "
+         			+ curr_year;
+         }
+         
+         /* render addnew school popup */
+         function populateAddNewSchool(parentId, schoolName) {
+         
+         	$('#newSchoolModal').modal("show");
+         	// shows the entered school name on registration page in a add new school popup
+         	$('#new-school').attr('value', schoolName);
+         
+         }
+      </script>
+      @JS
+      <!-- Online User's call -->
+      <script type="text/javascript">
+         function notifyOnline() {
+         	$.ajax({
+         		url : '/active',
+         		success : function(data) {
+         			// do something with the return value here if you like
+         		}
+         	});
+         }
+         setInterval(notifyOnline, 5000); // you could choose not to continue on failure...
+      </script>
+      <!-- Online User's call -->
+   </head>
+   <body class="@bodyClass" @bodyModule>
+      <div id="container">
+         @header
          <div id="body-container" class="container-fluid ">
-    	 <div class="main-container"> 
-	        @sideBar
-	    	@content
-	        @footer
-        </div>
-	    </div>
-    </div>
-     <!-- FOR PubNub -->
-     <div pub-key="pub-a8c5db9f-8482-4092-b9e4-44fda38a9d51"
-		sub-key="sub-315698a6-0b22-11e2-80cd-aba6e1687b8d" ssl="off"
-		origin="pubsub.pubnub.com" id="pubnub">
-	</div>
-	<script src="@routes.Assets.at("/public/javascripts","pubnub.js")"></script>   
-    <script data-main="/beamstream-new/js/main" src="/beamstream-new/js/libs/require/require.2.1.2.min.js"></script>
-    @bodyJS
-  </body>
+            <div class="main-container"> 
+               @sideBar
+               @content
+               @footer
+            </div>
+         </div>
+      </div>
+      <!-- FOR PubNub -->
+      <div pub-key="pub-a8c5db9f-8482-4092-b9e4-44fda38a9d51"
+         sub-key="sub-315698a6-0b22-11e2-80cd-aba6e1687b8d" ssl="off"
+         origin="pubsub.pubnub.com" id="pubnub">
+      </div>
+      <script src="@routes.Assets.at("/public/javascripts","pubnub.js")"></script>   
+      <script data-main="/beamstream-new/js/main" src="/beamstream-new/js/libs/require/require.2.1.2.min.js"></script>
+      @bodyJS
+   </body>
 </html>

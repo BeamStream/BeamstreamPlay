@@ -1,76 +1,59 @@
 <!-- --Start---- -->
 <!-- css for landing page is different from the css files for inner pages $ 
-     to avoid some conflicts added some css here                   -->
-<head>
-<title>Beam Stream</title>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/beamstream-new/css/bootstrap.min.css" rel="stylesheet" type="text/css" /> 
-   	<link href="/beamstream-new/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" /> 
-    <link href="@routes.Assets.at("/public/stylesheets","boot-responsive-cleanup.css")" rel="stylesheet" type="text/css" />
-    <link href="@routes.Assets.at("/public/stylesheets","cleanup.css")" rel="stylesheet" type="text/css" /> 
-		<link href="@routes.Assets.at("/public/stylesheets","professorRegistration.css")" rel="stylesheet" type="text/css" />     
-    <link href='https://fonts.googleapis.com/css?family=Covered+By+Your+Grace' rel='stylesheet' type='text/css'> 
-    <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"   rel="stylesheet" type="text/css" />
-    
-	<script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","lib/bootstrap.min.js")"></script>
-	<script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","lib/jquery-1.js")"></script>
-<!-- <script type="text/JavaScript" src="/beamstream-new/lib/jquery.js"></script>  -->
-<!-- 	<script src="/beamstream-new/lib/less-1.4.1.js" type="text/javascript"></script> -->
-
-</head> 
+   to avoid some conflicts added some css here                   -->
+<link href="/beamstream-new/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="/beamstream-new/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+<link href="@routes.Assets.at("/public/stylesheets","cleanup.css")" rel="stylesheet" type="text/css" /> 
+<link href="@routes.Assets.at("/public/stylesheets","professorRegistration.css")" rel="stylesheet" type="text/css" />     
+<link href='https://fonts.googleapis.com/css?family=Covered+By+Your+Grace' rel='stylesheet' type='text/css'>
+<link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"   rel="stylesheet" type="text/css" />
+<script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","lib/bootstrap.min.js")"></script>
+<script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","lib/jquery-1.js")"></script>
 <!-- ----End--- -->
-
 <div  id="header"  data-model="" data-url="" data-module="view/headerView">
-    <header>
+   <header>
       <div id="topheader">
-          <!-- menu part -->
-          <div class="header-wrapper">
-              <div class="container-fluid" id="header-container">
-                <!--a href="stream" class="brand"><img src="/beamstream-new/images/logo.png" width="148" height="37"></a-->
-                  <form class="navbar-form pull-left search-block" style="display: none;">
-                      <input type="text" class="header-search" placeholder="Search Class, Person, Etc">
-                      <button type="submit" class="btn header-button">Search</button>
-                      <a href="index.html">Advanced</a>
-                  </form>
-                  <div class="header-profile">
-                      <div class="header-icon"><img id="right-top-photo" src="" width="41" height="41"></div>
-                      <div class="public-profile">
-
-                          <a href="/renderProfilePage" class="profile-button" style="display:none">Public Profile</a>
-                          <div class="settings-menu">
-                              <div class="btn-group">
-                                  <button class="btn seetings-toggle" style="display: none;">Settings</button>
-                                  <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown">
-																		<span id="settings-gear-icon"></span>
-																		<span class="caret settings-caret" id="settings-dropdown"></span>
-																	</button>
-                                  <ul class="dropdown-menu settings-edit">
-                                      <!-- li id="edit-profile" ><a href="#">Edit Profile</a></li-->
-                                      <li id="sign-out" ><a href="#">Sign Out</a></li>
-
-                                  </ul>
-                              </div>
-                          </div>
-
-                      </div>
+         <!-- menu part -->
+         <div class="header-wrapper">
+            <div class="container-fluid" id="header-container">
+               <!--a href="stream" class="brand"><img src="/beamstream-new/images/logo.png" width="148" height="37"></a-->
+               <form class="navbar-form pull-left search-block" style="display: none;">
+                  <input type="text" class="header-search" placeholder="Search Class, Person, Etc">
+                  <button type="submit" class="btn header-button">Search</button>
+                  <a href="index.html">Advanced</a>
+               </form>
+               <div class="header-profile">
+                  <div class="header-icon"><img id="right-top-photo" src="" width="41" height="41"></div>
+                  <div class="public-profile">
+                     <a href="/renderProfilePage" class="profile-button" style="display:none">Public Profile</a>
+                     <div class="settings-menu">
+                        <div class="btn-group">
+                           <button class="btn seetings-toggle" style="display: none;">Settings</button>
+                           <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown">
+                           <span id="settings-gear-icon"></span>
+                           <span class="caret settings-caret" id="settings-dropdown"></span>
+                           </button>
+                           <ul class="dropdown-menu settings-edit">
+                              <!-- li id="edit-profile" ><a href="#">Edit Profile</a></li-->
+                              <li id="sign-out" ><a href="#">Sign Out</a></li>
+                           </ul>
+                        </div>
+                     </div>
                   </div>
-              </div>
-							<h1 id="classwall-logo">
-								<span>ClassWall</span>
-							</h1>
-
-              <div class="header-menu header-menu-inner">
-                  <nav class="menu">
-                      <ul class="nav">
-                          <li><a href="/stream" id="menu-mystreams" class="my-stream active"><span></span>My Streams</a></li>
-                          <li><a href="/browsemedia" id="menu-browsemedia" class="browse-media"><span></span>Files & Media</a></li>
-                      </ul>
-                  </nav>
-              </div>
-          </div>
+               </div>
+            </div>
+            <h1 id="classwall-logo">
+               <span>ClassWall</span>
+            </h1>
+            <div class="header-menu header-menu-inner">
+               <nav class="menu">
+                  <ul class="nav">
+                     <li><a href="/stream" id="menu-mystreams" class="my-stream active"><span></span>My Streams</a></li>
+                     <li><a href="/browsemedia" id="menu-browsemedia" class="browse-media"><span></span>Files & Media</a></li>
+                  </ul>
+               </nav>
+            </div>
+         </div>
       </div>
-     
-  </header>
-   </div>
-    
+   </header>
+</div>

@@ -1,123 +1,101 @@
 @(userId:String , userInfoJson:Option[String])
-
 @meta = {}
-
 @CSS = {
-<!-- 	<link href="/beamstream-new/css/style.css" rel="stylesheet" type="text/css" />     -->
-	
-	<link href="/beamstream-new/css/bootstrap.min.css" rel="stylesheet" type="text/css" />   
-    <link href="/beamstream-new/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />  
-    <link href="@routes.Assets.at("/public/stylesheets","new-style.css")" rel="stylesheet" type="text/css" />
-    <link href="@routes.Assets.at("/public/stylesheets","cleanup.css")" rel="stylesheet" type="text/css" />
-    <link href="@routes.Assets.at("/public/stylesheets","boot-responsive-cleanup.css")" rel="stylesheet" type="text/css" />
-    <link href="@routes.Assets.at("/public/stylesheets","bootstrap-select.css")" rel="stylesheet" type="text/css" />
-    <link href="@routes.Assets.at("/public/stylesheets","datepicker.css")" rel="stylesheet" type="text/css" />
-    <link href='https://fonts.googleapis.com/css?family=Covered+By+Your+Grace' rel='stylesheet' type='text/css'> 
-    <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" 	rel="stylesheet" type="text/css" />
-    
-   
-
+<link href="/beamstream-new/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="/beamstream-new/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+<link href="@routes.Assets.at("/public/stylesheets","new-style.css")" rel="stylesheet" type="text/css" />
+<link href="@routes.Assets.at("/public/stylesheets","cleanup.css")" rel="stylesheet" type="text/css" />
+<link href="@routes.Assets.at("/public/stylesheets","bootstrap-select.css")" rel="stylesheet" type="text/css" />
+<link href="@routes.Assets.at("/public/stylesheets","datepicker.css")" rel="stylesheet" type="text/css" />
+<link href='https://fonts.googleapis.com/css?family=Covered+By+Your+Grace' rel='stylesheet' type='text/css'>
+<link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" 	rel="stylesheet" type="text/css" />
 }
-
 @JS = {
-    <script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","lib/bootstrap.js")"></script>
- 	<script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","lib/jquery-1.js")"></script>
+<script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","lib/bootstrap.js")"></script>
+<script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","lib/jquery-1.js")"></script>
 }
-
 @bodyCls = {}
-
 @bodyModule = {}
-
 @bodyJS = {}
-
 @sideBar = {}
-
 @header = {
-  <header>
-  <div class="header-wrapper">
-	<!-- div class="registration-header"></div-->
-     <div class="container-fluid"> <a href="index.html" class="brand"><img src="/beamstream-new/images/logo.png" width="148" height="37"></a>
-      <form class="navbar-form pull-left search-block">
-        <input type="text" class="header-search" placeholder="Search Class, Person, Etc">
-        <button type="submit" class="btn header-button">Search</button>
-        <a href="index.html">Advanced</a>
-         <input id="myUserId" type="hidden" value=@userId >
-      </form>
-      <div class="header-profile">
-        <div class="header-icon"><img id="right-top-photo" src="" width="41" height="41"></div>
-        <div class="public-profile">
-          <div class="profile-info"> <a href="#" class="profile-button">Public Profile</a>
-            <div class="settings-menu">
-              <div class="btn-group">
-                <button class="btn seetings-toggle">Settings</button>
-                <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown"> <span class="caret settings-caret"></span></button>
-                <ul class="dropdown-menu">
-                  <!--li id="edit-profile" ><a href="#">Edit Profile</a></li-->
- 				 <li id="sign-out" ><a href="#">Sign Out</a></li>
-                </ul>
-              </div>
+<header>
+   <div class="header-wrapper">
+      <!-- div class="registration-header"></div-->
+      <div class="container-fluid">
+         <a href="index.html" class="brand"><img src="/beamstream-new/images/logo.png" width="148" height="37"></a>
+         <form class="navbar-form pull-left search-block">
+            <input type="text" class="header-search" placeholder="Search Class, Person, Etc">
+            <button type="submit" class="btn header-button">Search</button>
+            <a href="index.html">Advanced</a>
+            <input id="myUserId" type="hidden" value=@userId >
+         </form>
+         <div class="header-profile">
+            <div class="header-icon"><img id="right-top-photo" src="" width="41" height="41"></div>
+            <div class="public-profile">
+               <div class="profile-info">
+                  <a href="#" class="profile-button">Public Profile</a>
+                  <div class="settings-menu">
+                     <div class="btn-group">
+                        <button class="btn seetings-toggle">Settings</button>
+                        <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown"> <span class="caret settings-caret"></span></button>
+                        <ul class="dropdown-menu">
+                           <!--li id="edit-profile" ><a href="#">Edit Profile</a></li-->
+                           <li id="sign-out" ><a href="#">Sign Out</a></li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
             </div>
-          </div>
-        </div>
+         </div>
       </div>
-    </div>
-    <div class="header-menu header-menu-inner">
-      <nav class="menu">
-        <ul class="nav">
-          <li  ><a  href="#" id="menu-mystreams" ><span class="my-stream"></span>My Streams</a></li>
-          <li><a href="#" id="menu-browsemedia" ><span class="browse-media"></span>Browse Media</a></li>
-          <li><a href="#" id="menu-connections"> <span class="connections"></span>Connections</a></li>
-          <li><a href="#" id="menu-otherstuff"> <span class="other"></span>Other Stuff</a></li>
-          <li><a href="#" id="menu-morestuff"> <span class="other"></span>Even More Stuff</a></li>
-        </ul>
-      </nav>
-    </div>
-    </div>
-   </header>
+      <div class="header-menu header-menu-inner">
+         <nav class="menu">
+            <ul class="nav">
+               <li  ><a  href="#" id="menu-mystreams" ><span class="my-stream"></span>My Streams</a></li>
+               <li><a href="#" id="menu-browsemedia" ><span class="browse-media"></span>Browse Media</a></li>
+               <li><a href="#" id="menu-connections"> <span class="connections"></span>Connections</a></li>
+               <li><a href="#" id="menu-otherstuff"> <span class="other"></span>Other Stuff</a></li>
+               <li><a href="#" id="menu-morestuff"> <span class="other"></span>Even More Stuff</a></li>
+            </ul>
+         </nav>
+      </div>
+   </div>
+</header>
 }
-
 @footer = {}
-
 @main("Registration", "Body",CSS,meta, JS, bodyModule, bodyJS, sideBar, header, footer){
-
-
-	    <!-- for registration page -->
-    <div  id="registration" data-value='@userInfoJson'  data-model="user"  data-module="view/registrationView"  data-tpl="templates/registration.tpl">
-               
-    </div>
-        
-	 
-	   <!-- for new school popups -->
-	   <div  id="addSchoolView"  data-model="school"  data-module="view/addNewSchoolView"  >
-			<div id="newSchoolModal"  class="modal hide fade registration-modal white-modal-block" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				  <div class="modal-header registration-modal-header">
-				    <h3>Add my school to Beamstream</h3><button type="button" class="close" data-dismiss="modal" aria-hidden="true">Close</button>
-				  </div>
-				  <div class="modal-body">    
- 		  			<div id="newSchoolForm" class="share-content registration-modal-content">
-			      
-						<fieldset class="field"  style="position:relative"> 
-	                        <h1><label for="school-name" name="my-school">Name of your school </label></h1>
-	                        <input  id="new-school" data-name="school.schoolName" name="schoolName" type="text" placeholder="School Name" >
-	                        <input type="hidden" value="school-name" id="parent-Id">
-	                    </fieldset><br><br>
-	               
-	       
-	                    <fieldset class="field"  style="position:relative"> 
-	                       <h1><label name="website" for="website">School website <span class="star"> </span></label></h1>
-	                        <input id="schoolWebsite" type="text" data-name="school.schoolWebsite" name="schoolWebsite" placeholder="School website" >
-	                    </fieldset>
-			                  
-						<br><br>
-						 <a id="addSchool" class="btn-primary pull-left " href="#">Add My School</a>
-			      	
-			    	</div>
-			  	</div>
-	 		</div>			
-	</div>
-	<!-- start loader -->
-				<div data-backdrop="static" data-keyboard="false" id="browseImageUploader" class="modal hide fade registration-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-					<img src="../../beamstream-new/img/loader.gif" width="100" height="100"/>
-     			</div>
-           	<!-- end loader -->	
+<!-- for registration page -->
+<div  id="registration" data-value='@userInfoJson'  data-model="user"  data-module="view/registrationView"  data-tpl="templates/registration.tpl">
+</div>
+<!-- for new school popups -->
+<div  id="addSchoolView"  data-model="school"  data-module="view/addNewSchoolView"  >
+   <div id="newSchoolModal"  class="modal hide fade registration-modal white-modal-block" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header registration-modal-header">
+         <h3>Add my school to Beamstream</h3>
+         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Close</button>
+      </div>
+      <div class="modal-body">
+         <div id="newSchoolForm" class="share-content registration-modal-content">
+            <fieldset class="field"  style="position:relative">
+               <h1><label for="school-name" name="my-school">Name of your school </label></h1>
+               <input  id="new-school" data-name="school.schoolName" name="schoolName" type="text" placeholder="School Name" >
+               <input type="hidden" value="school-name" id="parent-Id">
+            </fieldset>
+            <br><br>
+            <fieldset class="field"  style="position:relative">
+               <h1><label name="website" for="website">School website <span class="star"> </span></label></h1>
+               <input id="schoolWebsite" type="text" data-name="school.schoolWebsite" name="schoolWebsite" placeholder="School website" >
+            </fieldset>
+            <br><br>
+            <a id="addSchool" class="btn-primary pull-left " href="#">Add My School</a>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- start loader -->
+<div data-backdrop="static" data-keyboard="false" id="browseImageUploader" class="modal hide fade registration-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <img src="../../beamstream-new/img/loader.gif" width="100" height="100"/>
+</div>
+<!-- end loader -->	
 }

@@ -1,111 +1,105 @@
 @import play.api.i18n.Messages
-
 @meta = {}
-
 @CSS = {
-    <link href="/beamstream-new/css/bootstrap.css" rel="stylesheet" type="text/css" /> 
-	<link href="/beamstream-new/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" /> 
-	<link href="@routes.Assets.at("/public/stylesheets","cleanup.css")" rel="stylesheet" type="text/css" /> 
-	<link href="@routes.Assets.at("/public/stylesheets","boot-responsive-cleanup.css")" rel="stylesheet" type="text/css" /> 
-<!--     <link href="/beamstream-new/css/sign-up.css" rel="stylesheet" type="text/css" />     -->
+<link href="/beamstream-new/css/bootstrap.css" rel="stylesheet" type="text/css" />
+<link href="/beamstream-new/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+<link href="@routes.Assets.at("/public/stylesheets","cleanup.css")" rel="stylesheet" type="text/css" /> 
+<link href="@routes.Assets.at("/public/stylesheets","boot-responsive-cleanup.css")" rel="stylesheet" type="text/css" /> 
 }
-
 @JS = {
- 	<script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","lib/bootstrap.min.js")"></script>
-    <script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","lib/jquery-1.js")"></script>
-    <script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","jquery.js")"></script>
-	<script src="@routes.Assets.at("/public/javascripts","BS_social.js")" type="text/javascript"></script>
-	<!--  <script src="/beamstream-new/lib/less-1.4.1.js" type="text/javascript"></script>  -->
+<script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","lib/bootstrap.min.js")"></script>
+<script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","lib/jquery-1.js")"></script>
+<script type="text/JavaScript" src="@routes.Assets.at("/public/javascripts","jquery.js")"></script>
+<script src="@routes.Assets.at("/public/javascripts","BS_social.js")" type="text/javascript"></script>
 }
-
 @bodyCls = {}
-
 @bodyModule = {}
-
 @bodyJS = {
-    <script type="text/javascript">
-       $('div.container-fluid').last().addClass('signup-container');
-       //set tokenUrl for sign up
-       showJanrainSigninWidget("@Messages("url_required")"+"/social/social_authentication");
-    </script>
+<script type="text/javascript">
+   $('div.container-fluid').last().addClass('signup-container');
+   //set tokenUrl for sign up
+   showJanrainSigninWidget("@Messages("url_required")"+"/social/social_authentication");
+</script>
 }
-
 @sideBar = {}
-
 @header = {}
-
 @footer = {}
-
 @main("Sign up ", "Body", meta, CSS, JS, bodyModule, bodyJS, sideBar, header, footer){
-
-	<div  id="signup"   data-model="userSignup"  data-module="view/signupView" >
-    
-
-      <div class="signup-outer">
-        <h3>Registration Options <span>Already have an account? <a href="/login">Sign In</a></span></h3>
-        <div class="sign-up-conent">
-          <div class="sign-up-whitebg">
+<div  id="signup"   data-model="userSignup"  data-module="view/signupView" >
+   <div class="signup-outer">
+      <h3>Registration Options <span>Already have an account? <a href="/login">Sign In</a></span></h3>
+      <div class="sign-up-conent">
+         <div class="sign-up-whitebg">
             <ul class="sign-menu">
-              <li> <a href="#"> <span>I'm a Student</span>
-
-                <div class="menu-pic"  id="0"><img src="/beamstream-new/images/student.png" width="115" height="115" class="signup-user-icon"/>
-
-	         <div class="sign-up-tick active"></div>
-
-              </div>
-                </a> <a href="#"> <span>I'm an Educator</span>
-                <div class="menu-pic"  value="educator"  id="1"><img src="/beamstream-new/images/educator.png" width="115" class="signup-user-icon"/>
-               <div class="sign-up-tick"></div>
-               </div>
-                </a> <a href="#"> <span>I'm a Teaching Assistant</span>
-                <div class="menu-pic" id="2"><img src="/beamstream-new/images/professional.png" class="signup-user-icon"/>
-                <div class="sign-up-tick"></div>
-               </div>
-                </a> </li>
+               <li>
+                  <a href="#">
+                     <span>I'm a Student</span>
+                     <div class="menu-pic"  id="0">
+                        <img src="/beamstream-new/images/student.png" width="115" height="115" class="signup-user-icon"/>
+                        <div class="sign-up-tick active"></div>
+                     </div>
+                  </a>
+                  <a href="#">
+                     <span>I'm an Educator</span>
+                     <div class="menu-pic"  value="educator"  id="1">
+                        <img src="/beamstream-new/images/educator.png" width="115" class="signup-user-icon"/>
+                        <div class="sign-up-tick"></div>
+                     </div>
+                  </a>
+                  <a href="#">
+                     <span>I'm a Teaching Assistant</span>
+                     <div class="menu-pic" id="2">
+                        <img src="/beamstream-new/images/professional.png" class="signup-user-icon"/>
+                        <div class="sign-up-tick"></div>
+                     </div>
+                  </a>
+               </li>
             </ul>
-              <input type="hidden" value="0" id="usertype">
+            <input type="hidden" value="0" id="usertype">
             <ul class="signup-register">
-              <li>
-                <h5>Register with Email</h5>
-                <form id="signup-form" action="" method="get">
-                  <fieldset class="message field">
-                    <input class="home_reg" data-name="user.mailId"  name="mailId" type="text"  placeholder="Email" id="mailid" disabled>
-                     <div class="sign-tick" id="email-sign-tick" style="display:none;"></div>
-					 <div class="sign-close" id="email-sign-close" style="display:none;"></div>
-					 <div class="mailId-error field-error"><span class="error" id="mailError" style="display:none;">*Invalid mailId</span></div>
-                  </fieldset>
-                  <fieldset class="password field">
-                    <input class="home_reg" data-name="user.password" name="password" type="password" placeholder="Password" id="password" disabled>
-                    <div class="sign-tick" id="password-sign-tick" style="display:none;"></div>
-					<div class="sign-close" id="password-sign-close" style="display:none;"></div>
-					<div class="mailId-error field-error"><span class="error" id="passwordError" style="display:none;">*Invalid password</span></div>
-                  </fieldset>
-                  <fieldset class="password field">
-                    <input class="home_reg" data-name="user.confirmPassword" name="confirmPassword"  type="password" placeholder="Confirm Password " id="confirmPassword" disabled>
-                    <div class="sign-tick" id="confirmPassword-sign-tick" style="display:none;"></div>
-					<div class="sign-close" id="confirmPassword-sign-close" style="display:none;"></div>
-					<div class="mailId-error field-error"><span class="error" id="confirmpasswordError" style="display:none;">*Invalid confirm password</span></div>
-					<div class="field-error" style="display:none;" id="field-error"><span class="error">* Both password should be match</span></div>
-                  </fieldset>
-                  <fieldset class="password field">
-                  <div class="sign-tick" id="systemCode-sign-tick" style="display:none;"></div>
-					<div class="sign-close" id="systemCode-sign-close" style="display:none;"></div>
-					<div class="mailId-error field-error"><span class="error" id="systemCodeError" style="display:none;">*minimum 6 digit</span></div>
-                    <input class="home_reg" id="systemCode" name="systemCode"  type="text" placeholder="System Code">
-                  </fieldset>
-                </form>
-                <div class="register-menu-block"> <a href="#" id="registeration" class="register-btn"><span></span>Sign Up Now</a> </div>
-                <div class="sign-or" style="display:none">or</div><!-- DH Remove commented code when ready -->
-              </li>
-              
-              <li class="lastblock" style="display:none"> <!-- DH Remove commented code when ready -->
-                <a id="facebook" href="#" class="facebook socialMediaSignup"> <span class="facebook-icon"></span> <span class="shadow">Facebook</span></a> 
-               <a id="twitter" href="#" class="twitter socialMediaSignup"> <span class="twitter-icon"></span> <span class="shadow">Twitter</span></a> 
-               <a id="google"  href="#" class="google socialMediaSignup"> <span class="google-icon"></span> <span class="shadow">Google</span></a> 
-              <a id="linkedin" href="#" class="link-in socialMediaSignup"> <span class="link-in-icon"></span> <span class="shadow">Linkedin</span></a> </li>
+               <li>
+                  <h5>Register with Email</h5>
+                  <form id="signup-form" action="" method="get">
+                     <fieldset class="message field">
+                        <input class="home_reg" data-name="user.mailId"  name="mailId" type="text"  placeholder="Email" id="mailid" disabled>
+                        <div class="sign-tick" id="email-sign-tick" style="display:none;"></div>
+                        <div class="sign-close" id="email-sign-close" style="display:none;"></div>
+                        <div class="mailId-error field-error"><span class="error" id="mailError" style="display:none;">*Invalid mailId</span></div>
+                     </fieldset>
+                     <fieldset class="password field">
+                        <input class="home_reg" data-name="user.password" name="password" type="password" placeholder="Password" id="password" disabled>
+                        <div class="sign-tick" id="password-sign-tick" style="display:none;"></div>
+                        <div class="sign-close" id="password-sign-close" style="display:none;"></div>
+                        <div class="mailId-error field-error"><span class="error" id="passwordError" style="display:none;">*Invalid password</span></div>
+                     </fieldset>
+                     <fieldset class="password field">
+                        <input class="home_reg" data-name="user.confirmPassword" name="confirmPassword"  type="password" placeholder="Confirm Password " id="confirmPassword" disabled>
+                        <div class="sign-tick" id="confirmPassword-sign-tick" style="display:none;"></div>
+                        <div class="sign-close" id="confirmPassword-sign-close" style="display:none;"></div>
+                        <div class="mailId-error field-error"><span class="error" id="confirmpasswordError" style="display:none;">*Invalid confirm password</span></div>
+                        <div class="field-error" style="display:none;" id="field-error"><span class="error">* Both password should be match</span></div>
+                     </fieldset>
+                     <fieldset class="password field">
+                        <div class="sign-tick" id="systemCode-sign-tick" style="display:none;"></div>
+                        <div class="sign-close" id="systemCode-sign-close" style="display:none;"></div>
+                        <div class="mailId-error field-error"><span class="error" id="systemCodeError" style="display:none;">*minimum 6 digit</span></div>
+                        <input class="home_reg" id="systemCode" name="systemCode"  type="text" placeholder="System Code">
+                     </fieldset>
+                  </form>
+                  <div class="register-menu-block"> <a href="#" id="registeration" class="register-btn"><span></span>Sign Up Now</a> </div>
+                  <div class="sign-or" style="display:none">or</div>
+                  <!-- DH Remove commented code when ready -->
+               </li>
+               <li class="lastblock" style="display:none">
+                  <!-- DH Remove commented code when ready -->
+                  <a id="facebook" href="#" class="facebook socialMediaSignup"> <span class="facebook-icon"></span> <span class="shadow">Facebook</span></a> 
+                  <a id="twitter" href="#" class="twitter socialMediaSignup"> <span class="twitter-icon"></span> <span class="shadow">Twitter</span></a> 
+                  <a id="google"  href="#" class="google socialMediaSignup"> <span class="google-icon"></span> <span class="shadow">Google</span></a> 
+                  <a id="linkedin" href="#" class="link-in socialMediaSignup"> <span class="link-in-icon"></span> <span class="shadow">Linkedin</span></a> 
+               </li>
             </ul>
-          </div>
-        </div>
+         </div>
       </div>
-    </div>    
+   </div>
+</div>
 }
