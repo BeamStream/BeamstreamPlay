@@ -599,9 +599,9 @@ define(
 							/*
 							* for professorsclass Info
 							*/
-							$('#contactemail').val(data.professorClassToReturn.contactEmail);
-							$('#contactcellNumber').val(data.professorClassToReturn.contactCellNumber);
-							$('#contactofficeHours').val(data.professorClassToReturn.contactOfficeHours);
+							//$('#contactemail').val(data.professorClassToReturn.contactEmail);
+							//$('#contactcellNumber').val(data.professorClassToReturn.contactCellNumber);
+							//$('#contactofficeHours').val(data.professorClassToReturn.contactOfficeHours);
 						},
 
 						/**
@@ -643,9 +643,9 @@ define(
 							/*
 							* for professorsclass Info
 							*/
-							$('#contactemail').val(data.professorClassToReturn.contactEmail);
-							$('#contactcellNumber').val(data.professorClassToReturn.contactCellNumber);
-							$('#contactofficeHours').val(data.professorClassToReturn.contactOfficeHours);
+							//$('#contactemail').val(data.professorClassToReturn.contactEmail);
+							//$('#contactcellNumber').val(data.professorClassToReturn.contactCellNumber);
+							//$('#contactofficeHours').val(data.professorClassToReturn.contactOfficeHours);
 						},
 
 						/**
@@ -1359,6 +1359,7 @@ define(
 								  var iam = "8080";
 								  var password = '12345a';
 								  var confirmPassword = '12345a';
+								  var systemCode ='12345678';
 								 $.ajax ({
 									 type : 'POST',
 									 url : "/signup",
@@ -1369,6 +1370,7 @@ define(
 										 iam : iam,
 										 password : password,
 										 confirmPassword : confirmPassword,
+										 systemCode : systemCode
 										 }),
 										 
 									 success : function(data){

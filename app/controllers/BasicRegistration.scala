@@ -100,9 +100,6 @@ object BasicRegistration extends Controller {
     val canUserRegister = User.canUserRegisterWithThisEmail(emailId)
     val systemCode = (userInfoJsonMap \ "systemCode").as[String]
     
-    println("systemCode:::::::::::::::"+systemCode);
-    
-    
     canUserRegister match {
       case true =>
         iam match {
