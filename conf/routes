@@ -4,7 +4,6 @@
 #Beta User Registration  (V)
 POST   /betaUser                                                                           controllers.JoinBeamStream.regsisterToBeamStreamBeta 
 GET    /                                                                                   controllers.JoinBeamStream.betaUserRegistration
-GET    /imageUploader                                                                      controllers.JoinBeamStream.imageUploader
 
 #Other
 GET    /active                                                                             controllers.UserController.active
