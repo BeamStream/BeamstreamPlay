@@ -208,10 +208,10 @@
       <div id="upload-step">
         <div id="step3_block" class="round-block upload-photo step-one-photo"> 
           {{#if photo}}
-          <a > <img src="{{photo}}" width="148" height="37" id="profile-photo"></a> 
+          <span > <img src="{{photo}}" width="148" height="37" id="profile-photo"></span> 
                     
           {{else}}	             
-          <a > <img src="/beamstream-new/images/step-one-pic.png" width="148" height="37" id="profile-photo"></a>
+          <span > <img src="/beamstream-new/images/step-one-pic.png" width="148" height="37" id="profile-photo"></span>
           {{/if}}
         </div>
       </div>

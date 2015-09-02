@@ -231,7 +231,7 @@ define(
 							$('#step2_block').removeClass('active-border');
 							
 							var upload_block = '<div id="step3_block" class="round-block upload-photo step-3-photo">'
-								+ '<a class="browse" href="#"><img src="/beamstream-new/images/step-one-pic.png" width="148" height="37" id="profile-photo"> </a>'
+								+ '<span class="browse"><img src="/beamstream-new/images/step-one-pic.png" width="148" height="37" id="profile-photo"> </span>'
 								+ '<div class="progress-container" style="position:relative; top:-35px; left:240px; padding:5px; display:none;">'
 								+ '<div class="progress progress-striped active reg-upload">'
 								+ '<div class="bar" style="width: 0%;"></div>'
@@ -401,7 +401,7 @@ define(
 							} else {
 								
 								$('#step3_block .browse').html('<canvas id="canvas" width="300" height="300"></canvas>');
-								$('#step3_block a').removeClass('browse');
+								$('#step3_block span').removeClass('browse');
 								
 								var sendData ="<img id=\"zoomIn\" src=\"../../beamstream-new/img/ZommIn.png\" alt=\"zoomIn\" width=\"50px\" height=\"50px\">" +
 								"<img id=\"zoomOut\" src=\"../../beamstream-new/img/zoomOut.png\" alt=\"zoomOut\" width=\"50px\" height=\"50px\">" +
@@ -630,8 +630,8 @@ define(
 							this.profile='';
 							$('#step_3').hide(500);
 							var upload_block = '<div id="step3_block" class="round-block upload-photo step-one-photo">'
-									+ '<a ><img src="/beamstream-new/images/step-one-pic.png" width="148" height="37" id="profile-photo">'
-									+ ' </a> </div>';
+									+ '<span ><img src="/beamstream-new/images/step-one-pic.png" width="148" height="37" id="profile-photo">'
+									+ ' </span> </div>';
 							$('#upload-step').html(upload_block);
 							$('#step2_block').addClass('active-border');
 							$('#step_2').show(500);
