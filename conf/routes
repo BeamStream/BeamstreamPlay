@@ -9,10 +9,15 @@ GET    /                                                                        
 GET    /active                                                                             controllers.UserController.active
 GET    /error                                                                              controllers.StreamController.onError
 
+# System Code
+GET    /systemCode																	       controllers.SystemCodeController.systemCode
+POST   /createSystemCode															       controllers.SystemCodeController.createSystemCode
+
+
 #Account Reset
 GET    /accountReset                                                                       controllers.UserController.accountReset
 POST   /reset                                                                              controllers.UserController.reset
-#GET /javascriptRoutes                                                   controllers.StreamController.javascriptRoutes
+#GET /javascriptRoutes                                                                     controllers.StreamController.javascriptRoutes
 
 #Streams
 GET    /streams                                                                            controllers.StreamController.allClassStreamsForAUser
@@ -217,7 +222,7 @@ GET    /search/:keyword                                                         
 #Google Docs
 GET    /googleDoc/:action                                                                  controllers.GoogleDocsUploadUtilityController.authenticateToGoogle(action:String)
 GET    /driveAuth                                                                          controllers.GoogleDocsUploadUtilityController.googleDriveAuthentication
-#GET     /google/callback                                                  controllers.GoogleDocsUploadUtilityController.accessToken
+#GET     /google/callback                                                                  controllers.GoogleDocsUploadUtilityController.accessToken
 
 POST   /uploadToGoogleDrive                                                                controllers.GoogleDocsUploadUtilityController.uploadToGoogleDrive
 GET    /chat                                                                               controllers.WebsocketCommunicationController.chat
@@ -238,15 +243,15 @@ GET    /linkedin/callback                                                       
 #GET   /image/:previewImageUrl                                                              controllers.StreamController.encryptTheUrl(previewImageUrl: String)
 #GET   /image/gridfs/:fileName                                                              controllers.StreamController.getPhoto(fileName: String)
 
-#GET    /canStartChat/:flag/:me/:toWhom                                                       controllers.WebsocketCommunicationController.canStartChat(flag,me, toWhom)
+#GET    /canStartChat/:flag/:me/:toWhom                                                     controllers.WebsocketCommunicationController.canStartChat(flag,me, toWhom)
 #Looks like Unused
 
 #Basic Registration
-#POST     /verifyToken                                                            controllers.BasicRegistration.basicRegistration
+#POST     /verifyToken                                                                      controllers.BasicRegistration.basicRegistration
 
-#POST 	/getAllMessagesForAStreambyKeyword         									controllers.MessageController.getAllMessagesForAStreambyKeyword
-#POST 	/allPublicMessagesFromAllStreamsForAUser    								controllers.StreamController.allPublicMessagesFromAllStreamsForAUser
+#POST 	/getAllMessagesForAStreambyKeyword         									        controllers.MessageController.getAllMessagesForAStreambyKeyword
+#POST 	/allPublicMessagesFromAllStreamsForAUser    								        controllers.StreamController.allPublicMessagesFromAllStreamsForAUser
 
-#GET      /document/:documentId                                                   controllers.DocumentController.getDocument(documentId:String)
+#GET      /document/:documentId                                                             controllers.DocumentController.getDocument(documentId:String)
 
-#POST 	/getMediafromPost 							                          controllers.MediaController.getMedia
+#POST 	/getMediafromPost 							                                        controllers.MediaController.getMedia

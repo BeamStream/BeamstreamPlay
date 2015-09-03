@@ -1,0 +1,53 @@
+@(title : String)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>@title</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+
+  <h2>Create System Code</h2>
+  <form action="/createSystemCode" method="post" form-inline" role="form">
+    <div class="form-group">
+      <label>System Code:</label>
+      <input type="text" class="form-control" name="systemCode" required>
+    </div>
+    <button type="submit" class="btn btn-default">Create</button>
+  </form>
+  <br/>
+  <br/>
+  
+  <div class="alert alert-success" role="alert"><strong>Successfully Added</strong></div>
+  
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>John</td>
+        <td>Doe</td>
+      </tr>
+      <tr>
+        <td>Mary</td>
+        <td>Moe</td>
+      </tr>
+      <tr>
+        <td>July</td>
+        <td>Dooley</td>
+      </tr>
+    </tbody>
+  </table>
+  
+</div>
+</body>
+</html>
