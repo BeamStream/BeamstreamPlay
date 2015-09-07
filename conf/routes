@@ -12,6 +12,8 @@ GET    /error                                                                   
 # System Code
 GET    /systemCode																	       controllers.SystemCodeController.systemCode
 POST   /createSystemCode															       controllers.SystemCodeController.createSystemCode
+POST   /changeSystemCodeStatus															   controllers.SystemCodeController.changeSystemCodeStatus
+POST   /deleteSystemCode																   controllers.SystemCodeController.deleteSystemCode
 
 
 #Account Reset

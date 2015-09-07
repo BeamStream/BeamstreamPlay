@@ -1,4 +1,4 @@
-@(title : String)
+@(title : String, systemCode: List[SystemCode])
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,8 +11,10 @@
 </head>
 <body>
 <div class="container">
-
-  <h2>Create System Code</h2>
+  <div class="row">
+    <div class="col-sm-5 col-md-6"><h2>Create System Code</h2></div>
+  	<div class="col-sm-5 col-md-6"><h2><a href="/">Back</a></h2></div>
+  </div>
   <form action="/createSystemCode" method="post" form-inline" role="form">
     <div class="form-group">
       <label>System Code:</label>
@@ -23,31 +25,67 @@
   <br/>
   <br/>
   
-  <div class="alert alert-success" role="alert"><strong>Successfully Added</strong></div>
+  <!-- <div class="alert alert-success" role="alert"><strong>Successfully Added</strong></div>-->
   
   <table class="table table-striped">
     <thead>
       <tr>
         <th>Code</th>
         <th>Status</th>
+        <th>Delete</th>
       </tr>
     </thead>
     <tbody>
+    @for(result <- systemCode){
       <tr>
-        <td>John</td>
-        <td>Doe</td>
+        <td>@result.code</td>
+        @if(result.status){
+        <td><button type="button" class="btn btn-success" onClick='ChangeStatus("false","@result.id")'>Active</button></td>
+        }else{
+        <td><button type="button" class="btn btn-danger" onClick='ChangeStatus("true","@result.id")'>Deactive</button></td>
+        }
+        <td><button type="button" class="btn btn-danger" onClick='Delete("@result.id")'>Delete</button></td>
       </tr>
-      <tr>
-        <td>Mary</td>
-        <td>Moe</td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-      </tr>
+      }
     </tbody>
   </table>
   
 </div>
+<script>
+function ChangeStatus(status , id){
+	if(confirm("Are you sure you want to change the status")){
+		$.ajax({
+			type : 'POST',
+			url : '/changeSystemCodeStatus',
+			data : {
+				status : status,
+				id : id
+			},
+			dataType : "json",
+			success : function(datas) {
+				window.location ="/systemCode";
+			}
+		});
+	}
+}
+
+
+function Delete(id){
+	if(confirm("Are you sure you want to delete")){
+		$.ajax({
+			type : 'POST',
+			url : '/deleteSystemCode',
+			data : {
+				id : id
+			},
+			dataType : "json",
+			success : function(datas) {
+				window.location ="/systemCode";
+			}
+		});
+	}
+}
+</script>
+
 </body>
 </html>
