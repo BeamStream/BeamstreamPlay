@@ -26,13 +26,18 @@ object SystemCode {
   /**
    * Get all system code
    */
-  def finOneById(id : ObjectId):Option[SystemCode] = SystemCodeDAO.findOneById(id)
+  def findOneById(id : ObjectId):Option[SystemCode] = SystemCodeDAO.findOneById(id)
+  
+  /**
+   * Get all system code
+   */
+  def findOneByCode(code : String):List[SystemCode] = SystemCodeDAO.find(MongoDBObject("code" -> code,"status" -> true)).toList
   
   /**
    * update the code system
    */
   def update(id : ObjectId, status : Boolean):Unit = {
-    val obj = finOneById(id).get
+    val obj = findOneById(id).get
     val updateObj = MongoDBObject("_id" -> id ,"code" -> obj.code, "status" -> status )
     SystemCodeDAO.update(MongoDBObject("_id" -> id),updateObj, false, false, new WriteConcern)
   }

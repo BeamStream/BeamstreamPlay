@@ -141,19 +141,29 @@ define(['view/formView'], function(FormView){
 		},
 		
 		checkSystemCode : function(e){
-			
 			var systemCode = $("#systemCode").val();
-			var length = systemCode.length;
-			if(length != 0){
-				if(length>5){
-					$("#systemCode-sign-tick").show();
-					$("#systemCode-sign-close").hide();
-					$("#systemCodeError").hide();
-				}else{
-					$("#systemCode-sign-close").show();
-					$("#systemCode-sign-tick").hide();
-					$("#systemCodeError").show();
-				}
+			if(systemCode){
+				$.ajax ({
+					 type : 'POST',
+					 url : "/checkSystemCode",
+					 dataType : "json",
+				     contentType : "application/json",
+					 data : JSON.stringify({
+						 code : systemCode
+					}),
+					 success : function(data){
+						 if(data.status == "failure"){
+						   alert("System code invalid");
+						   $("#systemCode-sign-close").show();
+						   $("#systemCode-sign-tick").hide();
+						   $("#systemCodeError").show();
+						 }else{
+							$("#systemCode-sign-tick").show();
+							$("#systemCode-sign-close").hide();
+							$("#systemCodeError").hide();
+						 }
+					 }
+				 });
 			}
 		},
 		

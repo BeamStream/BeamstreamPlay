@@ -19,6 +19,7 @@ import play.api.mvc.Cookie
 import models.Token
 import play.api.Play
 import models.UserMedia
+import models.SystemCode
 
 object BasicRegistration extends Controller {
 
@@ -100,21 +101,29 @@ object BasicRegistration extends Controller {
     val canUserRegister = User.canUserRegisterWithThisEmail(emailId)
     val systemCode = (userInfoJsonMap \ "systemCode").as[String]
     
+    val isSystemCodeExist = SystemCode.findOneByCode(systemCode)
+    
     canUserRegister match {
       case true =>
         iam match {
           case "8080" => Ok(write(new ResulttoSent("Success", "This User Email Is Available to Register"))).as("application/json")
           case _ =>
-            (encryptedPassword == encryptedConfirmPassword) match {
-              case true =>
-                val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, "", "", "",
-                  Option(encryptedPassword),Option(systemCode), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
-                val IdOfUserCreted = User.createUser(userToCreate)
-                val createdUser = User.getUserProfile(IdOfUserCreted.get)
-                UtilityActor.sendMailAfterUserSignsUp(IdOfUserCreted.get.toString, TokenEmailUtil.securityToken, emailId)
-                Ok(write(new ResulttoSent("Success", "SignUp Successful"))).as("application/json")
-              case false => Ok(write(new ResulttoSent("Failure", "Password Do Not Match"))).as("application/json")
+            
+            isSystemCodeExist.isEmpty match{
+              case false =>
+                (encryptedPassword == encryptedConfirmPassword) match {
+                  case true =>
+                    val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, "", "", "",
+                      Option(encryptedPassword),Option(systemCode), "", "", "", "", new Date, Nil, Nil, Nil, None, None, None)
+                    val IdOfUserCreted = User.createUser(userToCreate)
+                    val createdUser = User.getUserProfile(IdOfUserCreted.get)
+                    UtilityActor.sendMailAfterUserSignsUp(IdOfUserCreted.get.toString, TokenEmailUtil.securityToken, emailId)
+                    Ok(write(new ResulttoSent("Success", "SignUp Successful"))).as("application/json")
+                  case false => Ok(write(new ResulttoSent("Failure", "Password Do Not Match"))).as("application/json")
+                }
+              case true => Ok(write(new ResulttoSent("Failure", "System code is invalid"))).as("application/json")
             }
+           
         }
       case false =>
         Ok(write(new ResulttoSent("Failure", "This User Email Is Already Taken"))).as("application/json")
