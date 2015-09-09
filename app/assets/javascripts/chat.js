@@ -208,5 +208,7 @@ function popit(userId, toWhom, name) {
 						}))
 				}, 30000);
 			};
+			
+			$("#talk").focus();
 	}
 }
