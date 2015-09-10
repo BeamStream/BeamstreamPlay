@@ -68,6 +68,17 @@ define([ 'baseModel', 'model/comment', 'model/answer',
 				}
 			});
 			this.trigger('change:questionRock');
+			
+			
+			var selector = questionId+"-"+"rockicon"
+			var currentClassName = $("#"+selector).attr("class");
+			if(currentClassName == "rock-icon"){
+				$("#"+selector).attr("class", "already-rocked");
+			}else{
+				$("#"+selector).attr("class", "rock-icon");
+			}
+			
+			
 		},
 
 		postComment : function(commentText, parent, commentAmt, streamId) {
