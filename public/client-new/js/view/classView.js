@@ -28,10 +28,12 @@ define(
 						schools : '',
 						events : {
 							'keyup #className' : 'populateClassNames',
+							'focusin #className' : 'populateClassNames',
 							'click #createOrJoinStream' : 'createOrJoinStream',
 							'click .access-menu li' : 'activateClassAccess',
 							'change #schoolId' : 'clearAllClasses',
 							'keyup #classCode' : 'populateClassCodes',
+							'focusin #classCode' : 'populateClassCodes',
 							'click #addMoreClass' : 'addMoreClasses',
 							'click #startBeam' : 'startBeamstream',
 							'focus #classTime' : 'setDefaultTime',
@@ -399,9 +401,6 @@ define(
 								$('#contactofficeHours').val("");
 							}
 
-							/* call auto populate only when class name is there */
-							if (text != '' && selectedSchoolId != '') {
-
 								/*
 								 * post the text that we type to get matched  school
 								 */
@@ -464,7 +463,6 @@ define(
 											});
 											}
 										});
-							}
 
 						},
 
@@ -503,8 +501,6 @@ define(
 							}
 							
 
-							/* post the text that we type to get matched classes */
-							if (text != '' && selectedSchoolId != '') {
 
 								$.ajax({
 											type : 'POST',
@@ -559,7 +555,6 @@ define(
 											});
 											}
 								});
-							}
 						},
 						/**
 						 * display all other fields of selected class
