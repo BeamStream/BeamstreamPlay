@@ -35,6 +35,28 @@ define(
 			var zoomLevel=20;
 			var img = new Image();
 			var x=y=0;
+			var stopTopLeft = function (number,limit){
+				if(number<0){
+					if(number<limit)
+						return limit;
+					return number;
+				}
+				else
+					return 0;
+			}
+			function adjustPosition(){
+				if(CurrentposX<MAX_HEIGHT-zoomLevel/20*imgWidth){
+					CurrentposX = MAX_HEIGHT-zoomLevel/20*imgWidth
+				}else if(CurrentposX > 0){
+					CurrentposX = 0;
+				}
+				if(CurrentposY<MAX_HEIGHT-zoomLevel/20*imgHeight){
+					CurrentposY = MAX_HEIGHT-zoomLevel/20*imgHeight
+				}else if(CurrentposY > 0){
+					CurrentposY = 0;
+				}
+			}
+
 			
 			RegistrationView = FormView
 					.extend({
@@ -447,7 +469,8 @@ define(
 							}
 						},
 						
-						rotateRight: function(e){
+						rotateRight: function(e){ 				//Rotate image to right
+							adjustPosition();
 							var canvas = document.getElementById('canvas');
 							var ctx = canvas.getContext('2d');
 							ctx.clearRect(0,0,MAX_HEIGHT,MAX_HEIGHT);
@@ -462,6 +485,7 @@ define(
 				            
 						},
 						rotateLeft : function(e){				//Rotate image to left
+							adjustPosition();
 							var canvas = document.getElementById('canvas');
 							var ctx = canvas.getContext('2d');
 							ctx.clearRect(0,0,MAX_HEIGHT,MAX_HEIGHT);
@@ -502,28 +526,35 @@ define(
 								if(rotation == 3){
 									deltaY = e.offsetX-startPositionX;
 									deltaX = startPositionY-e.offsetY;
-									ctx.clearRect(0,0,MAX_HEIGHT,MAX_HEIGHT)
-						            ctx.drawImage(img,CurrentposX+deltaX,CurrentposY+deltaY,zoomLevel/20*imgWidth,zoomLevel/20*imgHeight);
 								}
 								if(rotation == 2){
 									deltaX = startPositionX-e.offsetX;
 									deltaY = startPositionY-e.offsetY;
-									ctx.clearRect(0,0,MAX_HEIGHT,MAX_HEIGHT)
-						            ctx.drawImage(img,CurrentposX+deltaX,CurrentposY+deltaY,zoomLevel/20*imgWidth,zoomLevel/20*imgHeight);
 								}
 								if(rotation == 1){
-									console.log(rotation);
 									deltaX = e.offsetY-startPositionY;
 									deltaY = startPositionX-e.offsetX;
-									ctx.clearRect(0,0,MAX_HEIGHT,MAX_HEIGHT)
-						            ctx.drawImage(img,CurrentposX+deltaX,CurrentposY+deltaY,zoomLevel/20*imgWidth,zoomLevel/20*imgHeight);
 								}
 								if(rotation == 0){
 									deltaX = e.offsetX-startPositionX;
 									deltaY = e.offsetY-startPositionY;
-									ctx.clearRect(0,0,MAX_HEIGHT,MAX_HEIGHT)
-						            ctx.drawImage(img,CurrentposX+deltaX,CurrentposY+deltaY,zoomLevel/20*imgWidth,zoomLevel/20*imgHeight);
 								}
+								ctx.clearRect(0,0,MAX_HEIGHT,MAX_HEIGHT)
+								ctx.drawImage(img,stopTopLeft(CurrentposX+deltaX,MAX_HEIGHT-(zoomLevel/20*imgWidth)),stopTopLeft(CurrentposY+deltaY,MAX_HEIGHT-zoomLevel/20*imgHeight),zoomLevel/20*imgWidth,zoomLevel/20*imgHeight);
+
+								/*
+								 Make image consistant while dragging so CurrentposX/CurrentposY get consistant value.
+								 */
+
+								if(stopTopLeft(CurrentposX+deltaX,MAX_HEIGHT-(zoomLevel/20*imgWidth))>=0)
+									CurrentposX=-deltaX;
+								if(stopTopLeft(CurrentposX+deltaX,MAX_HEIGHT-(zoomLevel/20*imgWidth)) == MAX_HEIGHT-(zoomLevel/20*imgWidth))
+									CurrentposX=MAX_HEIGHT-(zoomLevel/20*imgWidth);
+
+								if(stopTopLeft(CurrentposY+deltaY,MAX_HEIGHT-zoomLevel/20*imgHeight)>=0)
+									CurrentposY=-deltaY;
+								if(stopTopLeft(CurrentposY+deltaY,MAX_HEIGHT-(zoomLevel/20*imgHeight)) == MAX_HEIGHT-(zoomLevel/20*imgHeight))
+									CurrentposY=MAX_HEIGHT-(zoomLevel/20*imgHeight);
 							}
 						},
 						
@@ -534,6 +565,7 @@ define(
 							var ctx = canvas.getContext('2d');
 							if(zoomLevel>=20){
 								zoomLevel++;
+								adjustPosition();
 								ctx.clearRect(0,0,(zoomLevel)+imgWidth,(zoomLevel)+imgHeight);
 								ctx.drawImage(img,CurrentposX,CurrentposY,zoomLevel/20*imgWidth,zoomLevel/20*imgHeight);
 							}
@@ -543,12 +575,12 @@ define(
 							var ctx = canvas.getContext('2d');
 							if(zoomLevel>20){
 								zoomLevel--;
+								adjustPosition();
 								ctx.clearRect(0,0,(zoomLevel)+imgWidth,(zoomLevel)+imgHeight);
 								ctx.drawImage(img,CurrentposX,CurrentposY,zoomLevel/20*imgWidth,zoomLevel/20*imgHeight);			
 							}
 						},
-						
-						
+
 
 						continuestep3 : function(e) {
 							e.preventDefault();
