@@ -1,5 +1,4 @@
 
-
 define(
 		[ 'view/formView', 'view/messageListView', 'view/messageItemView',
 				'model/discussion',
@@ -12,7 +11,7 @@ define(
 			var Discussions;
 			Discussions = FormView
 					.extend({
-						objName : 'Discussion', 
+						objName : 'Discussion',
 						docurlAmazon: '',
 						events : {
 							'click #post-button' : 'postMessage',
@@ -305,10 +304,9 @@ define(
 							var self = this;
 							var messageData = $('#msg-area').val();
 							if (messageData == '') {
-											$('#msg-area').css('padding','5px 6px 4px 6px');
-											$('#msg-area').css('margin','-1px 0 -5px 14px');
-											$('.ask-outer').css('height', '0px');
-											if ($('#uploded-file-area').is(':visible')) {
+								$('#msg-area').css('padding','5px 6px 4px 6px');
+								$('#msg-area').css('margin','-1px 0 -5px 14px');
+								if ($('#uploded-file-area').is(':visible')) {
 												$('.ask-outer').height(
 																function(index,height) {
 																	return (height + 70);
@@ -317,7 +315,8 @@ define(
 											} else {
 												$('a.ask-button').css('visibility', 'hidden');
 											}
-											$('textarea#msg-area').val('');
+								$('textarea#msg-area').val('');
+								$('.ask-outer').css('height', '0px');
 							}
 						},
 
@@ -326,44 +325,42 @@ define(
 						 */
 
 						showPostButton : function() {
+							$('#msg-area').css('padding', '0% 0% 0% 0%');
+							$('#msg-area').css('margin', '30px 0 30px 22px');
 							var askOuterHeight = $('#discussionsView .ask-outer').height();
 							console.log(askOuterHeight)
-							if (askOuterHeight == '0'){
+							if (askOuterHeight <= '1'){
 								console.log("111")
 								$('#discussionsView .ask-outer').height(
 										function(index, height) {
 											return (height + 70);
 										});
 							}
-							
+
 							if ($('#uploded-file-area').is(':visible')) {
-								if (askOuterHeight == '70'){
+								if (askOuterHeight >= '70'){
 								$('.ask-outer').height(
 												function(index,height) {
 													return (height + 70);
 												});
 								$("ul#uploded-file-area").css('height','70px');
 								}
-							}					
-							
-							$('#msg-area').css('padding', '0% 0% 0% 0%');
-							$('#msg-area').css('margin', '30px 0 30px 22px');
+							}
+
+
 							if ($('#uploded-file-area').is(':visible')) {
 								$('a.ask-button').css('visibility', 'hidden');
 							}
 							else {
 								$('a.ask-button').css('visibility', 'visible');
 							}
-							
+
 						},
 
 						/**
 						 * post messages
 						 */
 						postMessage : function() {
-							
-							$('#msg-area').css('margin','-1px 0 -5px 14px');
-							$('#msg-area').css('padding','5px 6px 4px 6px');
 							$('a.ask-button').css('visibility', 'hidden');
 							$('div.loadingImage').css('display','block');
 							$('#uploded-file-area').hide();
@@ -423,8 +420,8 @@ define(
 													docDescription : data.docDescription,
 													profilePic : data.profilePic
 												})
-												
-	
+
+
 												/* Pubnub auto push */
 												PUBNUB.publish({
 													channel : "stream",
@@ -433,7 +430,7 @@ define(
 														streamId : streamId,
 														data : self.data.models[0],
 													}
-	
+
 												})
 											}
 
@@ -447,8 +444,13 @@ define(
 											self.selected_medias = [];
 											$('#share-discussions li.active').removeClass('active');
 											$('a.ask-button').css('visibility','hidden');
-											$('.ask-outer').css('height','0px');
-												
+											$('div.selector').css('display','none');
+											$('#msg-area').css('margin','-1px 0 -5px 14px');
+											$('#msg-area').css('padding','5px 6px 4px 6px');
+											setTimeout(function(){
+												$('.ask-outer').css('height', '0px');
+											},200);
+
 										}
 								});
 
@@ -497,25 +499,45 @@ define(
 													success : function(data) {
 														message = message.replace(link[0],data.data.url);
 														self.postMessageToServer(message,streamId,messageAccess,googleDoc);
-														$('.ask-outer').css('height', '0px');
+														$('div.selector').css('display','none');
+														$('#msg-area').css('margin','-1px 0 -5px 14px');
+														$('#msg-area').css('padding','5px 6px 4px 6px');
+														setTimeout(function(){
+															$('.ask-outer').css('height', '0px');
+														},200);
 													}
 												});
 											} else {
 												self.postMessageToServer(message, streamId,messageAccess,googleDoc);
-												$('.ask-outer').css('height', '0px');
+												$('div.selector').css('display','none');
+												$('#msg-area').css('margin','-1px 0 -5px 14px');
+												$('#msg-area').css('padding','5px 6px 4px 6px');
+												setTimeout(function(){
+													$('.ask-outer').css('height', '0px');
+												},200);
 											}
 										} // doc
 										else // case: for doc upload
 										{
 											googleDoc = true;
 											self.postMessageToServer(message,streamId, messageAccess,googleDoc);
-											$('.ask-outer').css('height', '0px');
+											$('div.selector').css('display','none');
+											$('#msg-area').css('margin','-1px 0 -5px 14px');
+											$('#msg-area').css('padding','5px 6px 4px 6px');
+											setTimeout(function(){
+												$('.ask-outer').css('height', '0px');
+											},200);
 										}
 									}
 									// case: link is not present in message
 									else {
 										self.postMessageToServer(message,streamId, messageAccess,googleDoc);
-										$('.ask-outer').css('height', '0px');
+										$('div.selector').css('display','none');
+										$('#msg-area').css('margin','-1px 0 -5px 14px');
+										$('#msg-area').css('padding','5px 6px 4px 6px');
+										setTimeout(function(){
+											$('.ask-outer').css('height', '0px');
+										},200);
 									}
 
 								}
@@ -694,7 +716,7 @@ define(
 							}
 						},
 
-					
+
 
 						removePreview : function(eventName) {
 							var self = this;
@@ -740,7 +762,7 @@ define(
 											.remove();
 									$('div.selector').remove();
 									$('.preview_input').remove();
-									
+
 									$('#discussionsView .ask-outer').height(
 											function(index, height) {
 												return (70);
@@ -878,7 +900,7 @@ define(
 
 							}
 						},
-						
+
 						sortMessagesByBlur : function(eventName) {
 
 							var self = this;
@@ -921,15 +943,15 @@ define(
 								}
 
 						},
-						
+
 						sortMessagesByKeyup: function(eventName) {
 							var self = this;
 							this.pageNo = 1;
 							var streamId = $('.sortable li.active').attr('id');
 							var keyword = $('#sort_by_key').val();
-							
+
 							$('form.all-search span.backToNormal').css('visibility','visible');
-							
+
 							if(keyword == "")
 								{
 								$('form.all-search span.backToNormal').css('visibility','hidden');
@@ -950,7 +972,7 @@ define(
 								}
 								}
 						},
-						
+
 						clearSearchField: function(eventName) {
 							var self = this;
 							this.pageNo = 1;
@@ -1132,13 +1154,13 @@ define(
 
 							// read the file as data URL
 							reader.readAsDataURL(file);
-							
+
 							/* updating progress bar */
 							/*
 							 * this.progress = setInterval(function() {
-							 * 
+							 *
 							 * var self = this.bar;
-							 * 
+							 *
 							 * this.bar = $('.bar'); var self = this.bar; if
 							 * (this.bar.width() >= 195) {
 							 * clearInterval(this.progress); } else {
@@ -1146,7 +1168,7 @@ define(
 							 * this.bar.text(this.bar.width() / 2 + "%");
 							 *  }, fileSize);
 							 */
-							
+
 							var message = $('#msg-area').val();
 							var msgAccess = $('#private-to').attr('checked');
 							var privateTo = $('#select-privateTo')
@@ -1157,7 +1179,7 @@ define(
 								messageAccess = "Public";
 							}
 							var streamId = $('.sortable li.active').attr('id');
-							
+
 							var data;
 							data = new FormData();
 							data.append('docDescription', message);
@@ -1187,7 +1209,7 @@ define(
 										}
 									});
 
-							
+
 
 						},
 
@@ -1207,8 +1229,8 @@ define(
 										channel : "stream",
 										restore : false,
 										callback : function(message) {
-											
-											
+
+
 
 											// alert(JSON.stringify(message))
 											var streamId = $(
@@ -1245,7 +1267,7 @@ define(
 																	messageItemView
 																			.render().el);
 													$('.loadingImage').css('display','none');
-													
+
 												}
 											}
 
@@ -1259,7 +1281,7 @@ define(
 							 * li.active').attr('id'); var streamId =
 							 * $('.sortable li.active').attr('id'); if
 							 * (message.pagePushUid != self.pagePushUid) {
-							 * 
+							 *
 							 * if(message.streamId==streamId) { set the values
 							 * to Discussion model discussionModel = new
 							 * DiscussionModel(); discussionModel.set({
