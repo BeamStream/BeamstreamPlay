@@ -281,6 +281,7 @@ define(
 						 * form
 						 */
 						comepleteSecondStep : function(e) {
+							$("#uploadProfilePic").val(""); //empty the input file for image.
 
 							e.preventDefault();
 							this.data.url = "/registration";
@@ -460,7 +461,7 @@ define(
 									            $('#zoom').val(20);
 									            zoomLevel=20;
 									        }
-									        img.src = event.target.result;
+									        img.src = e.target.result;
 										self.name = f.name;
 
 									};
