@@ -446,12 +446,10 @@ define(
 									        	imgWidth = img.width;
 									        	imgHeight = img.height;
 									        	if(imgWidth > imgHeight){
-									        		console.log("width is higher");
-									        		imgWidth *= MAX_HEIGHT/imgHeight; 
+									        		imgWidth *= MAX_HEIGHT/imgHeight;
 									        		imgHeight = MAX_HEIGHT;
 									        	}
 									        	else{
-									        		console.log("height is higher");
 									        		imgHeight *= MAX_HEIGHT/imgWidth;
 									        		imgWidth = MAX_HEIGHT;
 									        	}
