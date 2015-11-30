@@ -15,6 +15,13 @@
 	-webkit-border-radius: 6px;
 	width: 145px;
 }
+/*remove yellow box from signup page input textbox*/
+ input:-webkit-autofill,
+ input:-webkit-autofill:hover,
+ input:-webkit-autofill:focus,
+ input:-webkit-autofill:active {
+   transition: background-color 5000s ease-in-out 0s;
+ }
 
 ul li#showSubList:hover ul {
         display: block;
