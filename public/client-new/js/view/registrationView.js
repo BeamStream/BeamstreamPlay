@@ -63,7 +63,6 @@ define(
 						objName : 'RegistrationView',
 
 						events : {
-
 							'click #skip_step1' : 'completeFirstStep',
 							'click #done_step1' : 'completeFirstStep',
 							'click #done_step2' : 'comepleteSecondStep',
@@ -105,6 +104,35 @@ define(
 						onAfterInit : function() {
 							this.data.reset();
 							this.profile = null;
+							var geocoder = new google.maps.Geocoder();
+							// function created to get current location.
+							function getLocation() {
+								if (navigator.geolocation) {
+									navigator.geolocation.getCurrentPosition(showPosition);
+								} else {
+									alert("Geolocation API not supported by your browser.");
+								}
+							}
+							// Called when a position is available
+							function showPosition(position) {
+								// Display the map
+								var latlng = new google.maps.LatLng(position.coords.latitude,
+									position.coords.longitude);
+								geocoder.geocode({'latLng': latlng},reverseGeocoderSuccess);
+
+								function reverseGeocoderSuccess(results, status) {
+									if (status == google.maps.GeocoderStatus.OK) {
+										if (results[/*results.length-1*/1]) {
+											$('#location').val(results[/*results.length-2*/1].formatted_address);
+										} else {
+											$('#location').val('Address not found, please enter manually');
+										}
+									} else {
+										alert('Geo-Location failed due to: ' + status);
+									}
+								} // end of reverseGeocoderSuccess
+							}
+							getLocation();
 						},
 						usernamecheck : function(e){
 							var username = $("#username").val();
@@ -265,7 +293,6 @@ define(
 							$('#step_3').show(500);
 
 						},
-
 						/**
 						 * complete step1 registration process
 						 */

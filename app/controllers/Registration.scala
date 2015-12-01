@@ -372,7 +372,7 @@ object Registration extends Controller {
         val locationJsonString = """{"location": """" + location + """"}"""
         val locationJson: JsValue = play.api.libs.json.Json.parse(locationJsonString)
         userInfo match {
-          case None => Ok(Json.obj("data" -> locationJson))
+          case None => Redirect("/signup")//Ok(Json.obj("data" -> locationJson))
           case Some(userData) => Ok(Json.obj("data" -> userData))
         }
     }

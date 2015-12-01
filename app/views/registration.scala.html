@@ -67,7 +67,7 @@
 @footer = {}
 @main("Registration", "Body",CSS,meta, JS, bodyModule, bodyJS, sideBar, header, footer){
 <!-- for registration page -->
-<div  id="registration" data-value='@userInfoJson'  data-model="user"  data-module="view/registrationView"  data-tpl="templates/registration.tpl">
+<div id="registration" data-value='@userInfoJson'  data-model="user"  data-module="view/registrationView"  data-tpl="templates/registration.tpl">
 </div>
 <!-- for new school popups -->
 <div  id="addSchoolView"  data-model="school"  data-module="view/addNewSchoolView"  >
@@ -99,51 +99,5 @@
    <center><img src="../../beamstream-new/img/loader.gif" width="100" height="100"/></center>
 </div>
 <!-- end loader -->
-    <script>
-      $(function(){
-      var myAddress, geocoder;
-        // Called when the page is loaded
-        function init() {
-            myAddress = $("#location");
-            console.log(myAddress)
-            geocoder = new google.maps.Geocoder();
-            console.warn("getting Location.")
-            getLocation();
-        } // end of init()
-
-        // Called when the button is clicked
-        function getLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition);
-            } else {
-                alert("Geolocation API not supported by your browser.");
-            }
-        }
-        // Called when a position is available
-        function showPosition(position) {
-            // Display the map
-            showOnGoogleMap(new google.maps.LatLng(position.coords.latitude,
-                    position.coords.longitude));
-        }
-
-        function showOnGoogleMap(latlng) {
-            geocoder.geocode({'latLng': latlng},reverseGeocoderSuccess);
-
-            function reverseGeocoderSuccess(results, status) {
-                if (status == google.maps.GeocoderStatus.OK) {
-                    if (results[/*results.length-1*/1]) {
-                        $('#location').val(results[/*results.length-2*/1].formatted_address);
-                    } else {
-                        alert('No surface address found');
-                    }
-                } else {
-                    alert('Geocoder failed due to: ' + status);
-                }
-            } // end of reverseGeocoderSuccess
-        } // end of showOnGoogleMap
-        init();
-      })
-
-   </script>
 }
 

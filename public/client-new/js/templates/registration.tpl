@@ -158,7 +158,7 @@
              </fieldset>    
             
             <fieldset class="field location-block">
-            <input id="location" data-name="user.location" name="location" value="{{location}}----" type="text" placeholder="Location" class="location-note">
+            <input id="location" data-name="user.location" name="location" value="{{location}}" type="text" placeholder="Location" class="location-note">
             <span class="red-star select-star">*</span>
              <span class="location-icon location-toolip" data-original-title="Use Current Location"></span>
            </fieldset>
