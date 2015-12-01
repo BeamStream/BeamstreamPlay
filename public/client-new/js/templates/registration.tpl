@@ -101,7 +101,7 @@
             <input style="display:none;" type="text" placeholder="Degree " value="" name="otherDegree" data-name="user.otherDegree" id="otherDegree">
              <span class="red-star">*</span>
             </fieldset>
-            
+
             
             <fieldset class="field">  
             <input style="display:none;" type="text" placeholder="Degree " value="" name="otherDegree" data-name="user.otherDegree" id="otherDegree">
@@ -158,7 +158,7 @@
              </fieldset>    
             
             <fieldset class="field location-block">
-            <input id="location" data-name="user.location" name="location" value="{{location}}" type="text" placeholder="Location" class="location-note">
+            <input id="location" data-name="user.location" name="location" value="{{location}}----" type="text" placeholder="Location" class="location-note">
             <span class="red-star select-star">*</span>
              <span class="location-icon location-toolip" data-original-title="Use Current Location"></span>
            </fieldset>
@@ -187,7 +187,7 @@
               </div>
               
               <div id="step_2" style="display:none;" class="step-box step-box1 step-box2 step-two">
-	              <h3>Step 1 of 3 </h3>
+	              <h3>Step 2 of 3 </h3>
 	              <h4>Basic Profile Section</h4>
 		          <a id="step2-reset" class="disable-step" href="#">Reset</a> 
 		          <a id="done_step2" href="#">Continue</a> 
