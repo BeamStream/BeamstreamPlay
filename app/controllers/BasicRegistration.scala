@@ -39,7 +39,9 @@ object BasicRegistration extends Controller {
     (request.session.get("userId")) match {
       case None =>
         request.cookies.get("Beamstream") match {
-          case None => Ok(views.html.signup()).discardingCookies(DiscardingCookie("Beamstream"))
+          case None => {
+            Ok(views.html.signup()).discardingCookies(DiscardingCookie("Beamstream"))
+          }
           case Some(cookie) =>
             val userId = cookie.value.split(" ")(0)
             val userFound = User.getUserProfile(new ObjectId(userId))
@@ -64,7 +66,9 @@ object BasicRegistration extends Controller {
                             .withCookies(Cookie("Beamstream", userId.toString() + " class", Option(864000)))
                         }
                     }
-                  case None => Redirect("/login").withNewSession.discardingCookies(DiscardingCookie("Beamstream"))
+                  case None =>{
+                    Redirect("/signup").withNewSession.discardingCookies(DiscardingCookie("Beamstream"))
+                  }
                 }
               case _ => Redirect("/" + cookie.value.split(" ")(1))
             }
@@ -78,7 +82,7 @@ object BasicRegistration extends Controller {
               case false => Redirect("/stream")
             }
           }
-          case None => Redirect("/login").withNewSession.discardingCookies(DiscardingCookie("Beamstream"))
+          case None => Redirect("/signup").withNewSession.discardingCookies(DiscardingCookie("Beamstream"))
         }
     }
   }
